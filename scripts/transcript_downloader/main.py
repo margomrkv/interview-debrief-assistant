@@ -23,6 +23,8 @@ PATH_VIDEO_ID_PATTERNS = [
     re.compile(r"youtube\.com/embed/([A-Za-z0-9_-]{11})"),
 ]
 
+FEEDBACK_TITLE_RE = re.compile(r"обратн\w*\s+связ\w*|фидб[еэ]к|feedback", re.IGNORECASE)
+
 
 def classify_url(url: str) -> tuple[str, str]:
     parsed = urlparse(url)
@@ -45,6 +47,17 @@ def expand_playlist(url: str) -> list[dict]:
         for e in info.get("entries", []) or []
         if e and e.get("id")
     ]
+
+
+def resolve_video_meta(video_id: str) -> dict:
+    url = f"https://www.youtube.com/watch?v={video_id}"
+    with YoutubeDL({"quiet": True, "skip_download": True, "no_warnings": True}) as ydl:
+        info = ydl.extract_info(url, download=False)
+    return {
+        "title": info.get("title", ""),
+        "upload_date": info.get("upload_date", ""),
+        "chapters": info.get("chapters") or [],
+    }
 
 
 def fetch_transcript(video_id: str, lang_priority: list[str]):
@@ -71,26 +84,68 @@ def to_plain_text(snippets) -> str:
     return " ".join(p for p in parts if p) + "\n"
 
 
+def fmt_time(secs: float, use_hours: bool) -> str:
+    s = int(secs)
+    if use_hours:
+        h, rem = divmod(s, 3600)
+        m, sec = divmod(rem, 60)
+        return f"{h:02d}:{m:02d}:{sec:02d}"
+    m, sec = divmod(s, 60)
+    return f"{m:02d}:{sec:02d}"
+
+
+def use_hours_for(snippets) -> bool:
+    if not snippets:
+        return False
+    total = snippets[-1].start + snippets[-1].duration
+    return total >= 3600
+
+
 def to_timestamped(snippets) -> str:
     if not snippets:
         return ""
-    total = snippets[-1].start + snippets[-1].duration
-    use_hours = total >= 3600
+    use_hours = use_hours_for(snippets)
     lines = []
     for s in snippets:
         text = re.sub(r"\s+", " ", s.text).strip()
         if not text:
             continue
-        secs = int(s.start)
-        if use_hours:
-            h, rem = divmod(secs, 3600)
-            m, sec = divmod(rem, 60)
-            stamp = f"[{h:02d}:{m:02d}:{sec:02d}]"
-        else:
-            m, sec = divmod(secs, 60)
-            stamp = f"[{m:02d}:{sec:02d}]"
-        lines.append(f"{stamp} {text}")
+        lines.append(f"[{fmt_time(s.start, use_hours)}] {text}")
     return "\n".join(lines) + "\n"
+
+
+def find_feedback_chapter(chapters: list[dict]) -> dict | None:
+    for ch in chapters or []:
+        title = ch.get("title") or ""
+        if FEEDBACK_TITLE_RE.search(title):
+            return {
+                "title": title,
+                "start": float(ch["start_time"]),
+                "end": float(ch["end_time"]),
+            }
+    return None
+
+
+def slice_snippets(snippets, start: float, end: float):
+    return [s for s in snippets if start <= s.start < end]
+
+
+def format_feedback(match: dict, snippets, use_hours: bool) -> str:
+    start_fmt = fmt_time(match["start"], use_hours)
+    end_fmt = fmt_time(match["end"], use_hours)
+    header = f"# section: {match['title']}\n# timecode: [{start_fmt}]-[{end_fmt}]\n\n"
+    return header + to_plain_text(snippets)
+
+
+def build_feedback_text(snippets, chapters: list[dict]) -> str | None:
+    match = find_feedback_chapter(chapters)
+    if not match:
+        return None
+    fb_snips = slice_snippets(snippets, match["start"], match["end"])
+    if not fb_snips:
+        return None
+    text = format_feedback(match, fb_snips, use_hours_for(snippets))
+    return text if text.strip() else None
 
 
 def slugify(title: str) -> str:
@@ -107,7 +162,8 @@ def get_repo_root() -> Path:
     return Path(result.stdout.strip())
 
 
-def write_folder(folder: Path, url: str, snippets, overwrite: bool) -> bool:
+def write_folder(folder: Path, url: str, snippets, overwrite: bool,
+                 feedback_text: str | None = None) -> bool:
     if folder.exists() and not overwrite:
         print(f"warn: folder exists, skipping: {folder}", file=sys.stderr)
         return False
@@ -115,6 +171,8 @@ def write_folder(folder: Path, url: str, snippets, overwrite: bool) -> bool:
     (folder / "link.txt").write_text(url.strip() + "\n", encoding="utf-8")
     (folder / "transcript.txt").write_text(to_plain_text(snippets), encoding="utf-8")
     (folder / "timecodes.txt").write_text(to_timestamped(snippets), encoding="utf-8")
+    if feedback_text:
+        (folder / "feedback.txt").write_text(feedback_text, encoding="utf-8")
     return True
 
 
@@ -163,9 +221,17 @@ def main(argv=None) -> int:
         except CouldNotRetrieveTranscript as exc:
             print(f"error: {ident}: {exc}", file=sys.stderr)
             return 1
+        try:
+            chapters = resolve_video_meta(ident)["chapters"]
+        except Exception as exc:
+            print(f"error: failed to resolve video meta: {exc}", file=sys.stderr)
+            return 1
+        feedback_text = build_feedback_text(snippets, chapters)
         folder = repo_root / "transcripts" / "single_videos" / f"{args.slug}-{args.date}"
-        written = write_folder(folder, args.url, snippets, args.overwrite)
-        print(f"{'wrote' if written else 'skipped'}: {folder}")
+        written = write_folder(folder, args.url, snippets, args.overwrite,
+                               feedback_text=feedback_text)
+        print(f"{'wrote' if written else 'skipped'}: {folder}"
+              f"{' (+feedback)' if written and feedback_text else ''}")
         return 0 if written else 1
 
     if args.slug or args.date:
@@ -186,6 +252,8 @@ def main(argv=None) -> int:
         return 1
 
     bucket = repo_root / "transcripts" / args.playlist_name
+    bucket.mkdir(parents=True, exist_ok=True)
+    (bucket / "link.txt").write_text(args.url.strip() + "\n", encoding="utf-8")
     ok = skipped = failed = 0
     for e in entries:
         vid = e["id"]
@@ -202,14 +270,23 @@ def main(argv=None) -> int:
             failed += 1
             continue
         try:
-            written = write_folder(folder, video_url, snippets, args.overwrite)
+            chapters = resolve_video_meta(vid)["chapters"]
+        except Exception as exc:
+            print(f"fail: {vid} meta: {exc}", file=sys.stderr)
+            failed += 1
+            continue
+        feedback_text = build_feedback_text(snippets, chapters)
+        try:
+            written = write_folder(folder, video_url, snippets, args.overwrite,
+                                   feedback_text=feedback_text)
         except OSError as exc:
             print(f"fail: {vid} write: {exc}", file=sys.stderr)
             failed += 1
             continue
         if written:
             ok += 1
-            print(f"wrote: {folder}")
+            tag = " (+feedback)" if feedback_text else ""
+            print(f"wrote: {folder}{tag}")
         else:
             skipped += 1
 
