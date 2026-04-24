@@ -54,8 +54,17 @@ def resolve_video_meta(video_id: str) -> dict:
     with YoutubeDL({"quiet": True, "skip_download": True, "no_warnings": True}) as ydl:
         info = ydl.extract_info(url, download=False)
     return {
-        "title": info.get("title", ""),
-        "upload_date": info.get("upload_date", ""),
+        "url": url,
+        "title": info.get("title") or "",
+        "upload_date": info.get("upload_date") or "",
+        "duration": info.get("duration"),
+        "channel": info.get("channel") or info.get("uploader"),
+        "description": info.get("description") or "",
+        "view_count": info.get("view_count"),
+        "like_count": info.get("like_count"),
+        "tags": info.get("tags") or [],
+        "thumbnail_url": info.get("thumbnail"),
+        "language": info.get("language"),
         "chapters": info.get("chapters") or [],
     }
 
@@ -130,10 +139,76 @@ def slice_snippets(snippets, start: float, end: float):
     return [s for s in snippets if start <= s.start < end]
 
 
+def _yaml_quote(s: str) -> str:
+    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+_YAML_UNSAFE_RE = re.compile(r"""[:\[\]{},#&*!|>'"%@`]|^\s|\s$""")
+
+
+def _yaml_flow_list(items: list[str]) -> str:
+    parts = [_yaml_quote(i) if _YAML_UNSAFE_RE.search(i) else i for i in items]
+    return "[" + ", ".join(parts) + "]"
+
+
+def _format_iso_date(d: str) -> str:
+    if len(d) == 8 and d.isdigit():
+        return f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+    return d
+
+
+def format_video_md(meta: dict, use_hours: bool) -> str:
+    lines = ["---"]
+    if url := meta.get("url"):
+        lines.append(f"url: {url}")
+    if title := meta.get("title"):
+        lines.append(f"title: {_yaml_quote(title)}")
+    if upload_date := meta.get("upload_date"):
+        lines.append(f"upload_date: {_format_iso_date(upload_date)}")
+    if duration := meta.get("duration"):
+        lines.append(f"duration: {int(duration)}")
+    if channel := meta.get("channel"):
+        lines.append(f"channel: {_yaml_quote(channel)}")
+    if view_count := meta.get("view_count"):
+        lines.append(f"view_count: {int(view_count)}")
+    if like_count := meta.get("like_count"):
+        lines.append(f"like_count: {int(like_count)}")
+    if language := meta.get("language"):
+        lines.append(f"language: {language}")
+    if thumbnail_url := meta.get("thumbnail_url"):
+        lines.append(f"thumbnail_url: {_yaml_quote(thumbnail_url)}")
+    if tags := meta.get("tags"):
+        lines.append(f"tags: {_yaml_flow_list(tags)}")
+    lines.append("---")
+
+    if chapters := meta.get("chapters"):
+        lines.append("")
+        lines.append("## Chapters")
+        for ch in chapters:
+            start = fmt_time(float(ch.get("start_time") or 0), use_hours)
+            lines.append(f"- [{start}] {ch.get('title') or ''}")
+
+    if (description := (meta.get("description") or "").strip()):
+        lines.append("")
+        lines.append("## Description")
+        lines.append("")
+        lines.append(description)
+
+    return "\n".join(lines) + "\n"
+
+
 def format_feedback(match: dict, snippets, use_hours: bool) -> str:
     start_fmt = fmt_time(match["start"], use_hours)
     end_fmt = fmt_time(match["end"], use_hours)
-    header = f"# section: {match['title']}\n# timecode: [{start_fmt}]-[{end_fmt}]\n\n"
+    header = (
+        "---\n"
+        f"section: {_yaml_quote(match['title'])}\n"
+        f'start: "{start_fmt}"\n'
+        f'end: "{end_fmt}"\n'
+        f"start_seconds: {int(match['start'])}\n"
+        f"end_seconds: {int(match['end'])}\n"
+        "---\n\n"
+    )
     return header + to_plain_text(snippets)
 
 
@@ -162,17 +237,18 @@ def get_repo_root() -> Path:
     return Path(result.stdout.strip())
 
 
-def write_folder(folder: Path, url: str, snippets, overwrite: bool,
+def write_folder(folder: Path, meta: dict, snippets, overwrite: bool,
                  feedback_text: str | None = None) -> bool:
     if folder.exists() and not overwrite:
         print(f"warn: folder exists, skipping: {folder}", file=sys.stderr)
         return False
     folder.mkdir(parents=True, exist_ok=True)
-    (folder / "link.txt").write_text(url.strip() + "\n", encoding="utf-8")
+    use_hours = use_hours_for(snippets)
+    (folder / "video.md").write_text(format_video_md(meta, use_hours), encoding="utf-8")
     (folder / "transcript.txt").write_text(to_plain_text(snippets), encoding="utf-8")
     (folder / "timecodes.txt").write_text(to_timestamped(snippets), encoding="utf-8")
     if feedback_text:
-        (folder / "feedback.txt").write_text(feedback_text, encoding="utf-8")
+        (folder / "feedback.md").write_text(feedback_text, encoding="utf-8")
     return True
 
 
@@ -222,13 +298,13 @@ def main(argv=None) -> int:
             print(f"error: {ident}: {exc}", file=sys.stderr)
             return 1
         try:
-            chapters = resolve_video_meta(ident)["chapters"]
+            meta = resolve_video_meta(ident)
         except Exception as exc:
             print(f"error: failed to resolve video meta: {exc}", file=sys.stderr)
             return 1
-        feedback_text = build_feedback_text(snippets, chapters)
+        feedback_text = build_feedback_text(snippets, meta["chapters"])
         folder = repo_root / "transcripts" / "single_videos" / f"{args.slug}-{args.date}"
-        written = write_folder(folder, args.url, snippets, args.overwrite,
+        written = write_folder(folder, meta, snippets, args.overwrite,
                                feedback_text=feedback_text)
         print(f"{'wrote' if written else 'skipped'}: {folder}"
               f"{' (+feedback)' if written and feedback_text else ''}")
@@ -262,7 +338,6 @@ def main(argv=None) -> int:
         if date == "00000000":
             print(f"warn: no upload_date for {vid}, using 00000000", file=sys.stderr)
         folder = bucket / f"{slug}-{date}"
-        video_url = f"https://www.youtube.com/watch?v={vid}"
         try:
             snippets = fetch_transcript(vid, lang_priority)
         except CouldNotRetrieveTranscript as exc:
@@ -270,14 +345,14 @@ def main(argv=None) -> int:
             failed += 1
             continue
         try:
-            chapters = resolve_video_meta(vid)["chapters"]
+            meta = resolve_video_meta(vid)
         except Exception as exc:
             print(f"fail: {vid} meta: {exc}", file=sys.stderr)
             failed += 1
             continue
-        feedback_text = build_feedback_text(snippets, chapters)
+        feedback_text = build_feedback_text(snippets, meta["chapters"])
         try:
-            written = write_folder(folder, video_url, snippets, args.overwrite,
+            written = write_folder(folder, meta, snippets, args.overwrite,
                                    feedback_text=feedback_text)
         except OSError as exc:
             print(f"fail: {vid} write: {exc}", file=sys.stderr)

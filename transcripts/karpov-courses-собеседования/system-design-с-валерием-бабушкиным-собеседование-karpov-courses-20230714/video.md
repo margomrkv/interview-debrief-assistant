@@ -1,0 +1,20 @@
+---
+url: https://www.youtube.com/watch?v=Ow88hoEnsq8
+title: "System Design с Валерием Бабушкиным | Собеседование | karpov.courses"
+upload_date: 2023-07-14
+duration: 7215
+channel: "karpov.courses"
+view_count: 20614
+like_count: 363
+language: ru
+thumbnail_url: "https://i.ytimg.com/vi/Ow88hoEnsq8/maxresdefault.jpg"
+tags: [Анатолий Карпов, Аналитика, машинное обучение, data science, SQL, база данных, Python, pandas, визуализация, карьера, зарплата аналитика, курсы, karpov courses, курсы по программированию, курсы по аналитике, курсы по стастистике, ML, stepik, data engineer, roapmap, роадмап, инженер данных, пути развития, карьера инженера данных, курсы карпова, карпов, machine learning, карьера в IT, работа в IT, дата сайнс, школа data science]
+---
+
+## Description
+
+Курс System Design: https://bit.ly/3XE0q1v
+
+Возможно, вы заметили, что на нашем канале давно не проходили mock-собеседования c Валерием Бабушкиным, но мы решили исправить эту ситуацию! 
+
+14 июля в 19:30 (GMT+3) Валерий проведёт System Design интервью в прямом эфире! На повестке — дизайн системы сети заправок и ритейл-магазинов при ней. Ждём вас на трансляции :)
