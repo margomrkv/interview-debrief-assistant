@@ -8,13 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Делится на теорию, практику, домашки и общее описание.
 
-| Логический блок      | Директория                        | Что внутри                                                    |
-|----------------------|-----------------------------------|----------------------------------------------------------------|
-| Описание курса       | `course/syllabus/`                | PDF программы курса (syllabus)                                 |
-| Теория               | `course/lectures/presentations/`  | Слайды лекций (`.pdf` / `.pptx`)                               |
-|                      | `course/lectures/transcripts/`    | Транскрипты аудио лекций (`.txt`)                              |
-| Практика             | `course/lectures/workshops/`      | Jupyter-ноутбуки воркшопов (`.ipynb`)                          |
-| Домашки              | `course/assigments/<student>/`    | Сдачи ДЗ по студентам (ВНИМАНИЕ: в имени опечатка — не чинить) |
+| Логический блок                 | Директория                       | Что внутри                                                  |
+|---------------------------------|----------------------------------|-------------------------------------------------------------|
+| Описание курса                  | `course/syllabus/`               | PDF программы курса (syllabus)                              |
+| Теория                          | `course/lectures/presentations/` | Слайды лекций (`.pdf` / `.pptx`)                            |
+|                                 | `course/lectures/transcripts/`   | Транскрипты аудио лекций (`.txt`)                           |
+| Практика                        | `course/lectures/workshops/`     | Jupyter-ноутбуки воркшопов (`.ipynb`)                       |
+| Домашки                         | `course/assigments/<student>/`   | Сдачи ДЗ по студентам                                       |
+| Конспекты лекций (только Антон) | {VAULT_DIR}/Professional/AI      | Конспекты в рамках лекций (название AI Agents Lecture N.md) |
 
 ### Именование материалов курса
 
