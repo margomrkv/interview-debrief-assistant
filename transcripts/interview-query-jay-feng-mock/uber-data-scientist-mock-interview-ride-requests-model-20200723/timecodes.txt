@@ -1,0 +1,854 @@
+[00:00] where is that writer located um number
+[00:02] two
+[00:03] is what is the writer's rating number
+[00:05] three
+[00:06] is
+[00:07] [Music]
+[00:10] hi everyone uh it's jay from interview
+[00:13] query
+[00:14] and today i am joined with chinmaya for
+[00:17] our mock interview uh kind of series on
+[00:20] youtube
+[00:20] and uh chinmaya is a
+[00:24] newly uh actually pm at microsoft uh he
+[00:28] joined from smith's college uh in the ai
+[00:31] program
+[00:32] and is now uh doing data science uh
+[00:34] product management work
+[00:36] um for microsoft uh coming up next week
+[00:39] i believe
+[00:39] uh and so jamai i'd love to just first
+[00:42] kind of like get a sense of your
+[00:43] background
+[00:44] um and tell the audience kind of how you
+[00:46] uh got into data science and
+[00:50] kind of like why you were interested in
+[00:51] it
+[00:53] cool oh yeah thanks jay thanks for
+[00:54] having me um
+[00:56] i kind of stumbled on your interview
+[00:58] query on when i was studying for my
+[01:00] interviews at microsoft so it was
+[01:01] it's come full circle uh so it's great
+[01:04] to like you know
+[01:04] look back and say oh wow like i've
+[01:06] learned a lot enough to be here
+[01:08] uh so thanks thanks for having me um my
+[01:10] background
+[01:12] i i did my undergrad at u of t in
+[01:14] university of toronto for those who are
+[01:16] not familiar with it
+[01:17] in business administration i like had
+[01:20] kind of data on my mind
+[01:22] um never left me i
+[01:25] i was always like curious about it how
+[01:27] it worked where it could be used and how
+[01:28] we could
+[01:29] make better decisions with it um which
+[01:32] led me like a down a very like winding
+[01:34] path i would say
+[01:35] uh first into like brand management then
+[01:37] product management and product marketing
+[01:39] and then finally kind of landed up
+[01:41] at queen's university at the smith
+[01:43] school of business and the
+[01:45] ai program where i've been like trying
+[01:47] to take all the things that i've learned
+[01:49] about data about i.t
+[01:50] about systems about marketing and
+[01:52] business and like put them all together
+[01:54] to make intelligent systems uh because
+[01:57] that was like the opportunity that i saw
+[01:59] and i and i was hoping to land
+[02:01] a ai or ml based uh product management
+[02:04] role
+[02:05] which ended up happening so really happy
+[02:07] about like the outcome there
+[02:09] uh overall like just really excited
+[02:12] about what this field has to offer i
+[02:14] think we've barely like begun to tap
+[02:16] into what's possible
+[02:18] um and as as important as the technical
+[02:21] skills are i've learned that
+[02:23] there's a a lot of business context that
+[02:25] data scientists need to think about
+[02:28] and many times that uh a model just
+[02:31] is is just the is just scratching the
+[02:34] surface
+[02:35] the real solution is often like how does
+[02:37] it solve a problem for the end users
+[02:39] um so that's kind of like where i want
+[02:42] to keep growing and
+[02:44] take my skills awesome yeah and i think
+[02:46] that
+[02:47] uh it's definitely encapsulated more and
+[02:49] more
+[02:50] also in the interview process as you see
+[02:53] more interviews kind of geared towards
+[02:55] how you can think
+[02:57] about the nuances within each problem
+[02:59] and you're not just you know building a
+[03:02] you know model to um code out your
+[03:05] laptop and then
+[03:06] deploy and just you know forget about it
+[03:09] sort of thing
+[03:10] uh and so uh segwaying into this actual
+[03:14] uh mock interview so today i'd love to
+[03:16] talk about a problem
+[03:18] that is asked at uber and so
+[03:21] it's modeling based and so the question
+[03:23] at hand is
+[03:24] uh you're tasked with building a model
+[03:26] to predict if the driver on uber will
+[03:28] accept a ride request or not
+[03:31] and so how would you go about building
+[03:33] this model
+[03:34] and what kind of features would you use
+[03:37] what model would you
+[03:39] select and so on
+[03:43] cool so uber wants
+[03:46] just to clarify the question so uber
+[03:48] wants to know
+[03:49] uh whether a person will accept a ride
+[03:52] or not and we want to build a model to
+[03:53] predict that
+[03:54] yes cool okay uh just give me two
+[03:57] minutes
+[03:58] i'm gonna do something that i like doing
+[04:00] during interviews because i think
+[04:02] it's like a neat trick yes uh so let me
+[04:05] just start
+[04:06] sharing my ipad screen i find that this
+[04:10] is like
+[04:10] a virtual whiteboard in covet times
+[04:14] and i would normally have in a real
+[04:16] interview
+[04:18] okay so we're looking at um we're
+[04:20] looking specifically
+[04:22] at the driver angle not at the right or
+[04:24] angle right
+[04:25] yep and so uh if you imagine how uber
+[04:29] works
+[04:29] uh we have you know the drivers uh and
+[04:32] the writers and the writers make
+[04:33] uh requests to get rides and then i
+[04:36] guess uber sends out
+[04:38] um general requests to each driver uh
+[04:41] within a certain area or radius
+[04:43] to see if they'd expect it was so the
+[04:46] driver gets a request
+[04:48] and do you know like what the driver is
+[04:52] shown
+[04:53] or an uber driver is shown about a
+[04:55] writer and the kind of information that
+[04:56] they give they're given
+[04:58] to make that split second decision uh
+[05:01] let's say that as the company um
+[05:05] this is a feature that you can customize
+[05:08] right and so we can show a lot more
+[05:12] information or we can show
+[05:14] almost no information i think
+[05:20] depending upon also there is like a
+[05:22] monetary like this is how much it might
+[05:24] uh you'll get from it um and i think
+[05:27] that is uh something that they
+[05:31] also use to incentivize writers to
+[05:33] drivers to accept the request from them
+[05:38] okay interesting so the way that i'm
+[05:41] kind of like
+[05:42] thinking through this is that
+[05:45] there's like three buckets uh of
+[05:49] of information that's shown to a driver
+[05:51] about a writer
+[05:52] okay one is like there's a lot of info
+[05:55] the second one is there's some info
+[05:56] and the third is lots of info
+[06:00] yep okay so the reason that i'm kind of
+[06:03] doing this to maybe i don't know what
+[06:04] the circle is
+[06:05] but anyway i will ignore it um
+[06:09] so what i'm trying to do here is uh
+[06:12] i'm trying to just get an understanding
+[06:14] of the uber business
+[06:15] and the kind of the user experience that
+[06:18] a driver has
+[06:19] with a rider um so i'm asking these kind
+[06:21] of questions to determine whether
+[06:23] because i'm kind of thinking through
+[06:26] this as
+[06:27] the driver has to make a split-second
+[06:29] decision especially when they're like
+[06:31] taking when they're either completing
+[06:33] an existing trip or they're on a trip
+[06:35] and about to end that's kind of like the
+[06:36] two
+[06:38] points um so maybe if i like model this
+[06:41] out a little bit more
+[06:42] the driver essentially has either
+[06:45] they choose to new so i'm going to say
+[06:48] like driver new trip
+[06:52] trip so they either decide
+[06:55] at the end of their current ride
+[07:05] current ride or
+[07:09] um middle of their existing one
+[07:14] or like late in the game okay
+[07:19] so given that i think
+[07:24] what's what's usually as i'm kind of
+[07:27] like brainstorming
+[07:28] um if they're shown the distance
+[07:31] so that that would actually be the first
+[07:33] one to like
+[07:35] to say okay well distance to next rider
+[07:40] then of course if you show that
+[07:44] and if it's small then they're likely to
+[07:46] accept so that would be
+[07:48] one of the features that i would kind of
+[07:49] start thinking about as i'm starting
+[07:51] this modeling exercise
+[07:53] so uh before i mean i know what we're
+[07:56] trying to do is get into the model
+[07:58] but the first step that i'm trying to
+[07:59] follow understand is the user journey
+[08:00] the second one that i want to do is
+[08:02] actually the exploratory data analysis
+[08:03] piece
+[08:04] to actually understand the relationships
+[08:06] between data points that uber may have
+[08:09] uh today about their driver or their
+[08:12] rider
+[08:13] and what the relationships between those
+[08:15] features are
+[08:18] so distance and then there's also
+[08:21] so there's actually two kind of distance
+[08:24] data points we have distance
+[08:26] to next rider from the driver's current
+[08:28] position
+[08:29] and then you would have distance uh
+[08:32] let's say trip trip distance
+[08:39] that's kind of like the two main areas
+[08:41] that i'm thinking
+[08:42] how does that sound like am i missing
+[08:44] anything on the distance piece that
+[08:46] uh you think i should be thinking about
+[08:48] yeah so i think that's
+[08:50] uh kind of a great way to frame it
+[08:52] because there are um
+[08:54] kind of like uh trip characteristics
+[08:56] right and these are
+[08:58] the distance trip distance and then
+[09:01] um there can be other things uh such as
+[09:05] uh the general um i think we mentioned
+[09:08] this before like the
+[09:09] price that you get from the trip um
+[09:13] you know like how long this trip might
+[09:16] take i guess that's a function of the
+[09:17] distance
+[09:18] and then just kind of like uh what time
+[09:21] you know you're taking this trip right
+[09:22] now
+[09:23] uh you know if it's 12 a.m versus um
+[09:26] you know like i don't know 3 p.m or
+[09:28] something at rush hour
+[09:30] uh and so these are all kind of like uh
+[09:33] characteristics of this one entity and
+[09:36] then there's also i think
+[09:37] this you know multi-sided marketplace we
+[09:39] have like the driver side
+[09:41] and then also um potentially you know
+[09:43] the user information that you
+[09:45] uh put at the top as well
+[09:49] right right
+[09:51] [Music]
+[09:54] yeah because i think the multi-sided
+[09:56] marketplace brings up something that i
+[09:57] didn't think about yet
+[09:58] which was this idea of and i don't know
+[10:01] if uber does this today
+[10:03] but picking up uber eats orders
+[10:06] on the way if they're taking a driver or
+[10:10] they're just ending a trip maybe
+[10:13] yeah that is true we could probably
+[10:16] scope that down
+[10:18] to just the uber driver marketplace okay
+[10:23] so no no cool so
+[10:27] the two main buckets i think that you've
+[10:28] highlighted which are really
+[10:30] which we just kind of like briefly
+[10:32] discussed are
+[10:34] so if i kind of like think about
+[10:35] characteristics from high level umbrella
+[10:39] and then break that down into okay so
+[10:42] there's
+[10:43] kind of trip there's
+[10:46] ryder there's
+[10:49] oh yeah of course there's driver as well
+[10:53] so the driver itself themself or him him
+[10:56] or herself will have
+[10:57] their own kind of propensity to accept
+[11:00] rides or not accept rides based on
+[11:02] certain time of day or number of
+[11:05] rides that they've kind of they've done
+[11:07] in their shift maybe
+[11:09] or even like how much money they've made
+[11:12] um throughout the entire week or
+[11:15] whatever time span we choose to look at
+[11:17] so if they if this driver is coming off
+[11:20] like an eight hour shift they're not
+[11:21] going to do another ride
+[11:24] yeah so there's trip rider driver
+[11:28] and oh of course how could we forget
+[11:31] traffic
+[11:32] traffic
+[11:39] so traffic is a i feel like it
+[11:42] that's how most decisions will be made
+[11:44] in large cities it's like
+[11:45] is it like 5 pm so if it's 5 pm it's
+[11:48] like i'm not doing any
+[11:49] that's it for me and especially like
+[11:52] traffic would
+[11:54] um i think traffic is kind of
+[11:59] related but not directly i think there's
+[12:01] like some indirect relationship between
+[12:03] traffic and special events
+[12:05] um this is of course like pre-covet
+[12:07] times mm-hmm uh
+[12:09] and special events so i'm thinking
+[12:14] surge pricing during let's say like your
+[12:17] favorite basketball game
+[12:18] or hockey game or even
+[12:22] like whatever sporting event or whatever
+[12:24] event it could be anything
+[12:25] yep um so traffic is likely to spike up
+[12:28] but at the same time
+[12:29] surge is gonna go up so people are so
+[12:31] even if there's a special event
+[12:33] like you know that's ending at 5 p.m
+[12:35] even though
+[12:36] there's a lot of traffic people might be
+[12:37] on the road because there's a bunch of
+[12:38] people that are requesting rides
+[12:41] um the other thing yep characteristics
+[12:44] of like a
+[12:44] trip potentially like uh i guess the
+[12:47] trip that you take
+[12:48] the traffic would almost be like
+[12:50] factored into it kind of
+[12:52] special events as well um so either
+[12:55] maybe not at this kind of dimensional
+[12:57] analogy but like in general i think
+[12:59] at some point they could all roll up
+[13:01] under um
+[13:03] uh kind of like a trip uh in a sense and
+[13:06] because uh yeah i think the writer has
+[13:09] its own information the driver has its
+[13:11] own kind of
+[13:12] information about themselves they have
+[13:13] ratings writers have ratings
+[13:15] and then a trip could then just have
+[13:17] like a pension
+[13:18] potentially its own rating too right
+[13:20] from like one to ten of how
+[13:21] like great this trip is versus like how
+[13:25] horrible this trip might actually be
+[13:29] yeah i think that's actually a good
+[13:30] point i'm gonna put it down but it's
+[13:32] something that i'd like to visit
+[13:34] later on because if we start thinking
+[13:37] about
+[13:38] quality of trip then that
+[13:41] itself is honestly a model to predict to
+[13:44] like
+[13:44] regress it or classify a trip um
+[13:48] based on like certain factors we would
+[13:49] actually need to do a deeper deeper dive
+[13:51] into that
+[13:52] yeah okay but another big thing is
+[13:55] actually
+[13:55] like and this is something that i don't
+[13:57] think many people would think about but
+[13:59] it's a vehicle condition
+[14:03] so or actually not even vehicle
+[14:06] condition i'm going to say vehicle
+[14:08] itself
+[14:09] and and i'll like kind of explain a
+[14:10] little bit more so one of the use cases
+[14:12] that i'm thinking about
+[14:13] is i'm i'm kind of out like
+[14:16] you know pre-covered uh i've had a
+[14:19] decent day at work i have a couple
+[14:21] like i have some energy left over and i
+[14:24] want to
+[14:25] pick up a few riders but likely what's
+[14:27] going to happen is um i'm gonna do this
+[14:30] like
+[14:32] closer to 10 no sorry either closer to
+[14:35] like 10
+[14:36] when people decide to head out and i'll
+[14:38] pick them up to drop them off the club
+[14:40] or whatever they're going or wherever
+[14:41] whatever venue that they want to attend
+[14:43] and then most likely i'm going to be out
+[14:45] on the road either around
+[14:46] midnight or 1am again but i can only
+[14:49] but the number of riders or a number of
+[14:52] rides is actually linked to the type of
+[14:53] car that i have
+[14:55] um so i couldn't really pick up you know
+[14:58] a party if i if i only have a car
+[15:01] or if i only have cooper i could only
+[15:03] pick up two or three people
+[15:05] but if the car that i have is in the
+[15:07] garage or like my van
+[15:08] my extra van is in the garage then i
+[15:11] can't use that
+[15:12] that's number one number two is i'm
+[15:14] unlikely to if i have a second car i'm
+[15:16] unlikely to actually use the van
+[15:18] um during regular drop-offs when it's
+[15:20] like one driver two driver interaction
+[15:22] two rider interactions um i'm likely to
+[15:25] use
+[15:26] my regular car for that kind of so what
+[15:29] i'm saying is that the vehicle type in
+[15:30] the vehicle condition would affect
+[15:32] the driver's ability to accept certain
+[15:35] trips
+[15:36] gotcha okay yeah may actually may i'm
+[15:39] not deterministic
+[15:41] everything is probabilistic at this
+[15:42] point um
+[15:44] i think that's a good like starting
+[15:46] point what do you think
+[15:48] is there any other characteristic that
+[15:49] you would want
+[15:51] um good i think these entities are
+[15:55] uh kind of like good features i think we
+[15:57] have like the main ones
+[15:58] uh in the center uh with the trip rider
+[16:00] driver and then we have these
+[16:02] uh kind of special conditions that
+[16:03] matter a lot towards the actual
+[16:06] degree of the model those are
+[16:09] good because they're pointed out cool
+[16:14] so once i get an understanding of these
+[16:17] things and
+[16:17] and of course i can like spend ages
+[16:20] going into each of these characteristics
+[16:22] um the there's like in within vehicle
+[16:26] there's some items that i would think
+[16:28] about like vehicle type number of
+[16:29] passengers if you can can hold
+[16:31] the last time it was it was repaired
+[16:33] maybe
+[16:34] um the vehicle's overall condition
+[16:36] itself
+[16:37] meaning yeah i don't know if uber does
+[16:39] this right now but i don't know if it
+[16:42] usually has drivers at the point of
+[16:43] signing up i think i remember
+[16:44] when i was a driver at one point that
+[16:46] they asked me what is
+[16:48] how old is your vehicle and when has it
+[16:51] last
+[16:51] been serviced so uh picking
+[16:54] picking up or asking uh drivers to give
+[16:58] more updates on a vehicle's condition
+[17:00] may be beneficial
+[17:02] to predict the outcome for something
+[17:04] like this um
+[17:05] around trip i would look at there's like
+[17:08] this
+[17:08] again this giant umbrella of quality of
+[17:11] trip but within that there's items like
+[17:13] time of day
+[17:14] uh trip distance the the potential
+[17:18] revenue that the driver
+[17:19] can afford to earn from this trip oh
+[17:22] uh keep kidding this doesn't this
+[17:25] doesn't happen normally
+[17:26] but um i keep yeah so you have a lot of
+[17:29] different
+[17:30] items about a trip then you have writers
+[17:32] so
+[17:33] uh from the writer angle the first one
+[17:35] is
+[17:36] where is that writer located um number
+[17:39] two
+[17:40] is what is the writer's rating number
+[17:42] three
+[17:43] is uh how many how many riders is it
+[17:46] because it's not just one request and as
+[17:48] we've talked about the vehicle type will
+[17:50] affect whether that uber driver is able
+[17:52] to pick up that
+[17:53] that passenger or not yep um
+[17:56] then the other like on the rider side i
+[17:59] would again look at
+[18:01] time time of day and
+[18:04] also like neighborhood so
+[18:08] many times i think rider drivers may be
+[18:10] hesitant to pick up certain writers
+[18:13] based on where they are and it's
+[18:15] unconscious i don't think it's like
+[18:17] sometimes it is conscious but i'm going
+[18:19] to chalk it up to unconscious bias where
+[18:21] you know if there's like a sketchy
+[18:22] neighborhood or if
+[18:24] if it's like deep into entertainment
+[18:26] district at
+[18:27] two two or three in the morning that
+[18:30] rider is likely to be you know out of it
+[18:34] or might cause unneeded distress to the
+[18:37] driver so they may like
+[18:38] sway away from that yep on the driver's
+[18:41] side
+[18:43] the the most obvious is like
+[18:46] how often does this driver actually
+[18:48] accept writer requests
+[18:50] okay very very simply uh the second one
+[18:52] would be
+[18:53] what is the driver's rating um because
+[18:56] and and also is there a link between
+[19:01] rider quality and driver quality um and
+[19:04] i'd be kind of curious to see if uber's
+[19:06] already kind of figured something out
+[19:07] there
+[19:08] where they suggest certain high quality
+[19:11] riders
+[19:12] just to specific high quality drivers
+[19:15] and whether that rating itself has a
+[19:18] factor
+[19:19] in who's recommended to the driver
+[19:21] because that may
+[19:22] actually they that may have a very uh
+[19:25] highly correlated effect on the driver
+[19:27] being
+[19:28] saying yes or saying no because of like
+[19:30] kind of the previous like
+[19:31] mental history that they've built with
+[19:33] uber or the relationship that they have
+[19:35] yeah uh traffic so time of day
+[19:39] again so time of day kind of comes in to
+[19:41] both the trip
+[19:42] and the traffic aspect that we just
+[19:44] talked about that's why we have the line
+[19:47] um the other thing is
+[19:50] uh sometimes uh and i'm gonna be kind of
+[19:54] curious to see what this
+[19:55] looks like but right now i think uber
+[19:58] connects to google maps api to
+[20:02] to actually select the route yeah but
+[20:06] traffic patterns are usually best when
+[20:09] they're crowdsourced like from waste
+[20:11] so i'd be curious to see if there was if
+[20:13] there was an uptick
+[20:14] on the driver's ability or drivers like
+[20:17] propensity to pick
+[20:18] to accept rides in high traffic times if
+[20:21] we switch to
+[20:22] ways that'd be like a fun experiment to
+[20:24] kind of understand
+[20:26] but i know it's away from the central
+[20:28] problem
+[20:30] the other thing that i would want to
+[20:31] look at is
+[20:34] traffic based on
+[20:37] a rider pickup and drop-off locations
+[20:41] some sometimes i mean traffic is is
+[20:44] random so it's not gonna
+[20:45] it's random but it's also sort of
+[20:47] predictable you're not going to take
+[20:48] large streets during rush hour you could
+[20:51] take side streets and still get to the
+[20:53] place that you want to get to
+[20:54] if there's a side route access or side
+[20:56] route path
+[20:57] um so that would be again like is there
+[21:00] an alternate route based on the driver's
+[21:05] location the rider's location and the
+[21:07] rider's drop-off point
+[21:09] gotcha yes during a traffic time that
+[21:11] may
+[21:13] that may actually and if we show that to
+[21:15] the driver
+[21:16] when they're picking whether to accept a
+[21:18] writer or not
+[21:19] then it may influence the decision to
+[21:21] say yes or no
+[21:23] so just that's a that's an angle uh
+[21:26] special events
+[21:27] uh of course this is like
+[21:30] uh very it would be it could be very
+[21:32] categorical
+[21:33] like special event special one one two
+[21:37] three
+[21:37] four and then there could be kind of uh
+[21:40] attributes associated with each of those
+[21:42] categories and i'm guessing we can bring
+[21:44] a lot of those attributes into this
+[21:46] model that we want to build or into the
+[21:48] initial sample data set that we want to
+[21:50] create
+[21:51] okay
+[21:54] does that all make sense any questions i
+[21:56] know i said a lot of different things
+[21:57] about
+[21:58] these characteristics piece i think that
+[22:00] makes sense um
+[22:01] i think one problem that we might have
+[22:04] to think about
+[22:05] is let's say that we have general like
+[22:08] missing data for some of these aspects
+[22:10] right let's say new writers you know new
+[22:13] drivers
+[22:14] we don't have any information on right
+[22:16] so is there any way that we can correct
+[22:18] for that
+[22:19] given that it's probably like you know a
+[22:21] big aspect of our model is just the
+[22:23] historical
+[22:24] acceptance rate from drivers in the past
+[22:27] or
+[22:27] uh kind of like data on the writer
+[22:29] itself
+[22:32] yeah yeah so so essentially what you're
+[22:34] saying is how do we deal with null
+[22:35] values right
+[22:36] yeah yeah okay so yeah there's a couple
+[22:40] of ways i mean
+[22:42] the i'm guessing we've done like
+[22:46] uber has probably done some form of like
+[22:49] clustering or unsupervised learning on
+[22:52] this data set
+[22:53] so they might have a like a intuition
+[22:57] about what a driver's profile looks like
+[23:00] based on like age or
+[23:02] the information that they provide during
+[23:04] sign up yeah
+[23:05] um we could probably pull like
+[23:09] the median or the mean from those
+[23:11] profiles and populate them into these
+[23:13] null values
+[23:14] at the beginning just to get like a feel
+[23:17] and
+[23:17] these would of course come from the
+[23:19] actual clusters that that have already
+[23:20] been built and i'm assuming
+[23:22] this if we don't have that and that
+[23:24] assumption is not valid
+[23:26] then i think um probably
+[23:30] giving them as i said like a mean value
+[23:33] not from a cluster but from the from the
+[23:36] given
+[23:36] like column or feature would be good
+[23:39] enough
+[23:40] but you would you would need to know
+[23:42] that that's those
+[23:43] like new sets of users would be part of
+[23:45] another cohort
+[23:47] and that we could potentially if we
+[23:49] don't have
+[23:50] data from before we could start doing a
+[23:52] much more closer detailed cohort
+[23:54] analysis
+[23:54] on this new group of drivers um that you
+[23:58] know may have joined
+[23:59] uh like even now so you could take a
+[24:02] look at a cohort
+[24:03] of pre-covet drivers and you could take
+[24:05] a look at post-cover drivers or
+[24:07] intra-covet drivers and intracovered
+[24:10] drivers are more
+[24:10] are much more likely to behave very
+[24:13] differently
+[24:14] than any of the pre-coveted drivers were
+[24:16] most
+[24:17] more likely they're they're gonna take
+[24:19] special events this is great
+[24:20] because this links back to my earlier
+[24:22] point special events like a pandemic
+[24:25] directly affect have a direct effect on
+[24:27] whether a driver is gonna accept
+[24:28] a rider because if the desert has a
+[24:32] writer worn a mask in the past
+[24:34] is the writer wearing a mask now um what
+[24:36] is their safety rating like have they
+[24:38] kind of abided by some of the principles
+[24:40] or the guidelines that the government
+[24:41] has set up
+[24:42] things of that nature and i don't know
+[24:43] if uber is collecting data on that now
+[24:45] but
+[24:46] this exercise would probably start that
+[24:49] questioning
+[24:50] if it hasn't already gotcha cool
+[24:54] no i think that's a great point i think
+[24:59] on that note as well i think for many
+[25:01] drivers
+[25:02] um thinking about their like acquisition
+[25:05] uh two like uber is also kind of
+[25:08] important because a lot of the times i
+[25:09] know
+[25:10] in the past they've done incentive
+[25:11] programs based on how many
+[25:13] drives that they do or rides that they
+[25:15] do and i think
+[25:17] like on that point that kind of uh may
+[25:19] help with like the cold start problem
+[25:21] as well in terms of being able to give
+[25:23] them extra data on
+[25:25] uh this you know driver has to do five
+[25:28] rides
+[25:29] by the end of today and so maybe more
+[25:31] incentivized to
+[25:33] uh finish the ride at that point
+[25:38] um yeah and so for the next part so we
+[25:40] have all these features we have this
+[25:41] data
+[25:43] um well how do we start building the
+[25:45] model uh
+[25:46] what kind of like process goes in terms
+[25:48] of like the model selection
+[25:50] uh portion of this uh and then
+[25:53] how do we then evaluate our model
+[25:56] yeah sure uh
+[26:00] i mean the way that the question is
+[26:02] worded uh
+[26:03] it's it's quite obviously like a
+[26:05] classification problem where you want to
+[26:06] say good drive like
+[26:08] yeah accept uh the the question would be
+[26:11] accept
+[26:12] or not accept yeah so then you could put
+[26:15] people into one of those two buckets
+[26:18] um but of course the more nuanced
+[26:21] version would be
+[26:22] like a more multi-class model
+[26:24] multi-class system where you have like
+[26:26] very likely to accept to not at all
+[26:30] likely to accept and you have like a
+[26:31] spectrum of classes in the middle
+[26:34] uh i i wouldn't i would stay away from
+[26:38] regressive or regression because i
+[26:40] wonder what the score
+[26:42] or the y value would be uh you have
+[26:45] essentially a lot of features but
+[26:48] i mean you could pull out a probability
+[26:51] of accepting
+[26:53] from a logistic regression um
+[26:56] based on like the class that they select
+[26:58] so like
+[26:59] we can we can set an arbitrary threshold
+[27:01] as well and that the classes would
+[27:03] actually kind of determine that
+[27:04] where let's say 70
+[27:08] the obvious number is 50 but likely it's
+[27:11] gonna be like
+[27:12] let's say if they're above 70 probable
+[27:14] then they're likely to accept a ride
+[27:16] and if they're less than 70 well they're
+[27:19] not going to
+[27:20] and then you could break it up but i
+[27:21] think a logistic regression would be
+[27:23] honestly the best first start um
+[27:27] we're not as i'm guessing the
+[27:30] model's performance matters
+[27:34] more in this scenario than the
+[27:38] feature understanding and here's why
+[27:42] the logistic regression would kind of
+[27:44] kill those two birds with one stone you
+[27:46] would
+[27:46] you would do the exploratory data
+[27:48] analysis first then you would
+[27:50] throw the sample data set in and into a
+[27:51] religious progression
+[27:53] tune it but then you could always look
+[27:55] back and see what features drove their
+[27:57] probably
+[27:58] draw probability of accepting or not
+[28:00] accepting the most
+[28:01] so that would that would give you a like
+[28:05] a direct understanding of your data but
+[28:07] then an indirect understanding by
+[28:08] digging back into the model's results
+[28:13] so log would be the first and then i
+[28:16] would start playing around with once i
+[28:17] have like a
+[28:19] i'm guessing this initial data set is
+[28:22] going to have like
+[28:23] 50 to 70 features uh we want to trim
+[28:26] that down as fast as possible
+[28:28] because it's going to take too long
+[28:29] otherwise uh and likely there's going to
+[28:31] be data leakage and high core
+[28:33] high like colliding
+[28:36] not collinearity but like highly
+[28:38] correlated features
+[28:40] yeah so once we get that down uh
+[28:44] another like cool model to check out
+[28:46] would be uh decision trees
+[28:48] because decision trees kind of open up
+[28:50] this other
+[28:51] like broad swath of of models
+[28:54] uh and ensemble methods that we could
+[28:56] kind of try out like
+[28:58] xgboost uh adaboost
+[29:01] um even like random forest as well but
+[29:04] of course
+[29:04] those then when you start going to those
+[29:06] like on
+[29:08] less explainable things it becomes
+[29:11] harder uh to know which features are
+[29:15] kind of uh contributing to the score
+[29:19] so that's where i would start on the
+[29:22] roadmap wise
+[29:23] understand the data a little bit more
+[29:25] with the model that i'm trying to build
+[29:27] build the model tune it and then start
+[29:29] playing around with ensembles
+[29:32] because ensembles is where you can
+[29:34] actually really increase the model's
+[29:35] ability to classify a driver
+[29:39] as negative as as likely to accept or
+[29:41] not likely
+[29:43] cool one other angle and i think this is
+[29:46] like
+[29:46] often missed in more academic settings
+[29:49] is how are we going to get labeled data
+[29:51] um and i i'd be kind of curious to see
+[29:54] if
+[29:55] if there's already a score that uber has
+[29:59] a probabilistic score that uber has
+[30:01] about their driver
+[30:02] and their willingness to accept um that
+[30:05] they may be already built that we can
+[30:06] use as ground truth value
+[30:09] but essentially that would be a big
+[30:12] problem to solve before we got to the
+[30:15] modeling
+[30:16] okay yeah so let's say um
+[30:20] you know the kind of like the feature
+[30:22] and how it works is that
+[30:23] uh you're driving um and then you get a
+[30:26] ride request
+[30:27] uh right and then you can't accept it or
+[30:29] not accept it right and so
+[30:31] many times in that scenario we would
+[30:33] have you know people that have accepted
+[30:34] it
+[30:35] people that have said like no or
+[30:38] people that just like it basically just
+[30:41] timed out right from inaction
+[30:42] essentially and so um we could assume
+[30:45] that's no
+[30:46] uh potentially you know within their
+[30:48] system someone else might have accepted
+[30:50] it
+[30:50] when they also wanted to accept it right
+[30:53] and so
+[30:54] um i mean given this kind of like
+[30:56] labeled data set
+[30:57] uh does that kind of inform more of what
+[31:00] kind of model
+[31:01] we built or how we might evaluate the
+[31:04] model
