@@ -2,6 +2,7 @@
 title: Дополнительные источники интервью (не скачано)
 author: claude-code-opus-4-7
 created: 2026-04-30
+updated: 2026-04-30
 status: draft
 related: [[spec]], [[scripts/transcript_downloader/data_interviews_plan.tsv]]
 ---
@@ -12,31 +13,22 @@ related: [[spec]], [[scripts/transcript_downloader/data_interviews_plan.tsv]]
 Сгруппировано по причине пропуска. Каждый блок — кандидат на доразведку,
 если понадобится расширять датасет.
 
-## 1. Скачано не до конца (требуют ещё одного захода с другим VPN/cookies)
+> **Статус YouTube-плана:** все 52 видео из `data_interviews_plan.tsv`
+> скачаны (77 транскриптов всего на диске вместе с karpov, anton, mock).
+> Этот документ теперь — про источники **за пределами** уже выполненного
+> плана.
 
-YouTube заблокировал текущий VPN-узел. На диске **38/52** скачано, **14
-видео** по-прежнему в очереди (`/tmp/retry2.tsv`, копия идей ниже):
+## 1. Уроки скачивания (для будущих заходов)
 
-| ID | Канал | Заголовок |
-|---|---|---|
-| `uF1V2MqX2U0` | Jay Feng | Google Machine Learning System Design Mock |
-| `LHt0EFIGZNs` | Jay Feng | Walmart Data Science Case Study Mock |
-| `ierVctGQ3EQ` | Jay Feng | Uber Data Scientist Mock — Ride Requests Model |
-| `bktLkPzWVoY` | Jay Feng | Facebook Product Investigation Mock — Fill Rate |
-| `5ZaYUgPxs_w` | Jay Feng | Amazon BI Mock — Duplicate Products |
-| `IO_POFIQvo0` | Jay Feng | Amazon Data Engineer Mock + Tips and Feedback |
-| `12Ry6kGPQVs` | Jay Feng | Netflix ML Mock — Type-ahead Search |
-| `0kqRsAHHPf0` | DataInterview | Uber DS Mock — Coach (Ex-Google) |
-| `Ms59_Xt3PFc` | DataInterview | Amazon DS Mock — AB Testing |
-| `68I67w63IpY` | DataInterview | Amazon DS Mock — Fraud Model |
-| `eDhnr4aGROU` | DataInterview | Meta DS Mock — Call Suggestion on Portal |
-| `4MWOXXLxSb4` | DataInterview | Facebook DS Mock — User Churn + SQL |
-| `lthBkTN8Vpk` | DataInterview | DoorDash DS Mock — Commentary |
-| `XOJk0AKIqv8` | DataInterview | Facebook DS Mock — Segment Influencers |
-
-Способ дотянуть: сменить exit-узел VPN, прогнать `batch_download.py /tmp/retry2.tsv`.
-Для двух видео (`uF1V2MqX2U0`, `LHt0EFIGZNs`) yt-dlp требует cookies — нужно
-добавить флаг `--cookies-from-browser` в `resolve_video_meta()`.
+- **YouTube агрессивно режет по IP**: после 25-30 последовательных запросов
+  через `youtube_transcript_api` любой VPN-узел уходит в IP-блок.
+  Минимум помогает: пакеты по 10-15 видео, смена exit-узла между пачками.
+- **interviewing.io — нестабильные auto-CC**: 6 из 9 видео упали с
+  «No transcripts found», но при retry с другого узла все 6 взялись.
+  Фиксирую как класс рисков.
+- **yt-dlp иногда требует cookies**: пара видео жалуются «Sign in to
+  confirm you're not a bot» — на новом VPN это уходит, но если упрётся
+  снова, нужен `--cookies-from-browser` в `resolve_video_meta()`.
 
 ## 2. Платные источники — фидбек глубже, но за деньги
 
@@ -111,24 +103,18 @@ YouTube заблокировал текущий VPN-узел. На диске **
 и многомерные оценки**. Кандидат №1 на использование в evaluation-сете —
 RecruitView. MIT — для бенчмарка hire-recommendation.
 
-## 7. Каналы, у которых нет CC (фейл не из-за IP-блока)
-
-При первом прогоне 6 видео `interviewing.io` упали **«No transcripts found
-for ru/en»** — у них реально не было субтитров. Все 6 при retry с VPN
-взялись (видимо, CC включились или транскрипция auto-generated сработала
-со второго захода). Фиксирую как класс рисков: для interviewing.io
-auto-CC нестабильны.
-
-## 8. Сводка по «доступному, но не взятому»
+## 7. Сводка по «доступному, но не взятому»
 
 | Слой | Записей-кандидатов | Стоимость доразведки |
 |---|---:|---|
-| 14 EN-видео в очереди | 14 | смена VPN + cookies |
 | Платные платформы | ~30+ | подписки/оплата |
 | RU-блогеры по T-Bank | 8-10 | разовая загрузка |
 | RU вне-YouTube (СОБЕС, Linkmeup, balun) | ~30 | отдельные парсеры |
+| dataengineers.pro: пропущенные эпизоды | ~4 (S1E1-3, S1E6) | поиск по архиву |
 | Open datasets с метками | ~7 200 | формы доступа |
-| **Итого потенциально доступного** | **~7 280** | разный уровень усилий |
+| **Итого потенциально доступного** | **~7 270** | разный уровень усилий |
 
-Уже на диске: **63 транскрипта** (`transcripts/`). Реалистичный «следующий
-шаг без боли» — добить оставшиеся 14 EN после смены VPN и забрать СОБЕС/balun.
+Уже на диске: **77 транскриптов** (`transcripts/`). Реалистичный «следующий
+шаг без боли» — забрать СОБЕС-подкаст (~20 эпизодов RU DA/DE/BA с фидбеком)
+и balun.courses RuTube (ML SD mock). Дальше — RecruitView/MIT, если нужны
+готовые метки hire-recommendation.
