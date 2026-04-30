@@ -1,0 +1,387 @@
+[00:00] hey sarah how's it going today good how
+[00:02] are you i'm good thanks for
+[00:04] participating as a mock interview
+[00:06] candidate for this walking dead call
+[00:08] based on amazon's
+[00:10] data scientists interview and in this
+[00:12] interview we're going to cover a b
+[00:14] testing questions does that sound good
+[00:16] with you oh yes
+[00:18] okay all right so i'm going to start
+[00:20] with some questions i'm going to ask and
+[00:21] then
+[00:22] um you know after you provide the
+[00:24] responses
+[00:26] um you know i'll probably take about
+[00:28] five to ten minutes give you some
+[00:30] assessment
+[00:31] and then um uh you know and hopefully
+[00:33] that the tips that i provide in this
+[00:35] marketing recall is gonna be really
+[00:36] helpful for your
+[00:38] um upcoming interviews at fan companies
+[00:41] okay sounds good thank you
+[00:42] great all right so starting with the
+[00:44] first question
+[00:46] what i'd like to ask you whoops i just
+[00:48] based in the wrong spot is how do you
+[00:50] measure the effectiveness of a
+[00:52] recommender system
+[00:55] okay so before i dive into uh this
+[00:59] question so
+[01:01] uh
+[01:02] i have a few clarified ques uh
+[01:04] clarifying question that i want to ask
+[01:06] uh the first question is uh so are you
+[01:08] talking about the recommend recommended
+[01:11] system uh in amazon web specifically
+[01:15] yes
+[01:16] okay sounds good and uh in terms of uh
+[01:21] effectiveness uh
+[01:24] can you uh tell me a little bit about
+[01:27] what you mean by effectiveness
+[01:30] you could perhaps think about it in
+[01:32] terms of maybe the quality of the uh
+[01:36] recommendation
+[01:37] quality of the recommended system
+[01:41] okay so maybe uh
+[01:44] how accurate
+[01:46] uh the recommended recommended system
+[01:49] can
+[01:50] predict uh the user's preference
+[01:53] when they purchase products in amazon
+[01:55] web
+[01:57] do you think that's a fair assumption
+[01:58] yep
+[01:59] okay sounds good so essentially is a
+[02:03] predictive
+[02:08] the recommender
+[02:12] system
+[02:15] okay
+[02:16] sounds good uh
+[02:18] so a few
+[02:20] things uh that i can think of is
+[02:25] that like we just
+[02:27] mentioned uh
+[02:29] the percentage
+[02:31] of uh
+[02:34] products uh uh let's see
+[02:39] number of uh product
+[02:43] purchases
+[02:45] out of a number of uh
+[02:49] product
+[02:51] recommended
+[02:54] so right now i'm just coming up with a
+[02:56] metrics that we can use to measure the
+[02:59] effectiveness effectiveness of a
+[03:01] recommender system
+[03:03] and i think the number of products
+[03:06] purchased out of all the product
+[03:08] recommended
+[03:10] will be an indicator to tell us how
+[03:13] uh
+[03:14] how
+[03:15] uh
+[03:16] how the recommended system can uh
+[03:19] actively predict users preferences
+[03:22] because the more product that they
+[03:24] purchase uh the higher this percentage
+[03:27] the more likely that uh the users are
+[03:30] interested in the products that
+[03:32] recommend the system is recommending
+[03:38] and then
+[03:39] the second metric that i can think of
+[03:43] is
+[03:45] the time
+[03:47] the amount of time spent
+[03:49] that
+[03:51] users
+[03:54] have spent on
+[03:56] purchasing
+[03:59] purchasing on the platform
+[04:04] uh the reason so in this case uh i would
+[04:08] say
+[04:09] if the recommended system is doing its
+[04:13] job it is likely that uh the user
+[04:17] spend less time on uh picking the right
+[04:20] product
+[04:22] uh picking the products that they are
+[04:24] interested
+[04:25] because uh so when whenever users go to
+[04:28] amazon right they have a product in mind
+[04:30] that they want to purchase
+[04:31] and if the recommended system is doing
+[04:34] its job then it's likely that the time
+[04:37] span in their purchase is low
+[04:40] uh
+[04:41] and the third one that i can think of is
+[04:44] uh the
+[04:46] uh
+[04:47] average
+[04:50] revenue
+[04:51] uh
+[04:53] average purchase
+[04:56] uh revenue
+[04:59] uh per user
+[05:01] uh and i think if
+[05:04] this is also a good indicator because
+[05:07] revenue is the north star metrics that
+[05:10] amazon wants to optimize
+[05:12] and if the recommender system is uh
+[05:14] effective it is most like
+[05:17] likely that the average purchase revenue
+[05:19] per user is high so these are the three
+[05:21] metrics that i can i can come up with to
+[05:24] measure the effectiveness of a
+[05:25] recommended system okay got it all right
+[05:28] so segue over to this is um suppose that
+[05:31] a new recommended system is proposed how
+[05:34] do you know if this new version should
+[05:35] be used
+[05:37] sounds good so
+[05:40] in order to
+[05:42] uh
+[05:44] in order to understand whether we
+[05:47] should launch this new version system
+[05:50] the best way that we can do is do an ap
+[05:53] test
+[05:54] where the control group uh
+[05:57] uh will
+[05:59] will have uh the old other existing
+[06:04] recommender system
+[06:07] whereas the treatment group
+[06:10] will have the new uh
+[06:14] version of the
+[06:18] recommender
+[06:19] system
+[06:21] uh and then the metrics
+[06:24] that we can measure um
+[06:27] is uh the number of uh
+[06:30] like the number of product purchase
+[06:33] out of the number of products
+[06:35] recommended
+[06:37] so
+[06:38] let's say if the
+[06:41] average
+[06:44] number of product purchases
+[06:47] the number of products recommended
+[06:50] per user
+[06:52] uh
+[06:53] is uh increasing in the treatment group
+[06:57] then we can conclude that the new
+[07:00] version system can be used so do you
+[07:03] have any questions uh
+[07:06] based on uh the the control groups and
+[07:10] treatment groups and the metrics that i
+[07:12] have list so far if not then i can go on
+[07:14] with the experimental framework that we
+[07:17] can use
+[07:19] when you're saying the number of product
+[07:21] recommended um
+[07:24] do you see any potential problem with
+[07:25] that as a denominator
+[07:28] the number of product recommended uh
+[07:34] oh uh
+[07:37] oh uh so yeah so
+[07:40] the number of product recommended um
+[07:43] based on
+[07:44] the search
+[07:47] words
+[07:48] that
+[07:49] the user has entered
+[07:55] okay
+[07:56] but what if a user has multiple search
+[07:58] sessions
+[08:00] right uh so yeah so i think what you're
+[08:03] suggesting is that if they have multiple
+[08:07] search
+[08:08] sections uh
+[08:10] what we can do is
+[08:13] uh
+[08:15] what we can do is
+[08:18] oh good questions let me
+[08:21] think about this
+[08:25] oh if they have a multiple section then
+[08:28] we will only account the first sections
+[08:30] uh that
+[08:32] uh they they enter because if we account
+[08:35] multiple sections then it will violate
+[08:38] uh the assumptions of a t-test
+[08:42] where the uh the observation should be
+[08:44] independent and identically distributed
+[08:49] okay
+[08:53] um sorry and your proposal for making
+[08:55] independent is what again i'm sorry
+[08:58] yeah so my recommendation is we only
+[09:01] account for the first sections okay
+[09:06] got it
+[09:07] all right um okay so proceed
+[09:11] okay so
+[09:12] in terms of the experimental framework
+[09:14] uh we can use uh so one thing that we
+[09:18] need to consider is the
+[09:20] alpha so in this case i set the alpha
+[09:24] equals to 0.05 essentially what alpha is
+[09:28] is uh the
+[09:30] the type 1 error rate uh it is the risk
+[09:32] that the company is willing to
+[09:35] to take in order to detect an effect in
+[09:38] this experiment so i'm using 0.05 in
+[09:42] this case because uh
+[09:45] i felt like
+[09:48] it is a good alpha that we can use to uh
+[09:51] to do the experiment it but if the
+[09:54] if amazon believes that uh the risk is
+[09:57] too high they are they can load the
+[09:59] alpha to 0.01
+[10:02] and the
+[10:04] power that we can set in this case is
+[10:07] uh 0.8 so it is the probability of
+[10:11] protecting an effect if there's truly an
+[10:14] effect exist
+[10:17] and the minimum detectable effect that
+[10:19] we
+[10:20] can use in this case is one percent
+[10:24] so um
+[10:26] so
+[10:27] because uh amazon has
+[10:29] such huge uh user base
+[10:32] with uh
+[10:34] uh with a one percent increase will be
+[10:37] uh significant uh for us to launch this
+[10:41] uh
+[10:42] new version of uh recommended system
+[10:46] okay
+[10:48] what else
+[10:49] okay so with the alpha power and minimum
+[10:52] detectable effect we can estimate uh the
+[10:57] sample size
+[10:58] that we can use uh for this experiment
+[11:02] so uh
+[11:04] and with the sample size in mind then we
+[11:07] can
+[11:08] set up our test
+[11:09] which in this case i will use a t-test
+[11:14] and
+[11:14] um
+[11:17] with uh so with the t-test then we will
+[11:20] need to estimate the experimentation
+[11:22] time
+[11:24] which
+[11:25] i
+[11:26] proposed to one to two weeks
+[11:31] and so let's say we launched this test
+[11:34] and then the result that we get is uh
+[11:37] p-value the
+[11:39] p-value is less than or equal to alpha
+[11:43] then we will reject the null hypothesis
+[11:46] uh
+[11:48] reject the null
+[11:51] hypothesis
+[11:52] and conclude that the new version of
+[11:55] recommended system uh has significantly
+[11:59] increased the average number of product
+[12:01] purchase out of the number of products
+[12:04] recommended
+[12:06] per user
+[12:11] all right um
+[12:13] so i have some like two follow-up
+[12:14] questions for you so the first follow-up
+[12:16] question i have for you is
+[12:18] um
+[12:19] how do you know
+[12:21] what your
+[12:22] uh statistical power should be so
+[12:25] um so you set it at eighty percent
+[12:28] um but are there any instances where you
+[12:30] might want to increase the power
+[12:32] yeah so let's say uh we
+[12:35] run this test with 80 power
+[12:38] and then the test result is
+[12:40] insignificant which is p value is
+[12:43] greater than alpha but uh our pm insists
+[12:46] that oh there uh there should be an
+[12:50] effect uh with this new version of
+[12:52] recommended system then what we can do
+[12:55] is to increase the power to maybe 90
+[12:58] percent
+[12:59] uh which
+[13:01] like if we increase the power it will
+[13:03] require more sample size and longer
+[13:06] experimentation time but
+[13:08] increasing the power will give us a high
+[13:10] probability of detecting an effect if
+[13:13] the effects truly exist
+[13:16] and what is that effect you're talking
+[13:18] about oh the effects that i'm talking
+[13:22] about
+[13:23] is uh
+[13:25] the difference between uh the metrics
+[13:28] so essentially it is the effect size
+[13:31] what if what if the effect is negative
+[13:35] uh if so let's say if we
+[13:38] run this experimentation and the effect
+[13:40] is negative uh something that we can do
+[13:43] is first we need to check whether our
+[13:46] experimentation setup is correct
+[13:49] and then secondly we can check
+[13:52] some internal and external factors for
+[13:54] example in terms of internal factors we
+[13:57] can check whether there are bugs in the
+[13:59] newer new versions of the recommended
+[14:01] system
+[14:02] and
+[14:03] for the external factors we want to make
+[14:06] sure that
+[14:08] our competitors is not launching some
+[14:11] events that can influence the results in
+[14:14] this experiment
+[14:16] this experiment results
+[14:18] or there is no holiday effect that might
+[14:22] potentially
+[14:23] uh
+[14:24] affect
+[14:25] uh the result as well
+[14:29] okay got it
+[14:31] um
+[14:32] and another question i have for you is
+[14:35] um
+[14:37] what do you think would happen if you
+[14:38] were to run the experiment less than one
+[14:40] week
+[14:42] so if it is if we
+[14:46] run it less than one week it is very
+[14:49] likely that
+[14:50] uh we might get a significant result but
+[14:54] this is not true because at the
+[14:56] beginning when we have a low sample size
+[14:59] it is very likely that our metric is
+[15:02] fluctuating
+[15:04] uh
+[15:05] in between the significant area and the
+[15:08] insignificant area so it is very
+[15:10] important to uh make sure that we
+[15:15] uh launch
+[15:16] the experiment for
+[15:18] uh
+[15:19] for a certain number of days given
+[15:23] uh our sample size that is calculated
+[15:26] that is calculated using alpha power and
+[15:28] minimum detectable effect
+[15:35] okay just taking notes here
+[15:39] okay okay all right so that is the um
+[15:42] end of the question portion now let's
+[15:45] actually dive into the feedback but
+[15:47] before i start um i just want to mention
+[15:49] that in terms of the um the feedback
+[15:52] portion of this this is actually going
+[15:53] to be available as part of the mock
+[15:55] interview video recording
+[15:57] in the um in the monthly subscription
+[15:59] course so for those who are preparing
+[16:02] for a b testing interviews in general i
+[16:04] would definitely recommend that you
+[16:05] check out thedatantv.com
+[16:08] check out the courses and the coaching
+[16:09] services that will give you some of the
+[16:11] access to these mock interview videos

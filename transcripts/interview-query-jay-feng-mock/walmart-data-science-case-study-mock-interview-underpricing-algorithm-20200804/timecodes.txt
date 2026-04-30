@@ -1,0 +1,499 @@
+[00:00] [Music]
+[00:03] awesome
+[00:04] so the first question that i have for
+[00:06] you is
+[00:08] let's say that you're a data scientist
+[00:10] working on pricing different products
+[00:12] on our e-commerce site right and the
+[00:15] online price is dependent on the
+[00:16] availability of the product
+[00:18] the demand and the logistics cost of
+[00:20] providing it to the end consumer
+[00:22] right uh so you discover that suddenly
+[00:25] the algorithm is
+[00:26] vastly underpricing a certain consumer
+[00:28] product what are the steps that you take
+[00:30] in diagnosing the problem
+[00:32] so you mentioned that the price of a
+[00:33] product is dependent on the availability
+[00:36] uh the logistic cost and the demand
+[00:39] right so and then you said a particular
+[00:43] type of products are
+[00:44] getting enterprised by the algorithm now
+[00:47] i guess
+[00:47] um the first off i'd like to understand
+[00:50] um
+[00:51] like where are we getting this uh the
+[00:53] demand information from like i'm sure
+[00:55] the logistic cost is something that the
+[00:57] company handles so they're able to keep
+[00:59] a track on what
+[01:00] it costs to ship and stuff
+[01:03] um but how do we get the demand aspect
+[01:06] of
+[01:06] uh the of a product is it from a
+[01:09] competitor's website is a third-party
+[01:11] website or is it like for data that we
+[01:13] trust really well
+[01:14] uh let's say it's from our own internal
+[01:16] data it's from the amount of people that
+[01:18] have historically bought the product in
+[01:20] the past
+[01:21] um let's say that we have availability
+[01:23] of all the other kinds of
+[01:25] data on our website as well like user
+[01:27] clicks you know like searches
+[01:29] et cetera okay and then you mentioned
+[01:32] that
+[01:33] the algorithm is under pricing a
+[01:35] particular
+[01:36] group of products right um do we know um
+[01:40] how much like is it are we saying is
+[01:42] enterprise because
+[01:44] uh what other computers are selling the
+[01:45] same product at or is it that
+[01:48] uh the the product used to cost x
+[01:50] dollars
+[01:51] in like five months ago and now it's
+[01:53] showing x minus
+[01:54] you know some y percentage right like
+[01:56] there's a
+[01:57] significant drop in uh in the price
+[02:00] yeah how does that work yeah it's the
+[02:04] latter so let's say that we saw that
+[02:06] it's dropped by like 50 percent
+[02:08] from like five months ago so from a
+[02:11] historical uh trend downwards um
+[02:15] okay and then um
+[02:18] is there a time aspect to the drop that
+[02:21] you noticed like did that
+[02:23] when did when did it start was it around
+[02:25] new year or was it around like you know
+[02:27] um you know just middle of the year or
+[02:30] kind of thing
+[02:31] um yeah i mean the point that the time
+[02:34] when it uh when the price dropped
+[02:36] could also tell us something about what
+[02:38] happened in the macro economic structure
+[02:40] during that time right maybe it's a
+[02:42] product which was just recently banned
+[02:44] uh for some reason or you know had some
+[02:46] negative reviews and that's why
+[02:48] the demand just fell off right something
+[02:51] like that so
+[02:52] if we know some information around when
+[02:54] the when we started noticing this
+[02:56] um that can also kind of hint some
+[02:58] aspects here
+[03:00] yeah so i would say that let's say it's
+[03:03] not based on time either
+[03:06] uh so it's not based off new year's or
+[03:08] anything like that
+[03:09] that um say that it was
+[03:12] uh more of like something that happened
+[03:15] within the past
+[03:16] uh few months so progress yeah
+[03:20] got it so in the past few months we are
+[03:22] noticing a particular type of consumer
+[03:24] product
+[03:25] that's um getting price lower than usual
+[03:29] and um we are pretty sure that it's
+[03:31] nothing to do with the time of the year
+[03:33] um because um because it it
+[03:36] i mean the prices were pretty constant
+[03:38] uh for the past many years it's just
+[03:40] that
+[03:41] in the last few months we have seen it
+[03:42] interesting drop right now the thing
+[03:44] that that contribute towards pricing a
+[03:47] product
+[03:47] um are definitely going to be around
+[03:49] that products
+[03:50] used towards uh to the public that
+[03:53] consumes it
+[03:54] right so um what kind of a product is
+[03:57] this is it some food
+[03:58] is it consumable is it electronic device
+[04:01] or
+[04:01] you know some something around that
+[04:03] would probably hint
+[04:04] at you know change in customer behavior
+[04:06] itself
+[04:07] um the most obvious reason for some
+[04:09] product to you know the price to fall
+[04:11] off is like the demand has reduced
+[04:14] um but knowing this might
+[04:17] uh tell us whether the drop is uh an
+[04:20] anomaly or is it
+[04:21] um you know or is it expected okay
+[04:25] gotcha so uh given the fact that let's
+[04:28] say that it's
+[04:29] um we want to dive into both paths but
+[04:32] let's say that
+[04:33] um because uh
+[04:36] it is like let's say like an electronic
+[04:39] uh consumer good right um does that make
+[04:42] it more so
+[04:43] expected or an anomaly um
+[04:47] well if it's uh with an electronic
+[04:49] device um
+[04:50] assuming it's like a phone or something
+[04:52] right so typically when a newer phone
+[04:54] comes out um the previous version will
+[04:57] you know drastically drop off now the
+[04:59] price will
+[05:00] definitely go down but again we know
+[05:02] that it's not been happening for the
+[05:04] past many years
+[05:05] and i'm sure many uh new versions of the
+[05:07] phone have come out right
+[05:09] so probably it's not due to new uh due
+[05:12] to a better product out there
+[05:14] or just a different version out there
+[05:15] it's probably to do something with
+[05:17] um you know the reviews on that
+[05:18] particular product uh maybe someone
+[05:21] recently had a really bad experience or
+[05:23] you know and had a tie-in with the
+[05:25] government agencies and some new law has
+[05:27] been implemented
+[05:28] which makes the product itself not very
+[05:31] appealing to the customer to the
+[05:32] end user right um maybe that's what
+[05:35] happened
+[05:36] and that's why the demand has fell down
+[05:38] and that's why the price is low
+[05:40] um of course we can also look at with
+[05:42] what the demand patterns have been like
+[05:44] um if the demand pattern has stayed
+[05:46] constant but the price has reduced
+[05:48] um then i would assume that it's
+[05:50] something to do with
+[05:51] uh you know this uh external information
+[05:53] of the product which you are not
+[05:54] capturing right the algorithm is not
+[05:56] looking at the consumer reviews and
+[05:58] um what is the end user experience like
+[06:00] it's not tracking what laws have been
+[06:02] implemented which
+[06:03] may make that device obsolete so um
+[06:07] if the demand has stayed constant but
+[06:09] the price is still lowing
+[06:10] still dropping off i would think that is
+[06:12] something to do with the external
+[06:13] factors
+[06:14] uh saying that some new law has
+[06:16] implemented
+[06:17] got implemented which makes the product
+[06:19] itself not viable
+[06:21] um other reasons i could think of is um
+[06:23] that it
+[06:24] i'm assuming that this is a product that
+[06:26] is getting sold or
+[06:27] advertised on a website right so maybe
+[06:30] they changed something
+[06:31] in the ui of the website where this
+[06:34] product actually does not really show up
+[06:35] in the source resource right
+[06:37] um maybe they change something maybe
+[06:39] they introduce a new feature
+[06:41] because of which this product just
+[06:42] doesn't get the highlight at all
+[06:44] um so that's why that could be a reason
+[06:47] for low demand though
+[06:48] um i mean if the demand is still high i
+[06:51] think people would still be searching
+[06:52] for that even though it's not showing up
+[06:54] in the results
+[06:55] um but yeah an indirect effect of some
+[06:57] feature being launched could have an
+[06:59] impact on the
+[07:00] pricing okay so let's say that we want
+[07:04] to
+[07:05] uh investigate like and then choose like
+[07:08] a few metrics that we could look at that
+[07:10] would then determine
+[07:12] if uh our hypothesis is true or not
+[07:14] right
+[07:15] so you said something back there about
+[07:18] the um about like it not showing up
+[07:22] in you know on search feeds or something
+[07:25] like that
+[07:26] there any way that we can uh quantify
+[07:29] this with some sort
+[07:30] of uh metric or some sort of like uh
+[07:33] yeah comparison yeah um so
+[07:37] to capture the demand aspect of that
+[07:39] product uh we could
+[07:40] um look at how many search results
+[07:43] how many user searches in the past five
+[07:45] months or whenever it started
+[07:47] uh we could see that uh now what is the
+[07:50] percentage of this search query showing
+[07:53] up
+[07:53] right so if if users were searching for
+[07:56] like an iphone 11 um
+[07:58] five months back um with like you know
+[08:00] eighty percent probability
+[08:01] is the probability is still the same
+[08:02] like you know in the in the later uh
+[08:04] in the past few months uh has has there
+[08:07] been enough
+[08:08] uh demand uh just by the search terms uh
+[08:11] if we find that the demand has actually
+[08:13] been enough
+[08:14] um then we would look at uh the
+[08:17] um the results that were shown for every
+[08:20] search query
+[08:21] uh from the input before this time when
+[08:23] the price
+[08:24] fell down and after that right so and
+[08:26] then we can see that um
+[08:28] has has the search algorithm uh actually
+[08:30] changed or at least showing a different
+[08:32] behavior
+[08:33] uh previously when user search for abc
+[08:36] you know
+[08:36] product our product shows up in like the
+[08:39] third in the list
+[08:40] and now it's showing maybe like in the
+[08:41] ninth or maybe it's not even showing
+[08:43] or just like a a percentage of you know
+[08:45] how many searches
+[08:46] actually uh you know listed this product
+[08:48] and how many searches did not list this
+[08:50] product
+[08:51] um so that could um tell you to you know
+[08:54] changes in the
+[08:54] uh you know ranking or the the listing
+[08:58] the output format basically okay
+[09:01] gotcha so we talked about the demand
+[09:04] there
+[09:04] and then potentially also availability
+[09:07] of the product
+[09:08] um what about let's say that both the
+[09:11] availability and the demand
+[09:12] are set and then now we want to focus on
+[09:15] the logistics cost
+[09:17] so where they'll actually be in the like
+[09:20] logistics cost that
+[09:22] is causing like a weird algorithm
+[09:25] decrease
+[09:25] yeah yeah i mean um so yeah
+[09:28] i actually should have thought about the
+[09:30] other two features that you mentioned uh
+[09:32] earlier which is the availability and
+[09:34] the logistics cost
+[09:35] um i was assuming things are constant uh
+[09:38] in those terms but yeah
+[09:39] for sure like if the demand stayed the
+[09:41] same and the availability is the same
+[09:43] then it's probably uh the logistic costs
+[09:45] that have gone up
+[09:47] because of which well it could have gone
+[09:49] down actually because of which the
+[09:51] prices have gone down right
+[09:52] so then um that means that the company
+[09:55] has
+[09:56] you know improved their logistic uh uh
+[09:58] you know infrastructure or
+[10:00] just made some new partnership by which
+[10:02] uh the product is now able to be
+[10:04] shipped out as much lower cost than you
+[10:07] before
+[10:08] so then in that sense um the drop in the
+[10:11] price
+[10:12] is actually a benefit for the customer
+[10:14] right it's not a bad thing it's not an
+[10:15] anomaly
+[10:16] it just shows that uh whatever the
+[10:18] company did to improve their logistics
+[10:20] and those are actually now showing at
+[10:22] least in this particular product
+[10:24] okay so in which situations could we see
+[10:27] like the logistics clock
+[10:29] costs actually going down um
+[10:32] yeah so so i guess um if we have like
+[10:36] new distribution centers
+[10:37] um or suppose we do a analysis of you
+[10:40] know where
+[10:41] uh which geographic region are our
+[10:43] customers coming from for this
+[10:44] particular product right
+[10:45] maybe the top three regions uh for where
+[10:48] the demand for this particular product
+[10:49] is the highest is like on the west coast
+[10:51] and um then we look at where did we ship
+[10:55] where did we historically used to ship
+[10:56] this product from maybe it was getting
+[10:58] shipped from somewhere central
+[11:00] u.s right and now and then we see that
+[11:02] okay
+[11:03] actually in the last two months uh there
+[11:05] was a new distribution center
+[11:06] um out in the west and now that you know
+[11:09] reduces the time for the for the
+[11:11] delivery
+[11:12] of the product to the customer and now
+[11:13] that we have it already stocked up in
+[11:15] the distribution center in the west
+[11:17] um our logistic costs are also lower
+[11:19] right so new
+[11:20] distribution centers popping up or new
+[11:22] uh partnerships with like freight
+[11:24] forwarding companies and those could
+[11:26] indicate that okay now or that is why
+[11:28] logistic costs have gone down
+[11:30] okay so i know you mentioned more
+[11:32] distribution centers right
+[11:34] is that distributing to the website
+[11:37] is that from going from the distribution
+[11:39] to the consumer
+[11:41] or is that going from the manufacturer
+[11:45] to the distribution
+[11:46] site um well the description center that
+[11:49] i was mentioning was from the
+[11:51] distribution center to the consumer but
+[11:53] of course if there are some changes on
+[11:55] where we source
+[11:56] the product from that also will play a
+[11:59] part in
+[11:59] logistic cost so acquiring the product
+[12:02] um
+[12:03] maybe before we used to you know
+[12:06] import these products out from a
+[12:08] different country which was really far
+[12:09] away
+[12:10] and um you know and then it had to
+[12:12] domestically travel to the customer
+[12:14] now maybe we have a better uh a contract
+[12:17] with the
+[12:17] uh with the company that we source these
+[12:20] products from
+[12:20] so then that improves our logistic cost
+[12:23] it could also
+[12:24] be that we just have found a a different
+[12:26] supplier
+[12:27] who is able to get us um the same
+[12:30] product at a lower cost because of their
+[12:32] geographical location
+[12:33] now so those aspects would also bring
+[12:36] down our logistic cost
+[12:38] gotcha okay cool and then last question
+[12:41] i have is
+[12:42] let's say that the price uh we are
+[12:45] you know underpricing this product right
+[12:48] um
+[12:49] and you've done all the analysis what
+[12:50] would you come away with
+[12:52] uh how would you decide to if you should
+[12:55] actually go back
+[12:56] and adjust the price manually or keep it
+[12:59] as it
+[12:59] should be um couple of things which come
+[13:03] to mind are like you know
+[13:05] assuming it's um you know assuming our
+[13:07] and the company's end goal is to
+[13:09] make sure that the customers the end
+[13:11] consumers are happy and not the
+[13:12] suppliers
+[13:13] then uh as long as we have a consistent
+[13:16] demand for the product
+[13:17] and we are able to ship it out and you
+[13:19] know um
+[13:20] and we are able to have a lower cost
+[13:21] structure for the end consumer
+[13:23] i would not want to change anything on
+[13:25] the pricing algorithm i think it's doing
+[13:27] a good job
+[13:28] because we are not seeing any we're not
+[13:30] seeing our customers leave our platform
+[13:31] right they still want to purchase the
+[13:33] same product from
+[13:33] us so we are still gaining profits and
+[13:36] um
+[13:38] and and you know it's because of
+[13:39] logistic costs that have been reduced we
+[13:41] are able to offer the product at a lower
+[13:42] price
+[13:43] so i would not change anything in that
+[13:45] aspect
+[13:46] now um the cases where i would uh
+[13:49] try to manually intervene would be where
+[13:52] you know that i'm
+[13:53] seeing that the demand has actually gone
+[13:55] down and that is why
+[13:57] uh you know i'm saying that the logistic
+[13:58] costs are have increased
+[14:00] but my price of the product has gone
+[14:02] down so that
+[14:04] shows me that you know there's something
+[14:06] uh some fundamental change
+[14:08] in the logistics supply chain that we're
+[14:09] doing because of which this is happening
+[14:11] right
+[14:12] the algorithm did not previously um
+[14:15] innovate the logistic cost enough maybe
+[14:18] it had a very
+[14:19] um less weightage at that time and now
+[14:22] the logistic costs have increased
+[14:23] but the algorithm is not able to you
+[14:25] know take that
+[14:27] effect into account so i would probably
+[14:29] retrain my model saying that
+[14:30] you know okay legislative course is
+[14:32] pretty important for us and you need
+[14:33] and try to put in some more weight into
+[14:36] it um so
+[14:37] that would be a manual intervention at
+[14:39] that point i think
+[14:40] um i am not aware of any automatic um
+[14:44] automatic like solutions that can you
+[14:47] know find an error and then fix it
+[14:49] apart from like you know using some kind
+[14:51] of a feed forward loop or something in
+[14:52] your model
+[14:53] of course it depends on what model is
+[14:55] but um maybe there is some
+[14:57] uh area of improvement to automate that
+[14:59] part uh if you use some kind of a
+[15:01] feedback loop in your model which takes
+[15:04] into account the
+[15:05] difference between you know a price one
+[15:07] year back in price today or something
+[15:09] like that
+[15:10] all right cool gotcha i think that
+[15:14] is good for that question awesome okay
+[15:17] now in terms of retrospective what did
+[15:18] you think about uh that question
+[15:20] um i think the discussion went into a
+[15:23] lot of
+[15:24] um exploring different aspects uh from
+[15:26] my side
+[15:27] uh saying that you know maybe this is
+[15:29] the possible reason maybe that is the
+[15:31] reason but
+[15:32] i guess we didn't really get into a very
+[15:34] concrete solution at the end um like we
+[15:36] did
+[15:36] we didn't come to an uh we didn't
+[15:38] discuss anything about what the actual
+[15:40] uh algorithm is like we should maybe if
+[15:43] we had started off saying that it's
+[15:44] suppose it's a regression algorithm
+[15:46] right suppose it's a
+[15:47] neural network that's implemented and
+[15:48] then we could
+[15:50] dig deeper into you know the actual
+[15:53] weights or actual layers that are being
+[15:55] used and stuff like that
+[15:56] but again um we were still discussing of
+[15:59] what all possible
+[16:00] uh outcomes could be there um so from
+[16:03] that point we exported well
+[16:04] but i guess in an interview it depends
+[16:06] on what the interview wants to hear
+[16:08] uh he may give me more information so
+[16:10] that i'm
+[16:11] going towards a particular outcome
+[16:13] gotcha yeah that makes sense
