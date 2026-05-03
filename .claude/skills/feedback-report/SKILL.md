@@ -1,6 +1,6 @@
 ---
 name: feedback-report
-description: Генерирует структурированный per-question feedback по папке прошедшего интервью в формате martin-meeting.md schema плюс rollup из md/spec.md §E4-4. Два режима — blind (default, без feedback.txt; независимая оценка модели) и with-feedback (читает feedback.txt и добавляет секцию Interviewer's signal). Принимает path и опциональный флаг mode=<blind|with-feedback>; пишет в <folder>/feedback-report.<mode>.md.
+description: Генерирует структурированный per-question feedback по папке прошедшего интервью в формате martin-meeting.md schema плюс rollup из md/spec.md §E4-4. Два режима — blind (default, без feedback.txt; независимая оценка модели + HIRE/NO HIRE verdict с P(HIRE)) и with-feedback (читает feedback.txt и добавляет секцию Interviewer's signal, без verdict'а). Принимает path и опциональный флаг mode=<blind|with-feedback>; пишет в <folder>/feedback-report.<mode>.md.
 ---
 
 # Skill: Feedback report по интервью
@@ -11,14 +11,15 @@ description: Генерирует структурированный per-questio
 
 Два режима работы:
 
-- **`blind` (default).** Независимая оценка только по транскрипту, JD и CV. `feedback.txt` НЕ ЧИТАЕТСЯ ни на одном шаге. Назначение — слепое мнение модели; результат можно сравнить с реальным фидбеком интервьюера как сигнал качества системы (LLM-as-judge baseline).
-- **`with-feedback`.** Все четыре файла, плюс секция `### Interviewer's signal` в rollup. Назначение — глубокий post-mortem с учётом перспективы интервьюера. Минус: spoiler-эффект, модель может подгонять оценки под ожидания feedback.
+- **`blind` (default).** Независимая оценка только по транскрипту, JD и CV. `feedback.txt` НЕ ЧИТАЕТСЯ ни на одном шаге. Назначение — слепое мнение модели; результат можно сравнить с реальным фидбеком интервьюера как сигнал качества системы (LLM-as-judge baseline). **Включает verdict HIRE / NO HIRE и P(HIRE).**
+- **`with-feedback`.** Все четыре файла, плюс секция `### Interviewer's signal` в rollup. Назначение — глубокий post-mortem с учётом перспективы интервьюера. Минус: spoiler-эффект, модель может подгонять оценки под ожидания feedback. **Verdict не выводится** — иначе рискует отражать verdict интервьюера, а не независимое суждение модели; точка независимого решения — это blind-режим.
 
-Содержимое отчёта (одинаковое в обоих режимах кроме секции Interviewer's signal):
+Содержимое отчёта:
 
 1. Summary table (быстрый sniff-test).
-2. Per-question Assessment Items по схеме `internal-notes/2026-04-30-martin-meeting.md`.
-3. Rollup по требованиям JD (`aligned` / `partial` / `missing` / `Recommendations`, плюс `Interviewer's signal` только в with-feedback) — это `AlignmentReport` из `md/spec.md` §E4-4.
+2. **Verdict & P(HIRE)** — только в `blind`.
+3. Per-question Assessment Items по схеме `internal-notes/2026-04-30-martin-meeting.md`.
+4. Rollup по требованиям JD (`aligned` / `partial` / `missing` / `Recommendations`, плюс `Interviewer's signal` только в `with-feedback`) — это `AlignmentReport` из `md/spec.md` §E4-4.
 
 Не батчует, не использует knowledge base / karpov-корпус, не сравнивает с другими интервью кандидата.
 
@@ -120,6 +121,30 @@ description: Генерирует структурированный per-questio
    - `blind`: выводятся только из `partial` + `missing` JD-rollup и LLM-собственного суждения по транскрипту.
    - `with-feedback`: дополнительно учитывают `contradicts`-сигналы из feedback.
 
+### Шаг 5.5: Verdict & P(HIRE) (только blind)
+
+В режиме `with-feedback` этот шаг **пропускается** — verdict не выводится.
+
+В режиме `blind` после rollup сформировать агрегированное решение:
+
+1. **Решение** — ровно одно из `HIRE` / `NO HIRE`. Бинарно, без полутонов («lean hire» и т.п. не используются — заставляет модель честно встать на одну сторону).
+2. **P(HIRE)** — целое число процентов в `[0, 100]`, отражает уверенность модели. Пороговая интерпретация: `≥ 50%` ⇒ HIRE, `< 50%` ⇒ NO HIRE; решение и вероятность должны быть согласованы.
+3. **Обоснование** — 3-5 строк (буллет-лист), где модель явно перечисляет:
+   - 1-2 ключевых **за** (опираясь на `aligned` rollup и `strong` Q-IDs);
+   - 2-3 ключевых **против** (опираясь на `partial`/`missing` rollup и `weak`/`missing` Q-IDs);
+   - factor, сильнее всего сдвигающий вероятность в одну сторону.
+
+**Калибровка вероятности** (внутренний руководящий принцип, не показываем в отчёте):
+
+| Картина                                                                 | P(HIRE) ориентир |
+|-------------------------------------------------------------------------|------------------|
+| ≥1 missing/weak в core hard skill JD-требовании + нет компенсирующих strong | 15–35%           |
+| Mostly adequate, без явных red flags, без ярких strong                  | 40–55%           |
+| ≥2 strong в JD-relevant областях + только мелкие weak в периферии       | 60–75%           |
+| Bar-raising: strong по hard skill ядру JD, нет weak                     | 75–90%           |
+
+Эти ориентиры — для согласованности через прогоны на разных кейсах. Не подгонять оценки Assessment Items под нужную P(HIRE); сначала оценки, потом verdict.
+
 ### Шаг 6: Self-check (E4-5 quality)
 
 Базовый чек-лист (оба режима):
@@ -139,6 +164,8 @@ description: Генерирует структурированный per-questio
 - [ ] Нет цитат, которые есть только в `feedback.txt` и которых нет в transcript/JD/CV.
 - [ ] Нет фраз вида «совпадает с заметками интервьюера», «интервьюер отметил» и т.п.
 - [ ] `inputs_present` в frontmatter не включает `feedback.txt`, даже если файл существует.
+- [ ] Секция `## Verdict` присутствует, содержит ровно одно из `HIRE`/`NO HIRE`, P(HIRE) — целое в `[0, 100]`, обоснование 3-5 буллетов.
+- [ ] Согласованность: P(HIRE) ≥ 50% ⇔ HIRE; P(HIRE) < 50% ⇔ NO HIRE.
 
 `with-feedback`:
 - [ ] Секция `### Interviewer's signal` присутствует и непустая.
@@ -175,6 +202,13 @@ description: Генерирует структурированный per-questio
    | # | Тема | Тип | Оценка | Time |
    |---|------|-----|--------|------|
    | Q1 | ... | hard skill | adequate | 00:34 |
+
+   ## Verdict (только blind)
+   - **Решение:** HIRE | NO HIRE
+   - **P(HIRE):** NN%
+   - **За:** ...
+   - **Против:** ...
+   - **Главный фактор:** ...
 
    ## Assessment Items
 
@@ -219,7 +253,7 @@ description: Генерирует структурированный per-questio
 ## Ограничения
 
 - Один прогон = одна папка + один режим. Без батча, без одновременного blind+with-feedback в одном вызове.
-- Только структурированный per-question feedback + rollup по JD. Не выдаёт «наняли бы / нет».
+- В режиме `with-feedback` verdict «наняли бы / нет» не выводится — это прерогатива blind-прогона.
 - Не сравнивает с другими интервью кандидата (`MemoryState` отложен по spec.md §8).
 - Не использует knowledge base / curated corpus (это §E2-1).
 - Не редактирует входные файлы.
@@ -235,11 +269,12 @@ assistant:
   [validate] папка существует, файлы: cv.md, vacancy.txt, transcript.txt
   [skip] feedback.txt существует, но в blind НЕ читаю
   [extract] 17 Q&A пар после dedup
-  [classify+score] 13 hard / 2 behaviour / 2 soft; 2 strong / 9 adequate / 5 weak / 1 missing
+  [classify+score] 13 hard / 2 behaviour / 2 soft; 2 strong / 9 adequate / 6 weak / 0 missing
   [rollup] 1 aligned / 3 partial / 0 missing
-  [self-check] OK; нет упоминаний feedback в теле
+  [verdict] NO HIRE, P(HIRE) = 30%
+  [self-check] OK; нет упоминаний feedback в теле; verdict + P согласованы
   wrote: [private]/avito-20251212/feedback-report.blind.md
-  Summary (blind): 17 questions; rollup 1/3/0; recommendations 5 пунктов.
+  Summary (blind): 17 questions; rollup 1/3/0; verdict NO HIRE @ 30%; recommendations 5 пунктов.
 ```
 
 ### With-feedback
