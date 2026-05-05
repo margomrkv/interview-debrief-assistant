@@ -27,7 +27,7 @@ author: claude-code-claude-opus-4-7
 
 ## 2. Ключевые понятия
 
-Система оперирует тремя концептами:
+Система оперирует тремя концептами. Каждому концепту соответствует один модуль.
 
 - **Market Flow** — путь конкретного кандидата по рынку найма. Сюда попадает всё, что привязано к кандидату или возникает в его взаимодействии с рынком: профиль, компании, к которым он подаётся, их вакансии и JD, заявки и их стадии, прошедшие раунды интервью с транскриптами и фидбэком. Эволюционирует во времени по мере **событий воронки**: новая заявка, смена стадии, прошедший раунд, полученный фидбэк, обновление профиля.
 - **Knowledge Base** — общее знание о рынке найма, не привязанное к конкретному кандидату: курируемые внешние материалы (гайды, mock-интервью с YouTube, курсы), извлечённые из них рубрики и типовые требования. Меняется медленно, общее для всех пользователей.
@@ -63,7 +63,7 @@ flowchart LR
         direction TB
         KB1["Курируемый корпус<br/>(гайды, mock-интервью, курсы)"]
         KB2["Требования + Рубрики"]
-        KB3["EvalDataset<br/>(AssessmentItem с разметкой)"]
+        KB3["EvalDataset<br/>(ScoredAssessmentItem с human_comment)"]
         KB1 -- "извлечение / реконструкция (E2-3, E2-4)" --> KB2
         KB1 -- "разметка вопрос-ответ (E2-2)" --> KB3
     end
@@ -108,15 +108,18 @@ flowchart LR
 - **Курируемый корпус (CuratedCorpus)** — внешние материалы: гайды, mock-интервью с YouTube, курсы (Карпов и т.п.).
 - **Требования (Requirements)** — типовые ожидания по ролям, извлечённые/реконструированные из корпуса (hard/soft skill lists).
 - **Рубрика (Rubric)** — структурированные критерии оценки ответа на тип вопроса.
-- **AssessmentItem** — единица разметки и оценки, выведенная из конкретного эпизода `CuratedCorpus` (вопрос-ответ из mock-интервью). Поля: `question` (LinkedText), `candidate_answer` (LinkedText), `expected_answer` (текст, может быть пустым для open questions), `type` ∈ {hard_skill, soft_skill, behavioral}, `llm_score` (оценка модели по критериям §3.2), `human_comment` (опциональный комментарий разметчика), `state` ∈ {extracted, llm_scored, validated} — текущий этап жизненного цикла (см. §4.2.1).
-- **Размеченный датасет (EvalDataset)** — коллекция `AssessmentItem` с человеческой разметкой; используется для автоматической оценки качества (§7, E2-6).
+- **AssessmentItem** — единица, выведенная из конкретного эпизода `CuratedCorpus` (вопрос-ответ из mock-интервью). Поля: `question` (LinkedText), `candidate_answer` (LinkedText), `type` ∈ {hard_skill, soft_skill, behavioral}, `state` ∈ {extracted, llm_scored, validated} — текущий этап жизненного цикла (см. §4.2.1). На стадии `extracted` это сырой айтем без эталона и оценки.
+- **ScoredAssessmentItem** — расширяет `AssessmentItem` симметричной парой **эталон + оценка**. Дополнительные поля: `expected_answer` (текст эталонного ответа; может быть пустым для open questions), `llm_score` (оценка модели по критериям §3.2 — насколько `candidate_answer` близок к `expected_answer`), `human_comment` (опциональный комментарий разметчика для валидации `llm_score`). Симметрия: `expected_answer` — что должно было быть сказано; `llm_score` — насколько ответ кандидата приблизился к этому. Без эталона нет оценки.
+  - **Источник эталона и оценки.** `expected_answer` + `llm_score` присваиваются LLM-eval по двум возможным путям: (а) **на общих знаниях модели** — fallback, когда KB пуста или нерелевантна, и (б) **на основе KB** — рубрика/требования из Knowledge Base подаются в промпт как ground для эталона. Артефакт `ScoredAssessmentItem` от этого выбора не меняется; меняется только обоснованность эталона (см. прогрессию зрелости §2). Само присвоение **не требует** EvalDataset — это разные слои.
+  - **Связь с EvalDataset.** `human_comment` опционален и заполняется только для айтемов, попадающих в `EvalDataset` для регрессии E2-6. ScoredAssessmentItem без `human_comment` существует самостоятельно (например, как промежуточный артефакт LLM-eval) и не обязан попадать в EvalDataset.
+- **Размеченный датасет (EvalDataset)** — курируемое подмножество `ScoredAssessmentItem` с непустым `human_comment`; используется для автоматической оценки качества (§7, E2-6). Не все `ScoredAssessmentItem` принадлежат EvalDataset — только те, что отобраны и размечены человеком.
 
 **Assessment and Recomendations** (AR — выход системы, см. §2):
 - **Отчёт (AlignmentReport)** — структурированный артефакт: aligned / partial / missing, цитаты, набор `Recommendation`.
 - **Рекомендация (Recommendation)** — единица того, что система советует кандидату. Поля: `category` ∈ {hard_skill, soft_skill, behavioral, общая}, `signal_source` ∈ {CV, Transcript, JD, Feedback}, `text` (формулировка), `evidence` (список LinkedText), `confidence` (оценка по критериям §3.2). Без явного определения этой сущности невозможно сформулировать критерии оценки качества (фидбэк ментора 2026-04-30: «от этого исходит всё остальное, в том числе оценка»).
 
 **Общие value-objects** (не принадлежат ни одному модулю, используются несколькими):
-- **LinkedText** — `{text, transcript_time}`. Цитата с привязкой к таймкоду в транскрипте. Используется в `Recommendation.evidence` (AR) и в `AssessmentItem` (KB).
+- **LinkedText** — `{text, transcript_time}`. Цитата с привязкой к таймкоду в транскрипте. Используется в `Recommendation.evidence` (AR) и в `AssessmentItem.{question, candidate_answer}` (KB).
 
 ### 3.1. Матрица заполненности
 
@@ -132,7 +135,7 @@ flowchart LR
 
 ### 3.2. Низкоуровневые критерии оценки
 
-Ментор 2026-04-30: «начать с очень простых критериев, для которых даже не надо знать про hard/soft skills». Стартовый набор, общий для `Recommendation.confidence` и `AssessmentItem.llm_score`:
+Ментор 2026-04-30: «начать с очень простых критериев, для которых даже не надо знать про hard/soft skills». Стартовый набор, общий для `Recommendation.confidence` и `ScoredAssessmentItem.llm_score`:
 - **clarity** — был ли ответ внятным/понятным;
 - **completeness** — был ли ответ полным;
 - **factual_correctness** — есть ли фактические ошибки.
@@ -146,12 +149,12 @@ flowchart LR
 Полная модель содержит много связей, поэтому разбита на три фокусных вида (по правилу модульности и снижения когнитивной нагрузки):
 
 - **§4.1** — интра-структура **Market Flow**;
-- **§4.2** — интра-структура **Knowledge Base** (включая Eval-артефакты `AssessmentItem`, `EvalDataset` — они KB по природе данных: общие, выводятся из `CuratedCorpus`);
+- **§4.2** — интра-структура **Knowledge Base** (включая Eval-артефакты `AssessmentItem`, `ScoredAssessmentItem`, `EvalDataset` — они KB по природе данных: общие, выводятся из `CuratedCorpus`);
 - **§4.3** — модуль **Assessment and Recomendations** (AR) — единственное место, где MF и KB встречаются и сшиваются в `AlignmentReport` + `Recommendation[]`.
 
 Ключевой инвариант (см. §2): между §4.1 и §4.2 нет стрелок ни в одну сторону. Они встречаются только в §4.3 (AR).
 
-Замечание про изоляцию Eval-вызова: требование ментора («дело не в том, чтобы это были разные архитектуры, а чтобы контекст не шарили») — это **операционная** изоляция LLM-вызова (отдельный промпт, отдельное окно контекста), а не структурная изоляция артефактов. Артефакты `AssessmentItem`/`EvalDataset` остаются в KB; операционные требования к их использованию — в E2-6 (§7).
+Замечание про изоляцию Eval-вызова: требование ментора («дело не в том, чтобы это были разные архитектуры, а чтобы контекст не шарили») — это **операционная** изоляция LLM-вызова (отдельный промпт, отдельное окно контекста), а не структурная изоляция артефактов. Артефакты `AssessmentItem` / `ScoredAssessmentItem` / `EvalDataset` остаются в KB; операционные требования к их использованию — в E2-6 (§7).
 
 ### 4.1. Market Flow (интра)
 
@@ -235,14 +238,20 @@ classDiagram
     class AssessmentItem {
         question : LinkedText
         candidate_answer : LinkedText
-        expected_answer
         type [hard_skill|soft_skill|behavioral]
-        llm_score
-        human_comment
         state [extracted|llm_scored|validated]
     }
+    class ScoredAssessmentItem {
+        expected_answer_source: [model|kb]
+        expected_answer_value
+        llm_score
+        is_validated: bool
+        expected_answer_evaluation: Optional
+        expected_answer_evaluation_agent_kind: [human|llm]
+        expected_answer_evaluation_agent_name: str
+    }
     class EvalDataset {
-        items : AssessmentItem[]
+        items : ScoredAssessmentItem[]
         version
     }
 
@@ -250,26 +259,29 @@ classDiagram
     CuratedCorpus "1" --> "1..*" Requirements : reconstructs
     Rubric "1" --> "*" Requirements : structures
     CuratedCorpus "1" --> "*" AssessmentItem : derived_from
-    EvalDataset "1" *-- "*" AssessmentItem : contains
+    AssessmentItem <|-- ScoredAssessmentItem : extended_with_score
+    EvalDataset "1" o-- "*" ScoredAssessmentItem : validated_subset
 ```
 
 Корпус — источник всего: рубрики, требования и Eval-айтемы — производные. Все стрелки замкнуты внутри Knowledge Base. Operational-аспект использования `EvalDataset` (отдельная дешёвая модель, изолированный контекст) — в E2-6 (§7), не в концептуальной модели.
 
 #### 4.2.1. State machine `AssessmentItem`
 
-Каждый `AssessmentItem` проходит через три состояния по мере наполнения KB. Стартовое — `extracted` (айтем выделен из `CuratedCorpus`, заполнены `question` / `candidate_answer` / `type`); `llm_scored` — добавлен `llm_score` по §3.2; терминальное — `validated` — добавлен `human_comment`, айтем пригоден для регрессии E2-6.
+Айтем проходит три состояния, каждое сопровождается **сменой типа**: bare `AssessmentItem` → `ScoredAssessmentItem` (с парой `expected_answer` + `llm_score`) → тот же `ScoredAssessmentItem` с `human_comment`. Стартовое состояние — `extracted` (айтем выделен из `CuratedCorpus`, заполнены `question` / `candidate_answer` / `type`); `llm_scored` — присвоена пара эталон+оценка LLM-eval-вызовом (источник: общие знания модели или рубрика из KB — см. §3, «Источник эталона и оценки»); терминальное — `validated` — добавлен `human_comment`, айтем попадает в `EvalDataset` и пригоден для регрессии E2-6.
+
+Важно: переход `extracted → llm_scored` **не требует** EvalDataset — это самостоятельный LLM-eval. EvalDataset фигурирует только на переходе `llm_scored → validated`, где человек верифицирует score.
 
 Триггеры переходов выражены через эпики/истории, не через имена реализационных компонентов (компоненты — в [[arch_agents]]).
 
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> extracted : выделение из CuratedCorpus (E2-2 «Разметочный датасет»)
-    extracted --> llm_scored : присвоен llm_score по §3.2 (E2-6 «Контроль качества»)
-    llm_scored --> validated : добавлен human_comment (E2-2)
+    [*] --> extracted : AssessmentItem выделен из CuratedCorpus (E2-2 «Разметочный датасет»)
+    extracted --> llm_scored : LLM-eval присваивает expected_answer + llm_score по §3.2 — на знаниях агента или KB-рубрике
+    llm_scored --> validated : добавлен human_comment, айтем попадает в EvalDataset (E2-2)
 ```
 
-Поле `AssessmentItem.state` явно отражает текущий этап. Без него невозможно отличить «свежевыделенный» айтем от «оценённого моделью» от «провалидированного человеком» — а это ключ для метрик E2-6 (регрессия только на `validated` подмножестве).
+Поле `AssessmentItem.state` явно отражает текущий этап. Без него невозможно отличить «свежевыделенный» айтем от «оценённого моделью» от «провалидированного человеком» — а это ключ для метрик E2-6 (регрессия только на `validated` подмножестве). Тип (`AssessmentItem` vs `ScoredAssessmentItem`) и state скоррелированы: `extracted` ↔ bare AssessmentItem, `llm_scored` / `validated` ↔ ScoredAssessmentItem (без / с `human_comment`).
 
 ### 4.3. Assessment and Recomendations (AR)
 
@@ -318,7 +330,7 @@ classDiagram
 
 Сплошная стрелка (`subject` от `ExperienceProfile`, `produces` к `Recommendation`) — обязательная зависимость отчёта; пунктирные — опциональные/применяемые в зависимости от заполненности матрицы (см. §3.1).
 
-`Recommendation` сама по себе не имеет состояний: она производится `AlignmentReport`-ом одномоментно. Жизненный цикл со стадиями есть у `AssessmentItem` (KB, см. §4.2.1) — именно он накапливает `llm_score` и `human_comment` поэтапно и используется в регрессии E2-6.
+`Recommendation` сама по себе не имеет состояний: она производится `AlignmentReport`-ом одномоментно. Жизненный цикл со стадиями есть у пары `AssessmentItem` → `ScoredAssessmentItem` (KB, см. §4.2.1): сначала айтем выделяется как bare `AssessmentItem`, затем расширяется до `ScoredAssessmentItem` с `expected_answer` + `llm_score`, и наконец валидируется добавлением `human_comment`. Именно эта цепочка используется в регрессии E2-6.
 
 ## 5. Сценарии использования
 
@@ -361,8 +373,8 @@ classDiagram
 - [ ] для каждого источника фиксируется метаданные: домен (DA/PA/DS), уровень, тип интервью
 - [ ] добавление источника не требует ручной правки кода — достаточно положить папку по шаблону `mock-template/`
 
-**E2-2 «Разметочный датасет».** Как администратор KB, я хочу вести `EvalDataset` (Google Sheets с `AssessmentItem`), чтобы автоматическая оценка качества (E2-6) опиралась на воспроизводимую человеческую разметку.
-- [ ] schema листа совпадает с артефактом `AssessmentItem` (§3): `question`, `candidate_answer`, `expected_answer`, `type`, `llm_score`, `human_comment`, плюс `transcript_time` для обоих LinkedText-полей
+**E2-2 «Разметочный датасет».** Как администратор KB, я хочу вести `EvalDataset` (Google Sheets со `ScoredAssessmentItem`), чтобы автоматическая оценка качества (E2-6) опиралась на воспроизводимую человеческую разметку.
+- [ ] schema листа совпадает с артефактом `ScoredAssessmentItem` (§3): `question`, `candidate_answer`, `type` (от `AssessmentItem`) + `expected_answer`, `llm_score`, `human_comment`, плюс `transcript_time` для обоих LinkedText-полей
 - [ ] стартовый объём — 5–10 размеченных айтемов (фидбэк ментора: «нет ответа на сколько хватит, начните с 5–10 + edge cases»)
 - [ ] явно покрыты edge cases: правдоподобный, но фактически неверный ответ; ответ-вода без сигнала; ответ на смежный вопрос
 - [ ] перегенерация LLM-оценок не теряет ранее размеченных `human_comment`
@@ -382,7 +394,7 @@ classDiagram
 - [ ] рубрика опирается на корпус (E2-3 «Эксплораторный анализ»), а не на «здравый смысл» LLM
 - [ ] есть ссылки на источники в курируемом корпусе
 
-**E2-6 «Контроль качества».** Как разработчик, я хочу видеть автоматическую оценку качества `Recommendation` и `AssessmentItem`, чтобы понимать, не деградирует ли система между итерациями промпта (фидбэк ментора 2026-04-30: пользователю эта оценка не нужна и не показывается).
+**E2-6 «Контроль качества».** Как разработчик, я хочу видеть автоматическую оценку качества `Recommendation` и `ScoredAssessmentItem`, чтобы понимать, не деградирует ли система между итерациями промпта (фидбэк ментора 2026-04-30: пользователю эта оценка не нужна и не показывается).
 - [ ] вход — `EvalDataset` (KB-артефакт §4.2) и/или `Recommendation`, выход — оценка по низкоуровневым критериям §3.2 (clarity, completeness, factual_correctness)
 - [ ] **операционная изоляция вызова** (mentor: «дело не в том, чтобы это были разные архитектуры, а чтобы контекст не шарили»): отдельный (дешёвый) вызов LLM (Haiku / локальная Gemma 27B), собственный промпт, отдельное окно контекста — не разделяет state с основным пайплайном E3-4
 - [ ] метрика — соответствие автоматической оценки `human_comment` на отложенном `EvalDataset`; цель — отсутствие регресса между итерациями
@@ -429,9 +441,9 @@ classDiagram
 - [ ] Один домен (DS / Product Analytics / Market Research) или универсально? — упирается в полноту корпуса (E2-3 «Эксплораторный анализ»)
 - [ ] Как мерджить Market Flow и Knowledge Base, когда часть матрицы артефактов отсутствует (S3 — без CV/JD)?
 - [ ] Достаточно ли курируемого корпуса (Карпов + 3-5 mock на YouTube) для устойчивых рубрик E2-3 «Эксплораторный анализ»?
-- [ ] Сколько `AssessmentItem` достаточно для устойчивой автоматической оценки качества? Mentor: «нет ответа, начните с 5–10 + edge cases» — нужен эмпирический критерий стабилизации.
+- [ ] Сколько `ScoredAssessmentItem` (с `human_comment`) в `EvalDataset` достаточно для устойчивой автоматической оценки качества? Mentor: «нет ответа, начните с 5–10 + edge cases» — нужен эмпирический критерий стабилизации.
 - [ ] Источник эталонных рубрик для валидации S3: открытая матрица компетенций аналитика Авито + программа курса Карпова — пробуем как ground truth, но соответствие не гарантировано.
-- [ ] **Eval vs LLM-as-judge — разные техники.** Ментор отметил различие, но не уточнил, какая нам нужна (или нужны обе). Eval = регрессия на отложенном размеченном датасете; LLM-as-judge = модель-судья оценивает выход в момент исполнения. Нужно решить: какую технику применяем для §3.2-критериев, к каким артефактам (`Recommendation` / `AssessmentItem` / `AlignmentReport`), и нужна ли вторая.
+- [ ] **Eval vs LLM-as-judge — разные техники.** Ментор отметил различие, но не уточнил, какая нам нужна (или нужны обе). Eval = регрессия на отложенном размеченном датасете; LLM-as-judge = модель-судья оценивает выход в момент исполнения. Нужно решить: какую технику применяем для §3.2-критериев, к каким артефактам (`Recommendation` / `ScoredAssessmentItem` / `AlignmentReport`), и нужна ли вторая.
 - [ ] Behavioral в выходе — давать пользователю явный disclaimer «не оцениваем» или молча не возвращать рекомендации этой категории?
 - [ ] Как разделить работу над общими документами между двумя людьми + агентами без merge-конфликтов (процессный риск из встречи)?
 
