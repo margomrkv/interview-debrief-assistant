@@ -25,25 +25,26 @@ author: claude-code-claude-opus-4-7
 
 В MVP **пользователь сам создаёт папку кейса** в `transcripts/<person>-<company>-YYYYMMDD/` и кладёт туда CV, vacancy, transcript, feedback по схеме CLAUDE.md. Система не реализует автоматическое создание профиля и регистрацию заявки — это prerequisite на стороне пользователя. Полноценные UI / автоматический ingest вынесены в [[requirements_postponed]] (E1-1 «Профиль», E1-2 «Новая заявка»).
 
-## 2. Market Flow и Knowledge Base
+## 2. Ключевые понятия
 
-Система оперирует двумя концептами:
+Система оперирует тремя концептами:
 
 - **Market Flow** — путь конкретного кандидата по рынку найма. Сюда попадает всё, что привязано к кандидату или возникает в его взаимодействии с рынком: профиль, компании, к которым он подаётся, их вакансии и JD, заявки и их стадии, прошедшие раунды интервью с транскриптами и фидбэком. Эволюционирует во времени по мере **событий воронки**: новая заявка, смена стадии, прошедший раунд, полученный фидбэк, обновление профиля.
 - **Knowledge Base** — общее знание о рынке найма, не привязанное к конкретному кандидату: курируемые внешние материалы (гайды, mock-интервью с YouTube, курсы), извлечённые из них рубрики и типовые требования. Меняется медленно, общее для всех пользователей.
+- **Assessment and Recomendations** — выход системы: рекомендации кандидату по подготовке и развитию, а также структурированный отчёт о соответствии профиля кандидата требованиям вакансии. Рекомендации формируются на основе матчинга между Market Flow и Knowledge Base, а также могут быть провалидированы через EvalDataset.
 
 Ключевой инвариант: **Knowledge Base не зависит от Market Flow**. Свои транскрипты кандидата не вливаются в общий корпус. Knowledge Base строится только из курируемых внешних источников.
 
 Ценность ассистента — в **матчинге** на выходе: применить рубрики и требования из Knowledge Base к текущему состоянию Market Flow и получить персонализированный отчёт или рекомендацию.
 
 Прогрессия зрелости:
-- только Market Flow → рекомендации на общих знаниях агента (полезно);
-- Market Flow + Knowledge Base → рекомендации обоснованы источниками (хорошо);
-- Market Flow + Knowledge Base + eval → рекомендации обоснованы и провалидированы (отлично).
+- только Market Flow + Assessment and Recomendations на знаниях агента (полезно);
+- Market Flow + Assessment and Recomendations на основе Knowledge Base -> оценка строится на базе источников (хорошо);
+- Market Flow + Assessment and Recomendations на основе Knowledge Base + eval → оценка строится на базе источников и есть метрика работы системы (отлично).
 
 ### 2.1. Helicopter view
 
-Высокоуровневая карта: две группы артефактов и поток ценности к итоговой рекомендации. Подробности — в §3 (артефакты), §4 (полная модель связей).
+Высокоуровневая карта: три модуля — два входных (Market Flow, Knowledge Base) и один выходной (Assessment and Recomendations). Поток ценности — от двух источников к итоговой рекомендации. Подробности — в §3 (артефакты), §4 (полная модель связей).
 
 ```mermaid
 flowchart LR
@@ -67,19 +68,26 @@ flowchart LR
         KB1 -- "разметка вопрос-ответ (E2-2)" --> KB3
     end
 
-    MF -. "конкретика кейса" .-> OUT[["Отчёт / рекомендации"]]
-    KB -. "критерии и требования" .-> OUT
-    KB3 -. "регрессия качества (E2-6)" .-> OUT
+    subgraph AR["Assessment and Recomendations<br/>(выход системы)"]
+        direction TB
+        AR1["AlignmentReport<br/>(aligned / partial / missing)"]
+        AR2["Recommendation[]<br/>(сгруппированы по category)"]
+    end
+
+    MF -. "конкретика кейса" .-> AR
+    KB -. "критерии и требования" .-> AR
+    KB3 -. "регрессия качества (E2-6)" .-> AR
 ```
 
-Различия двух групп при беглом сравнении:
+Различия трёх модулей при беглом сравнении:
 
-| Группа | Что это | Кто меняет | Скорость изменения | Пример |
+| Модуль | Что это | Кто меняет | Скорость изменения | Пример |
 |--------|---------|------------|--------------------|--------|
 | **Market Flow** | Путь конкретного кандидата по рынку найма | Сам кандидат через события (E1) | Высокая — каждое событие | Профиль, заявка на Avito, раунд 2 поведенческого интервью с транскриптом |
 | **Knowledge Base** | Общее знание о рынке: курируемый корпус и извлечённые рубрики/требования | Курация и обработка корпуса (E2) | Низкая — медленно растёт от добавления источников | Рубрика behavioral-интервью, типовые вопросы для DA-junior |
+| **Assessment and Recomendations** | Выход системы: матчинг MF×KB → отчёт + рекомендации | Матчинг и формирование отчёта (E3) | Производный: пересчитывается на каждый раунд | `AlignmentReport` по конкретному раунду + `Recommendation[]` с цитатами |
 
-Замечание: одна и та же сущность (например, JD на роль DA Senior) встречается в обеих группах **по-разному**. Конкретный JD на вакансию Avito, на которую подался Anton, — Market Flow (он привязан к заявке). А типовой профиль роли «DA Senior», агрегированный из 10 mock-интервью, — Knowledge Base. Разделение по ownership/привязке, а не по «сущность объективная или субъективная».
+Замечание: одна и та же сущность (например, JD на роль DA Senior) встречается в Market Flow и Knowledge Base **по-разному**. Конкретный JD на вакансию Avito, на которую подался Anton, — Market Flow (он привязан к заявке). А типовой профиль роли «DA Senior», агрегированный из 10 mock-интервью, — Knowledge Base. Разделение по ownership/привязке, а не по «сущность объективная или субъективная».
 
 ## 3. Артефакты
 
@@ -100,15 +108,15 @@ flowchart LR
 - **Курируемый корпус (CuratedCorpus)** — внешние материалы: гайды, mock-интервью с YouTube, курсы (Карпов и т.п.).
 - **Требования (Requirements)** — типовые ожидания по ролям, извлечённые/реконструированные из корпуса (hard/soft skill lists).
 - **Рубрика (Rubric)** — структурированные критерии оценки ответа на тип вопроса.
-- **AssessmentItem** — единица разметки и оценки, выведенная из конкретного эпизода `CuratedCorpus` (вопрос-ответ из mock-интервью). Поля: `question` (LinkedText), `candidate_answer` (LinkedText), `expected_answer` (текст, может быть пустым для open questions), `type` ∈ {hard_skill, soft_skill, behavioral}, `llm_score` (оценка модели по критериям §3.2), `human_comment` (опциональный комментарий разметчика).
+- **AssessmentItem** — единица разметки и оценки, выведенная из конкретного эпизода `CuratedCorpus` (вопрос-ответ из mock-интервью). Поля: `question` (LinkedText), `candidate_answer` (LinkedText), `expected_answer` (текст, может быть пустым для open questions), `type` ∈ {hard_skill, soft_skill, behavioral}, `llm_score` (оценка модели по критериям §3.2), `human_comment` (опциональный комментарий разметчика), `state` ∈ {extracted, llm_scored, validated} — текущий этап жизненного цикла (см. §4.2.1).
 - **Размеченный датасет (EvalDataset)** — коллекция `AssessmentItem` с человеческой разметкой; используется для автоматической оценки качества (§7, E2-6).
 
-**Выход системы**:
+**Assessment and Recomendations** (AR — выход системы, см. §2):
 - **Отчёт (AlignmentReport)** — структурированный артефакт: aligned / partial / missing, цитаты, набор `Recommendation`.
 - **Рекомендация (Recommendation)** — единица того, что система советует кандидату. Поля: `category` ∈ {hard_skill, soft_skill, behavioral, общая}, `signal_source` ∈ {CV, Transcript, JD, Feedback}, `text` (формулировка), `evidence` (список LinkedText), `confidence` (оценка по критериям §3.2). Без явного определения этой сущности невозможно сформулировать критерии оценки качества (фидбэк ментора 2026-04-30: «от этого исходит всё остальное, в том числе оценка»).
 
-**Общие value-objects** (не принадлежат ни одной группе, используются обеими):
-- **LinkedText** — `{text, transcript_time}`. Цитата с привязкой к таймкоду в транскрипте. Используется в `Recommendation.evidence` (Output) и в `AssessmentItem` (KB).
+**Общие value-objects** (не принадлежат ни одному модулю, используются несколькими):
+- **LinkedText** — `{text, transcript_time}`. Цитата с привязкой к таймкоду в транскрипте. Используется в `Recommendation.evidence` (AR) и в `AssessmentItem` (KB).
 
 ### 3.1. Матрица заполненности
 
@@ -139,9 +147,9 @@ flowchart LR
 
 - **§4.1** — интра-структура **Market Flow**;
 - **§4.2** — интра-структура **Knowledge Base** (включая Eval-артефакты `AssessmentItem`, `EvalDataset` — они KB по природе данных: общие, выводятся из `CuratedCorpus`);
-- **§4.3** — **матчинг** через `AlignmentReport` (единственное место, где обе группы встречаются).
+- **§4.3** — модуль **Assessment and Recomendations** (AR) — единственное место, где MF и KB встречаются и сшиваются в `AlignmentReport` + `Recommendation[]`.
 
-Ключевой инвариант (см. §2): между §4.1 и §4.2 нет стрелок ни в одну сторону. Они встречаются только в §4.3.
+Ключевой инвариант (см. §2): между §4.1 и §4.2 нет стрелок ни в одну сторону. Они встречаются только в §4.3 (AR).
 
 Замечание про изоляцию Eval-вызова: требование ментора («дело не в том, чтобы это были разные архитектуры, а чтобы контекст не шарили») — это **операционная** изоляция LLM-вызова (отдельный промпт, отдельное окно контекста), а не структурная изоляция артефактов. Артефакты `AssessmentItem`/`EvalDataset` остаются в KB; операционные требования к их использованию — в E2-6 (§7).
 
@@ -231,6 +239,7 @@ classDiagram
         type [hard_skill|soft_skill|behavioral]
         llm_score
         human_comment
+        state [extracted|llm_scored|validated]
     }
     class EvalDataset {
         items : AssessmentItem[]
@@ -246,25 +255,32 @@ classDiagram
 
 Корпус — источник всего: рубрики, требования и Eval-айтемы — производные. Все стрелки замкнуты внутри Knowledge Base. Operational-аспект использования `EvalDataset` (отдельная дешёвая модель, изолированный контекст) — в E2-6 (§7), не в концептуальной модели.
 
-### 4.3. Матчинг через AlignmentReport
+#### 4.2.1. State machine `AssessmentItem`
 
-`AlignmentReport` — единственная точка встречи двух групп. Подписи `(MF)` и `(KB)` показывают, откуда тянется каждая ссылка. `Recommendation` вынесена явно — она и есть основной интересующий пользователя выход (см. §3 и фидбэк ментора).
+Каждый `AssessmentItem` проходит через три состояния по мере наполнения KB. Стартовое — `extracted` (айтем выделен из `CuratedCorpus`, заполнены `question` / `candidate_answer` / `type`); `llm_scored` — добавлен `llm_score` по §3.2; терминальное — `validated` — добавлен `human_comment`, айтем пригоден для регрессии E2-6.
+
+Триггеры переходов выражены через эпики/истории, не через имена реализационных компонентов (компоненты — в [[arch_agents]]).
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> extracted : выделение из CuratedCorpus (E2-2 «Разметочный датасет»)
+    extracted --> llm_scored : присвоен llm_score по §3.2 (E2-6 «Контроль качества»)
+    llm_scored --> validated : добавлен human_comment (E2-2)
+```
+
+Поле `AssessmentItem.state` явно отражает текущий этап. Без него невозможно отличить «свежевыделенный» айтем от «оценённого моделью» от «провалидированного человеком» — а это ключ для метрик E2-6 (регрессия только на `validated` подмножестве).
+
+### 4.3. Assessment and Recomendations (AR)
+
+Модуль AR — единственная точка встречи Market Flow и Knowledge Base. Содержит два артефакта-выхода: `AlignmentReport` и `Recommendation`. Подписи `(MF)` и `(KB)` на внешних классах показывают, откуда тянется каждая ссылка. `Recommendation` вынесена явно — она и есть основной интересующий пользователя выход (см. §3 и фидбэк ментора).
+
+Диаграмма ориентирована top-down (как §2.1): источники сверху (MF, KB), AR — внизу. Стрелки читаются как **поток данных** в AR: что в него попадает и в каком качестве.
 
 ```mermaid
 classDiagram
-    direction LR
+    direction TB
 
-    class AlignmentReport {
-        strengths
-        gaps
-    }
-    class Recommendation {
-        category [hard_skill|soft_skill|behavioral|общая]
-        signal_source [CV|Transcript|JD|Feedback]
-        text
-        evidence : LinkedText[]
-        confidence
-    }
     class ExperienceProfile["ExperienceProfile (MF)"]
     class JobDescription["JobDescription (MF)"]
     class InterviewTranscript["InterviewTranscript (MF)"]
@@ -272,21 +288,37 @@ classDiagram
     class Requirements["Requirements (KB)"]
     class Rubric["Rubric (KB)"]
 
-    AlignmentReport "1" --> "1" ExperienceProfile : evaluates
-    AlignmentReport "1" ..> "0..1" JobDescription : matches_against
-    AlignmentReport "1" ..> "0..1" InterviewTranscript : may_use
-    AlignmentReport "1" ..> "0..1" Feedback : may_use
-    AlignmentReport "1" ..> "1..*" Requirements : applies
-    AlignmentReport "1" ..> "1..*" Rubric : applies
+    namespace AssessmentAndRecomendations {
+        class AlignmentReport {
+            strengths
+            gaps
+        }
+        class Recommendation {
+            category [hard_skill|soft_skill|behavioral|общая]
+            signal_source [CV|Transcript|JD|Feedback]
+            text
+            evidence : LinkedText[]
+            confidence
+        }
+    }
+
+    ExperienceProfile "1" --> "1" AlignmentReport : subject
+    JobDescription "0..1" ..> "1" AlignmentReport : target
+    InterviewTranscript "0..1" ..> "1" AlignmentReport : analyzed_text
+    Feedback "0..1" ..> "1" AlignmentReport : signal
+    Requirements "1..*" ..> "1" AlignmentReport : criteria
+    Rubric "1..*" ..> "1" AlignmentReport : criteria
     AlignmentReport "1" --> "*" Recommendation : produces
-    Recommendation "*" ..> "1..*" Requirements : grounded_in
-    Recommendation "*" ..> "0..1" Rubric : grounded_in
-    Recommendation "*" ..> "1" ExperienceProfile : derived_from
-    Recommendation "*" ..> "0..1" InterviewTranscript : derived_from
-    Recommendation "*" ..> "0..1" Feedback : derived_from
+    Requirements "1..*" ..> "*" Recommendation : grounding
+    Rubric "0..1" ..> "*" Recommendation : grounding
+    ExperienceProfile "1" ..> "*" Recommendation : context
+    InterviewTranscript "0..1" ..> "*" Recommendation : evidence
+    Feedback "0..1" ..> "*" Recommendation : evidence
 ```
 
-Сплошная стрелка (`evaluates` к `ExperienceProfile`, `produces` к `Recommendation`) — обязательная зависимость отчёта; пунктирные — опциональные/применяемые в зависимости от заполненности матрицы (см. §3.1).
+Сплошная стрелка (`subject` от `ExperienceProfile`, `produces` к `Recommendation`) — обязательная зависимость отчёта; пунктирные — опциональные/применяемые в зависимости от заполненности матрицы (см. §3.1).
+
+`Recommendation` сама по себе не имеет состояний: она производится `AlignmentReport`-ом одномоментно. Жизненный цикл со стадиями есть у `AssessmentItem` (KB, см. §4.2.1) — именно он накапливает `llm_score` и `human_comment` поэтапно и используется в регрессии E2-6.
 
 ## 5. Сценарии использования
 
@@ -299,11 +331,11 @@ classDiagram
 
 ## 6. Эпики
 
-| ID | Группы | Эпик | Граница ответственности |
+| ID | Модуль | Эпик | Граница ответственности |
 |----|--------|------|-------------------------|
 | **E1** | MF | Market Flow | привязка артефактов кейса к раунду интервью (транскрипт, фидбэк); создание профиля и регистрация заявки — prerequisite (см. §1.1) |
 | **E2** | KB | Knowledge Base | курация источников, разметка `EvalDataset`, извлечение/реконструкция требований и рубрик, контроль качества (Eval) |
-| **E3** | MF + KB | Матчинг и рекомендации | связка Market Flow и Knowledge Base в `AlignmentReport`, формирование и представление `Recommendation[]` |
+| **E3** | AR | Assessment and Recomendations | связка Market Flow и Knowledge Base в `AlignmentReport`, формирование и представление `Recommendation[]` |
 
 ## 7. User stories
 
@@ -358,7 +390,7 @@ classDiagram
 - [ ] терминологическая оговорка: ментор отметил различие между Eval (регрессия на отложенном датасете) и LLM-as-judge (модель-судья оценивает выход в момент исполнения) и сам пометил, что не эксперт — конкретный механизм фиксируем в §9 как открытый
 
 
-### E3. Матчинг, рекомендации, контроль качества
+### E3. Assessment and Recomendations (матчинг, рекомендации, контроль качества)
 
 **E3-4 «Отчёт по интервью» (ядро MVP).** Как кандидат, я хочу получить структурированный отчёт по конкретному раунду интервью (transcript + профиль + опц. JD + опц. feedback), чтобы понять, что было сильно и что просело.
 - [ ] секции отчёта: aligned / partial / missing относительно `Requirements` из Knowledge Base + `JD` из Market Flow
