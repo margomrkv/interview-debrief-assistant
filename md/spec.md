@@ -37,7 +37,7 @@ author: claude-code-claude-opus-4-7
 
 Ценность ассистента — в **матчинге** на выходе: применить рубрики и требования из Knowledge Base к текущему состоянию Market Flow и получить персонализированный отчёт или рекомендацию.
 
-Прогрессия зрелости:
+### 2.0 Прогрессия зрелости:
 - только Market Flow + Assessment and Recomendations на знаниях агента (полезно);
 - Market Flow + Assessment and Recomendations на основе Knowledge Base -> оценка строится на базе источников (хорошо);
 - Market Flow + Assessment and Recomendations на основе Knowledge Base + eval → оценка строится на базе источников и есть метрика работы системы (отлично).
