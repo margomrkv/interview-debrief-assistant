@@ -1,12 +1,13 @@
 ---
 title: Архитектура модуля Assessment and Recomendations (E3-4)
 status: draft
-date: 2026-05-04
+date: 2026-05-06
 author: claude-code-claude-opus-4-7
 source:
   - md/spec.md
   - md/billing.md
   - .claude/skills/feedback-report/SKILL.md
+  - internal-notes/2026-05-06_Architecture_meeting.txt
 ---
 
 ## 1. Контекст и место в системе
@@ -18,7 +19,7 @@ source:
 - **arch_agents** (этот документ) — внутренняя декомпозиция AR на агенты и детерминированные компоненты, контракты между ними, runtime-выбор, фазированная миграция от текущего монолитного скилла.
 - [[feedback-report SKILL]] — текущая монолитная реализация AR (E3-4); источник правил Q&A extraction и scoring rubric, которые мы выносим.
 
-3-стадийный pipeline, описанный ниже, — это и есть AR-модуль изнутри: «как» он физически собирает свои артефакты (`AlignmentReport`, `Recommendation[]`) из кейса кандидата (MF) и — в будущем — рубрик/требований корпуса (KB).
+3-стадийный pipeline, описанный ниже, — это и есть AR-модуль изнутри: «как» он физически собирает свой выход (`AssessmentItem[]` + минимальный `AlignmentReport` с `verdict ∈ {HIRE, NO_HIRE}`, см. [[spec]] §3) из кейса кандидата (MF) и — опционально — рубрик/требований корпуса (KB). Расширенный отчёт (`AssessmentTopic`, `Recommendation[]`, `P(HIRE)`) — postponed, см. [[requirements_postponed]] §5.
 
 ## 2. Ключевые решения
 
@@ -31,7 +32,7 @@ AR-модуль реализуется как **orchestrator-workers** pipeline 
 **Why:**
 - Модульность как ценность сильнее, чем cost-optimization на горизонте MVP (CLAUDE.md принцип 7: loose coupling / high cohesion).
 - Менторское требование операционной изоляции LLM-вызовов ([[spec]] §4 invariant + E2-6): каждый агент = свой контекст, свой промпт, свой возможный размер модели.
-- Контракты между агентами становятся явными артефактами (`AssessmentItem`, `ScoredAssessmentItem`), что упрощает Eval (E2-6) и тестирование.
+- Контракты между агентами становятся явными артефактами (`QA`, `AssessmentItem` — терминология после ревизии 2026-05-06, см. [[spec]] §3), что упрощает Eval (E2-6) и тестирование.
 
 **Tradeoff:** больше LLM-вызовов на одно интервью (5–10 вместо 1), выше cost. Покрывается выбором runtime (см. 2.2).
 
@@ -46,7 +47,7 @@ AR-модуль живёт внутри Claude Code (skill + subagents в `.clau
 
 **Tradeoff («перевёрнутая вселенная»):** оркестратор — LLM, не код, поэтому детерминизм слабее, чем в LangGraph state-machine. Лечится явным protocol в системном промпте orchestrator'а. Производственный SaaS-деплой откладывается; для защиты курса этого хватает.
 
-**Migration safety net:** контракты (`AssessmentItem`, `ScoredAssessmentItem`, `AlignmentReport`) — обычные dataclass-shaped JSON, переносимые на Agent SDK / LangGraph 1:1. То есть Claude Code сейчас не блокирует production потом.
+**Migration safety net:** контракты (`QA`, `AssessmentItem`, `AlignmentReport` — терминология [[spec]] §3) — обычные dataclass-shaped JSON, переносимые на Agent SDK / LangGraph 1:1. То есть Claude Code сейчас не блокирует production потом. Postponed-расширения (`AssessmentTopic`, `Recommendation`, `P(HIRE)`) — добавятся как новые dataclass'ы без слома существующих.
 
 ## 3. Концепт: агент ≠ детерм. компонент
 
@@ -70,20 +71,21 @@ AR-модуль живёт внутри Claude Code (skill + subagents в `.clau
 
 | Компонент | Тип | Где живёт | Роль в AR |
 |---|---|---|---|
-| **Splitter** | агент (LLM, subagent) | `.claude/agents/splitter.md` | стадия ① — extraction `AssessmentItem[]` |
-| **eval-hard** | агент (LLM, subagent) | `.claude/agents/eval-hard.md` | стадия ② — scoring hard-skill items |
-| **eval-soft** | агент (LLM, subagent) | `.claude/agents/eval-soft.md` | стадия ② — scoring soft-skill items |
-| **eval-behavioral** | агент (LLM, subagent; MVP-заглушка) | `.claude/agents/eval-behavioral.md` | стадия ② — scoring behavioral items |
-| **Aggregator** | агент (LLM, orchestrator-сессия) | `.claude/skills/feedback-report/SKILL.md` | стадия ③ — JD rollup, `Recommendation[]`, verdict |
+| **Splitter** | агент (LLM, subagent) | `.claude/agents/splitter.md` | стадия ① — extraction `QA[]` ([[spec]] §3, ревизия 06-05) |
+| **eval-hard** | агент (LLM, subagent) | `.claude/agents/eval-hard.md` | стадия ② — assessor для hard-skill QA → `AssessmentItem` |
+| **eval-soft** | агент (LLM, subagent) | `.claude/agents/eval-soft.md` | стадия ② — assessor для soft-skill QA → `AssessmentItem` |
+| **eval-behavioral** | агент (LLM, subagent; MVP-заглушка) | `.claude/agents/eval-behavioral.md` | стадия ② — assessor для behavioral QA → `AssessmentItem` (с STAR + Amazon SPID, см. [[assessors]]) |
+| **Aggregator** | агент (LLM, orchestrator-сессия) | `.claude/skills/feedback-report/SKILL.md` | стадия ③ — минимальный rollup `AssessmentItem[]` → `AlignmentReport` (verdict + items), markdown-render. Topic-rollup, Recommendation, P(HIRE) — postponed. |
 | **KBRetriever** | детерм. компонент (Python, без LLM) | `tools/kb_retriever.py` | cross-cutting read из KB (rubric, similar items) |
 | **EvalLogger** | детерм. компонент (Python, без LLM) | `tools/eval_logger.py` | cross-cutting write в logs/ |
+| **HighlighterRenderer** | детерм. компонент (Python, без LLM) | `tools/highlighter.py` | визуальная регрессия Splitter ([[spec]] §7 E2-6 ревизия 06-05): раскраска transcript.txt по разбивке на `QA.question` / `QA.candidate_answer` / отброшенные сегменты. HTML/markdown за <5 сек. |
 | **Skill boilerplate** | детерм. код (без LLM) | Шаги 0, 1, 6, 7 в SKILL.md | parse args / validate / self-check / write file — плумбинг вокруг AR |
 
-Принципиальное: Aggregator — **единственный агент, живущий в orchestrator-сессии**, не в subagent. Причина — нужен глобальный взгляд на все `ScoredAssessmentItem` (см. §4.1). Все детерминированные компоненты вызываются стадиями через Bash tool без LLM-кружочка.
+Принципиальное: Aggregator — **единственный агент, живущий в orchestrator-сессии**, не в subagent. Причина — нужен глобальный взгляд на все `AssessmentItem` (см. §4.1) для калибровки общего `verdict ∈ {HIRE, NO_HIRE}` в `AlignmentReport` ([[spec]] §3). Все детерминированные компоненты вызываются стадиями через Bash tool без LLM-кружочка.
 
 ## 4. Декомпозиция
 
-Симметрия декомпозиции: **MF слева, AR в центре, KB справа** — AR-модуль (3 LLM-стадии + терминальные артефакты) сшивает кейс кандидата (MF) с общим знанием (KB) и отдаёт `AlignmentReport` + `Recommendation[]` ([[spec]] §2, §3). KBRetriever и EvalLogger — два cross-cutting компонента-шлюза: первый читает из KB, второй пишет в logs.
+Симметрия декомпозиции: **MF слева, AR в центре, KB справа** — AR-модуль (3 LLM-стадии + терминальные артефакты) сшивает кейс кандидата (MF) с общим знанием (KB) и отдаёт `AssessmentItem[]` + минимальный `AlignmentReport` (verdict + items) ([[spec]] §2, §3). KBRetriever и EvalLogger — два cross-cutting компонента-шлюза: первый читает из KB, второй пишет в logs.
 
 Цветовая кодировка ниже: **оранжевые узлы** — LLM-агенты (недетерминированные); **голубые** — детерминированные компоненты/код; нейтральные — данные на границах (MF, KB, артефакты).
 
@@ -104,9 +106,9 @@ flowchart LR
         ST1["① Split<br/>(subagent)"]
         ST2["② Evaluate<br/>(subagent × type)"]
         ST3["③ Aggregate<br/>(orchestrator)"]
-        OUT["AlignmentReport + Recommendation[]<br/>→ feedback-report.&lt;mode&gt;.md"]
-        ST1 -- "AssessmentItem[]" --> ST2
-        ST2 -- "ScoredAssessmentItem[]" --> ST3
+        OUT["AssessmentItem[] + AlignmentReport.verdict<br/>→ feedback-report.&lt;mode&gt;.md"]
+        ST1 -- "QA[]" --> ST2
+        ST2 -- "AssessmentItem[]" --> ST3
         ST3 --> OUT
     end
 
@@ -140,69 +142,91 @@ flowchart LR
 
 | # | Стадия | Где живёт | Input | Output | Source в монолите |
 |---|---|---|---|---|---|
-| ① | **Split** | `.claude/agents/splitter.md` | transcript.txt + speaker rules | `AssessmentItem[]` (без score) | Шаги 2, 3 |
-| ② | **Evaluate** | `.claude/agents/eval-{hard,soft,behavioral}.md` | `AssessmentItem` + rubric + similar items | `ScoredAssessmentItem` | Шаг 4 |
-| ③ | **Aggregate** | `.claude/skills/feedback-report/SKILL.md` (главная сессия) | `ScoredAssessmentItem[]` + JD + (опц.) feedback | `AlignmentReport` + verdict | Шаги 5, 5.5 |
+| ① | **Split** | `.claude/agents/splitter.md` | transcript.txt + speaker rules | `QA[]` (без оценки) | Шаги 2, 3 |
+| ② | **Evaluate** (assessor) | `.claude/agents/eval-{hard,soft,behavioral}.md` | `QA` + rubric + similar items | `AssessmentItem` (с `assessor_kind=ai`, `score`, `expected_answer`, `comment`) | Шаг 4 |
+| ③ | **Aggregate** | `.claude/skills/feedback-report/SKILL.md` (главная сессия) | `AssessmentItem[]` + JD + (опц.) feedback | минимальный `AlignmentReport` (`verdict ∈ {HIRE, NO_HIRE}` + `items`) + markdown-render | Шаги 5, 5.5 |
 
-«Где живёт» — это и есть выбор runtime: первые две стадии вынесены в субагенты ради изоляции контекста, третья остаётся в orchestrator'е, потому что нуждается в **глобальном взгляде** на все `ScoredAssessmentItem` (cross-question patterns, JD-rollup, verdict calibration). Subagent на этом месте просто скопирует контекст без выгоды.
+«Где живёт» — это и есть выбор runtime: первые две стадии вынесены в субагенты ради изоляции контекста, третья остаётся в orchestrator'е, потому что нуждается в **глобальном взгляде** на все `AssessmentItem` (cross-question patterns, verdict calibration). Subagent на этом месте просто скопирует контекст без выгоды.
 
 Боилерплейт скилла (parse args, validate files, self-check, write file — Шаги 0, 1, 6, 7 монолита) живёт в orchestrator вокруг AR-модуля, не как отдельные стадии — это плумбинг, не LLM-работа.
 
 ### 4.2. Cross-cutting компоненты (детерминированные)
 
-Симметричная пара: один читает из KB, другой пишет в logs. Без LLM, реализуются как Python-скрипты, вызываются стадиями через Bash tool.
+Три компонента-шлюза: один читает из KB, второй пишет в logs, третий рендерит визуальную регрессию. Без LLM, реализуются как Python-скрипты, вызываются стадиями (или offline) через Bash tool.
 
 | Компонент | Где живёт | Сигнатура | Используется стадиями | Источник в монолите |
 |---|---|---|---|---|
 | **KBRetriever** | `tools/kb_retriever.py` | `get_rubric(type)`, `find_similar(question, k=3)` | ② Evaluate | новое (Phase 3) |
 | **EvalLogger** | `tools/eval_logger.py` | `log(stage, input, output, model, latency)` | ①, ②, ③ | новое (Phase 2/3) |
+| **HighlighterRenderer** | `tools/highlighter.py` | `render(transcript_path, qa_items) -> html` | offline (валидация Splitter) | новое (Phase 1, [[spec]] §7 E2-6 ревизия 06-05) |
 
 ## 5. Контракты
 
 Три типа на границах между узлами. JSON-сериализуемые dataclasses, чтобы переносились между runtime'ами (Claude Code → Agent SDK / LangGraph) без изменений.
 
-### 5.1. AssessmentItem (выход Splitter)
+### 5.1. QA (выход Splitter)
 
-Определён в [[spec]] §3 как bare extraction-айтем. Splitter заполняет ровно три поля: `question`, `candidate_answer`, `type` (tentative — Evaluator может уточнить). На выходе Splitter — `state = extracted`.
+Определён в [[spec]] §3 (ревизия 06-05) как сырая пара вопрос-ответ с классификацией, без оценки. Splitter заполняет все классификационные поля; `type` / `interview_stage` / `topic_tag` могут быть tentative — Evaluator на стадии ② может уточнить.
+
+```yaml
+QA:
+  question: LinkedText
+  candidate_answer: LinkedText
+  type: hard_skill | soft_skill | behavioral
+  interview_stage: hr_screening | tech_qa | tech_coding | tech_case | system_design | behavioral | manager_round
+  topic_tag: str   # открытый список: experimentation, modeling, system_design, soft_communication, behavioral_situations, ...
+```
+
+`QA` — то, что раньше называлось `AssessmentItem` со `state = extracted`. Поле `state` удалено: «состояние» теперь = тип класса (см. [[spec]] §4.2.1).
+
+### 5.2. AssessmentItem (выход Evaluator)
+
+Определён в [[spec]] §3 (ревизия 06-05) как оценка одного `QA` конкретным assessor'ом. Evaluator получает `QA` и возвращает `AssessmentItem` с `assessor_kind = ai`, заполненной структурой `Score` (определена в [[assessors]]), `expected_answer` и `comment`. Дополнительно Evaluator выдаёт производные поля для агрегации (см. SKILL Шаг 4) — они хранятся на implementation-уровне рядом с контрактом.
 
 ```yaml
 AssessmentItem:
-  question: LinkedText
-  candidate_answer: LinkedText
-  type: hard_skill | soft_skill | behavioral
-  state: extracted   # → llm_scored / validated на следующих стадиях, см. spec §4.2.1
-```
+  qa: QA   # ссылка на исходный QA (или inline для удобства pipeline'а)
+  assessor_kind: ai | human
+  assessor_name: str   # например, "eval-hard@2026-05-06" или "anton"
+  score:
+    # generic (любой type, см. [[assessors]])
+    question_fit: bool
+    focus: bool
+    clarity: 0..3
+    completeness: 0..3
+    factual_correctness: 0..3
+    # behavioral-only (только при qa.type = behavioral, см. [[assessors]])
+    star: { s: bool, t: bool, a: bool, r: bool } | null
+    amazon_spid:
+      scope: 0..3
+      personal_contribution: 0..3
+      impact: 0..3
+      difficulty: 0..3
+    # null для не-behavioral
+  expected_answer: text   # эталон; может быть пустым для open questions
+  comment: text   # 2-3 предложения assessor'а
 
-### 5.2. ScoredAssessmentItem (выход Evaluator)
-
-Определён в [[spec]] §3 как расширение `AssessmentItem` симметричной парой эталон+оценка. Evaluator получает `AssessmentItem` и возвращает `ScoredAssessmentItem` с заполненными `expected_answer` и `llm_score` (state переходит `extracted → llm_scored`). Дополнительно Evaluator выдаёт производные поля для агрегации (см. SKILL Шаг 4) — они хранятся на implementation-уровне рядом с контрактом.
-
-```yaml
-ScoredAssessmentItem:
-  # унаследовано от AssessmentItem
-  question: LinkedText
-  candidate_answer: LinkedText
-  type: hard_skill | soft_skill | behavioral
-  state: llm_scored   # validated после добавления human_comment
-  # симметричная пара эталон+оценка (spec §3)
-  expected_answer: text
-  llm_score:
-    clarity: 1 | 2 | 3
-    completeness: 1 | 2 | 3
-    factual_correctness: 1 | 2 | 3
-  human_comment: text | null   # null на этапе llm_scored, заполняется при валидации
   # производные поля Evaluator'а (implementation-уровень, не в spec)
   aggregate: strong | adequate | weak | missing   # ярлык, см. SKILL Шаг 4
   weakness_kind: vague | off-topic | factual_error | incomplete | null
-  rationale: text                                  # one-line обоснование
-  our_comment: text                                # 2-3 предложения
+  rationale: text   # one-line обоснование aggregate-ярлыка
 ```
 
-Имя `our_comment` (не `human_comment`) сохраняется — `human_comment` в [[spec]] §3 зарезервировано за разметкой `EvalDataset` человеком, тогда как `our_comment` — это comment, который генерирует сам Evaluator-агент рядом со score.
+Поле `comment` ([[spec]] §3) — комментарий самого assessor'а; не путать с `Evaluation.comment` ([[spec]] §3, judge-уровень для EvalDataset).
 
-### 5.3. AlignmentReport (выход Aggregator)
+### 5.3. AlignmentReport (финальный выход Aggregator)
 
-Уже определён в [[spec]] §3 и §4.3. Aggregator собирает из `ScoredAssessmentItem[]`: JD checklist, `aligned/partial/missing` rollup, `Recommendation[]` (сгруппирован по `category`), и в blind-режиме — verdict + P(HIRE).
+Минимальный rollup `AssessmentItem[]`, определён в [[spec]] §3.
+
+```yaml
+AlignmentReport:
+  verdict: HIRE | NO_HIRE   # только blind-режим; в with-feedback не выводится (см. SKILL Шаг 5.5)
+  items: AssessmentItem[]
+```
+
+Правило вычисления `verdict` (Aggregator-агентом, на знаниях модели по всему набору `items`): фиксируется в SKILL Шаг 5.5; стартовая эвристика — «есть ≥1 `aggregate ∈ {weak, missing}` среди критичных вопросов → NO_HIRE, иначе HIRE». Точное правило — открытый вопрос (см. §9).
+
+**Postponed (`AssessmentTopic`, `Recommendation[]`, `P(HIRE)`, `topic_assessments`, `strengths_summary` / `gaps_summary`)** — см. [[requirements_postponed]] §5. Контракт `AlignmentReport` расширяется новыми полями без слома существующих.
 
 ## 6. Mapping на текущий feedback-report
 
@@ -215,8 +239,8 @@ ScoredAssessmentItem:
 | Шаг 2 (read + speaker rules) | → **splitter** system prompt | 1 |
 | Шаг 3 (Q&A extraction, dedup, filters) | → **splitter** system prompt | 1 |
 | Шаг 4 (per-item type+score+expected+comment) | → **eval-{type}** system prompts | 2 |
-| Шаг 5 (JD rollup, recommendations) | остаётся в orchestrator | — |
-| Шаг 5.5 (verdict, P(HIRE)) | остаётся в orchestrator | — |
+| Шаг 5 (rollup `AssessmentItem[]` → markdown) | остаётся в orchestrator (упрощён: JD-rollup + Recommendation[] postponed) | — |
+| Шаг 5.5 (verdict HIRE/NO_HIRE) | остаётся в orchestrator (упрощён: P(HIRE) postponed) | — |
 | Шаг 6 (self-check) | остаётся в orchestrator | — |
 | Шаг 7 (write file) | остаётся в orchestrator | — |
 
@@ -229,7 +253,7 @@ ScoredAssessmentItem:
 ### Phase 1 — выносим Splitter
 
 - создать `.claude/agents/splitter.md` с вшитыми правилами Шагов 2 + 3 текущего скилла;
-- выход — `AssessmentItem[]` (по [[spec]] §3 у этого типа нет `expected_answer` / `llm_score` по определению);
+- выход — `QA[]` ([[spec]] §3 ревизия 06-05; у этого типа нет `score` / `expected_answer` по определению);
 - скилл вызывает `Agent(subagent_type="splitter")`, остальное (Шаги 4–7) делает inline как раньше;
 - **acceptance:** на `[private]/avito-20251212` число Q-A пар и их `transcript_time` совпадают с текущим монолитом ±1 пара. Verbatim цитаты grep'абельны в transcript.txt.
 
@@ -245,7 +269,7 @@ ScoredAssessmentItem:
 - создать `tools/kb_retriever.py` с `get_rubric` / `find_similar`;
 - evaluators вызывают через Bash;
 - KB наполняется в рамках E2-3 «Эксплораторный анализ» и E2-2 «Разметочный датасет» ([[spec]] §7);
-- **acceptance:** few-shot из top-3 similar items улучшает agreement с `human_comment` на отложенном `EvalDataset`.
+- **acceptance:** few-shot из top-3 similar items улучшает agreement AI-`AssessmentItem` с human-`Evaluation` на отложенном `EvalDataset` ([[spec]] §4.2 ревизия 06-05).
 
 ### Phase 4 (post-MVP) — миграция runtime, если понадобится прод
 
@@ -261,6 +285,7 @@ ScoredAssessmentItem:
 - **Behavioral Evaluator с реальной рубрикой** — [[spec]] §8: behavioral как primary focus отложено; subagent существует как заглушка для единообразия dispatch.
 - **Streaming / pagination между агентами** — для 5–10 items на интервью не нужно.
 - **Кеширование результатов агентов** — на горизонте MVP не нужно; добавим, если cost станет видимым.
+- **AR-Advanced (`AssessmentTopic`, `Recommendation`, structured `AlignmentReport` с aligned/partial/missing rollup, `P(HIRE)`)** — postponed, см. [[requirements_postponed]] §5. Aggregator на стадии ③ выдаёт только минимальный `AlignmentReport` (verdict + items).
 
 ## 9. Открытые вопросы
 
@@ -268,6 +293,9 @@ ScoredAssessmentItem:
 - [ ] Параллельный dispatch evaluators в Claude Code: подтвердить эмпирически, что несколько `Agent` tool calls в одном сообщении действительно идут параллельно, не последовательно.
 - [ ] Mode (`blind` / `with-feedback`) — где живёт его propagation? Сейчас orchestrator знает; должен ли он передавать mode в каждого evaluator явным полем или агент остаётся mode-agnostic, а cross-check с feedback делается в orchestrator? Лежит ближе к Phase 2.
 - [ ] Versioning subagents для воспроизводимости Eval (E2-6): когда `.claude/agents/eval-hard.md` меняется, регрессионные результаты надо пере-прогонять. Механизм — git hash файла или явное `version: N` в frontmatter? Решение в Phase 3.
+- [ ] **Параметризация pipeline для S3 vs S4** ([[spec]] §5 ревизия 06-05): где хранится переключатель между «S3-режимом» (без JD, выход — пополнение KB) и «S4-режимом» (с JD, выход — `AlignmentReport` для пользователя)? CLI-флаг скилла, режим в frontmatter входной папки, или отдельный entry-point? Решение в Phase 2 после стабилизации Splitter.
+- [ ] **Splitter dedup / grouping политика** (тоже 06-05): дробление по умолчанию vs опциональная группировка похожих вопросов с явным маркером — какой контракт у `QA[]` на этот счёт? Acceptance Phase 1 уточнить.
+- [ ] **HIRE/NO_HIRE rule** (06-05, после выноса Advanced AR): по какому правилу Aggregator выводит `AlignmentReport.verdict`? Стартовая эвристика — «есть ≥1 weak/missing aggregate среди критичных вопросов → NO_HIRE, иначе HIRE» — но «критичные» нужно определить (по `QA.type` / `interview_stage` / topic_tag?). Точное правило фиксируем в SKILL Шаг 5.5; решение к Phase 2.
 
 ## 10. Связи
 
@@ -276,3 +304,4 @@ ScoredAssessmentItem:
 - [[feedback-report SKILL]] — `.claude/skills/feedback-report/SKILL.md` — текущий монолит, источник правил для Splitter/Evaluator.
 - [[requirements_postponed]] — `md/requirements_postponed.md` — что вынесено за MVP (S1, S2 сценарии).
 - [[2026-04-30_AMxMentor]] — `internal-notes/2026-04-30_AMxMentor.txt` — менторское требование операционной изоляции LLM-вызовов.
+- [[2026-05-06_Architecture_meeting]] — `internal-notes/2026-05-06_Architecture_meeting.txt` — архитектурная встреча с Маргаритой: переименование контрактов §5.1/§5.2 (`QA` / `AssessmentItem`), HighlighterRenderer как cross-cutting компонент (§3.1, §4.2). Промежуточный артефакт `AssessmentTopic` и расширения `AlignmentReport` последующим решением вынесены в [[requirements_postponed]] §5 для упрощения MVP.
