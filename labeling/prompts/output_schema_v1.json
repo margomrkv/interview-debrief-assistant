@@ -1,0 +1,140 @@
+{
+  "type": "object",
+  "required": ["source_id", "items", "summary"],
+  "properties": {
+    "source_id": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "question",
+          "answer",
+          "model_answer",
+          "question_type",
+          "topic_tag",
+          "interview_stage",
+          "question_fit",
+          "focus",
+          "clarity",
+          "clarity_label",
+          "completeness",
+          "completeness_label",
+          "accuracy",
+          "accuracy_label",
+          "STAR_S",
+          "STAR_T",
+          "STAR_A",
+          "STAR_R",
+          "SCID_S",
+          "SCID_S_label",
+          "SCID_C",
+          "SCID_C_label",
+          "SCID_I",
+          "SCID_I_label",
+          "SCID_D",
+          "SCID_D_label",
+          "notes_ai",
+          "feedback_interviewer",
+          "notes_user"
+        ],
+        "properties": {
+          "question": { "type": "string" },
+          "answer": { "type": "string" },
+          "model_answer": { "type": "string" },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "topic_tag": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "python",
+              "statistics",
+              "experimentation",
+              "product metrics",
+              "data modeling",
+              "communication",
+              "stakeholder management",
+              "prioritization",
+              "conflict",
+              "leadership",
+              "ownership",
+              "collaboration",
+              "adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          },
+          "question_fit": { "type": "integer", "enum": [0, 1] },
+          "focus": { "type": "integer", "enum": [0, 1] },
+          "clarity": { "type": "integer", "minimum": 0, "maximum": 3 },
+          "clarity_label": {
+            "type": "string",
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong"]
+          },
+          "completeness": { "type": "integer", "minimum": 0, "maximum": 3 },
+          "completeness_label": {
+            "type": "string",
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong"]
+          },
+          "accuracy": { "type": "integer", "minimum": 0, "maximum": 3 },
+          "accuracy_label": {
+            "type": "string",
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong"]
+          },
+
+          "STAR_S": { "type": ["integer", "null"], "enum": [0, 1, null] },
+          "STAR_T": { "type": ["integer", "null"], "enum": [0, 1, null] },
+          "STAR_A": { "type": ["integer", "null"], "enum": [0, 1, null] },
+          "STAR_R": { "type": ["integer", "null"], "enum": [0, 1, null] },
+
+          "SCID_S": { "type": ["integer", "null"], "minimum": 0, "maximum": 3 },
+          "SCID_S_label": {
+            "type": ["string", "null"],
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong", null]
+          },
+          "SCID_C": { "type": ["integer", "null"], "minimum": 0, "maximum": 3 },
+          "SCID_C_label": {
+            "type": ["string", "null"],
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong", null]
+          },
+          "SCID_I": { "type": ["integer", "null"], "minimum": 0, "maximum": 3 },
+          "SCID_I_label": {
+            "type": ["string", "null"],
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong", null]
+          },
+          "SCID_D": { "type": ["integer", "null"], "minimum": 0, "maximum": 3 },
+          "SCID_D_label": {
+            "type": ["string", "null"],
+            "enum": ["None / Fails", "Weak", "Adequate", "Strong", null]
+          },
+
+          "notes_ai": { "type": "string" },
+          "feedback_interviewer": { "type": ["string", "null"] },
+          "notes_user": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_items", "by_question_type", "by_interview_stage"],
+      "properties": {
+        "total_items": { "type": "integer" },
+        "by_question_type": { "type": "object" },
+        "by_interview_stage": { "type": "object" }
+      }
+    }
+  }
+}
