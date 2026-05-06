@@ -19,7 +19,7 @@ source:
 - **arch_agents** (этот документ) — внутренняя декомпозиция AR на агенты и детерминированные компоненты, контракты между ними, runtime-выбор, фазированная миграция от текущего монолитного скилла.
 - [[feedback-report SKILL]] — текущая монолитная реализация AR (E3-4); источник правил Q&A extraction и scoring rubric, которые мы выносим.
 
-3-стадийный pipeline, описанный ниже, — это и есть AR-модуль изнутри: «как» он физически собирает свой выход (`AssessmentItem[]` + минимальный `AlignmentReport` с `verdict ∈ {HIRE, NO_HIRE}`, см. [[spec]] §3) из кейса кандидата (CC) и — опционально — рубрик/требований корпуса (KB). Расширенный отчёт (`AssessmentTopic`, `Recommendation[]`, `P(HIRE)`) — postponed, см. [[requirements_postponed]] §5.
+3-стадийный pipeline, описанный ниже, — это и есть AR-модуль изнутри: «как» он физически собирает свой выход (`AssessmentItem[]` + минимальный `AlignmentReport` с `verdict ∈ {HIRE, NO_HIRE}` и `p_hire ∈ [0, 100]`, см. [[spec]] §3) из кейса кандидата (CC) и — опционально — рубрик/требований корпуса (KB). Расширенный отчёт (`AssessmentTopic`, `Recommendation[]`, `topic_assessments`, `strengths/gaps_summary`) — postponed, см. [[requirements_postponed]] §5.
 
 ## 2. Ключевые решения
 
@@ -47,7 +47,7 @@ AR-модуль живёт внутри Claude Code (skill + subagents в `.clau
 
 **Tradeoff («перевёрнутая вселенная»):** оркестратор — LLM, не код, поэтому детерминизм слабее, чем в LangGraph state-machine. Лечится явным protocol в системном промпте orchestrator'а. Производственный SaaS-деплой откладывается; для защиты курса этого хватает.
 
-**Migration safety net:** контракты (`QA`, `AssessmentItem`, `AlignmentReport` — терминология [[spec]] §3) — обычные dataclass-shaped JSON, переносимые на Agent SDK / LangGraph 1:1. То есть Claude Code сейчас не блокирует production потом. Postponed-расширения (`AssessmentTopic`, `Recommendation`, `P(HIRE)`) — добавятся как новые dataclass'ы без слома существующих.
+**Migration safety net:** контракты (`QA`, `AssessmentItem`, `AlignmentReport` — терминология [[spec]] §3) — обычные dataclass-shaped JSON, переносимые на Agent SDK / LangGraph 1:1. То есть Claude Code сейчас не блокирует production потом. Postponed-расширения (`AssessmentTopic`, `Recommendation`, `topic_assessments`, `strengths/gaps_summary`) — добавятся как новые dataclass'ы без слома существующих.
 
 ## 3. Концепт: агент ≠ детерм. компонент
 
@@ -75,17 +75,17 @@ AR-модуль живёт внутри Claude Code (skill + subagents в `.clau
 | **eval-hard** | агент (LLM, subagent) | `.claude/agents/eval-hard.md` | стадия ② — assessor для hard-skill QA → `AssessmentItem` |
 | **eval-soft** | агент (LLM, subagent) | `.claude/agents/eval-soft.md` | стадия ② — assessor для soft-skill QA → `AssessmentItem` |
 | **eval-behavioral** | агент (LLM, subagent; MVP-заглушка) | `.claude/agents/eval-behavioral.md` | стадия ② — assessor для behavioral QA → `AssessmentItem` (с STAR + Amazon SPID, см. [[assessors]]) |
-| **Aggregator** | агент (LLM, orchestrator-сессия) | `.claude/skills/feedback-report/SKILL.md` | стадия ③ — минимальный rollup `AssessmentItem[]` → `AlignmentReport` (verdict + items), markdown-render. Topic-rollup, Recommendation, P(HIRE) — postponed. |
+| **Aggregator** | агент (LLM, orchestrator-сессия) | `.claude/skills/feedback-report/SKILL.md` | стадия ③ — минимальный rollup `AssessmentItem[]` → `AlignmentReport` (verdict + p_hire + items), markdown-render. Topic-rollup, Recommendation, structured rollup — postponed. |
 | **KBRetriever** | детерм. компонент (Python, без LLM) | `tools/kb_retriever.py` | cross-cutting read из KB (rubric, similar items) |
 | **EvalLogger** | детерм. компонент (Python, без LLM) | `tools/eval_logger.py` | cross-cutting write в logs/ |
 | **HighlighterRenderer** | детерм. компонент (Python, без LLM) | `tools/highlighter.py` | визуальная регрессия Splitter ([[spec]] §7 E2-6 ревизия 06-05): раскраска transcript.txt по разбивке на `QA.question` / `QA.candidate_answer` / отброшенные сегменты. HTML/markdown за <5 сек. |
 | **Skill boilerplate** | детерм. код (без LLM) | Шаги 0, 1, 6, 7 в SKILL.md | parse args / validate / self-check / write file — плумбинг вокруг AR |
 
-Принципиальное: Aggregator — **единственный агент, живущий в orchestrator-сессии**, не в subagent. Причина — нужен глобальный взгляд на все `AssessmentItem` (см. §4.1) для калибровки общего `verdict ∈ {HIRE, NO_HIRE}` в `AlignmentReport` ([[spec]] §3). Все детерминированные компоненты вызываются стадиями через Bash tool без LLM-кружочка.
+Принципиальное: Aggregator — **единственный агент, живущий в orchestrator-сессии**, не в subagent. Причина — нужен глобальный взгляд на все `AssessmentItem` (см. §4.1) для калибровки общего `verdict ∈ {HIRE, NO_HIRE}` и `p_hire ∈ [0, 100]` в `AlignmentReport` ([[spec]] §3). Все детерминированные компоненты вызываются стадиями через Bash tool без LLM-кружочка.
 
 ## 4. Декомпозиция
 
-Симметрия декомпозиции: **CC слева, AR в центре, KB справа** — AR-модуль (3 LLM-стадии + терминальные артефакты) сшивает кейс кандидата (CC) с общим знанием (KB) и отдаёт `AssessmentItem[]` + минимальный `AlignmentReport` (verdict + items) ([[spec]] §2, §3). KBRetriever и EvalLogger — два cross-cutting компонента-шлюза: первый читает из KB, второй пишет в logs.
+Симметрия декомпозиции: **CC слева, AR в центре, KB справа** — AR-модуль (3 LLM-стадии + терминальные артефакты) сшивает кейс кандидата (CC) с общим знанием (KB) и отдаёт `AssessmentItem[]` + минимальный `AlignmentReport` (`verdict + p_hire + items`) ([[spec]] §2, §3). KBRetriever и EvalLogger — два cross-cutting компонента-шлюза: первый читает из KB, второй пишет в logs.
 
 Цветовая кодировка ниже: **оранжевые узлы** — LLM-агенты (недетерминированные); **голубые** — детерминированные компоненты/код; нейтральные — данные на границах (CC, KB, артефакты).
 
@@ -106,7 +106,7 @@ flowchart LR
         ST1["① Split<br/>(subagent)"]
         ST2["② Evaluate<br/>(subagent × type)"]
         ST3["③ Aggregate<br/>(orchestrator)"]
-        OUT["AssessmentItem[] + AlignmentReport.verdict<br/>→ feedback-report.&lt;mode&gt;.md"]
+        OUT["AssessmentItem[] + AlignmentReport (verdict + p_hire)<br/>→ feedback-report.&lt;mode&gt;.md"]
         ST1 -- "QA[]" --> ST2
         ST2 -- "AssessmentItem[]" --> ST3
         ST3 --> OUT
@@ -144,7 +144,7 @@ flowchart LR
 |---|---|---|---|---|---|
 | ① | **Split** | `.claude/agents/splitter.md` | transcript.txt + speaker rules | `QA[]` (без оценки) | Шаги 2, 3 |
 | ② | **Evaluate** (assessor) | `.claude/agents/eval-{hard,soft,behavioral}.md` | `QA` + rubric + similar items | `AssessmentItem` (с `assessor_kind=ai`, `score`, `expected_answer`, `comment`) | Шаг 4 |
-| ③ | **Aggregate** | `.claude/skills/feedback-report/SKILL.md` (главная сессия) | `AssessmentItem[]` + JD + (опц.) feedback | минимальный `AlignmentReport` (`verdict ∈ {HIRE, NO_HIRE}` + `items`) + markdown-render | Шаги 5, 5.5 |
+| ③ | **Aggregate** | `.claude/skills/feedback-report/SKILL.md` (главная сессия) | `AssessmentItem[]` + JD + (опц.) feedback | минимальный `AlignmentReport` (`verdict ∈ {HIRE, NO_HIRE}` + `p_hire ∈ [0, 100]` + `items`) + markdown-render | Шаги 5, 5.5 |
 
 «Где живёт» — это и есть выбор runtime: первые две стадии вынесены в субагенты ради изоляции контекста, третья остаётся в orchestrator'е, потому что нуждается в **глобальном взгляде** на все `AssessmentItem` (cross-question patterns, verdict calibration). Subagent на этом месте просто скопирует контекст без выгоды.
 
@@ -221,12 +221,13 @@ AssessmentItem:
 ```yaml
 AlignmentReport:
   verdict: HIRE | NO_HIRE   # только blind-режим; в with-feedback не выводится (см. SKILL Шаг 5.5)
+  p_hire: int               # 0..100, целое; уверенность модели; согласован с verdict (≥50 ⇔ HIRE). Только blind-режим.
   items: AssessmentItem[]
 ```
 
-Правило вычисления `verdict` (Aggregator-агентом, на знаниях модели по всему набору `items`): фиксируется в SKILL Шаг 5.5; стартовая эвристика — «есть ≥1 `aggregate ∈ {weak, missing}` среди критичных вопросов → NO_HIRE, иначе HIRE». Точное правило — открытый вопрос (см. §9).
+Правило вычисления `verdict` + `p_hire` (Aggregator-агентом, на знаниях модели по всему набору `items`): фиксируется в SKILL Шаг 5.5; стартовая эвристика — «есть ≥1 `aggregate ∈ {weak, missing}` среди критичных вопросов → NO_HIRE; `p_hire` калибруется по таблице ориентиров». Точное правило + калибровка — открытый вопрос (см. §9).
 
-**Postponed (`AssessmentTopic`, `Recommendation[]`, `P(HIRE)`, `topic_assessments`, `strengths_summary` / `gaps_summary`)** — см. [[requirements_postponed]] §5. Контракт `AlignmentReport` расширяется новыми полями без слома существующих.
+**Postponed (`AssessmentTopic`, `Recommendation[]`, `topic_assessments`, `strengths_summary` / `gaps_summary`)** — см. [[requirements_postponed]] §5. Контракт `AlignmentReport` расширяется новыми полями без слома существующих.
 
 ## 6. Mapping на текущий feedback-report
 
@@ -240,7 +241,7 @@ AlignmentReport:
 | Шаг 3 (Q&A extraction, dedup, filters) | → **splitter** system prompt | 1 |
 | Шаг 4 (per-item type+score+expected+comment) | → **eval-{type}** system prompts | 2 |
 | Шаг 5 (rollup `AssessmentItem[]` → markdown) | остаётся в orchestrator (упрощён: JD-rollup + Recommendation[] postponed) | — |
-| Шаг 5.5 (verdict HIRE/NO_HIRE) | остаётся в orchestrator (упрощён: P(HIRE) postponed) | — |
+| Шаг 5.5 (verdict HIRE/NO_HIRE + p_hire) | остаётся в orchestrator (упрощён: только verdict + p_hire, без расширенных rollup'ов / Recommendation[]) | — |
 | Шаг 6 (self-check) | остаётся в orchestrator | — |
 | Шаг 7 (write file) | остаётся в orchestrator | — |
 
@@ -285,7 +286,7 @@ AlignmentReport:
 - **Behavioral Evaluator с реальной рубрикой** — [[spec]] §8: behavioral как primary focus отложено; subagent существует как заглушка для единообразия dispatch.
 - **Streaming / pagination между агентами** — для 5–10 items на интервью не нужно.
 - **Кеширование результатов агентов** — на горизонте MVP не нужно; добавим, если cost станет видимым.
-- **AR-Advanced (`AssessmentTopic`, `Recommendation`, structured `AlignmentReport` с aligned/partial/missing rollup, `P(HIRE)`)** — postponed, см. [[requirements_postponed]] §5. Aggregator на стадии ③ выдаёт только минимальный `AlignmentReport` (verdict + items).
+- **AR-Advanced (`AssessmentTopic`, `Recommendation`, structured `AlignmentReport` с aligned/partial/missing rollup + `topic_assessments` + `strengths/gaps_summary`)** — postponed, см. [[requirements_postponed]] §5. Aggregator на стадии ③ выдаёт только минимальный `AlignmentReport` (`verdict + p_hire + items`).
 
 ## 9. Открытые вопросы
 
@@ -295,7 +296,7 @@ AlignmentReport:
 - [ ] Versioning subagents для воспроизводимости Eval (E2-6): когда `.claude/agents/eval-hard.md` меняется, регрессионные результаты надо пере-прогонять. Механизм — git hash файла или явное `version: N` в frontmatter? Решение в Phase 3.
 - [ ] **Параметризация pipeline для S3 vs S4** ([[spec]] §5 ревизия 06-05): где хранится переключатель между «S3-режимом» (без JD, выход — пополнение KB) и «S4-режимом» (с JD, выход — `AlignmentReport` для пользователя)? CLI-флаг скилла, режим в frontmatter входной папки, или отдельный entry-point? Решение в Phase 2 после стабилизации Splitter.
 - [ ] **Splitter dedup / grouping политика** (тоже 06-05): дробление по умолчанию vs опциональная группировка похожих вопросов с явным маркером — какой контракт у `QA[]` на этот счёт? Acceptance Phase 1 уточнить.
-- [ ] **HIRE/NO_HIRE rule** (06-05, после выноса Advanced AR): по какому правилу Aggregator выводит `AlignmentReport.verdict`? Стартовая эвристика — «есть ≥1 weak/missing aggregate среди критичных вопросов → NO_HIRE, иначе HIRE» — но «критичные» нужно определить (по `QA.type` / `interview_stage` / topic_tag?). Точное правило фиксируем в SKILL Шаг 5.5; решение к Phase 2.
+- [ ] **HIRE/NO_HIRE rule + калибровка p_hire** (06-05): по какому правилу Aggregator выводит `AlignmentReport.verdict` и как калибрует `p_hire`? Стартовая эвристика для verdict — «есть ≥1 weak/missing aggregate среди критичных вопросов → NO_HIRE, иначе HIRE» — но «критичные» нужно определить (по `QA.type` / `interview_stage` / `topic_tag`?). Калибровка `p_hire` — таблица ориентиров в SKILL Шаг 5.5. Решение к Phase 2; согласованность `p_hire ≥ 50` ⇔ `HIRE` обязательна.
 
 ## 10. Связи
 
