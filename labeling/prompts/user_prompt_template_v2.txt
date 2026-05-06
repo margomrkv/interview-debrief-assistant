@@ -1,0 +1,34 @@
+Annotate this interview transcript according to the schema and rules.
+
+Input:
+- source_id: karpov_junior_ds_20220330
+- transcript_path: transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/transcript.txt
+- feedback_path: none
+
+Required workflow:
+1) Extract all substantive interviewer questions.
+2) Pair each question with the corresponding candidate answer.
+3) Create one item per Q&A pair.
+4) Classify question_type, interview_stage, topic_tag.
+5) Add `model_answer` for each item (concise reference answer).
+6) Score all non-behavioral fields for all items.
+7) For behavioral items only, fill STAR_* and SCID_*.
+8) For non-behavioral items, set STAR_* and SCID_* to null.
+9) Fill labels for 0..3 metrics only:
+   - clarity_label, completeness_label, accuracy_label
+   - SCID_S_label, SCID_C_label, SCID_I_label, SCID_D_label
+10) Add concise notes_ai explaining uncertain or borderline judgments.
+
+Output format:
+Return a single JSON object with:
+- source_id
+- items: [ ... ]
+- summary:
+  - total_items
+  - by_question_type
+  - by_interview_stage
+
+Strict output:
+- JSON only
+- schema-valid
+- no extra keys
