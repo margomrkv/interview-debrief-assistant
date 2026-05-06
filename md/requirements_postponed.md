@@ -101,13 +101,13 @@ related:
 
 **Причина postponed:** требует артефакта `AssessmentTopic` (§5 этого файла); MVP — плоский список `AssessmentItem[]` без topic-rollup. Возвращается вместе с E3-7.
 
-**E3-7 «Структурированный отчёт» (postponed; вынесен из E3-4 spec'и решением 06-05).** Как кандидат, я хочу видеть отчёт со структурой aligned / partial / missing относительно `Requirements` (KB) и `JD` (MF), плюс калиброванный `P(HIRE)`, чтобы лучше понять gap.
+**E3-7 «Структурированный отчёт» (postponed; вынесен из E3-4 spec'и решением 06-05).** Как кандидат, я хочу видеть отчёт со структурой aligned / partial / missing относительно `Requirements` (KB) и `JD` (MF), чтобы лучше понять gap.
 - [ ] секции отчёта: aligned / partial / missing — каждая с цитатами из транскрипта
-- [ ] `verdict ∈ {HIRE, NO_HIRE}` уже есть в MVP (см. [[spec]] E3-4); здесь добавляется `P(HIRE)` (целое в `[0, 100]`)
+- [ ] `verdict ∈ {HIRE, NO_HIRE}` + `p_hire` уже есть в MVP (см. [[spec]] E3-4)
 - [ ] вкладывается `topic_assessments: AssessmentTopic[]` (см. E3-6) и `recommendations: Recommendation[]` (см. E3-5)
 - [ ] `strengths_summary` / `gaps_summary` — короткий нарратив на отчёт, не на блок
 
-**Причина postponed:** требует Advanced `AlignmentReport` с `topic_assessments` / `recommendations` / `strengths_summary` / `gaps_summary` / `P(HIRE)` — все эти поля определены в §5 этого файла. MVP-вариант `AlignmentReport` ([[spec]] §3) — просто `{verdict, items}`.
+**Причина postponed:** требует Advanced `AlignmentReport` с `topic_assessments` / `recommendations` / `strengths_summary` / `gaps_summary` — поля определены в §5 этого файла. MVP-вариант `AlignmentReport` ([[spec]] §3) — `{verdict, p_hire, items}`.
 
 ## 5. Артефакты-расширения (postponed)
 
@@ -115,7 +115,7 @@ related:
 
 - **AssessmentTopic** — промежуточный rollup `AssessmentItem[]` по `(interview_round, topic_tag)` или `(interview_round, interview_stage)`. Поля: `dimension ∈ {topic_tag, interview_stage}`, `dimension_value`, `aggregate_score` (по тем же осям, что `AssessmentItem.score` — см. [[assessors]]), `strengths_summary`, `gaps_summary`, `items: AssessmentItem[]`.
 - **Recommendation** — единица того, что система советует кандидату. Поля: `category ∈ {hard_skill, soft_skill, behavioral, общая}`, `signal_source ∈ {CV, Transcript, JD, Feedback}`, `text` (формулировка), `evidence: LinkedText[]`, `confidence: Score`. Без явного определения этой сущности невозможно сформулировать критерии оценки качества (фидбэк ментора 2026-04-30: «от этого исходит всё остальное, в том числе оценка»).
-- **AlignmentReport — Advanced extensions** — поверх MVP-варианта `{verdict, items}` добавляются: `topic_assessments: AssessmentTopic[]`, `recommendations: Recommendation[]`, `strengths_summary`, `gaps_summary`, `P(HIRE) ∈ [0, 100]`. Структура отчёта: aligned / partial / missing относительно `Requirements` и `JD`.
+- **AlignmentReport — Advanced extensions** — поверх MVP-варианта `{verdict, p_hire, items}` добавляются: `topic_assessments: AssessmentTopic[]`, `recommendations: Recommendation[]`, `strengths_summary`, `gaps_summary`. Структура отчёта: aligned / partial / missing относительно `Requirements` и `JD`.
 
 Class-диаграмма Advanced-расширений (для возврата в [[spec]] §4.1, если включаются):
 
@@ -142,12 +142,12 @@ classDiagram
         }
         class AlignmentReport {
             verdict [HIRE|NO_HIRE]
+            p_hire : 0..100
             items : AssessmentItem[]
             topic_assessments : AssessmentTopic[]
             recommendations : Recommendation[]
             strengths_summary
             gaps_summary
-            p_hire
         }
         class Recommendation {
             category [hard_skill|soft_skill|behavioral|общая]

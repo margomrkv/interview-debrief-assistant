@@ -1,6 +1,6 @@
 ---
 name: feedback-report
-description: Генерирует per-question feedback по папке прошедшего интервью. Реализует требование md/spec.md §7 E3-4 «Отчёт по интервью» (Market Flow scope; упрощённая MVP-версия после ревизии 06-05). Два режима — blind (default, без feedback.txt; независимая оценка модели + HIRE/NO_HIRE verdict) и with-feedback (читает feedback.txt и добавляет секцию Interviewer's signal, без verdict'а). Принимает path и опциональный флаг mode=<blind|with-feedback>; пишет в <folder>/feedback-report.<mode>.md.
+description: Генерирует per-question feedback по папке прошедшего интервью. Реализует требование md/spec.md §7 E3-4 «Отчёт по интервью» (Candidate Context scope; упрощённая MVP-версия после ревизии 06-05). Два режима — blind (default, без feedback.txt; независимая оценка модели + HIRE/NO_HIRE verdict с p_hire 0..100) и with-feedback (читает feedback.txt и добавляет секцию Interviewer's signal, без verdict'а). Принимает path и опциональный флаг mode=<blind|with-feedback>; пишет в <folder>/feedback-report.<mode>.md.
 ---
 
 # Skill: Feedback report по интервью
@@ -15,13 +15,13 @@ description: Генерирует per-question feedback по папке прош
 
 Два режима работы:
 
-- **`blind` (default).** Независимая оценка только по транскрипту, JD и CV. `feedback.txt` НЕ ЧИТАЕТСЯ ни на одном шаге. Назначение — слепое мнение модели; результат можно сравнить с реальным фидбеком интервьюера как сигнал качества системы (LLM-as-judge baseline). **Включает verdict HIRE / NO_HIRE.**
+- **`blind` (default).** Независимая оценка только по транскрипту, JD и CV. `feedback.txt` НЕ ЧИТАЕТСЯ ни на одном шаге. Назначение — слепое мнение модели; результат можно сравнить с реальным фидбеком интервьюера как сигнал качества системы (LLM-as-judge baseline). **Включает verdict HIRE / NO_HIRE и p_hire 0..100.**
 - **`with-feedback`.** Все четыре файла, плюс секция `### Interviewer's signal`. Назначение — глубокий post-mortem с учётом перспективы интервьюера. Минус: spoiler-эффект, модель может подгонять оценки под ожидания feedback. **Verdict не выводится** — иначе рискует отражать verdict интервьюера, а не независимое суждение модели; точка независимого решения — это blind-режим.
 
-Содержимое отчёта (упрощено по ревизии 06-05; расширения — `Recommendation[]`, `AssessmentTopic[]`, `P(HIRE)`, JD aligned/partial/missing rollup — postponed, см. `md/requirements_postponed.md` §5):
+Содержимое отчёта (упрощено по ревизии 06-05; расширения — `Recommendation[]`, `AssessmentTopic[]`, JD aligned/partial/missing rollup, `strengths/gaps_summary` — postponed, см. `md/requirements_postponed.md` §5):
 
 1. Summary table (быстрый sniff-test).
-2. **Verdict** (HIRE / NO_HIRE) — только в `blind`.
+2. **Verdict** (HIRE / NO_HIRE) + **p_hire** (0..100) — только в `blind`.
 3. Per-question `AssessmentItem[]` по схеме `md/spec.md` §3 (исторический первоисточник — `internal-notes/2026-04-30-martin-meeting.md`).
 4. В `with-feedback`: секция `### Interviewer's signal` с разбором утверждений из `feedback.txt`.
 
@@ -33,14 +33,14 @@ description: Генерирует per-question feedback по папке прош
 
 - **E1-4 «Транскрипт раунда»** (`md/spec.md` §7) — структура папки кейса, привязка к раунду.
 - **E1-5 «Фидбэк раунда»** (`md/spec.md` §7) — режимы blind / with-feedback, разбор отличается с feedback vs без.
-- **E3-4 «Отчёт по интервью»** (`md/spec.md` §7, ядро MVP) — markdown-render `AssessmentItem[]` (per-question оценка) + `AlignmentReport.verdict ∈ {HIRE, NO_HIRE}` в blind. Цитаты для сильных и слабых мест, формулировка проблемы (vague / off-topic / factual_error / incomplete) в `AssessmentItem.comment`.
-- **§3 «Артефакты»** — `QA`, `AssessmentItem`, минимальный `AlignmentReport` (verdict + items), `LinkedText`.
+- **E3-4 «Отчёт по интервью»** (`md/spec.md` §7, ядро MVP) — markdown-render `AssessmentItem[]` (per-question оценка) + `AlignmentReport` (`verdict ∈ {HIRE, NO_HIRE}` + `p_hire ∈ [0, 100]`) в blind. Цитаты для сильных и слабых мест, формулировка проблемы (vague / off-topic / factual_error / incomplete) в `AssessmentItem.comment`.
+- **§3 «Артефакты»** — `QA`, `AssessmentItem`, минимальный `AlignmentReport` (`verdict + p_hire + items`), `LinkedText`.
 - **§3.1 «Матрица заполненности»** — поведение при отсутствии CV/JD/feedback.
 - **`md/assessors.md`** — критерии (`clarity` / `completeness` / `factual_correctness` / `question_fit` / `focus`; behavioral расширения STAR + Amazon SPID) для `AssessmentItem.score`.
 
 Не реализуется в этом скилле (postponed, см. `md/requirements_postponed.md` §5):
 
-- **E3-5 «Структура рекомендаций»**, **E3-6 «Topic rollup»**, **E3-7 «Структурированный отчёт»** — требуют артефактов `Recommendation`, `AssessmentTopic` и расширенного `AlignmentReport` (с `topic_assessments` / `recommendations` / `strengths_summary` / `gaps_summary` / `P(HIRE)`).
+- **E3-5 «Структура рекомендаций»**, **E3-6 «Topic rollup»**, **E3-7 «Структурированный отчёт»** — требуют артефактов `Recommendation`, `AssessmentTopic` и расширенного `AlignmentReport` (с `topic_assessments` / `recommendations` / `strengths_summary` / `gaps_summary`).
 - JD aligned/partial/missing rollup относительно `Requirements` — часть Advanced `AlignmentReport`.
 
 Расхождения, оставленные сознательно (фиксируются для последующего обновления spec):
@@ -76,7 +76,7 @@ description: Генерирует per-question feedback по папке прош
 - **Schema референс:**
   - `QA`, `AssessmentItem`, `LinkedText` — `md/spec.md` §3 (актуальный авторитетный источник; `internal-notes/2026-04-30-martin-meeting.md` — исторический первоисточник схемы).
   - Критерии оценки (`Score`) — `md/assessors.md`.
-- **Rollup референс:** минимальный `AlignmentReport` (`{verdict, items}`) — `md/spec.md` §3 / §4.1; E3-4 (`md/spec.md` §7).
+- **Rollup референс:** минимальный `AlignmentReport` (`{verdict, p_hire, items}`) — `md/spec.md` §3 / §4.1; E3-4 (`md/spec.md` §7).
 - **Output:**
   - blind → `<folder>/feedback-report.blind.md`
   - with-feedback → `<folder>/feedback-report.with-feedback.md`
@@ -170,7 +170,7 @@ description: Генерирует per-question feedback по папке прош
 
 ### Шаг 5: Rollup (минимальный AlignmentReport + Interviewer's signal)
 
-В MVP-варианте после ревизии 06-05 (`md/spec.md` §3) `AlignmentReport` содержит только `verdict` + `items` (последнее = весь набор `AssessmentItem` за раунд). JD aligned/partial/missing rollup и `Recommendation[]` — postponed (см. `md/requirements_postponed.md` §5, stories E3-5 / E3-7).
+В MVP-варианте после ревизии 06-05 (`md/spec.md` §3) `AlignmentReport` содержит `verdict` + `p_hire` + `items` (последнее = весь набор `AssessmentItem` за раунд). JD aligned/partial/missing rollup и `Recommendation[]` — postponed (см. `md/requirements_postponed.md` §5, stories E3-5 / E3-7).
 
 Этот шаг сводится к:
 
@@ -179,23 +179,35 @@ description: Генерирует per-question feedback по папке прош
    - `blind`: секции `### Interviewer's signal` НЕТ. Вообще не упоминать feedback.txt в отчёте. Если в Шаге 1 файл существовал — это не повод его учитывать; blind-режим строго слеп.
    - `with-feedback`: добавить `### Interviewer's signal`. Разобрать `feedback.txt` построчно/по утверждению, тегировать каждое как `confirms` / `contradicts` / `orthogonal-to` соответствующий `AssessmentItem` (по Q-ID). Verbatim цитаты в кавычках.
 
-### Шаг 5.5: Verdict (только blind)
+### Шаг 5.5: Verdict & p_hire (только blind)
 
 Соответствие `md/spec.md` §3.1 (кейс Company A без feedback: «полный отчёт в blind mode»). В режиме `with-feedback` этот шаг **пропускается** — verdict не выводится, чтобы не отражать суждение интервьюера, а оставаться независимым решением модели.
 
-В режиме `blind` после rollup сформировать `AlignmentReport.verdict ∈ {HIRE, NO_HIRE}`:
+В режиме `blind` после rollup сформировать `AlignmentReport.verdict ∈ {HIRE, NO_HIRE}` + `AlignmentReport.p_hire ∈ [0, 100]`:
 
-1. **Решение** — ровно одно из `HIRE` / `NO_HIRE`. Бинарно, без полутонов («lean hire» и т.п. не используются — заставляет модель честно встать на одну сторону). `P(HIRE)` postponed (см. `md/requirements_postponed.md` §5, story E3-7).
-2. **Стартовая эвристика** (фиксируется здесь до прогона на нескольких кейсах):
-   - `NO_HIRE`, если **≥1 `aggregate ∈ {weak, missing}`** среди `AssessmentItem` с `type = hard_skill` или `qa.interview_stage ∈ {tech_qa, tech_coding, tech_case, system_design}` (т.е. на критичных hard-вопросах).
+1. **Решение** — ровно одно из `HIRE` / `NO_HIRE`. Бинарно, без полутонов («lean hire» и т.п. не используются — заставляет модель честно встать на одну сторону).
+2. **p_hire** — целое число процентов в `[0, 100]`, отражает уверенность модели. Пороговая интерпретация: `≥ 50%` ⇒ HIRE, `< 50%` ⇒ NO_HIRE; **решение и вероятность должны быть согласованы**.
+3. **Стартовая эвристика для verdict** (фиксируется здесь до прогона на нескольких кейсах):
+   - `NO_HIRE`, если **≥1 `aggregate ∈ {weak, missing}`** среди `AssessmentItem` с `qa.type = hard_skill` или `qa.interview_stage ∈ {tech_qa, tech_coding, tech_case, system_design}` (т.е. на критичных hard-вопросах).
    - `HIRE` иначе.
    - В пограничных случаях (все `adequate`, нет явных weak/missing, нет ярких strong) — `HIRE` по умолчанию (отказ требует доказательств).
-3. **Обоснование** — 3-5 строк (буллет-лист), где модель явно перечисляет:
+4. **Обоснование** — 3-5 строк (буллет-лист), где модель явно перечисляет:
    - 1-2 ключевых **за** (опираясь на `strong` Q-IDs);
    - 2-3 ключевых **против** (опираясь на `weak`/`missing` Q-IDs);
    - factor, сильнее всего сдвигающий решение в одну сторону.
 
-Эвристика — стартовая. Если на нескольких кейсах verdict стабильно расходится с интуицией, правило корректируется и фиксируется как открытый вопрос в `md/arch_agents.md` §9 «HIRE/NO_HIRE rule».
+**Калибровка p_hire** (внутренний руководящий принцип, не показываем в отчёте):
+
+| Картина                                                                       | p_hire ориентир |
+|-------------------------------------------------------------------------------|-----------------|
+| ≥1 missing/weak в core hard_skill QA + нет компенсирующих strong              | 15–35           |
+| Mostly adequate, без явных red flags, без ярких strong                        | 40–55           |
+| ≥2 strong в JD-relevant областях + только мелкие weak в периферии             | 60–75           |
+| Bar-raising: strong по hard_skill ядру + нет weak                             | 75–90           |
+
+Эти ориентиры — для согласованности через прогоны на разных кейсах. Не подгонять оценки `AssessmentItem.score` под нужную `p_hire`; сначала оценки, потом verdict + p_hire.
+
+Эвристика — стартовая. Если на нескольких кейсах verdict / p_hire стабильно расходится с интуицией, правило корректируется и фиксируется как открытый вопрос в `md/arch_agents.md` §9 «HIRE/NO_HIRE rule + калибровка p_hire».
 
 ### Шаг 6: Self-check (quality)
 
@@ -221,7 +233,8 @@ description: Генерирует per-question feedback по папке прош
 - [ ] Нет цитат, которые есть только в `feedback.txt` и которых нет в transcript/JD/CV.
 - [ ] Нет фраз вида «совпадает с заметками интервьюера», «интервьюер отметил» и т.п.
 - [ ] `inputs_present` в frontmatter не включает `feedback.txt`, даже если файл существует.
-- [ ] Секция `## Verdict` присутствует, содержит ровно одно из `HIRE`/`NO_HIRE`, обоснование 3-5 буллетов (`md/spec.md` §3.1, кейс Company A без feedback). `P(HIRE)` не выводится (postponed, см. `md/requirements_postponed.md` §5).
+- [ ] Секция `## Verdict` присутствует, содержит ровно одно из `HIRE`/`NO_HIRE`, `p_hire` — целое в `[0, 100]`, обоснование 3-5 буллетов (`md/spec.md` §3.1, кейс Company A без feedback).
+- [ ] Согласованность: `p_hire ≥ 50` ⇔ `HIRE`; `p_hire < 50` ⇔ `NO_HIRE`.
 
 `with-feedback`:
 - [ ] Секция `### Interviewer's signal` присутствует и непустая.
@@ -266,6 +279,7 @@ description: Генерирует per-question feedback по папке прош
 
    ## Verdict (только blind)
    - **Решение:** HIRE | NO_HIRE
+   - **p_hire:** NN   # целое 0..100; согласовано с решением (≥50 ⇔ HIRE)
    - **За:** ...
    - **Против:** ...
    - **Главный фактор:** ...
@@ -322,10 +336,10 @@ assistant:
   [skip] feedback.txt существует, но в blind НЕ читаю
   [extract] 17 Q&A пар после dedup
   [classify+score] 13 hard_skill / 2 behavioral / 2 soft_skill; 2 strong / 9 adequate / 6 weak / 0 missing
-  [verdict] NO_HIRE (правило: ≥1 weak/missing на критичных hard-вопросах)
-  [self-check] OK; нет упоминаний feedback в теле
+  [verdict] NO_HIRE, p_hire = 30 (правило: ≥1 weak/missing на критичных hard-вопросах)
+  [self-check] OK; нет упоминаний feedback в теле; verdict + p_hire согласованы
   wrote: [private]/avito-20251212/feedback-report.blind.md
-  Summary (blind): 17 questions; распределение по type 13/2/2; verdict NO_HIRE.
+  Summary (blind): 17 questions; распределение по type 13/2/2; verdict NO_HIRE @ p_hire 30.
 ```
 
 ### With-feedback
