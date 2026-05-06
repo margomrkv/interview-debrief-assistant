@@ -91,8 +91,11 @@ flowchart LR
 
 ## 2.3 Архитектурное соображение
 
-Так как основное, что обрабатывает система - это транскрипты интервью, то KB и AR будут во многом структурно похожи.
-Они будут использовать общий пайплайн, который построен из цепочки агентов
+Так как основное, что обрабатывает система — это транскрипты интервью, то KB и AR во многом структурно похожи. У них **общая часть** обработки транскрипта (Splitter + Evaluator → `AssessmentItem[]`), переиспользуемая двумя end-to-end pipeline'ами:
+- **AR-pipeline** (S4) — добавляет S4-Aggregator и выдаёт `AlignmentReport` (verdict + p_hire) пользователю.
+- **KB-pipeline** (S3) — добавляет KB-rollup и пополняет KB (рубрики, требования, частотные таблицы).
+
+Общая часть документирована в [[arch_pipeline]]; AR-pipeline целиком — в [[arch_agents]]. KB-pipeline в MVP-горизонте до 14.05 не имеет отдельного entry-point'а — общая часть готова, KB наполняется через human-курацию её выходов вне этого pipeline'а.
 
 ## 3. Артефакты
 
@@ -198,12 +201,12 @@ classDiagram
     class QA {
         question : LinkedText
         candidate_answer : LinkedText
-        type [hard_skill|soft_skill|behavioral]
-        interview_stage [hr_screening|tech_qa|tech_coding|tech_case|system_design|behavioral|manager_round]
-        topic_tag : str
+        type : QuestionType
+        interview_stage : InterviewStage
+        topic_tag : TopicTag
     }
     class AssessmentItem {
-        assessor_kind [ai|human]
+        assessor_kind : ActorKind
         assessor_name
         score : Score
         expected_answer
@@ -234,7 +237,7 @@ classDiagram
             soft_skill_list
         }
         class Evaluation {
-            judge_kind [ai|human]
+            judge_kind : ActorKind
             judge_name
             agreement_score
             comment
@@ -247,7 +250,7 @@ classDiagram
 
     namespace AssessmentAndRecomendations {
         class AlignmentReport {
-            verdict [HIRE|NO_HIRE]
+            verdict : Verdict
             p_hire : 0..100
             items : AssessmentItem[]
         }
@@ -283,6 +286,18 @@ classDiagram
 - **Сплошные стрелки** — обязательные структурные связи: KB-цепочка от корпуса, Generic lifecycle (QA → AssessmentItem → Evaluation), AR rollup `AssessmentItem[] → AlignmentReport` и привязка отчёта к `ExperienceProfile` (subject).
 - **Пунктирные стрелки** (`..>`) — опциональные/запрашиваемые связи (по §3.1 матрица заполненности): JD/Feedback могут отсутствовать; KB-grounding (Requirements/Rubric → AssessmentItem) — опционален.
 - **Aggregation `o--`** между `EvalDataset` и `Evaluation` — EvalDataset курирует только подмножество всех `Evaluation` (с `judge_kind = human`).
+
+**Enum-словари** — вынесены из полей классов; источник значений для `QuestionType` / `InterviewStage` / `TopicTag` — `docs/scoring-frameworks/interview_assessment_rules/interview_assessment_rules-lookup_rules.csv` (используется и при разметке `EvalDataset`, E2-2):
+
+| Enum | Где используется | Значения |
+|------|------------------|----------|
+| `QuestionType` | `QA.type` | `hard`, `soft`, `behavioral` |
+| `InterviewStage` | `QA.interview_stage` | `fit_hr`, `technical_qna`, `technical_coding`, `technical_case`, `system_design`, `behavioral`, `manager_round` |
+| `TopicTag` | `QA.topic_tag` | `SQL`, `Python`, `Statistics`, `Experimentation`, `Product Metrics`, `ML`, `Data Modeling`, `Communication`, `Stakeholder Management`, `Prioritization`, `Conflict`, `Leadership`, `Ownership`, `Collaboration`, `Adaptability` |
+| `ActorKind` | `AssessmentItem.assessor_kind`, `Evaluation.judge_kind` | `ai`, `human` |
+| `Verdict` | `AlignmentReport.verdict` | `HIRE`, `NO_HIRE` |
+
+`ActorKind` единый для `assessor_kind` и `judge_kind` — слои различаются ролью в цепочке `QA → AssessmentItem → Evaluation` (§4.1.1), не значением enum.
 
 Operational-аспект использования `EvalDataset` (отдельная дешёвая модель, изолированный контекст) — в E2-6 (§7), не в концептуальной модели.
 
@@ -423,11 +438,11 @@ classDiagram
 | **S3** | KB | Корпус mock-интервью (Transcript + Feedback) без своего CV/JD | Эксплораторный анализ: типовые вопросы, рубрики, критерии оценки | Анализ mock-интервью Карпова и YouTube | наполняет KB |
 | **S4** | CC + KB | Полный набор: профиль + JD + Transcript + Feedback | Структурированный отчёт по конкретному интервью с цитатами | Anton: интервью Avito, ApprovalMax и т.д. | ядро |
 
-**Единый pipeline для S3 и S4** — следствие §2.3 «Архитектурное соображение» (KB и AR структурно похожи, потому что оба обрабатывают транскрипты интервью). Оба сценария запускают одну и ту же цепочку агентов (Splitter → Evaluator → Aggregator) с разной параметризацией входа:
-- **S3** запускается без JD (E2-4 «Анализ без JD»), выход `AssessmentItem[]` пополняет KB; `AlignmentReport` опционален.
-- **S4** запускается с полным набором, читает из KB (рубрики, similar items), выход — `AlignmentReport` для пользователя.
+**Общая часть для S3 и S4** — следствие §2.3 «Архитектурное соображение» (KB и AR структурно похожи, потому что оба обрабатывают транскрипты интервью). Оба сценария используют **общую часть** (Splitter → Evaluator → `AssessmentItem[]`); дальше каждый pipeline делает своё:
+- **S3 (KB-pipeline)** запускается без JD (E2-4 «Анализ без JD»); общая часть даёт `AssessmentItem[]`, KB-rollup пополняет KB. `AlignmentReport` не вычисляется.
+- **S4 (AR-pipeline)** запускается с полным набором, общая часть опционально читает из KB (рубрики, similar items), S4-Aggregator выдаёт `AlignmentReport` для пользователя.
 
-Подробности декомпозиции pipeline — в [[arch_agents]] §4.
+Общая часть — [[arch_pipeline]]; AR-pipeline целиком — [[arch_agents]] §4.
 
 ## 6. Эпики
 
@@ -545,7 +560,8 @@ classDiagram
 - [[project]] — `md/project.md` — постановка ядра MVP (alignment report)
 - [[project-hub]] — `docs/project-hub.md` — цели, дедлайны, риски, лог встреч
 - [[arch]] — `md/arch.md` — архитектурный выбор (pipelines в Claude Code, runtime в LangGraph), §5 хранилища
-- [[arch_agents]] — `md/arch_agents.md` — внутренняя декомпозиция AR-модуля на агенты и контракты, общий pipeline для S3 и S4 (см. §2.3)
+- [[arch_pipeline]] — `md/arch_pipeline.md` — общая часть обработки транскрипта (Splitter + Evaluator), переиспользуемая AR-pipeline'ом (S4, E3-4) и KB-pipeline'ом (S3, E2-3/E2-4)
+- [[arch_agents]] — `md/arch_agents.md` — AR-pipeline целиком (transcript → AlignmentReport): включает общую часть [[arch_pipeline]] плюс AR-specific S4-Aggregator
 - [[assessors]] — `md/assessors.md` — критерии работы assessor'ов (generic + behavioral расширения), на которые ссылается §3.2
 - [[requirements_postponed]] — `md/requirements_postponed.md` — сценарии и user stories, вынесенные за пределы MVP-горизонта
 - [[2026-04-25-Deli-sandwiches-meeting]] — `internal-notes/2026-04-25-Deli-sandwiches-meeting.md` — первоисточник этой спецификации
