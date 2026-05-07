@@ -1,0 +1,423 @@
+[00:00] way I would go about solving this I
+[00:01] would say we want a recommendation
+[00:03] algorithm sounds like an RNN recurrent
+[00:06] neural network which is a lot of cruft
+[00:08] and not easy to set up at all and even
+[00:10] more difficult to reason about how it
+[00:12] works
+[00:13] [Music]
+[00:16] hi everyone welcome this is sorry this
+[00:21] is Jay from interview query today I am
+[00:24] joined by Dan he works as a engineer at
+[00:28] Quizlet which is a common like quiz
+[00:32] quizzing company well he can describe it
+[00:34] better than I can I guess but I didn't
+[00:39] use it crazy amounts in school because I
+[00:41] never studied but Dan thanks for doing
+[00:45] this mock interview just up front I'd
+[00:47] love to just kind of get a quick
+[00:48] background on like how you got into
+[00:51] engineering data in tech yeah so my name
+[00:55] is Dan I am 26 and from Orange County in
+[01:00] high school I was always into math but
+[01:02] not coding at all I shied away from it
+[01:04] my dad was a programmer and I know I
+[01:07] kind of wanted to branch out a little
+[01:09] bit and try something new
+[01:10] didn't really work out that way then I
+[01:12] went to MIT and I played a lot of League
+[01:15] of Legends and decided I wanted a
+[01:18] companion tool to to determine what the
+[01:21] optimal item to buy at a point in the
+[01:23] game like say you're winning should you
+[01:25] buy needlessly large rod or void staff
+[01:27] that was a question always in my mind so
+[01:29] I did my first Python class which
+[01:32] enabled me to answer that question and
+[01:34] answer that question more in real time
+[01:37] than you know doing it on paper and
+[01:38] pencil so then from there I switched
+[01:43] majors actually and swishy computer
+[01:45] science junior spring and hustle to
+[01:48] finish and then I got my first job at a
+[01:51] college ID inflection which is where I
+[01:53] met Jay and I was a data scientist there
+[01:57] but then actually shortly after that I
+[02:00] went to Quizlet where I still am today
+[02:03] after just over four years and Quizlet
+[02:06] we do education technology and classroom
+[02:09] tools study tools and classroom games
+[02:11] and stuff like that and actually today
+[02:14] we're announcing we just got a new
+[02:17] series C round of funding and we're just
+[02:19] valued Oh a billion dollars that's
+[02:20] pretty sweet today pretty you know
+[02:25] coincidentally on the day of the stock
+[02:27] India yeah so
+[02:30] Quizlet I do and data engineering right
+[02:33] now but I'd say my toolset is pretty
+[02:35] broad
+[02:35] I was recently database administrator at
+[02:38] Quizlet and doing a performance
+[02:40] engineering and now is more
+[02:41] compartmentalized data engineering as
+[02:44] opposed to the sre work I used to do
+[02:46] gotcha cool yeah so yeah if you guys are
+[02:51] interested in potentially working at
+[02:54] Quizlet that's I'm sure they have some
+[02:57] new Apple to invest away yeah so I'd
+[03:01] love to start this interview with a
+[03:03] first question kind of and I think
+[03:05] around like more data engineering system
+[03:08] design but there is some more machine
+[03:11] learning kind of aspect question to this
+[03:13] and so this is from Netflix but let's
+[03:16] say that you work as machine learning
+[03:18] engineer on Netflix how would you build
+[03:22] like the recommendation engine for
+[03:24] type-ahead search yeah so I do have the
+[03:28] advantage of having seen this question
+[03:29] before so I have a little premeditation
+[03:32] on it but here I go with my response
+[03:34] anyway yeah so I'm gonna start with the
+[03:38] first like right off the bat the first
+[03:40] way I would go about solving this is I
+[03:41] would say hey we want a recommendation
+[03:43] algorithm sounds like an RNN recurrent
+[03:46] neural network which is a lot of cruft
+[03:48] and not easy to set up at all and even
+[03:51] more difficult to reason about how it
+[03:53] works but now that I'm a little more
+[03:56] experienced I definitely see the benefit
+[03:59] of a much simpler model with you know
+[04:02] the benefit is that it's simpler and I
+[04:04] propose that we can do that similar
+[04:08] results to a big crusty or recurrent
+[04:11] neural network with a simple prefix
+[04:14] matching and we can certainly go into
+[04:16] you know a lot of sophistication with a
+[04:19] simple prefix matching algorithm it can
+[04:22] be expanded upon and expanding on until
+[04:24] we have something that will be on par
+[04:27] with an RNN so working at Quizlet we
+[04:31] actually have something similar to that
+[04:34] we have we a Quizlet we have kind of a
+[04:37] flashcards model for most of our most of
+[04:39] our service and when a user is creating
+[04:42] a flashcard it's similar to the Netflix
+[04:44] type-ahead search we they will type in
+[04:46] h-e-l-l-o h-e-l-l-o and then it will
+[04:50] auto suggest Ola if you're doing a
+[04:52] spanish translation set okay
+[04:55] so you know we have that similar problem
+[04:58] and before I saw how we solved it I
+[05:00] would imagine the same way hey we should
+[05:02] do a recurrent neural network that's not
+[05:04] easy but quite powerful but actually we
+[05:06] solved it using a prefix matching
+[05:08] algorithm just to say hey look up in
+[05:10] this database table what does h-e-l-l-o
+[05:13] prefix to and its suffixes to the model
+[05:17] H Ola because most people are typing
+[05:20] that so we can I'm not going to be
+[05:24] actually coding this out I'm just gonna
+[05:25] be talking about the approach I would
+[05:27] have but so we could start with a simple
+[05:29] thing hey no matter who you are what
+[05:31] context you're in we're just gonna have
+[05:33] a prefix table and our prefix table
+[05:36] starts with a an input string and that
+[05:39] is your prefix and it will output let's
+[05:43] say one at a time to start with your
+[05:45] output string and I think scoping is
+[05:47] very important so for this minimum
+[05:49] viable product or MVP we're gonna start
+[05:51] with okay you input a string and you're
+[05:54] going to output your suggestion string
+[05:57] already already I'm thinking of things
+[05:59] like you know fuzzy matching and context
+[06:02] matching like hey what if you were in a
+[06:04] different language but you know we're
+[06:06] gonna start off just scoping it so how
+[06:08] do we build such a thing to do the
+[06:10] simple prefix matching well what we can
+[06:13] do is a quiz that we have the advantage
+[06:15] of a huge corpus of data so we have you
+[06:18] know billions of terms that say hey when
+[06:21] I user types hello they usually want to
+[06:24] output Ola I'm gonna back up a little
+[06:26] bit and actually translate this to the
+[06:28] Netflix algorithm we're trying to solve
+[06:29] so if you're trying to I'm not so
+[06:33] familiar with what's on Netflix but if
+[06:34] you're trying to input the big that
+[06:38] could output any number of suffixes if
+[06:41] that's your prefix you could output the
+[06:43] big short or the big lebowski to movies
+[06:45] on the fana and so how is your model
+[06:49] going to do this well what you can do is
+[06:50] you can say well in our existing search
+[06:53] corpus of billions of searches what
+[06:55] proportion of the time to people
+[06:57] hiding in the big actually click on the
+[06:59] Big Lebowski and where proportion of
+[07:01] time do they output the big short so so
+[07:07] you could just have a simple thing that
+[07:08] has every match every possible search
+[07:12] prefix that has ever been typed on
+[07:13] Netflix output that to the most common
+[07:16] most common thing that they clicked on
+[07:19] and boom that's your prefix matching a
+[07:21] recommendation algorithm for type-ahead
+[07:23] search so I'll cut in right there so
+[07:26] isn't that actually prone to bias there
+[07:29] so that's based off an existing
+[07:31] algorithm though right because that
+[07:34] would then have to mean that when you
+[07:36] typed in the big there was some like
+[07:38] existing Netflix recommender that had to
+[07:40] put the big short or the big lebowski
+[07:42] like one of them in front the other so
+[07:44] that would have given like sort of like
+[07:46] biased towards like the first one which
+[07:48] could have been the big short or the big
+[07:49] lebowski
+[07:50] so the way that B then can you know
+[07:54] counteract that because then it we could
+[07:56] be feeding ourself into like some weird
+[07:58] loop right of like just automating
+[08:01] against bad data right because if
+[08:04] Netflix in the initial case Netflix
+[08:07] didn't even recommend what's another big
+[08:11] movie I don't know like big the big like
+[08:14] just big buy sure yeah so if we didn't
+[08:18] even recommend that in the old case then
+[08:20] we're gonna have very few hits where
+[08:22] where the user typed in big and it
+[08:26] outputs
+[08:26] you know the Tom Hanks movie so a
+[08:29] solution to that might be hey ignore
+[08:31] whatever Netflix recommends and only use
+[08:34] the corpus of what the user types
+[08:37] so just freeform text we go from hey you
+[08:40] typed the big and then you finished
+[08:42] typing the big short regardless of any
+[08:46] Netflix interaction that's hard to do
+[08:48] because there's you know an existing
+[08:50] state yeah of Netflix type ahead but I
+[08:54] think it's a good happy medium and one
+[08:57] thing you could do is do your best to
+[09:00] account for that bias and say hey 10% of
+[09:05] the time the user clicked on the Tom
+[09:07] Hanks movie even though zero percent of
+[09:09] the time in the existing case did we
+[09:11] recommend
+[09:11] so you get seems like you can Bayesian
+[09:13] update that with to say hey even though
+[09:16] it wasn't recommended the user really
+[09:18] wanted to follow that so that should be
+[09:19] a lot more valuable in a potential
+[09:21] type-ahead search algorithm the thing I
+[09:24] want to dive into more is a context
+[09:27] matching so you could context match
+[09:30] based on the user let's say hey if
+[09:32] you're suggesting the Big Lebowski and
+[09:34] the user happens to if you're typing in
+[09:37] too big and the user you know is a big
+[09:39] fan of Coen Brothers movies then you're
+[09:42] gonna boost Lebowski a lot higher than
+[09:45] it would be otherwise yeah well how do
+[09:47] you do that if your model let's say
+[09:49] we're gonna be constrained to a model is
+[09:51] input output string a string input
+[09:55] string output but let's say now you can
+[09:58] also provide you have a string input and
+[10:00] a user profile with various number of
+[10:03] features into now a string output so now
+[10:07] what I'm imagining is you can convert
+[10:09] this user profile into a k-means
+[10:12] clustering profile has a bunch of
+[10:17] features we can output this into either
+[10:19] Coen Brothers fan not Coen Brothers fan
+[10:22] so if you're a Coen Brothers fan and you
+[10:24] type the big every time we're gonna
+[10:26] recommend the Big Lebowski and if you're
+[10:29] not a Coen Brothers fan every time we're
+[10:30] going to recommend the big short for
+[10:32] example or something else okay so if
+[10:36] we're looking at that - won't that
+[10:38] create a super sparse data set for us
+[10:41] because you can imagine like you have a
+[10:43] user profile and it says likes Coen
+[10:46] Brothers right but this could be like
+[10:48] every director a writer actor alive or
+[10:51] I'd be like likes Ryan Gosling or not or
+[10:53] likes yeah Hanks or not so that would
+[10:58] probably provide like literally like
+[11:01] maybe thousands potentially hundreds of
+[11:04] thousands of features right - are yeah
+[11:07] is there a way that we can what would
+[11:10] that do to our data set and like what
+[11:12] could we do to make sure that doesn't
+[11:15] influence like the end recommendation
+[11:18] algorithm so I think - to better
+[11:21] containerize this we can we we know that
+[11:25] the
+[11:25] existing Netflix user profile has
+[11:28] thousands of features but what we can do
+[11:31] is we can have kind of middleware to say
+[11:33] hey for this stage for this version of
+[11:35] our type-ahead algorithm we only we will
+[11:39] have a converter of this is a user
+[11:41] profile and this is the output feature
+[11:43] set and that output feature set is going
+[11:45] to be a lot more sparse exactly so as we
+[11:48] as we initialize for our first product
+[11:50] that features that will be 0 features
+[11:52] but as we expand we can say hey now this
+[11:56] feature set is one feature yes or no do
+[11:58] you like Cohen brothers will continue on
+[12:00] that path so using that we can in tandem
+[12:05] change our model to say hey this is how
+[12:08] many features it accepts and this is how
+[12:10] many features it converts this large
+[12:13] user profile into a new new output user
+[12:16] profile specifically for this case that
+[12:18] has this the matching number of features
+[12:20] so we keep dimensionality the same and
+[12:23] we can grow it at at a similar pace
+[12:26] gotcha cool
+[12:29] so I guess lastly what do we have to
+[12:33] think about in terms of scale for this
+[12:35] yeah right because we can assume that
+[12:38] probably like I don't know like millions
+[12:42] of people are using Netflix per day and
+[12:44] at that point how do we have to think
+[12:48] about like the engineering that goes
+[12:49] into the implementation of this
+[12:51] algorithm yeah so I'm imagining several
+[12:55] layers on top of this and each one of
+[12:57] those layers if it breaks could if it
+[12:58] you know gets out scaled by by user
+[13:01] activity can bring down the entire
+[13:03] system so the first is the is the thing
+[13:06] that measures okay we have a user what
+[13:08] is their profile its map it to a feature
+[13:11] set that is the right dimensionality
+[13:13] okay that has to be able to scale up but
+[13:16] hey with the new new bright future of
+[13:18] cuber Nettie's that should be quite
+[13:20] doable and what's nice is it should it's
+[13:23] a static a pure static function to
+[13:25] convert a user profile which we can
+[13:27] fetch and I would hope Netflix has
+[13:29] scaled that a user profile based on a
+[13:31] user ID yes so I'm not too worried about
+[13:34] that falling over the next thing now
+[13:36] that we have a user profile
+[13:38] grab a look up key based on the user
+[13:42] profile and that's also a peer function
+[13:44] not too difficult but now now we have
+[13:47] now we have a user profile so we can we
+[13:50] can point that at a specific model and
+[13:52] we have what the user already input
+[13:55] putting fuzzy matching aside let's say
+[13:58] how do I map this string to an output I
+[14:01] don't think it scales very well so you
+[14:03] have a lookup table based on whatever
+[14:06] input string they had on to an output
+[14:10] variable because there's a lot of a lot
+[14:12] of redundancy on that yeah so the the
+[14:17] the data structure I've mapped this on
+[14:20] to maybe it's the best maybe it's not
+[14:22] but it's the first one that comes to my
+[14:23] mind anyway it's called it I don't know
+[14:25] if it's not pronounced try perhaps TR ie
+[14:28] so that is perfect for this prefix
+[14:30] matching problem so this says if you're
+[14:33] typing big it doesn't have a key at the
+[14:36] top layer of b.i.g instead it has each
+[14:39] letter of the alphabet
+[14:40] so B points to a sub try am i and that
+[14:45] as it's gonna be your second key of that
+[14:46] sub try points to another sub try and
+[14:49] then G points to a third one and it's
+[14:52] it's recursive so now once we reach that
+[14:56] third try node G that will map to what
+[15:01] we suggest so it is a very deep try but
+[15:04] hopefully it keeps things hot in the
+[15:07] cache so if you typed big space L we
+[15:11] already have the advantage of the cache
+[15:13] being warm to fetch bi G and now that L
+[15:16] is one more letter and should hopefully
+[15:18] point to the exact thing we're trying to
+[15:20] find gotcha so does that mean that this
+[15:22] kind of trial would have it so that for
+[15:25] each word and then a space we have big
+[15:28] and then like entire 26 letters of then
+[15:32] the next kind of cache variable a could
+[15:36] be like Apple
+[15:37] I don't know Big B baby something like
+[15:39] that and then all those tries don't know
+[15:42] exactly exactly and if if so it could
+[15:46] that could also take care of fuzzy
+[15:47] matching depending how you build that if
+[15:49] you build that try so if you type
+[15:52] be cagey then you could say oh it's that
+[15:56] finger okay instead of I your try
+[15:58] perhaps could be knowledgeable about
+[16:00] that cool this stuff like that awesome
+[16:05] and then in terms of serving this in
+[16:10] real time is there anything that we have
+[16:12] to think about in terms of how would
+[16:14] like the caching then works in terms of
+[16:18] returning the results of the movies
+[16:20] because and it seems like we have to
+[16:23] then return a lot of results based on
+[16:27] the user entity plus the actual input
+[16:32] and so I'm imagining that distributing
+[16:36] this across multiple like the entire
+[16:39] world requires some more like
+[16:41] performance like considerations right
+[16:44] and like what are their durations we
+[16:45] have to make um so one thing that comes
+[16:49] to mind as we're you know serving this
+[16:51] live system has to be always up is
+[16:53] deployments but hopefully at all our
+[16:56] levels of employment we could have the
+[16:58] version number be a cache key so we'll
+[17:00] never have any overlap there returning
+[17:03] scale results as far as scaling across
+[17:06] all our users across the globe
+[17:08] um our that layer of converting a user
+[17:12] profile to a condensed feature set will
+[17:16] hopefully reduce the cache size I
+[17:20] reduced the cache domain so now yes we
+[17:24] are caching on input string and this
+[17:27] condensed user profile but we can grow
+[17:30] that incrementally to say hey onon on
+[17:34] initialization there are no user
+[17:36] profiles there's just a
+[17:37] one-size-fits-all and then as we grow we
+[17:39] can say okay now there's two now there's
+[17:41] a thousand and now there's two now
+[17:44] there's three now there's ten now
+[17:45] there's a thousand so we can hopefully
+[17:46] grow those and see at what point which
+[17:49] things start to break oh is our caste
+[17:50] system falling over do we need to have a
+[17:52] tighter tighter grasp around that to
+[17:55] make sure that doesn't fall over but if
+[17:57] we grow slowly I'm imagining on
+[17:59] initialization one user profile you know
+[18:02] cast on yes every input string is not
+[18:04] going to fall over it be
+[18:05] as a dimensionalities solo and you could
+[18:08] limit on like the first 10 characters
+[18:10] and that should fetch you that should
+[18:12] give you a good signal on what move
+[18:14] you're trying to get after 10 characters
+[18:15] and yeah 26 to the 10 is pretty big but
+[18:18] at least at least recently used cash is
+[18:20] going to be you know pretty performance
+[18:22] on real user input great awesome

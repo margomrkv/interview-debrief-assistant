@@ -1,0 +1,960 @@
+[00:00] hello
+[00:01] hello how are you doing today i'm good
+[00:04] so uh kevin so you're preparing for
+[00:07] um the general you know fang data
+[00:10] science interviews you know generally
+[00:12] targeting product data science roles and
+[00:14] so um you set up a mock interview with
+[00:16] me so that way i can kind of give you
+[00:18] some prep questions that can be really
+[00:20] helpful for product data science in
+[00:22] general right
+[00:24] yeah um i think this is the most
+[00:25] effective way to practice so i'm looking
+[00:27] forward to it yeah um so even though
+[00:30] this is you know obviously based on
+[00:31] facebook um the type of you know
+[00:34] questions that we go through in this
+[00:36] mock interview is gonna be helpful for
+[00:37] other um you know product data science
+[00:39] interviews whether it's like snapchat
+[00:42] um or you know one of the subsidiaries
+[00:44] within facebook which is like instagram
+[00:46] or even tick tock so uh so hopefully
+[00:49] that you're gonna find a lot of benefit
+[00:50] to this um block interview that i'll be
+[00:52] conducting for you
+[00:54] okay yeah that makes fun
+[00:55] all right so in order to focus on this
+[00:57] mock interview what we're going to do is
+[00:59] we're going to go through like a product
+[01:00] sense and i'll follow up with the sql
+[01:01] question and along the way if you have
+[01:03] any questions obviously you know you can
+[01:04] definitely ask clarifying questions
+[01:06] those sort of things
+[01:07] okay sounds good all right
+[01:10] so i'm going to start with the first
+[01:12] question
+[01:13] which is
+[01:15] um
+[01:18] all right so how would you measure user
+[01:20] turn on instagram
+[01:23] um okay
+[01:24] let's see so um i think first thing is a
+[01:28] couple of cliff questions i want to
+[01:29] clarify before we move forward um
+[01:32] so user churn so user return usually um
+[01:35] just means that it's the way i think
+[01:38] about it is inactive users so do you
+[01:39] want me to kind of define more concrete
+[01:42] time frame for that inactivity on my own
+[01:44] and then the type of actions that they
+[01:46] take so i would actually honestly prefer
+[01:48] if you kind of
+[01:49] um perhaps just think about the initial
+[01:52] kind of approach and then maybe kind of
+[01:53] work your way around this
+[01:54] instead of okay you know telling you
+[01:56] this is what you should be looking at
+[01:58] first
+[01:59] yeah
+[01:59] of course and then um so instagram it's
+[02:02] pretty broad um you know there are even
+[02:04] multiple offerings within instagram for
+[02:06] example you have the regular post you
+[02:08] have stories you have um explore page
+[02:11] and then now you have a shopping tab is
+[02:13] there any subsection within instagram
+[02:14] that you want me to focus on
+[02:17] uh you know what let's just say general
+[02:19] users
+[02:20] general user okay yeah yeah um okay so
+[02:24] and
+[02:25] is there can i know who um like who the
+[02:29] stakeholder is uh are
+[02:31] interested in this uh knowing this
+[02:33] measurement yeah so i would say maybe
+[02:36] like executives people who are on the
+[02:38] higher up on the instagram chain okay
+[02:40] okay
+[02:41] okay
+[02:42] so in this case i think even before we
+[02:45] um like uh define a very quantitative
+[02:47] and measurable metric on this i'll kind
+[02:49] of back up a little bit and then think
+[02:50] about instagram as a platform so you
+[02:53] know it's
+[02:54] primarily a photo sharing app but it has
+[02:57] evolved into
+[02:59] i think a lot more than just photo
+[03:01] sharing and generally a very useful way
+[03:03] for people to connect with each other
+[03:05] and then it's also um i think it's
+[03:07] unique in a way that the user
+[03:09] demographic is quite different from
+[03:10] facebook um as a whole
+[03:14] and yeah so it's a pretty important
+[03:15] business to instagram
+[03:17] um so in terms of if executives want to
+[03:19] know user trend i think they primarily
+[03:22] want to know i would say
+[03:25] i would guess there are two ways you can
+[03:26] think about it right um so maybe there
+[03:29] is just
+[03:30] a decrease in the number of
+[03:33] active users and then we can define the
+[03:36] whether how we define active later but
+[03:38] then there's also i also want to think
+[03:41] about kind of engagement drop so
+[03:44] maybe the users are kind of just
+[03:46] checking a lot less frequently
+[03:48] so um they don't necessarily turn all
+[03:50] the way like they're not deleting their
+[03:52] account for example but then maybe their
+[03:54] time now are getting pulled to other uh
+[03:57] competitors so like you mentioned like
+[03:59] snapchat um tick tock that sort of thing
+[04:02] so i would also almost in a way to kind
+[04:05] of think about that as a user trend in a
+[04:07] way if the engagement time is degrees a
+[04:10] lot so i would say right now um let me
+[04:13] try to kind of type out some notes so
+[04:14] one is
+[04:17] totally
+[04:19] users
+[04:20] and then two is then
+[04:23] dramatic drop in
+[04:28] so which of these do you think do you
+[04:30] want me to focus on more i think those
+[04:33] are very important and they kind of
+[04:34] answer different questions for um so
+[04:36] okay so
+[04:38] when you think about this for a second
+[04:39] first of all you have to have a way to
+[04:41] measure that before you can prioritize
+[04:43] in the second one right
+[04:45] yeah so let's let's now talk about more
+[04:48] details on how to define it so totally
+[04:50] active users i would think about this i
+[04:52] would want to define some kind of
+[04:54] time frame for someone to be classified
+[04:57] as inactive okay so
+[04:59] you can think about it as well there are
+[05:01] many ways right so i can think about how
+[05:04] many times they log in
+[05:07] say if they don't log in in a sunday
+[05:10] period we can consider a return or we
+[05:12] could also consider that
+[05:14] maybe you want an even more fine grain
+[05:16] level where they kind of log in but then
+[05:19] they're not
+[05:20] i guess it just relates to the second
+[05:22] point more so they log in but they're
+[05:23] not doing any engagement and by
+[05:25] engagement i mean they're not liking any
+[05:27] posts they're not viewing any stories
+[05:29] they're not posting they're not
+[05:30] commenting they're not direct messaging
+[05:32] any users
+[05:34] so let's see for the first case i can i
+[05:37] think the way i'll
+[05:38] define it would be
+[05:40] say
+[05:42] [Music]
+[05:44] within
+[05:45] a seven day period
+[05:49] say um
+[05:52] lot number of users who
+[05:56] have not
+[05:58] logged in
+[06:00] now
+[06:04] some day period
+[06:06] um and then so that's a total number of
+[06:09] um
+[06:10] of user turn um in that seven-day period
+[06:13] um
+[06:16] and then for engagement i would say
+[06:19] also within
+[06:23] some day
+[06:25] period
+[06:26] for user engagement i would say
+[06:30] for example
+[06:31] i guess for this one i would define a
+[06:32] rate so
+[06:35] total number of unique user
+[06:40] and then
+[06:42] which number of
+[06:51] so this is kind of how i would uh
+[06:53] imagine engagement so within a seven day
+[06:55] period so what is the number average
+[06:58] number of engagement actions so
+[06:59] engagement actions here i'm defining as
+[07:03] liking commenting posting or
+[07:06] viewing stories or
+[07:08] or making stories or making direct
+[07:10] messages so any kind of
+[07:12] action other than just log in onto the
+[07:14] platform take it during the seven days
+[07:15] and then divide by the total number in
+[07:17] the user so
+[07:19] that will kind of give you average rate
+[07:20] and you can watch
+[07:22] how that rate changed
+[07:29] all right so i have a couple follow-up
+[07:31] questions starting with the sure so why
+[07:32] seven days
+[07:34] so um yeah the seventh day for me is to
+[07:37] kind of deal with things that are for
+[07:39] example
+[07:40] day of the week effect so for example i
+[07:43] would imagine that maybe people would
+[07:45] check um instagram less on tuesday than
+[07:47] say on friday saturday on like for
+[07:50] example on the weekend so i think kind
+[07:52] of give you that seven day period smooth
+[07:53] out some of this pure uh period
+[07:57] periodic nature
+[07:58] of
+[07:59] uh instagram engagement
+[08:01] okay got it um and i noticed that you
+[08:03] know you've essentially kind of
+[08:05] subdivided a turn to in terms of two
+[08:08] different buckets right
+[08:09] yeah the case where someone logs in and
+[08:11] then no activity and then another case
+[08:13] where
+[08:14] um you know basically
+[08:16] um
+[08:17] uh
+[08:18] you know they
+[08:19] uh you know they just don't engage as
+[08:21] much anymore right um but if you had to
+[08:24] basically just pick one as your
+[08:26] definition for churn which one you
+[08:28] actually pick
+[08:30] yeah especially for uh the business
+[08:32] holder so you know in the beginning i
+[08:33] asked who like the executives are the
+[08:35] ones that are interested in this right
+[08:37] and i think
+[08:38] they
+[08:39] this is much more important than drawing
+[08:40] a drop in user engagement so the reason
+[08:42] being that
+[08:44] for example
+[08:45] how instagram as a platform makes money
+[08:47] is through advertising right so you need
+[08:50] the users to actually be using the
+[08:51] platform instead of you know kind of
+[08:52] just briefly logging in and then
+[08:55] be on the platform then they're not
+[08:57] going to see
+[08:58] ads as often for example right and
+[09:00] they're not using the if they're not
+[09:02] engaging with the app long term
+[09:04] um
+[09:05] they're they probably aren't it's
+[09:07] probably an indicator that they're not
+[09:08] having a good time so they're not having
+[09:10] a good
+[09:11] user experience with the application um
+[09:14] so this i think serves as a very very
+[09:17] important kind of um
+[09:19] indicator so you can kind of watch out
+[09:21] for
+[09:22] uh things that may go wrong before they
+[09:24] kind of catastrophically go wrong so to
+[09:27] me like totally active users if they're
+[09:29] not even logging in that's true it's
+[09:31] very hard to pull the users back right
+[09:33] instead of
+[09:35] uh versus user who are right now they're
+[09:37] on the platform by just not using your
+[09:39] platform as much then maybe uh if we um
+[09:43] kind of monitor this metric then we can
+[09:45] inform the business holders that okay
+[09:48] we're seeing this drop in user
+[09:49] engagement then they can kind of devise
+[09:51] new um strategies to pull it back so i
+[09:53] think the second one is a lot more
+[09:54] important in terms of defining user
+[09:57] trend
+[09:57] okay got it
+[09:59] and um one last question which is um
+[10:03] sign in so
+[10:05] would you consider sign in as like a
+[10:06] engagement
+[10:08] define it as engagement
+[10:12] i think i would think about it as
+[10:19] to me i wouldn't consider that as an
+[10:21] engagement uh just because
+[10:23] you know sign in there's no
+[10:25] there's no measurement uh for example
+[10:27] how much time they spent on the the
+[10:29] platform right so all the other
+[10:30] engagement although it's not direct
+[10:32] measurement of how much time they spent
+[10:34] on the platform it's still an indirect
+[10:35] measurement for the time and then also
+[10:38] you know people usually so for example
+[10:40] if you have the instagram app on your
+[10:41] phone you don't usually people don't
+[10:43] like log out and then log back in right
+[10:45] so i think that having that login is not
+[10:48] it's not a very useful indicator to me
+[10:50] okay that makes sense all right um so
+[10:53] i'm now going to set you up and ask a
+[10:54] question if you just give me a second
+[10:56] okay
+[11:04] all right so now
+[11:06] sort of kind of following up on this
+[11:08] um
+[11:09] okay so suppose that um you the
+[11:13] definition of turn here is basically if
+[11:15] they haven't displayed any active
+[11:16] behavior and that is reading comment
+[11:18] like impose the past seven days okay
+[11:21] okay now how many users have turned
+[11:24] as of today use a table below to address
+[11:26] this question and i'm going to paste the
+[11:27] table give me a second
+[11:33] all right so here's a table
+[11:36] as you can see you have a time stamp
+[11:37] user id and activity in this usage table
+[11:40] now use this table here to basically
+[11:43] address this question which is finding
+[11:44] out how many users are um have churned
+[11:49] okay
+[11:50] okay let's see so we're reporting just
+[11:53] the number of users trained and not in
+[11:55] terms of dividing by the total number of
+[11:57] users yeah that's right so we're not
+[11:58] defined yeah it's just simple okay
+[12:01] let me see okay so activity
+[12:06] comment right so sign in i'm assuming
+[12:09] this one it's yeah interesting how we
+[12:11] tie that back into the the product
+[12:13] question so i would assume that this is
+[12:14] not an engagement activity is that right
+[12:17] yeah sign it yeah okay
+[12:19] um so let me kind of outline so i think
+[12:22] i would count to get the
+[12:24] number user i would do count distinct
+[12:26] user id um to get this thing as a number
+[12:30] of users and then you also need to apply
+[12:32] a filter on the activity
+[12:34] uh and then also you need to filter out
+[12:37] by timestamp so let's do that um
+[12:40] so i'll kind of write it out and then i
+[12:42] would explain kind of the way i
+[12:45] construct everything at the end
+[12:51] um
+[12:56] where
+[13:00] um
+[13:06] i almost did a list comprehension there
+[13:08] like we do in python by don't be
+[13:10] networked but so i'm gonna do this let's
+[13:12] just suppose that um
+[13:15] for those you know who are obviously
+[13:16] watching this mock interview um it
+[13:18] doesn't matter what sql query you're
+[13:20] using whether it's postgresql
+[13:23] yeah you know uh or mike's sql the
+[13:26] purpose is just to get the logic of
+[13:27] things so
+[13:30] it can be like pseudo sql in a sense
+[13:34] and then you only want past seven days
+[13:36] so
+[13:38] between
+[13:39] now
+[13:42] actually no
+[13:52] um okay so
+[13:55] let's see so
+[13:56] um
+[13:58] let's start off from here so i'm
+[13:59] selecting from this table and then i
+[14:01] kind of filter out based on activity so
+[14:03] now i'm only
+[14:04] showing that activity
+[14:06] um i don't care about activities that
+[14:09] are not real engagement right so for
+[14:11] example sign in um
+[14:13] and then still this will filter it down
+[14:15] to only activities that are
+[14:18] actual engagement activities and then
+[14:19] they also have the corresponding user id
+[14:21] um and then i'm also filtering by based
+[14:23] on the time span so i'm doing between
+[14:25] now minus six days and then and now um
+[14:28] so i'm assuming past seven days
+[14:31] well we didn't define if we won today or
+[14:33] not but
+[14:34] um
+[14:36] yeah so this would include today and
+[14:37] then past six days so we just sum up to
+[14:39] total seven days but if we won like 80
+[14:41] days you can just have one i think there
+[14:43] is a bit of a confusion with the
+[14:45] question um maybe i might have
+[14:46] accidentally said yes to something but
+[14:49] um the question is they haven't used
+[14:52] how many
+[14:54] yeah this is actually the total
+[14:56] opposite uh thanks for the qualification
+[14:59] yeah i don't know
+[15:00] i've made a mistake along the way i
+[15:01] might have accidentally said yes to let
+[15:04] me recall the fun question
+[15:05] but yeah you need to the target focus is
+[15:08] to figure out the turn
+[15:13] uh let me check the logics right here
+[15:38] uh let's see if this is right so
+[15:42] for example i'm checking if the activity
+[15:44] is an engagement activity so i'm using
+[15:46] or statements for all this so that means
+[15:49] that for any activity that's you know
+[15:51] belongs to this list
+[15:53] you would
+[15:55] um
+[15:56] like you get at false so if any of these
+[16:00] qualified so
+[16:01] yes so i have four active separate
+[16:04] activity check so if any of them fall
+[16:06] into that activity list
+[16:08] like this statement will be
+[16:11] completely on so we also need
+[16:17] a knot right here
+[16:20] okay so i'm doing inverse so essentially
+[16:23] yeah this gives you all the this filters
+[16:26] all the activities are uh engagement
+[16:27] activities and then i filter down by
+[16:30] time and then so this will give you kind
+[16:33] of
+[16:33] a bunch of roles that has different time
+[16:35] stamps within the past seven days and
+[16:37] then uh different users and then their
+[16:39] activities but all the activities will
+[16:41] be um
+[16:43] um
+[16:44] engagement activity while non-engagement
+[16:46] activity so then i simply count the
+[16:48] distinct user id there do you see any
+[16:50] potential flaw with this
+[16:53] yeah let me see haven't displayed any
+[16:55] active behavior past someday
+[17:04] the only assumption is that
+[17:06] all of the events of across all the
+[17:08] users are locked
+[17:09] but then whatever a case where user has
+[17:12] logged in
+[17:13] or done activity
+[17:16] prior to those seven period
+[17:18] but then no longer
+[17:20] their event is being registered in the
+[17:21] table
+[17:23] then how are you counting those users
+[17:25] outside of that seven day window period
+[17:29] see haven't displayed any activity
+[17:30] active behavior
+[17:38] so i thought um
+[17:41] let's see
+[17:42] so i thought they have to
+[17:44] to for them to qualify as a uh assuring
+[17:46] the user they just simply cannot have
+[17:49] any of these um active behavior within
+[17:51] the fm data is that right
+[17:54] yeah that is correct
+[17:55] um okay
+[17:57] but then what your what your query
+[17:59] doesn't consider is like
+[18:00] um
+[18:02] a case where
+[18:03] a user
+[18:04] prior to those seven days were active
+[18:07] and then no longer they're not doing any
+[18:10] activity or didn't they didn't sign it
+[18:13] at all
+[18:15] and your query at the moment doesn't
+[18:16] count for those users
+[18:18] oh okay actually
+[18:20] you have pre-imposed
+[18:22] um within the first
+[18:24] within the past seven days and then
+[18:27] among users who have essentially signed
+[18:29] in
+[18:30] um you're looking at users who have not
+[18:32] displayed these activities and then
+[18:34] you're doing a distinct count on them
+[18:36] okay so
+[18:38] upset of the population not the entire
+[18:39] users will be considered turn
+[18:42] okay so
+[18:44] um let me ask a few clarified questions
+[18:46] so if i if i don't do any filtering on
+[18:48] the time and then count the
+[18:50] all the distinct user id in this table
+[18:52] without giving me the total
+[18:54] the entire user population yes
+[18:57] okay um okay
+[19:00] so let's see
+[19:10] so maybe i'll actually do this um
+[19:12] it'll give you about a just you know a
+[19:14] minute to minute or two to basically
+[19:17] just
+[19:18] revise the solution
+[19:56] okay it's my division this also because
+[19:59] of the time constraint let me think does
+[20:01] this work so
+[20:03] essentially what i'm now doing is i'm
+[20:04] counting the total number of users that
+[20:06] we have this is what this inline does
+[20:08] and then my attempt is to minus out any
+[20:11] users
+[20:15] that have
+[20:16] any engagement activity in the past
+[20:19] seven days so that will give you
+[20:21] that that you'll be left with only users
+[20:23] who
+[20:24] are like essentially turned in the past
+[20:26] seven days so
+[20:28] yeah that is that is my solution
+[20:31] okay got it
+[20:33] um great well thanks for these questions
+[20:36] um
+[20:37] and then now we're gonna segue over to
+[20:38] the solutions portion
+[20:40] and
+[20:41] uh we're gonna go through the questions
+[20:43] in the order they were asked
+[20:45] sure
+[20:45] all right so
+[20:47] uh okay so
+[20:50] let's um start by talking about the
+[20:51] product sense questions because i had a
+[20:53] couple notes um okay things that were
+[20:55] good and things i think could use some
+[20:57] improvements
+[20:58] um
+[20:59] all right so the first so the
+[21:01] general
+[21:02] um
+[21:04] kind of impression of how you were
+[21:05] approaching this problem was really
+[21:06] solid in the sense that you communicate
+[21:08] things really well
+[21:09] we're very clear about
+[21:11] what is um what what it is that you're
+[21:14] articulating um explain you provided
+[21:17] enough details for me to understand it
+[21:19] more often than not candidates might
+[21:21] over explain or underexplain but in your
+[21:24] case you had an idea and then you
+[21:26] explained just enough for me to kind of
+[21:28] get your point
+[21:29] so that's really good in terms of
+[21:30] communication which is another
+[21:32] a very common attribute that's being
+[21:34] assessed or technical interview
+[21:36] the second thing is i really like how
+[21:38] you were asking clarifying questions
+[21:40] um
+[21:41] made things very engaging with the
+[21:42] interviewer and for
+[21:45] generally speaking for these type of
+[21:47] technical interview um
+[21:49] that it's best not to do like a model
+[21:51] but kind of
+[21:53] engage the interviewer um brainstorm
+[21:55] ideas with this person
+[21:57] um the more interactive it is the better
+[21:59] it is
+[22:00] that helps interview you know that you
+[22:03] um have a kind of good sense of like how
+[22:05] do you collaborate with the person right
+[22:08] and
+[22:10] that is something that interviewers will
+[22:12] kind of look for you know
+[22:14] um so those are
+[22:16] those are the uh two things that were
+[22:17] really great about how you were
+[22:19] responding to those
+[22:22] all right so now
+[22:25] let's go through
+[22:26] uh some of the
+[22:28] areas or improvements um
+[22:31] okay so actually one other thing that i
+[22:33] just want to mention is that you started
+[22:35] out in a good framework structure okay
+[22:38] um let's have clarifying questions let's
+[22:40] really understand what the target goal
+[22:42] is second thing is understand the
+[22:44] summary of you know basically the
+[22:46] product context of the business goal
+[22:48] right
+[22:49] um and you did those you set up you
+[22:51] basically set up the background
+[22:53] before you actually dive into solution
+[22:55] which is really good
+[22:57] now let's talk about the solution itself
+[23:01] um
+[23:02] there's a couple things that i think you
+[23:04] do really well
+[23:06] which is so first of all
+[23:08] um you kind of found like what is a good
+[23:10] proxy
+[23:12] for
+[23:12] measuring um
+[23:14] you know inactive users
+[23:16] in this case it is going to be um
+[23:18] essentially engagement right
+[23:21] um so you look at the engagement actions
+[23:24] like
+[23:24] click uh read comment you know post
+[23:28] right
+[23:28] um and those are those are really good
+[23:31] um that you know you like brought up
+[23:33] um
+[23:37] hey kevin
+[23:39] hey
+[23:40] hey sorry um there was a little bit of
+[23:41] disconnect on the internet on our part
+[23:44] and so we just um
+[23:46] you know got back in and now we're gonna
+[23:48] resume the session and going through the
+[23:50] questions together
+[23:51] um
+[23:52] all right so there are
+[23:54] okay so there are the couple things that
+[23:56] you did really well in terms of
+[23:59] you know how you came up with the
+[24:00] solution
+[24:01] so first of all
+[24:03] your
+[24:04] sense about
+[24:06] um
+[24:08] basically how you define the
+[24:11] um you know the churn in this case is
+[24:13] basically enact inactivity right
+[24:16] um and the inactive actions that you
+[24:18] were thinking about or
+[24:20] um you know the read the comment the
+[24:22] posts you know you know and those sort
+[24:24] of things right uh so that's good that
+[24:26] you were able to be very tangible about
+[24:28] that you know because sometimes canada
+[24:30] will just say you know inactive or no
+[24:32] usage right but then that doesn't mean
+[24:34] anything because usage can pretty much
+[24:37] mean anything and so the more you're
+[24:39] able to be very concrete about what is
+[24:41] the concrete actions that a user will
+[24:44] take you know that will define whether
+[24:46] they're active or not um you know then
+[24:48] that's that's good that you were able to
+[24:50] flesh that out
+[24:51] uh the second thing that i think you
+[24:53] also did really well is
+[24:54] you define a window period instead of
+[24:56] just saying okay they're inactive
+[24:59] which is just vague by itself you define
+[25:01] what that window period is
+[25:03] you know in this case you set a seven
+[25:05] day window period right now seven day i
+[25:08] thought was
+[25:09] reasonable
+[25:10] but
+[25:11] um
+[25:13] but in terms of your reasoning answers
+[25:14] why you pick seven day period was a
+[25:16] little bit
+[25:17] kind of lacking because okay mention the
+[25:19] idea of um you know let's take the
+[25:22] effect of like
+[25:23] maybe there's like a some sort of
+[25:25] seasonality associated to it right so
+[25:27] maybe users might log in
+[25:29] um you know monday through friday but
+[25:31] then they might not on the weekends or
+[25:32] it might be the other around or
+[25:33] something like that right
+[25:35] yeah but
+[25:36] the other aspect that i think you could
+[25:38] have definitely considered was the fact
+[25:40] that
+[25:41] when you think about instagram
+[25:42] um
+[25:43] the way that someone design is like
+[25:45] almost like a daily engagement kind of
+[25:46] thing
+[25:47] right
+[25:48] like they have what what what's one of
+[25:50] their core features
+[25:52] well there's really two things two like
+[25:54] primary features as soon as you go on
+[25:56] the homepage right um the first one
+[25:59] being the stories
+[26:01] um and then the second one would be
+[26:02] these scrolls right
+[26:04] and
+[26:05] the way it's somewhat designed
+[26:07] is i
+[26:08] um it's like you want to be in constant
+[26:10] loop with what your friends are doing
+[26:14] right right yeah i agree stories get
+[26:16] removed um in a short period of time
+[26:20] um
+[26:21] you know these images that you see on a
+[26:23] feed you you rarely see a like a post
+[26:26] that was published seven days ago you
+[26:28] posted you see both that were published
+[26:30] today
+[26:31] you know not yesterday or a couple days
+[26:32] ago so their underlying assumption is
+[26:35] that okay we want users to be engaged on
+[26:37] almost on a daily basis
+[26:40] um but then if they're not active in
+[26:42] across the seven day period which is
+[26:44] fairly you know long considering that
+[26:46] assumption is like daily engagement then
+[26:49] you know then
+[26:50] they could be considered like a turn
+[26:53] um
+[26:54] so obviously a seven day it could be
+[26:56] like a seven day 14 day 30 day really
+[26:58] depends on the subtlety of like what is
+[27:01] the user turn
+[27:02] um okay
+[27:04] you know because they're with user
+[27:05] turned there could be different types of
+[27:07] problems that you're solving in general
+[27:08] but um but that would have been a much
+[27:11] better better reasoning in terms of why
+[27:13] you picked that seven day period
+[27:15] okay
+[27:16] yeah thanks for the feedback
+[27:19] the other aspect to this is the um
+[27:24] i was a little confused in terms of why
+[27:25] you ended up picking two different
+[27:26] definitions
+[27:28] um
+[27:29] because okay so so the question is how
+[27:32] do you measure user return not
+[27:35] how do you measure user engagement
+[27:38] they sound a little similar but they're
+[27:40] not necessarily the same thing
+[27:42] um if i if i ask you know how would you
+[27:44] measure user engagement on instagram
+[27:46] then i think the way you define the
+[27:49] metric which is average number of
+[27:50] engagement actions taken during seven
+[27:51] day
+[27:52] uh divided by you know whatever
+[27:54] denominator would have made sense
+[27:56] but then um the question is about user
+[27:59] turn so i thought that this is a little
+[28:01] bit superfluous in terms of what you
+[28:02] brought up there
+[28:04] that's why i had like a follow-up
+[28:05] question which is like if you have to
+[28:06] pick one which one would you pay and i
+[28:08] was kind of hoping that you would
+[28:09] essentially pick total total uh inactive
+[28:12] users you know
+[28:14] uh not necessarily engagement in this
+[28:17] case so that was a local mark because
+[28:20] okay kind of imagine
+[28:22] um
+[28:23] this
+[28:24] there's there's a whole data science
+[28:25] project revolving around predicting user
+[28:27] turn
+[28:29] that way um instagram could you know
+[28:31] build build models
+[28:33] um that could prevent user turn and this
+[28:35] is pretty much true in almost any of the
+[28:37] you know product based company whether
+[28:39] it's lift trying to prevent driver turn
+[28:42] right or
+[28:43] uh or amazon trying to prevent churn
+[28:46] you know whether they're trying to
+[28:48] prevent turn by uh sending out emails
+[28:50] push notifications whatever it is
+[28:53] they want a clear label
+[28:54] ones and zeros in terms of okay this
+[28:56] user is gonna turn the next seven days
+[28:58] or something like that right
+[29:00] so um
+[29:01] picking one definition
+[29:03] um would have made sense in this case
+[29:05] would have been the first one not
+[29:06] necessarily the second one
+[29:09] actually
+[29:10] okay and um
+[29:13] i also asked you know it's like sign in
+[29:16] engagement
+[29:17] um you know would you consider sign in
+[29:19] as an engagement
+[29:21] and uh you may have um
+[29:24] i agree with you that you know sign in
+[29:26] should not necessarily be considered as
+[29:28] an engagement because what could happen
+[29:30] is that you know user might have
+[29:31] accidentally just signed in
+[29:33] but then they're not they
+[29:34] met they might be near the exit right
+[29:37] um so in that case there's really no
+[29:39] activity whatsoever so it's just a
+[29:41] little bit like a misregistration in
+[29:42] terms of whether they would be
+[29:43] considered active or not and you
+[29:45] provided reasoning behind that so that
+[29:47] was really good
+[29:48] okay
+[29:50] and so in general i mean i think i think
+[29:52] what you did really well is just like
+[29:54] you um made a point and then you make
+[29:57] sure you provide justification and when
+[29:59] you provide a justification
+[30:00] um you did it just enough to unders for
+[30:03] the interviewer to understand and you
+[30:05] didn't try to over explain it and that
+[30:06] was really interesting so i would
+[30:08] definitely keep up with the overall
+[30:10] framework of how you responded to this
+[30:12] you started by asking a different
+[30:14] question you laid out what the business
+[30:16] and product goals are and then from
+[30:17] there you did like a deep dive so in
+[30:19] terms of the general structure although
+[30:21] there were a little bit of
+[30:22] kind of
+[30:23] problem areas in terms of um some
+[30:26] subtleties about you know what the user
+[30:27] turn is overall and i thought you did a
+[30:30] really good job uh okay with this
+[30:34] yeah i agree with all the feedback thank
+[30:35] you yeah all right so now let's go
+[30:38] through the sql question
+[30:41] which is um
+[30:43] uh
+[30:44] all right so
+[30:46] this here
+[30:47] once again think many did a good job
+[30:49] again just asking clarifying questions
+[30:51] making sure you understand things
+[30:53] um
+[30:54] the
+[30:55] couple things
+[30:56] that was obviously a little problematic
+[30:58] in the beginning maybe i might have
+[31:00] misspoken i can't remember but um
+[31:03] but the question is about you know how
+[31:05] many users turned not how many users
+[31:07] active and you started yeah i addressed
+[31:09] that question right
+[31:11] um
+[31:12] and that kind of
+[31:13] you know you end up kind of wasting some
+[31:15] time uh but yeah in the wrong right so
+[31:18] just make sure you clearly understand
+[31:20] what it is that that's being asked
+[31:22] um and then from there
+[31:24] dive into the solution
+[31:26] now
+[31:28] uh now let's think about you know your
+[31:31] your query itself uh so this is actually
+[31:34] not too different
+[31:36] from i'm gonna
+[31:38] paste my solution real quick
+[31:48] all right
+[31:49] so
+[31:50] essentially the logic of what you try to
+[31:52] do is the following so let's take all
+[31:54] the global users right a unique set of
+[31:57] all the users to count them
+[31:59] and then um let's take the users who are
+[32:01] considered active
+[32:03] right
+[32:04] so you take the set subtract to buy this
+[32:06] set and you count it
+[32:08] and then that's going to give you all
+[32:09] the users that have
+[32:11] turned
+[32:13] yep and that's what you try to do
+[32:15] um obviously
+[32:16] this
+[32:18] hurry
+[32:20] would have
+[32:21] um
+[32:24] so so okay so it's not so much obviously
+[32:26] if we were to run it then i think there
+[32:28] might be some maybe logical like syntax
+[32:31] errors but in terms of what the the
+[32:33] logic of what you were going for makes
+[32:35] sense
+[32:36] um that's because what you're trying to
+[32:37] do is basically get this right
+[32:40] yeah obviously if we're in an executable
+[32:41] environment you have a little bit more
+[32:42] time you would be able to polish things
+[32:44] up you know and ultimately use the
+[32:45] solution which i believe
+[32:47] um
+[32:49] but
+[32:49] uh
+[32:51] yeah so all in all i mean this this is
+[32:54] um
+[32:55] this is good good kind of sql logic in
+[32:57] terms of you know being able to address
+[32:59] this question which is good
+[33:01] um now if you look at my solution
+[33:04] um in a way it's not too different from
+[33:06] how you were trying to approach it so
+[33:07] for me i started with let's take all the
+[33:10] unique users
+[33:11] and then this second one is to
+[33:15] get all the users who are
+[33:16] active
+[33:19] and then i do like a distinct count on
+[33:20] those users
+[33:22] and then from there
+[33:24] you know i i basically take these unique
+[33:27] positions of unique users
+[33:28] and then users from the active users
+[33:30] past seven days
+[33:32] um
+[33:33] and i do a set operation which is minus
+[33:35] and then i count those pieces okay
+[33:39] which would have given the result
+[33:41] um
+[33:43] so yeah so again you know um
+[33:46] you know you definitely did a good job
+[33:47] with the sql portion
+[33:49] um and so uh so really kudos you know
+[33:53] okay yeah thanks uh yeah that was the
+[33:56] the hints definitely helped because i
+[33:57] was heading into the wrong direction
+[34:00] yeah um but but in general um i really
+[34:02] loved how you were able to quickly make
+[34:05] a pivot realizing that you made a
+[34:07] mistake
+[34:08] um
+[34:09] i mean really
+[34:10] interviewers will often kind of give you
+[34:11] some hint to make sure that you're going
+[34:13] the right direction
+[34:15] and they're also looking to see whether
+[34:16] you can recover
+[34:17] and in this case you made a very quick
+[34:19] recovery which is really good
+[34:23] yeah okay yeah thank you so much
+[34:25] yeah
+[34:26] all right well um definitely appreciate
+[34:29] your time for this mock interview
+[34:31] um and you know um and best of luck with
+[34:34] the upcoming interviews for your product
+[34:36] data science goals
+[34:38] yeah of course thank you so much for
+[34:39] your time yep sounds good bye kevin
+[34:42] bye

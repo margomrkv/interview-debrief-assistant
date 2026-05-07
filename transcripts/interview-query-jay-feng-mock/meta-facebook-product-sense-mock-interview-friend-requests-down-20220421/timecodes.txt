@@ -1,0 +1,719 @@
+[00:00] the first question is a product manager
+[00:02] at facebook comes to you and tells you
+[00:04] that friend requests are down by 10 on
+[00:07] the facebook app all right
+[00:09] what would you do to investigate this if
+[00:11] i could get the question right basically
+[00:13] a product manager comes to me and say
+[00:15] that request is going uh it's down by 10
+[00:17] percent and i have to basically
+[00:19] investigate what is the reason behind it
+[00:21] right
+[00:22] yeah give me a minute to structure my
+[00:23] thoughts
+[00:26] i have few follow-up questions so
+[00:28] firstly can you help me to understand
+[00:30] what do you mean by friend request is it
+[00:31] friendly question friend request
+[00:33] accepted
+[00:34] which part of metric is down
+[00:36] yeah so let's say that it is the number
+[00:40] overall number of friend requests
+[00:42] made
+[00:43] so uh friend request then accepted so
+[00:46] friend request except to dive down right
+[00:48] yeah okay
+[00:50] and i just wanted to clarify on
+[00:53] how is this metric calculated is it like
+[00:56] a friend request accepted divided by
+[00:59] friend request said is this how we would
+[01:01] calculate the metric uh yes so it should
+[01:04] be
+[01:04] the number of friend requests that are
+[01:07] accepted
+[01:08] total so um specifically we're not
+[01:11] looking at any sort of ratios uh there's
+[01:14] friend requests right and then there's
+[01:15] friend requests that are accepted
+[01:17] so let's say friend requests that are
+[01:19] accepted are down by ten percent
+[01:21] okay so we are looking about looking
+[01:23] into absolute metric
+[01:25] so let's say
+[01:26] okay got it friend requested the way i'm
+[01:29] planning to approach this problem it
+[01:31] would be broken down into four steps so
+[01:34] firstly i'll be talking at a very high
+[01:36] level reasons uh like not doing much
+[01:40] analysis but checking for like any
+[01:42] obvious miss out if we have
+[01:44] and if we don't find anything there then
+[01:46] i'll proceed to breaking down this
+[01:48] metric into further components
+[01:51] uh on top of that i would do some
+[01:53] segmentation analysis and then come up
+[01:55] with few hypotheses behind this
+[01:58] problem
+[01:59] so uh
+[02:00] and i believe we are just talking about
+[02:03] facebook the blue app we are not talking
+[02:05] about other family of apps
+[02:07] yeah right exactly
+[02:09] cool
+[02:10] so first i wanted to check with you
+[02:13] is there
+[02:15] is this a certain day or is it a gradual
+[02:18] dip in the metric
+[02:21] um let's say it's a gradual dip yeah
+[02:23] okay but what would you do in either
+[02:25] case
+[02:27] so if it was a certain dip i would have
+[02:29] seen into data dashboard let's say
+[02:32] pipelines might have not run
+[02:34] uh some
+[02:35] uh correction might have happened or
+[02:38] let's say there was a bug which
+[02:40] cost in the system which have impacted
+[02:42] system for a day or two so i would have
+[02:45] looked into those factors but if it's a
+[02:47] gradual day then i have to do further
+[02:49] thorough analysis
+[02:50] okay
+[02:51] cool
+[02:53] and have we changed
+[02:55] sorry any questions yet oh saying like
+[02:57] what about if it was a gradual death
+[03:00] yeah i'm coming to that so now you're
+[03:02] saying it's a gradual tip so have we
+[03:03] changed anything in the way we were uh
+[03:06] calculating the metric like earlier
+[03:08] let's say definition is just friend
+[03:10] request accepted uh have we added any
+[03:12] more
+[03:13] uh
+[03:14] criteria into this any changes in the no
+[03:17] changes okay
+[03:19] uh
+[03:20] have we made any product feature level
+[03:23] changes which would have impacted
+[03:25] potentially i would say that facebook as
+[03:27] an app let's say that it's changed uh
+[03:29] gradually over the past you know three
+[03:32] to five years we've promoted some things
+[03:35] we've promoted
+[03:36] less things but maybe nothing comes to
+[03:38] mind as being obvious
+[03:40] so nothing
+[03:42] obvious which could have caused this
+[03:43] graduality
+[03:45] okay and can you tell me like is it a
+[03:48] tip over a month or a week when was the
+[03:50] exact time free frame of this day
+[03:53] let's say it's over like a year
+[03:55] oh make sense
+[03:57] then if it's a year then there could not
+[03:59] be any data logging issue or
+[04:01] instrumentation issues which we have
+[04:03] done uh
+[04:05] have
+[04:07] for a year i think seasonality is still
+[04:08] not an option but just wanted to check
+[04:11] is there any seasonality in the past
+[04:12] have we seen any similar pattern
+[04:16] uh no i'm gonna sign up
+[04:18] okay uh one more thing i would like to
+[04:20] check um generally
+[04:22] we sometimes run a lot of growth
+[04:24] marketing campaign which can increase or
+[04:26] decrease the number of users or other
+[04:28] metrics so is there any growth marketing
+[04:31] campaign which we have run in the past
+[04:34] and actually this is not a dip now this
+[04:36] metric is coming to normalcy so it's
+[04:38] like you're in a marketing campaign you
+[04:40] see some increase in your metric and
+[04:42] when the effect of marketing campaign is
+[04:44] gone
+[04:44] it has come down to its normalcy is it
+[04:47] something like that
+[04:48] um
+[04:49] not sure let's say could you present a
+[04:52] scenario where this would happen and
+[04:53] affect the friend requests so let's say
+[04:56] uh one and a half year back we started
+[04:59] some campaign so number of friend
+[05:00] requests accepted increased but now it
+[05:03] is back to one and a half half year
+[05:06] back scenario
+[05:07] gotcha okay yeah so let's say it's not
+[05:09] because of that okay
+[05:12] now
+[05:13] nothing of that
+[05:15] then
+[05:17] is there any other
+[05:19] key metric in the ecosystem which we
+[05:21] have seen and changing at like at a
+[05:24] facebook level just wanted to make sure
+[05:25] it's not just one of the metric which is
+[05:27] impacted
+[05:28] if it is like infecting everything then
+[05:30] it's a bigger problem to solve
+[05:32] um what's an example of that
+[05:34] so let's say if your tao is going down
+[05:37] engagement time is going down uh
+[05:40] or
+[05:42] time is yeah time spent is going down or
+[05:44] let's say
+[05:46] any other top level kpi which is going
+[05:49] down
+[05:50] gotcha so how would uh daily active
+[05:53] users for example going down effective
+[05:56] the request like if
+[05:59] if fewer people are getting active on
+[06:01] facebook then it means very few people
+[06:04] fewer friend requests would be sent and
+[06:06] eventually that number would be impacted
+[06:09] gotcha okay so yeah let's say that's not
+[06:11] happening
+[06:12] okay i don't think any other world
+[06:16] level event would have impacted because
+[06:17] again it's uh
+[06:20] gradual shift
+[06:21] across the year
+[06:22] so i think at a high level i could not
+[06:25] think of any other major uh issues so i
+[06:27] would go to the next step of my analysis
+[06:30] which is breaking down this metric so
+[06:32] what i'll do uh now the total metric we
+[06:35] have is total friend request accepted
+[06:38] so i would break it down into number of
+[06:42] uh users
+[06:45] at a daily level number
+[06:54] okay
+[06:55] so
+[06:57] like right now it's a very numeric or
+[06:59] high level metric which is difficult to
+[07:00] investigate so i'm breaking down it into
+[07:02] two components and so can you help me
+[07:05] understand is it number of users which
+[07:07] is going down or average friend request
+[07:09] except i believe you mentioned how is
+[07:11] not
+[07:12] going down so basically
+[07:13] average friend requested per user might
+[07:15] be going down
+[07:17] so uh if that's so different accepted
+[07:21] average number of friend requests
+[07:22] accepted per user is that what you said
+[07:25] yeah
+[07:26] all right so why do we care about this
+[07:27] metric
+[07:28] so like i mentioned total friend request
+[07:31] is equal
+[07:32] accepted is equal to number of active
+[07:35] users into uh friend request per user if
+[07:38] i multiply these components
+[07:40] uh this will give me request now
+[07:42] breaking down this metric will help me
+[07:44] to understand if there is a
+[07:46] if basically my active users base is
+[07:48] going down that is the problem or my
+[07:50] user bases remain intact and now yes
+[07:52] people are sending accepting fewer
+[07:55] requests that is the problem so it will
+[07:57] help me to further narrow down my
+[07:58] investigation
+[08:00] gotcha okay
+[08:01] so let's say that the number of active
+[08:03] users is not going down right and we
+[08:05] already mentioned that before right yep
+[08:07] um so then
+[08:09] i guess it would have to be the number
+[08:11] of
+[08:12] average friend requests per user is then
+[08:14] decreasing
+[08:15] okay so everything was accepted but user
+[08:18] is going down
+[08:20] uh so i would now break it down further
+[08:23] and what i'll do i'll
+[08:25] see this i'll divide this metric further
+[08:27] into two parts average friend request
+[08:31] uh
+[08:32] friend request accepted by
+[08:34] matured user like people who have been
+[08:36] into the system for let's say more than
+[08:38] 90 days versus people who have been
+[08:43] into the system for less than 90 days so
+[08:45] which part of metric is going down i
+[08:47] would further investigate the reason is
+[08:50] my initial hypothesis people who are new
+[08:52] to the system they are more prone to
+[08:54] sending and accepting more friend
+[08:56] requests versus a mature user they
+[08:59] already have majority of their friend
+[09:01] so can you help me to understand which
+[09:02] part of uh the user base
+[09:06] is going down in terms of everything
+[09:07] request accepted uh what do you think my
+[09:10] initial
+[09:12] hunch is
+[09:14] maybe
+[09:14] maybe the new user base
+[09:17] like the users who are
+[09:19] new to the system because my point is if
+[09:20] someone is already in the uh
+[09:23] ecosystem for quite
+[09:24] time generally
+[09:26] people anyways like if i think about
+[09:28] myself who is a
+[09:30] active who has been a facebook user for
+[09:32] like years i hardly send or accept from
+[09:35] requests these days
+[09:36] maybe like one a month so i should not
+[09:38] be impacting that much
+[09:40] okay
+[09:41] but if uh the number of users that are
+[09:44] over 90 days is let's say 99 of the
+[09:48] total user yes right wouldn't just like
+[09:50] a slight decrease there
+[09:52] uh be a huge cause versus just like the
+[09:56] new users of the 90 days
+[09:58] that's also true so that's why even i
+[10:00] was divided so i would like to have this
+[10:03] data code before i start
+[10:06] so
+[10:07] so what do you think
+[10:08] which station should i proceed
+[10:11] i would say what does your intuition say
+[10:13] uh so if it is the new users then what
+[10:16] would you do
+[10:17] i think um if it's new user or old user
+[10:20] i would have proceeded with the
+[10:22] segmentation analysis so the
+[10:23] segmentation analysis i would start with
+[10:25] something like a geographical cut
+[10:28] because i don't think we can have a
+[10:29] demography analysis for app like
+[10:32] facebook where we don't know people are
+[10:33] putting their current gender or age so i
+[10:36] would have started with something like
+[10:38] in which geography this decline are we
+[10:40] seeing and then i would have seen
+[10:42] further at the
+[10:45] that versus ios versus android so see if
+[10:48] there's a particular segment where i'm
+[10:50] seeing that
+[10:51] so any inputs on these segmentation
+[10:54] nope that makes sense uh which one would
+[10:57] you investigate first do you think i
+[11:00] would have started with geography i
+[11:02] think we can we could start with any
+[11:04] note geography or device level i would
+[11:06] have started with geography and if there
+[11:08] is particular geography where we have
+[11:10] seen more div then i would have gone to
+[11:12] the second layer of segmentation
+[11:13] analysis which is android versus ios
+[11:16] versus web gotcha and why geography
+[11:19] first
+[11:20] uh so geography
+[11:23] i generally felt like
+[11:25] user of a particular kind of geography
+[11:27] have
+[11:29] have a similar behavior so for example
+[11:31] if we think about north america or
+[11:33] western europe uh
+[11:35] right now at this point of them i can
+[11:36] say that yeah i have heard a lot of
+[11:38] anecdotal uh inputs that yeah now
+[11:41] facebook is for old people it is not
+[11:43] even picking up and instagram is the
+[11:45] place to go whereas in the asian market
+[11:48] where people are still
+[11:50] going like elderly people to meet people
+[11:52] are still going to facebook so that's
+[11:54] why i think it might be a stronger scene
+[11:57] gotcha
+[11:58] then uh wouldn't you have to segment for
+[12:01] age at that point if your hypothesis is
+[12:03] kind of based on um so
+[12:06] yeah agent accounts
+[12:08] so i think right right now with my
+[12:11] understanding like i think we'll just
+[12:13] say that you have to be more than 13
+[12:15] years old
+[12:17] now
+[12:18] i'm not sure whether the information
+[12:20] which people provide about their gender
+[12:22] and age how accurate it would be
+[12:25] we can make some approximations by
+[12:27] looking into friends uh and
+[12:30] looking into picture that what general
+[12:31] could it be but what each would be but
+[12:33] if i just
+[12:35] uh look at the first instance i would be
+[12:38] doubtful about the quality of this data
+[12:40] on facebook
+[12:42] okay
+[12:43] so let's move on to the second segment
+[12:46] so uh is there any specific geography or
+[12:49] device level where we are seeing the dip
+[12:53] or that across something
+[12:55] potentially yeah so let's say that uh we
+[12:57] don't see anything what else did we do
+[13:00] okay so right now
+[13:03] let's just summarize the things we have
+[13:05] done so far so right now we saw that
+[13:07] friend request accepted is going down
+[13:10] for
+[13:11] new users and we did not find any major
+[13:15] pattern
+[13:16] till the time we performed
+[13:18] segmentation and i'll say that a
+[13:19] demography level as well as device level
+[13:22] okay
+[13:24] so
+[13:24] now i would try to
+[13:26] go a little bit into the user journey
+[13:28] analysis uh i would try to see how does
+[13:32] a friend request saying happened versus
+[13:34] acceptability so how did does that
+[13:36] funnel
+[13:37] now there are two sources of uh friend
+[13:39] request sending if i understand
+[13:41] correctly first is you make an organic
+[13:43] search
+[13:45] and you find a person and then you send
+[13:47] a friend request and then there is other
+[13:50] one is people you may know you might
+[13:51] send friend requests from there so that
+[13:53] would be my starting point firstly i
+[13:55] would see
+[13:56] in these two funnels um
+[13:59] how many uh like number of friend
+[14:01] requests sent how is it looking is it
+[14:04] going down or is it going up
+[14:06] uh
+[14:08] even before that i would actually start
+[14:10] with something like build a high level
+[14:12] funnel so thing is friend request sent
+[14:14] attempted then friend request actually
+[14:17] process because there are sigma rules in
+[14:18] the back end which execute those actions
+[14:21] and then friend request eventually
+[14:23] accepted so there are three steps of the
+[14:25] funnel i'll see
+[14:27] if there is drop of a drop happening at
+[14:29] any point so is it the problem more on
+[14:33] friend request sent or is it this friend
+[14:35] request getting sent or not and when
+[14:37] people are accepting is it getting
+[14:38] accepted or not so can you tell me like
+[14:40] which part of the funnel has seen the
+[14:42] major drop off okay what do you think
+[14:44] it could go in any direction
+[14:47] like
+[14:48] people might be sending fewer friend
+[14:49] requests or
+[14:51] there might be some
+[14:53] slight technical bug which is let's say
+[14:55] not letting
+[14:56] friend friendly percent and then if not
+[14:58] people are actually attempting this so
+[15:00] it could actually any three direction
+[15:02] would be possible and my analysis would
+[15:03] depend on this input
+[15:06] okay but uh that's not an answer right
+[15:08] so i guess depending on how what you
+[15:10] know about facebook what do you think is
+[15:12] the most likely cause at this point
+[15:14] given the current situation of facebook
+[15:16] okay
+[15:17] see if we do not see any major decline
+[15:20] in
+[15:21] diu so then it means people are coming
+[15:24] to the platform so if they are sending
+[15:26] friend requests
+[15:28] and i know there are a few
+[15:30] bunch of few privacy features which now
+[15:32] even restrict people from sending friend
+[15:34] requests to people you might not be
+[15:36] knowing
+[15:37] then
+[15:37] friend request which might be coming
+[15:39] they might be of higher quality
+[15:41] so i do not see any strong reason why
+[15:43] somebody would not be accepting it so i
+[15:45] think there should be decline at the top
+[15:47] of the funnel which is
+[15:49] intend to send friend request
+[15:51] that so maybe people are sending fewer
+[15:53] friend requests
+[15:55] that's my if i would have started
+[15:57] analysis with this point
+[15:59] okay so if why would people be uh
+[16:02] sending less friend requests you think
+[16:04] yeah so now
+[16:06] yeah i would see if there is decline in
+[16:09] people friend requests coming from
+[16:11] people you may know what says
+[16:13] friend requests coming through organic
+[16:15] search so do we have any input in this
+[16:18] uh let's say it's both
+[16:21] um how would we determine the cause yeah
+[16:23] okay so if there's a decline in both
+[16:26] got it and
+[16:28] we are seeing the decline in new new
+[16:30] users so that's an interesting point so
+[16:34] now there could be two hypotheses
+[16:35] firstly new users are not able to find
+[16:38] right
+[16:39] kind of friends or like not able to find
+[16:41] their network or basically they are not
+[16:44] just investing enough time or they might
+[16:46] have just created the account but they
+[16:48] might be
+[16:49] moving to other facebook family of app
+[16:51] or other social media so i don't think i
+[16:53] can investigate other social media but
+[16:56] there's a high chance i can investigate
+[16:58] if they are putting a lot of time on
+[17:00] other facebook family or social media
+[17:02] apps
+[17:03] so this is one direction i can proceed
+[17:06] do you think it is the right direction
+[17:07] to proceed
+[17:09] well if they're investing more time in
+[17:11] other facebook let's say instagram
+[17:13] wouldn't daily active users also go down
+[17:16] at that point
+[17:17] so what happened you might might have
+[17:19] still created facebook app but let's say
+[17:21] your time spent on the app is low okay
+[17:24] gotcha so we would be seeing a
+[17:26] correlation and time spent on facebook
+[17:28] go down by 10 or more correct uh for
+[17:32] this you will segment yes
+[17:35] okay
+[17:35] gotcha so let's say that um time spent
+[17:38] is normal
+[17:40] all the other metrics are normal but
+[17:42] we're seeing less
+[17:44] uh people sending friend requests still
+[17:46] at the same rate across all the top of
+[17:48] the funnels
+[17:50] um
+[17:51] what other methods could we do to see
+[17:54] why they would be
+[17:55] those friend requests would be going
+[17:57] down so i think we can establish now the
+[17:59] problem is people are sending fewer
+[18:02] friend requests that is the root cause
+[18:03] of the problem now we have to come up
+[18:05] with hypothesis
+[18:06] why they are sending fewer friend
+[18:08] requests and it is declined across both
+[18:10] people you may know
+[18:12] give me a relative structure my heart
+[18:14] okay okay so just to summarize so far
+[18:18] what we have concluded so the problem is
+[18:20] the in the segment of new users
+[18:24] that is where we are seeing the lower
+[18:25] friend request
+[18:27] and we've further established that
+[18:29] basically top of the funnel which is
+[18:31] friend request sent is low
+[18:33] uh
+[18:34] then
+[18:35] and this is low both from uh organic and
+[18:38] search for sent friend request as well
+[18:40] as py
+[18:43] and now basically we have to understand
+[18:45] uh
+[18:46] why they flow
+[18:48] so
+[18:49] i can see uh
+[18:51] two reasons first of all the reason why
+[18:54] this user base has created the profile
+[18:57] it the primary purpose is not
+[18:59] interacting with their friend they might
+[19:01] be playing some games or
+[19:04] following certain pages and all
+[19:06] second is they have just created a
+[19:10] profile like across all the social media
+[19:13] but they are active on let's say more on
+[19:15] instagram and messenger
+[19:18] so what i'll do for this user segment i
+[19:20] would try to do the time spent analysis
+[19:23] like on what activities are they doing
+[19:25] and uh are they spending the time
+[19:28] so this will give me a signal whether
+[19:30] the intent is to
+[19:32] interact more with the friends
+[19:34] or their community or is it more about
+[19:36] con interacting in group or let's say
+[19:40] following certain pages so that is what
+[19:42] i'll do is the first part of analysis
+[19:44] second i'll also try to if available i
+[19:47] will try to find their
+[19:49] mapping on other app like instagram and
+[19:52] messenger and see if these are the
+[19:54] primary source of communication which
+[19:56] these people are using so are we seeing
+[19:59] uh
+[20:00] more
+[20:01] let's say follow back of follows and
+[20:03] request or messenger
+[20:05] collection for these user base or not so
+[20:08] this will
+[20:09] give me an initial hypothesis that
+[20:12] the way they are using facebook that me
+[20:15] that approach has changed and they are
+[20:16] connecting with their friends on some
+[20:18] other social media so this could be one
+[20:20] of my hypothesis this is how
+[20:22] i will proceed further
+[20:24] okay
+[20:25] so what metrics would prove to you that
+[20:28] this that your hypothesis is true in
+[20:30] this case
+[20:31] uh so
+[20:32] followers sent request request on
+[20:36] instagram and it's not like a fan page
+[20:39] or a celebrity it's more like a genuine
+[20:41] user page so number of are those
+[20:44] requests going up or are stable that is
+[20:46] one metric i'll see same i'll check in
+[20:47] the messenger and then the third metric
+[20:50] which i'll see is
+[20:51] time is spent on organic content
+[20:55] interaction divided by the total
+[20:56] dimension sent on the facebook if that
+[20:58] metric is going down and other two
+[21:00] metric is going up then i can have a
+[21:02] reasonable hypothesis that this could be
+[21:04] the reason okay cool
+[21:07] awesome i don't have any further
+[21:08] questions uh but we could wrap it up any
+[21:11] other kind of points that you want to
+[21:12] make before we review it no i think uh
+[21:15] based on the thorough analysis
+[21:18] of this root cause analysis problem we
+[21:20] try to
+[21:22] check every possible segment
+[21:25] for my knowledge and
+[21:26] we have concluded it's basically change
+[21:29] in the behavior of
+[21:31] newer users which we are seeing in the
+[21:33] facebook
+[21:34] uh which is driving the friend request
+[21:36] down
+[21:37] yeah
+[21:38] so i think on my review
+[21:41] uh so what did you think about this
+[21:43] question first off and then i'll kind of
+[21:45] give you my thoughts of it as well
+[21:47] so i think it's uh
+[21:49] it's one of the classic facebook
+[21:51] questions and
+[21:52] with this question you can take the
+[21:54] candidate in any direction you want i
+[21:57] can think about like 5-10 other
+[21:59] variations right now so it's a good
+[22:00] question and basically it also helps
+[22:04] you to judge our understanding of
+[22:06] facebook
+[22:07] app from interview perspective so we are
+[22:10] checking on things like our friend
+[22:12] request i think this person have idea
+[22:14] about pymk
+[22:16] uh
+[22:17] then uh basically
+[22:19] how other ecosystem metric can impact
+[22:21] one of the metric uh
+[22:23] metric we can also check and we can also
+[22:26] think about
+[22:27] cross app uh cannibalization so it was a
+[22:30] pretty good problem i think it gives a
+[22:32] good signal if a person can
+[22:34] solve the business case property or not
+[22:37] yeah yeah i agree
+[22:39] so i think a few things that i liked uh
+[22:42] from the very beginning were
+[22:44] how you did clarify the metric that it
+[22:46] was friend request accepted versus
+[22:48] friend requests
+[22:50] given how you looked at like gradual or
+[22:53] immediate decline these are pretty
+[22:55] standard and then also kind of um
+[22:58] uh framing your structure of your answer
+[23:01] within um
+[23:02] under like doing a segment analysis
+[23:04] afterwards and then kind of a conclusion
+[23:07] i think one
+[23:09] thing that we didn't miss was around
+[23:11] like the friend request so i think it's
+[23:12] pretty obvious initially we probably
+[23:14] should have looked at like number of
+[23:16] friend requests sent versus friend
+[23:18] requests accepted right and i think we
+[23:20] kind of uh glanced over that or kind of
+[23:23] missed that one uh so that one was just
+[23:25] something that we should probably jump
+[23:26] into
+[23:27] immediately and then
+[23:29] the other thing was um
+[23:32] i think you know at facebook especially
+[23:35] i don't know
+[23:36] you know if this happens at your in your
+[23:38] interviews or like specifically but i
+[23:40] think with a lot of these case questions
+[23:41] also
+[23:42] the interviewers don't have like a set
+[23:45] you know kind of root cause for a right
+[23:47] answer right so they always just throw
+[23:48] the answer the question back at you and
+[23:51] that's kind of what i was doing there
+[23:52] too right because i didn't really know
+[23:54] like what was going to be like the right
+[23:56] answer in the scenario i was just kind
+[23:57] of looking for both of your sides and so
+[24:01] um if you explain both sides well then i
+[24:04] think that's like a good signal to the
+[24:06] interviewers um i don't know what do you
+[24:08] think uh is that usually what you have
+[24:10] to do is kind of come up with both
+[24:11] arguments and kind of create like a
+[24:14] solution to that
+[24:16] um
+[24:17] so yeah two points i mentioned i think
+[24:18] firstly valid feedback uh i was also
+[24:21] thinking should i start with friend
+[24:22] request
+[24:24] sent at the very start i did mention
+[24:26] this point later but yeah if i would
+[24:27] have started uh that could have been one
+[24:30] clarification but uh generally the way
+[24:32] we divide we do root cause analysis
+[24:35] uh we try to keep it broad but yeah i
+[24:37] could have definitely brought this point
+[24:38] earlier uh second is root cause analysis
+[24:41] i have seen both the variants uh
+[24:43] sometimes people know very specific
+[24:46] that okay this is the direction i want a
+[24:48] candidate to go and then in those
+[24:51] specifics and scenarios we don't
+[24:53] check for like very niche knowledge that
+[24:55] only an insider can have the income
+[24:57] information whereas other approach like
+[25:00] you mentioned they keep it very uh
+[25:03] open-ended and here we are trying to see
+[25:06] that what
+[25:08] various spectrum can you cover and
+[25:10] coming to the point of question back
+[25:13] i have seen again mixed patterns here
+[25:14] but it's always good to check if
+[25:16] somebody is coming with certain
+[25:18] hypothesis why do you want to proceed in
+[25:20] this so i think you did a very great job
+[25:22] as an intervention checking those

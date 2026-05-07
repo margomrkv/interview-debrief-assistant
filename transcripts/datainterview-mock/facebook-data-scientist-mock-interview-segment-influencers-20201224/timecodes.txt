@@ -1,0 +1,683 @@
+[00:00] hey how's it going good how are you
+[00:03] doing
+[00:04] very good so thank you for being a
+[00:07] interviewee for this mock interview so
+[00:09] this small interview is going to
+[00:11] mimic a facebook data scientist
+[00:14] um analytic interview um interview style
+[00:18] um and this is gonna be a three minute
+[00:21] round and what we're gonna do is we're
+[00:23] gonna go through
+[00:24] some statistics questions for the first
+[00:25] 10 minutes
+[00:27] follow my um sql questions for 15
+[00:29] minutes
+[00:30] yeah and then we'll use the remainder of
+[00:32] the time on an analytic case study
+[00:34] do you have any questions on that before
+[00:36] we proceed
+[00:38] no that sounds good thank you okay
+[00:40] awesome
+[00:41] all right so i'm gonna go ahead and
+[00:44] actually use this quarter pad and feel
+[00:45] free to make notes
+[00:46] um as much as you want um really you
+[00:49] know just treat this as so it's your
+[00:51] uh it's your white board okay so let's
+[00:54] start with the first question
+[00:55] can you can you explain to me um what is
+[00:59] a beta coefficient of a multiplier
+[01:00] regression
+[01:02] uh yeah for sure so the beta
+[01:06] if we um
+[01:11] sorry let me think about how to frame it
+[01:13] um
+[01:15] so a multivariate regression describes
+[01:18] the relationship between the left hand
+[01:21] side variable the outcome
+[01:23] and a series of right hand side
+[01:25] variables
+[01:26] let's call them the independent
+[01:28] variables and the beta coefficient
+[01:30] describes
+[01:31] how the outcome changes in relationship
+[01:34] to changes in the
+[01:38] independent variables so if the
+[01:41] independent variable changed by one
+[01:43] and the beta coefficient is on that
+[01:46] variable
+[01:46] is beta for example then the outcome
+[01:50] would change by beta
+[01:52] is um that makes sense so how would you
+[01:56] actually derive the coefficient
+[01:58] of the uh of a linear model in this case
+[02:02] um yeah there's a sort of a well-known
+[02:05] solution um analytically which is
+[02:09] that i can write it actually here
+[02:13] which is that the beta
+[02:16] beta vector is
+[02:20] um x prime y
+[02:24] um times
+[02:28] x prime the inverse of
+[02:33] x prime x and here
+[02:36] the um the x
+[02:40] is uh the here x represents the matrix
+[02:45] the independent variables and y
+[02:48] represents the vector of outcomes
+[02:50] yeah okay that makes uh that makes
+[02:52] perfect sense yeah so
+[02:53] prime in this case would be your uh your
+[02:55] transpose
+[02:56] yeah exactly got it um now how would you
+[02:59] how would you um how would you estimate
+[03:03] it without
+[03:04] using so i believe what you're using the
+[03:05] least squares approach but is there any
+[03:07] other ways
+[03:08] a different way of estimating the beta
+[03:11] coefficient
+[03:13] um yeah so we
+[03:16] could use a maximum likelihood
+[03:18] estimation for it
+[03:19] um for example um and do like a
+[03:23] optimization exercise on that to
+[03:25] maximize
+[03:26] the the likelihood function okay got it
+[03:29] all right that makes it
+[03:30] make sense all right so let's talk about
+[03:34] the next question um now suppose that
+[03:37] your target variable is inflated with
+[03:39] zero um
+[03:40] how would you actually going about
+[03:42] approaching that problem um
+[03:46] so if my data is um
+[03:51] zero uh if my target variable is zero
+[03:54] inflated i think the first question
+[03:56] that i would ask is is there
+[03:59] some type of censoring that is happening
+[04:01] with
+[04:02] um the target variable to cause these
+[04:06] zeros
+[04:06] or are these zeros like actually um
+[04:10] the values of uh that we're interested
+[04:12] in got it that's a really good
+[04:14] point um but now let's just presume that
+[04:16] in this case
+[04:17] um it is an actual value um and let's
+[04:20] see that the
+[04:21] presence of zero so this is actually a
+[04:23] non-negative
+[04:25] um continuous distribution and um
+[04:28] the presence of zero uh is uh has
+[04:31] is it's about eighty percent of your um
+[04:34] of your observations
+[04:35] um in this case how would you how would
+[04:38] your model
+[04:39] uh model this type of data
+[04:42] yeah that's a great question um
+[04:47] i believe that there are statistical
+[04:51] methods that help you deal with
+[04:54] variables that are
+[04:57] that follow distributions like this so
+[04:59] the probit model or the tobit model for
+[05:02] example
+[05:03] can handle target variables that are
+[05:05] particular like this one
+[05:08] if we so that's that's sort of one
+[05:11] statistical modeling approach that we
+[05:13] can take
+[05:14] alternatively i think just for like
+[05:16] sanity checks and
+[05:17] um understanding the data more we can
+[05:19] also just
+[05:21] model the target variable as being zero
+[05:24] versus not
+[05:25] running maybe a regression to see um
+[05:29] how the beta coefficients look like and
+[05:32] then
+[05:33] proceeding with like the original
+[05:36] modeling with the original variables
+[05:38] okay got it all right that makes sense
+[05:40] um
+[05:41] now let's move on to the next question
+[05:44] um can you just can you um explain what
+[05:48] a confidence interval is
+[05:49] of a logistic regression model
+[05:53] uh yeah so and the confidence interval
+[05:56] meaning
+[05:57] um the confidence intervals on the beta
+[05:59] coefficients
+[06:00] i'm assuming yeah yeah yeah so
+[06:04] the confidence intervals um
+[06:08] represents uh so let's say we have like
+[06:11] a 95 percent
+[06:12] confidence interval um and the
+[06:15] statistical interpretation of that is
+[06:17] that um
+[06:20] they're like 95 of the time
+[06:23] the actual beta coefficient will fall
+[06:26] into
+[06:26] the confidence interval that we
+[06:28] estimated
+[06:30] um and and that represents sort of
+[06:33] um our our uncertainty around
+[06:36] this this variable okay got it
+[06:39] well now what if um so the
+[06:43] the uh the beta coefficients of the
+[06:46] logistic regression
+[06:48] could either be in logos or alts ratio
+[06:51] right
+[06:53] um now let's presume that
+[06:56] there's a presence of zero
+[06:59] um in either one of those cases
+[07:02] what does that mean presence of zero in
+[07:06] the confidence interval then what would
+[07:07] that mean
+[07:09] in terms of the statistical significance
+[07:11] of of its
+[07:12] uh predictor oh i see so
+[07:17] um you you're asking
+[07:20] what does it mean if your confidence
+[07:22] interval includes zero
+[07:24] yes yes in either cases where
+[07:27] it's either already in log odds or odds
+[07:30] ratio
+[07:32] uh beta coefficient because the logistic
+[07:34] regression model can be in both forms
+[07:36] yeah exactly um
+[07:40] so i think my interpretation with that
+[07:42] would be that the beta coefficients are
+[07:45] not statistically distinguishable
+[07:48] distinguishable from zero um
+[07:51] and yeah uh if you were to do hypothesis
+[07:55] testing on
+[07:56] that coefficient then you would not
+[07:58] reject the null hypothesis
+[08:00] okay so if it's uh so if the coefficient
+[08:03] is already it's in the log odds form
+[08:07] um uh would it be
+[08:10] possible to have a value of zero
+[08:15] oh i see um
+[08:18] right so yeah in that case i
+[08:23] don't think that's possible
+[08:29] right because it would be yeah sorry if
+[08:32] the
+[08:33] predictor doesn't is uncorrelated with
+[08:36] the
+[08:36] um outcome variable then the logos ratio
+[08:39] should actually be one
+[08:40] instead of zero um
+[08:44] and it's not actually possible to have a
+[08:47] zero value for that
+[08:50] okay now what if it wasn't uh what if it
+[08:53] was involved ratio
+[08:54] if the if the confidence interval
+[08:58] has has um
+[09:02] one what does that mean in terms of its
+[09:04] uh
+[09:05] statistical significance so let's just
+[09:07] say that the
+[09:08] odds ratio confidence interval falls
+[09:11] somewhere between
+[09:12] um point two
+[09:15] [Music]
+[09:16] four and point
+[09:19] one uh one point two four what does it
+[09:21] mean in terms of its
+[09:22] statistical significance um
+[09:25] then in in which case because it
+[09:27] includes one it's uh
+[09:29] if you were to do a hypothesis testing
+[09:31] exercise you
+[09:32] would not find that it's statistically
+[09:36] significant
+[09:37] okay got it all right thank you um okay
+[09:40] so we're going to move on to the
+[09:42] uh x sql question um
+[09:45] so i'm going to go ahead and paste the
+[09:48] table
+[09:49] so this is a a
+[09:52] basically a snippet of
+[09:55] uh of the message um
+[09:59] table set um and it contains your user
+[10:02] id username
+[10:03] the date and the message the number of
+[10:06] message sent and the message
+[10:08] the number of message received a given
+[10:11] user on a day-to-day basis
+[10:13] now go ahead and try to address the
+[10:16] first question
+[10:17] which is for each day return the name of
+[10:20] the user
+[10:21] or in this case you can return the user
+[10:23] id who receive the
+[10:25] highest message sent to message received
+[10:28] ratio and this message
+[10:30] ratio is your message
+[10:34] sent divided by message received
+[10:37] got it um yes i think
+[10:41] the first question that i would or the
+[10:45] first
+[10:45] thing that i would check for in this
+[10:47] data
+[10:49] database would be whether there are
+[10:51] missing values in either
+[10:53] um in you know any of these columns and
+[10:57] in the following analysis i'm just going
+[10:59] to pre i'm just going to assume that
+[11:02] there
+[11:02] aren't any missing values and the second
+[11:05] thing that i would
+[11:07] think is important is
+[11:10] whether message received could be zero
+[11:13] because then you have a division by zero
+[11:15] issue that may need to be addressed
+[11:19] okay so i'm not
+[11:26] select
+[11:40] so
+[12:08] so
+[12:28] [Music]
+[12:36] um
+[12:41] so here i'm creating uh you know i'm
+[12:43] selecting the user name variable
+[12:45] and i'm also creating a new variable
+[12:48] called
+[12:49] uh sent to sent to received ratio
+[12:53] which computes the ratio between message
+[12:56] sent and
+[12:57] message received and here i'm marking
+[13:01] the message received variable as null
+[13:04] if it's equal to zero so that the
+[13:06] division will also result in a null
+[13:11] okay
+[13:18] um oh
+[13:21] and i guess the question
+[13:25] that i then want to ask is
+[13:28] how we want to
+[13:32] um treat these users do we
+[13:36] um do we see them as having the highest
+[13:40] ratio yeah
+[13:43] like basically like okay for october 1st
+[13:46] 2020 user xyz
+[13:51] had the highest ratio i say so you
+[13:54] actually want to set
+[13:55] it to like a really high number
+[13:58] um so that it would come on top when you
+[14:01] sort
+[14:02] um when you sort it precisely
+[14:06] off of a given day so you want to you
+[14:08] want to do some kind of screening
+[14:11] on a given day got it okay
+[14:14] in that case i think marking it as a
+[14:16] null may not be the
+[14:17] best idea um
+[14:22] let's actually kind of simplify this for
+[14:24] a bit so let's just presume that
+[14:26] um there is no zero in the denominator
+[14:29] and it's already it's always
+[14:30] populated so how would you go ahead and
+[14:32] proceed with that problem then
+[14:34] okay yeah that sounds good um in that
+[14:37] case
+[14:37] um i'll just do a simple division to
+[14:39] calculate the ratio
+[14:42] um and we want
+[14:45] to
+[14:49] group by date um so that we
+[14:53] return one user for each date
+[14:57] and the other question is do we are we
+[15:00] interested in returning um multiple
+[15:04] users for each day if they have the same
+[15:07] highest ratio
+[15:08] for each day good question so in this
+[15:10] case um
+[15:11] let's let's presume that um it's just
+[15:14] you just return one user in that case
+[15:16] okay so any user in that alien user
+[15:20] yeah okay yeah it sounds good um
+[15:26] um i think in this case i want to do
+[15:29] like a
+[15:30] a window function so
+[15:34] um i'll create
+[15:38] another
+[15:42] new variable which is
+[15:51] let's call it rank
+[16:03] and since you said that it's okay to
+[16:07] just return one user i'll calculate row
+[16:10] numbers
+[16:12] over partition by
+[16:15] date order by
+[16:21] the ratio
+[16:49] um
+[16:53] oh actually i don't need to group by
+[16:56] date
+[16:57] um i just have to select
+[17:04] all right because equal to one
+[17:07] which is the highest um
+[17:11] center received ratio but user what's
+[17:14] the highest
+[17:16] ratio um
+[17:24] okay
+[17:27] so final solution or do you want to make
+[17:30] any kind of revision
+[17:32] um
+[17:36] yeah i think that's the final solution
+[17:39] okay
+[17:39] got it um so i'm going to give you
+[17:42] another question
+[17:44] so in this case
+[17:48] um now let's just say that uh for each
+[17:52] user return the first date
+[17:53] when the user received zero message
+[17:58] mm-hmm return the first date when the
+[18:03] user received zero message
+[18:06] and uh if the user never received
+[18:09] zero message um
+[18:13] do we then in that case like
+[18:16] those users wouldn't wouldn't matter so
+[18:18] basically for
+[18:19] user we just want to see uh what
+[18:23] so among the users who receive zero
+[18:25] messages
+[18:26] when when was it that they received that
+[18:29] zero message for the first time got it
+[18:32] yeah that makes sense
+[18:34] um so i would select
+[18:37] uh let's say we return username
+[18:41] um
+[18:46] messages which is database and
+[18:49] we are only interested in cases where
+[18:54] message received is equal to zero
+[18:59] um and we also return the first day
+[19:03] which is
+[19:03] min date as
+[19:07] um wait for each user
+[19:12] um oh actually um
+[19:15] sorry my bad we we only return one
+[19:19] observation for each user so i'm gonna
+[19:21] group
+[19:22] my username assuming that both user id
+[19:25] and username
+[19:26] are unique
+[19:30] okay yeah
+[19:36] okay so what you're basically doing is
+[19:38] you're aggregating at the user level
+[19:40] uh after you apply the filter where
+[19:42] you're only looking at the entries that
+[19:44] have
+[19:44] zero in the method you see um
+[19:48] and then for each of the user you wanna
+[19:50] you're extracting the minimum
+[19:52] date yeah exactly okay got it
+[19:56] um all right so that's uh that's pretty
+[19:59] much it for the sql um let's move on to
+[20:01] the next
+[20:02] uh section which is on the analytic case
+[20:04] study
+[20:08] so this is
+[20:11] so the so this this uh question
+[20:14] is based on instagram and
+[20:17] what instagram is trying to do is
+[20:20] identify users who are influencers
+[20:23] so how would you help instagram define
+[20:26] um whom the who who which users are
+[20:29] influencers or not
+[20:33] yeah to kind of getting to to get
+[20:35] started on this question i think the
+[20:37] first
+[20:38] um clarifying question maybe that i
+[20:41] would ask is how
+[20:42] we define a user as an influencer um and
+[20:46] i think there might be
+[20:47] several ways to defining them
+[20:50] um definition
+[20:54] we could determine that a user is an
+[20:57] influencer if they have you know a huge
+[20:59] amount of influence on instagram so
+[21:01] maybe
+[21:02] if their number of followers
+[21:09] exceeds a threshold then
+[21:13] we define them as an influencer or if
+[21:16] they're
+[21:19] if or if they have specific
+[21:23] posts that are particularly popular so
+[21:26] maybe
+[21:27] not many people follow them but some of
+[21:30] their posts went viral
+[21:32] and so maybe the number of overall views
+[21:35] of your posts could also be
+[21:39] used as a criteria for determining
+[21:41] whether an user is an influencer
+[21:43] the other thing um that
+[21:46] you know moving away from these
+[21:48] definitions a little bit is whether a
+[21:50] user is being paid for
+[21:51] certain content that they post on
+[21:53] instagram so
+[21:55] um whether they do any paid ads
+[21:59] um and maybe if they do we can define
+[22:01] them as an influencer
+[22:04] uh should i proceed with any particular
+[22:07] one of these definitions
+[22:08] or uh well i think so i think those are
+[22:12] good so
+[22:12] number of uh number of followers that
+[22:14] they have number of
+[22:16] uh overall views that they have on posts
+[22:18] and then if they have any paid ads
+[22:21] um those are the criteria criteria that
+[22:24] you would use
+[22:25] to um to identify the user as an
+[22:28] influencer or not right
+[22:30] yeah okay um now now
+[22:33] uh so the so those are the measures now
+[22:36] how would you actually
+[22:38] bend the users into influencer or not
+[22:41] bucket um yeah i guess
+[22:45] in order to do that i would love to
+[22:48] understand a little bit more
+[22:50] about like what this definition is used
+[22:53] for um so
+[22:54] is is the team instagram interested in
+[22:58] maybe
+[22:59] getting more users into the influencer
+[23:01] bucket
+[23:02] to promote their business or um
+[23:05] are we trying to cluster
+[23:08] users into influencer versus not in
+[23:11] order to
+[23:11] do some kind of targeted experiment or
+[23:14] targeted
+[23:15] feature design or something like that
+[23:18] in this in this in this um uh
+[23:22] case uh we want so instagram
+[23:25] um you know wants to promote um
+[23:28] wants to match advertisers with
+[23:30] influencers
+[23:31] so uh we need to identify with the you
+[23:34] know who the users are are they
+[23:35] influencers or are they
+[23:37] you know just regular consumers um this
+[23:40] is where
+[23:40] you need to help the team um define that
+[23:45] yeah that's very helpful context um and
+[23:48] so i guess
+[23:50] in that case uh i can refine my
+[23:53] previous criteria a little bit more so
+[23:56] we
+[23:56] are not primarily interested in
+[23:59] who is being paid for ads um but
+[24:03] instead like who has the potential to
+[24:07] um serve as an influencer on instagram
+[24:11] and generate ads revenue for advertisers
+[24:14] um yeah and um
+[24:17] sorry what was the sorry what was your
+[24:20] previous question
+[24:23] so so uh so like how would you actually
+[24:26] define
+[24:26] that criteria saying okay
+[24:29] these are the users who are influencers
+[24:33] yeah it's kind of like if you were
+[24:36] building like a fraud model
+[24:37] saying okay this is a buster or not
+[24:40] mm-hmm
+[24:40] yeah representative um so similarly how
+[24:43] would you
+[24:43] should do that for the users bucket them
+[24:47] into influencer or not
+[24:50] and have the model
+[24:54] so i think there are two ways
+[24:57] of approaching this problem and i would
+[25:01] classify them into um you know the
+[25:04] unsupervised approach
+[25:08] uh versus supervised approach
+[25:14] um in the unsupervised approach um we
+[25:17] are
+[25:17] interested in finding clusters within
+[25:20] the
+[25:21] user um within the list of users
+[25:24] of instagram and trying to find the
+[25:27] clusters that are
+[25:30] that has a huge amount of influence in
+[25:32] the supervised approach
+[25:34] we would essentially try to
+[25:37] obtain some type of labels on whether a
+[25:40] user is currently
+[25:42] an influencer um and try to classify
+[25:45] the remaining users into having the
+[25:48] potential to
+[25:49] to become an influencer versus not okay
+[25:52] yeah so and and i think the key
+[25:54] distinction between these two approaches
+[25:56] is that
+[25:57] um in the supervised approach we have to
+[25:59] come up with some ways
+[26:00] of creating the label in the first place
+[26:05] okay um so how would you go on about
+[26:08] creating a label
+[26:10] yeah so if we were proceeding with this
+[26:13] um
+[26:14] approach one way is to
+[26:17] try to collect information on whether
+[26:20] they have
+[26:22] any paid ads in their um current
+[26:25] in instagram posts okay and
+[26:28] um i am not a hundred percent sure if
+[26:32] this is true but i remember
+[26:34] seeing some of the um influencer having
+[26:37] these posts
+[26:38] that are kind of labeled as
+[26:39] advertisement
+[26:41] and if instagram collects that sort of
+[26:43] data then
+[26:44] um that could serve as a useful label
+[26:48] for this problem okay um
+[26:52] all right now i'm gonna i have i have a
+[26:54] follow-up
+[26:55] um so now let's
+[26:58] suppose that you do have this
+[27:02] uh instagram influencer bucket
+[27:05] now how would you go ahead and
+[27:09] um and segment the influencer population
+[27:12] so i'm going to paste the question here
+[27:18] yeah and i imagine that
+[27:21] the reason that we want to segment these
+[27:24] influencers maybe
+[27:26] to group them into different um
+[27:29] categories
+[27:30] so that advertisers with different
+[27:33] needs can be matched to different groups
+[27:35] of influencer is that right
+[27:38] got it yeah and so
+[27:41] i think you know what type of influence
+[27:44] they have would be
+[27:45] um really the prime the primary um
+[27:49] variable of interest to us because we
+[27:51] are interested in
+[27:52] knowing what type of population they
+[27:54] attract
+[27:55] so if they are like a fashion blogger um
+[28:00] let me write some potential categories
+[28:05] um maybe they are like a fashion blogger
+[28:08] or
+[28:08] they are i am uh they post mainly
+[28:12] political content
+[28:14] um etc and so they their posts the
+[28:17] content of their posts may say
+[28:19] uh may wrap may generate a good signal
+[28:22] for um what type of crowd they attract
+[28:26] um so and so
+[28:31] treating this as one of the features is
+[28:34] um
+[28:35] content uh
+[28:38] content of posts and maybe
+[28:42] we can do some computer vision type
+[28:44] analysis or uh
+[28:45] natural language processing analysis on
+[28:48] the content of these posts to extract
+[28:50] keywords and group them into categories
+[28:52] um the other feature that i have in mind
+[28:55] is
+[28:56] the type of um users that follow them so
+[28:59] they're
+[28:59] followers um
+[29:03] and if their users um
+[29:06] [Music]
+[29:07] you know label themselves and then you
+[29:09] weigh on the
+[29:11] instagram profile then we can get a
+[29:14] pretty good sense of
+[29:15] how what type of population they're
+[29:19] attracting and the potential
+[29:20] advertisement
+[29:22] revenue they can generate
+[29:29] yeah so these are the two main types of
+[29:33] features that i can think of i don't
+[29:35] care at this moment you identify the
+[29:37] signals
+[29:37] um now now with using the signals how
+[29:41] would you actually
+[29:42] perform the segmentation itself
+[29:45] yeah um so say that
+[29:48] we um use maybe some machine type of
+[29:52] machine learning models to analyze their
+[29:54] posts and
+[29:55] the text that they post um and we can
+[29:58] get uh sort of embeddings of
+[30:02] um and we can get like
+[30:05] embeddings of their content then we can
+[30:08] perform
+[30:10] a unsupervised clustering algorithm
+[30:17] to try to group these influencers into
+[30:20] different groups
+[30:22] so one of the simplest models that we
+[30:24] can i can think of is the k-means
+[30:26] clustering
+[30:26] okay there are many modifications of
+[30:29] this that
+[30:30] serves different purposes but yeah this
+[30:33] may be a good
+[30:35] starting point okay um and one last
+[30:38] question and then we're done with the
+[30:39] session
+[30:40] um is how would you evaluate your
+[30:43] cluster then
+[30:46] um that's um that's a good question so
+[30:51] evaluation um
+[30:55] i think you know one way that i can
+[30:58] think of on top of my head
+[31:00] is if we get some human raiders
+[31:03] human labelers to look at these
+[31:05] influencers and then group them into
+[31:07] categories
+[31:09] and we can compare the human evaluation
+[31:12] with the results that are generated from
+[31:16] the algorithms okay got it
+[31:19] got it all right yeah so that wraps up
+[31:22] the session um thank you for
+[31:24] uh being a participant as an interviewee
+[31:27] for this mock interview
+[31:28] um and i hope you have a good day
+[31:32] yeah thank you so much for this question
+[31:34] appreciate it
+[31:35] yeah thank you

@@ -1,0 +1,581 @@
+[00:00] let's say that you are designing a
+[00:01] marketplace for your website selling
+[00:03] firearms is prohibited by your website's
+[00:05] terms of service agreement not to
+[00:07] mention the laws of your country to this
+[00:09] end you want to create a system that can
+[00:11] automatically detect if a listing on the
+[00:12] marketplace is selling a gun how would
+[00:14] you go about doing this yeah it's a
+[00:16] interesting question i'm curious about a
+[00:18] few things here first i guess one thing
+[00:20] i'm wondering about is like how if i was
+[00:21] given this task like how is this working
+[00:23] in kind of production you know the task
+[00:25] is to automatically identify the
+[00:27] listings what happens with those
+[00:28] identifications do they go to a human
+[00:30] who checks it or is it like immediately
+[00:33] changes the website yeah so let's say
+[00:35] that the current setup is that it's all
+[00:37] crowd source so let's say we have a flag
+[00:40] and then a user can flag the listing if
+[00:43] they see it's a gun or maybe someone who
+[00:46] works in terms of like moderating the
+[00:48] marketplace can also flag it and then
+[00:50] it'll go to another internal let's say
+[00:52] someone who works in customer support
+[00:54] that can then remove the listing if they
+[00:56] determine it as a gun and that's the
+[00:57] only thing that kind of happens right
+[00:58] now okay and then how would this fit in
+[01:00] is the end of the line always going to
+[01:02] be customer service or how would this
+[01:04] fit in that pipeline you think so i
+[01:05] guess reframe the question back to you
+[01:07] but let's say that
+[01:09] this is the current system right and i
+[01:12] guess given the kind of context would
+[01:15] you think that the goal is to first
+[01:18] disable it when they're posting do you
+[01:20] think we should be like detecting it
+[01:22] afterwards after a few days and then
+[01:24] sending it to customer support what part
+[01:26] do you think
+[01:27] yeah so i guess yeah the reason i was
+[01:29] asking that question i guess i could
+[01:30] have said that too because if if
+[01:32] customer service is is going to look at
+[01:35] it afterwards which i think would
+[01:37] probably be the better way to go to
+[01:39] start but if they're doing it that way
+[01:41] then that means that i really need to do
+[01:43] a very good job of detecting all the
+[01:45] possible firearm listings it's bad if i
+[01:48] miss something that is a firearm but i
+[01:51] miss it because at the end the customer
+[01:53] service is going to look at it and so
+[01:55] i'm assuming it'll be okay it might cost
+[01:57] some money but it's probably going to be
+[01:59] okay if i give it false positives like
+[02:01] listings that aren't guns and then let
+[02:03] the customer service deal with it but it
+[02:05] seems like this pipeline would be very
+[02:08] costly
+[02:09] in that in the sense that you're maybe
+[02:11] breaking laws of your country or your
+[02:13] terms of service if you totally miss the
+[02:15] listing and you have this uh false
+[02:17] negative right yes so that's that's yeah
+[02:20] so that's how i would think about it so
+[02:23] i guess given the costs do you think we
+[02:26] would then err on the side of reducing
+[02:29] the number of false negatives or false
+[02:31] positives in this case so my initial
+[02:33] point was about false negatives because
+[02:36] we want the customer service to get
+[02:38] everything that's pertinent and they can
+[02:39] decide because they won't see anything
+[02:42] that's not been flagged or not been
+[02:44] identified so but if costs are a concern
+[02:47] then yeah we would be concerned with the
+[02:50] false positives
+[02:51] because that would mean that the
+[02:53] customer service gets extra ones that
+[02:55] are not really relevant at all they're
+[02:57] adding to their workload okay so let's
+[02:59] like maybe think about an assumption of
+[03:01] what is okay in terms of how the process
+[03:04] might go and maybe this could be an
+[03:06] example so you know in my mind i think
+[03:08] like if we let's say someone posts a gun
+[03:11] it gets put onto marketplace it gets
+[03:13] removed within one hour that's probably
+[03:15] good probably not a lot of time for
+[03:17] someone to go out reach out message try
+[03:19] to get that gun from the seller in that
+[03:22] scenario maybe a bad case scenario is
+[03:24] that we get overloaded with a bunch of
+[03:27] other items that are trying to be sold
+[03:28] that are not guns and then you know they
+[03:31] get the typical your posting was flagged
+[03:33] until it's reviewed by customer service
+[03:35] therefore you know reducing kind of
+[03:36] liquidity in this marketplace as well
+[03:38] all of a sudden you know sellers are
+[03:40] like oh like this marketplace sucks like
+[03:42] i can't even list you know my plants on
+[03:44] here or else they get flagged right and
+[03:46] then therefore kind of reducing that
+[03:48] when we're thinking about the different
+[03:49] scenarios here what is it kind of like
+[03:51] the optimal one you kind of have an idea
+[03:54] of what you think is kind of best case
+[03:56] scenario here for both parties bringing
+[03:58] it back if you're facebook what would
+[04:00] you think facebook would want to do in
+[04:02] this scenario it does depend on what
+[04:03] happens with the the model at the end so
+[04:06] there are different scenarios we've laid
+[04:08] out so if one of the scenarios is the
+[04:10] one i was talking about which is that
+[04:11] you don't want to miss anything that
+[04:13] case false negatives are important in
+[04:15] other cases like you're mentioning which
+[04:17] is if if it ends up being a sticker
+[04:19] that's posted because my the model
+[04:20] identifies it but it's not there and
+[04:22] then it can lead to a lot of issues so
+[04:25] that's the the false positive case what
+[04:27] we'll want to be concerned with then in
+[04:29] our model so i guess if we're concerned
+[04:31] with both those scenarios then we want
+[04:32] to minimize both false positives and
+[04:34] false negatives
+[04:35] and so we can use metrics like f1 score
+[04:38] to to sort of minimize that i guess
+[04:40] another thing that's related to this of
+[04:42] why we might choose something like an f1
+[04:44] score which is basically a combination
+[04:46] of precision and recall and precision is
+[04:50] where you're really concerned with you
+[04:52] make a bunch of predictions and how many
+[04:54] of them are right the recall is the case
+[04:56] where you make a bunch of predictions
+[04:58] how many of the real case scenarios do
+[05:00] you get so how much stuff do you miss i
+[05:02] guess recall is like what do you miss
+[05:03] another reason to use these two measures
+[05:05] and i think that seems pertinent here is
+[05:07] because the number of guns are probably
+[05:09] gonna be small right the i'm assuming
+[05:11] the actual number of gun posts is
+[05:12] probably very small maybe even less than
+[05:14] one percent in like a facebook
+[05:15] marketplace that sells all sorts of
+[05:17] stuff it's an imbalance sample too those
+[05:20] measures that i just mentioned are good
+[05:21] for that because they they sort of
+[05:23] ignore the fact of the true negative
+[05:25] which is that the post isn't about guns
+[05:27] and you get that right but there's so
+[05:29] many of those so you want to ignore
+[05:30] those so measures like precision and
+[05:32] recall will ignore the thing that's very
+[05:35] obvious and predominant which is the
+[05:37] listing not having guns and focuses on
+[05:39] just getting the positive case of
+[05:41] getting the listing with guns the
+[05:43] imbalance case will also maybe come into
+[05:45] consideration for the models we choose
+[05:47] so that seems good for the imbalance
+[05:49] sample and i guess false positives and
+[05:50] false negatives i think the other things
+[05:52] i was thinking is that what sort of the
+[05:54] scale and scope and the kind of data we
+[05:56] might have because that'll pertain to
+[05:58] how we can answer this question so i'm
+[05:59] guessing maybe speed at least for
+[06:02] training the model isn't a big issue and
+[06:04] the importance is accuracy like we're
+[06:06] very concerned with an accurate model
+[06:08] yeah definitely
+[06:09] and i'm guessing online you had
+[06:11] mentioned like maybe it's okay i mean
+[06:13] the model doesn't need to be that fast i
+[06:14] guess right
+[06:15] in terms of when it gets deployed and
+[06:17] it's making predictions for each post
+[06:20] yeah and then i guess in terms of the
+[06:21] prior data so i guess we would have
+[06:24] access in this case to other postings
+[06:26] and where customer service has flag
+[06:28] stuff so we have like a large data set
+[06:30] where we know that there was a posting
+[06:32] and we know whether it was of guns or
+[06:34] not yes yeah i think we can identify if
+[06:37] there were guns there's probably
+[06:38] something where the actual value itself
+[06:41] is flagged and then probably also a
+[06:43] categorization of why it was flagged for
+[06:45] and for this scenario we could say that
+[06:48] confidently probably customer service is
+[06:49] labeling them as guns or firearms in
+[06:52] that category okay yeah so we're we can
+[06:54] select those flags that are for guns and
+[06:56] farms okay it seems kind of
+[06:58] straightforward then so the idea is that
+[07:01] you know we really want to identify
+[07:02] these gun postings part of it might be
+[07:04] related to the law part of it also might
+[07:07] be related to you know people don't want
+[07:09] to see these gun postings and and they
+[07:11] also don't want to be necessarily
+[07:12] wrongly flagged for the guns postings so
+[07:14] it's very important to have a very
+[07:16] accurate model at identifying these very
+[07:18] small cases of gun postings and we don't
+[07:22] seem to have as many concerns about
+[07:23] model training time or anything like
+[07:25] that we're really concerned with
+[07:26] accuracy with that in mind with the fact
+[07:29] that we already have this data i'm
+[07:31] guessing our data set is fairly large
+[07:34] maybe there's some things we might want
+[07:35] to do with augmenting the data which i
+[07:37] think so if i think about data
+[07:38] collection and then i can think about
+[07:40] features and then think about the model
+[07:41] so if now i think about the features
+[07:43] that i have
+[07:44] i have flags that might have been given
+[07:46] by users so i have that as a feature i
+[07:48] might have the particular user who
+[07:50] posted it their demographic information
+[07:52] location information so maybe you know
+[07:54] parts of the country have more guns
+[07:56] being sold or not there might be other
+[07:58] contextual information i don't know why
+[08:00] this might be but maybe early in the
+[08:01] morning people like to post their gun
+[08:03] sales
+[08:05] and then i think what's critical for me
+[08:07] here is the text as a feature the body
+[08:10] of the text itself i guess another
+[08:12] feature could be the maybe they post
+[08:13] some images but i'm thinking maybe for
+[08:15] now just to focus the model a little bit
+[08:17] i can i might ignore the images part
+[08:19] just for now but i think when i talk
+[08:21] about the text a lot of what i'll say
+[08:23] can apply to the images and i think the
+[08:25] the big part here to me it seems like
+[08:26] the text in that data and being able to
+[08:28] leverage that information to get you
+[08:31] know keywords or to get patterns of
+[08:33] words yeah so so you might have that you
+[08:35] might have other data to like the length
+[08:36] of the text or something like that so we
+[08:38] have those features user data flags
+[08:41] context information the text so now i
+[08:43] want to focus a little bit on on the
+[08:44] text itself and what we can do with it
+[08:47] to use for our model i think just to
+[08:49] start i mean i often feel this way when
+[08:51] dealing with text data you want to start
+[08:52] with a simpler model i suppose and so
+[08:54] the simpler model might be something
+[08:55] like a bag of words one also reason to
+[08:57] start with that is that you can get a
+[08:59] nice baseline and i guess a related
+[09:01] question here i i meant to ask this
+[09:02] earlier was that you know we do we have
+[09:05] other baselines like i guess we have
+[09:07] previous performance of how the user
+[09:09] flags worked or
+[09:10] so we have some other data in the past
+[09:12] yeah yeah let's assume that yeah we have
+[09:14] all this data that facebook itself has
+[09:16] yeah so we have some baseline data of
+[09:18] how their current process is working and
+[09:20] then i'm suggesting we can have this
+[09:21] other baseline where we just we use the
+[09:23] simplest approach for text analysis
+[09:26] even though i did mention we did talk
+[09:27] about this that there is a lot of time
+[09:29] so technically we could use more
+[09:30] complicated models like attention-based
+[09:32] transformers that take contextual
+[09:33] information into account but for now
+[09:35] i'll just focus on the simpler model and
+[09:37] and talk through with that maybe we can
+[09:38] talk at the end of the value of these
+[09:40] more uh sophisticated approaches so i
+[09:42] guess if we have the text data then you
+[09:44] know we want to we can extract the bag
+[09:46] of words which just means that we get
+[09:48] for each body of text we get the unique
+[09:50] words in the text and the counts of
+[09:52] those words we have like i don't know
+[09:54] how many millions of posts so we have
+[09:55] this for each post we have these bag of
+[09:58] words the other thing we can do is an
+[10:00] approach called the tfidf where we scale
+[10:04] the value of each word based on its
+[10:06] frequency in different postings and the
+[10:08] reason this can be valuable is that you
+[10:10] might expect that postings about guns
+[10:12] for instance tend to use specific words
+[10:14] not found in other postings you know
+[10:16] before even running the model i might be
+[10:18] helping my model by selecting words that
+[10:20] are unique to particular listings and so
+[10:23] this will up weight those words that
+[10:25] tend to be very specific to specific
+[10:28] listings because the bag of words can be
+[10:30] like millions and millions of words so
+[10:31] it's a huge sparse matrix so sometimes
+[10:33] you might want to do additional
+[10:34] reductions so you might do something
+[10:36] like a pca to reduce that to something
+[10:38] like 500 dimensions the point of all
+[10:40] this process is is that you're taking
+[10:41] the text and you're putting it into some
+[10:43] embedding space and the value of the
+[10:45] embedding space is it's almost like what
+[10:47] you're doing is you're putting each
+[10:48] listing you're plotting it in space and
+[10:50] the idea is that you want to plot points
+[10:52] in space that mean similar things this
+[10:54] processing technique should before we
+[10:56] even build our model should place each
+[10:59] listing next to each other that mean the
+[11:01] same thing that's the sort of idea of
+[11:03] this process and since we know that idea
+[11:05] we can always substitute it with other
+[11:07] methods that are more sophisticated if
+[11:09] we want
+[11:10] that sort of like how we get the
+[11:11] features
+[11:12] so now i guess we want to think a bit
+[11:14] about the model that we want to build
+[11:16] because we have the imbalance sample i
+[11:18] would think maybe the model to start
+[11:20] with at least we can again iterate as we
+[11:22] go but for our first prototype maybe we
+[11:24] could start with a tree based model
+[11:26] particularly something like a gradient
+[11:27] boosted tree because what's nice about
+[11:29] these models is that you have each tree
+[11:31] that makes a prediction so in this case
+[11:34] it's taking all our features and
+[11:35] predicting whether it's a gun posting or
+[11:38] not a gun posting and then it takes the
+[11:41] points the data points that have the
+[11:43] most error and it scales them so it up
+[11:45] weights those data points that were in
+[11:48] error for the next tree what this
+[11:50] effectively will do is it'll upweight
+[11:52] the sort of minority sample points those
+[11:54] listings that are for guns are very few
+[11:57] and so they'll if they keep causing an
+[11:59] error in the model their weight will
+[12:01] keep going up and they'll be more and
+[12:02] more important in making the prediction
+[12:04] that's maybe why a gradient booster tree
+[12:06] would be good to start with yeah the
+[12:08] only one issue could be if you want
+[12:09] online training and so maybe if there's
+[12:11] an issue of online training the gradient
+[12:13] boosted trees may not be optimal for it
+[12:15] and so we could try other models if we
+[12:17] wanted and the difference between online
+[12:19] and offline training is that online
+[12:21] training happens while the model is
+[12:23] deployed and does continual improvement
+[12:26] is that right yeah yeah exactly but i'm
+[12:28] guessing in this case what we probably
+[12:30] would want to do is maybe every so often
+[12:32] we update the model in which case the
+[12:34] usually the gradient boosted trees are
+[12:35] pretty quick to train and they're fast
+[12:37] at also delivering the predictions at
+[12:39] inference time so we could just retrain
+[12:41] the whole model but say for whatever
+[12:43] reason every time customer service
+[12:45] answers that you want to update the
+[12:46] model then this tree based approach
+[12:48] depending on what package you use it
+[12:49] it's not going to be very optimal so you
+[12:51] might want to use other approaches like
+[12:52] a neural network that could allow for
+[12:55] this online training we talked a bit
+[12:56] about like so we're building this model
+[12:58] with the gradient boosted tree we talked
+[13:00] earlier about we can't really use
+[13:01] accuracy like just plain and simple
+[13:03] accuracy because it's such a small
+[13:06] sample that we have there's very few gun
+[13:08] posts the one thing i could have
+[13:09] mentioned earlier is one way to deal
+[13:11] with that too is to balance the sample
+[13:13] so if we have a lot of data we also
+[13:14] could have evened out the the two
+[13:16] samples so we could have taken how many
+[13:18] gun postings we have and just gotten a
+[13:21] matched sample of the equivalent other
+[13:23] sample but say we're not doing that say
+[13:26] there they're not enough gun postings to
+[13:28] really have that match then accuracy
+[13:30] won't be that great and what we'll want
+[13:32] is like what we talked about is
+[13:33] precision and recall are there other
+[13:35] things to consider evaluating the model
+[13:38] and maybe when we roll it out yeah like
+[13:40] i said we can use precision and recall
+[13:42] and we can combine them in this f1 score
+[13:44] that just range between zero and one and
+[13:46] that can tell us how well the model is
+[13:49] performing at predicting those gun sales
+[13:51] when we're building the model we we
+[13:53] probably would be training i guess on
+[13:55] our historic data we'd be taking some
+[13:57] sample of data in time that's our
+[13:59] training sample and then the test set is
+[14:01] something later in time we should
+[14:02] probably mimic how it's occurring in
+[14:04] production where our model is trained
+[14:06] with a given set of data in time and
+[14:08] it's predicting new data in the future
+[14:09] one thing we might want to consider is
+[14:11] how long this prediction is good for how
+[14:13] often we want to keep rebuilding this
+[14:15] model because i guess as everything on
+[14:17] the internet or the spam calls i get
+[14:19] they get more and more creative at doing
+[14:21] these things so yeah you know we might
+[14:23] want to update the model uh to deal with
+[14:25] these creativities that people have yeah
+[14:28] and that's actually a good question
+[14:29] because i think as people realize that
+[14:31] their posts are being flagged we're
+[14:33] dealing with very malicious actors that
+[14:35] are active in their campaign to sell
+[14:37] guns on the internet maybe one of the
+[14:39] aspects is that they start creatively
+[14:41] disguising their posts right and so that
+[14:43] right the traditional nlp test of
+[14:45] detecting bullets or guns for sale turns
+[14:47] into like code names or something in
+[14:49] which then we still have to then reuse
+[14:51] that use of identifying manual tagging
+[14:53] sorts so i guess one additional question
+[14:55] i have is how do we know the performance
+[14:57] edition of doing like more advanced
+[14:59] approaches right and so let's say that
+[15:01] we want to dive into computer vision i
+[15:03] know you have a computer vision back
+[15:05] under our and so like i guess like how
+[15:07] would you assess the necessity of maybe
+[15:10] using like images into your analysis
+[15:12] versus just only using text and you know
+[15:15] you know that image is probably harder
+[15:16] to train there's probably a lot more
+[15:18] difficulty with having expertise and
+[15:20] images versus just text which has like
+[15:23] great packages on python to use and so
+[15:26] yeah how would you kind of like approach
+[15:27] that situation how would you know that
+[15:29] it's worth doing the image analysis into
+[15:31] the features versus just going with a
+[15:33] basic model yeah so i guess the question
+[15:35] is like what's the added value of the
+[15:37] images and is it worth bringing all that
+[15:39] what whatever time it takes then exactly
+[15:41] yes i think i mean a very simple
+[15:44] approach that you could use that i like
+[15:45] using is you just like sort of build the
+[15:47] model you have all the features in there
+[15:49] and then you get its prediction what the
+[15:51] full model's prediction accuracy is so
+[15:53] say for instance the full model is at 90
+[15:57] seems really good and then you drop the
+[15:59] images from the model and then you see
+[16:02] you know when you remove the images what
+[16:04] the value is and the accuracy and say
+[16:07] it's 85 and then say you you do it again
+[16:10] but you remove the text data and the
+[16:12] text data when you remove it it's like 7
+[16:13] 60 accuracy or something so so so yeah
+[16:16] there you can know oh wow the text is
+[16:18] very valuable but the images does drop
+[16:21] it so you're like okay well you told me
+[16:23] now when you drop the images the
+[16:24] accuracy does drop but is that a
+[16:26] meaningful drop so one thing i think you
+[16:28] could do is just simulate like randomly
+[16:30] sampling the data especially because we
+[16:32] have enough data like i said here i
+[16:34] guess in this facebook huge amount of
+[16:35] data set so what you could do is
+[16:36] randomly sample from the data and
+[16:39] retrain the model each time and get this
+[16:41] drop in accuracy when you remove the
+[16:43] images and so say i guess i could say if
+[16:45] 95 of the time the drop in accuracy is
+[16:48] more than zero it's like it's like
+[16:49] there's a negative drop so then i might
+[16:52] say yeah images are important because
+[16:54] almost all the time that i've tried it
+[16:56] out in simulating across multiple
+[16:58] samples there is that drop in accuracy
+[17:00] gotcha okay cool yeah i mean that makes
+[17:02] a lot of sense any additional kind of
+[17:04] thoughts on this question oh i was going
+[17:05] to say something about like if we could
+[17:07] augment the data too for text data but
+[17:09] some of those things are cool where you
+[17:10] can use machine translation to change
+[17:12] the specific text words but keep the
+[17:15] meaning but i guess other things this
+[17:18] model would be sort of a first step
+[17:20] we're taking in all these features the
+[17:22] user data the flags and the text we're
+[17:24] making some predictions so i think the
+[17:26] final thing would just be to check where
+[17:28] the errors are happening and maybe use
+[17:30] that to help with the model so one thing
+[17:32] you might find is that say we flag toy
+[17:35] guns all the time are being flagged yeah
+[17:38] so one simple thing you could do with
+[17:40] just the simple model where i use a bag
+[17:42] of words is i could use like uh n-gram
+[17:44] model so i could take every two words
+[17:46] and and use the pairs of words and then
+[17:48] in that case i would get toy gun and
+[17:50] that way i could identify oh these
+[17:52] things that are actually toy guns that
+[17:54] are being wrongly flagged and i could
+[17:55] solve that problem by just changing the
+[17:57] model to include this local history um
+[17:59] with pairs of words cool yeah that makes
+[18:01] sense final question and this is kind of
+[18:03] just more in relation to the question
+[18:05] itself like what do you think about this
+[18:07] question like how well do you think it
+[18:08] assesses the candidate's performance
+[18:10] just overall how do you feel your answer
+[18:12] would kind of like fit in into like a
+[18:13] broader facebook interview i mean i'm
+[18:15] not sure about the broader facebook
+[18:16] interview but
+[18:18] i guess this i mean this question is
+[18:19] pretty it seems very standard like it's
+[18:21] very machine learning right you test
+[18:23] your knowledge of minority like when you
+[18:25] have very few things you're predicting
+[18:27] you have to sort of build the model but
+[18:29] you go from end to end and i think it's
+[18:31] also to me seems like a fairly common
+[18:33] problem you might face not this specific
+[18:36] one but something like this where you
+[18:37] know you need to identify something from
+[18:39] a particular listing a particular post
+[18:41] or or some you know in my case i deal
+[18:43] with videos a lot and so it's it's like
+[18:46] in line with i think what what you also
+[18:48] might have to work on yeah what were
+[18:49] your thoughts you have any yeah i mean i
+[18:51] liked it a lot and i liked your answer
+[18:52] and how you structured everything and i
+[18:55] feel like that's a great approach for
+[18:57] most machine learning type questions as
+[18:59] well because i feel like most of them
+[19:01] have a very defined beginning middle and
+[19:04] end in terms of where's the data how do
+[19:06] you build the model and then how would
+[19:07] you deploy and evaluate it and i think
+[19:10] focusing on those approaches is really
+[19:12] key and so i think you did a great job
+[19:13] there yeah good
+[19:15] awesome
