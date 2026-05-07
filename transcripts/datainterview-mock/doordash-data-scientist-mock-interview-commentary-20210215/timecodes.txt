@@ -1,0 +1,396 @@
+[00:01] hello candidates my name is dan lee
+[00:04] i'm a data scientist interview coach at
+[00:05] topdies.org in the next couple minutes
+[00:08] we're going to go over a product data
+[00:10] scientist mock interview
+[00:12] at doordash the video itself is going to
+[00:14] be about 10 minutes
+[00:16] and i'm going to drop in some
+[00:17] commentaries here and there to provide
+[00:20] some suggestions in terms of what the
+[00:21] candidate did well
+[00:23] and what are some areas of improvement i
+[00:25] really hope that you find this video
+[00:26] helpful for your upcoming mock interview
+[00:29] hello hi
+[00:32] so this is the doordash mock interview
+[00:35] um thank you for attending this call
+[00:37] um what we're gonna do is we're gonna
+[00:39] spend about 30-40 minutes going through
+[00:41] some
+[00:41] product data science questions um and
+[00:45] the first five to ten minutes are going
+[00:47] to be focused on statistics questions
+[00:49] and then we'll spend the remaining uh 40
+[00:52] 30
+[00:53] 40 minutes just going through some case
+[00:54] study questions covering a b testing
+[00:56] analytics does that sound good
+[01:00] sounds quick okay awesome all right so
+[01:02] what i'm going to do is i'm going to
+[01:03] paste
+[01:04] questions um one at a time on the
+[01:06] quarter pad
+[01:07] and feel free to use it as your as a
+[01:10] scratch sheet you know
+[01:11] jot down your ideas and so forth and
+[01:13] along the way if you have any questions
+[01:15] um feel free to ask
+[01:18] okay okay cool here's a quick helpful
+[01:22] tip
+[01:22] for candidates who have upcoming
+[01:24] interviews keep in mind
+[01:26] that a lot of the interviews during
+[01:28] coven are virtual
+[01:30] this means that you'll gain access to
+[01:32] quarter pad or word document
+[01:35] and when you're in a situation where you
+[01:37] have to solve a case problem
+[01:40] it's recommended that you actually flesh
+[01:42] out the ideas
+[01:44] by writing down your points rather than
+[01:46] just overly explaining it
+[01:48] this is going to be helpful in two
+[01:50] fronts one
+[01:51] it's going to be helpful for you to
+[01:53] brainstorm ideas
+[01:55] and two it helps the interviewer see
+[01:57] your thought process
+[01:59] so when you have an upcoming interview
+[02:01] please use your
+[02:02] use decoder pad and word document as a
+[02:05] place to actually drop down your ideas
+[02:08] all right so let's start with the first
+[02:09] status questions what does 90
+[02:11] statistical power mean
+[02:15] um so uh so it's 90
+[02:19] statistical power uh so statistical
+[02:22] power
+[02:22] is basically uh linked to the type one
+[02:25] type of two errors
+[02:26] which means uh what is the probability
+[02:28] of
+[02:29] uh finding a right observation when it
+[02:32] uh
+[02:32] when it doesn't exist or finding an
+[02:34] observation uh
+[02:36] or or saying that we found enough uh we
+[02:38] did not found an
+[02:39] observation when it exists so 90
+[02:42] statistical power means the the
+[02:45] probability
+[02:46] of uh finding an observation
+[02:50] which uh of not finding an observation
+[02:54] which exists
+[02:54] is 90 notice how the interview started
+[02:58] the interviewer asked a fundamental
+[03:00] question in statistics
+[03:02] this is actually pretty typical in phone
+[03:04] screening and on-site rounds
+[03:07] an interviewer will kind of pepper
+[03:10] various questions on the fundamentals of
+[03:13] statistics and machine learning theory
+[03:15] in order to assess whether the candidate
+[03:18] grasps
+[03:19] a basic knowledge in data science and
+[03:21] machine learning engineering
+[03:24] so let's think about the question itself
+[03:27] the question is
+[03:28] what is what does 90 power mean
+[03:32] now ninety percent power is the
+[03:35] probability
+[03:36] of rejecting the null hypothesis given
+[03:38] that the alternative is true
+[03:41] this is actually not the same as what
+[03:44] the candidate said
+[03:45] so what the candidate said was it is the
+[03:48] probability of not
+[03:49] finding an observation when it exists
+[03:53] in slightly off way i think what the
+[03:56] candidate was conveying
+[03:57] was that it's a type 2 error which is
+[04:00] actually not the same as power
+[04:02] so in this case the candidate's response
+[04:05] was incorrect
+[04:07] now as as you're preparing for your
+[04:11] interview
+[04:12] you want to make sure that you brush up
+[04:14] on these fundamental concepts
+[04:16] because there's no room for
+[04:18] interpretation when you're asked
+[04:19] questions like these it's either you're
+[04:22] right or wrong you're wrong
+[04:23] so what i would recommend is that you
+[04:26] create an
+[04:26] index card and you type you basically
+[04:29] put down
+[04:31] the term and the definition in the back
+[04:34] and you go through these index cards
+[04:36] as a way to practice explaining these
+[04:39] basic concepts
+[04:40] in statistics and machine learning
+[04:43] theory
+[04:45] okay all right
+[04:48] next question how do you determine the
+[04:51] practical significance in a
+[04:53] in an experiment so when it depends on
+[04:57] the type of experiment we run
+[04:59] and the kind of metric we are looking at
+[05:01] so matrix can be
+[05:03] uh like mean um like mean is a metric or
+[05:07] a rate can be a vector
+[05:08] and metric can also be proportions right
+[05:11] so
+[05:12] it can be percentage of users that click
+[05:15] on a particular link or things like that
+[05:18] so
+[05:19] in these both of these cases we do some
+[05:21] kind of statistical tests
+[05:23] like a two sided t test or
+[05:26] a test of proportions uh and practical
+[05:28] significant and the significance of
+[05:30] those
+[05:30] is determined by p value uh which in
+[05:33] general it's
+[05:34] if it's below 0.05 we say it's
+[05:37] significant
+[05:38] now that is just the statistical part if
+[05:40] you wanna
+[05:41] uh look at the practical part we would
+[05:43] also look have to look at
+[05:45] the business metrics for example the
+[05:47] kind of lift that we have seen
+[05:49] and that will depend on the cost benefit
+[05:51] analysis so let's say
+[05:53] uh a five percent increase in uh ltv
+[05:56] of a consumer on a particular app
+[06:00] would be profitable for us and that
+[06:02] would be the break-even point and
+[06:03] anything above that
+[06:04] would be useful whereas anything below
+[06:07] that would not be useful
+[06:08] so if so if we look at that
+[06:11] uh basically what we are seeing what we
+[06:14] are saying is
+[06:15] even if the results are significant
+[06:18] statistically only if they make business
+[06:21] sense
+[06:21] then it would be practically significant
+[06:24] and then there is one more aspect which
+[06:26] is
+[06:26] movement of multiple metrics so let's
+[06:29] say
+[06:30] we do an experimentation on one
+[06:32] particular metric
+[06:33] but and that comes out to be significant
+[06:35] but the other metrics
+[06:37] move along with it in the experiment uh
+[06:40] and
+[06:40] that can be like detrimental to our
+[06:43] experiment so
+[06:44] we will have to use that as well in our
+[06:47] uh stating the practical significance of
+[06:49] the experiment
+[06:50] let's break down the question number two
+[06:52] in regards to the practical significance
+[06:54] in an experimentation
+[06:56] what the candidate mentioned are two
+[06:58] things first
+[07:00] the candidate mentioned the cost-benefit
+[07:02] analysis of launching a product
+[07:04] and secondly the candidate mentioned on
+[07:06] multiple metrics
+[07:07] so looking at let's just say the primary
+[07:10] metric and guard rail nature
+[07:12] now in this case the candidate has a
+[07:14] right understanding
+[07:15] about the practical significance of an
+[07:17] experimentation
+[07:19] in an experimentation typically there's
+[07:21] a socialization that happens upfront
+[07:23] with the business stakeholder to
+[07:25] determine
+[07:26] what is a meaningful experimental result
+[07:30] so just because an experimentation
+[07:32] achieved
+[07:34] um successful significance so p-value is
+[07:38] less than alpha
+[07:39] it doesn't mean that the treatment
+[07:41] itself
+[07:42] should replace the controller because it
+[07:45] might not provide a necessary
+[07:47] return on investment to actually launch
+[07:50] that new future
+[07:51] for instance the cost of actually
+[07:54] building out
+[07:54] the future for the wider audience to use
+[07:58] might be more costly than the benefit or
+[08:00] the
+[08:01] or the additional revenue that you would
+[08:03] gain by launching
+[08:05] that in future and so the candidate here
+[08:09] had the right concept about the
+[08:12] practical significance of an
+[08:14] experimentation
+[08:16] okay so how would you handle it's such a
+[08:18] case then
+[08:19] if one of the metric is practically
+[08:21] significant
+[08:23] but the other one isn't uh
+[08:26] there can be a couple of ways to handle
+[08:28] it one can be
+[08:30] changing the design of experiment so
+[08:33] making the experiment
+[08:34] uh you know a bit narrowed down in terms
+[08:37] of
+[08:37] the users that are going into the
+[08:39] experiment uh
+[08:41] that can make sure that we that we only
+[08:44] move one metric and not the other metric
+[08:46] uh and then we can also look at
+[08:48] correlation or causation of the true
+[08:50] matrix so if one metric is correlated to
+[08:52] the other
+[08:53] or one metric is a result of a causal
+[08:55] inference from the other
+[08:57] uh we can we would we should assume that
+[08:59] the metric would
+[09:00] move but if that is not the case then
+[09:03] maybe we can you know
+[09:04] put some controls uh in place and
+[09:08] then run the experiment again to get a
+[09:10] better significance
+[09:11] okay got it all right i'll ask the next
+[09:14] question
+[09:16] now how do you calculate type 1 and type
+[09:18] your errors of your statistical tests
+[09:24] okay so um
+[09:28] one and type two errors uh
+[09:31] can be calculated by uh use english
+[09:37] can calculate it by um
+[09:42] i mean by by using like uh
+[09:46] you know uh i'm not really sure about
+[09:49] this
+[09:50] uh so probably
+[09:54] uh by let's see do you want to start by
+[09:56] explaining what type one type of error
+[09:59] error rates are sure um
+[10:02] a time for an error is basically uh
+[10:05] nothing but a false positive
+[10:07] so uh so it happens when
+[10:10] uh the experiment incorrectly rejects
+[10:13] the true null hypothesis uh and
+[10:17] you know in which actually it should not
+[10:20] so then a type one error occurs uh a
+[10:22] type two error on the other hand it's
+[10:24] a false negative it happens when an
+[10:27] experiment
+[10:28] does not reject the null hypothesis but
+[10:30] it's uh but
+[10:32] you know but the result is actually
+[10:33] false so it should reject the hypothesis
+[10:35] okay
+[10:36] got it so in this case um what would be
+[10:39] your
+[10:39] type 1 error rate
+[10:42] uh so type 1 error rate uh
+[10:46] you know in this case would be uh
+[10:51] you know uh so basically let's say we
+[10:54] have a null hypothesis
+[10:56] uh that you know there is no significant
+[11:00] change in the click-through rate uh of
+[11:02] two types of users
+[11:04] so there will be a type one uh error
+[11:06] where you know
+[11:08] this hypothesis will be rejected and and
+[11:11] we
+[11:11] find the results that there is a
+[11:14] significant
+[11:15] uh difference between the two uh you
+[11:17] know
+[11:18] the the two sides and one way of
+[11:21] controlling that i can think of
+[11:22] is using the power so
+[11:26] power is nothing but uh statistical
+[11:29] power is nothing but
+[11:30] beta uh and that's the probability of
+[11:32] making like
+[11:33] say a type two error so power of
+[11:36] of the set of three tests is one minus
+[11:39] beta so
+[11:40] you know we can adjust for that value
+[11:42] okay
+[11:43] so i'm going to interject there um
+[11:45] because i think i want to kind of give
+[11:46] you some hint here so let's just suppose
+[11:48] that alpha is 0.05
+[11:50] and your beta is
+[11:53] uh let's just let's just suppose that
+[11:56] your power
+[11:57] is um 0.8 then in that case how would
+[12:01] you actually calculate your
+[12:02] type 1 error type 1 and type tap to
+[12:04] error rates
+[12:07] uh sure uh so the problem so you
+[12:09] mentioned b
+[12:10] beta is 20 power power is point eight
+[12:15] power and your alpha is point zero five
+[12:18] okay so if power is point eight it means
+[12:21] a power is one minus beta so your beta
+[12:24] would be 0.2
+[12:25] so the probability of making a type 2
+[12:27] error would be
+[12:28] 0.2 um and alpha you mentioned is 0.05
+[12:33] right
+[12:34] so alpha is 0.05 and i think that's the
+[12:38] uh probability of committing a type one
+[12:41] error so it's like a five percent
+[12:42] probability of committing a type one
+[12:44] okay okay awesome notice how the
+[12:48] candidate struggled a little bit in the
+[12:49] beginning
+[12:50] eventually the candidate recovered
+[12:52] because the interviewer gave
+[12:54] the candidate a couple hits now in order
+[12:57] to calculate the type 1 error rate
+[12:58] type 2 error rate let's just think about
+[13:00] what the definitions of those two are
+[13:03] type 1 error rate is a probability of
+[13:05] rejecting the null hypothesis
+[13:08] when it is true type of errate
+[13:11] is the rejecting of not rejecting the
+[13:14] null hypothesis
+[13:15] when the alternative is true
+[13:19] how do you actually calculate tempo and
+[13:21] error rate and type 2 error rate
+[13:23] so type 1 error rate is essentially your
+[13:25] alpha so whatever your alpha
+[13:27] you set so typically in successful
+[13:29] testing it still be 0.05
+[13:33] um sorry i meant to say at least in
+[13:35] product
+[13:36] experimentation it's typically 0.05
+[13:39] and so that is actually going to be the
+[13:41] type on error rate
+[13:43] now for tattoo air rate it is actually
+[13:46] the complement of power
+[13:48] so suppose that power is eighty percent
+[13:51] then in that case peptide rate is going
+[13:53] to be the complement of that
+[13:55] which is going to be 20 i hope you
+[13:58] enjoyed
+[13:59] a sample of this mock interview with
+[14:01] some commentaries
+[14:02] this is just a sample of what's more to
+[14:04] come in the near future
+[14:06] in the near future i'll publish more
+[14:08] videos like this
+[14:09] that will cover rounds focused on
+[14:11] statistics
+[14:12] sql statistical coding machine learning
+[14:16] engineering and product sense
+[14:19] if you like this video please subscribe
+[14:23] like and share with others and that's
+[14:25] going to encourage me
+[14:26] to continue to provide more videos like
+[14:28] this thank you
