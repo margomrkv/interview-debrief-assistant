@@ -12,29 +12,29 @@ tags: [Data Science, дата аналитика, собеседование, а
 ---
 
 ## Chapters
-- [00:00:00] Intro
-- [00:00:49] How interviews typically work
-- [00:02:35] Candidate's introduction
-- [00:04:03] P-value: what and why
-- [00:07:32] A tricky question about p-value
-- [00:09:59] The difference between a one-tailed and two-tailed hypothesis
-- [00:10:31] A case study on social media
-- [00:11:26] Why track users who are about to leave a product
-- [00:12:23] How to track users who are about to leave
-- [00:15:10] Why summary metrics aren't always a good story Normalizing Likes
-- [00:17:06] Normalizing Time Spent on the Site
-- [00:19:18] Normalizing Friends
-- [00:20:40] How to Tell if Someone Has Stopped Visiting the Site
-- [00:26:07] What to Do When We've Found a User Who Wants to Leave
-- [00:30:34] Break Before the Second Candidate
-- [00:31:05] The Second Candidate's Story
-- [00:35:45] Setting Up the Notification System
-- [00:43:53] A Question About Best Practices
-- [00:44:33] How to Tell if Differences Are Significant
-- [00:49:52] Confidence Intervals
-- [00:52:58] Number of Words in the English Language
-- [00:55:27] Number of Monthly Active Users on Odnoklassniki
-- [01:02:08] Summary
+- [00:00:00] Интро
+- [00:00:49] Как обычно проходят собеседования
+- [00:02:35] Рассказ кандидата о себе
+- [00:04:03] P-value: что и зачем
+- [00:07:32] Вопрос с подвохом про p-value
+- [00:09:59] Отличия односторонней и двусторонней гипотезы
+- [00:10:31] Кейс про соцсети
+- [00:11:26] Зачем отслеживать пользователей, которые хотят уйти из продукта
+- [00:12:23] Как отслеживать пользователей, которые собираются уходить
+- [00:15:10] Почему суммарные метрики это не всегда хорошая история. Нормируем лайки
+- [00:17:06] Нормируем время, проведенное на сайте
+- [00:19:18] Нормируем друзей
+- [00:20:40] Как понять, что человек перестал посещать сайт
+- [00:26:07] Что делать когда мы нашли пользователя, который хочет нас покинуть
+- [00:30:34] Перерыв перед вторым кандидатом
+- [00:31:05] Рассказ второго кандидата о себе
+- [00:35:45] Настройка системы оповещений
+- [00:43:53] Вопрос про best practices
+- [00:44:33] Как понять, что различия значимы
+- [00:49:52] Доверительные интервалы
+- [00:52:58] Количество слов в английском языке
+- [00:55:27] Количество активных пользователей в месяц в «Одноклассниках»
+- [01:02:08] Подведение итогов
 
 ## Description
 

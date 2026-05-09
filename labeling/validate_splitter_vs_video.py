@@ -40,7 +40,7 @@ _DEFAULT_SECTION_TIMECODES: dict[str, str] = {}
 
 # Prefixes/keywords that mark an explanation or transition chapter, not a question
 EXPLANATION_PREFIXES = (
-    # Generic
+    # ── Russian: generic ───────────────────────────────────────────────────────
     "Введение",
     "О структуре",
     "Объяснение",
@@ -51,7 +51,7 @@ EXPLANATION_PREFIXES = (
     "Конец,",
     "Какие еще",
     "Общие рассуждения",
-    # Stream/interview framing
+    # ── Russian: interview framing ─────────────────────────────────────────────
     "Начало",
     "Приветствие",
     "Представление",
@@ -60,6 +60,65 @@ EXPLANATION_PREFIXES = (
     "Зачем задаем",
     "Фидбек",
     "Обратная связь",
+    "Вопросы к",            # "Вопросы к Валерию Бабушкину" — блок вопросов от кандидата
+                "Подводим",         # "Подводим итоги и делаем выводы" — резюмирование, не вопрос
+                "Итоги",            # "Итоги собеседования"
+                "Интро",            # "Интро" — русский вариант видео-интро
+    "Вступление",       # "Вступление и знакомство"
+    "Как обычно проходят",  # "Как обычно проходят собеседования" — мета-объяснение формата
+    "Problem Specifics:",   # "Problem Specifics: Beginning of the Answer" — начало ответа, не вопрос
+    "Returning to",         # "Returning to the general structure" — переход к следующей теме
+    "Подход к вопросу",     # "Подход к вопросу от Валерия" — разбор интервьюера, не вопрос
+    "Возврат к",            # "Возврат к отбору баннеров" / "Возврат к вопросу переобучения" — продолжение
+    "Возвращаемся к",       # "Возвращаемся к вопросу, какую модель оставить" — продолжение обсуждения
+    "Ответ",                # "Ответ" — кандидат начинает отвечать, не новый вопрос
+    "Постановка",           # "Постановка задачи" — постановка, не вопрос
+    "Резюме",               # "Резюме первой итерации" — промежуточное резюме, не вопрос
+    "Что такое ML Design",  # мета-объяснение формата, не вопрос
+    "Первый комментарий",   # "N-й комментарий" = панельные комментарии, не вопросы
+    "Второй комментарий",
+    "Третий комментарий",
+    "Четвертый комментарий",
+    "Четвёртый комментарий",
+    "Пятый комментарий",
+    "Шестой комментарий",
+    "Седьмой комментарий",
+    "Фидбек от",            # "Фидбек от всех" — разбор панели
+    "Тема интервью",        # "Тема интервью" — постановка задачи, не вопрос
+    "Формат собеседования", # "Формат собеседования" — мета-объяснение, не вопрос
+    "Воспоминания",         # "Воспоминания" — биографический рассказ, не вопрос
+    "Обобщение ответа",     # "Обобщение ответа" — кандидат резюмирует, не новый вопрос
+    "Обоснования выбора",   # "Обоснования выбора и описание модели" — продолжение ответа
+    "Определение",          # "Определение LTV, уточнение условий задачи" — уточнение задачи, не вопрос
+    "Знакомство",           # "Знакомство с кандидатом" — интро-секция, не вопрос
+    "ОС от",                # "ОС от Валерия" — обратная связь интервьюера, не вопрос
+    "Возможность \u201c",  # "Возможность "завалить"..." — финальная мета-секция, не вопрос
+    "Структура собеседования",  # "Структура собеседования" — объяснение формата
+    "О структуре собеседования",
+    # ── Russian: case/scenario setup (not a question itself) ───────────────────
+    "Кейс ",      # "Кейс про соцсети" etc.
+    "Кейс:",
+    "Постановка",
+    "Условие задачи",
+    "Перерыв",
+    "Подведение итогов",
+    "Переход",          # "Переход ко второй части интервью"
+    # ── English: stream/interview framing ─────────────────────────────────────
+    "Intro",
+    "Introduction",
+    "Break",          # "Break Before the Second Candidate"
+    "Summary",        # "Summary" / "Summary and feedback"
+    "Wrap",           # "Wrap-up"
+    "How interviews", # "How interviews typically work"
+    "How the interview",
+    "About the interview",
+    "Feedback",
+    # ── English: case/scenario setup (preamble, not a standalone question) ─────
+    "A case study",   # "A case study on social media"
+    "Case study",
+    "Setting up",     # "Setting up the problem..."
+    "Background:",
+    "Context:",
 )
 
 
@@ -140,7 +199,7 @@ def parse_video_md(
     sorted_sections = sorted(resolved_timecodes.items(), key=lambda x: x[1])
 
     chapters: list[Chapter] = []
-    pattern = re.compile(r"-\s+\[(\d{2}:\d{2}:\d{2})\]\s+(.+)")
+    pattern = re.compile(r"-\s+\[(\d{1,2}:\d{2}(?::\d{2})?)\]\s+(.+)")
     for line in chapters_block.splitlines():
         m = pattern.match(line.strip())
         if not m:
@@ -341,6 +400,199 @@ def build_section_breakdown(
     return rows
 
 
+# ─── Commentary helpers ───────────────────────────────────────────────────────
+
+def _build_commentary(
+    match_results: list["MatchResult"],
+    unmatched_items: list["SplitterItem"],
+    non_q_chapters: list["Chapter"],
+    coverage_pct: float,
+    topic_pct: float,
+    topic_checks: list["MatchResult"],
+    tolerance_sec: int,
+) -> list[str]:
+    """
+    Produce an analytical plain-language commentary section.
+
+    Logic:
+    - Assess coverage and flag whether misses are likely false positives
+      (case setups / preambles absorbed into the next question) or genuine misses.
+    - Note skipped non-question chapters and explain why.
+    - Highlight topic mismatches.
+    - Give a concrete recommendation.
+    """
+    lines: list[str] = []
+
+    total_q = len(match_results)
+    missed_results = [r for r in match_results if r.item is None]
+    matched_results = [r for r in match_results if r.item is not None]
+
+    # ── Покрытие ──────────────────────────────────────────────────────────────
+    if coverage_pct == 100:
+        lines.append(
+            f"**Покрытие идеальное (100%).** Все {total_q} вопросных тайм-кодов из описания видео "
+            "найдены сплиттером в пределах допуска. Пропущенных вопросов нет."
+        )
+    elif coverage_pct >= 90:
+        lines.append(
+            f"**Покрытие высокое ({coverage_pct:.0f}%** — {len(missed_results)} тайм-код"
+            f"{'а' if len(missed_results) == 1 else 'а' if len(missed_results) < 5 else 'ов'} "
+            f"из {total_q} не покрыт{'о' if len(missed_results) == 1 else 'о' if len(missed_results) < 5 else 'о'}). "
+            "Хороший результат. Пропуски ниже, скорее всего, ложные срабатывания валидатора "
+            "(постановки кейсов, переходные тайм-коды) — не реальные пропуски сплиттера. "
+            "Проверьте вручную перед повторным запуском."
+        )
+    elif coverage_pct >= 70:
+        lines.append(
+            f"**Покрытие среднее ({coverage_pct:.0f}%** — {len(missed_results)} из {total_q} "
+            "тайм-кодов не покрыто). Часть вопросов пропущена. Проверьте непокрытые тайм-коды "
+            "и транскрипт в указанных временных отметках перед повторным запуском сплиттера."
+        )
+    else:
+        lines.append(
+            f"**Покрытие низкое ({coverage_pct:.0f}%** — {len(missed_results)} из {total_q} "
+            "тайм-кодов не покрыто). Серьёзный провал сплиттера. Пересмотрите промпты и перезапустите."
+        )
+    lines.append("")
+
+    # ── Исключённые главы ─────────────────────────────────────────────────────
+    if non_q_chapters:
+        lines.append(
+            f"**{len(non_q_chapters)} тайм-код{'а' if len(non_q_chapters) < 5 else 'ов'} исключено из чеклиста** "
+            "как вводные, переходные или постановочные (не самостоятельные вопросы интервью):"
+        )
+        for c in non_q_chapters:
+            lines.append(f"- `{c.time_str}` *{c.title}*")
+        lines.append(
+            "\nЭти тайм-коды не засчитываются как пропуски. Если какой-то из них нужно считать "
+            "вопросом — удалите его префикс из `EXPLANATION_PREFIXES` в валидаторе."
+        )
+        lines.append("")
+
+    # ── Анализ пропущенных глав ───────────────────────────────────────────────
+    if missed_results:
+        lines.append(f"**Анализ {len(missed_results)} непокрытых тайм-кодов:**\n")
+        for r in missed_results:
+            ch = r.chapter
+            # Find nearest matched item by absolute time distance
+            nearest_item: Optional["SplitterItem"] = None
+            nearest_drift = float("inf")
+            for mr in matched_results:
+                if mr.item and mr.item.q_time_sec is not None:
+                    d = abs(mr.item.q_time_sec - ch.time_sec)
+                    if d < nearest_drift:
+                        nearest_drift = d
+                        nearest_item = mr.item
+
+            if nearest_item and nearest_drift <= tolerance_sec:
+                lines.append(
+                    f"- `{ch.time_str}` **{ch.title}** — ближайший item #{nearest_item.index} "
+                    f"в `{nearest_item.q_time_str}` ({int(nearest_drift)} сек) находится "
+                    f"в пределах ±{tolerance_sec}с, но **уже сопоставлен с другим тайм-кодом**. "
+                    "Обычно это означает, что два тайм-кода видео описывают один и тот же вопрос: "
+                    "одна — постановку задачи, другая — сам вопрос. Сплиттер правильно захватил "
+                    "один item, который был присвоен тайм-коду с меньшим дрейфом. "
+                    "**Что делать:** добавьте префикс заголовка этого тайм-кода в `EXPLANATION_PREFIXES` "
+                    "(вероятно, это постановочный/переходный тайм-код, а не самостоятельный вопрос)."
+                )
+            elif nearest_item and nearest_drift <= 120:
+                lines.append(
+                    f"- `{ch.time_str}` **{ch.title}** — ближайший найденный item "
+                    f"#{nearest_item.index} в `{nearest_item.q_time_str}` "
+                    f"({int(nearest_drift)} сек — за пределами окна ±{tolerance_sec}с). "
+                    "Скорее всего, это **постановка кейса / вводный сегмент** — авторы видео "
+                    "поставили тайм-код на начало темы, а фактический вопрос прозвучал позже. "
+                    "Сплиттер вопрос нашёл правильно; ограничение на стороне валидатора. "
+                    "**Что делать:** добавьте префикс этого тайм-кода в `EXPLANATION_PREFIXES`, "
+                    "или используйте `--tolerance` > 120с для интервью с длинными вводными."
+                )
+            elif nearest_item and nearest_drift <= tolerance_sec * 2:
+                lines.append(
+                    f"- `{ch.time_str}` **{ch.title}** — ближайший item "
+                    f"#{nearest_item.index} в `{nearest_item.q_time_str}` "
+                    f"({int(nearest_drift)} сек). Пограничный случай: чуть за пределами допуска. "
+                    "Проверьте, правильно ли сплиттер проставил тайм-код, или вопрос был "
+                    "слит со следующим."
+                )
+            else:
+                lines.append(
+                    f"- `{ch.time_str}` **{ch.title}** — **близкого item нет** "
+                    f"(ближайший на расстоянии {int(nearest_drift)} сек). "
+                    "Это **реальный пропуск**: сплиттер не извлёк ни одного вопроса "
+                    "из этого фрагмента транскрипта. Откройте транскрипт в указанном тайм-коде "
+                    "и проверьте: был ли вопрос задан, или тайм-код — комментарий / объяснение?"
+                )
+        lines.append("")
+
+    # ── Лишние items сплиттера ────────────────────────────────────────────────
+    if unmatched_items:
+        lines.append(
+            f"**{len(unmatched_items)} item{'а' if len(unmatched_items) < 5 else 'ов'} сплиттера без тайм-кода в описании видео.** "
+            "Это ожидаемо: авторы видео маркировали только крупные тематические сегменты, "
+            "а не каждый уточняющий вопрос. Скорее всего, это правомерные дополнительные "
+            "вопросы, которые сплиттер верно захватил за пределами чеклиста."
+        )
+        lines.append("")
+
+    # ── Несоответствия тем ────────────────────────────────────────────────────
+    topic_fails = [r for r in topic_checks if not r.topic_ok]
+    if topic_fails:
+        lines.append(
+            f"**{len(topic_fails)} несоответстви{'е' if len(topic_fails) == 1 else 'я' if len(topic_fails) < 5 else 'й'} тем:** "
+            "метка `question_topic` в JSON сплиттера не совпадает с ожидаемыми темами секции. "
+            "Либо модель поставила неверную метку, либо нужно обновить секционную карту:"
+        )
+        for r in topic_fails:
+            allowed_str = " / ".join(f"`{t}`" for t in (r.topic_allowed or []))
+            lines.append(
+                f"- `{r.chapter.time_str}` **{r.chapter.title}** "
+                f"→ получено `{r.topic_actual}`, ожидалось {allowed_str}"
+            )
+        lines.append("")
+    elif topic_checks and topic_pct == 100:
+        lines.append(
+            f"**Разметка тем согласована (100%).** Все {len(topic_checks)} сопоставленных "
+            "item'а имеют `question_topic`, совпадающий с ожидаемой секцией."
+        )
+        lines.append("")
+
+    # ── Итоговая рекомендация ─────────────────────────────────────────────────
+    lines.append("**Рекомендация:**")
+    if coverage_pct == 100 and (not topic_checks or topic_pct == 100):
+        lines.append("Действий не требуется — вывод полностью совпадает с эталоном.")
+    elif coverage_pct >= 90 and not missed_results:
+        lines.append("Результат хороший. Повторный запуск не нужен.")
+    elif coverage_pct >= 90 and missed_results:
+        # Check if all misses are likely false positives (nearby items within 2× tolerance)
+        all_fp = all(
+            any(
+                mr.item and mr.item.q_time_sec is not None
+                and abs(mr.item.q_time_sec - r.chapter.time_sec) <= 120
+                for mr in matched_results
+            )
+            for r in missed_results
+        )
+        if all_fp:
+            lines.append(
+                "Все непокрытые тайм-коды выглядят как постановочные сегменты, а не реальные "
+                "пропуски сплиттера. Повторный запуск не нужен. Рекомендуется добавить "
+                "их префиксы в `EXPLANATION_PREFIXES`, чтобы они автоматически исключались."
+            )
+        else:
+            lines.append(
+                "Большинство тайм-кодов покрыто. Проверьте непокрытые тайм-коды выше: "
+                "определите, какие из них — реальные пропуски, а какие — ложные срабатывания "
+                "валидатора, прежде чем решать о повторном запуске."
+            )
+    else:
+        lines.append(
+            "Перезапустите сплиттер с обновлёнными промптами. Сосредоточьтесь "
+            "на временных отметках непокрытых тайм-кодов, указанных выше."
+        )
+
+    return lines
+
+
 # ─── Report ───────────────────────────────────────────────────────────────────
 
 def build_report(
@@ -362,151 +614,82 @@ def build_report(
     drifts = [r.drift_sec for r in match_results if r.drift_sec is not None]
     avg_drift = sum(drifts) / len(drifts) if drifts else None
     max_drift = max(drifts) if drifts else None
+    coverage_pct = matched / total_q_chapters * 100 if total_q_chapters else 0
+    topic_pct = topic_ok_count / len(topic_checks) * 100 if topic_checks else 100
 
-    lines.append("# Splitter Validation Report\n")
-    lines.append(f"- **splitter**: `{splitter_path}`")
-    lines.append(f"- **video.md**: `{video_path}`")
-    lines.append(f"- **tolerance**: ±{tolerance_sec}s\n")
+    # Infer Excel path from JSON path (replace .json with .xlsx)
+    excel_path = splitter_path.with_suffix(".xlsx")
 
-    # ── How it works ──────────────────────────────────────────────────────────
-    lines.append("## How this validation works\n")
-    lines.append(
-        "The validator uses `video.md` as a **ground-truth checklist** of what questions "
-        "the video actually contains. `video.md` is the YouTube chapter list — it was written "
-        "by the video authors independently of the transcript, so it is a clean external signal.\n"
-    )
-    lines.append("**Step 1 — Parse video chapters.**")
-    lines.append(
-        "Every line in the `## Chapters` block is extracted as a chapter: timestamp + title. "
-        "Chapters whose titles start with words like \"Разбор\", \"Объяснение\", \"Подводка к\", etc. "
-        "are classified as *explanations/transitions* and excluded from the question checklist. "
-        "Only chapters that represent actual interview questions are kept.\n"
-    )
-    lines.append("**Step 2 — Match splitter items to chapters.**")
-    lines.append(
-        f"For each question chapter, the validator looks for the splitter item whose "
-        f"`interviewer_question.time` is closest in time, within a ±{tolerance_sec}s window. "
-        "The window is generous because chapter timestamps mark the *start of a topic segment*, "
-        "while the splitter records the exact moment the interviewer starts speaking — these can "
-        "differ by tens of seconds. Each splitter item can be matched to at most one chapter.\n"
-    )
-    lines.append("**Step 3 — Coverage % (the main quality signal).**")
-    lines.append(
-        "```\nCoverage = matched question chapters / total question chapters × 100\n```\n"
-        "A chapter is 'matched' if a splitter item was found within the time window. "
-        "Coverage = 100% means every question the video authors marked was found by the splitter. "
-        "A missing chapter means the splitter skipped that question entirely.\n"
-    )
-    topic_map = section_topic_map or {}
-    lines.append("**Step 4 — Topic consistency %.**")
-    if topic_map:
-        lines.append(
-            "```\nTopic consistency = items with correct question_topic / all matched items with a known section × 100\n```\n"
-            "For each matched item the validator checks that `question_topic` in the JSON is in the "
-            "allowed set for the section that chapter belongs to:\n"
-        )
-        for sec, allowed in topic_map.items():
-            lines.append(f"- Section **{sec}** → allowed topics: {allowed}")
-        lines.append(
-            "\nNote: one section can allow multiple topics. "
-            "\"A/B-тесты\" accepts both `Experimentation` (experiment-design questions) and "
-            "`Statistics` (t-test, normality, bootstrap questions) because both types appear "
-            "in that section.\n"
-        )
+    # ── Шапка ─────────────────────────────────────────────────────────────────
+    lines.append("# Отчёт валидации сплиттера\n")
+    lines.append(f"- **Разбивка Q&A (JSON)**: `{splitter_path}`")
+    if excel_path.exists():
+        lines.append(f"- **Разбивка Q&A (Excel)**: `{excel_path}`")
     else:
-        lines.append(
-            "_No `--section-config` provided — topic consistency check is skipped for this interview. "
-            "Only coverage is validated._\n"
-        )
-    lines.append("**Step 5 — Unmatched splitter items.**")
-    lines.append(
-        "Some splitter items are NOT matched to any video chapter. This is expected and "
-        "not penalised. The video authors only marked top-level topic segments; the splitter "
-        "also captures follow-up sub-questions and interviewer clarifications that have no "
-        "dedicated chapter. These are listed for manual review, not counted as errors.\n"
-    )
+        lines.append(f"- **Разбивка Q&A (Excel)**: не найден (запустите `splitter_json_to_excel.py`)")
+    lines.append(f"- **Описание видео**: `{video_path}`")
+    lines.append("")
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    lines.append("## Summary\n")
-    lines.append("| Metric | Value | Meaning |")
-    lines.append("|--------|-------|---------|")
-    lines.append(
-        f"| Question chapters in video.md | {total_q_chapters} | "
-        "Ground-truth checklist size |"
-    )
-    lines.append(
-        f"| Matched to splitter item | {matched} / {total_q_chapters} | "
-        f"Splitter found a matching item within ±{tolerance_sec}s |"
-    )
-    lines.append(
-        f"| **Coverage** | **{matched/total_q_chapters*100:.0f}%** | "
-        "Main signal: did the splitter extract every question? |"
-    )
-    lines.append(
-        f"| Unmatched question chapters | {total_q_chapters - matched} | "
-        "Questions in video that splitter missed |"
-    )
-    lines.append(
-        f"| Unmatched splitter items | {len(unmatched_items)} | "
-        "Sub-questions / follow-ups extracted by splitter; no chapter in video — not an error |"
-    )
-    lines.append(
-        f"| **Topic consistency** | **{topic_ok_count}/{len(topic_checks)} "
-        f"({topic_ok_count/len(topic_checks)*100:.0f}%)** | "
-        "question_topic label matches the video section |"
+    topic_map = section_topic_map or {}
+
+    # ── Вердикт ───────────────────────────────────────────────────────────────
+    if coverage_pct >= 90 and topic_pct >= 90:
+        verdict = "✅ ПРОЙДЕНО"
+    elif coverage_pct >= 70 and topic_pct >= 70:
+        verdict = "⚠️ ЧАСТИЧНО — проверьте отмеченные пункты"
+    else:
+        verdict = "❌ ПРОВАЛ — серьёзные проблемы с покрытием или темами"
+
+    lines.append(f"## Вердикт: {verdict}\n")
+
+    # Key metrics table (right after verdict)
+    topic_consistency_value = (
+        f"**{topic_ok_count}/{len(topic_checks)} ({topic_pct:.0f}%)**"
         if topic_checks else
-        f"| Topic consistency | — | No section mapping available |"
+        "**Н/Д**"
     )
-    if avg_drift is not None:
-        lines.append(
-            f"| Avg timing drift | {avg_drift:.1f}s | "
-            "Mean |item time − chapter time| for matched pairs |"
-        )
-        lines.append(
-            f"| Max timing drift | {max_drift}s | "
-            "Worst-case match; still within tolerance |"
-        )
+    topic_consistency_note = (
+        "Доля items с `question_topic`, совпадающим с ожидаемой секцией видео"
+        if topic_checks else
+        "Секционная карта (`--section-config`) не задана — показатель не применяется"
+    )
+
+    lines.append("| Метрика | Результат | Пояснение |")
+    lines.append("|---------|-----------|-----------|")
+    lines.append(
+        f"| **Coverage** | **{matched}/{total_q_chapters} ({coverage_pct:.0f}%)** | "
+        "Доля тайм-кодов видео, для которых сплиттер нашёл вопрос |"
+    )
+    lines.append(
+        f"| **Topic Consistency** | {topic_consistency_value} | {topic_consistency_note} |"
+    )
     lines.append("")
 
-    # ── Section breakdown ─────────────────────────────────────────────────────
-    lines.append("## Section Breakdown\n")
-    lines.append(
-        "Compares the number of questions per section according to the video (ground truth) "
-        "vs. the number of items the splitter extracted. Delta = splitter − video "
-        "(positive = splitter found sub-questions beyond what video marked; "
-        "negative = splitter missed questions).\n"
+    # ── Комментарий ────────────────────────────────────────────────────────────
+    non_q = [c for c in all_chapters if not c.is_question]
+    topic_pct_for_commentary = topic_ok_count / len(topic_checks) * 100 if topic_checks else 100
+
+    lines.append("## Комментарий\n")
+    _commentary = _build_commentary(
+        match_results=match_results,
+        unmatched_items=unmatched_items,
+        non_q_chapters=non_q,
+        coverage_pct=coverage_pct,
+        topic_pct=topic_pct_for_commentary,
+        topic_checks=topic_checks,
+        tolerance_sec=tolerance_sec,
     )
-    lines.append("| Section | Video Qs | Splitter items | Delta | Splitter topics |")
-    lines.append("|---------|----------|----------------|-------|-----------------|")
-    for row in section_rows:
-        delta = row["delta"]
-        delta_str = f"+{delta}" if delta > 0 else str(delta)
-        delta_icon = "✅" if delta >= 0 else "❌"
-        topics_str = ", ".join(f"`{t}`" for t in row["topics"]) if row["topics"] else "—"
-        lines.append(
-            f"| {row['section']} | {row['video_q_count']} | {row['splitter_count']} "
-            f"| {delta_icon} {delta_str} | {topics_str} |"
-        )
+    lines.extend(_commentary)
     lines.append("")
 
-    # Missing per section
-    any_missing = any(row["missing_chapters"] for row in section_rows)
-    if any_missing:
-        lines.append("### Missing questions by section\n")
-        for row in section_rows:
-            if row["missing_chapters"]:
-                lines.append(f"**{row['section']}**\n")
-                for ch in row["missing_chapters"]:
-                    lines.append(f"- `{ch.time_str}` {ch.title}")
-                lines.append("")
-
-    # ── Chapter-by-chapter ────────────────────────────────────────────────────
-    lines.append("## Chapter-by-Chapter Matching\n")
+    # ── Сопоставление тайм-кодов ──────────────────────────────────────────────
+    lines.append("## Сопоставление тайм-кодов\n")
     lines.append(
-        "Drift = `item time − chapter time` (positive = splitter item is later than chapter marker).\n"
+        "Дрейф = `время item − время тайм-кода` "
+        "(положительный = item сплиттера позже тайм-кода в описании видео).\n"
     )
-    lines.append("| # | Chapter time | Chapter title | Section | Item # | Item time | Drift | Topic |")
-    lines.append("|---|-------------|---------------|---------|--------|-----------|-------|-------|")
+    lines.append("| # | Тайм-код | Название | Секция | Item # | Время item | Дрейф | Тема |")
+    lines.append("|---|----------|----------|--------|--------|------------|-------|------|")
 
     for i, r in enumerate(match_results, start=1):
         ch = r.chapter
@@ -514,16 +697,16 @@ def build_report(
             item_no = f"#{r.item.index}"
             item_time = r.item.q_time_str or "—"
             raw_drift = (r.item.q_time_sec or 0) - ch.time_sec
-            drift_s = f"{raw_drift:+d}s"
+            drift_s = f"{raw_drift:+d}с"
             if r.topic_ok is True:
                 topic_cell = f"✅ `{r.topic_actual}`"
             elif r.topic_ok is False:
                 allowed_str = " / ".join(f"`{t}`" for t in (r.topic_allowed or []))
-                topic_cell = f"❌ got `{r.topic_actual}`, allowed: {allowed_str}"
+                topic_cell = f"❌ получено `{r.topic_actual}`, ожидалось: {allowed_str}"
             else:
                 topic_cell = f"`{r.topic_actual}`"
         else:
-            item_no = "❌ MISSING"
+            item_no = "❌ ПРОПУСК"
             item_time = "—"
             drift_s = "—"
             topic_cell = "—"
@@ -535,17 +718,17 @@ def build_report(
 
     lines.append("")
 
-    # ── Unmatched splitter items ───────────────────────────────────────────────
+    # ── Items без тайм-кода ────────────────────────────────────────────────────
     if unmatched_items:
-        lines.append("## Unmatched Splitter Items\n")
+        lines.append("## Items сплиттера без тайм-кода в описании видео\n")
         lines.append(
-            "These items were extracted by the splitter but have **no corresponding chapter** "
-            "in `video.md`. This is **not an error** — the video authors only marked major topic "
-            "transitions, not every follow-up question. Review these to confirm they are legitimate "
-            "sub-questions or interviewer clarifications rather than hallucinated content.\n"
+            "Эти items извлечены сплиттером, но не имеют соответствующего тайм-кода "
+            "в описании видео. Это **не ошибка** — авторы видео размечали только крупные "
+            "тематические переходы. Скорее всего, это уточняющие под-вопросы или "
+            "дополнительные вопросы интервьюера, которые сплиттер верно захватил.\n"
         )
-        lines.append("| Item # | Time | Topic | Question (first 70 chars) |")
-        lines.append("|--------|------|-------|--------------------------|")
+        lines.append("| Item # | Время | Тема | Вопрос (первые 70 символов) |")
+        lines.append("|--------|-------|------|------------------------------|")
         for it in unmatched_items:
             lines.append(
                 f"| #{it.index} | {it.q_time_str or '—'} | `{it.question_topic or '—'}` "
@@ -553,36 +736,98 @@ def build_report(
             )
         lines.append("")
 
-    # ── Skipped chapters ──────────────────────────────────────────────────────
-    non_q = [c for c in all_chapters if not c.is_question]
+    # ── Исключённые тайм-коды ─────────────────────────────────────────────────
     if non_q:
-        lines.append("## Skipped Chapters (explanations / transitions)\n")
+        lines.append("## Исключённые тайм-коды (не вопросы)\n")
         lines.append(
-            "Chapters excluded from the question checklist because their titles indicate "
-            "they contain an explanation, task walkthrough, or segment transition rather than "
-            "a new interview question. These are not checked for splitter coverage.\n"
+            "Тайм-коды из описания видео, исключённые из проверки: их заголовки "
+            "указывают на вступление, переход между темами, разбор задачи или паузу. "
+            "Покрытие сплиттером для них не проверяется.\n"
         )
         for c in non_q:
             lines.append(f"- `{c.time_str}` [{c.section or '—'}] {c.title}")
         lines.append("")
 
-    # ── Verdict ───────────────────────────────────────────────────────────────
-    coverage_pct = matched / total_q_chapters * 100 if total_q_chapters else 0
-    topic_pct = topic_ok_count / len(topic_checks) * 100 if topic_checks else 100
-    if coverage_pct >= 90 and topic_pct >= 90:
-        verdict = "✅ PASS"
-    elif coverage_pct >= 70 and topic_pct >= 70:
-        verdict = "⚠️ PARTIAL — review flagged items"
-    else:
-        verdict = "❌ FAIL — significant coverage or topic issues"
+    # ── Разбивка по секциям (только если задана секционная карта) ─────────────
+    if section_rows and topic_map:
+        lines.append("## Разбивка по секциям\n")
+        lines.append(
+            "Сравнение количества вопросов по секциям: описание видео (эталон) vs. сплиттер. "
+            "Дельта = сплиттер − видео.\n"
+        )
+        lines.append("| Секция | Вопросов в видео | Items сплиттера | Дельта | Темы сплиттера |")
+        lines.append("|--------|------------------|-----------------|--------|----------------|")
+        for row in section_rows:
+            delta = row["delta"]
+            delta_str = f"+{delta}" if delta > 0 else str(delta)
+            delta_icon = "✅" if delta >= 0 else "❌"
+            topics_str = ", ".join(f"`{t}`" for t in row["topics"]) if row["topics"] else "—"
+            lines.append(
+                f"| {row['section']} | {row['video_q_count']} | {row['splitter_count']} "
+                f"| {delta_icon} {delta_str} | {topics_str} |"
+            )
+        lines.append("")
 
-    lines.append(f"## Verdict: {verdict}\n")
+        any_missing = any(row["missing_chapters"] for row in section_rows)
+        if any_missing:
+            lines.append("### Пропущенные вопросы по секциям\n")
+            for row in section_rows:
+                if row["missing_chapters"]:
+                    lines.append(f"**{row['section']}**\n")
+                    for ch in row["missing_chapters"]:
+                        lines.append(f"- `{ch.time_str}` {ch.title}")
+                    lines.append("")
+
+    # ── Как работает валидация (в конце) ──────────────────────────────────────
+    lines.append("---\n")
+    lines.append("## Как работает валидация\n")
     lines.append(
-        f"**Coverage** {coverage_pct:.0f}% = {matched} out of {total_q_chapters} question chapters "
-        f"were found by the splitter within ±{tolerance_sec}s.  \n"
-        f"**Topic consistency** {topic_pct:.0f}% = {topic_ok_count} out of {len(topic_checks)} "
-        f"matched items have a `question_topic` label that matches the video section."
+        "Валидатор сравнивает разбивку Q&A (JSON) с тайм-кодами из описания видео на YouTube. "
+        "**Важно:** сплиттер при своей работе `video.md` **не видит** — он работает только с "
+        "транскриптом. Описание видео используется исключительно для независимой проверки результата "
+        "и является внешним эталоном: тайм-коды расставлены авторами видео вручную.\n"
     )
+    lines.append("**Шаг 1 — Разбор тайм-кодов видео.**")
+    lines.append(
+        "Из блока `## Chapters` в описании видео извлекаются тайм-коды с заголовками. "
+        "Вступления, паузы, разборы задачи и прочие переходы (заголовки типа «Интро», «Перерыв», "
+        "«A case study» и т.п.) исключаются из проверки — остаются только реальные вопросы.\n"
+    )
+    lines.append("**Шаг 2 — Сопоставление с items сплиттера.**")
+    lines.append(
+        f"Для каждого вопросного тайм-кода ищется item сплиттера, у которого "
+        f"`interviewer_question.time` ближайшее по времени в окне ±{tolerance_sec}с. "
+        "Окно намеренно широкое: тайм-код в описании — начало темы, "
+        "а сплиттер фиксирует момент начала речи интервьюера — расхождение 15–60с норма. "
+        "Каждый item сопоставляется не более чем с одним тайм-кодом.\n"
+    )
+    lines.append("**Шаг 3 — Coverage.**")
+    lines.append(
+        "```\nCoverage = покрытые тайм-коды / всего вопросных тайм-кодов × 100\n```\n"
+        "Тайм-код «покрыт» — найден item в пределах временного окна. "
+        "Coverage 100% = сплиттер нашёл вопрос для каждого тайм-кода из описания видео.\n"
+    )
+    lines.append("**Шаг 4 — Topic Consistency.**")
+    if topic_map:
+        lines.append(
+            "```\nTopic Consistency = items с верной темой / сопоставленные items с известной секцией × 100\n```\n"
+            "Проверяет, что поле `question_topic` в JSON соответствует ожидаемой теме секции:\n"
+        )
+        for sec, allowed in topic_map.items():
+            lines.append(f"- Секция **{sec}** → допустимые темы: {allowed}")
+        lines.append("")
+    else:
+        lines.append(
+            "_Для этого интервью `--section-config` не передан, поэтому Topic Consistency = Н/Д. "
+            "Чтобы включить проверку тем, создайте JSON-файл с `section_timecodes` и `topic_map` "
+            "и передайте его через `--section-config`._\n"
+        )
+    if avg_drift is not None:
+        lines.append(
+            f"**Дрейф тайм-кодов** (справочно): средний {avg_drift:.1f}с, "
+            f"максимальный {max_drift}с — в пределах допуска ±{tolerance_sec}с."
+        )
+        lines.append("")
 
     return "\n".join(lines) + "\n"
 
@@ -608,6 +853,14 @@ def main():
         ),
     )
     parser.add_argument("--out", help="Write report to this .md file (default: print to stdout)")
+    parser.add_argument(
+        "--time-from", default=None,
+        help="Filter video chapters: only include chapters at or after this timestamp (HH:MM:SS)"
+    )
+    parser.add_argument(
+        "--time-to", default=None,
+        help="Filter video chapters: only include chapters before or at this timestamp (HH:MM:SS)"
+    )
     args = parser.parse_args()
 
     splitter_path = Path(args.splitter)
@@ -633,6 +886,12 @@ def main():
         section_topic_map = cfg.get("topic_map", {})
 
     chapters = parse_video_md(video_path, section_timecodes=section_timecodes)
+
+    # Apply time range filter if requested
+    if args.time_from or args.time_to:
+        tf = _ts_to_sec(args.time_from) if args.time_from else 0
+        tt = _ts_to_sec(args.time_to) if args.time_to else 10**9
+        chapters = [c for c in chapters if tf <= c.time_sec <= tt]
     items = parse_splitter_json(splitter_path)
     match_results = match_chapters_to_items(chapters, items, args.tolerance, section_topic_map)
     unmatched_items = find_unmatched_items(items, match_results)
