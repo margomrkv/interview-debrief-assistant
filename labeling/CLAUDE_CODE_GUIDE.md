@@ -98,36 +98,6 @@ python3 labeling/validate_splitter_vs_video.py \
 
 ---
 
-## Задача 2 — добавить interviewer_feedback в готовые JSON
-
-После того как сплиттер уже отработал, поле `interviewer_feedback` можно заполнить  
-из `timecodes.txt` без перезапуска сплиттера.
-
-```bash
-python3 labeling/enrich_interviewer_feedback.py
-```
-
-Обрабатывает все `labeling/data/*.splitter.v1.mock.json`.  
-Или конкретный файл:
-
-```bash
-python3 labeling/enrich_interviewer_feedback.py \
-  --json "labeling/data/<source_id>.splitter.v1.mock.json"
-```
-
-**Что делает:**
-- Для **ML SysDesign** интервью: ищет в `video.md` главы "Комментарий" →
-  берёт вербатим ASR-текст из этого окна.
-- Для остальных интервью: берёт последние ~90 секунд перед следующим вопросом
-  (= момент перехода + короткий комментарий интервьюера).
-- Не перезаписывает уже заполненные поля.
-- Автоматически перегенерирует Excel.
-
-**Текст вербатимный** — raw ASR с ошибками распознавания.  
-Для ML SysDesign (явные главы "Комментарий") качество лучше, для остальных — approximate.
-
----
-
 ## Структура репо — что где
 
 ```
@@ -135,8 +105,6 @@ labeling/
   prepare_prompt.py              # собирает промпт из всех входных файлов
   splitter_json_to_excel.py      # JSON → xlsx
   validate_splitter_vs_video.py  # сравнивает JSON с главами video.md
-  enrich_interviewer_feedback.py # дописывает interviewer_feedback из timecodes.txt
-  extract_feedback_windows.py    # helper: показывает transcript окна для каждого item
   prompts/
     system_prompt_v2.txt                       # системный промпт для LLM
     user_prompt_template_v2.txt                # user промпт (raw_split)
@@ -183,9 +151,6 @@ python3 labeling/validate_splitter_vs_video.py \
   --tolerance 120 \
   --out labeling/data/avito_product_analyst_middle_20240404.splitter.v1.mock.validation.md
 
-# 5. Добавить feedback из транскрипта
-python3 labeling/enrich_interviewer_feedback.py \
-  --json labeling/data/avito_product_analyst_middle_20240404.splitter.v1.mock.json
 ```
 
 ---
