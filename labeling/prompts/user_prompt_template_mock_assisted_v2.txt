@@ -4,9 +4,10 @@ Input is appended after this template and contains:
 - SOURCE_ID
 - SPLITTER_MODE
 - TRANSCRIPT_TXT
+- optional sidecars: TIMECODES_TXT, VIDEO_MD, FEEDBACK_MD
 
 Required workflow:
-1) Read TRANSCRIPT_TXT only. Ignore sidecar sections in this mode.
+1) Read TRANSCRIPT_TXT first; use sidecar sections only as auxiliary hints.
 2) Extract all substantive interviewer questions.
 3) Do NOT group multiple questions by topic. Keep each interviewer question as a separate item.
 4) Pair each question with the corresponding candidate answer span.
@@ -19,7 +20,7 @@ Required workflow:
    - question_topic
    - interview_stage
 6) Use verbatim excerpts for interviewer_question.text and candidate_answer.text (no abstract summaries).
-7) If no reliable timestamp is present in transcript for a field, set the LinkedText `time` to null.
+7) Sidecar files may help set timestamps and section boundaries, but must not override transcript facts.
 8) If reference answer / interviewer feedback are absent for a Q&A, set both `text` and `time` to null in the corresponding LinkedText.
 9) Do not output any score, assessment, evaluation, labels, or summary metrics.
 10) Copy SOURCE_ID and SPLITTER_MODE exactly to top-level output fields (`source_id`, `splitter_mode`).
