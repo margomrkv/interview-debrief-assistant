@@ -1,0 +1,530 @@
+[00:00] How are you still distinguishing between
+[00:02] like actual fraud and abuse versus just
+[00:05] like normal, you know, high usage
+[00:08] because, you know, it's 8:00 p.m. now
+[00:09] and, you know, I'm an individual user
+[00:11] and now I'm like streaming, you know,
+[00:13] Netflix.
+[00:16] So, the first question is, let's say
+[00:19] that Verizon launches a wireless plan
+[00:21] that offers unlimited data after 8:00
+[00:23] p.m. each night, and you notice some
+[00:26] customers are suddenly using 10x more
+[00:28] data during that window than the average
+[00:30] user. How would you distinguish between
+[00:32] fraud and product abuse in this
+[00:34] scenario? And how might your findings
+[00:35] shape future product or policy
+[00:37] decisions?
+[00:39] So just to clarify, we are assuming that
+[00:42] this spike is only during like post 8:00
+[00:45] p.m. and during the unlimited window or
+[00:48] does it also extend into regular paid
+[00:50] hours?
+[00:51] >> Yeah, let's say that this is
+[00:52] specifically um happening uh after the
+[00:56] 8:00 p.m. window.
+[00:58] >> Okay. All right. So the first thing I
+[01:01] I'd say is uh in that case I'd start by
+[01:04] clarifying whether the spike represents
+[01:06] deliberate manipulation or just users uh
+[01:10] maximizing within the plan's rules. Uh
+[01:12] then I analyze basically user level
+[01:15] patterns like device sharing unusual
+[01:17] location changes or VPN uh usage uh to
+[01:22] separate basically genuine heavy users
+[01:24] from potential frauds.
+[01:27] Uh the second basically this is like the
+[01:30] aspect that I'll investigate. So fraud
+[01:33] for example fraudulent users
+[01:36] like fraudinal users then I'd segment
+[01:39] accounts by usage intensity and behavior
+[01:42] patterns to basically compare them
+[01:44] against um like normal baselines that we
+[01:47] have seen across uh a historical trend
+[01:50] just to basically flag statistically
+[01:51] significant outliers for deeper. So
+[01:54] wait, what what are fraudulent users?
+[01:56] Can you go back and maybe define that
+[01:58] first?
+[02:00] >> Sure. So the key like the key metrics
+[02:03] that I'd use like to understand what are
+[02:06] fraud who are fraud like basically
+[02:08] fraudsters are those exploiting the plan
+[02:11] beyond the intended use like reselling
+[02:14] the bandwidth to people like by sharing
+[02:16] the internet tethering to like multiple
+[02:19] devices or using automation or VPN
+[02:22] setups to bypass limits rather than just
+[02:24] consuming more data personally. So
+[02:27] basically sharing data with multiple
+[02:30] users is the biggest signal
+[02:33] uh with respect to how fraudsters do use
+[02:35] this and how we can see this is I I
+[02:38] believe a telecom companies have access
+[02:41] to where uh that particular data is
+[02:44] being shared to and to what IP address.
+[02:46] So if there are multiple IP addresses
+[02:48] where that data is being shared to that
+[02:51] means that there could be some
+[02:52] fraudulent usage over here. What I mean
+[02:55] by multiple is much more above than 10.
+[02:58] So the account is likely being used to
+[02:59] distribute data externally rather than
+[03:01] for personal use.
+[03:03] >> Okay. And what's the net consequence of
+[03:06] fraudulent usage here? Just so that
+[03:09] maybe we have a definition and an
+[03:11] understanding of what the business
+[03:12] impact
+[03:14] uh is and why it even matters.
+[03:17] >> Sure. So the net consequence I see over
+[03:20] here is the revenue leakage and network
+[03:22] strain because since these users consume
+[03:24] disproportionate amount of bandwidth
+[03:27] without paying more which can degrade
+[03:30] the service quality for other users and
+[03:32] reduce profitability on that plan as
+[03:34] well. So that's I would say that's the
+[03:36] primary
+[03:38] u business impact that would have like
+[03:40] over because within a telecom
+[03:42] architecture customer feedback or
+[03:44] customer experience really matters as if
+[03:48] they I mean on a day-to-day basis as
+[03:51] well I would say that if we have a drop
+[03:53] in the data data speed or services we
+[03:57] usually tend to go to our friends or we
+[03:59] tend to ask them that hey how is your
+[04:01] internet working and if it happened to
+[04:03] be that they're on another network and
+[04:04] it's working then there's an incentive
+[04:07] for me to move to that network as well
+[04:09] given that most of the other
+[04:11] characteristics of the plan are same so
+[04:14] I'd have to switch networks which
+[04:16] directly impacts churn and long-term
+[04:18] customer retention
+[04:20] >> I see okay so we know that it's bad
+[04:22] because of those reasons right you're
+[04:24] saying uh it affects people also in the
+[04:27] network right that are not fraudulent
+[04:29] right there's also the aspect of um
+[04:33] potentially we gave them this 8:00 p.m.,
+[04:35] you know, 10x plan, right? And they feel
+[04:37] like they're being throttled
+[04:39] potentially, which means like, you know,
+[04:40] the policy doesn't actually work, right?
+[04:42] It's like, oh, I was promised, you know,
+[04:45] unlimited data, but then it's like being
+[04:47] throttled and it's not very good and so,
+[04:50] uh, I'm just going to switch to, you
+[04:51] know, AT&T instead of Verizon, right?
+[04:54] Okay, there's that. And then is there
+[04:56] also a cost aspect or is that not really
+[04:58] an issue you think with Verizon?
+[05:01] >> Right. like when I would say that the
+[05:04] cost aspect does come into play also
+[05:07] because for example if there are too
+[05:09] many legitimate fe uh users that feel
+[05:12] throttled um by the plan design itself
+[05:16] and basically basically making the
+[05:18] adjustment by capping extreme outliers.
+[05:20] So there's definitely a cost aspect for
+[05:24] like two since higher nighttime usage
+[05:26] increases uh network load infrastructure
+[05:30] costs like bandwidth maintenance and
+[05:32] without corresponding revenue growth
+[05:34] right so definitely there's a cost uh
+[05:36] there's a cost driver here as well uh
+[05:39] with respect to the telecom
+[05:40] infrastructure like we would have to
+[05:42] invest in more uh route not routers but
+[05:45] basically networks in order to ensure
+[05:48] for example uh maximum minimum
+[05:50] connectivity or basically ensuring
+[05:52] additional capacity uh to provision that
+[05:55] surge.
+[05:56] >> Okay, got it. So we understand the net
+[06:00] benefits sorry we understand the net
+[06:02] consequences here of actually you know
+[06:05] why we want to do this. So, let's dive
+[06:08] back into you said that there's a couple
+[06:10] different ways that you can investigate,
+[06:11] right? You can look at device sharing,
+[06:13] you can look at, you know, um traffic
+[06:16] signatures, VPN, uh tethering, other
+[06:19] things like that. Um what else can we
+[06:22] kind of do? And then once you're given
+[06:24] all these different usage patterns, what
+[06:26] actually like would you do in a certain
+[06:29] scenario, right? like how would you
+[06:31] actually like basically I would say
+[06:35] answer the question and um you know what
+[06:38] would you actually implement in this
+[06:39] case depending on different scenarios
+[06:42] >> uh we could also implement I mean we all
+[06:45] like I mentioned the earlier aspects but
+[06:47] um we could also implement real-time
+[06:49] monitoring rules like flagging as soon
+[06:52] as there's a traffic spike beyond
+[06:54] expected human behavior um repeated
+[06:57] device uh authentication failure
+[07:01] or adapt the product policies based on
+[07:03] whether the dominant pattern is abuse or
+[07:05] actual fraud. For example, if we are
+[07:09] seeing regular usage of like 30GB
+[07:13] okay and
+[07:15] the plan right now we we assume that uh
+[07:18] the course of in within this course of
+[07:20] time we saw that uh it was 20GB usually.
+[07:23] So we might we could also further think
+[07:26] whether we see like this whether this
+[07:29] jump uh within the same window is is a
+[07:33] sudden jump or whether it's a deviation
+[07:34] that would trigger an alert for review
+[07:37] to check if uh it's a legitimate usage
+[07:39] or it's potential misuse. So primarily I
+[07:42] would say real time monitoring is
+[07:45] something that should be given more
+[07:47] emphasis because a lot of companies do
+[07:48] have access to that. The only problem
+[07:50] with that is when it comes to real-time
+[07:52] monitoring the cost associated to create
+[07:56] a real time platform is much expensive
+[07:59] because telecom companies usually get
+[08:02] these services from other uh third party
+[08:05] providers like one example is Huawei
+[08:08] another example is um I think mobile
+[08:12] um these are few companies basically
+[08:15] that allow you to get realtime insights
+[08:18] from your systems because when you
+[08:20] upgrade to a better system definitely
+[08:22] you'll have the reports being generated
+[08:24] on a more regular basis. So again
+[08:27] there's a cost associated to it. So the
+[08:29] infrastructure tier those providers
+[08:31] charge significantly more for continuous
+[08:33] data streaming and low latency
+[08:35] processing which is why many telecoms
+[08:37] still rely on batch analysis instead of
+[08:39] full realtime systems let's say. Okay, I
+[08:43] understand that. But I guess there's
+[08:44] still kind of this question of like how
+[08:46] are you still distinguishing between
+[08:48] like actual fraud and abuse versus just
+[08:51] like normal, you know, high usage
+[08:53] because, you know, it's 8:00 p.m. now
+[08:55] and, you know, I'm an individual user
+[08:57] and now I'm like streaming, you know,
+[08:59] Netflix, right, at night and uh I get an
+[09:02] alert that, you know, I can now stream
+[09:04] Netflix uh right um at like, you know,
+[09:07] 4K or something like that, right? So
+[09:09] you're you have all this data right and
+[09:12] you have all these like heruristics that
+[09:13] you were mentioning right but how are
+[09:16] you actually like determining you know
+[09:18] the actual usage here and what's
+[09:20] actually abuse and what's not
+[09:23] >> right so I would say like per system
+[09:26] metrics so so to me like there are
+[09:29] certain metrics that we'll have to track
+[09:31] that includes for example precision
+[09:33] whether the true fraud flags um
+[09:36] basically comparing the true fraud flags
+[09:38] with the total uh total flagged amounts,
+[09:41] the recall rate and the false positive
+[09:44] rate as well at the same time. So these
+[09:47] these particular metrics would at least
+[09:49] help us understand whether like for
+[09:52] example false positive rate which
+[09:54] basically measures how many legitimate
+[09:55] users were incorrectly flagged. So
+[09:58] balancing these three helps fine-tune
+[10:00] thresholds and improve uh like uh
+[10:03] improve the overall model reliability
+[10:05] because there's no there's no like we
+[10:07] cannot we can never within like within
+[10:10] the architecture we are operating in in
+[10:11] my opinion uh there's always a tra
+[10:14] trade-off between catching more fraud
+[10:16] and keeping customer experience smooth.
+[10:18] So finding the balance is the key to
+[10:20] maintaining both trust and efficiency.
+[10:22] So maintaining all these three like
+[10:24] these three parameters that I mentioned
+[10:27] about system performing metrics such as
+[10:30] precision, recall and false positive
+[10:32] rate. All
+[10:33] >> what goes into those? Right. Cuz I have
+[10:36] no idea what how you catch like a false
+[10:39] positive or how you even know that it is
+[10:42] positive. Right.
+[10:43] >> Right.
+[10:43] >> You've said that there's maybe device
+[10:45] sharing and there's VPN use, but like
+[10:48] you know normal people use VPNs anyway.
+[10:50] So, is this like um someone switching a
+[10:53] VPN like multiple times and then you
+[10:56] investigate and then you determine it's
+[10:58] fraud, let's say. How do you know it's
+[11:00] fraud, right? What if it's just a normal
+[11:02] user just switching VPNs all the time?
+[11:04] Like, do you have a designation for what
+[11:06] fraud is in this case?
+[11:08] >> Yeah. So
+[11:11] I'd say that we only classify it as a
+[11:16] fraud if VPN switching coincides with
+[11:19] other red flags like simultaneous login
+[11:22] from locations like multiple locations
+[11:25] because we have a geo flag also that
+[11:27] basically identifies from which location
+[11:29] this is being accessed or whether data
+[11:32] whether the data is being routed to
+[11:34] multiple external IPs basically
+[11:36] indicating coordinated misuse rather
+[11:39] than normal privacy behavior. And coming
+[11:42] back to what I mentioned earlier about
+[11:44] um so the precision me like what what
+[11:46] precision measures is how many of the
+[11:49] flagged cases were actually fraud.
+[11:52] Recall basically would measure how many
+[11:54] total fraud cases we have successfully
+[11:56] caught in the in I would say in terms of
+[11:59] his historical data and the false
+[12:01] positive rate would basically measure
+[12:03] how many users were incorrect
+[12:05] incorrectly charged. So what manually
+[12:08] goes into this is a false positive. We
+[12:10] had manually review a flagged account
+[12:12] using additional context like billing
+[12:13] history, device consistency, prior
+[12:17] complaint rec records since VPN use
+[12:20] alone isn't enough. So it's a
+[12:23] combination of multiple anomal sorry
+[12:26] anomalies that um that uh signals real
+[12:31] real fraud. So,
+[12:32] >> but you're basically building that model
+[12:34] off of something, right? Like you can't
+[12:37] just just have those heruristics and
+[12:40] then call it fraud, right? Someone
+[12:42] likely is going in
+[12:44] >> and they probably view the activity
+[12:46] history
+[12:48] >> for like a customer over like 15 minutes
+[12:51] and they do all this work, right? And
+[12:53] they're like, "All right, this is
+[12:55] definitely fraud, right?" And my
+[12:57] internal model is just saying that,
+[12:59] right? But additionally, what you're
+[13:01] saying is that like all that stuff can't
+[13:03] really be done in real time because it's
+[13:05] extremely difficult, right? And so, um,
+[13:09] just because they use like, you know, an
+[13:11] above average amount of gigabytes of
+[13:13] data doesn't mean that it's like
+[13:14] automatically fraud, right? There has to
+[13:16] be like
+[13:17] >> a signal that then kind of has the
+[13:19] person go in and do the investigative
+[13:21] work, which evidently takes a lot of
+[13:24] time,
+[13:25] >> right?
+[13:27] It does because that's where the
+[13:28] costsensitive approach helps by
+[13:31] basically weighing high value fraud more
+[13:33] heavily in the model's loss function and
+[13:35] then we can afford a few extra false
+[13:37] positives on low value like on low value
+[13:41] cases while ensuring expensive frauds
+[13:43] are definitely caught early. So the goal
+[13:45] here is to go go big or go home um idly
+[13:50] because if we catch the bigger frauds,
+[13:52] we're idly preventing
+[13:55] a greater like the bigger loss or the
+[13:58] bigger picture instead of catching the
+[14:01] um the the lower ones because if it
+[14:03] means like basically the extra false
+[14:06] positives on low value cases if it means
+[14:08] catching the high impact frauds earlier
+[14:11] and reducing overall financial loss. So
+[14:14] we protect a larger portion of revenue
+[14:17] and then we can justify the
+[14:18] investigation cost also whereas missing
+[14:20] them would have had a dispos
+[14:22] disproportionate
+[14:24] um financial impact.
+[14:27] >> Okay. So let's just talk about the
+[14:29] product and policy side
+[14:31] >> now and uh just kind of quickly
+[14:33] summarize you know the last bit of the
+[14:35] question was you know how would your
+[14:37] findings actually shape future product
+[14:39] or policy decisions here?
+[14:43] Mhm.
+[14:44] >> I just like a moment just to uh bring
+[14:47] all the parts together.
+[14:50] >> Yeah. So I think these findings would
+[14:52] basically guide policy updates like
+[14:55] introducing fair use gaps uh revising
+[14:59] plan eligibility like how you whether
+[15:01] you're eligible for this unlimited plan
+[15:03] for example or adding tiered pricing for
+[15:07] heavy users. And on the product side
+[15:09] basically they inform clear
+[15:11] communication about limits to manage
+[15:13] expectations and reduce the churn. So
+[15:16] one of the main one of the main things I
+[15:18] would say on policy transformation is
+[15:20] like how we are looking at this how we
+[15:23] looking at a user to be eligible for
+[15:26] this particular plan like that really
+[15:28] matters and that would ideally be
+[15:31] witnessed or basically checked through
+[15:33] their historical behavior and for
+[15:36] example if it's a new user then this
+[15:38] plan should not be in like for a new
+[15:41] user this should not exactly be a plan
+[15:43] that should be immediately offered and
+[15:45] if it is And uh a lot of companies have
+[15:47] this uh have this have this model which
+[15:51] is known as like a three-month program.
+[15:53] For example, Mint Mint has Mint has this
+[15:56] program where they have a 3month um
+[15:58] discounted uh unlimited data program for
+[16:01] the first 3 months. And after the first
+[16:04] 3 months they have these catered
+[16:07] um like basically what they do is that
+[16:09] they check they look at the customer
+[16:11] behavior uh whether their usage in these
+[16:15] three months was within what tier and
+[16:19] based on that they would suggest that
+[16:20] tier or they would push that tier to
+[16:22] that customer in the most effective way
+[16:25] by campaigning it through a little um
+[16:28] little lower than the market price or
+[16:31] provide additional benefits. It's like
+[16:33] maybe
+[16:34] five international calls per month
+[16:37] ideally just to incentivize the customer
+[16:40] to focus on the particular plan that
+[16:42] they would like them like or basically a
+[16:44] bonus that they would like uh the
+[16:47] customer to uh to basically re retain
+[16:51] towards while aligning usage with the
+[16:54] right plan tier.
+[16:56] >> Okay, got it. Um, all right. So, I'm
+[17:00] going to give you some feedback on this
+[17:01] because I actually think that'd be
+[17:02] helpful for the overall like
+[17:06] understanding here and for our audiences
+[17:08] kind of watching
+[17:09] >> on YouTube. Um, so first off, I want to
+[17:13] ask you like what do you think you did
+[17:14] well? What do you think you did badly in
+[17:16] this interview?
+[17:18] I'd say that I think I have all the
+[17:21] knowledge but I like um a little a
+[17:24] little bit of my structuring was um was
+[17:29] going off course at times I would say
+[17:31] because in the end how you present the
+[17:34] solution is what matters more than how I
+[17:39] basically but how I I could have been
+[17:40] more concise in a few parts and tied my
+[17:42] examples back to the main question
+[17:44] faster just to be in a short in a
+[17:46] shorter note.
+[17:48] Yeah. Yeah. I would say that's um very
+[17:52] very uh good analysis there, right?
+[17:55] Because I think the one thing that I was
+[17:57] pushing you in the very beginning was
+[17:59] like defining what the key terms are
+[18:01] because that's always kind of the
+[18:03] problem with most interviews is that
+[18:05] people have different understandings of
+[18:08] what the definitions are, right? What
+[18:10] does fraud mean, right? in this example,
+[18:12] what does uh like product uh high
+[18:16] product usage mean for example? And then
+[18:19] what's the downsides in both cases,
+[18:21] right? Like why are we doing this thing?
+[18:24] Like what is the point of actually
+[18:27] investigating into this, right? Because
+[18:29] if we put our time and energy into
+[18:31] investigating something, there's
+[18:32] obviously some sort of like, you know,
+[18:34] money that we're being paid to look into
+[18:37] this, right? and a business case for
+[18:39] like why we care about you know
+[18:41] implementing something like this right
+[18:43] so marketing at the end of the day or
+[18:45] the product team right at the end of the
+[18:47] day is creating like a unlimited data
+[18:49] after 8 p.m. night and at the end of the
+[18:51] day it's also about like costs right
+[18:54] like we are doing this to acquire new
+[18:56] customers likely or to incentivize their
+[18:58] existing customers to stay with us with
+[19:00] Verizon but at the same time we want to
+[19:02] minimize the cost and fraudulent users
+[19:05] likely are creating bad experiences as
+[19:07] you said really well right for other
+[19:09] users on telecom networks right but also
+[19:12] um they're probably racking up you know
+[19:14] costs of data usage that's not just free
+[19:17] right uh and so like really defining
+[19:19] that is kind of like the center point to
+[19:22] everything. And I think you really need
+[19:23] to emphasize that a lot more in the very
+[19:25] beginning. And then really coming to
+[19:29] like a concrete conclusion as well in
+[19:31] terms of a solution is then really the
+[19:34] second point that um really needs to be
+[19:37] done, right? This means like actually
+[19:38] providing examples of like showcasing
+[19:41] the differences between fraud and like
+[19:43] what regular product I product usage
+[19:45] looks like and what normal behavior
+[19:46] looks like and then showcasing you know
+[19:49] if fraud was XYZ then we do this if
+[19:52] fraud is actually uh ABC then we do that
+[19:56] right um and so I think one of the tough
+[19:59] things here about solo was like you
+[20:01] didn't kind of come to like a definitive
+[20:03] like this is what we should be doing you
+[20:06] know and you know it's obviously hard in
+[20:07] an open-ended question, but the easiest
+[20:09] way to do that in an open-ended question
+[20:11] is to actually have like a 100% like
+[20:15] illustrated example that you can
+[20:17] essentially explain to the interviewer
+[20:22] that then um you know within that
+[20:25] example you can easily kind of be like
+[20:27] all right and this is like the best
+[20:28] solution for right so I think that's the
+[20:32] major improvement that kind of needs to
+[20:33] be done in terms of a structured
+[20:35] perspective
+[20:36] um in terms of like really feeling like
+[20:39] a takeaway that like you know this is a
+[20:41] great solution and you like really
+[20:42] understand the material here
+[20:45] >> that makes sense. I mean having a
+[20:47] concrete illustrated example would make
+[20:49] it easier to anchor my reasoning and
+[20:52] basically also show exactly how the
+[20:55] decision process works in practice. So
+[20:59] like having a flowchart like approach
+[21:01] basically the first this is how the
+[21:04] business case was defined what would the
+[21:06] model score this risk whether if it's
+[21:09] low medium or high and based on that the
+[21:12] different investigations that would
+[21:13] require so definitely a structured
+[21:15] approach to it would create a higher
+[21:18] business impact and um focus more
+[21:22] towards the recommended actions.
+[21:25] Yeah, absolutely.
+[21:27] Okay, cool. Talk to you later.
+[21:29] >> Thank you so much. Have a good day.
