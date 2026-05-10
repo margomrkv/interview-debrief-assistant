@@ -1,0 +1,414 @@
+[00:03] hi everyone this is Jay from interview
+[00:05] query today I am joined with Shashank I
+[00:10] think I said that right even though I
+[00:13] keep my forgetting um who has worked in
+[00:16] data for a couple years now I figured as
+[00:19] they worked at companies such as all
+[00:22] startups in Amazon
+[00:24] welcome to the mock interview and before
+[00:27] we get started I would love to just kind
+[00:30] of like to ask you about your background
+[00:32] and how you got into data science and
+[00:34] yeah how you got interested in it
+[00:37] sure thank you so much for having me
+[00:40] over here Jay so a little bit about my
+[00:43] background I've always been a data and
+[00:46] numbers guy I used to work as a bi
+[00:49] engineer back before I got a masters and
+[00:52] then I did a master's in data analytics
+[00:54] work with the data scientist for almost
+[00:57] two years mostly my experience has been
+[01:00] around machine learning problems and
+[01:02] machine learning implementation ended up
+[01:04] learning some DevOps skills as well and
+[01:06] like PI spark stuff so that when you
+[01:09] know when you have their products need
+[01:11] to be scaled out if the coding is pretty
+[01:13] different so I ended up learning how to
+[01:17] convert like Python code to PI spark on
+[01:19] my own learning experience and then I
+[01:22] moved over to Amazon as a business
+[01:24] intelligence engineer most of my work
+[01:26] over here was around you know tableau
+[01:29] reporting building ETL jobs figuring out
+[01:32] what kind of data structure needs to be
+[01:35] in the reporting databases so that your
+[01:38] end reports work well and you know just
+[01:40] digging into deeper into different
+[01:42] metrics that the business wants to learn
+[01:43] and just providing more information on
+[01:46] what they could look at instead of what
+[01:48] they're already looking at so that's
+[01:50] pretty much what my experience has been
+[01:53] so far from a technical point of view
+[01:55] it's more about sequel Python Vice power
+[01:58] tableau and then some Jango Web API as
+[02:03] well because in my previous company
+[02:05] nobody really knew how to use you know
+[02:07] Python based data science models so I
+[02:09] had to figure out how to production lies
+[02:12] them on my own and have the end product
+[02:14] just make like Web API calls to be
+[02:16] predictions instead of dem trying to you
+[02:19] know ingest a mortal end and interact
+[02:22] with it so that was a pretty neat skill
+[02:25] to have and think that's something
+[02:27] that's being needed more and more in
+[02:29] many companies these days
+[02:30] definitely yeah I think the overall kind
+[02:34] of scale of data Sciences
+[02:36] needs a lot of what you just kind of
+[02:39] described in different kinds of metrics
+[02:42] track like ETL jobs being able to do the
+[02:46] modeling for each and just having an
+[02:47] idea of every part of the funnel in
+[02:50] terms of cool so I'd love to start out
+[02:55] with like a first question and let's say
+[02:57] this has to do with an e-commerce
+[03:00] website like Amazon right so let's say
+[03:03] you're running an e-commerce website and
+[03:06] you want to get rid of let's say
+[03:08] duplicate products I may be listed under
+[03:09] different sellers names you know like a
+[03:13] really large database so for example we
+[03:17] have two products but that the same
+[03:18] product but they're named iPhone X and
+[03:21] Apple iPhone 10 right and so given that
+[03:24] we have these two products we want to
+[03:26] deduplicate it but let's say that this
+[03:29] example shows up for like a lot of
+[03:30] different cases what's one way that you
+[03:33] would go a bit go about actually doing
+[03:35] this so if it's a established ecommerce
+[03:43] company I would assume that they would
+[03:45] have some kind of an ID for every
+[03:49] product that they have in their
+[03:50] inventory so something like an SKU or an
+[03:53] ace and if it's Amazon then that's
+[03:56] pretty unique and you know even the you
+[03:58] know the description is different in
+[04:00] different under different sellers and I
+[04:03] would assume that they would have the
+[04:04] same SKU so you know if you just look at
+[04:07] the you know get a list of all the all
+[04:10] like get a total of the SKU different
+[04:13] sellers and then do a distinct list of
+[04:17] SK use across sellers you will notice
+[04:19] what kind of SK use are replicated and
+[04:23] under which seller and then once you
+[04:25] have that you can go to the business
+[04:26] saying what do you want to do with them
+[04:28] if people eat them
+[04:30] whatever yeah cool so let's say let's
+[04:35] make it a little bit more complicated
+[04:36] and let's say that we don't have that
+[04:38] skate you right and let's say that
+[04:40] people are just creating their listings
+[04:43] by just entering in like what they think
+[04:44] the product names are and then you know
+[04:47] like a picture description and
+[04:51] essentially what kind of goes on on
+[04:52] Amazon right now right so how would we
+[04:57] do the I guess the mapping to the SKU or
+[05:01] would you even think of like a different
+[05:02] approach towards even like solving the
+[05:05] problem yeah I mean couple of things
+[05:07] come to mind if we have recall like
+[05:11] images for for these products that we
+[05:14] think may be duplicated we can try to
+[05:17] you know use some algorithms that
+[05:18] identify similar images and then once
+[05:22] you have that list of similar images
+[05:24] then you look at the descriptions and
+[05:25] then you can build a string similarity
+[05:27] kind of algorithm which you know says
+[05:30] with which descriptions sound very
+[05:32] similar or are very close to each other
+[05:34] and then you would have to at least two
+[05:37] data points that say that you know these
+[05:39] two products seem to be similar and then
+[05:41] it's probably going to be a little bit
+[05:42] of manual intervention to identify are
+[05:44] they really similar or not but going by
+[05:48] image similarity in our description
+[05:49] similarity that should be the other
+[05:53] thing that I can think of is maybe
+[05:56] reviews on different products so imagine
+[05:59] that there are two different products
+[06:01] just named differently but both of them
+[06:03] are like an Apple iPhone 10 you would
+[06:05] assume that the reviews are pretty much
+[06:07] talking about a phone and it's
+[06:09] manufactured by Apple and probably have
+[06:11] the same kind of experiences so you
+[06:13] could try to see if the reviews are very
+[06:16] similar to each other and that gives a
+[06:19] good indication that the product is
+[06:20] probably the same
+[06:21] okay so let's say we go with the process
+[06:26] all those things right now we're looking
+[06:29] at similar across images cross
+[06:31] descriptions across reviews right and so
+[06:35] we're getting this like score for each
+[06:37] one of them right so now how do we go
+[06:41] about and
+[06:43] if we can duplicate deduplicate them or
+[06:46] not do we have like a human review of
+[06:49] every single one do we do some sort of
+[06:51] like scaling process because let's say
+[06:53] we have to do this for like thousands
+[06:55] and thousands of products right right
+[06:57] what's the next step um so because we
+[07:01] like from the beginning we don't really
+[07:03] know which products are the same or not
+[07:06] so it we can't really do like a
+[07:08] supervised learning here it needs to be
+[07:10] a unsupervised technique that first
+[07:12] tries to identify what what stuff are
+[07:16] similar to each other so I probably do
+[07:19] like a clustering based on just
+[07:21] descriptions you know like first we'll
+[07:23] definitely do some cleaning and in a
+[07:25] tokenization and stuff for the text data
+[07:27] and then bring it to a structured format
+[07:30] and then try to + try to maybe to like a
+[07:33] tf-idf on different documents and these
+[07:37] documents would have the prescription
+[07:38] and maybe reviews as well so you do a
+[07:41] tf-idf to find out which documents are
+[07:43] similar to each other you'll get some
+[07:45] scores and then you can depending on how
+[07:50] many documents end up in a particular
+[07:51] cluster you will definitely have to do a
+[07:54] manual step to see if they're actually
+[07:56] same or not images as well I think I'm
+[08:01] not aware of a clustering technique that
+[08:03] works on images but you will probably
+[08:05] have to build out features from the
+[08:06] image bring it to a structured format
+[08:08] and then do clustering on top so you
+[08:12] might be able to identify like ten
+[08:14] different clusters if there are ten
+[08:16] different if they're ten items that are
+[08:17] duplicated and then look at the clusters
+[08:20] descriptive statistics to see what what
+[08:23] is this custom really talking about is
+[08:24] it a phone is a tablet is it a computer
+[08:27] or whatever and then try to and then go
+[08:29] about in a manual investigation from
+[08:31] that point of view from that point okay
+[08:33] so let's say we do that and we're going
+[08:36] through these clusters right and we find
+[08:39] that the algorithm has at least for a
+[08:43] couple of them has clustered just like
+[08:44] phones together instead of doing
+[08:46] specific enough for the same product
+[08:49] right or maybe we're getting like
+[08:52] thousands of different clusters
+[08:55] potentially where like there may be no
+[08:58] like not matched up as well is there any
+[09:00] way that we can almost like optimize our
+[09:03] manual intervention or like any other
+[09:07] techniques in which we can kind of scale
+[09:09] this problem out so that we somehow use
+[09:14] like the least amount of you know manual
+[09:17] overview while also figuring out like a
+[09:20] way to do it efficiently as well right I
+[09:25] guess it would depend on the features
+[09:29] that we actually extract the more
+[09:31] granular the features in our dataset and
+[09:33] the better the clusters could be if we
+[09:37] are creating clusters just on the type
+[09:39] of device then you're right I think all
+[09:41] phones and all computers will just end
+[09:44] up together but if we given that these
+[09:48] are also like you know we suspect that
+[09:50] these are duplicate listings we would
+[09:53] definitely want to look at more
+[09:55] information of the listing itself like
+[09:56] what is the price of the product what's
+[09:58] the maybe the different types of colors
+[10:01] that's available and then what is the I
+[10:05] don't know what like you know stuff that
+[10:08] iPhones and androids have similar to
+[10:10] each other like an operating system and
+[10:13] stuff like that so depending so the
+[10:15] features need to be as close to the
+[10:17] product itself so that our clusters are
+[10:20] more identifiable among each other and
+[10:23] not generic as phones and computers so
+[10:27] that's what comes to mind but other than
+[10:29] that let me think of it if there's
+[10:33] anything else that could be useful here
+[10:36] so we have a listing maybe there are
+[10:39] sellers as well right like different
+[10:41] sellers I mean you could assume that a
+[10:43] particular seller of you know different
+[10:46] phones are similar to each other in like
+[10:50] electronic seller and they have so so
+[10:54] and so different products and this is
+[10:57] the amount of average driving it at the
+[11:00] gate and stuff like that so depending on
+[11:02] the seller's demographics I think we
+[11:05] would be able to identify what seller is
+[11:07] probably an electronic syllabus as a
+[11:09] hardware setup so that could be
+[11:12] something useful to look at and then
+[11:16] maybe the customers itself are like you
+[11:19] know we can look at purchased behavior
+[11:21] as well
+[11:22] iPhones typically tend to sell out as
+[11:25] soon as they are launched so you can try
+[11:27] to you know use information around when
+[11:30] a particular product was launched and
+[11:32] then look at the purchase pattern during
+[11:35] that time and then try to integrate
+[11:37] these features in your actual data set
+[11:40] so that there's some customer purchase
+[11:42] behavior being being looked at some
+[11:45] seller behavior being looked at and and
+[11:46] most of it would be the product
+[11:48] description itself like the product
+[11:50] itself and then I wanted to do a brief
+[11:57] feedback session on the first question -
+[12:01] so what did you think about the first
+[12:03] question yeah I think the question was
+[12:05] good it was pretty vague in the
+[12:09] beginning but I think based on what your
+[12:12] cues were I felt like a we wanted a more
+[12:19] algorithmic solution than like a sequel
+[12:21] database so initially I thought that
+[12:26] it's more like a simple question where I
+[12:28] can tell what kind of distinct or which
+[12:30] columns I need to be grouping by but
+[12:32] turned out that we wanted to check this
+[12:36] at a more higher scale so I think it was
+[12:39] a good brainstorming question there
+[12:41] multiple ways that it could have gone
+[12:43] but I think we ended up with a few good
+[12:48] starting points at least a tackle oh
+[12:50] yeah any so two bits of feedback I think
+[12:53] like scaling out the approach to would
+[12:57] be better so like having a broader
+[12:59] horizon on the the case maybe like so
+[13:04] not limit it to just like kind of phones
+[13:06] and maybe think about other news cases
+[13:10] with why ecommerce as big as like Amazon
+[13:13] and then I think having like
+[13:19] I think more data points is also helpful
+[13:22] when explaining these things so like
+[13:23] being able to either like create
+[13:27] assumptions off of like how much like
+[13:31] data we have to deal with and so one
+[13:36] example of this is like being able to
+[13:39] understand like if there are let's say
+[13:41] like thousands of these duplicated
+[13:43] products then like how much can we
+[13:47] automate out and just assume like an
+[13:49] error case of like you know let's say
+[13:51] like 5% and how much can we like do
+[13:56] manually because it's like important so
+[13:58] like with iPhones let's say like it's
+[14:00] pretty important but let's say that
+[14:01] we're selling like pokemon cards that
+[14:03] are like you know not blender duplicated
+[14:07] it's like how much of that can we get on
+[14:09] just like an automated solution of like
+[14:10] doing word matching and then like
+[14:14] getting a high enough threshold and then
+[14:15] just being like okay that's fine and
+[14:17] then like running through the cases
+[14:19] getting like three percent error through
+[14:21] manual selection getting like an idea
+[14:25] that if we scale that out then we're
+[14:27] okay with like three percent error going
+[14:29] forward right so like a disclaimer or at
+[14:33] least a dialogue around what officials
+[14:36] could make sense in terms of
+[14:38] implementation that would have been
+[14:40] helpful because yeah I mean without
+[14:42] really implementing I wouldn't really be
+[14:44] able to tell you know what kind of get
+[14:46] on that but assume you have enough data
+[14:48] we should just assume that we'll have an
+[14:50] algorithm that does well and then we can
+[14:53] talk about the yeah exactly like
+[14:57] basically being the tweak to sensitive
+[15:00] enough for like our business cases right
+[15:02] like assuming that obviously we don't
+[15:05] really care about duplication if it's a
+[15:07] you know something that doesn't affect
+[15:09] the business too much well we do care if
+[15:12] you know multiple sellers are like
+[15:16] trying to sell you know really high
+[15:18] value products like iPhones or Macs for
+[15:21] whatever reason and we don't want it to
+[15:23] like go past like you know a first page
+[15:25] results yeah general thought process on
+[15:29] that was pretty good and structured and
+[15:30] like went down the narrow the path that
+[15:32] like we're trying to lead
+[15:33] towards cool and then I guess yeah I
+[15:39] guess lastly on that like is is there
+[15:41] any kind of ideas or thoughts you have
+[15:45] around like potentially like how these
+[15:49] questions are almost measured in like
+[15:51] real interviews and this is kind of like
+[15:53] apart from the mock interview but just
+[15:54] like love your thoughts on like how you
+[15:56] think these questions like that are more
+[16:00] ambiguous should get well I kind of
+[16:02] graded kind of like almost like rubric
+[16:04] wise okay like from a rubric ways I
+[16:08] think generally for case interviews what
+[16:11] I think from a candidate perspective
+[16:13] they should be graded based on what kind
+[16:16] of questions they ask in the beginning
+[16:17] like what kind of clarifying questions
+[16:19] they ask how much information other than
+[16:22] the problem statement they're able to
+[16:23] extract out of the interviewer because
+[16:25] they ask the right questions and the
+[16:27] interviewer actually wanted to give them
+[16:28] some information so that the discussion
+[16:30] leads down to the path that they want to
+[16:32] go to because from what I understand
+[16:35] more often than not in the case study
+[16:37] interviews
+[16:37] it's the interviewer who decides what
+[16:39] where the candidate needs to end up at
+[16:42] and even if the candidate has like
+[16:44] multiple different ideas it's up to the
+[16:46] interview to guide and that this is the
+[16:48] path I want you to take so yeah I think
+[16:51] the first step would be like checking
+[16:52] how many questions are they able to get
+[16:55] in the beginning how many extra data
+[16:58] points are able to think and then maybe
+[17:00] like five minutes of questioning and
+[17:02] then based on all the answers they get
+[17:04] how are they able to like drill down on
+[17:06] that on those data points like if do
+[17:08] they have like a segmentation approach
+[17:10] to estimating different values in that
+[17:13] problem statement that should be pretty
+[17:16] good and then of course calling out the
+[17:19] assumptions you know at every point is a
+[17:22] candidate calling out what assumptions
+[17:23] he is making and then checking if those
+[17:25] assumptions make sense or not with the
+[17:27] business point of view so that seems to
+[17:30] be a point that should be looked into
+[17:32] and then yeah at the end I think it's
+[17:35] there's never really a right answer so
+[17:37] it's just about you know how well the
+[17:39] candidate is able to summarize his
+[17:41] solution to the problem okay oh no I
+[17:46] like that I
+[17:47] I enjoy that I think that's a great way
+[17:49] to kind of define it as well and
+[17:51] especially since it's so ambiguous on
+[17:55] either side I think being able to make
+[17:59] note of what the good points are is
+[18:00] helpful right yeah Oh awesome thanks so
+[18:04] much for your help

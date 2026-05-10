@@ -1,0 +1,227 @@
+[00:00] [Music]
+[00:03] hi everyone this is Jay from interview
+[00:05] query today I am doing a mock interview
+[00:08] with Ben
+[00:10] he's a data scientist next door and
+[00:13] envoy and formerly at Blackrock as well
+[00:17] then thanks for being here hey how are
+[00:22] you doing Jay good so to start out I
+[00:25] thought we could tackle one of these
+[00:28] questions that is pretty popular in
+[00:34] terms of ads but first I'd love to just
+[00:38] kind of do like a quick summary on your
+[00:41] like background like how did you get
+[00:43] into data science sure um when I went in
+[00:48] finance after graduating from college
+[00:51] study computer science like a lot of
+[00:54] folks here in Silicon Alley and was
+[00:58] working on some level of analysis and
+[01:00] construction of some model portfolios
+[01:01] that we had and in doing so you know
+[01:04] worked with a lot of data like financial
+[01:06] data that was coming through um I became
+[01:08] responsible for you know kind of
+[01:11] reliable delivery of that data as well
+[01:12] as kind of building tools to help make
+[01:15] the analysis process more efficient so
+[01:20] what kind of fell into data like that
+[01:21] and when I decided that I didn't want to
+[01:23] work in finance anymore and go into more
+[01:25] you know consumer tech data was kind of
+[01:28] a natural Avenue for mediums kind of
+[01:30] continue working in so there was this
+[01:33] hot term at the time data science it
+[01:36] became like that kind of Explorer and
+[01:38] you know one thing led to another nice
+[01:40] cool I'm glad that you got into it and I
+[01:45] think that there's definitely you know
+[01:47] lots of people transitioning from
+[01:48] finance over as well I can definitely
+[01:50] resonate with that kind of
+[01:53] characterization of your background cool
+[01:57] so the first question that I have for
+[02:00] you today is let's say that you work on
+[02:02] the ads team had a social media company
+[02:05] let's say Facebook right and a
+[02:09] definition or term that they have in ads
+[02:11] is fill rate and it's defined as the
+[02:14] number of overall impressions divided by
+[02:16] potential opportunities so let's say
+[02:19] that you see that this film rate metric
+[02:21] has dipped by 10%
+[02:23] what would you investigate first I'd
+[02:28] want to find out whether that 10% is
+[02:30] like relative or you mean like in
+[02:32] absolute terms let's say that it's
+[02:36] relative so if you know fillrate was
+[02:40] holding 70 percent yeah
+[02:42] steady and then let's say it happened
+[02:45] it's been steady for like a week and
+[02:47] then it dipped down by 10 percent to
+[02:51] like 81 percent okay okay so I guess you
+[02:56] know seeing that it's a rate obviously
+[02:59] made up of kind of like a numerator and
+[03:03] denominator sometimes doesn't tell the
+[03:05] full story when you look at it just as a
+[03:07] metric by self so the first thing I
+[03:09] would do would be to look into like
+[03:11] what's going on like what's driving that
+[03:13] that that drop in the fill rate so what
+[03:17] could be happening is you know the
+[03:19] denominator in this case the impression
+[03:22] opportunities could be getting a lot
+[03:24] bigger
+[03:24] which you know my actually signal that a
+[03:27] growth in the business so that might be
+[03:29] something that that's favorable and
+[03:31] simply we just need some time for the
+[03:34] numerator to catch up on assuming like
+[03:36] you know we're showing ads here so like
+[03:38] you advertise yourself to come online
+[03:41] yep
+[03:42] the other scenario is obviously if the
+[03:44] numerator is is the one dropping and
+[03:46] we're not seeing any new activity on the
+[03:48] denominator then that would be a little
+[03:51] bit more of a cause for immediate
+[03:53] concern and probably something we want
+[03:55] to look into immediately okay so let's
+[03:59] say that it was the denominator that
+[04:02] actually increased and then let's
+[04:06] clarify and say that this was like
+[04:09] specifically like a one-time event so
+[04:11] it's not like cyclical so it didn't
+[04:13] happen it's not like a weekly thing
+[04:15] because you know increased usage on the
+[04:18] weekend or something like that like a
+[04:21] monthly or yearly thing what would you
+[04:23] then look at after that
+[04:25] sorry did you say the new denominator oh
+[04:28] yeah the denominator increased yeah and
+[04:33] it was a one time thing
+[04:34] okay yeah I would you know so in this
+[04:37] case since its opportunities what might
+[04:40] be happening is there's so so two things
+[04:44] right like this is a social network so
+[04:46] there are people who are coming onto the
+[04:50] network to see these potential ads so
+[04:53] it's probably unlikely that behavior
+[04:56] changed overnight and like you know
+[04:57] people are suddenly like engaging like a
+[05:00] llama although who knows maybe with you
+[05:02] know coronavirus coming around
+[05:04] that did happen overnight yeah but it
+[05:06] could also be the case that there's a
+[05:08] ton of new user activity and like a
+[05:10] bunch of new members be from like a like
+[05:12] a big marketing push or something that
+[05:15] led to a lot of new user signing up so
+[05:17] we have a lot of new sessions where
+[05:18] they're seeing a couple of these
+[05:20] opportunities so I guess the next place
+[05:22] that would check would be what's causing
+[05:25] that increase in the opportunity number
+[05:28] whether it's like a bunch of new members
+[05:30] or a bunch of new sections gosh it and
+[05:33] so is there any other way that you can
+[05:37] divide it out even within like the new
+[05:40] users or new sessions to understand
+[05:43] where I might be coming from given like
+[05:46] in this scenario Facebook is like a
+[05:47] pretty big business so there's probably
+[05:51] like a ton of different ways that people
+[05:54] can sign up for a you know a Facebook
+[05:57] account or potentially be using Facebook
+[05:59] at the time so how else would I break
+[06:02] out the increase in sessions you're
+[06:04] saying yeah so so let's say let's say we
+[06:12] see a lot of new sessions from new
+[06:14] members I would obviously look into like
+[06:17] like acquisition channels of all these
+[06:19] new members and see you know if there's
+[06:21] whether one of the theories that I just
+[06:23] threw out might be the reason why there
+[06:26] are there are new members joining like
+[06:28] maybe some I don't know some advertising
+[06:31] campaign we're running elsewhere
+[06:32] suddenly everyone else stopped bidding
+[06:33] on those keywords so now like you know
+[06:35] we're just like it getting a lot of new
+[06:38] users
+[06:39] uh not sure if I'm going down the right
+[06:41] track let's say like we're focusing in
+[06:45] on sessions right so let's say that we
+[06:50] know that there's a lot more sessions is
+[06:53] there a way that we can verify that the
+[06:55] sessions are coming from new users as
+[06:56] well compared to just existing users
+[06:59] using the platform suddenly yeah we
+[07:02] would look at you know sessions per user
+[07:04] and we would see like and we would
+[07:07] compare to the total number of users so
+[07:09] like you know sessions could go up but
+[07:11] those could come from like a slew of new
+[07:13] users or they could be that existing
+[07:15] user suddenly are engaging a lot more on
+[07:17] that particular date right so I will try
+[07:19] to figure out like just take my number
+[07:22] of sessions and divide it quickly over
+[07:24] my number of distinct users that day and
+[07:26] just get a sense of like what that ratio
+[07:28] is and I would expect if it were new
+[07:31] users that that number would drop right
+[07:34] like New Year's I expect to have less
+[07:35] engagement when they first join but and
+[07:37] and driven by the figure member base
+[07:40] it's increased from engagement in my
+[07:43] existing users then I would expect that
+[07:46] number to have increased okay so let's
+[07:49] take a step back and say that let's say
+[07:52] the denominator actually in that
+[07:54] philaret calculation stayed the same is
+[07:59] there something else that you could look
+[08:00] at then yeah that would probably point
+[08:04] towards the numerator being the problem
+[08:06] in which case this is impressions so it
+[08:11] may seem like a more dire problem before
+[08:13] suddenly showing a lot fewer impressions
+[08:17] there's a you know then it then it
+[08:19] becomes a matter of like where we're
+[08:21] getting advertisers from like if I would
+[08:25] start with like you know an ops team and
+[08:27] figure out whether some campaigns just
+[08:29] ended and if we don't have direct
+[08:32] campaigns we have like you know ad
+[08:34] exchanges that were cooked into maybe
+[08:36] like something broke like check for code
+[08:38] that may have potentially like broken
+[08:40] the integration yeah yeah but I mean the
+[08:44] first step would be to verify that you
+[08:45] know impressions actually did drop and I
+[08:47] would find a third party source to try
+[08:49] to verify that if possible because it
+[08:53] could also mean
+[08:53] like you know an engineering bug where
+[08:55] our impression tracking just broke
+[08:57] for example gotcha yeah let's say that
+[09:00] there wasn't a bug anywhere in the code
+[09:05] or anything where we double down that
+[09:07] and we see that there was no error
+[09:09] technically on where else could be then
+[09:13] kind of investigate like I said goes
+[09:19] through the business side of things and
+[09:20] just trying to figure out like I am I
+[09:22] seeing the same number of advertisers
+[09:24] throughout the week as I am today like
+[09:26] if I see a massive drop like or if I
+[09:30] don't even see a massive drop I see that
+[09:31] some advertisers were you know kind of
+[09:34] doing pretty constant delivery
+[09:35] throughout the week and some just
+[09:37] dropped off maybe they reached their
+[09:39] goal or they move through their budget
+[09:42] so then you know they're not delivering
+[09:44] anymore so try to find anything that
+[09:46] looks abnormal by looking at kind of
+[09:49] like a seven-day trend just to see
+[09:52] gotcha okay cool

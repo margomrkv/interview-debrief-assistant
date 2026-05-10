@@ -1,0 +1,189 @@
+[00:00] [Music]
+[00:08] hi everyone this is Jay from a view
+[00:11] query today I am doing a mock interview
+[00:13] with Scott Scott is a machine learning
+[00:17] engineer and data engineer at next door
+[00:20] welcome to the mock interview Scott hey
+[00:23] oh I thought this is a real interview
+[00:25] [Laughter]
+[00:35] so before we start I'd love for you to
+[00:38] talk a little bit about yourself and how
+[00:39] you got into tech engineering data all
+[00:43] that yeah so let's see here I mean I got
+[00:49] into tech because I was obsessed with
+[00:52] computers when I was in high school when
+[00:55] I thought I would credit them
+[00:56] I really wasn't but I kept being
+[00:59] interested in it in it so I needed up
+[01:03] taking computer science for my
+[01:05] undergraduate it was until like my first
+[01:10] internship where I realized that this
+[01:13] is really boring
+[01:14] I started reading or like leads to stuff
+[01:18] that I was doing was really boring I
+[01:20] started reading a lot more software
+[01:22] engineering literature and actually got
+[01:24] a lot deeper into I guess the trade then
+[01:34] I had initially thought I was going to
+[01:36] be and I did I think that's kind of like
+[01:39] why I'm here okay as I I still think
+[01:43] it's a very interesting way to build out
+[01:47] things that are useful for people yeah
+[01:51] how I ended up in data is I've always
+[01:53] been kind of a database nerd I guess or
+[01:58] how how I store data efficiently I think
+[02:03] there's been a lot of interesting
+[02:08] problems surrounding that and I don't
+[02:13] know I just kept digging into those kind
+[02:16] of rules
+[02:17] my first role out of my undergraduate
+[02:21] degree was working on AWS in storage
+[02:24] mm-hmm
+[02:26] when I was working at a start-up I liked
+[02:30] the projects where I got to build out
+[02:33] our own data warehouse and then when I
+[02:36] applied to next door I found most of my
+[02:39] interests being around how to
+[02:43] efficiently transform data it's it being
+[02:47] something that could be searched and
+[02:51] transformed very efficiently so I think
+[02:55] that's like largely the journey that
+[02:59] I've been through so far awesome
+[03:01] yeah and I think that is good because
+[03:04] I've asked a lot of people this question
+[03:06] and they all have different answers
+[03:08] based on how they feel about having
+[03:11] eventually got to their current moment
+[03:13] right and their current experience level
+[03:15] and it's definitely super interesting I
+[03:17] think yours is no different cool so
+[03:21] let's start out with the first question
+[03:23] and this is like more of a data
+[03:25] engineering question coming Amazon but
+[03:27] let's say that you have a table with a
+[03:30] billion rows right and let's say that we
+[03:33] want to add a column to this table but
+[03:37] we want to do so without any sort of
+[03:38] downtime can you lay out like the
+[03:42] scenario and how you'd actually perform
+[03:44] that well or yeah I mean before we dive
+[03:51] into the question I guess I have a few
+[03:54] questions for you what kind of database
+[03:59] let's say it's a Postgres database
+[04:05] database yeah okay so with if we don't
+[04:15] want to incur any downtime I guess my
+[04:19] question to you is what impact with
+[04:23] downtime have good questions so downtime
+[04:28] would be bad because let's say the
+[04:30] is Amazon like e-commerce site right and
+[04:34] so if we're down for like 10 seconds
+[04:37] that's probably like a million dollars
+[04:40] in sales or something okay so our best
+[04:43] interest to keep up time because up time
+[04:50] is worth the million dollars so exactly
+[04:53] being able to backfill with time just
+[05:03] isn't really I would I would actually do
+[05:09] this in two phases
+[05:10] okay and it also depends on like it can
+[05:14] we have like a default value attached to
+[05:18] so Postgres allows you to have default
+[05:21] values without actually writing the
+[05:25] actual call value into the record okay
+[05:29] so we can use that as leverage then we
+[05:35] don't even have to really backfill we
+[05:36] just have to apply our table when our
+[05:43] table definition change and then we're
+[05:47] good to go
+[05:48] all right so let's see it's not Postgres
+[05:52] and then it's like my sequel or
+[05:54] something so if we don't have that at
+[05:56] all yeah we don't know you just want to
+[05:58] say we don't have we don't have the
+[06:00] default value so I would do this in
+[06:04] phases I think it makes sense to lock
+[06:13] out chunks of Records and update those
+[06:18] values but let's initially just have
+[06:20] them how many records get added to the
+[06:38] table
+[06:41] per second per second so let's say if
+[06:48] there's a billion rows then let's say
+[06:52] that there gets like a million rows
+[06:57] added per day and then let's say like if
+[07:01] we extrapolate from that like probably
+[07:03] like like a couple like a thousand
+[07:09] records per second that's probably not
+[07:11] right but let's just say a thousand
+[07:13] records per second okay yeah so one way
+[07:19] to kind of do this is to create a table
+[07:23] that is identical to the other table but
+[07:26] with an extra record and have all new
+[07:29] records write to that new table and then
+[07:33] we'll slowly start copying data from
+[07:36] that old table to the new table with
+[07:42] whatever default value that we want to
+[07:44] give at that table and when we're
+[07:50] reading from that table we have to read
+[07:52] from both tables for the short for the
+[07:54] short term okay eventually after all of
+[07:59] the old records are copied over to the
+[08:05] new table we can drop the old table and
+[08:08] move on with our lives and then we have
+[08:13] we effectively have our new column with
+[08:16] no downtime all right cool
+[08:20] I want to ask you retro so what did you
+[08:23] think about the questions that were
+[08:25] asked what did you think about the
+[08:27] interview um I think the questions that
+[08:35] were asked were intentionally left vague
+[08:37] no I definitely have to probe and get a
+[08:42] better understanding of like where our
+[08:45] constraints lives yep so that I could
+[08:48] give a good ish answer
+[08:55] I mean lemme answer so kind of hand wavy
+[08:57] if I were being quite honest but I think
+[09:02] like I think high level I hit them okay
+[09:15] do you think in terms of like difficulty
+[09:20] level unlike how much you have to pro is
+[09:22] it more on so I guess on my side I think
+[09:27] like a lot of the time I think it's like
+[09:29] on the candidate for a lot of interviews
+[09:32] because they're faced with a lot of
+[09:37] variability in their interviewers
+[09:39] because many can be more leading all
+[09:42] some will be like less so right and so
+[09:45] if you stop asking questions then
+[09:48] potentially they may you know just move
+[09:53] on to the next one and assume the worst
+[09:55] which is that you didn't know anything
+[09:59] even though you probably did know it and
+[10:01] so do you think that there's like what
+[10:06] do you think about like the amount that
+[10:08] you have to like basically dig in versus
+[10:10] like almost answer and like kind of have
+[10:13] a conversational back and forth right
+[10:16] I thought that one's hard to answer
+[10:18] actually um I tend to play it by ear
+[10:22] so I think if you ask too many questions
+[10:25] then you're not doing any thinking or
+[10:29] any Discovery on your own yeah which
+[10:32] doesn't but
+[10:33] well in debrief so it's good to have
+[10:38] some ideas talk aloud on those kind of
+[10:44] ideas and even just ask for feedback on
+[10:48] what the interviewers thinks of like
+[10:51] your idea
+[10:53] yep um and I think that's good I think I
+[10:56] think if you listen you also need to
+[10:59] listen to the interviewer and pick up on
+[11:01] any sort of hints that they may give you
+[11:03] so when you said do things letter by
+[11:08] letter immediately clicked in my head
+[11:10] that was a hint yeah
+[11:12] and if I pick up on the hand then the
+[11:17] interviewer knows that I picked up on
+[11:19] the hand and can probably think or I
+[11:23] think the interview will think like okay
+[11:26] this person probably knows yeah it
+[11:28] what's going on here and what I was
+[11:31] thinking in terms of structure I think
+[11:35] it makes a lot of sense

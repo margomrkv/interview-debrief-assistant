@@ -1,0 +1,843 @@
+[00:00] thinking about our users and what their
+[00:03] pain points are
+[00:08] okay so let's say that dropbox wants to
+[00:11] change the logic of the trash folder
+[00:13] from never permanently deleting anything
+[00:16] in the trash
+[00:17] to automatically deleting items after 30
+[00:19] days
+[00:20] how would you look into the data and
+[00:21] validate if this was a good idea or not
+[00:24] okay so we want to take a look at
+[00:27] the logic of the trash folder so
+[00:29] currently we
+[00:30] are never deleting items in the trash
+[00:33] folder but we are exploring
+[00:36] whether we want to implement a new
+[00:38] feature that would automatically
+[00:40] delete items in the trash after 30 days
+[00:43] is that correct
+[00:44] yep okay let me take a moment
+[00:47] to think about what structure i want to
+[00:49] use to approach this problem
+[00:51] okay sounds good so the
+[00:54] approach that i want to take is first
+[00:56] thinking about
+[00:57] why we might want to implement this new
+[00:59] feature
+[01:00] and kind of tying it back to the larger
+[01:03] strategy and mission of the company
+[01:05] thinking about our users and what their
+[01:08] pain points are
+[01:09] and then establishing a hypothesis and
+[01:12] some metrics that i
+[01:14] would want to dive deeper into to
+[01:17] validate or invalidate that hypothesis
+[01:19] okay so you know thinking back to the
+[01:22] broader dropbox mission you know we are
+[01:24] aiming to be the one
+[01:26] place our users use to keep their life
+[01:28] organized and keep
+[01:29] work moving and so you know with all of
+[01:32] the files that users are
+[01:34] uploading and editing in dropbox um
+[01:36] there's bound to be a lot of
+[01:39] files that get moved to the trash as
+[01:41] well
+[01:42] um and so i think that
+[01:45] um you know as our platform scales and
+[01:49] grows
+[01:50] this is bound to be a bigger problem
+[01:52] especially if we're never deleting
+[01:53] anything
+[01:54] um and just i think this kind of string
+[01:57] could potentially
+[01:58] have performance um implementations
+[02:01] and kind of hinder our effect to kind of
+[02:04] provide a very speedy and quick uh
+[02:08] experience for our customers so i would
+[02:11] want to
+[02:12] um so i'm going to take a moment now to
+[02:14] kind of think about our users and their
+[02:16] pain points around this problem
+[02:18] and so when i think about our users and
+[02:22] their behavior and dropbox i wanted to
+[02:24] kind of think about
+[02:26] why do users move things to the trash
+[02:29] folder
+[02:30] and so um i think that
+[02:33] there are kind of a few different
+[02:36] reasons
+[02:37] why a user might move something into the
+[02:39] trash folder
+[02:40] so one it might be um
+[02:43] they have uploaded a new version of
+[02:47] something
+[02:48] and so they might move the old version
+[02:51] of that document
+[02:52] into the trash um the second one
+[02:56] is they might have uploaded
+[03:00] a duplicate of something and so um
+[03:03] instead of keeping both things and
+[03:04] taking up extra space
+[03:05] in their dropbox account they'll move
+[03:08] the duplicate into the trash
+[03:10] and then the third reason that i can
+[03:12] think of is
+[03:13] users you know with the current behavior
+[03:16] of
+[03:16] never deleting anything in the trash
+[03:19] some users
+[03:20] might kind of use that trash folder as
+[03:23] an
+[03:24] archive because they know that you know
+[03:26] other
+[03:28] items that they don't necessarily need
+[03:30] on a day-to-day basis
+[03:31] will not go away and stay in that folder
+[03:35] and so um i
+[03:39] would kind of think that most
+[03:42] people are moving files
+[03:46] to trash that they don't need anymore so
+[03:48] that's kind of my hypothesis
+[03:50] and so i'm going to take a moment now
+[03:52] and kind of think about some metrics
+[03:54] and that i would want to take a look at
+[03:56] to validate whether or not that is true
+[03:58] okay sounds good so i do have a
+[04:02] clarifying question for you um so just
+[04:05] to understand
+[04:07] this a little better do items
+[04:10] in a user's trash folder account against
+[04:13] their storage limits for their dropbox
+[04:15] account
+[04:17] um yeah so i would say that it doesn't
+[04:21] count against their storage
+[04:22] limit right because it's in the trash
+[04:25] right
+[04:25] okay yeah readily access it unless they
+[04:28] then um
+[04:29] let's say they uh they like
+[04:32] repurpose it back into their regular uh
+[04:35] storage
+[04:36] okay got it sounds good and are able
+[04:39] are users able to only
+[04:43] so users are only able to see the items
+[04:46] in their trash can
+[04:47] and the only action they would take on
+[04:50] it is
+[04:51] to restore it if they wanted to kind of
+[04:53] open that
+[04:54] file back backup is that correct yes
+[04:57] okay
+[04:58] got it sounds good thank you um so
+[05:01] some things that i would want to take a
+[05:04] look at
+[05:05] in answering the question you know are
+[05:09] in answering my hypothesis you know are
+[05:11] users moving files to trash that they
+[05:12] don't actually need anymore
+[05:14] um so i would want to take a look at
+[05:17] how often do users actually
+[05:20] go into their trash folder um
+[05:23] if we find that users are going in there
+[05:27] pretty often then i
+[05:30] might make the case that they're they
+[05:33] might be using it
+[05:34] more as an archive rather than
+[05:37] you know a trash can where they just
+[05:38] throw something and kind of forget about
+[05:40] it
+[05:41] um i would also want to take a look at
+[05:45] kind of along those lines how often are
+[05:48] items
+[05:48] in the trash can uh
+[05:52] kind of uh i think the only action we
+[05:54] said
+[05:55] you can take on it is restoring it so
+[05:56] how often are
+[05:58] items in the trash restored and then i
+[06:02] would also
+[06:03] uh so kind of along kind of explaining
+[06:06] that one
+[06:06] a little further um you know if
+[06:10] they are things such as you know
+[06:13] different versions or duplicates where
+[06:15] users don't really
+[06:16] need those items anymore because they
+[06:18] either have another copy of it or they
+[06:20] have the most recent copy of it then i
+[06:22] would expect
+[06:23] that users aren't really restoring
+[06:27] items from the trashcan very frequently
+[06:30] um and then i would also want to take a
+[06:32] look at
+[06:34] just kind of some general things you
+[06:35] know the
+[06:37] average amount of items that users have
+[06:39] in their trash
+[06:40] and kind of taking a look at on average
+[06:42] how much
+[06:43] file space are these things taking up
+[06:49] i think that knowing
+[06:52] that the trash doesn't count against
+[06:56] their
+[06:56] storage limits it could be
+[07:00] very possible that users are using it
+[07:02] more as an archive
+[07:03] so i'd be interested in seeing you know
+[07:05] just the sheer amount of things
+[07:07] in there um and so those are some of the
+[07:11] items that i would want to take a look
+[07:14] at
+[07:15] in order to kind of proceed in
+[07:18] understanding whether or not
+[07:20] users are moving items to the trash that
+[07:22] they don't actually need anymore
+[07:25] gotcha okay so
+[07:28] um let's present a second scenario right
+[07:31] and let's just say
+[07:32] that uh we've analyzed
+[07:37] uh we've analyzed the first part and we
+[07:39] see that
+[07:40] um you know a lot of the usage is coming
+[07:44] from users that
+[07:45] are basically using it as an archive
+[07:49] so now um what do we proceed
+[07:53] with and basically like what does that
+[07:55] tell us
+[07:56] about uh this feature change that we're
+[07:59] about to make
+[08:00] and what okay okay
+[08:03] got it okay let me take a moment to
+[08:05] think about the scenario
+[08:07] so there are a few additional data
+[08:10] points that i would want to explore
+[08:12] so um kind of going back to a few things
+[08:15] that i
+[08:16] touched upon before but now knowing that
+[08:18] most users
+[08:19] are saying using it as an archive i
+[08:22] would want to take a look at
+[08:23] you know what percentage of users this
+[08:26] is
+[08:26] um and i would also reiterate wanting to
+[08:30] know you know how many items
+[08:32] do these users keep in their trash
+[08:34] folder and
+[08:35] just the total file size of these items
+[08:38] in their
+[08:38] trash folder um it sounds like these
+[08:42] users are
+[08:43] using the trash folder in
+[08:47] a different way than um is most
+[08:50] commonly understood as um um
+[08:54] so you know like they're using it more
+[08:56] as an archive and kind of like a
+[08:57] cold storage kind of thing instead of an
+[09:00] actual trash can
+[09:02] um and so
+[09:05] i would say that this is an interesting
+[09:09] scenario and would be
+[09:12] interesting for our team to actually
+[09:15] explore
+[09:16] whether we would want to
+[09:19] support this use case and actually build
+[09:22] a new folder and functionality
+[09:25] around this kind of archive use case and
+[09:28] so i think if we were to proceed with
+[09:31] that
+[09:31] um you know based on
+[09:35] the data we have about you know how many
+[09:37] items people are storing and the file
+[09:39] size of their trash folder
+[09:41] or you know their archive folder we
+[09:43] should definitely
+[09:44] place some sort of storage limits for
+[09:47] an archive folder and so
+[09:52] this would kind of increase by increment
+[09:55] depending on the dropbox plan that
+[09:58] you're on
+[09:58] so for the free tier you know we could
+[10:00] give them a
+[10:02] you know maybe a couple gigabytes of
+[10:04] free archive space
+[10:05] and then as you know the premium tiers
+[10:09] um they'll get a little more space as
+[10:11] well
+[10:12] and so i think that
+[10:16] i would
+[10:20] if i wanted if we were to proceed with
+[10:23] this new feature i would want to make
+[10:25] sure
+[10:26] that we do have something in place so
+[10:29] like perhaps this new kind of archive
+[10:31] cold storage
+[10:33] folder for these users um just so
+[10:35] they're not
+[10:36] kind of left uh you know with their
+[10:39] files
+[10:40] just kind of completely gone um i do
+[10:43] think that just based on
+[10:47] industry kind of standard functionality
+[10:50] for
+[10:50] trash feature i think it does make sense
+[10:53] for
+[10:53] us to either um automatically
+[10:56] delete after you know a certain amount
+[10:59] of period
+[11:00] and provide this kind of alternative
+[11:02] archive folder for them to
+[11:05] archive their items or start
+[11:08] counting the storage
+[11:11] and the trash against their storage
+[11:14] limits since they are kind of using it
+[11:16] more as
+[11:17] storage rather than a trash
+[11:19] functionality
+[11:21] gotcha okay so given all those proposals
+[11:24] um can you maybe go back
+[11:28] to one of them uh and kind of like talk
+[11:31] about
+[11:32] what uh kind of data points would
+[11:35] influence either way decision like so
+[11:38] for the first one it's like
+[11:40] um let's say it was like how
+[11:43] many users are you know using the trash
+[11:47] folder uh right like what percentage
+[11:50] are actually restoring something from
+[11:52] the trash folder right yeah
+[11:53] so let's say we dive into that data and
+[11:56] we get anything from
+[11:57] you know something something low or
+[11:58] something super high like what does that
+[12:00] tell us
+[12:01] about uh what we should be doing next
+[12:04] like what data points
+[12:05] there that we get back uh would
+[12:08] influence our next decision almost
+[12:10] and so like you know if it's something
+[12:11] like you know ten percent of all users
+[12:13] are doing it like what does that mean
+[12:15] like does that mean that's really high
+[12:17] or does that mean that it's like
+[12:20] okay got it okay let me take a moment to
+[12:22] think about this
+[12:23] so just to give me a reference point um
+[12:25] can you give me a number that i can use
+[12:27] as the uh number of
+[12:31] uh the number of gigabytes that a free
+[12:35] user
+[12:35] gets in their free plan let's say they
+[12:38] get like
+[12:39] 20 gigabytes okay 20 gigabytes got it
+[12:42] thank you
+[12:43] and so when we're thinking about these
+[12:45] users that use
+[12:47] um the trash folder as their archive
+[12:51] how much gigabytes our storage are we
+[12:53] seeing them
+[12:54] store in their trash uh i'd love for you
+[12:57] to just like make an assumption here and
+[12:59] then
+[12:59] okay say what you think the plan should
+[13:02] be given that
+[13:03] number okay sounds good so
+[13:07] i would say that
+[13:11] based on so
+[13:14] if i were thinking about a user that has
+[13:19] let's just use the free case just as a
+[13:21] reference point
+[13:22] um so you know if i get 20 gigabytes of
+[13:25] free data and i'm using
+[13:28] the trash folder as an archive
+[13:31] um oh so i also am kind of thinking
+[13:33] about it in the free sense as well
+[13:35] just because i think that our users in
+[13:38] the free tier are more constrained
+[13:40] by storage limits so they i'm assuming
+[13:42] that you know they might be the ones
+[13:44] that are more likely to kind of
+[13:46] use the trash folder in this kind of
+[13:48] creative way
+[13:49] whereas our kind of more premium tiers
+[13:51] have a
+[13:52] significantly a lot more data so they
+[13:54] might not
+[13:56] need to use it in this way and so if i
+[13:59] think about our free tier users who get
+[14:01] 20 gigabytes of space free space
+[14:04] in dropbox i would say that
+[14:08] you know they may be roughly
+[14:12] storing i don't know maybe anywhere from
+[14:17] five to ten gigabytes of additional
+[14:19] storage space
+[14:20] in their kind of
+[14:23] archive trash folder okay um
+[14:28] and if we think about the amount of
+[14:30] users that dropbox has today
+[14:32] so there are 600 million registered
+[14:35] users
+[14:37] and i think that you know going back to
+[14:40] something
+[14:40] you know something that you said earlier
+[14:42] i think that you know even if we use
+[14:44] a reference number of say 10 so you know
+[14:47] even if 10
+[14:48] of people um are
+[14:52] using it in this way and each of them
+[14:55] are you know say storing you know an
+[14:59] additional 10 gigabytes of data in their
+[15:01] trash
+[15:02] um you know 60 million users times like
+[15:05] 10 gigabytes each
+[15:06] is a ton a ton of extra data that we're
+[15:10] kind of storing in the trash
+[15:12] for free for these people and so i think
+[15:14] that would be
+[15:15] kind of a cause for concern um
+[15:19] and so i think that it would
+[15:22] i think i would want to kind of either
+[15:27] start counting um
+[15:31] i guess possibly either start counting
+[15:33] this
+[15:34] trash as store so
+[15:37] you know maybe say the first x gigabytes
+[15:40] of
+[15:41] stuff in the trash is kind of a freebie
+[15:44] and then the rest kind of counts
+[15:46] towards your storage limit um or
+[15:49] um you know we can kind of go back to
+[15:51] our original feature
+[15:52] proposal which is kind of deleting the
+[15:55] trash automatically
+[15:57] i think that um
+[16:00] in the end it seems that these users
+[16:04] that are using the trash
+[16:05] in this kind of archival way it seems
+[16:07] like they
+[16:08] do have a need for more
+[16:11] storage space so i think kind of
+[16:13] implementing
+[16:14] these sorts of measures could
+[16:16] potentially help
+[16:17] push them into a kind of higher uh
+[16:21] paid tier as well to kind of more
+[16:23] accurately reflect their
+[16:25] data storage needs okay
+[16:28] so how would you know
+[16:31] if they'd be willing to upgrade i guess
+[16:34] if
+[16:35] yeah this future change yeah
+[16:38] that's a great question um
+[16:42] i guess some things that i would
+[16:45] want to take a look at and kind of
+[16:48] explore
+[16:49] is where are the kind of
+[16:52] gaps in our current pricing plans
+[16:55] um perhaps you know
+[16:59] users our free tier users are using it
+[17:02] in this way because
+[17:04] the next tier up so like the first
+[17:08] the lowest paid tier we have might still
+[17:10] be too high
+[17:12] and are these kind of use in between
+[17:14] users are more price sensitive
+[17:17] than the options that we're giving them
+[17:19] and so we could potentially
+[17:20] explore launching a new kind of
+[17:24] lower tiered paid
+[17:27] premium kind of plan
+[17:30] that has you know maybe instead of one
+[17:34] terabyte of data it's something like
+[17:35] more in between like maybe they just
+[17:37] need
+[17:38] 50 gigabytes or something slightly more
+[17:40] than the free plan
+[17:42] um so i would kind of want to take a
+[17:45] look
+[17:45] at the kind of cumulative
+[17:49] storage space that these users are using
+[17:52] so counting their
+[17:53] actual storage and their trash storage
+[17:56] as part of that
+[17:57] um and kind of taking a look at okay on
+[18:00] average the total of
+[18:02] you know what they're storing in their
+[18:03] actual folders and their trash
+[18:05] is it way less than um
+[18:08] you know our first paid tier and so
+[18:11] maybe
+[18:12] there's something kind of in between
+[18:13] that we can kind of want to kind of
+[18:16] compromise and kind of push these users
+[18:18] into a
+[18:20] paid tier okay cool
+[18:23] gotcha um so i'm going to stop the
+[18:27] interview right there
+[18:28] we have okay 10 minutes left for
+[18:30] feedback and kind of review
+[18:32] okay first question i have usually is
+[18:35] like
+[18:35] how do you think you did on the question
+[18:38] and like what do you think about the
+[18:40] question itself
+[18:41] yeah um i think that's a really
+[18:44] interesting question
+[18:45] that was actually a good one um that you
+[18:49] came up with on the spot um
+[18:53] i think yeah i mean i guess i kind of
+[18:56] uh struggled with it a little bit
+[18:59] because it's
+[19:01] it wasn't it didn't really fall into the
+[19:04] kind of
+[19:05] traditional buckets of okay like this
+[19:08] is i guess it wasn't immediately clear
+[19:10] to me in the beginning like what
+[19:11] the kind of business objective is except
+[19:14] for
+[19:15] like possibly saving us kind of
+[19:19] storage space and cost associated with
+[19:22] uh kind of storing these things for free
+[19:25] so it's kind of hard to kind of
+[19:26] fit it into the bucket of you know is
+[19:29] this supposed to be
+[19:30] supposed to be generating growth or
+[19:32] engagement or revenue
+[19:33] or something um so that was kind of like
+[19:37] difficult for me to start with yeah
+[19:41] um and then
+[19:44] i guess for me as well i had trouble
+[19:48] kind of making assumptions on like oh
+[19:50] like what is a reasonable
+[19:53] amount of space for users to be
+[19:56] putting in the trash if they're using it
+[19:59] for our
+[20:00] archiving purposes and
+[20:03] how much is like too much um
+[20:07] so yeah i kind of like struggled a
+[20:09] little bit on that
+[20:11] yeah so this question has a little bit
+[20:13] of like a case
+[20:14] question feel more um specific to maybe
+[20:19] uh like consulting base
+[20:24] generally pretty broad right but it's
+[20:25] still yeah
+[20:27] and so i would say starting from the
+[20:30] good
+[20:31] i liked your initial hypothesis
+[20:35] right so first off stating the mission
+[20:37] and then saying
+[20:38] what basically why are we doing this
+[20:40] right so
+[20:41] specifically performance implications
+[20:44] right um
+[20:45] i'd like to if you died a little bit
+[20:47] more on that and so i would say that
+[20:49] another one is a big one is monetary
+[20:51] savings like that's the biggest
+[20:52] one that i can see is that yeah they're
+[20:54] not storing their
+[20:56] items anymore we're probably saving a
+[20:57] ton of money on storage space
+[20:59] however actually estimating how much
+[21:01] money that is
+[21:02] yeah and then the third one i think is
+[21:05] like kind of around organization
+[21:07] right so like um if we have a trash
+[21:10] folder like it should be for trash
+[21:12] right and so yeah um it's almost kind of
+[21:14] like
+[21:16] changing like the way that the product
+[21:17] feels almost instead of using it as an
+[21:19] archive and so it's like yeah
+[21:21] obviously like i think one of these
+[21:22] things that
+[21:24] is intuitive from this question is that
+[21:26] like
+[21:27] maybe we're basically trying to find out
+[21:29] like how many
+[21:30] what is the change of making like this
+[21:34] folder from like an archive feature
+[21:36] actually a trash feature right
+[21:38] yeah um that's kind of like the basis of
+[21:41] like the actual question i think
+[21:43] and so the next part when you said why
+[21:46] this
+[21:46] idea like why do users move things to
+[21:48] the trash folder that's great
+[21:50] that's a good news i think understanding
+[21:52] why the original
+[21:54] product would actually be used or why
+[21:56] this feature changes brought up is good
+[21:58] and that's something that
+[21:59] we kind of got to unto with the
+[22:00] hypothesis like you know
+[22:02] using the threshold as an archive and so
+[22:05] saying that is really important because
+[22:06] then we don't know
+[22:07] um what kind of data we want to dive
+[22:10] into if we don't do that and so
+[22:12] uploaded a new version of something
+[22:14] uploading duplicate using as a trash
+[22:16] folder
+[22:18] and my last reason that i thought of was
+[22:21] that
+[22:22] users don't want to pay to upgrade right
+[22:24] and so yeah
+[22:25] you know obviously we got to it later
+[22:26] it's like if you have 20 gigabytes and
+[22:28] you're at 19
+[22:29] and you have a new file that you want to
+[22:31] put in obviously you'll move
+[22:32] a ton of files out into the trash if you
+[22:35] want to hit that ceiling and so
+[22:38] ultimately um i think in the data dive i
+[22:41] think
+[22:42] um you went pretty high level starting
+[22:45] out which is good but
+[22:47] going deeper into a couple of good
+[22:50] hypotheses
+[22:51] is a better way to start so like picking
+[22:53] three good hypotheses
+[22:55] and then diving into them a little bit
+[22:58] is better than
+[22:59] um shooting like a few more ideas and
+[23:02] then just kind of not
+[23:03] bring them up as much right so
+[23:06] one example of this is um
+[23:10] i think a couple data points that come
+[23:11] off the top of my head are like so how
+[23:13] much money would we save
+[23:14] right so cost of the storage of the
+[23:16] items right now in the trash
+[23:17] past 30 days um that should be pretty
+[23:20] easy to compute
+[23:21] and so if we just know how much money
+[23:22] that is then we know
+[23:24] the revenue that affects right yeah and
+[23:27] then the second one is how much money
+[23:28] would we lose from users that actually
+[23:30] enjoy this feature
+[23:31] right yeah what percentage of users
+[23:33] recover an item
+[23:34] after 30 days what percentage of users
+[23:37] recover an item at all from the trash
+[23:39] on just knowing that number amount right
+[23:42] and then
+[23:42] if we were to dive into that further
+[23:44] right we'd be like okay so
+[23:46] let's say that only one percent of users
+[23:49] recover an item
+[23:50] from the trash um and even like one
+[23:53] percent of those users
+[23:54] recover an item after 30 days right so
+[23:57] then if that number is super low
+[23:59] we can measure that cost of how many of
+[24:01] those are paying users
+[24:03] versus how much we'd save from
+[24:05] eliminating that feature
+[24:07] and then just kind of make an estimate
+[24:09] on like which one would make more money
+[24:11] over the long term right and i think
+[24:14] that's kind of like
+[24:15] the trade-off scenario that we have to
+[24:17] add in because all these are
+[24:18] feature changes like specifically added
+[24:21] like a ton of
+[24:22] trade-offs and then the last thing i
+[24:25] think is important is like how many
+[24:26] users would upgrade to a new tier given
+[24:28] they use
+[24:28] the trash as a secondary storage method
+[24:31] yeah
+[24:32] change that then how many people would
+[24:33] actually then um
+[24:36] want an archive and so i i did think a
+[24:38] couple of the ideas that you touched on
+[24:39] are actually pretty interesting right
+[24:41] like what if we just created a new
+[24:42] archive
+[24:43] feat like feature itself right the issue
+[24:46] is
+[24:47] that um when we want to keep it within
+[24:49] the scope of this
+[24:50] um conversation yeah yeah be bringing up
+[24:53] new
+[24:54] product ideas because then we have those
+[24:56] up with data too
+[24:58] yeah i think like yeah specifically
+[25:01] within these analytics questions
+[25:02] it's important to like focus on the
+[25:05] question at hand
+[25:06] and use it or just like your hypoth
+[25:09] your hypothesis within this specific um
+[25:13] you know frame of the question yeah
+[25:16] got it so yeah i think that's my
+[25:19] most of my key points um i think you
+[25:22] have the structure down pretty well i
+[25:24] just think that
+[25:25] you probably have to think of more ideas
+[25:27] and then yeah
+[25:30] pause when they ask you a question
+[25:33] i think that it can get like
+[25:37] too much so after like a certain point
+[25:40] because they're trying to
+[25:41] like a normal conversation with you at
+[25:43] that point and so yeah
+[25:44] but then thoughts right because they're
+[25:46] kind of like trying to like go back and
+[25:48] forth and kind of like think about how
+[25:50] you might think of it
+[25:51] and so i'm not actually sure if you've
+[25:52] had an interview where they like have
+[25:54] you ever paused and then they were like
+[25:57] no no they
+[26:00] no that's never happened but yeah i mean
+[26:03] i guess that's something that i
+[26:04] constantly struggle with too
+[26:06] it's kind of like taking the time to
+[26:09] like fully
+[26:10] flesh out my thoughts before speaking
+[26:14] versus like just maintaining the flow of
+[26:17] like a conversation
+[26:20] so that's definitely something that is a
+[26:23] challenge for sure
+[26:24] yep yep definitely yeah i think at least
+[26:28] on the analytics side
+[26:29] like they're looking for a lot of
+[26:32] the metrics that would influence the
+[26:35] decision
+[26:36] and then the assumption from what you
+[26:38] might get from those metrics if they're
+[26:39] uh on one side or the other right
+[26:42] because hypothesis always has two sides
+[26:44] and so if you um validate your hypoth
+[26:48] hypothesis then what does that mean and
+[26:50] then if your hypothesis is
+[26:51] invalidated then what does that mean and
+[26:54] i think
+[26:55] um making that distinction
+[26:58] is really important because it allows
+[27:01] you to like
+[27:02] dig more into like the second layer of
+[27:05] like the problem
+[27:07] right and usually if you don't answer
+[27:09] that question then they'll ask you that
+[27:10] question
+[27:11] and then you won't be prepared for it so
+[27:14] answer that question yourself
+[27:16] then it's going to prepare for it later
+[27:18] on yep
+[27:19] okay yep that makes sense cool
+[27:22] uh any last thoughts um
+[27:26] [Music]
+[27:27] so i kind of feel like we are supposed
+[27:31] to
+[27:31] arrive at a definitive yes or no
+[27:36] at the end of this type of question but
+[27:39] i guess i'm curious so
+[27:40] should i be kind of asking
+[27:44] for them to make up numbers for me
+[27:47] along the way so that i can reach a
+[27:51] kind of yes or no decision um like when
+[27:54] i was asking like oh
+[27:55] what percent of users are using
+[27:58] it as an archive or like on average you
+[28:01] know
+[28:02] how much storage space
+[28:05] are people taking up in their trash um
+[28:08] should i be like asking them to make up
+[28:10] numbers for me or
+[28:11] like what how do you approach that um
+[28:14] i think you should not ask and you
+[28:17] should just
+[28:18] i mean you can act you asking that
+[28:21] question
+[28:21] is good because it shows that you're
+[28:23] that's like that's something that you
+[28:24] would dive into
+[28:25] but yeah yeah assume that because if
+[28:28] they give you a number
+[28:30] it's almost like a second test because
+[28:32] uh if you just answered your own
+[28:34] question
+[28:35] then you could you know dive into
+[28:37] analysis of why that is because of your
+[28:39] own answer right but if they ask
+[28:41] they like you propose this to them right
+[28:44] then they're
+[28:44] forced to give you a answer that you
+[28:47] might not be prepared for
+[28:48] right i think that's the only thing is
+[28:50] that like
+[28:51] there is no definitive yes or no with
+[28:53] anyone
+[28:54] that's for sure um okay because there is
+[28:57] no
+[28:58] like they're not going to give you the
+[28:59] data for it right yeah does it
+[29:02] make sense they're just kind of like
+[29:03] proposing like random feature changes
+[29:05] and just trying to
+[29:06] like understand your thought process i
+[29:08] think so yeah
+[29:09] got it and then so i guess going back to
+[29:11] like one of the questions you asked me
+[29:13] in our thing
+[29:14] um so you're kind of you kind of gave
+[29:16] that example of like 10
+[29:17] of users and i kind of just stuck with
+[29:19] that and i was like okay 10
+[29:21] of 600 million registered users that's
+[29:24] 60 million and then i made the
+[29:26] assumption of you know 10 gigabytes in
+[29:28] the trash and
+[29:29] 60 million times 10 gigabytes is a ton
+[29:32] but yeah i mean i guess what is what is
+[29:34] the correct way to answer
+[29:36] your question where you're like oh like
+[29:37] how do you determine
+[29:39] whether it's too many people
+[29:42] uh kind of using the trash
+[29:45] folder in this way yeah yeah so i i
+[29:48] would say that trade-off is against the
+[29:50] cost of storage
+[29:52] plus oh
+[29:59] then the question is like okay so how do
+[30:01] we know if people would upgrade
+[30:02] if we did this feature change well that
+[30:05] then requires like maybe we should test
+[30:06] it like maybe we could run an a b test
+[30:09] which is totally doable for dropbox
+[30:10] actually um maybe not
+[30:12] because it's like such a big feature
+[30:14] change and so then it's like
+[30:17] how do we analyze this without uh a b
+[30:19] testing then it's just like looking at
+[30:21] the usage data
+[30:22] right yeah understanding and estimating
+[30:26] the cost
+[30:26] of uh what would happen if we shut this
+[30:30] off
+[30:30] like how many what percentage of users
+[30:33] would instantly be like i'm canceling
+[30:35] dropbox now
+[30:36] because i use this feature all the time
+[30:37] right yeah obviously if they use this
+[30:39] ninety percent of the time
+[30:40] then they're going to cancel now but
+[30:41] like then there's a problem but don't
+[30:43] use it all the time they use it like
+[30:44] fifty percent
+[30:45] of the time yeah and you can then assume
+[30:46] like they'll cancel fifty percent of the
+[30:48] time right so it's like it's
+[30:50] extrapolating like
+[30:51] data from stuff that we can't
+[30:54] we can't test it and um that's just kind
+[30:57] of like the analysis that we have to
+[30:59] run um okay
+[31:02] sounds good all right sounds good thanks
+[31:04] for doing this with me
+[31:06] yeah thanks jay
