@@ -1,9 +1,10 @@
 # Splitter pipeline — Claude Code guide
 
-Руководство для запуска сплиттера через **Claude Code** (CLI от Anthropic).  
-Актуально для: Anton / любой, у кого нет Cursor PRO.
+Руководство для запуска сплиттера через **Claude Code**, **Cursor** или другой клиент с **подпиской** (Pro / Max): один файл от `prepare_prompt.py`, затем чат и строгий JSON.
 
-Last updated: 2026-05-09
+Актуально для команды с общим репозиторием на GitHub.
+
+Last updated: 2026-05-10
 
 ---
 

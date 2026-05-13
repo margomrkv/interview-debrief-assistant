@@ -1,6 +1,10 @@
 # Run Annotation
 
-Last updated: 2026-05-06
+Last updated: 2026-05-10
+
+## 0) How runs are billed
+
+Extraction runs **in chat** (Claude Code, Cursor, claude.ai) using the bundled prompt from `prepare_prompt.py` — within your **product subscription**, not a separate Anthropic API key.
 
 ## 1) Inputs
 
@@ -16,48 +20,27 @@ Last updated: 2026-05-06
 - Structured output: enabled with `splitter_output_schema_v1.json`
 - Response format: strict JSON only
 
-## 3) Run in Cursor / Claude Code (manual)
+## 3) Run in Cursor / Claude Code (subscription — recommended)
+
+### 3a) One-file prompt (easiest)
+
+```bash
+python3 labeling/prepare_prompt.py --folder transcripts/<your-interview-folder>
+```
+
+Then open the generated `labeling/data/<source_id>.prompt.txt` and ask the model (in the same tool where your subscription applies) to output **only valid JSON** for the schema. Save to the JSON path printed by the script. Details: `CLAUDE_CODE_GUIDE.md`.
+
+### 3b) Manual copy-paste (legacy)
 
 1. Open system prompt and copy it into system message.
 2. Choose user prompt template by mode:
    - `raw_split`: transcript only (real interviews).
-   - `mock_assisted_split`: transcript + sidecars (`timecodes.txt`, `video.md`, optional `feedback.md`).
+   - `mock_assisted_split`: transcript + sidecars (`timecodes.txt`, optional `feedback.md`; `video.md` is for validation only — do not paste into the model).
 3. Copy chosen user prompt into user message.
 4. Attach transcript content from the target path in `interview_paths.md`.
 5. For `mock_assisted_split`, also attach sidecar files from `interview_paths.md`.
 6. Enforce schema from `splitter_output_schema_v1.json` (strict mode, no extra keys).
 7. Run generation.
-
-## 3.1) Run with CLI (automated)
-
-Prerequisite:
-- `ANTHROPIC_API_KEY` environment variable is set.
-- Python dependency installed: `pip install anthropic`
-
-Raw mode (transcript only):
-
-```bash
-python labeling/run_splitter_cli.py \
-  --source-id karpov_junior_ds_20220330 \
-  --mode raw_split \
-  --model claude-sonnet-4-20250514 \
-  --transcript transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/transcript.txt \
-  --out labeling/data/karpov_junior_ds_20220330.raw_splitter.v3.json
-```
-
-Mock-assisted mode (with sidecars):
-
-```bash
-python labeling/run_splitter_cli.py \
-  --source-id karpov_junior_ds_20220330 \
-  --mode mock_assisted_split \
-  --model claude-sonnet-4-20250514 \
-  --transcript transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/transcript.txt \
-  --timecodes transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/timecodes.txt \
-  --video transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/video.md \
-  --feedback transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/feedback.md \
-  --out labeling/data/karpov_junior_ds_20220330.mock_assisted_splitter.v3.json
-```
 
 ## 4) Save output
 

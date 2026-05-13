@@ -2,11 +2,19 @@
 
 This folder contains prompts, configuration, and tooling for transcript annotation.
 
+## How to run the splitter
+
+Use **`prepare_prompt.py`** → open `labeling/data/<source_id>.prompt.txt` in **Claude Code**, **Cursor**, or **claude.ai** (your subscription) → save JSON → `splitter_json_to_excel.py` + `validate_splitter_vs_video.py`. See `CLAUDE_CODE_GUIDE.md`.
+
+| Path | Billing |
+|------|---------|
+| **Subscription** | Claude **Pro / Max**, **Cursor**, **Claude Code** — run extraction in chat using the bundled `.prompt.txt`; no API key |
+
 ## Scripts
 
 | Script | Purpose |
 |--------|---------|
-| `run_splitter_cli.py` | CLI runner for splitter via Anthropic API |
+| `prepare_prompt.py` | Bundle system + user prompts + schema + transcript/sidecars into one `.prompt.txt` |
 | `splitter_json_to_excel.py` | Convert splitter JSON (LinkedText) to XLSX |
 | `validate_splitter_vs_video.py` | Cross-validate splitter output against YouTube `video.md` chapters |
 | `json_to_excel.py` | Generic JSON → XLSX converter |
@@ -19,7 +27,7 @@ This folder contains prompts, configuration, and tooling for transcript annotati
 | `prompts/user_prompt_template_v2.txt` | User prompt template for `raw_split` mode |
 | `prompts/user_prompt_template_mock_assisted_v2.txt` | User prompt template for `mock_assisted_split` mode |
 | `prompts/splitter_output_schema_v1.json` | Strict JSON schema for splitter output (LinkedText contract) |
-| `config/splitter_run_config.json` | Default run parameters (model, temperature, max_tokens, prompt paths) |
+| `config/splitter_run_config.json` | Optional paths for system/user prompts and schema (`prepare_prompt.py`). Fields like `model` / `temperature` are hints for chat runs, not API calls |
 | `config/interview_paths.md` | Current input paths and source IDs |
 
 ## Output files in `data/`
