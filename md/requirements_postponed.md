@@ -64,6 +64,8 @@ related:
 
 ### E3. Матчинг, рекомендации, контроль качества
 
+Эпик соответствует модулю **Assessment and Recomendations** из [[spec#2. Ключевые понятия]] — выходу системы (рекомендации + структурированный отчёт). Истории ниже — те его расширения, которые в MVP не делаем.
+
 **E3-1 «Свободный диалог».** Как кандидат, я хочу спросить ассистента в свободной форме («на чём сделать акцент в собесе на роль X», «как рассказать о слабом месте Y»), чтобы получать ответы, опирающиеся на Market Flow и/или Knowledge Base.
 - [ ] доступно при наличии только профиля (S1) — фолбэк на знания агента
 - [ ] при наличии корпуса ответ цитирует Market Flow (E1) и/или Knowledge Base (E2)
@@ -85,8 +87,95 @@ related:
 
 **Причина postponed:** надстройка поверх E3-2 (ранжирование). Без неё — нет смысла без полной агрегации навыков по корпусу вакансий.
 
-## 5. Связи
+**E3-5 «Структура рекомендаций» (postponed; перенесена из spec §7 решением 06-05 «попроще»).** Как кандидат, я хочу видеть рекомендации сгруппированными и со ссылками на источник, чтобы понимать, на основании чего они выданы.
+- [ ] рекомендации сгруппированы по `category` (hard_skill / soft_skill / behavioral / общая)
+- [ ] для каждой рекомендации видна цитата (`evidence`) и пометка `signal_source` (CV / Transcript / JD / Feedback)
+- [ ] рекомендация без `evidence` или без `signal_source` считается багом и не отдаётся пользователю
+
+**Причина postponed:** требует артефакта `Recommendation` (§5 этого файла); MVP-выход — простой `AssessmentItem[]` + `AlignmentReport.verdict`. Возвращается вместе с E3-7.
+
+**E3-6 «Topic rollup» (postponed; новая 06-05).** Как кандидат, я хочу видеть оценку по блокам интервью (experimentation / behavioral / system_design / …), чтобы понимать, какие темы просели целиком, а не только отдельные вопросы.
+- [ ] на выходе — `AssessmentTopic[]` по `(interview_round × topic_tag)` и/или `(interview_round × interview_stage)`
+- [ ] для каждого блока — `aggregate_score` (по тем же осям, что `AssessmentItem.score`), `strengths_summary`, `gaps_summary`, цитаты из `items`
+- [ ] блок без `items` (нет вопросов этой темы) — не отображать
+
+**Причина postponed:** требует артефакта `AssessmentTopic` (§5 этого файла); MVP — плоский список `AssessmentItem[]` без topic-rollup. Возвращается вместе с E3-7.
+
+**E3-7 «Структурированный отчёт» (postponed; вынесен из E3-4 spec'и решением 06-05).** Как кандидат, я хочу видеть отчёт со структурой aligned / partial / missing относительно `Requirements` (KB) и `JD` (MF), чтобы лучше понять gap.
+- [ ] секции отчёта: aligned / partial / missing — каждая с цитатами из транскрипта
+- [ ] `verdict ∈ {HIRE, NO_HIRE}` + `p_hire` уже есть в MVP (см. [[spec]] E3-4)
+- [ ] вкладывается `topic_assessments: AssessmentTopic[]` (см. E3-6) и `recommendations: Recommendation[]` (см. E3-5)
+- [ ] `strengths_summary` / `gaps_summary` — короткий нарратив на отчёт, не на блок
+
+**Причина postponed:** требует Advanced `AlignmentReport` с `topic_assessments` / `recommendations` / `strengths_summary` / `gaps_summary` — поля определены в §5 этого файла. MVP-вариант `AlignmentReport` ([[spec]] §3) — `{verdict, p_hire, items}`.
+
+## 5. Артефакты-расширения (postponed)
+
+Концепты, вынесенные из [[spec]] §3 AR-блока решением 06-05 («попроще»). Возвращаются вместе со stories E3-5 / E3-6 / E3-7 (§4 этого файла), если потребуется структурированный пользовательский отчёт.
+
+- **AssessmentTopic** — промежуточный rollup `AssessmentItem[]` по `(interview_round, topic_tag)` или `(interview_round, interview_stage)`. Поля: `dimension ∈ {topic_tag, interview_stage}`, `dimension_value`, `aggregate_score` (по тем же осям, что `AssessmentItem.score` — см. [[assessors]]), `strengths_summary`, `gaps_summary`, `items: AssessmentItem[]`.
+- **Recommendation** — единица того, что система советует кандидату. Поля: `category ∈ {hard_skill, soft_skill, behavioral, общая}`, `signal_source ∈ {CV, Transcript, JD, Feedback}`, `text` (формулировка), `evidence: LinkedText[]`, `confidence: Score`. Без явного определения этой сущности невозможно сформулировать критерии оценки качества (фидбэк ментора 2026-04-30: «от этого исходит всё остальное, в том числе оценка»).
+- **AlignmentReport — Advanced extensions** — поверх MVP-варианта `{verdict, p_hire, items}` добавляются: `topic_assessments: AssessmentTopic[]`, `recommendations: Recommendation[]`, `strengths_summary`, `gaps_summary`. Структура отчёта: aligned / partial / missing относительно `Requirements` и `JD`.
+
+Class-диаграмма Advanced-расширений (для возврата в [[spec]] §4.1, если включаются):
+
+```mermaid
+classDiagram
+    direction TB
+
+    class AssessmentItem["AssessmentItem (Generic, см. spec §4.1)"]
+    class ExperienceProfile["ExperienceProfile (MF)"]
+    class JobDescription["JobDescription (MF)"]
+    class InterviewTranscript["InterviewTranscript (MF)"]
+    class Feedback["Feedback (MF)"]
+    class Requirements["Requirements (KB)"]
+    class Rubric["Rubric (KB)"]
+
+    namespace AssessmentAndRecomendations_Advanced {
+        class AssessmentTopic {
+            dimension [topic_tag|interview_stage]
+            dimension_value
+            aggregate_score : Score
+            strengths_summary
+            gaps_summary
+            items : AssessmentItem[]
+        }
+        class AlignmentReport {
+            verdict [HIRE|NO_HIRE]
+            p_hire : 0..100
+            items : AssessmentItem[]
+            topic_assessments : AssessmentTopic[]
+            recommendations : Recommendation[]
+            strengths_summary
+            gaps_summary
+        }
+        class Recommendation {
+            category [hard_skill|soft_skill|behavioral|общая]
+            signal_source [CV|Transcript|JD|Feedback]
+            text
+            evidence : LinkedText[]
+            confidence : Score
+        }
+    }
+
+    AssessmentItem "*" --> "1" AssessmentTopic : rolled_up_by_topic
+    AssessmentTopic "*" --> "1" AlignmentReport : rolled_up_by_interview
+    AlignmentReport "1" --> "*" Recommendation : produces
+
+    ExperienceProfile "1" --> "1" AlignmentReport : subject
+    JobDescription "0..1" ..> "1" AlignmentReport : target
+    Feedback "0..1" ..> "1" AlignmentReport : signal
+    ExperienceProfile "1" ..> "*" Recommendation : context
+    InterviewTranscript "0..1" ..> "*" Recommendation : evidence
+    Feedback "0..1" ..> "*" Recommendation : evidence
+
+    Requirements "1..*" ..> "*" Recommendation : grounding
+    Rubric "0..1" ..> "*" Recommendation : grounding
+```
+
+## 6. Связи
 
 - [[spec]] — `md/spec.md` — активный scope MVP
 - [[spec#8. Не в scope]] — другие вещи, которые принципиально не делаем (не путать с postponed)
 - [[2026-04-30_AMxMentor]] — `internal-notes/2026-04-30_AMxMentor.txt` — встреча, на которой принято решение о сужении MVP
+- [[2026-05-06_Architecture_meeting]] — `internal-notes/2026-05-06_Architecture_meeting.txt` — архитектурная встреча; первоначально вводила `AssessmentTopic` / `Recommendation` / расширенный `AlignmentReport`, последующим решением 06-05 они вынесены сюда
