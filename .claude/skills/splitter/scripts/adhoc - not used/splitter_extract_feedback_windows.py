@@ -3,8 +3,8 @@
 Extract per-item transcript windows from timecodes.txt for feedback enrichment.
 
 Usage:
-    python labeling/extract_feedback_windows.py \
-        --json labeling/data/karpov_ml_sysdesign_v2_20210828.splitter.v1.mock.json \
+    python3 .claude/skills/run-splitter/adhoc/splitter_extract_feedback_windows.py \
+        --json splitter_output/karpov_ml_sysdesign_v2_20210828.splitter.v1.mock.json \
         --timecodes <path-to-timecodes.txt>
 
 Outputs a structured view: for each Q&A item, shows the transcript segment

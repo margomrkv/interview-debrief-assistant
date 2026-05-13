@@ -3,7 +3,7 @@
 Last updated: 2026-05-09
 
 Status of `video.md` (YouTube chapters + description) across all interview folders.
-Used by `validate_splitter_vs_video.py` as ground-truth checklist.
+Used by `.claude/skills/splitter/scripts/splitter_validate_video.py` as ground-truth checklist.
 
 ## ❌ Needs attention (1 folder)
 
@@ -18,7 +18,7 @@ A `_TODO.md` file has been placed inside this folder with instructions.
 | Folder | Chapters | Notes |
 |--------|----------|-------|
 | `mock-avito-product-analyst-middle-2024-04-04` | 22 | + feedback.md |
-| `mock-karpov-product-analyst-junior-2021-06-24` | 23 | |
+| `karpov-courses-собеседования/mock-karpov-product-analyst-junior-2021-06-24` | 23 | |
 | `karpov-courses-собеседования/a-b-тесты-с-валерием-бабушкиным-собеседование-karpov-courses-20240119` | 4 | |
 | `karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330` | 31 | |
 | `karpov-courses-собеседования/junior-ml-инженер-собеседование-karpov-courses-20230309` | 26 | |

@@ -1,9 +1,0 @@
-{
-  "model": "claude-sonnet-4-6",
-  "temperature": 0,
-  "max_tokens": 16000,
-  "system_prompt": "labeling/prompts/system_prompt_v2.txt",
-  "schema": "labeling/prompts/splitter_output_schema_v1.json",
-  "user_prompt_raw_split": "labeling/prompts/user_prompt_template_v2.txt",
-  "user_prompt_mock_assisted_split": "labeling/prompts/user_prompt_template_mock_assisted_v2.txt"
-}
