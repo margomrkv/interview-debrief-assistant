@@ -1,34 +1,35 @@
-Annotate this interview transcript according to the schema and rules.
+Extract splitter-only Q&A data according to the LinkedText splitter schema.
 
-Input:
-- source_id: karpov_junior_ds_20220330
-- transcript_path: transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/transcript.txt
-- feedback_path: none
+Input is appended after this template and contains:
+- SOURCE_ID
+- SPLITTER_MODE
+- TRANSCRIPT_TXT
 
 Required workflow:
-1) Extract all substantive interviewer questions.
-2) Pair each question with the corresponding candidate answer.
-3) Create one item per Q&A pair.
-4) Classify question_type, interview_stage, topic_tag.
-5) Add `model_answer` for each item (concise reference answer).
-6) Score all non-behavioral fields for all items.
-7) For behavioral items only, fill STAR_* and SCID_*.
-8) For non-behavioral items, set STAR_* and SCID_* to null.
-9) Fill labels for 0..3 metrics only:
-   - clarity_label, completeness_label, accuracy_label
-   - SCID_S_label, SCID_C_label, SCID_I_label, SCID_D_label
-10) Add concise notes_ai explaining uncertain or borderline judgments.
+1) Read TRANSCRIPT_TXT only. Ignore sidecar sections in this mode.
+2) Extract all substantive interviewer questions.
+3) Do NOT group multiple questions by topic. Keep each interviewer question as a separate item.
+4) Pair each question with the corresponding candidate answer span.
+5) Fill splitter fields exactly with LinkedText objects:
+   - interviewer_question: { text, time }
+   - candidate_answer: { text, time }
+   - reference_answer: { text, time }
+   - interviewer_feedback: { text, time }
+   - question_type
+   - question_topic
+   - interview_stage
+6) Use verbatim excerpts for interviewer_question.text and candidate_answer.text (no abstract summaries).
+7) If no reliable timestamp is present in transcript for a field, set the LinkedText `time` to null.
+8) If reference answer / interviewer feedback are absent for a Q&A, set both `text` and `time` to null in the corresponding LinkedText.
+9) Do not output any score, assessment, evaluation, labels, or summary metrics.
+10) Copy SOURCE_ID and SPLITTER_MODE exactly to top-level output fields (`source_id`, `splitter_mode`).
 
 Output format:
 Return a single JSON object with:
 - source_id
-- items: [ ... ]
-- summary:
-  - total_items
-  - by_question_type
-  - by_interview_stage
+- splitter_mode
+- items: [ ... ]  (splitter fields only)
 
 Strict output:
 - JSON only
-- schema-valid
 - no extra keys

@@ -1,68 +1,84 @@
 # Run Annotation
 
-Last updated: 2026-05-06
+Last updated: 2026-05-10
+
+## 0) How runs are billed
+
+Extraction runs **in chat** (Claude Code, Cursor, claude.ai) using the bundled prompt from `prepare_prompt.py` — within your **product subscription**, not a separate Anthropic API key.
 
 ## 1) Inputs
 
 - System prompt: `labeling/prompts/system_prompt_v2.txt`
-- User prompt: `labeling/prompts/user_prompt_template_v2.txt`
-- Output schema: `labeling/prompts/output_schema_v1.json`
+- User prompt (real interviews): `labeling/prompts/user_prompt_template_v2.txt`
+- User prompt (mock-assisted): `labeling/prompts/user_prompt_template_mock_assisted_v2.txt`
+- Output schema: `labeling/prompts/splitter_output_schema_v1.json`
 - Interview paths: `labeling/config/interview_paths.md`
 
 ## 2) Recommended model settings
 
 - Temperature: `0`
-- Structured output: enabled with `output_schema_v1.json`
+- Structured output: enabled with `splitter_output_schema_v1.json`
 - Response format: strict JSON only
 
-## 3) Run in Cursor / Claude Code (manual)
+## 3) Run in Cursor / Claude Code (subscription — recommended)
+
+### 3a) One-file prompt (easiest)
+
+```bash
+python3 labeling/prepare_prompt.py --folder transcripts/<your-interview-folder>
+```
+
+Then open the generated `labeling/data/<source_id>.prompt.txt` and ask the model (in the same tool where your subscription applies) to output **only valid JSON** for the schema. Save to the JSON path printed by the script. Details: `CLAUDE_CODE_GUIDE.md`.
+
+### 3b) Manual copy-paste (legacy)
 
 1. Open system prompt and copy it into system message.
-2. Open user prompt template and copy it into user message.
-3. Attach transcript content from the target path in `interview_paths.md`.
-4. Enforce schema from `output_schema_v1.json`.
-5. Run generation.
+2. Choose user prompt template by mode:
+   - `raw_split`: transcript only (real interviews).
+   - `mock_assisted_split`: transcript + sidecars (`timecodes.txt`, optional `feedback.md`; `video.md` is for validation only — do not paste into the model).
+3. Copy chosen user prompt into user message.
+4. Attach transcript content from the target path in `interview_paths.md`.
+5. For `mock_assisted_split`, also attach sidecar files from `interview_paths.md`.
+6. Enforce schema from `splitter_output_schema_v1.json` (strict mode, no extra keys).
+7. Run generation.
 
 ## 4) Save output
 
 - Save JSON result to:
-  - `labeling/data/<source_id>.annotation.v1.json`
+  - `labeling/data/<source_id>.splitter.v2.json`
 - Example:
-  - `labeling/data/karpov_junior_ds_20220330.annotation.v1.json`
+  - `labeling/data/karpov_junior_ds_20220330.splitter.v2.json`
 
 ## 5) Quick validation checklist
 
-- Top-level keys exist: `source_id`, `items`, `summary`
-- Every item has required fields from schema
-- `model_answer` is present for each item
-- `STAR_*` and `SCID_*` are:
-  - filled only for `question_type = behavioral`
-  - `null` for non-behavioral
-- `question_fit` and `focus` are only `0` or `1`
-- `clarity`, `completeness`, `accuracy`, `SCID_*` are within `0..3`
-- labels exist for 0..3 metrics:
-  - `clarity_label`, `completeness_label`, `accuracy_label`
-  - `SCID_S_label`, `SCID_C_label`, `SCID_I_label`, `SCID_D_label`
+- Top-level keys exist: `source_id`, `splitter_mode`, `items`
+- Every item includes splitter fields from updated CSV:
+  - `interviewer_question.{text,time}`
+  - `candidate_answer.{text,time}`
+  - `reference_answer.{text,time}`
+  - `interviewer_feedback.{text,time}`
+  - `question_type`, `question_topic`, `interview_stage`
+- One interviewer question -> one item (no grouped questions)
+- Text fields are verbatim excerpts (not summaries)
+- No score/assessment/evaluation fields in splitter output
 
 ## 6) Convert JSON to tabular format (optional)
 
-If needed for Excel:
-
-Use converter script:
+If needed for Excel (splitter output):
 
 ```bash
-python labeling/json_to_excel.py labeling/data/<source_id>.annotation.v1.json
+python labeling/splitter_json_to_excel.py labeling/data/<source_id>.splitter.v2.json
 ```
 
 Optional custom output path:
 
 ```bash
-python labeling/json_to_excel.py labeling/data/<source_id>.annotation.v1.json --out labeling/data/<source_id>.annotation.v1.xlsx
+python labeling/splitter_json_to_excel.py labeling/data/<source_id>.splitter.v2.json --out labeling/data/<source_id>.splitter.v2.xlsx
 ```
 
 Output workbook sheets:
-- `items` (fixed annotation columns)
-- `summary` (top-level metadata and counts)
+- `splitter_items` (flattened LinkedText fields)
+- `meta` (top-level metadata and counts)
 
 ## 7) Versioning convention
 
