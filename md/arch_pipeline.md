@@ -39,7 +39,7 @@ source:
 | **subagent** | Отдельный LLM-вызов с собственным system prompt'ом, изолированный контекст | полная (Agent tool вызывает в новой сессии) | Splitter |
 | **skill** | Структурированная подсессия Claude Code (`.claude/skills/<name>/SKILL.md`); один или несколько LLM-вызовов в рамках skill-сессии | по skill-сессии (контекст ограничен skill'ом) | Evaluator, AR-Aggregator (feedback-report), ScoringPromptTrainer |
 | **agent (orchestrator-skill с loop)** | Тот же skill, но внутри есть цикл обратной связи (читает результат, рефлексирует, пробует снова) | по skill-сессии, цикл внутри | ScoringPromptTrainer (loop по корпусу + редактирование промпта) |
-| **детерм. компонент** | Python-скрипт, вызывается через Bash tool; без LLM | — (нет контекста) | AccuracyChecker, EvalLogger, HighlighterRenderer |
+| **детерм. компонент** | Python-скрипт, вызывается через Bash tool; без LLM | — (нет контекста) | AccuracyChecker, HighlighterRenderer |
 
 Полный инвентарь:
 
@@ -50,7 +50,6 @@ source:
 | **AR-Aggregator** | skill (orchestrator) | `.claude/skills/feedback-report/SKILL.md` | AR only | rollup: `AssessmentItem[] → AlignmentReport` + markdown render |
 | **ScoringPromptTrainer** | agent (skill + loop) | `.claude/skills/scoring-prompt-trainer/SKILL.md` (TBD, см. [[arch_agents]] §6 Phase 3) | KB only | train-loop: оценить корпус → AccuracyChecker → отредактировать `EvaluatorPrompt` → повторить |
 | **AccuracyChecker** | детерм. компонент | `tools/accuracy_checker.py` | KB only | `compare(predicted: AssessmentItem[], reference: MockedQA[]) → AccuracyReport` |
-| **EvalLogger** | детерм. компонент | `tools/eval_logger.py` | AR + KB | `log(stage, input, output, model, latency)` → `logs/` |
 | **HighlighterRenderer** | детерм. компонент | `tools/highlighter.py` | offline (валидация Splitter), [[spec_postponed]] §7 E2-6 | `render(transcript_path, qa_items) → html` |
 
 ### 2.2. Карта связей AR + KB
@@ -89,18 +88,14 @@ flowchart LR
         TRAIN --> OUT_P
     end
 
-    %% Cross-cutting: EvalLogger
-    LOG["EvalLogger<br/>(det. Python)<br/>tools/eval_logger.py"]
-
     %% Связи
     TR_AR --> SPLIT
     TR_KB --> SPLIT
     SPLIT -- "QA[]" --> EVAL
     EP -. "as system prompt" .-> EVAL
     EVAL -- "AssessmentItem" --> AGG
-    EVAL -- "AssessmentItem" --> TRAIN
     OUT_P -. "новая версия" .-> EP
-    SPLIT & EVAL & AGG & TRAIN -. "traces" .-> LOG
+    SPLIT -- "Mocked QA[]" --> TRAIN
 
     classDef agent fill:#ffe4cc,stroke:#d97706,color:#7c2d12
     classDef skill fill:#d1f0d1,stroke:#16a34a,color:#14532d
@@ -111,7 +106,7 @@ flowchart LR
     class SPLIT agent
     class EVAL skill
     class AGG,TRAIN orchestrator
-    class ACC,LOG deterministic
+    class ACC deterministic
     class EP,REP,OUT_P,TR_AR,TR_KB data
 ```
 
