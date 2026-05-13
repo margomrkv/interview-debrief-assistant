@@ -22,4 +22,9 @@ env/
 # IDE/editor settings
 .idea/
 .vscode/
-.claude
+
+# Claude Code hooks
+.claude/hooks/node_modules/
+.claude/hooks/.mermaid-cache.json
+.claude/hooks/package-lock.json
+.claude/settings.local.json
