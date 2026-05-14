@@ -64,7 +64,6 @@ flowchart LR
 
     %% Общие сервисы
     SPLIT["Splitter<br/>(subagent)<br/>.claude/agents/splitter.md"]
-    EVAL["Evaluator<br/>(skill)<br/>.claude/skills/evaluator/SKILL.md"]
 
     %% Артефакт-контракт KB ↔ оба pipeline'а
     EP["EvaluatorPrompt<br/>(в KB, текущая версия)"]
@@ -72,7 +71,7 @@ flowchart LR
     %% AR (predict) оркестратор
     subgraph AR["AR-pipeline (predict)"]
         direction TB
-        AGG["AR-Aggregator<br/>(orchestrator-skill)<br/>.claude/skills/feedback-report/SKILL.md"]
+        AGG["Assess intervew skill"]
         REP["AlignmentReport.md<br/>(verdict + p_hire + items)"]
         AGG --> REP
     end
@@ -82,19 +81,16 @@ flowchart LR
         direction TB
         TRAIN["ScoringPromptTrainer<br/>(agent: skill + loop)<br/>.claude/skills/scoring-prompt-trainer/SKILL.md"]
         ACC["AccuracyChecker<br/>(det. Python)<br/>tools/accuracy_checker.py"]
-        OUT_P["new EvaluatorPrompt<br/>+ train/test accuracy"]
         TRAIN -- "predicted AssessmentItem[]" --> ACC
         ACC -- "accuracy + diffs" --> TRAIN
-        TRAIN --> OUT_P
+        TRAIN --> EP
     end
 
     %% Связи
     TR_AR --> SPLIT
     TR_KB --> SPLIT
-    SPLIT -- "QA[]" --> EVAL
-    EP -. "as system prompt" .-> EVAL
-    EVAL -- "AssessmentItem" --> AGG
-    OUT_P -. "новая версия" .-> EP
+    SPLIT -- "QA[]" -->AGG
+    EP -. "as system prompt" .->  AGG
     SPLIT -- "Mocked QA[]" --> TRAIN
 
     classDef agent fill:#ffe4cc,stroke:#d97706,color:#7c2d12
