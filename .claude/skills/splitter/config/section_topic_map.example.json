@@ -1,0 +1,8 @@
+{
+  "section_timecodes": {
+    "Example section": "00:00:00"
+  },
+  "topic_map": {
+    "Example section": ["SQL", "Python"]
+  }
+}

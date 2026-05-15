@@ -2,7 +2,7 @@
 
 - **Разбивка Q&A (JSON)**: `labeling/data/karpov_product_analyst_junior_20210624_pasha.splitter.v1.mock.json`
 - **Разбивка Q&A (Excel)**: `labeling/data/karpov_product_analyst_junior_20210624_pasha.splitter.v1.mock.xlsx`
-- **Описание видео**: `transcripts/mock-karpov-product-analyst-junior-2021-06-24/video.md`
+- **Описание видео**: `transcripts/karpov-courses-собеседования/mock-karpov-product-analyst-junior-2021-06-24/video.md`
 
 ## Вердикт: ✅ ПРОЙДЕНО
 

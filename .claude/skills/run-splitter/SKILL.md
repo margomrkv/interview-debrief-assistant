@@ -1,327 +1,283 @@
 ---
 name: run-splitter
 description: >
-  Запускает splitter pipeline для папки интервью: собирает промпт через prepare_prompt.py,
-  генерирует JSON Q&A extraction через Agent tool (subagent, PRO-подписка, без API-ключа),
-  конвертирует в Excel, запускает валидацию против video.md.
+  Устарело — см. `.claude/skills/splitter/SKILL.md`. Раньше: splitter_prepare_prompt → JSON → Excel →
+  валидация; артефакты в splitter/output/.
 ---
+
+> **Актуальный skill:** `.claude/skills/splitter/` — см. **`SKILL.md` там (v5.3)**. Артефакты в **`splitter_output/`** в корне репо; единый вход для LLM — **`<base>.splitter_llm_input.txt`**; промпты и схема — **`prompt,output_schema/splitter_system_prompt.txt`**, **`splitter_output_schema.json`**. Ниже — устаревшее описание `run-splitter` (пути `splitter/output/`, `full_bundle`).
 
 # Skill: Run Splitter
 
 ## Версия
 
-Текущая версия 4.0. Включай версию в итоговый отчёт.
+Текущая версия **5.0**. Включай версию в итоговый отчёт.
 
 ## Модель
 
-**Model: claude-sonnet-4-6** — используется PRO-подписка через Agent tool (subagent).
-API-ключ и API-кредиты не используются.
+**Model: claude-sonnet-4-6** — PRO-подписка через Agent tool (subagent). API-ключ для сплиттера не используется.
 
 ## Назначение
 
-Один прогон = одна папка интервью → один JSON файл с Q&A парами + Excel + validation report.
+Один прогон = одна папка интервью → JSON (Q&A) + Excel + при наличии `video.md` — validation report.
 
-Extraction выполняется через **Agent tool** (spawn subagent, тип `general-purpose`):
-- subagent получает чистый контекст (только промпт + транскрипт, без истории разговора)
-- работает в рамках той же PRO-сессии, без API-кредитов
-- быстрее inline-генерации за счёт меньшего контекста
+Extraction через **Agent tool** (`subagent_type`: `general-purpose`): изолированный контекст, без истории родительского чата.
 
-**Ключевая оптимизация:** промпт собирается через `labeling/prepare_prompt.py` — один Bash-вызов
-вместо 5 отдельных Read tool calls. Claude Code читает один файл, а не пять.
+**Сборка контекста:** `splitter_prepare_prompt.py` (в этой папке) пишет:
+
+- `splitter/output/<base>.full_bundle.txt` — **system + user + schema** (рекомендуется для Cloud и subagent: один файл).
+- `splitter/output/<base>.user_prompt.txt` — только user-часть (если оркестратор разделяет system/user вручную).
 
 ## Вход
 
-**Обязательный аргумент:** путь к папке интервью (относительно корня репо).
+**Обязательный аргумент:** путь к папке интервью (от корня репо), например `transcripts/mock-avito-product-analyst-middle-2024-04-04`.
 
 **Опциональные флаги:**
 
-- `mode=<raw_split|mock_assisted_split>` — Default: `timecodes.txt` есть → `mock_assisted_split`, иначе → `raw_split`.
-- `version=<N>` — номер версии (default: следующая незанятая `vN`).
-- `source_id=<str>` — Default: строится из имени папки.
-- `section_config=<path>` — путь к JSON с section timecodes для валидатора.
+- `mode=<raw_split|mock_assisted_split>` — по умолчанию: **`mock_assisted_split` если в папке есть `video.md`**, иначе `raw_split`.
+- `version=<N>` — иначе следующая свободная `vN` под `splitter/output/<source_id>.splitter.v*.mock.json` (или `.raw`).
+- `source_id=<str>` — иначе из имени папки (как в `splitter_prepare_prompt.py`).
+- `section_config=<path>` — для валидатора, напр. `.claude/skills/run-splitter/config/section_topic_map.example.json` (лучше копия с правками под интервью).
 
 **Примеры:**
 
 ```
 /run-splitter transcripts/mock-avito-product-analyst-middle-2024-04-04
-/run-splitter transcripts/mock-karpov-product-analyst-junior-2021-06-24 version=2
-/run-splitter transcripts/karpov-courses-собеседования/junior-data-scientist-... mode=mock_assisted_split section_config=labeling/config/karpov_section_map.json
+/run-splitter transcripts/karpov-courses-собеседования/mock-karpov-product-analyst-junior-2021-06-24 version=2
+/run-splitter transcripts/karpov-courses-собеседования/junior-data-scientist-... section_config=.claude/skills/run-splitter/config/section_topic_map.example.json
 ```
 
-## Конфигурация
+## Конфигурация (репозиторий)
 
-- **Execution:** Agent tool, subagent_type=`general-purpose` (PRO-подписка, без API-кредитов)
-- **Model:** `claude-sonnet-4-6`
-- **Prompt builder:** `labeling/prepare_prompt.py` (собирает все входные файлы в один)
-- **System prompt:** `labeling/prompts/system_prompt_v2.txt`
-- **User prompt (mock_assisted_split):** `labeling/prompts/user_prompt_template_mock_assisted_v2.txt`
-- **User prompt (raw_split):** `labeling/prompts/user_prompt_template_v2.txt`
-- **Output schema:** `labeling/prompts/splitter_output_schema_v1.json`
-- **Output JSON:** `labeling/data/<source_id>.splitter.v<N>.<mode_tag>.json`
-- **Output Excel:** то же, `.xlsx`
-- **Validation report:** то же, `.validation.md`
+| Артефакт | Путь |
+|----------|------|
+| Prompt builder | `.claude/skills/run-splitter/splitter_prepare_prompt.py` |
+| Конфиг сборки | `.claude/skills/run-splitter/config/splitter_run_config.json` (читает только `splitter_prepare_prompt.py`) |
+| System prompt | `.claude/skills/run-splitter/prompts/system_prompt_v3.txt` |
+| Schema | `.claude/skills/run-splitter/prompts/splitter_output_schema_v1.json` |
+| JSON / xlsx / validation | `splitter/output/<source_id>.splitter.v<N>.<mock\|raw>.*` |
+
+Per-run **user** текст и схема — внутри `*.user_prompt.txt` (не дублируем отдельные user-template файлы).
+
+### Файл `config/splitter_run_config.json`
+
+**Машиночитаемый источник правды — только JSON-файл на диске.** `splitter_prepare_prompt.py` читает его с пути `SKILL_DIR / "config" / "splitter_run_config.json"`. Текст в этом `SKILL.md` **не парсится** кодом: здесь описание полей, чтобы не плодить отдельные гайды и не дублировать тело JSON (иначе два источника и расхождение).
+
+| Поле | Назначение |
+|------|------------|
+| `system_prompt` | Путь к system-промпту **относительно папки skill** (по умолчанию `prompts/system_prompt_v3.txt`). |
+| `schema` | Путь к JSON Schema выхода сплиттера **относительно папки skill** (по умолчанию `prompts/splitter_output_schema_v1.json`). |
+| `inference` | Опционально: объект с полями вроде `model`, `temperature`, `max_tokens`. **API не вызывается** — значения копируются в секцию **`RUNTIME_HINTS`** внутри каждого сгенерированного `splitter/output/*.user_prompt.txt` для оператора и воспроизводимости. |
+
+Устаревший вариант: те же `model` / `temperature` / `max_tokens` на **верхнем** уровне JSON — `splitter_prepare_prompt.py` их тоже учитывает при сборке `RUNTIME_HINTS`.
+
+Менять настройки — **редактировать файл** `config/splitter_run_config.json` в репозитории.
 
 ## Алгоритм
 
-Перед каждым шагом выводить: `▶ [Шаг N/9] <Название> — <детали>`
-После завершения: `✓ [Шаг N/9] <кратко результат>`
+Перед шагом: `▶ [Шаг N/10] …` — после: `✓ [Шаг N/10] …`
 
 ---
 
 ### Шаг 0: Парсинг входа
 
-`▶ [Шаг 0/9] Парсинг входа`
-
-Выделить путь к папке. Распарсить флаги. Проверить, что папка существует.
-
-`✓ [Шаг 0/9] Папка найдена: <path>`
+Выделить `<folder>`, флаги, убедиться что папка существует.
 
 ---
 
-### Шаг 1: Определение режима и входных файлов
+### Шаг 1: Режим и файлы
 
-`▶ [Шаг 1/9] Определение режима`
+| Условие | Режим (default) | Транскрипт для LLM |
+|--------|------------------|-------------------|
+| Есть `video.md` | `mock_assisted_split` | `timecodes.txt` если есть, иначе `transcript.txt` |
+| Нет `video.md` | `raw_split` | только `transcript.txt` |
 
-| Файл | mock_assisted_split | raw_split |
-|------|---------------------|-----------|
-| `timecodes.txt` | PRIMARY transcript | не используется |
-| `transcript.txt` | fallback | PRIMARY transcript |
-| `feedback.md` | sidecar (optional) | не используется |
-| `video.md` | только для валидации — НЕ в LLM | не используется |
-
-`video.md` НИКОГДА не передаётся в subagent.
-
-`✓ [Шаг 1/9] Режим: <mode>. Транскрипт: <file>`
-
----
-
-### Шаг 2: Определение source_id и версии
-
-`▶ [Шаг 2/9] Определение source_id и версии`
-
-- `source_id`: имя папки → убрать `mock-`, дефисы → `_`, дата без дефисов.
-  - `mock-karpov-product-analyst-junior-2021-06-24` → `karpov_product_analyst_junior_20210624`
-- `version`: найти существующие `labeling/data/<source_id>.splitter.v*.json`, взять следующий.
-- Пути: `labeling/data/<source_id>.splitter.v<N>.<mode_tag>.json` (+ `.xlsx`, `.validation.md`)
-
-`✓ [Шаг 2/9] source_id: <id>, версия: v<N>`
+| Файл в папке интервью | В LLM | Назначение |
+|----------------------|--------|------------|
+| `video.md` | **Никогда** | Режим mock (авто) + только **валидация** офлайн |
+| `timecodes.txt` | Да (mock, предпочтительно) | Транскрипт с `[HH:MM:SS]` |
+| `transcript.txt` | Да | В mock — fallback; в **raw** — единственный основной вход |
+| `feedback.md` | Да (mock), опционально | Подсказки границ |
 
 ---
 
-### Шаг 3: Сборка промпта через prepare_prompt.py
+## Пример структуры одного item (LinkedText)
 
-`▶ [Шаг 3/9] Сборка промпта — labeling/prepare_prompt.py`
+```json
+{
+  "interviewer_question": { "text": "...", "time": "HH:MM:SS" },
+  "candidate_answer":     { "text": "...", "time": "HH:MM:SS" },
+  "reference_answer":     { "text": null,  "time": null },
+  "interviewer_feedback": { "text": null,  "time": null },
+  "question_type":    "hard",
+  "question_topic":   "Statistics",
+  "interview_stage":  "technical_qna"
+}
+```
+
+---
+
+### Шаг 2: source_id и версия
+
+Как в `splitter_prepare_prompt.py`: `mock-` срезать, дефисы → `_`, дата `YYYY-MM-DD` → `YYYYMMDD`. Версия — следующий `vN` среди `splitter/output/<source_id>.splitter.v*.<mock\|raw>.json`.
+
+---
+
+### Шаг 3: `splitter_prepare_prompt.py`
 
 ```bash
-python3 labeling/prepare_prompt.py \
+python3 .claude/skills/run-splitter/splitter_prepare_prompt.py \
     --folder <folder> \
-    --mode <mode> \
-    --version <N> \
+    [--mode <raw_split|mock_assisted_split>] \
+    [--version <N>] \
     [--source-id <source_id>]
 ```
 
-Скрипт читает все входные файлы и собирает их в один файл
-`labeling/data/<source_id>.prompt.txt`. Это заменяет 5 отдельных Read tool calls одним вызовом.
+Запомнить напечатанные пути к `*.full_bundle.txt`, `*.user_prompt.txt`, будущему `.json`.
 
-Затем прочитать получившийся файл через Read tool:
-
-```
-Read: labeling/data/<source_id>.prompt.txt
-```
-
-`✓ [Шаг 3/9] Промпт готов: labeling/data/<source_id>.prompt.txt (~X chars)`
+**Read tool:** `splitter/output/<base>.full_bundle.txt` (предпочтительно для subagent).
 
 ---
 
-### Шаг 4: Q&A extraction через Agent subagent
+### Шаг 4: Q&A extraction (Agent subagent)
 
-`▶ [Шаг 4/9] Запуск Agent subagent для Q&A extraction (PRO, claude-sonnet-4-6)`
-
-Использовать **Agent tool** с параметрами:
 - `subagent_type`: `general-purpose`
 - `description`: `Q&A extraction: <source_id>`
-- `prompt`: содержимое файла из Шага 3, плюс явная инструкция:
+- `prompt`: полное содержимое **`<base>.full_bundle.txt`**, плюс в конце:
 
 ```
-Ты — экстрактор вопросов и ответов из транскриптов собеседований.
-Следуй точно инструкциям ниже.
-
-<содержимое labeling/data/<source_id>.prompt.txt>
-
 OUTPUT REQUIREMENT: Return ONLY a valid JSON object.
 No markdown, no explanation, no ```json fences. Start directly with {
 ```
 
-Subagent возвращает JSON строкой в своём ответе — сохранить этот ответ как `RAW_OUTPUT`.
+Сохранить ответ как `RAW_OUTPUT`.
 
-`✓ [Шаг 4/9] Subagent завершён, получен ответ (~X chars)`
+**Варианты контекста для модели:**  
+**A)** один файл — всё содержимое `splitter/output/<base>.full_bundle.txt`;  
+**B)** раздельно — system: `.claude/skills/run-splitter/prompts/system_prompt_v3.txt`, user: `splitter/output/<base>.user_prompt.txt` (как в API).
 
 ---
 
-### Шаг 5: Парсинг и валидация JSON
+### Шаг 5: Парсинг JSON
 
-`▶ [Шаг 5/9] Парсинг и валидация JSON`
+Снять markdown-обёртку при необходимости; `json.loads`; проверить `source_id`, `splitter_mode`, `items`.
 
-Записать `RAW_OUTPUT` из Шага 4 в `/tmp/splitter_raw_<source_id>.txt` через Write tool, затем:
+---
+
+### Шаг 6: Сохранить JSON
+
+Путь из вывода Шага 3, обычно `splitter/output/<base>.json`.
+
+---
+
+### Шаг 7: Excel
 
 ```bash
-python3 - << 'PYEOF'
-import json, sys, re
-
-raw = open("/tmp/splitter_raw_<source_id>.txt").read().strip()
-if raw.startswith("```"):
-    raw = re.sub(r'^```(?:json)?\n?', '', raw)
-    raw = re.sub(r'\n?```$', '', raw)
-try:
-    data = json.loads(raw)
-except json.JSONDecodeError as e:
-    print(f"JSON PARSE ERROR: {e}", file=sys.stderr)
-    print("First 500 chars:", raw[:500], file=sys.stderr)
-    sys.exit(1)
-
-assert "source_id" in data, "Missing source_id"
-assert "splitter_mode" in data, "Missing splitter_mode"
-assert isinstance(data.get("items"), list), "Missing/invalid items"
-print(f"OK: {len(data['items'])} items")
-PYEOF
+python3 .claude/skills/run-splitter/splitter_json_to_excel.py \
+    splitter/output/<base>.json \
+    --out splitter/output/<base>.xlsx
 ```
 
-Если JSON большой (>4K tokens) и bash-escaping проблематичен — использовать Write tool напрямую
-для записи JSON-файла, минуя temp-файл.
-
-`✓ [Шаг 5/9] JSON валиден: <N> items`
-
 ---
 
-### Шаг 6: Сохранение JSON
+### Шаг 8: Валидация
 
-`▶ [Шаг 6/9] Сохранение JSON → labeling/data/<source_id>.splitter.v<N>.<mode_tag>.json`
-
-```bash
-python3 - << 'PYEOF'
-import json, re, pathlib
-
-raw = open("/tmp/splitter_raw_<source_id>.txt").read().strip()
-if raw.startswith("```"):
-    raw = re.sub(r'^```(?:json)?\n?', '', raw)
-    raw = re.sub(r'\n?```$', '', raw)
-data = json.loads(raw)
-
-out = pathlib.Path("labeling/data/<source_id>.splitter.v<N>.<mode_tag>.json")
-out.parent.mkdir(parents=True, exist_ok=True)
-out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-print(f"Saved: {out}")
-PYEOF
-```
-
-`✓ [Шаг 6/9] JSON сохранён`
-
----
-
-### Шаг 7: Конвертация в Excel
-
-`▶ [Шаг 7/9] Конвертация в Excel`
+Если `<folder>/video.md` есть:
 
 ```bash
-python3 labeling/splitter_json_to_excel.py \
-    labeling/data/<source_id>.splitter.v<N>.<mode_tag>.json \
-    --out labeling/data/<source_id>.splitter.v<N>.<mode_tag>.xlsx
-```
-
-`✓ [Шаг 7/9] Excel сохранён`
-
----
-
-### Шаг 8: Валидация против video.md
-
-`▶ [Шаг 8/9] Валидация против video.md`
-
-Если `<folder>/video.md` существует:
-
-```bash
-python3 labeling/validate_splitter_vs_video.py \
-    --splitter labeling/data/<source_id>.splitter.v<N>.<mode_tag>.json \
+python3 .claude/skills/run-splitter/splitter_validate_video.py \
+    --splitter splitter/output/<base>.json \
     --video <folder>/video.md \
     --tolerance 120 \
     [--section-config <section_config>] \
     [--time-from <HH:MM:SS>] \
     [--time-to <HH:MM:SS>] \
-    --out labeling/data/<source_id>.splitter.v<N>.<mode_tag>.validation.md
+    --out splitter/output/<base>.validation.md
 ```
 
-`--time-from` / `--time-to` — фильтруют главы video.md по временному диапазону.
-**Обязательно использовать для multi-candidate транскриптов** (иначе coverage занижен,
-т.к. validator сравнивает фрагмент интервью с полным списком глав всего видео).
+Опционально: `--section-config` — путь к JSON (шаблон: `config/section_topic_map.example.json` в этой папке skill; обычно своя копия с правками).
 
-Если нет — пропустить, сообщить.
-
-`✓ [Шаг 8/9] Validation report готов`
+Иначе — пропустить, явно написать пользователю.
 
 ---
 
-### Шаг 9: Итоговый отчёт
+### Шаг 9: Итерация до согласованности с валидацией (как в Cursor)
+
+Если отчёт валидации показывает пропуски, лишние сопоставления или типичное **обобщение** в JSON (мета-описания вместо цитат):
+
+1. Прочитать `splitter/output/<base>.validation.md` и сами проблемные `items` в JSON.
+2. **Приоритет правок:** сначала `.claude/skills/run-splitter/prompts/system_prompt_v3.txt` (few-shot, усиление verbatim, краевые случаи). Транскрипт не искажать «под отчёт».
+3. Если глава в `video.md` не является вопросом — при необходимости добавить префикс в `EXPLANATION_PREFIXES` в `.claude/skills/run-splitter/splitter_validate_video.py`.
+4. Повторить **Шаги 3–8** (новый `--version` или тот же, по договорённости с пользователем), пока результат не станет приемлемым.
+
+Если в `video.md` есть мета-секции (intro, тайминг и т.д.) без однозначного M↔Q↔A, **Coverage может быть ниже 100%** — это не автоматический fail при отсутствии жёстких misassignments.
+
+Оркестратор (ты) ведёт себя как IDE-агент: анализ отчёта → точечная правка промпта/валидатора → перезапуск, а не разовый «сдал как есть».
+
+---
+
+### Шаг 10: Итоговый отчёт
 
 ```
-[run-splitter v4.0 | model: claude-sonnet-4-6 | PRO subscription | execution: Agent subagent]
-Folder:   transcripts/...
-Mode:     mock_assisted_split
-Version:  v1
+[run-splitter v5.0 | model: claude-sonnet-4-6 | PRO | Agent subagent]
+Folder:   <folder>
+Mode:     <mode>  (default по video.md)
+Version:  v<N>
 Items:    N
-Output:
-  JSON:       labeling/data/<source_id>.splitter.v1.mock.json
-  Excel:      labeling/data/<source_id>.splitter.v1.mock.xlsx
-  Validation: labeling/data/<source_id>.splitter.v1.mock.validation.md
+Artifacts:
+  bundle:     splitter/output/<base>.full_bundle.txt
+  user-only:  splitter/output/<base>.user_prompt.txt
+  JSON:       splitter/output/<base>.json
+  Excel:      splitter/output/<base>.xlsx
+  Validation: splitter/output/<base>.validation.md  (или N/A)
 
-Validation: ✅ / ❌ — <результат>
+Validation: ✅ / ❌ — кратко
 ```
 
 ---
 
-## Нюансы
+## Структура каталогов (где что лежит)
 
-- `video.md` — только для валидации, НИКОГДА не передавать в subagent.
-- Если subagent вернул JSON в markdown-обёртке — Шаги 5/6 снимают её.
-- Если JSON большой и bash-heredoc escaping ломается — писать файл через Write tool напрямую.
-- `prepare_prompt.py` экономит 2–4 минуты за счёт замены 5 Read tool calls одним Bash-вызовом.
+```
+.claude/skills/run-splitter/
+  SKILL.md
+  README.md
+  splitter_prepare_prompt.py      # шаг 1: сборка промпта
+  splitter_json_to_excel.py       # после JSON
+  splitter_validate_video.py      # офлайн vs video.md
+  adhoc/                            # вне основного пайплайна
+    splitter_enrich_feedback.py
+    splitter_extract_feedback_windows.py
+  config/
+    splitter_run_config.json
+    section_topic_map.example.json
+    # опционально: interview_paths.md — черновик путей для людей; скрипты не читают
+  prompts/
+    system_prompt_v3.txt
+    splitter_output_schema_v1.json
+splitter/                        ← только артефакты (без кода)
+  output/                        # *.json, *.xlsx, *.validation.md, *.user_prompt.txt, *.full_bundle.txt
+transcripts/<папка-интервью>/   # transcript.txt, timecodes.txt, video.md, …
+```
 
-### Multi-candidate транскрипты
+## Зависимости
 
-Если в `timecodes.txt` несколько кандидатов (смена собеседуемого по ходу записи):
+- **`openpyxl`** — для `splitter_json_to_excel.py` (`pip install openpyxl`).
 
-1. **Детектировать границу** по смене имени собеседуемого и/или фразам типа
-   "сейчас буквально минуточку ждём", "к нам присоединится следующий кандидат".
-2. **Разбить** содержимое на N фрагментов, сохранить во временные файлы
-   (`/tmp/timecodes_<name>.txt`).
-3. **Сообщить пользователю** о найденных кандидатах и временных границах перед запуском.
-4. **Для каждого кандидата** запустить отдельный прогон (Шаги 3–9):
+## Дополнительные скрипты (вне обязательных шагов 3–8)
 
-   **Шаг 3** — использовать `--transcript-file` и `--source-id-suffix`:
-   ```bash
-   python3 labeling/prepare_prompt.py \
-       --folder <folder> \
-       --mode mock_assisted_split \
-       --transcript-file /tmp/timecodes_<name>.txt \
-       --source-id-suffix _<name> \
-       --version <N>
-   ```
+| Скрипт | Назначение |
+|--------|------------|
+| `adhoc/splitter_enrich_feedback.py` | Постобработка уже готового JSON: дозаполнить `interviewer_feedback` из timecodes; пересобирает xlsx. |
+| `adhoc/splitter_extract_feedback_windows.py` | Вспомогательный просмотр окон транскрипта между таймкодами. |
 
-   **Шаг 8** — использовать `--time-from` / `--time-to` с границами кандидата:
-   ```bash
-   python3 labeling/validate_splitter_vs_video.py \
-       --splitter labeling/data/<source_id>_<name>.splitter.v<N>.mock.json \
-       --video <folder>/video.md \
-       --tolerance 120 \
-       --time-from <HH:MM:SS> \
-       --time-to <HH:MM:SS> \
-       --out labeling/data/<source_id>_<name>.splitter.v<N>.mock.validation.md
-   ```
+---
 
-   Без `--time-from`/`--time-to` coverage будет занижен: validator сопоставит
-   фрагмент кандидата с главами всего видео.
+## Multi-candidate
 
-5. **Итоговый отчёт** — по каждому кандидату отдельная строка с coverage.
+Как раньше: `--transcript-file /tmp/timecodes_<name>.txt`, `--source-id-suffix _<name>`, валидация с `--time-from` / `--time-to`. Скрипты — из `.claude/skills/run-splitter/`; выход — `splitter/output/`.
 
 ## Ограничения
 
-- Один прогон = одна папка + один mode.
-- Работа только через **подписку** (Agent tool / Claude Code / Cursor): промпт из `prepare_prompt.py` и модель в IDE — без отдельного Anthropic API-ключа для сплиттера.
+- Один прогон на вызов skill = одна папка (или явная последовательность для нескольких кандидатов).
+- `video.md` никогда не отправлять в subagent.
