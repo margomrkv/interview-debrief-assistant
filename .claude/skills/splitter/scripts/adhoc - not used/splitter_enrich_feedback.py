@@ -13,7 +13,7 @@ Does NOT re-run the splitter or validation.
 Regenerates .xlsx after updating JSON.
 
 Usage:
-    python labeling/enrich_interviewer_feedback.py [--dry-run] [--json <glob>]
+    python3 .claude/skills/run-splitter/adhoc/splitter_enrich_feedback.py [--dry-run] [--json <glob>]
 """
 
 import argparse
@@ -24,7 +24,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-BASE = Path(__file__).parent.parent  # repo root
+_HERE = Path(__file__).resolve().parent
+SKILL_DIR = _HERE.parent if _HERE.name == "adhoc" else _HERE
+REPO_ROOT = SKILL_DIR.parents[2]
 
 # ── Manual mapping overrides for multi-candidate interviews or non-standard dates ──
 MANUAL_TIMECODES: dict[str, str] = {
@@ -157,7 +159,7 @@ def auto_find_timecodes(json_stem: str) -> Path | None:
         return None
     date = m.group(1)
     pattern = str(
-        BASE / "transcripts" / "karpov-courses-собеседования" / f"*{date}*" / "timecodes.txt"
+        REPO_ROOT / "transcripts" / "karpov-courses-собеседования" / f"*{date}*" / "timecodes.txt"
     )
     matches = glob.glob(pattern)
     return Path(matches[0]) if matches else None
@@ -169,7 +171,7 @@ def auto_find_video_md(json_stem: str) -> Path | None:
         return None
     date = m.group(1)
     pattern = str(
-        BASE / "transcripts" / "karpov-courses-собеседования" / f"*{date}*" / "video.md"
+        REPO_ROOT / "transcripts" / "karpov-courses-собеседования" / f"*{date}*" / "video.md"
     )
     matches = glob.glob(pattern)
     return Path(matches[0]) if matches else None
@@ -185,8 +187,9 @@ def enrich_file(json_path: Path, dry_run: bool = False) -> dict:
 
     # Resolve timecodes / video.md paths
     if stem in MANUAL_TIMECODES:
-        tc_path = BASE / MANUAL_TIMECODES[stem]
-        vm_path = BASE / MANUAL_VIDEOMDS.get(stem, "")
+        tc_path = REPO_ROOT / MANUAL_TIMECODES[stem]
+        v = MANUAL_VIDEOMDS.get(stem, "")
+        vm_path = REPO_ROOT / v if v else Path("__not_found__")
     else:
         tc_path = auto_find_timecodes(stem) or Path("__not_found__")
         vm_path = auto_find_video_md(stem) or Path("__not_found__")
@@ -266,12 +269,12 @@ def enrich_file(json_path: Path, dry_run: bool = False) -> dict:
             json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
         )
         # Regenerate xlsx
-        xlsx_script = BASE / "labeling" / "splitter_json_to_excel.py"
+        xlsx_script = SKILL_DIR / "splitter_json_to_excel.py"
         if xlsx_script.exists():
             subprocess.run(
                 [sys.executable, str(xlsx_script), str(json_path)],
                 capture_output=True,
-                cwd=str(BASE),
+                cwd=str(REPO_ROOT),
             )
 
     return result
@@ -284,12 +287,12 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Don't write files")
     parser.add_argument(
         "--json",
-        default="labeling/data/*.splitter.v1.mock.json",
+        default="splitter_output/*.splitter.v1.mock.json",
         help="Glob for JSON files to process",
     )
     args = parser.parse_args()
 
-    json_files = sorted(glob.glob(str(BASE / args.json)))
+    json_files = sorted(glob.glob(str(REPO_ROOT / args.json)))
     if not json_files:
         print("No JSON files found.")
         sys.exit(1)

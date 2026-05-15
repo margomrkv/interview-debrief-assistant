@@ -52,13 +52,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Критерии оценки     | `grading/`         | `Project Criteria & Scoring.docx` и смежные документы                |
 | Код                 | — (пока нет)       | В репозитории ещё нет исходников; появятся — разместить здесь        |
 | Данные              | `transcripts/`     | Транскрипты интервью (mock и собственные) — основной вход проекта    |
+| Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | `config/`, **`prompt,output_schema/`**, `scripts/`; артефакты: **`<source_id>.splitter.v<N>.<mock\|raw>.*`** (версия без `--version` — max+1 по всем таким файлам); папка **`splitter/`** — только краткий `README.md` (без `output/`) |
 
 ### Именование файлов встреч и интервью
 
 - Встречи (`internal-notes/`): `YYYY-MM-DD-transcript-<participants>-<topic>.{txt|md}`
   - Примеры: `2026-04-06-transcript-margo-anton-project-kickoff.txt`, `2026-04-22-transcript-alex-weekly-meeting-1.md`
 - Mock-интервью (папка в `transcripts/`): `mock-<company>-<role>-<level>-YYYY-MM-DD/`
-  - Содержимое: `transcript.txt`, `link.txt`, `timecodes.txt`
+  - Содержимое: `transcript.txt`, `link.txt`, `timecodes.txt`; при скачанных у нас mock-интервью с YouTube — ещё `video.md` (главы для валидации сплиттера, не для LLM-контекста извлечения)
 - Собственные интервью (папка в `transcripts/`): `<person>-<company>-YYYYMMDD/` (дата без дефисов)
   - Содержимое: `cv.md`, `transcript.txt`, `feedback.txt`, опционально `vacancy.txt` и файлы отчётов
 - Шаблон новой папки mock-интервью: `transcripts/mock-template/`

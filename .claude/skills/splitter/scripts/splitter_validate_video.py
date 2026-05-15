@@ -1,17 +1,17 @@
 """
-validate_splitter_vs_video.py
+splitter_validate_video.py
 
 Cross-validates a splitter JSON output against the YouTube video.md file
 (chapters list). video.md is used ONLY for validation — it must not be
 present in the splitter run context.
 
 Usage:
-    python labeling/validate_splitter_vs_video.py \
-        --splitter labeling/data/karpov_junior_ds_20220330.splitter.v3.mock.json \
+    python3 .claude/skills/splitter/scripts/splitter_validate_video.py \
+        --splitter splitter_output/karpov_junior_ds_20220330.splitter.v3.mock.json \
         --video transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/video.md \
         [--tolerance 90] \
-        [--section-config labeling/config/karpov_section_map.json] \
-        [--out labeling/data/karpov_junior_ds_20220330.splitter.v3.mock.validation.md]
+        [--section-config .claude/skills/splitter/config/section_topic_map.example.json] \
+        [--out splitter_output/karpov_junior_ds_20220330.splitter.v3.mock.validation.md]
 
 --section-config (optional) JSON file with keys:
   {
@@ -33,7 +33,7 @@ from typing import Optional
 
 # ─── Section → accepted question_topic values ────────────────────────────────
 # Loaded from --section-config at runtime; defaults to empty (topic check skipped).
-# See labeling/config/karpov_section_map.json for the karpov interview config.
+# Optional --section-config JSON: see config/section_topic_map.example.json for format.
 
 _DEFAULT_SECTION_TOPIC_MAP: dict[str, list[str]] = {}
 _DEFAULT_SECTION_TIMECODES: dict[str, str] = {}
@@ -847,9 +847,10 @@ def main():
     parser.add_argument(
         "--section-config",
         help=(
-            "Optional JSON file with section timecodes and topic map. "
-            "Keys: 'section_timecodes' (name→HH:MM:SS) and 'topic_map' (name→[topics]). "
-            "If omitted, section assignment and topic check are skipped."
+            "Optional JSON: coarse sections + allowed question_topic values per section. "
+            "Keys: 'section_timecodes' (name→HH:MM:SS) and 'topic_map' (name→[topics]); "
+            "top-level keys starting with '_' are ignored (documentation). "
+            "See config/section_topic_map.example.json. If omitted, section/topic checks are skipped."
         ),
     )
     parser.add_argument("--out", help="Write report to this .md file (default: print to stdout)")
@@ -882,8 +883,14 @@ def main():
             print(f"ERROR: section-config not found: {cfg_path}", file=sys.stderr)
             sys.exit(1)
         cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
-        section_timecodes = cfg.get("section_timecodes", {})
-        section_topic_map = cfg.get("topic_map", {})
+
+        def _strip_meta_keys(d: object) -> dict:
+            if not isinstance(d, dict):
+                return {}
+            return {k: v for k, v in d.items() if isinstance(k, str) and not str(k).startswith("_")}
+
+        section_timecodes = _strip_meta_keys(cfg.get("section_timecodes") or {})
+        section_topic_map = _strip_meta_keys(cfg.get("topic_map") or {})
 
     chapters = parse_video_md(video_path, section_timecodes=section_timecodes)
 
