@@ -24,6 +24,17 @@ from src.train.cost_callback import CostCallback
 _log = logging.getLogger(__name__)
 
 
+def _json_default(obj: Any) -> Any:
+    # litellm wraps usage details (e.g. CompletionTokensDetailsWrapper) in
+    # pydantic BaseModel; stdlib json doesn't know about them.
+    md = getattr(obj, "model_dump", None)
+    if callable(md):
+        return md()
+    if hasattr(obj, "__dict__"):
+        return vars(obj)
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
 class PromptTracer(BaseCallback):
     """Writes one JSONL line per LM call with full messages + response."""
 
@@ -93,7 +104,7 @@ class PromptTracer(BaseCallback):
             "error": (repr(exception) if exception is not None else None),
         }
         with self._lock:
-            self._fp.write(json.dumps(line, ensure_ascii=False) + "\n")
+            self._fp.write(json.dumps(line, ensure_ascii=False, default=_json_default) + "\n")
             self._fp.flush()
 
     def close(self) -> None:
