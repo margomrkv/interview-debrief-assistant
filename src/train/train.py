@@ -12,7 +12,6 @@ import argparse
 import datetime as dt
 import json
 import logging
-from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -29,11 +28,9 @@ from src.train.tracer_setup import setup_phoenix, shutdown_phoenix
 from src.train.dspy_modules import (
     METRICS,
     ScoringEvaluator,
-    accuracy_pm1,
-    bootstrap_ci_95,
     mae_metric,
-    mae_raw,
 )
+from src.train.eval_runner import INPUT_FIELDS, run_evaluation
 from src.train.llm_factory import (
     LABEL_MODEL_ID,
     PROMPT_MODEL_ALIASES,
@@ -52,15 +49,6 @@ RUNS_DIR = REPO_ROOT / "runs"
 
 def _local_run_id() -> str:
     return dt.datetime.now().astimezone().strftime("%Y-%m-%d_%H-%M-%S")
-
-INPUT_FIELDS = (
-    "interviewer_question",
-    "candidate_answer",
-    "reference_answer",
-    "interviewer_feedback",
-    "question_topic",
-    "interview_stage",
-)
 
 
 def _text(field: Any) -> str:
@@ -91,65 +79,6 @@ def _load_data() -> tuple[list[dspy.Example], list[dspy.Example], dict[str, Any]
     train = [_to_example(items[i]) for i in splits["train_indices"]]
     test = [_to_example(items[i]) for i in splits["test_indices"]]
     return train, test, splits
-
-
-def _predict_one(student: dspy.Module, ex: dspy.Example) -> Any:
-    try:
-        return student(**{k: getattr(ex, k) for k in INPUT_FIELDS})
-    except Exception as e:  # parse error / API error
-        return type("FailedPred", (), {m: None for m in METRICS} | {"_error": str(e)})()
-
-
-def _eval(student: dspy.Module, examples: list[dspy.Example]) -> dict[str, Any]:
-    preds = [_predict_one(student, ex) for ex in examples]
-    fails = [i for i, p in enumerate(preds) if getattr(p, "_error", None)]
-    mae = mae_raw(preds, examples)
-    acc = accuracy_pm1(preds, examples)
-    med, lo, hi = bootstrap_ci_95(preds, examples)
-
-    per_source: dict[str, list[float]] = defaultdict(list)
-    for p, ex in zip(preds, examples):
-        if getattr(p, "_error", None):
-            continue
-        for m in METRICS:
-            ref = ex.reference_score.get(m)
-            pv = getattr(p, m, None)
-            if ref is None or pv is None:
-                continue
-            try:
-                per_source[ex.source_id].append(abs(int(pv) - ref))
-            except (TypeError, ValueError):
-                pass
-    per_source_mae = {src: sum(es) / len(es) for src, es in per_source.items() if es}
-
-    worst = []
-    for idx, (p, ex) in enumerate(zip(preds, examples)):
-        if getattr(p, "_error", None):
-            continue
-        errs = []
-        for m in METRICS:
-            ref = ex.reference_score.get(m)
-            pv = getattr(p, m, None)
-            if ref is None or pv is None:
-                continue
-            try:
-                errs.append(abs(int(pv) - ref))
-            except (TypeError, ValueError):
-                pass
-        if errs:
-            worst.append((sum(errs) / len(errs), idx, ex, p))
-    worst.sort(reverse=True)
-
-    return {
-        "mae": mae,
-        "accuracy_pm1": acc,
-        "ci_median": med,
-        "ci_low": lo,
-        "ci_high": hi,
-        "fails": len(fails),
-        "per_source_mae": per_source_mae,
-        "worst": worst[:20],
-    }
 
 
 def _extract_prompt(student: dspy.Module) -> str:
@@ -246,7 +175,7 @@ def _write_artifacts(
     for src, m in sorted(test_metrics["per_source_mae"].items(), key=lambda kv: -kv[1]):
         lines.append(f"| {src} | {m:.3f} |")
     lines += ["", "## Worst 20 cases (test)", ""]
-    for rank, (avg_err, _idx, ex, p) in enumerate(test_metrics["worst"], 1):
+    for rank, (avg_err, ex, p) in enumerate(test_metrics["worst"], 1):
         ref = ex.reference_score
         preds = {m: getattr(p, m, None) for m in METRICS}
         lines.append(
@@ -360,11 +289,15 @@ def main() -> None:
         compile_kwargs["num_trials"] = 3
         compiled = optimizer.compile(student, **compile_kwargs)
 
+        # Production-mirror eval: run the extracted prompt through the same
+        # path evaluate.py uses (fresh ScoringEvaluator, clean dspy context,
+        # no JSONAdapter / track_usage / callbacks). See am-best-offer-et4.
+        compiled_prompt = _extract_prompt(compiled) or seed_prompt
         print("evaluating on train...")
-        train_metrics = _eval(compiled, train)
+        train_metrics = run_evaluation(compiled_prompt, train, lm=task)
         print(f"  train MAE={train_metrics['mae']:.3f}  acc±1={train_metrics['accuracy_pm1']:.3f}")
         print("evaluating on test...")
-        test_metrics = _eval(compiled, test)
+        test_metrics = run_evaluation(compiled_prompt, test, lm=task)
         print(f"  test MAE={test_metrics['mae']:.3f}  acc±1={test_metrics['accuracy_pm1']:.3f}  CI=[{test_metrics['ci_low']:.3f},{test_metrics['ci_high']:.3f}]")
 
         cost_summary = cb.render_summary()
