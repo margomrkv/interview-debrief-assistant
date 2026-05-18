@@ -82,23 +82,28 @@ def _load_data() -> tuple[list[dspy.Example], list[dspy.Example], dict[str, Any]
 
 
 def _extract_prompt(student: dspy.Module) -> str:
-    # Prefer student.score (the named ChainOfThought), but MIPROv2 in some DSPy versions
-    # mutates that attribute on the compiled program — fall back to iterating predictors().
+    # The canonical MIPROv2 winner lives in student.candidate_programs (list of
+    # {"program": Module, "score": float}). On this ScoringEvaluator the attribute
+    # `score` collides with MIPROv2's internal scoring and gets overwritten by a
+    # float on the returned program, so its own named_predictors() yields nothing —
+    # we read from the highest-scoring candidate instead. Falls back to `student`
+    # when no candidate_programs are exposed (e.g., other optimizers).
+    cps = getattr(student, "candidate_programs", None) or []
+    target: dspy.Module = student
+    if cps:
+        best = max(
+            cps,
+            key=lambda cp: (cp.get("score") if isinstance(cp, dict) and cp.get("score") is not None else float("-inf")),
+        )
+        if isinstance(best, dict) and best.get("program") is not None:
+            target = best["program"]
     predictor = None
-    candidate = getattr(student, "score", None)
-    if hasattr(candidate, "predict"):
-        predictor = candidate
-    else:
-        try:
-            for _name, p in student.named_predictors():
-                predictor = p
-                break
-        except Exception:
-            predictor = None
+    for _name, p in target.named_predictors():
+        predictor = p
+        break
     if predictor is None:
         return ""
-    sig = getattr(predictor, "signature", None) or getattr(getattr(predictor, "predict", None), "signature", None)
-    instr = getattr(sig, "instructions", "") or ""
+    instr = getattr(predictor.signature, "instructions", "") or ""
     demos = getattr(predictor, "demos", []) or []
     demos_md = ""
     if demos:
