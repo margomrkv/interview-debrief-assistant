@@ -3,10 +3,10 @@
   "input": "train/hard_skills.json",
   "train_ratio": 0.7,
   "seed": 42,
-  "smoke": true,
+  "smoke": false,
   "stats": {
-    "train": 17,
-    "test": 7,
+    "train": 57,
+    "test": 24,
     "excluded_unscored": 8,
     "per_source": {
       "avito_product_analyst_middle_20240404": {
@@ -16,6 +16,22 @@
       "junior_аналитик_данных_собеседование_karpov_courses_20210913_sasha": {
         "train": 6,
         "test": 2
+      },
+      "junior_аналитик_данных_собеседование_karpov_courses_20210913_yegor": {
+        "train": 6,
+        "test": 2
+      },
+      "karpov_junior_ds_20220330": {
+        "train": 11,
+        "test": 5
+      },
+      "karpov_product_analyst_junior_20210624_pasha": {
+        "train": 10,
+        "test": 4
+      },
+      "karpov_product_analyst_junior_vyacheslav_20210624": {
+        "train": 13,
+        "test": 6
       }
     }
   },
@@ -36,7 +52,47 @@
     18,
     21,
     22,
-    23
+    23,
+    24,
+    25,
+    26,
+    28,
+    29,
+    30,
+    32,
+    33,
+    38,
+    39,
+    40,
+    42,
+    46,
+    47,
+    51,
+    52,
+    54,
+    55,
+    57,
+    58,
+    59,
+    60,
+    62,
+    64,
+    65,
+    66,
+    69,
+    70,
+    71,
+    75,
+    78,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88
   ],
   "test_indices": [
     0,
@@ -45,7 +101,24 @@
     11,
     15,
     19,
-    20
+    20,
+    27,
+    31,
+    34,
+    35,
+    36,
+    37,
+    43,
+    56,
+    61,
+    63,
+    68,
+    72,
+    73,
+    74,
+    76,
+    77,
+    79
   ],
   "excluded_indices": [
     41,
