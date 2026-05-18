@@ -1,29 +1,32 @@
 ---
 name: scoring-prompt-trainer
-description: Phase 3 trainer для prompt evaluator'а scoring-evaluator. Запускает DSPy MIPROv2 на train/hard_skills.json (golden labels Opus, уже сделано), оптимизирует prompt против free task_model (OpenRouter Nemotron), пишет kb/evaluator_prompt_v<N>.md и kb/reports/train_v<N>_report.md. Аргументы: --smoke (2 source_id, ~$3), --budget {light|medium}, --out-version vN. См. план ~/.claude/plans/elegant-chasing-planet.md.
+description: Phase 3 trainer для prompt evaluator'а scoring-evaluator. Запускает DSPy MIPROv2 на train/hard_skills.json, оптимизирует prompt против golden labels, пишет все артефакты одного прогона в runs/<YYYY-MM-DD_HH-MM-SS>/ (локальная TZ). Аргументы: --smoke (2 source_id, ~$3), --budget {light|medium}, --num-trials, --prompt-model.
 ---
 
-# Skill: Scoring Prompt Trainer (Phase 3, v1)
+# Skill: Scoring Prompt Trainer (Phase 3)
 
-## Версия
+## Идентификация прогонов
 
-v1. Включай номер версии в отчёт (`out-version vN`).
+Каждый запуск `train.py` создаёт новую папку `runs/<YYYY-MM-DD_HH-MM-SS>/` (timestamp в локальной TZ, фиксируется один раз в начале запуска). Имя папки = `run_id`; оно же пишется в frontmatter prompt'а и в заголовок отчёта. Семантического `vN`-версионирования больше нет.
 
 ## Назначение
 
-Один прогон = один train→test цикл MIPROv2 над hard-QA golden set'ом → **три** артефакта:
+Один прогон = один train→test цикл MIPROv2 над hard-QA golden set'ом. Артефакты:
 
-- `kb/splits.json` — фиксированный train/test индекс (детерминированно по seed=42)
-- `kb/evaluator_prompt_v<N>.md` — обученный system prompt + frontmatter с метриками
-- `kb/reports/train_v<N>_report.md` — MAE per metric/source, worst-20 cases, bootstrap CI
+- `kb/splits.json` — фиксированный train/test индекс (детерминированно по seed=42; один раз, не перетирается).
+- `runs/<run_id>/evaluator_prompt.md` — обученный system prompt + frontmatter с метриками.
+- `runs/<run_id>/train_report.md` — MAE per metric/source, worst-20 cases, bootstrap CI.
+- `runs/<run_id>/logs/train.jsonl` — per-call cost/tokens/latency (CostCallback).
+- `runs/<run_id>/logs/train.trace.jsonl` — полные prompt+response per LM call (PromptTracer).
+- `runs/<run_id>/eval_<split>.md` — отчёт evaluate.py (пишется рядом с prompt'ом, см. Шаг 3).
 
-После прогона артефакт `kb/evaluator_prompt_v<N>.md` подключается как system-prompt к субагенту `.claude/agents/scoring-evaluator.md` (живёт параллельно с eval-{hard,soft,behavioral}, не ломает Phase 2 binary-контракт).
+После прогона артефакт `runs/<run_id>/evaluator_prompt.md` подключается как system-prompt к субагенту `.claude/agents/scoring-evaluator.md` (живёт параллельно с eval-{hard,soft,behavioral}, не ломает Phase 2 binary-контракт).
 
-### Observability артефакты (опционально)
+Папка `runs/` целиком в `.gitignore`. Старые `kb/evaluator_prompt_v*.md` и `logs/train_v*.jsonl` оставлены как исторические артефакты предыдущей схемы.
 
-- `logs/train_v<N>.jsonl` — per-call cost/tokens/latency (CostCallback, всегда пишется).
-- `logs/train_v<N>.trace.jsonl` — полные prompt+response per LM call (PromptTracer, всегда пишется). Не в git (`logs/` в `.gitignore`).
-- **Phoenix UI** на http://localhost:6006 — интерактивное дерево compile→trial→LM call. Требует `pip install -e ".[tracing]"`. Отключается флагом `--no-phoenix`.
+### Observability (опционально)
+
+- **Phoenix UI** на http://localhost:6006 — интерактивное дерево compile→trial→LM call. Требует `pip install -e ".[tracing]"`. Отключается флагом `--no-phoenix`. Project name в Phoenix: `evaluator-train-<run_id>`.
 
 ## Архитектура (контекст)
 
@@ -34,10 +37,11 @@ flowchart LR
     BS --> TR
     PM["PROMPT_LM<br/>Haiku 4.5 (default)"] -. mutates .-> TR
     TM["TASK_LM<br/>OpenRouter Nemotron free"] -. graded by .-> TR
-    TR --> PR["kb/evaluator_prompt_vN.md"]
-    TR --> RP["kb/reports/train_vN_report.md"]
+    TR --> PR["runs/&lt;run_id&gt;/evaluator_prompt.md"]
+    TR --> RP["runs/&lt;run_id&gt;/train_report.md"]
+    TR --> LG["runs/&lt;run_id&gt;/logs/train{,.trace}.jsonl"]
     PR --> EV["evaluate.py"]
-    EV --> ER["kb/reports/eval_vN_test.md"]
+    EV --> ER["runs/&lt;run_id&gt;/eval_&lt;split&gt;.md"]
 ```
 
 Подробности — см. план `~/.claude/plans/elegant-chasing-planet.md` (architecture diagrams, decisions D1-D14, risks R1-R8).
@@ -55,15 +59,12 @@ flowchart LR
 ```bash
 python -m src.train.build_splits [--smoke]
 ```
-
 Пишет `kb/splits.json`. Smoke: 2 source_id → 17/7 QA. Full: 6 source_ids → 57/24 QA.
-
-**Проверь** что `excluded_unscored = 8` в выводе — иначе golden set изменился, остановись и сверь с `train/hard_skills.json`.
 
 ### Шаг 2 — Train
 
 ```bash
-python -m src.train.train --budget light --out-version v1
+python -m src.train.train --budget light
 ```
 
 Запускает DSPy MIPROv2. Параметры (из `src/train/llm_factory.py`):
@@ -74,38 +75,13 @@ python -m src.train.train --budget light --out-version v1
 
 Бюджет: light ~$1/smoke на Haiku (~$3 на Sonnet), full пропорционально. Time: ~10-30 min.
 
-Пишет `kb/evaluator_prompt_v1.md` (system prompt + frontmatter) и `kb/reports/train_v1_report.md`.
+В начале запуска stdout печатает путь к свежей папке `runs/<run_id>/`, куда сложатся `evaluator_prompt.md`, `train_report.md`, `logs/train.jsonl`, `logs/train.trace.jsonl`.
 
 ### Шаг 3 — Evaluate (опционально, отдельно от train)
 
 ```bash
-python -m src.train.evaluate --prompt kb/evaluator_prompt_v1.md --split test
+python -m src.train.evaluate --prompt runs/<run_id>/evaluator_prompt.md --split test
 ```
 
-Пишет `kb/reports/eval_v1_test.md` с MAE per metric/source_id и top-20 worst cases.
+Пишет `runs/<run_id>/eval_test.md` (рядом с prompt'ом) с MAE per metric/source_id и top-20 worst cases. Override места: `--out <path>`.
 
-
-## Acceptance criteria
-
-| Метрика | Smoke | Full |
-|---|---|---|
-| `test_mae` | < 0.9 | < 0.7 |
-| `accuracy_pm1` | > 0.75 | > 0.8 |
-| `test_mae_ci_95` width | — | < 0.5 |
-| `test_failures` (parse errors) | < 30% от теста | < 30% от теста |
-
-Если не сходится — фиксируй в отчёте, эскалируй пользователю: (a) вернуть Haiku как task_model, либо (b) расширить golden до 15+ source_ids.
-
-## Что делает скилл (для оркестратора)
-
-2. Убедись, что `train/hard_skills.json` существует и в нём есть `items[].reference_score.factual_correctness != null`
-3. Запусти `python -m src.train.build_splits` (или `--smoke` если user явно попросил)
-4. Запусти `python -m src.train.train --budget <auto-pick> --out-version <next-version>`
-5. Запусти `python -m src.train.evaluate --prompt kb/evaluator_prompt_<vN>.md --split test`
-
-## Out of scope (v1)
-
-- Vacancy/CV из signature убраны (D14) — labeling policy их игнорирует
-- Soft и behavioral QA не тренируются (golden labels пока только для hard)
-- Session-level split — добавим в Phase 3.5, когда будет ≥15 source_ids
-- Авто-фоллбэк на Haiku при провале free — намеренно отсутствует (D10), явный fail предпочтительнее

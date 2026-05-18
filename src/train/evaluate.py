@@ -1,8 +1,8 @@
 """Evaluate a saved evaluator-prompt artifact on the test split.
 
-Reads kb/evaluator_prompt_<vN>.md, applies it as the signature instructions on
+Reads runs/<ts>/evaluator_prompt.md, applies it as the signature instructions on
 a fresh ScoringEvaluator, runs predictions over kb/splits.json test items,
-and writes kb/reports/eval_<vN>_test.md.
+and writes the report next to the prompt as runs/<ts>/eval_<split>.md.
 """
 from __future__ import annotations
 
@@ -46,7 +46,7 @@ def _which_split(name: str) -> str:
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--prompt", type=Path, required=True, help="Path to kb/evaluator_prompt_vN.md")
+    p.add_argument("--prompt", type=Path, required=True, help="Path to runs/<ts>/evaluator_prompt.md")
     p.add_argument("--split", choices=["train", "test"], default="test")
     p.add_argument("--out", type=Path, default=None)
     args = p.parse_args()
@@ -56,7 +56,7 @@ def main() -> None:
     examples = test if args.split == "test" else train
 
     student = ScoringEvaluator()
-    student.score.signature = student.score.signature.with_instructions(prompt)
+    student.score.predict.signature = student.score.predict.signature.with_instructions(prompt)
 
     dspy.configure(lm=task_lm())
     print(f"evaluating {len(examples)} {args.split} examples with prompt={args.prompt.name} on {TASK_MODEL_ID}")
@@ -102,12 +102,12 @@ def main() -> None:
             worst.append((sum(errs) / len(errs), ex, pr))
     worst.sort(key=lambda t: -t[0])
 
-    version = args.prompt.stem.replace("evaluator_prompt_", "")
-    out = args.out or (REPO_ROOT / "kb" / "reports" / f"eval_{version}_{args.split}.md")
+    run_label = args.prompt.parent.name
+    out = args.out or (args.prompt.parent / f"eval_{args.split}.md")
     out.parent.mkdir(parents=True, exist_ok=True)
 
     lines = [
-        f"# Eval report — {version} ({args.split})",
+        f"# Eval report — {run_label} ({args.split})",
         "",
         f"- prompt: `{args.prompt.relative_to(REPO_ROOT)}`",
         f"- task model: `{TASK_MODEL_ID}`",

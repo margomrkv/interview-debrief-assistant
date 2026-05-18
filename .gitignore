@@ -42,5 +42,8 @@ dist/
 *.db
 .beads-credential-key
 
-# Training logs (per-call JSONL from CostCallback)
+# Training logs (per-call JSONL from CostCallback) — legacy path; new runs go into runs/
 logs/
+
+# Per-run artifact directories (prompt, train_report, eval_*, logs/*.jsonl)
+runs/
