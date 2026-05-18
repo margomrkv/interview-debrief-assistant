@@ -36,7 +36,7 @@ LABEL_MODEL_ID = "anthropic/claude-opus-4-7"
 
 def task_lm() -> dspy.LM:
     _require("OPENROUTER_API_KEY")
-    return make_lm(TASK_MODEL_ID, max_tokens=1500)
+    return make_lm(TASK_MODEL_ID, max_tokens=2500)
 
 
 def prompt_lm() -> dspy.LM:

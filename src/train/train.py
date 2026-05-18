@@ -140,7 +140,7 @@ def _eval(student: dspy.Module, examples: list[dspy.Example]) -> dict[str, Any]:
 
 
 def _extract_prompt(student: dspy.Module) -> str:
-    sig = student.score.signature
+    sig = student.score.predict.signature
     instr = getattr(sig, "instructions", "") or ""
     demos = getattr(student.score, "demos", []) or []
     demos_md = ""
@@ -238,7 +238,7 @@ def main() -> None:
 
     task = task_lm()
     prompt = prompt_lm()
-    dspy.configure(lm=task)
+    dspy.configure(lm=task, adapter=dspy.JSONAdapter())
 
     print(f"compiling MIPROv2 budget={args.budget} task={TASK_MODEL_ID} prompt={PROMPT_MODEL_ID}")
     optimizer = MIPROv2(
