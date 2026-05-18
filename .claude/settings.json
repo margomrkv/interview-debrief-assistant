@@ -2,24 +2,46 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
-            "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate_mermaid.mjs\" --mode=file"
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate_mermaid.mjs\" --mode=file",
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": "Write|Edit|MultiEdit"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "command": "bd prime",
+            "type": "command"
+          }
+        ],
+        "matcher": ""
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bd prime",
+            "type": "command"
+          }
+        ],
+        "matcher": ""
       }
     ],
     "Stop": [
       {
-        "matcher": "",
         "hooks": [
           {
-            "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate_mermaid.mjs\" --mode=stop"
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate_mermaid.mjs\" --mode=stop",
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": ""
       }
     ]
   }
