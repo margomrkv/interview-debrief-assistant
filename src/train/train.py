@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import logging
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,11 @@ from typing import Any
 import dspy
 from dspy.teleprompt import MIPROv2
 
+from src.train.cost_callback import (
+    CostCallback,
+    MIPROPhaseHandler,
+    cost_breakdown_markdown,
+)
 from src.train.dspy_modules import (
     METRICS,
     ScoringEvaluator,
@@ -39,6 +45,7 @@ SPLITS = REPO_ROOT / "kb" / "splits.json"
 SEED_PROMPT = REPO_ROOT / ".claude" / "skills" / "assess-interview" / "shared-evaluator-rules.md"
 PROMPT_OUT_TPL = REPO_ROOT / "kb" / "evaluator_prompt_{version}.md"
 REPORT_OUT_TPL = REPO_ROOT / "kb" / "reports" / "train_{version}_report.md"
+JSONL_OUT_TPL = REPO_ROOT / "logs" / "train_{version}.jsonl"
 
 INPUT_FIELDS = (
     "interviewer_question",
@@ -140,9 +147,24 @@ def _eval(student: dspy.Module, examples: list[dspy.Example]) -> dict[str, Any]:
 
 
 def _extract_prompt(student: dspy.Module) -> str:
-    sig = student.score.predict.signature
+    # Prefer student.score (the named ChainOfThought), but MIPROv2 in some DSPy versions
+    # mutates that attribute on the compiled program — fall back to iterating predictors().
+    predictor = None
+    candidate = getattr(student, "score", None)
+    if hasattr(candidate, "predict"):
+        predictor = candidate
+    else:
+        try:
+            for _name, p in student.named_predictors():
+                predictor = p
+                break
+        except Exception:
+            predictor = None
+    if predictor is None:
+        return ""
+    sig = getattr(predictor, "signature", None) or getattr(getattr(predictor, "predict", None), "signature", None)
     instr = getattr(sig, "instructions", "") or ""
-    demos = getattr(student.score, "demos", []) or []
+    demos = getattr(predictor, "demos", []) or []
     demos_md = ""
     if demos:
         demos_md = "\n\n## Few-shot demos\n\n" + "\n\n---\n\n".join(
@@ -159,6 +181,8 @@ def _write_artifacts(
     test_metrics: dict[str, Any],
     splits_meta: dict[str, Any],
     seed_prompt: str,
+    num_trials: int,
+    cost_summary: dict[str, Any] | None = None,
 ) -> None:
     PROMPT_OUT_TPL.parent.mkdir(parents=True, exist_ok=True)
     REPORT_OUT_TPL.parent.mkdir(parents=True, exist_ok=True)
@@ -175,12 +199,17 @@ def _write_artifacts(
         "golden_coverage": f"{splits_meta['stats']['train'] + splits_meta['stats']['test']}/{splits_meta['stats']['train'] + splits_meta['stats']['test'] + splits_meta['stats']['excluded_unscored']}",
         "split_strategy": splits_meta["strategy"],
         "smoke": splits_meta.get("smoke", False),
+        "num_trials": num_trials,
         "train_mae": round(train_metrics["mae"], 3),
         "test_mae": round(test_metrics["mae"], 3),
         "test_mae_ci_95": [round(test_metrics["ci_low"], 3), round(test_metrics["ci_high"], 3)],
         "accuracy_pm1": round(test_metrics["accuracy_pm1"], 3),
         "test_failures": test_metrics["fails"],
     }
+    if cost_summary is not None:
+        fm["total_spend_usd"] = round(cost_summary["total_spend"], 4)
+        fm["total_tokens"] = cost_summary["total_in"] + cost_summary["total_out"]
+        fm["total_lm_calls"] = cost_summary["total_calls"]
     fm_lines = ["---"] + [f"{k}: {json.dumps(v, ensure_ascii=False)}" for k, v in fm.items()] + ["---", ""]
 
     prompt_body = _extract_prompt(student) or seed_prompt
@@ -195,6 +224,7 @@ def _write_artifacts(
         f"- Labeler (pre-existing): `{LABEL_MODEL_ID}`",
         f"- Split: {splits_meta['stats']['train']} train / {splits_meta['stats']['test']} test (excluded {splits_meta['stats']['excluded_unscored']} unscored)",
         f"- Smoke: {splits_meta.get('smoke', False)}",
+        f"- num_trials: {num_trials}",
         "",
         "## Aggregate metrics",
         "",
@@ -219,6 +249,8 @@ def _write_artifacts(
             f"ref={ref} pred={preds} "
             f"q={ex.interviewer_question[:80]!r}"
         )
+    if cost_summary is not None:
+        lines += [""] + cost_breakdown_markdown(cost_summary)
     report_path.write_text("\n".join(lines) + "\n")
     print(f"wrote {prompt_path.relative_to(REPO_ROOT)}")
     print(f"wrote {report_path.relative_to(REPO_ROOT)}")
@@ -228,6 +260,12 @@ def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--budget", choices=["light", "medium"], default="light")
     p.add_argument("--out-version", default="v1")
+    p.add_argument(
+        "--num-trials",
+        type=int,
+        default=3,
+        help="MIPROv2 num_trials (default 3). Higher = больше prompt-кандидатов, выше стоимость.",
+    )
     args = p.parse_args()
 
     train, test, splits_meta = _load_data()
@@ -238,26 +276,60 @@ def main() -> None:
 
     task = task_lm()
     prompt = prompt_lm()
-    dspy.configure(lm=task, adapter=dspy.JSONAdapter())
 
-    print(f"compiling MIPROv2 budget={args.budget} task={TASK_MODEL_ID} prompt={PROMPT_MODEL_ID}")
-    optimizer = MIPROv2(
-        metric=mae_metric,
-        prompt_model=prompt,
-        task_model=task,
-        auto=args.budget,
-        num_threads=4,
-    )
-    compiled = optimizer.compile(student, trainset=train, requires_permission_to_run=False)
+    jsonl_path = Path(str(JSONL_OUT_TPL).format(version=args.out_version))
+    cb = CostCallback(version=args.out_version, jsonl_path=jsonl_path)
+    phase_handler = MIPROPhaseHandler(cb)
+    mipro_loggers = [
+        logging.getLogger("dspy.teleprompt.mipro_optimizer_v2"),
+        logging.getLogger("dspy.teleprompt.mipro_v2"),
+        logging.getLogger("dspy.evaluate.evaluate"),
+    ]
+    for lg in mipro_loggers:
+        lg.addHandler(phase_handler)
+        lg.setLevel(logging.INFO)
 
-    print("evaluating on train...")
-    train_metrics = _eval(compiled, train)
-    print(f"  train MAE={train_metrics['mae']:.3f}  acc±1={train_metrics['accuracy_pm1']:.3f}")
-    print("evaluating on test...")
-    test_metrics = _eval(compiled, test)
-    print(f"  test MAE={test_metrics['mae']:.3f}  acc±1={test_metrics['accuracy_pm1']:.3f}  CI=[{test_metrics['ci_low']:.3f},{test_metrics['ci_high']:.3f}]")
+    dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb], track_usage=True)
 
-    _write_artifacts(compiled, args.out_version, train_metrics, test_metrics, splits_meta, seed_prompt)
+    try:
+        print(f"compiling MIPROv2 budget={args.budget} num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={PROMPT_MODEL_ID}")
+        print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
+        optimizer = MIPROv2(
+            metric=mae_metric,
+            prompt_model=prompt,
+            task_model=task,
+            auto=args.budget,
+            num_threads=4,
+        )
+        compiled = optimizer.compile(
+            student,
+            trainset=train,
+            requires_permission_to_run=False,
+            num_trials=args.num_trials,
+        )
+
+        print("evaluating on train...")
+        train_metrics = _eval(compiled, train)
+        print(f"  train MAE={train_metrics['mae']:.3f}  acc±1={train_metrics['accuracy_pm1']:.3f}")
+        print("evaluating on test...")
+        test_metrics = _eval(compiled, test)
+        print(f"  test MAE={test_metrics['mae']:.3f}  acc±1={test_metrics['accuracy_pm1']:.3f}  CI=[{test_metrics['ci_low']:.3f},{test_metrics['ci_high']:.3f}]")
+
+        cost_summary = cb.render_summary()
+        _write_artifacts(
+            compiled, args.out_version, train_metrics, test_metrics, splits_meta, seed_prompt,
+            num_trials=args.num_trials,
+            cost_summary=cost_summary,
+        )
+        print(
+            f"cost: ${cost_summary['total_spend']:.4f}  "
+            f"calls={cost_summary['total_calls']}  "
+            f"tokens={cost_summary['total_in'] + cost_summary['total_out']:,}"
+        )
+    finally:
+        for lg in mipro_loggers:
+            lg.removeHandler(phase_handler)
+        cb.close()
 
 
 if __name__ == "__main__":
