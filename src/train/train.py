@@ -337,12 +337,14 @@ def main() -> None:
             auto=args.budget,
             num_threads=4,
         )
-        compiled = optimizer.compile(
-            student,
-            trainset=train,
-            requires_permission_to_run=False,
-            num_trials=args.num_trials,
-        )
+        compile_kwargs: dict[str, Any] = {
+            "trainset": train,
+            "requires_permission_to_run": False,
+        }
+        # DSPy MIPROv2: auto and num_trials are mutually exclusive — auto picks num_trials.
+        if args.budget is None:
+            compile_kwargs["num_trials"] = args.num_trials
+        compiled = optimizer.compile(student, **compile_kwargs)
 
         print("evaluating on train...")
         train_metrics = _eval(compiled, train)
