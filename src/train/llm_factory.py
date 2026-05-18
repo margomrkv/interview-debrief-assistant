@@ -30,7 +30,11 @@ def make_lm(model_id: str, max_tokens: int = 500) -> dspy.LM:
 
 
 TASK_MODEL_ID = "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
-PROMPT_MODEL_ID = "anthropic/claude-sonnet-4-6"
+# Default proposer: Haiku 4.5. Picked over Sonnet for ~3-4× lower cost; DSPy
+# community evidence (issue #1596, paper 2406.11695) suggests smaller proposer
+# performs as well or better. Override via prompt_lm(model_id=...) or
+# `train.py --prompt-model {sonnet|haiku|gpt-4o-mini|gemini-flash}`.
+PROMPT_MODEL_ID = "anthropic/claude-haiku-4-5-20251001"
 LABEL_MODEL_ID = "anthropic/claude-opus-4-7"
 
 # Short aliases for the --prompt-model CLI flag (A/B testing the MIPROv2 proposer).
@@ -55,7 +59,8 @@ def resolve_prompt_model_id(name_or_id: str | None) -> str:
     """Map a short alias (e.g. 'haiku') to a fully-qualified model id.
 
     Passes through any value containing a `/` as a raw model id (e.g.
-    `anthropic/claude-sonnet-4-6`). None falls back to the default PROMPT_MODEL_ID.
+    `anthropic/claude-sonnet-4-6`). None falls back to the default PROMPT_MODEL_ID
+    (currently Haiku 4.5).
     """
     if name_or_id is None:
         return PROMPT_MODEL_ID
@@ -86,7 +91,7 @@ def prompt_lm(model_id: str | None = None) -> dspy.LM:
     """Build the MIPROv2 prompt-proposer LM.
 
     `model_id` accepts either a short alias from PROMPT_MODEL_ALIASES
-    (e.g. 'haiku') or a fully-qualified provider/model id. None → default Sonnet.
+    (e.g. 'sonnet') or a fully-qualified provider/model id. None → default Haiku.
     """
     resolved = resolve_prompt_model_id(model_id)
     _require_for_model(resolved)
