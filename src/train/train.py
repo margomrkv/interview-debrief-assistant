@@ -1,7 +1,8 @@
 """Train the scoring evaluator prompt via DSPy MIPROv2.
 
 Reads kb/splits.json + train/hard_skills.json, optimizes ScoringEvaluator,
-writes kb/evaluator_prompt_<version>.md and kb/reports/train_<version>_report.md.
+writes all artifacts of a single run into runs/<YYYY-MM-DD_HH-MM-SS>/ (local TZ):
+evaluator_prompt.md, train_report.md, logs/train.jsonl, logs/train.trace.jsonl.
 
 See plan §"Step 4 — Train script".
 """
@@ -46,9 +47,11 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 HARD_SKILLS = REPO_ROOT / "train" / "hard_skills.json"
 SPLITS = REPO_ROOT / "kb" / "splits.json"
 SEED_PROMPT = REPO_ROOT / ".claude" / "skills" / "assess-interview" / "shared-evaluator-rules.md"
-PROMPT_OUT_TPL = REPO_ROOT / "kb" / "evaluator_prompt_{version}.md"
-REPORT_OUT_TPL = REPO_ROOT / "kb" / "reports" / "train_{version}_report.md"
-JSONL_OUT_TPL = REPO_ROOT / "logs" / "train_{version}.jsonl"
+RUNS_DIR = REPO_ROOT / "runs"
+
+
+def _local_run_id() -> str:
+    return dt.datetime.now().astimezone().strftime("%Y-%m-%d_%H-%M-%S")
 
 INPUT_FIELDS = (
     "interviewer_question",
@@ -179,7 +182,9 @@ def _extract_prompt(student: dspy.Module) -> str:
 
 def _write_artifacts(
     student: dspy.Module,
-    version: str,
+    run_id: str,
+    prompt_path: Path,
+    report_path: Path,
     train_metrics: dict[str, Any],
     test_metrics: dict[str, Any],
     splits_meta: dict[str, Any],
@@ -189,13 +194,8 @@ def _write_artifacts(
     cost_summary: dict[str, Any] | None = None,
     trace_jsonl_path: Path | None = None,
 ) -> None:
-    PROMPT_OUT_TPL.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_OUT_TPL.parent.mkdir(parents=True, exist_ok=True)
-    prompt_path = Path(str(PROMPT_OUT_TPL).format(version=version))
-    report_path = Path(str(REPORT_OUT_TPL).format(version=version))
-
     fm = {
-        "version": version,
+        "run_id": run_id,
         "trained_at": dt.date.today().isoformat(),
         "task_model": TASK_MODEL_ID,
         "prompt_model": prompt_model_id,
@@ -221,7 +221,7 @@ def _write_artifacts(
     prompt_path.write_text("\n".join(fm_lines) + prompt_body + "\n")
 
     lines = [
-        f"# Train report — {version}",
+        f"# Train report — {run_id}",
         "",
         f"- Trained at: {fm['trained_at']}",
         f"- Task model: `{TASK_MODEL_ID}`",
@@ -262,7 +262,7 @@ def _write_artifacts(
             "",
             "## Trace artifacts",
             "",
-            f"- Phoenix project: `evaluator-train-{version}` (см. http://localhost:6006 во время прогона)",
+            f"- Phoenix project: `evaluator-train-{run_id}` (см. http://localhost:6006 во время прогона)",
             f"- Trace JSONL: `{rel}` (не в git)",
             f"- Просмотр: `jq 'select(.phase==\"propose\")' {rel}`",
         ]
@@ -273,13 +273,21 @@ def _write_artifacts(
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--budget", choices=["light", "medium"], default="light")
-    p.add_argument("--out-version", default="v1")
+    p.add_argument("--budget", choices=["light", "medium"], default=None)
     p.add_argument(
         "--num-trials",
         type=int,
         default=3,
         help="MIPROv2 num_trials (default 3). Higher = больше prompt-кандидатов, выше стоимость.",
+    )
+    p.add_argument(
+        "--num-candidates",
+        type=int,
+        default=None,
+        help=(
+            "MIPROv2 num_candidates (только когда --budget не задан). "
+            "Default: mirrors --num-trials. DSPy требует num_candidates+num_trials когда auto=None."
+        ),
     )
     p.add_argument(
         "--prompt-model",
@@ -298,6 +306,14 @@ def main() -> None:
 
     prompt_model_id = resolve_prompt_model_id(args.prompt_model)
 
+    run_id = _local_run_id()
+    run_dir = RUNS_DIR / run_id
+    (run_dir / "logs").mkdir(parents=True, exist_ok=True)
+    prompt_path = run_dir / "evaluator_prompt.md"
+    report_path = run_dir / "train_report.md"
+    jsonl_path = run_dir / "logs" / "train.jsonl"
+    trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
+
     train, test, splits_meta = _load_data()
     seed_prompt = SEED_PROMPT.read_text()
 
@@ -307,10 +323,8 @@ def main() -> None:
     task = task_lm()
     prompt = prompt_lm(prompt_model_id)
 
-    jsonl_path = Path(str(JSONL_OUT_TPL).format(version=args.out_version))
-    trace_jsonl_path = jsonl_path.with_suffix(".trace.jsonl")
-    cb = CostCallback(version=args.out_version, jsonl_path=jsonl_path)
-    tracer = PromptTracer(version=args.out_version, jsonl_path=trace_jsonl_path, phase_ref=cb)
+    cb = CostCallback(version=run_id, jsonl_path=jsonl_path)
+    tracer = PromptTracer(version=run_id, jsonl_path=trace_jsonl_path, phase_ref=cb)
     phase_handler = MIPROPhaseHandler(cb)
     mipro_loggers = [
         logging.getLogger("dspy.teleprompt.mipro_optimizer_v2"),
@@ -321,11 +335,12 @@ def main() -> None:
         lg.addHandler(phase_handler)
         lg.setLevel(logging.INFO)
 
-    tp = None if args.no_phoenix else setup_phoenix(project_name=f"evaluator-train-{args.out_version}")
+    tp = None if args.no_phoenix else setup_phoenix(project_name=f"evaluator-train-{run_id}")
     dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
     try:
         print(f"compiling MIPROv2 budget={args.budget} num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
+        print(f"run dir: {run_dir.relative_to(REPO_ROOT)}")
         print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
         print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
         if tp is not None:
@@ -336,6 +351,7 @@ def main() -> None:
             task_model=task,
             auto=args.budget,
             num_threads=2,
+            num_candidates=3
         )
         compile_kwargs: dict[str, Any] = {
             "trainset": train,
@@ -355,7 +371,14 @@ def main() -> None:
 
         cost_summary = cb.render_summary()
         _write_artifacts(
-            compiled, args.out_version, train_metrics, test_metrics, splits_meta, seed_prompt,
+            compiled,
+            run_id=run_id,
+            prompt_path=prompt_path,
+            report_path=report_path,
+            train_metrics=train_metrics,
+            test_metrics=test_metrics,
+            splits_meta=splits_meta,
+            seed_prompt=seed_prompt,
             num_trials=args.num_trials,
             prompt_model_id=prompt_model_id,
             cost_summary=cost_summary,
