@@ -41,3 +41,6 @@ dist/
 .dolt/
 *.db
 .beads-credential-key
+
+# Training logs (per-call JSONL from CostCallback)
+logs/
