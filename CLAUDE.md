@@ -54,6 +54,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Данные              | `transcripts/`     | Транскрипты интервью (mock и собственные) — основной вход проекта    |
 | Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | `config/`, **`prompt,output_schema/`**, `scripts/`; артефакты: **`<source_id>.splitter.v<N>.<mock\|raw>.*`** (версия без `--version` — max+1 по всем таким файлам); папка **`splitter/`** — только краткий `README.md` (без `output/`) |
 
+### Правила 
+
+Не запускай тесты с реальной платной моделью в процессе разработки без необходимости
+
+
 ### Именование файлов встреч и интервью
 
 - Встречи (`internal-notes/`): `YYYY-MM-DD-transcript-<participants>-<topic>.{txt|md}`
