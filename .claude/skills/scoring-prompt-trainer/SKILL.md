@@ -32,7 +32,7 @@ flowchart LR
     TJ["train/hard_skills.json<br/>81 labeled hard QA (Opus)"] --> BS["build_splits<br/>kb/splits.json"]
     SR["shared-evaluator-rules.md<br/>(seed prompt)"] --> TR["train.py<br/>MIPROv2"]
     BS --> TR
-    PM["PROMPT_LM<br/>Sonnet 4.6"] -. mutates .-> TR
+    PM["PROMPT_LM<br/>Haiku 4.5 (default)"] -. mutates .-> TR
     TM["TASK_LM<br/>OpenRouter Nemotron free"] -. graded by .-> TR
     TR --> PR["kb/evaluator_prompt_vN.md"]
     TR --> RP["kb/reports/train_vN_report.md"]
@@ -68,11 +68,11 @@ python -m src.train.train --budget light --out-version v1
 
 Запускает DSPy MIPROv2. Параметры (из `src/train/llm_factory.py`):
 - task_model: `openrouter/nvidia/nemotron-3-super-120b-a12b:free`
-- prompt_model: `anthropic/claude-sonnet-4-6`
+- prompt_model: `anthropic/claude-haiku-4-5-20251001` (default; override `--prompt-model {sonnet|gpt-4o-mini|gemini-flash}`)
 - num_threads=4 (под free-tier 20 req/min)
 - num_retries=5 (exp backoff)
 
-Бюджет: light ~$3/smoke, ~$11/full. Time: ~10-30 min.
+Бюджет: light ~$1/smoke на Haiku (~$3 на Sonnet), full пропорционально. Time: ~10-30 min.
 
 Пишет `kb/evaluator_prompt_v1.md` (system prompt + frontmatter) и `kb/reports/train_v1_report.md`.
 
