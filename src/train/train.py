@@ -23,6 +23,8 @@ from src.train.cost_callback import (
     MIPROPhaseHandler,
     cost_breakdown_markdown,
 )
+from src.train.prompt_tracer import PromptTracer
+from src.train.tracer_setup import setup_phoenix, shutdown_phoenix
 from src.train.dspy_modules import (
     METRICS,
     ScoringEvaluator,
@@ -183,6 +185,7 @@ def _write_artifacts(
     seed_prompt: str,
     num_trials: int,
     cost_summary: dict[str, Any] | None = None,
+    trace_jsonl_path: Path | None = None,
 ) -> None:
     PROMPT_OUT_TPL.parent.mkdir(parents=True, exist_ok=True)
     REPORT_OUT_TPL.parent.mkdir(parents=True, exist_ok=True)
@@ -251,6 +254,16 @@ def _write_artifacts(
         )
     if cost_summary is not None:
         lines += [""] + cost_breakdown_markdown(cost_summary)
+    if trace_jsonl_path is not None:
+        rel = trace_jsonl_path.relative_to(REPO_ROOT)
+        lines += [
+            "",
+            "## Trace artifacts",
+            "",
+            f"- Phoenix project: `evaluator-train-{version}` (см. http://localhost:6006 во время прогона)",
+            f"- Trace JSONL: `{rel}` (не в git)",
+            f"- Просмотр: `jq 'select(.phase==\"propose\")' {rel}`",
+        ]
     report_path.write_text("\n".join(lines) + "\n")
     print(f"wrote {prompt_path.relative_to(REPO_ROOT)}")
     print(f"wrote {report_path.relative_to(REPO_ROOT)}")
@@ -266,6 +279,11 @@ def main() -> None:
         default=3,
         help="MIPROv2 num_trials (default 3). Higher = больше prompt-кандидатов, выше стоимость.",
     )
+    p.add_argument(
+        "--no-phoenix",
+        action="store_true",
+        help="Disable Phoenix UI (JSONL trace still written).",
+    )
     args = p.parse_args()
 
     train, test, splits_meta = _load_data()
@@ -278,7 +296,9 @@ def main() -> None:
     prompt = prompt_lm()
 
     jsonl_path = Path(str(JSONL_OUT_TPL).format(version=args.out_version))
+    trace_jsonl_path = jsonl_path.with_suffix(".trace.jsonl")
     cb = CostCallback(version=args.out_version, jsonl_path=jsonl_path)
+    tracer = PromptTracer(version=args.out_version, jsonl_path=trace_jsonl_path, phase_ref=cb)
     phase_handler = MIPROPhaseHandler(cb)
     mipro_loggers = [
         logging.getLogger("dspy.teleprompt.mipro_optimizer_v2"),
@@ -289,11 +309,15 @@ def main() -> None:
         lg.addHandler(phase_handler)
         lg.setLevel(logging.INFO)
 
-    dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb], track_usage=True)
+    tp = None if args.no_phoenix else setup_phoenix(project_name=f"evaluator-train-{args.out_version}")
+    dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
     try:
         print(f"compiling MIPROv2 budget={args.budget} num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={PROMPT_MODEL_ID}")
         print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
+        print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
+        if tp is not None:
+            print("phoenix UI: http://localhost:6006")
         optimizer = MIPROv2(
             metric=mae_metric,
             prompt_model=prompt,
@@ -320,6 +344,7 @@ def main() -> None:
             compiled, args.out_version, train_metrics, test_metrics, splits_meta, seed_prompt,
             num_trials=args.num_trials,
             cost_summary=cost_summary,
+            trace_jsonl_path=trace_jsonl_path,
         )
         print(
             f"cost: ${cost_summary['total_spend']:.4f}  "
@@ -330,6 +355,8 @@ def main() -> None:
         for lg in mipro_loggers:
             lg.removeHandler(phase_handler)
         cb.close()
+        tracer.close()
+        shutdown_phoenix(tp)
 
 
 if __name__ == "__main__":

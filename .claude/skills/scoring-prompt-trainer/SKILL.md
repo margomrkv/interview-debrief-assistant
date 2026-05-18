@@ -19,6 +19,12 @@ v1. Включай номер версии в отчёт (`out-version vN`).
 
 После прогона артефакт `kb/evaluator_prompt_v<N>.md` подключается как system-prompt к субагенту `.claude/agents/scoring-evaluator.md` (живёт параллельно с eval-{hard,soft,behavioral}, не ломает Phase 2 binary-контракт).
 
+### Observability артефакты (опционально)
+
+- `logs/train_v<N>.jsonl` — per-call cost/tokens/latency (CostCallback, всегда пишется).
+- `logs/train_v<N>.trace.jsonl` — полные prompt+response per LM call (PromptTracer, всегда пишется). Не в git (`logs/` в `.gitignore`).
+- **Phoenix UI** на http://localhost:6006 — интерактивное дерево compile→trial→LM call. Требует `pip install -e ".[tracing]"`. Отключается флагом `--no-phoenix`.
+
 ## Архитектура (контекст)
 
 ```mermaid
@@ -39,7 +45,7 @@ flowchart LR
 ## Prerequisites
 
 1. `.env` с `ANTHROPIC_API_KEY` и `OPENROUTER_API_KEY` (см. `.env.example`).
-2. `pip install -e .` (deps: dspy-ai>=2.5, anthropic>=0.40).
+2. `pip install -e .` (deps: dspy-ai>=2.5, anthropic>=0.40). Для Phoenix UI: `pip install -e ".[tracing]"`.
 3. Golden set уже существует: `train/hard_skills.json` (81 labeled QA, 8 unscored auto-excluded).
 
 ## Шаги
@@ -78,13 +84,6 @@ python -m src.train.evaluate --prompt kb/evaluator_prompt_v1.md --split test
 
 Пишет `kb/reports/eval_v1_test.md` с MAE per metric/source_id и top-20 worst cases.
 
-### Шаг 4 — Compare версий
-
-```bash
-python -m src.train.compare v1 v2
-```
-
-Пишет `kb/reports/compare_v1_v2.md` с Δ MAE и списком регрессий per source_id.
 
 ## Acceptance criteria
 
@@ -99,14 +98,10 @@ python -m src.train.compare v1 v2
 
 ## Что делает скилл (для оркестратора)
 
-1. Прочти текущий план: `~/.claude/plans/elegant-chasing-planet.md`
 2. Убедись, что `train/hard_skills.json` существует и в нём есть `items[].reference_score.factual_correctness != null`
 3. Запусти `python -m src.train.build_splits` (или `--smoke` если user явно попросил)
 4. Запусти `python -m src.train.train --budget <auto-pick> --out-version <next-version>`
 5. Запусти `python -m src.train.evaluate --prompt kb/evaluator_prompt_<vN>.md --split test`
-6. Сверь метрики с acceptance criteria; если регрессия — предложи next steps
-7. Если есть предыдущая версия — запусти `python -m src.train.compare v<N-1> v<N>`
-8. Отрапортуй: путь к `kb/evaluator_prompt_<vN>.md`, метрики, breakdown по source_id
 
 ## Out of scope (v1)
 
