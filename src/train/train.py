@@ -35,9 +35,10 @@ from src.train.dspy_modules import (
 )
 from src.train.llm_factory import (
     LABEL_MODEL_ID,
-    PROMPT_MODEL_ID,
+    PROMPT_MODEL_ALIASES,
     TASK_MODEL_ID,
     prompt_lm,
+    resolve_prompt_model_id,
     task_lm,
 )
 
@@ -184,6 +185,7 @@ def _write_artifacts(
     splits_meta: dict[str, Any],
     seed_prompt: str,
     num_trials: int,
+    prompt_model_id: str,
     cost_summary: dict[str, Any] | None = None,
     trace_jsonl_path: Path | None = None,
 ) -> None:
@@ -196,7 +198,7 @@ def _write_artifacts(
         "version": version,
         "trained_at": dt.date.today().isoformat(),
         "task_model": TASK_MODEL_ID,
-        "prompt_model": PROMPT_MODEL_ID,
+        "prompt_model": prompt_model_id,
         "labeler": f"{LABEL_MODEL_ID} (pre-existing, not invoked in this run)",
         "golden_source": "train/hard_skills.json",
         "golden_coverage": f"{splits_meta['stats']['train'] + splits_meta['stats']['test']}/{splits_meta['stats']['train'] + splits_meta['stats']['test'] + splits_meta['stats']['excluded_unscored']}",
@@ -223,7 +225,7 @@ def _write_artifacts(
         "",
         f"- Trained at: {fm['trained_at']}",
         f"- Task model: `{TASK_MODEL_ID}`",
-        f"- Prompt model: `{PROMPT_MODEL_ID}`",
+        f"- Prompt model: `{prompt_model_id}`",
         f"- Labeler (pre-existing): `{LABEL_MODEL_ID}`",
         f"- Split: {splits_meta['stats']['train']} train / {splits_meta['stats']['test']} test (excluded {splits_meta['stats']['excluded_unscored']} unscored)",
         f"- Smoke: {splits_meta.get('smoke', False)}",
@@ -280,11 +282,21 @@ def main() -> None:
         help="MIPROv2 num_trials (default 3). Higher = больше prompt-кандидатов, выше стоимость.",
     )
     p.add_argument(
+        "--prompt-model",
+        default=None,
+        help=(
+            "MIPROv2 proposer LM alias or fully-qualified id. "
+            f"Aliases: {sorted(PROMPT_MODEL_ALIASES)}. Default: sonnet."
+        ),
+    )
+    p.add_argument(
         "--no-phoenix",
         action="store_true",
         help="Disable Phoenix UI (JSONL trace still written).",
     )
     args = p.parse_args()
+
+    prompt_model_id = resolve_prompt_model_id(args.prompt_model)
 
     train, test, splits_meta = _load_data()
     seed_prompt = SEED_PROMPT.read_text()
@@ -293,7 +305,7 @@ def main() -> None:
     student.score.predict.signature = student.score.predict.signature.with_instructions(seed_prompt)
 
     task = task_lm()
-    prompt = prompt_lm()
+    prompt = prompt_lm(prompt_model_id)
 
     jsonl_path = Path(str(JSONL_OUT_TPL).format(version=args.out_version))
     trace_jsonl_path = jsonl_path.with_suffix(".trace.jsonl")
@@ -313,7 +325,7 @@ def main() -> None:
     dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
     try:
-        print(f"compiling MIPROv2 budget={args.budget} num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={PROMPT_MODEL_ID}")
+        print(f"compiling MIPROv2 budget={args.budget} num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
         print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
         print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
         if tp is not None:
@@ -343,6 +355,7 @@ def main() -> None:
         _write_artifacts(
             compiled, args.out_version, train_metrics, test_metrics, splits_meta, seed_prompt,
             num_trials=args.num_trials,
+            prompt_model_id=prompt_model_id,
             cost_summary=cost_summary,
             trace_jsonl_path=trace_jsonl_path,
         )

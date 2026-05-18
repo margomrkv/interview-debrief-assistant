@@ -33,15 +33,64 @@ TASK_MODEL_ID = "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
 PROMPT_MODEL_ID = "anthropic/claude-sonnet-4-6"
 LABEL_MODEL_ID = "anthropic/claude-opus-4-7"
 
+# Short aliases for the --prompt-model CLI flag (A/B testing the MIPROv2 proposer).
+# See am-best-offer-351 for rationale (DSPy #1596, paper 2406.11695).
+PROMPT_MODEL_ALIASES: dict[str, str] = {
+    "sonnet": "anthropic/claude-sonnet-4-6",
+    "haiku": "anthropic/claude-haiku-4-5-20251001",
+    "gpt-4o-mini": "openai/gpt-4o-mini",
+    "gemini-flash": "gemini/gemini-2.5-flash",
+}
+
+# Per-provider env var requirement for prompt_lm overrides.
+_PROVIDER_ENV: dict[str, str] = {
+    "anthropic/": "ANTHROPIC_API_KEY",
+    "openai/": "OPENAI_API_KEY",
+    "gemini/": "GEMINI_API_KEY",
+    "openrouter/": "OPENROUTER_API_KEY",
+}
+
+
+def resolve_prompt_model_id(name_or_id: str | None) -> str:
+    """Map a short alias (e.g. 'haiku') to a fully-qualified model id.
+
+    Passes through any value containing a `/` as a raw model id (e.g.
+    `anthropic/claude-sonnet-4-6`). None falls back to the default PROMPT_MODEL_ID.
+    """
+    if name_or_id is None:
+        return PROMPT_MODEL_ID
+    if name_or_id in PROMPT_MODEL_ALIASES:
+        return PROMPT_MODEL_ALIASES[name_or_id]
+    if "/" in name_or_id:
+        return name_or_id
+    raise ValueError(
+        f"Unknown prompt-model alias {name_or_id!r}. "
+        f"Known: {sorted(PROMPT_MODEL_ALIASES)} or pass a provider/model id."
+    )
+
+
+def _require_for_model(model_id: str) -> None:
+    for prefix, env_var in _PROVIDER_ENV.items():
+        if model_id.startswith(prefix):
+            _require(env_var)
+            return
+    # Unknown provider — let LiteLLM surface a clear error at call time.
+
 
 def task_lm() -> dspy.LM:
     _require("OPENROUTER_API_KEY")
     return make_lm(TASK_MODEL_ID, max_tokens=2500)
 
 
-def prompt_lm() -> dspy.LM:
-    _require("ANTHROPIC_API_KEY")
-    return make_lm(PROMPT_MODEL_ID, max_tokens=2000)
+def prompt_lm(model_id: str | None = None) -> dspy.LM:
+    """Build the MIPROv2 prompt-proposer LM.
+
+    `model_id` accepts either a short alias from PROMPT_MODEL_ALIASES
+    (e.g. 'haiku') or a fully-qualified provider/model id. None → default Sonnet.
+    """
+    resolved = resolve_prompt_model_id(model_id)
+    _require_for_model(resolved)
+    return make_lm(resolved, max_tokens=2000)
 
 
 def label_lm() -> dspy.LM:
