@@ -11,6 +11,16 @@ dependencies = [
     "python-dotenv>=1.0",
 ]
 
+[project.optional-dependencies]
+tracing = [
+    "arize-phoenix>=5.0",
+    "openinference-instrumentation-dspy>=0.1",
+    "opentelemetry-exporter-otlp>=1.25",
+]
+dev = [
+    "pytest>=8.0",
+]
+
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
