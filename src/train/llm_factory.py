@@ -24,9 +24,20 @@ def _require(env_var: str) -> None:
         )
 
 
-def make_lm(model_id: str, max_tokens: int = 500) -> dspy.LM:
-    """Build a dspy.LM with built-in retry. DSPy 3.x handles backoff via num_retries."""
-    return dspy.LM(model_id, max_tokens=max_tokens, num_retries=5)
+def make_lm(
+    model_id: str,
+    max_tokens: int = 500,
+    extra_body: dict | None = None,
+) -> dspy.LM:
+    """Build a dspy.LM with built-in retry. DSPy 3.x handles backoff via num_retries.
+
+    `extra_body` is forwarded to LiteLLM as provider-specific request params
+    (e.g. OpenRouter's `reasoning: {exclude: true}` for reasoning-models).
+    """
+    kwargs: dict = {"max_tokens": max_tokens, "num_retries": 8}
+    if extra_body:
+        kwargs["extra_body"] = extra_body
+    return dspy.LM(model_id, **kwargs)
 
 
 TASK_MODEL_ID = "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
@@ -83,8 +94,17 @@ def _require_for_model(model_id: str) -> None:
 
 
 def task_lm() -> dspy.LM:
+    # Disable OpenRouter's native reasoning channel so the full max_tokens budget
+    # goes to the JSON output. Nemotron is a reasoning model; without this, the
+    # hidden `reasoning_content` channel routinely eats the budget and the
+    # adapter fails to parse missing fields (~46% example-fail rate observed in
+    # train_v1 logs; see plans/nemotron-sharded-duckling.md).
     _require("OPENROUTER_API_KEY")
-    return make_lm(TASK_MODEL_ID, max_tokens=2500)
+    return make_lm(
+        TASK_MODEL_ID,
+        max_tokens=4000,
+        extra_body={"reasoning": {"exclude": True}},
+    )
 
 
 def prompt_lm(model_id: str | None = None) -> dspy.LM:
