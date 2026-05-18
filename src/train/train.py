@@ -273,7 +273,6 @@ def _write_artifacts(
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--budget", choices=["light", "medium"], default=None)
     p.add_argument(
         "--num-trials",
         type=int,
@@ -339,7 +338,7 @@ def main() -> None:
     dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
     try:
-        print(f"compiling MIPROv2 budget={args.budget} num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
+        print(f"compiling MIPROv2 num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
         print(f"run dir: {run_dir.relative_to(REPO_ROOT)}")
         print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
         print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
@@ -349,7 +348,7 @@ def main() -> None:
             metric=mae_metric,
             prompt_model=prompt,
             task_model=task,
-            auto=args.budget,
+            auto=None,
             num_threads=2,
             num_candidates=3
         )
@@ -358,8 +357,7 @@ def main() -> None:
             "requires_permission_to_run": False,
         }
         # DSPy MIPROv2: auto and num_trials are mutually exclusive — auto picks num_trials.
-        if args.budget is None:
-            compile_kwargs["num_trials"] = args.num_trials
+        compile_kwargs["num_trials"] = 3
         compiled = optimizer.compile(student, **compile_kwargs)
 
         print("evaluating on train...")
