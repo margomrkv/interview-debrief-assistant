@@ -51,6 +51,7 @@ def main() -> None:
     p.add_argument("--out", type=Path, default=None)
     args = p.parse_args()
 
+    args.prompt = args.prompt.resolve()
     prompt = _load_prompt(args.prompt)
     train, test, splits_meta = _load_data()
     examples = test if args.split == "test" else train
