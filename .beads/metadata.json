@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "am_best_offer",
+  "project_id": "6067a2b2-d9ef-4f84-b68b-4929a81cbf20"
+}

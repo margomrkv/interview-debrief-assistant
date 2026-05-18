@@ -28,3 +28,16 @@ env/
 .claude/hooks/.mermaid-cache.json
 .claude/hooks/package-lock.json
 .claude/settings.local.json
+
+# Secrets
+.env
+
+# Build artifacts
+*.egg-info/
+build/
+dist/
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
