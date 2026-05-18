@@ -335,7 +335,7 @@ def main() -> None:
             prompt_model=prompt,
             task_model=task,
             auto=args.budget,
-            num_threads=4,
+            num_threads=2,
         )
         compile_kwargs: dict[str, Any] = {
             "trainset": train,

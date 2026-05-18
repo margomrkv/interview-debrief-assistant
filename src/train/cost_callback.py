@@ -88,6 +88,11 @@ class CostCallback(BaseCallback):
         self._unknown_warned: set[str] = set()
         self._last_stderr_t: float = 0.0
         self._lock = threading.Lock()
+        # Counts DSPy-logger ERRORs that the LM callback can't see (adapter
+        # parse failures happen after on_lm_end with a healthy token count, so
+        # ModelStats.failures stays 0 even when MIPROv2 loses 46% of examples).
+        # Surfaced in render_summary; populated by MIPROPhaseHandler.emit.
+        self.parse_failures: int = 0
         jsonl_path.parent.mkdir(parents=True, exist_ok=True)
         self._jsonl_fp = open(jsonl_path, "a", encoding="utf-8")
         self.jsonl_path = jsonl_path
@@ -237,6 +242,7 @@ class CostCallback(BaseCallback):
             "total_in": total_in,
             "total_out": total_out,
             "total_spend": round(total_spend, 6),
+            "parse_failures": self.parse_failures,
             "jsonl_path": str(self.jsonl_path),
         }
 
@@ -255,7 +261,13 @@ class CostCallback(BaseCallback):
 
 
 class MIPROPhaseHandler(logging.Handler):
-    """Sniff `dspy.teleprompt.mipro_v2` INFO records to update phase/trial on `cb`."""
+    """Sniff `dspy.teleprompt.mipro_v2` INFO records to update phase/trial on `cb`.
+
+    Also counts ERROR-level records from DSPy's parallelizer/bootstrap/utils
+    loggers as `cb.parse_failures` — these are adapter parse failures that
+    don't surface through the LM callback (the LM call itself succeeded; only
+    the structured-output extraction failed).
+    """
 
     _TRIAL_RE = re.compile(r"[Tt]rial\s+(\d+)\s*/?\s*(\d+)?")
 
@@ -264,6 +276,9 @@ class MIPROPhaseHandler(logging.Handler):
         self.cb = cb
 
     def emit(self, record: logging.LogRecord) -> None:
+        if record.levelno >= logging.ERROR:
+            with self.cb._lock:
+                self.cb.parse_failures += 1
         try:
             msg = record.getMessage()
         except Exception:
@@ -297,5 +312,8 @@ def cost_breakdown_markdown(summary: dict[str, Any]) -> list[str]:
         f"| **TOTAL** | {summary['total_calls']} | {summary['total_in']:,} | "
         f"{summary['total_out']:,} | **${summary['total_spend']:.4f}** |"
     )
+    parse_failures = summary.get("parse_failures", 0)
+    if parse_failures:
+        lines += ["", f"⚠ DSPy adapter parse-failures: **{parse_failures}** (examples lost during bootstrap/evaluate)"]
     lines += ["", f"JSONL log: `{summary['jsonl_path']}`"]
     return lines
