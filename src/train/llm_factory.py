@@ -40,7 +40,8 @@ def make_lm(
     return dspy.LM(model_id, **kwargs)
 
 
-TASK_MODEL_ID = "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
+#TASK_MODEL_ID = "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
+TASK_MODEL_ID = "openrouter/openai/gpt-5.4-nano"
 # Default proposer: Haiku 4.5. Picked over Sonnet for ~3-4× lower cost; DSPy
 # community evidence (issue #1596, paper 2406.11695) suggests smaller proposer
 # performs as well or better. Override via prompt_lm(model_id=...) or
@@ -54,7 +55,7 @@ PROMPT_MODEL_ALIASES: dict[str, str] = {
     "sonnet": "anthropic/claude-sonnet-4-6",
     "haiku": "anthropic/claude-haiku-4-5-20251001",
     "gpt-4o-mini": "openai/gpt-4o-mini",
-    "gemini-flash": "gemini/gemini-2.5-flash",
+    "gemini-flash": "gemini/gemini-2.5-flash"
 }
 
 # Per-provider env var requirement for prompt_lm overrides.
@@ -119,5 +120,5 @@ def prompt_lm(model_id: str | None = None) -> dspy.LM:
 
 
 def label_lm() -> dspy.LM:
-    _require("ANTHROPIC_API_KEY")
+    _require("OPENROUTER_API_KEY")
     return make_lm(LABEL_MODEL_ID, max_tokens=1500)
