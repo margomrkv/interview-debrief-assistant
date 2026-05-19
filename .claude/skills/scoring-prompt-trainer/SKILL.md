@@ -1,81 +1,56 @@
 ---
 name: scoring-prompt-trainer
-description: Phase 3 trainer для prompt evaluator'а scoring-evaluator. Запускает DSPy MIPROv2 на train/hard_skills.json, оптимизирует prompt против golden labels, пишет все артефакты одного прогона в runs/<YYYY-MM-DD_HH-MM-SS>/ (локальная TZ). Аргументы:  --num-trials, --prompt-model
+description: Phase 3 trainer для prompt evaluator'а scoring-evaluator. Тонкая обёртка над `scripts/train_prompt.py`, которая прогоняет build_splits → train → evaluate одной командой и складывает артефакты в `runs/<run_id>/`.
 ---
 
 # Skill: Scoring Prompt Trainer
 
-## Идентификация прогонов
-
-Каждый запуск скилла создаёт новую папку `runs/<YYYY-MM-DD_HH-MM-SS>/` (timestamp в локальной TZ, фиксируется один раз в начале запуска). Имя папки = `run_id`; оно же пишется в frontmatter prompt'а и в заголовок отчёта. 
-
 ## Назначение
 
-Один прогон = один train→test цикл MIPROv2 над hard-QA golden set'ом. Артефакты:
+Один прогон = один `build_splits → train → evaluate` цикл MIPROv2 над hard-QA golden set'ом. Все артефакты одного прогона живут в `runs/<run_id>/`, где `run_id = YYYY-MM-DD_HH-MM-SS` (локальная TZ, генерируется обёрткой и симметрично прокидывается в `train` и `evaluate` через `--run-id`).
 
-- `kb/splits.json` — фиксированный train/test индекс (детерминированно по seed=42; один раз, не перетирается).
-- `runs/<run_id>/evaluator_prompt.md` — обученный system prompt + frontmatter с метриками.
-- `runs/<run_id>/train_report.md` — MAE per metric/source, worst-20 cases, bootstrap CI.
-- `runs/<run_id>/logs/train.jsonl` — per-call cost/tokens/latency (CostCallback).
-- `runs/<run_id>/logs/train.trace.jsonl` — полные prompt+response per LM call (PromptTracer).
-- `runs/<run_id>/eval_<split>.md` — отчёт evaluate.py (пишется рядом с prompt'ом, см. Шаг 3).
+После прогона `runs/<run_id>/evaluator_prompt.md` подключается как system-prompt к субагенту `.claude/agents/scoring-evaluator.md`. Папка `runs/` целиком в `.gitignore`.
 
-После прогона артефакт `runs/<run_id>/evaluator_prompt.md` подключается как system-prompt к субагенту `.claude/agents/scoring-evaluator.md` (живёт параллельно с eval-{hard,soft,behavioral}, не ломает Phase 2 binary-контракт).
-
-Папка `runs/` целиком в `.gitignore`. Старые `kb/evaluator_prompt_v*.md` и `logs/train_v*.jsonl` оставлены как исторические артефакты предыдущей схемы.
-
-### Observability (опционально)
-
-- **Phoenix UI** на http://localhost:6006 — интерактивное дерево compile→trial→LM call. Требует `pip install -e ".[tracing]"`. Отключается флагом `--no-phoenix`. Project name в Phoenix: `evaluator-train-<run_id>`.
-
-## Архитектура (контекст)
+## Архитектура
 
 ```mermaid
 flowchart LR
-    TJ["train/hard_skills.json<br/>81 labeled hard QA (Opus)"] --> BS["build_splits<br/>kb/splits.json"]
-    SR["shared-evaluator-rules.md<br/>(seed prompt)"] --> TR["train.py<br/>MIPROv2"]
-    BS --> TR
-    PM["PROMPT_LM<br/>Haiku 4.5 (default)"] -. mutates .-> TR
-    TM["TASK_LM<br/>OpenRouter Nemotron free"] -. graded by .-> TR
-    TR --> PR["runs/&lt;run_id&gt;/evaluator_prompt.md"]
-    TR --> RP["runs/&lt;run_id&gt;/train_report.md"]
-    TR --> LG["runs/&lt;run_id&gt;/logs/train{,.trace}.jsonl"]
-    PR --> EV["evaluate.py"]
+    W["scripts/train_prompt.py"] -- "генерит run_id" --> RID["run_id"]
+    W --> BS["python -m src.kb.build_splits"]
+    W -- "--run-id" --> TR["python -m src.kb.train"]
+    W -- "--run-id" --> EV["python -m src.common.evaluate"]
+    BS --> SP["kb/splits.json"]
+    TR --> AR["runs/&lt;run_id&gt;/evaluator_prompt.md<br/>train_report.md, logs/*"]
     EV --> ER["runs/&lt;run_id&gt;/eval_&lt;split&gt;.md"]
 ```
 
-## Prerequisites
-
-1. `.env` с `ANTHROPIC_API_KEY` и `OPENROUTER_API_KEY` (см. `.env.example`).
-2. `pip install -e .` (deps: dspy-ai>=2.5, anthropic>=0.40). Для Phoenix UI: `pip install -e ".[tracing]"`.
-3. Golden set уже существует: `train/hard_skills.json` (81 labeled QA, 8 unscored auto-excluded).
-
-Если python падает с ошибкой, не правь его сам
-
-## Шаги
-
-Запускай именно эти действия после проверки пререквизитов, не читай другие файлы
-
-### Шаг 1 — Split
+## Запуск
 
 ```bash
-python -m src.kb.build_splits
-```
-Пишет `kb/splits.json`. Smoke: 2 source_id → 17/7 QA. Full: 6 source_ids → 57/24 QA.
-
-### Шаг 2 — Train
-
-```bash
-python -m src.kb.train 
+python scripts/train_prompt.py [options]
 ```
 
-В начале запуска stdout печатает путь к свежей папке `runs/<run_id>/`, куда сложатся `evaluator_prompt.md`, `train_report.md`, `logs/train.jsonl`, `logs/train.trace.jsonl`.
+Параметры (`python scripts/train_prompt.py --help`):
 
-### Шаг 3 — Evaluate
+- `--run-id STR` — переопределить run_id (default: now() в локальной TZ).
+- `--smoke` — быстрый цикл: 2 source_id, 17/7 QA (вместо 6/57/24).
+- `--num-trials INT` — MIPROv2 num_trials (default 3).
+- `--num-candidates INT` — MIPROv2 num_candidates (default: зеркалит num-trials).
+- `--prompt-model STR` — proposer LM: `haiku` | `sonnet` | `opus` | `gpt-4o-mini` | `gemini-flash` | полный id (default: `sonnet`).
+- `--no-phoenix` — отключить Phoenix UI (JSONL trace всё равно пишется).
+- `--eval-splits {test,train,both}` — какие split'ы прогнать в evaluate (default: `test`).
+- `--skip-eval` — только build+train, без evaluate.
 
-```bash
-python -m src.common.evaluate --prompt runs/<run_id>/evaluator_prompt.md --split test
-```
+## Артефакты одного прогона (`runs/<run_id>/`)
 
-Пишет `runs/<run_id>/eval_test.md` (рядом с prompt'ом) с MAE per metric/source_id и top-20 worst cases. Override места: `--out <path>`.
+- `evaluator_prompt.md` — обученный system prompt + frontmatter с метриками.
+- `train_report.md` — MAE per metric/source, worst-20 cases, bootstrap CI.
+- `logs/train.jsonl` — per-call cost/tokens/latency (CostCallback).
+- `logs/train.trace.jsonl` — полные prompt+response per LM call (PromptTracer).
+- `eval_<split>.md` — отчёт evaluate.py (MAE per metric/source_id, top-20 worst).
 
+## Прерогативы
+
+- **Phoenix UI** на http://localhost:6006 во время прогона (project: `evaluator-train-<run_id>`). Требует `pip install -e ".[tracing]"`.
+- **Re-evaluate существующего прогона:** `python -m src.common.evaluate --run-id <id> --split test|train`.
+- **Если python падает с ошибкой — не правь сам.** Сообщи о падении.

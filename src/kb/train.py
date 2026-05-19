@@ -206,11 +206,16 @@ def main() -> None:
         action="store_true",
         help="Disable Phoenix UI (JSONL trace still written).",
     )
+    p.add_argument(
+        "--run-id",
+        default=None,
+        help="Override run_id (default: generated from now() in local TZ).",
+    )
     args = p.parse_args()
 
     prompt_model_id = resolve_prompt_model_id(args.prompt_model)
 
-    run_id = _local_run_id()
+    run_id = args.run_id or _local_run_id()
     run_dir = RUNS_DIR / run_id
     (run_dir / "logs").mkdir(parents=True, exist_ok=True)
     prompt_path = run_dir / "evaluator_prompt.md"
