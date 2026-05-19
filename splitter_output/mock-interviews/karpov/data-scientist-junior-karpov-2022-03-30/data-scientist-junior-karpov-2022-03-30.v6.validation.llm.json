@@ -1,0 +1,130 @@
+{
+  "chapters": [
+    {
+      "chapter_time": "00:02:30",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:06:21",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:10:38",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:16:10",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "По этой главе не извлечено ни одного Q&A, поэтому проверить ни тайм-коды, ни соответствие содержанию нельзя."
+    },
+    {
+      "chapter_time": "00:19:00",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:20:35",
+      "time_alignment_ok": true,
+      "content_alignment_ok": false,
+      "notes": "Основная часть главы про дизайн A/B-теста распознана верно, но последний извлеченный вопрос уже относится к генерации распределений из следующей главы."
+    },
+    {
+      "chapter_time": "00:30:57",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "По этой главе не извлечено ни одного Q&A; вероятно, вопрос про генерацию распределений прилип к предыдущей главе."
+    },
+    {
+      "chapter_time": "00:32:26",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "По этой главе не извлечено ни одного Q&A, хотя здесь ожидается вопрос о необходимости нормальности распределения."
+    },
+    {
+      "chapter_time": "00:33:46",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:34:24",
+      "time_alignment_ok": true,
+      "content_alignment_ok": false,
+      "notes": "Первый вопрос соответствует сравнению ненормальных распределений, но второй уже уходит в тему ЦПТ и бутстрэпа, поэтому содержание главы смешано."
+    },
+    {
+      "chapter_time": "00:36:04",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "По этой главе не извлечено ни одного Q&A, поэтому глава про тест только на новых пользователях пропущена."
+    },
+    {
+      "chapter_time": "00:42:04",
+      "time_alignment_ok": false,
+      "content_alignment_ok": true,
+      "notes": "Содержание соответствует вопросу про Where и Having, но первый распознанный вопрос начинается заметно позже маркера главы."
+    },
+    {
+      "chapter_time": "00:44:20",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:45:57",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "Глава собрана неточно: сначала идет вопрос про оконные функции, а затем уже почти на границе следующей главы начинается задача про group by в Python."
+    },
+    {
+      "chapter_time": "00:47:49",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "По этой главе не извлечено ни одного Q&A; сама задача на group by, похоже, попала в предыдущую главу, потому что вопрос начинается в 00:47:46."
+    },
+    {
+      "chapter_time": "01:06:22",
+      "time_alignment_ok": true,
+      "content_alignment_ok": false,
+      "notes": "Большая часть главы про линейную регрессию распознана корректно, но последний извлеченный вопрос уже относится к градиентному спуску из следующей главы."
+    },
+    {
+      "chapter_time": "01:09:47",
+      "time_alignment_ok": false,
+      "content_alignment_ok": true,
+      "notes": "Тема градиентного спуска распознана верно, но первый извлеченный вопрос начинается почти через минуту после маркера главы."
+    },
+    {
+      "chapter_time": "01:14:06",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "01:22:20",
+      "time_alignment_ok": true,
+      "content_alignment_ok": false,
+      "notes": "Первый вопрос соответствует построению дерева, но второй уже переходит к теме случайного леса, вынесенной в следующую главу."
+    },
+    {
+      "chapter_time": "01:26:04",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "Вместо вопроса про случайный лес извлечен следующий вопрос про логистическую регрессию; это смещение и по времени, и по содержанию."
+    },
+    {
+      "chapter_time": "01:28:20",
+      "time_alignment_ok": false,
+      "content_alignment_ok": false,
+      "notes": "Глава не распознана: извлечено 0 элементов, хотя именно здесь должен быть последний вопрос со звездочкой про логистическую регрессию против случайного леса."
+    }
+  ]
+}

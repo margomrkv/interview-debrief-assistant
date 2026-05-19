@@ -6,7 +6,7 @@
 
 ### Область
 
-Только интервью. Лекции и произвольные видео — вне скоупа. Именование и структура выходных файлов консистентны с `transcripts/mock-template/` (см. `CLAUDE.md`).
+Только интервью. Лекции и произвольные видео — вне скоупа. Именование и структура выходных файлов консистентны с `transcripts/_template/` (см. `transcripts/README.md`, `CLAUDE.md`).
 
 ### Вход
 
@@ -15,7 +15,7 @@
 
 ### Выход
 
-На каждое интервью — папка с тремя файлами (формат `transcripts/mock-template/`):
+На каждое интервью — папка с тремя файлами (формат `transcripts/_template/`):
 - `video.md` — общая информация по видео (url, title, upload_date, duration, channel, chapters. description, view_count, like_count, tags, thumbnail_url, language)
 - `transcript.txt` — плейн-текст;
 - `timecodes.txt` — строки с префиксом `[mm:ss]` (всегда, не по флагу).
@@ -26,13 +26,21 @@
 
 Иерархия:
 
-- **Playlist**: `transcripts/<playlist-name>/<slug>-<YYYYMMDD>/`.
-- **Single video**: `transcripts/single_videos/<slug>-<YYYYMMDD>/` (фиксированный бакет).
+- **Playlist**: `transcripts/<playlist-name>/<slug>-<YYYY-MM-DD>/`.
+- **Single video**: `transcripts/<bucket>/<slug>-<YYYY-MM-DD>/` (default `--bucket single_videos`).
 
 ### Именование
 
-- **Single video**: `slug` и `date` передаются пользователем как обязательные аргументы CLI.
-- **Playlist**: `--playlist-name` задаёт имя папки-бакета (обязательный флаг). Для каждого видео внутри плейлиста `slug` автогенерируется из title видео, `date` — из `upload_date` YouTube. Пользователь при необходимости переименовывает папки под нужный convention (`mock-<company>-<role>-<level>-YYYY-MM-DD/` и т.п.).
+Полная спецификация: [`NAMING.md`](NAMING.md) (дубль в `transcripts/README.md`).
+
+Leaf (mock/real hiring):
+
+```text
+{kind}-{role}-{level}[-{target}]-{publisher}[-{candidate}][-{topic}]-{YYYY-MM-DD}
+```
+
+- **Single video**: `--slug` = leaf **без даты** (например `mock-data-scientist-junior-karpov`), `--date` = `YYYYMMDD`, `--bucket` = путь под `transcripts/` (например `mock-interviews/karpov`).
+- **Playlist**: `--playlist-name` = бакет (`mock-interviews/karpov`, `real-interviews/novoselov`, …). Имя каждой вложенной папки автогенерируется из title YouTube — **после выкачки переименовать** в паттерн выше (скилл `download-transcript` помогает собрать slug).
 
 ### Язык
 

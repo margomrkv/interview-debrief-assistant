@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
