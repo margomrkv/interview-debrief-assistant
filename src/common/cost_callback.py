@@ -31,6 +31,7 @@ PRICES: dict[str, dict[str, float]] = {
     "anthropic/claude-sonnet-4-6": {"input": 3.0, "output": 15.0},
     "anthropic/claude-opus-4-7": {"input": 15.0, "output": 75.0},
     "anthropic/claude-haiku-4-5-20251001": {"input": 1.0, "output": 5.0},
+    "openrouter/openai/gpt-5.4-nano": {"input": 0.2, "output": 1.5},
     "openrouter/nvidia/nemotron-3-super-120b-a12b:free": {"input": 0.0, "output": 0.0},
 }
 
