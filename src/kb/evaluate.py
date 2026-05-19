@@ -10,10 +10,10 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.train.dspy_modules import METRICS
-from src.train.eval_runner import run_evaluation
-from src.train.llm_factory import TASK_MODEL_ID
-from src.train.train import _load_data
+from src.kb.dspy_modules import METRICS
+from src.kb.eval_runner import run_evaluation
+from src.kb.llm_factory import TASK_MODEL_ID
+from src.kb.train import _load_data
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 

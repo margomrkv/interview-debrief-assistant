@@ -14,14 +14,14 @@ from typing import Any
 
 import dspy
 
-from src.train.dspy_modules import (
+from src.kb.dspy_modules import (
     METRICS,
     ScoringEvaluator,
     accuracy_pm1,
     bootstrap_ci_95,
     mae_raw,
 )
-from src.train.llm_factory import task_lm
+from src.kb.llm_factory import task_lm
 
 logger = logging.getLogger(__name__)
 
