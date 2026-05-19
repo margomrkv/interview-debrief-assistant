@@ -1,54 +1,57 @@
-"""Train the scoring evaluator prompt via DSPy MIPROv2.
+"""Train the scoring evaluator prompt via DSPy MIPROv2 and write a full run.
 
-Reads kb/splits.json + train/hard_skills.json, optimizes ScoringEvaluator,
-writes all artifacts of a single run into runs/<YYYY-MM-DD_HH-MM-SS>/ (local TZ):
-evaluator_prompt.md, train_report.md, logs/train.jsonl, logs/train.trace.jsonl.
+`run_kb_pipeline` is the single in-process pipeline that powers `scripts/kb.py`:
+  1. build_splits → kb/splits.json
+  2. MIPROv2 compile on the train split (writes evaluator_prompt.md, train_report.md, logs/*)
+  3. evaluate(prompt) on the requested split(s) (writes eval_<split>.md)
 
-See plan §"Step 4 — Train script".
+All artifacts of a single run live in `runs/<run_id>/` (default run_id = local TZ
+timestamp). No argparse / subprocess: callers either invoke from a CLI wrapper
+(see `scripts/kb.py`) or import and call `run_kb_pipeline(...)` directly.
 """
 from __future__ import annotations
 
-import argparse
 import datetime as dt
 import json
 import logging
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
-# MUST be imported before dspy/litellm — installs warning filters at import time.
-from src.common.logging_setup import configure_logging  # noqa: I001
+import dspy
+from dspy.teleprompt import MIPROv2
 
-import dspy  # noqa: E402
-from dspy.teleprompt import MIPROv2  # noqa: E402
-
-from src.common.cost_callback import (  # noqa: E402
+from src.common.cost_callback import (
     CostCallback,
     MIPROPhaseHandler,
     cost_breakdown_markdown,
 )
-from src.common.dataset import load_split_examples  # noqa: E402
-from src.common.dspy_modules import (  # noqa: E402
+from src.common.dataset import load_split_examples
+from src.common.dspy_modules import (
     METRICS,
     ScoringEvaluator,
     mae_metric,
 )
-from src.common.eval_runner import run_evaluation  # noqa: E402
-from src.common.llm_factory import (  # noqa: E402
+from src.common.eval_runner import run_evaluation
+from src.common.llm_factory import (
     LABEL_MODEL_ID,
-    PROMPT_MODEL_ALIASES,
     TASK_MODEL_ID,
     prompt_lm,
     resolve_prompt_model_id,
     task_lm,
 )
-from src.common.prompt_tracer import PromptTracer  # noqa: E402
-from src.common.tracer_setup import setup_phoenix, shutdown_phoenix  # noqa: E402
+from src.common.prompt_tracer import PromptTracer
+from src.common.tracer_setup import setup_phoenix, shutdown_phoenix
+from src.kb.build_splits import (
+    DEFAULT_INPUT as DEFAULT_CORPUS,
+    DEFAULT_OUTPUT as DEFAULT_SPLITS,
+    build_splits,
+    log_split_summary,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-HARD_SKILLS = REPO_ROOT / "train" / "hard_skills.json"
-SPLITS = REPO_ROOT / "kb" / "splits.json"
-SEED_PROMPT = REPO_ROOT / ".claude" / "skills" / "assess-interview" / "shared-evaluator-rules.md"
-RUNS_DIR = REPO_ROOT / "runs"
+DEFAULT_RUNS_DIR = REPO_ROOT / "runs"
+
+EvalSplits = Literal["test", "train", "both", "none"]
 
 
 def _local_run_id() -> str:
@@ -180,59 +183,107 @@ def _write_artifacts(
     logger.info("wrote %s", report_path.relative_to(REPO_ROOT))
 
 
-def main() -> None:
-    p = argparse.ArgumentParser()
-    p.add_argument(
-        "--num-trials",
-        type=int,
-        default=3,
-        help="MIPROv2 num_trials (default 3). Higher = больше prompt-кандидатов, выше стоимость.",
-    )
-    p.add_argument(
-        "--num-candidates",
-        type=int,
-        default=None,
-        help=(
-            "MIPROv2 num_candidates (только когда --budget не задан). "
-            "Default: mirrors --num-trials. DSPy требует num_candidates+num_trials когда auto=None."
-        ),
-    )
-    p.add_argument(
-        "--prompt-model",
-        default=None,
-        help=(
-            "MIPROv2 proposer LM alias or fully-qualified id. "
-            f"Aliases: {sorted(PROMPT_MODEL_ALIASES)}. Default: sonnet."
-        ),
-    )
-    p.add_argument(
-        "--no-phoenix",
-        action="store_true",
-        help="Disable Phoenix UI (JSONL trace still written).",
-    )
-    p.add_argument(
-        "--run-id",
-        default=None,
-        help="Override run_id (default: generated from now() in local TZ).",
-    )
-    p.add_argument("--log-file", type=Path, default=None, help="Mirror logs into this file (append).")
-    p.add_argument("--verbose", action="store_true", help="DEBUG-level logging (e.g. cost throttle).")
-    args = p.parse_args()
+def _write_eval_report(
+    *,
+    prompt_path: Path,
+    split: str,
+    examples: list[dspy.Example],
+    metrics: dict[str, Any],
+    out_path: Path,
+) -> None:
+    run_label = prompt_path.parent.name
+    lines = [
+        f"# Eval report — {run_label} ({split})",
+        "",
+        f"- prompt: `{prompt_path.relative_to(REPO_ROOT)}`",
+        f"- task model: `{TASK_MODEL_ID}`",
+        f"- examples: {len(examples)} (failures: {metrics['fails']})",
+        "",
+        "## Aggregate",
+        "",
+        f"- MAE: **{metrics['mae']:.3f}** (95% CI: [{metrics['ci_low']:.3f}, {metrics['ci_high']:.3f}])",
+        f"- accuracy ±1: **{metrics['accuracy_pm1']:.3f}**",
+        "",
+        "## MAE per metric",
+        "",
+        "| metric | MAE |",
+        "|---|---|",
+    ]
+    for m in METRICS:
+        lines.append(f"| {m} | {metrics['per_metric_mae'][m]:.3f} |")
 
-    logger = configure_logging("train", log_file=args.log_file, verbose=args.verbose)
+    lines += ["", "## MAE per source_id", "", "| source_id | MAE | n |", "|---|---|---|"]
+    for src, mae in sorted(metrics["per_source_mae"].items(), key=lambda kv: -kv[1]):
+        lines.append(f"| {src} | {mae:.3f} | {metrics['per_source_n'][src]} |")
 
-    prompt_model_id = resolve_prompt_model_id(args.prompt_model)
+    lines += ["", "## Worst 20 cases", ""]
+    for i, (avg_err, ex, pr) in enumerate(metrics["worst"], 1):
+        ref = ex.reference_score
+        pred = {m: getattr(pr, m, None) for m in METRICS}
+        lines.append(
+            f"{i}. avg_err={avg_err:.2f} src={ex.source_id} "
+            f"ref={ref} pred={pred} q={ex.interviewer_question[:80]!r}"
+        )
 
-    run_id = args.run_id or _local_run_id()
-    run_dir = RUNS_DIR / run_id
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text("\n".join(lines) + "\n")
+    logger = logging.getLogger("train")
+    logger.info("wrote %s", out_path.relative_to(REPO_ROOT))
+
+
+def _resolve_eval_splits(eval_splits: EvalSplits) -> list[str]:
+    if eval_splits == "none":
+        return []
+    if eval_splits == "both":
+        return ["test", "train"]
+    return [eval_splits]
+
+
+def run_kb_pipeline(
+    *,
+    num_trials: int = 3,
+    num_candidates: int | None = None,
+    prompt_model: str | None = None,
+    smoke: bool = False,
+    no_phoenix: bool = False,
+    eval_splits: EvalSplits = "test",
+    run_id: str | None = None,
+    input_path: Path | None = None,
+    splits_path: Path | None = None,
+    runs_dir: Path | None = None,
+) -> Path:
+    """Build splits → MIPROv2 compile → eval(test/train) → write run artifacts.
+
+    Returns the run directory path. All side effects are confined to:
+      - `splits_path` (kb/splits.json) — overwritten by build_splits
+      - `runs_dir/<run_id>/` — fresh directory with prompt, reports, logs
+    """
+    logger = logging.getLogger("train")
+    corpus = input_path or DEFAULT_CORPUS
+    splits_out = splits_path or DEFAULT_SPLITS
+    runs_root = runs_dir or DEFAULT_RUNS_DIR
+
+    prompt_model_id = resolve_prompt_model_id(prompt_model)
+    run_id = run_id or _local_run_id()
+    run_dir = runs_root / run_id
     (run_dir / "logs").mkdir(parents=True, exist_ok=True)
     prompt_path = run_dir / "evaluator_prompt.md"
     report_path = run_dir / "train_report.md"
     jsonl_path = run_dir / "logs" / "train.jsonl"
     trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
 
-    train, test, splits_meta = load_split_examples(HARD_SKILLS, SPLITS)
-    seed_prompt = 'Оцени ответ кандидата'
+    # Step 1 — build splits
+    splits_meta = build_splits(
+        input_path=corpus,
+        output_path=splits_out,
+        smoke=smoke,
+    )
+    log_split_summary(splits_meta, logger)
+    logger.info("wrote %s", splits_out.relative_to(REPO_ROOT))
+
+    # Step 2 — train (MIPROv2 compile) + write prompt/report
+    train, test, _ = load_split_examples(corpus, splits_out)
+    seed_prompt = "Оцени ответ кандидата"
 
     student = ScoringEvaluator()
     student.score.predict.signature = student.score.predict.signature.with_instructions(seed_prompt)
@@ -242,9 +293,6 @@ def main() -> None:
 
     cb = CostCallback(version=run_id, jsonl_path=jsonl_path)
     tracer = PromptTracer(version=run_id, jsonl_path=trace_jsonl_path, phase_ref=cb)
-    # MIPROPhaseHandler is a sniffer (not a renderer): it watches INFO records
-    # on DSPy's optimizer/evaluator loggers and mutates cb.current_phase /
-    # cb.parse_failures. Display formatting is now owned by configure_logging.
     phase_handler = MIPROPhaseHandler(cb)
     mipro_loggers = [
         logging.getLogger("dspy.teleprompt.mipro_optimizer_v2"),
@@ -253,58 +301,49 @@ def main() -> None:
     ]
     for lg in mipro_loggers:
         lg.addHandler(phase_handler)
+        lg.setLevel(logging.INFO)
 
-    tp = None if args.no_phoenix else setup_phoenix(project_name=f"evaluator-train-{run_id}")
+    tp = None if no_phoenix else setup_phoenix(project_name=f"evaluator-train-{run_id}")
     dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
+    cached_metrics: dict[str, dict[str, Any]] = {}
     try:
-        logger.info(
-            "compiling MIPROv2 num_trials=%d task=%s prompt=%s",
-            args.num_trials, TASK_MODEL_ID, prompt_model_id,
-        )
-        logger.info("run dir: %s", run_dir.relative_to(REPO_ROOT))
-        logger.info("cost log: %s", jsonl_path.relative_to(REPO_ROOT))
-        logger.info("trace log: %s", trace_jsonl_path.relative_to(REPO_ROOT))
+        print(f"compiling MIPROv2 num_trials={num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
+        print(f"run dir: {run_dir.relative_to(REPO_ROOT)}")
+        print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
+        print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
         if tp is not None:
-            logger.info("phoenix UI: http://localhost:6006")
-        logger.info(
-            "metric note: 'Average Metric: X / N (Y%)' = sum of mae_metric across "
-            "N examples; mae_metric = 5 - mean_abs_err per metric, range 0..5. "
-            "Y% = avg * 100 (~500% perfect, ~400% current baseline)."
-        )
+            print("phoenix UI: http://localhost:6006")
         optimizer = MIPROv2(
             metric=mae_metric,
             prompt_model=prompt,
             task_model=task,
             auto=None,
             num_threads=2,
-            num_candidates=3
+            num_candidates=num_candidates if num_candidates is not None else num_trials,
         )
-        compile_kwargs: dict[str, Any] = {
-            "trainset": train,
-            "requires_permission_to_run": False,
-        }
-        # DSPy MIPROv2: auto and num_trials are mutually exclusive — auto picks num_trials.
-        compile_kwargs["num_trials"] = 3
-        compiled = optimizer.compile(student, **compile_kwargs)
+        compiled = optimizer.compile(
+            student,
+            trainset=train,
+            requires_permission_to_run=False,
+            num_trials=num_trials,
+        )
 
         # Production-mirror eval: run the extracted prompt through the same
-        # path evaluate.py uses (fresh ScoringEvaluator, clean dspy context,
+        # path `predict_all` uses (fresh ScoringEvaluator, clean dspy context,
         # no JSONAdapter / track_usage / callbacks). See am-best-offer-et4.
         compiled_prompt = _extract_prompt(compiled) or seed_prompt
-        logger.info("evaluating on train...")
+        print("evaluating on train...")
         train_metrics = run_evaluation(compiled_prompt, train, lm=task)
-        logger.info(
-            "  train MAE=%.3f  acc±1=%.3f",
-            train_metrics["mae"], train_metrics["accuracy_pm1"],
-        )
-        logger.info("evaluating on test...")
+        print(f"  train MAE={train_metrics['mae']:.3f}  acc±1={train_metrics['accuracy_pm1']:.3f}")
+        print("evaluating on test...")
         test_metrics = run_evaluation(compiled_prompt, test, lm=task)
-        logger.info(
-            "  test MAE=%.3f  acc±1=%.3f  CI=[%.3f,%.3f]",
-            test_metrics["mae"], test_metrics["accuracy_pm1"],
-            test_metrics["ci_low"], test_metrics["ci_high"],
+        print(
+            f"  test MAE={test_metrics['mae']:.3f}  acc±1={test_metrics['accuracy_pm1']:.3f}  "
+            f"CI=[{test_metrics['ci_low']:.3f},{test_metrics['ci_high']:.3f}]"
         )
+        cached_metrics["train"] = train_metrics
+        cached_metrics["test"] = test_metrics
 
         cost_summary = cb.render_summary()
         _write_artifacts(
@@ -316,16 +355,15 @@ def main() -> None:
             test_metrics=test_metrics,
             splits_meta=splits_meta,
             seed_prompt=seed_prompt,
-            num_trials=args.num_trials,
+            num_trials=num_trials,
             prompt_model_id=prompt_model_id,
             cost_summary=cost_summary,
             trace_jsonl_path=trace_jsonl_path,
         )
-        logger.info(
-            "cost: $%.4f  calls=%d  tokens=%s",
-            cost_summary["total_spend"],
-            cost_summary["total_calls"],
-            f"{cost_summary['total_in'] + cost_summary['total_out']:,}",
+        print(
+            f"cost: ${cost_summary['total_spend']:.4f}  "
+            f"calls={cost_summary['total_calls']}  "
+            f"tokens={cost_summary['total_in'] + cost_summary['total_out']:,}"
         )
     finally:
         for lg in mipro_loggers:
@@ -334,6 +372,23 @@ def main() -> None:
         tracer.close()
         shutdown_phoenix(tp)
 
+    # Step 3 — eval reports per requested split (reuse train/test metrics from
+    # the post-compile production-mirror eval — identical to what evaluate.py
+    # used to compute, just without spawning a subprocess).
+    for split in _resolve_eval_splits(eval_splits):
+        examples = train if split == "train" else test
+        metrics = cached_metrics[split]
+        out = run_dir / f"eval_{split}.md"
+        _write_eval_report(
+            prompt_path=prompt_path,
+            split=split,
+            examples=examples,
+            metrics=metrics,
+            out_path=out,
+        )
+        print(
+            f"  {split}: MAE={metrics['mae']:.3f}  acc±1={metrics['accuracy_pm1']:.3f}  "
+            f"failures={metrics['fails']}  → {out.relative_to(REPO_ROOT)}"
+        )
 
-if __name__ == "__main__":
-    main()
+    return run_dir

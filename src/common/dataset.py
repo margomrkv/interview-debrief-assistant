@@ -43,6 +43,18 @@ def _to_example(item: dict[str, Any]) -> dspy.Example:
     ).with_inputs(*INPUT_FIELDS)
 
 
+def _to_inference_example(item: dict[str, Any], source_id: str) -> dspy.Example:
+    return dspy.Example(
+        interviewer_question=_text(item["interviewer_question"]),
+        candidate_answer=_text(item["candidate_answer"]),
+        reference_answer=_text(item.get("reference_answer")),
+        interviewer_feedback=_text(item.get("interviewer_feedback")),
+        question_topic=item.get("question_topic", "") or "",
+        interview_stage=item.get("interview_stage", "") or "",
+        source_id=source_id,
+    ).with_inputs(*INPUT_FIELDS)
+
+
 def load_split_examples(
     corpus_path: Path,
     splits_path: Path,
@@ -53,3 +65,17 @@ def load_split_examples(
     train = [_to_example(items[i]) for i in splits["train_indices"]]
     test = [_to_example(items[i]) for i in splits["test_indices"]]
     return train, test, splits
+
+
+def load_splitter_examples(
+    splitter_json: Path,
+) -> tuple[list[dspy.Example], str]:
+    """Load a splitter-output JSON for production inference (no reference_score).
+
+    Returns (examples, source_id). Examples carry the same INPUT_FIELDS as
+    train/test, so the same ScoringEvaluator can run on them.
+    """
+    raw = json.loads(splitter_json.read_text())
+    source_id = raw["source_id"]
+    examples = [_to_inference_example(it, source_id) for it in raw["items"]]
+    return examples, source_id
