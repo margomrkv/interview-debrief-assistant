@@ -7,7 +7,11 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.ar.score import score_interview
+# MUST be imported before src.ar.score (which imports dspy/litellm) so the
+# litellm bedrock/sagemaker pre-load warnings are filtered at import time.
+from src.common.logging_setup import configure_logging  # noqa: I001
+
+from src.ar.score import score_interview  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,7 +38,20 @@ def main() -> None:
         default=None,
         help="Output path (default: <splitter parent>/<source_id>.scores.json).",
     )
+    p.add_argument(
+        "--log-file",
+        type=Path,
+        default=None,
+        help="Mirror logs into this file (append).",
+    )
+    p.add_argument(
+        "--verbose",
+        action="store_true",
+        help="DEBUG-level logging.",
+    )
     args = p.parse_args()
+
+    logger = configure_logging("ar", log_file=args.log_file, verbose=args.verbose)
 
     out = score_interview(
         splitter_json=args.splitter.resolve(),
@@ -42,10 +59,9 @@ def main() -> None:
         out_path=args.out.resolve() if args.out else None,
     )
     try:
-        rel = out.relative_to(REPO_ROOT)
-        print(f"wrote {rel}")
+        logger.info("wrote %s", out.relative_to(REPO_ROOT))
     except ValueError:
-        print(f"wrote {out}")
+        logger.info("wrote %s", out)
 
 
 if __name__ == "__main__":
