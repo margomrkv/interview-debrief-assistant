@@ -40,16 +40,18 @@ def _predict_one(student: dspy.Module, ex: dspy.Example) -> Any:
         return type("FailedPred", (), {m: None for m in METRICS} | {"_error": repr(e)})()
 
 
-def run_evaluation(
+def predict_all(
     prompt_text: str,
     examples: list[dspy.Example],
     *,
     lm: dspy.LM | None = None,
-) -> dict[str, Any]:
-    """Evaluate `prompt_text` on `examples` in a production-mirror dspy context.
+) -> list[Any]:
+    """Run `prompt_text` over `examples` in a production-mirror dspy context.
 
     Isolates from any caller-set `dspy.settings` (JSONAdapter, track_usage,
     callbacks) so the result equals what the prompt will produce in deployment.
+    Returns predictions only (no aggregation, no reference_score required).
+    Failures are returned as objects with `_error` set and METRICS attrs as None.
     """
     student = ScoringEvaluator()
     student.score.predict.signature = student.score.predict.signature.with_instructions(prompt_text)
@@ -60,7 +62,22 @@ def run_evaluation(
         callbacks=[],
         track_usage=False,
     ):
-        preds = [_predict_one(student, ex) for ex in examples]
+        return [_predict_one(student, ex) for ex in examples]
+
+
+def run_evaluation(
+    prompt_text: str,
+    examples: list[dspy.Example],
+    *,
+    lm: dspy.LM | None = None,
+) -> dict[str, Any]:
+    """Evaluate `prompt_text` on `examples` against their reference_score.
+
+    Thin wrapper over `predict_all` that aggregates MAE / accuracy±1 / bootstrap
+    CI / per-source-id / per-metric / worst cases. Examples MUST carry a
+    `reference_score` dict.
+    """
+    preds = predict_all(prompt_text, examples, lm=lm)
 
     fails = sum(1 for p in preds if getattr(p, "_error", None))
     mae = mae_raw(preds, examples)

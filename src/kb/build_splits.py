@@ -4,14 +4,11 @@ See plan §"Fixed decisions" D7, D8, D13.
 """
 from __future__ import annotations
 
-import argparse
 import json
 import logging
 import random
 from pathlib import Path
 from typing import Any
-
-from src.common.logging_setup import configure_logging
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = REPO_ROOT / "train" / "hard_skills.json"
@@ -96,7 +93,7 @@ def build_splits(
     return result
 
 
-def _log_summary(result: dict[str, Any], logger: logging.Logger) -> None:
+def log_split_summary(result: dict[str, Any], logger: logging.Logger) -> None:
     s = result["stats"]
     logger.info(
         "split: %d train / %d test (excluded unscored: %d)",
@@ -104,31 +101,3 @@ def _log_summary(result: dict[str, Any], logger: logging.Logger) -> None:
     )
     for src, b in s["per_source"].items():
         logger.info("  %s: %d train / %d test", src, b["train"], b["test"])
-
-
-def main() -> None:
-    p = argparse.ArgumentParser(description="Build kb/splits.json from train/hard_skills.json")
-    p.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    p.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    p.add_argument("--train-ratio", type=float, default=0.7)
-    p.add_argument("--seed", type=int, default=42)
-    p.add_argument("--smoke", action="store_true", help=f"limit to first {SMOKE_SOURCE_COUNT} source_ids")
-    p.add_argument("--log-file", type=Path, default=None, help="Mirror logs into this file (append).")
-    p.add_argument("--verbose", action="store_true", help="DEBUG-level logging (e.g. cost throttle).")
-    args = p.parse_args()
-
-    logger = configure_logging("build_splits", log_file=args.log_file, verbose=args.verbose)
-
-    result = build_splits(
-        input_path=args.input,
-        output_path=args.output,
-        train_ratio=args.train_ratio,
-        seed=args.seed,
-        smoke=args.smoke,
-    )
-    _log_summary(result, logger)
-    logger.info("wrote %s", args.output.relative_to(REPO_ROOT))
-
-
-if __name__ == "__main__":
-    main()
