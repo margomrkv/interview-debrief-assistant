@@ -35,12 +35,27 @@ def _load_prompt(path: Path) -> str:
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--prompt", type=Path, required=True, help="Path to runs/<ts>/evaluator_prompt.md")
+    p.add_argument(
+        "--prompt",
+        type=Path,
+        default=None,
+        help="Path to runs/<ts>/evaluator_prompt.md (default: derived from --run-id).",
+    )
+    p.add_argument(
+        "--run-id",
+        default=None,
+        help="Run identifier; if --prompt is omitted, resolves to runs/<run-id>/evaluator_prompt.md.",
+    )
     p.add_argument("--split", choices=["train", "test"], default="test")
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     p.add_argument("--splits", type=Path, default=DEFAULT_SPLITS)
     args = p.parse_args()
+
+    if args.prompt is None:
+        if args.run_id is None:
+            p.error("either --prompt or --run-id must be provided")
+        args.prompt = REPO_ROOT / "runs" / args.run_id / "evaluator_prompt.md"
 
     args.prompt = args.prompt.resolve()
     prompt = _load_prompt(args.prompt)
