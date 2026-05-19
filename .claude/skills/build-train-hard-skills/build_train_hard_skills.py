@@ -1,9 +1,7 @@
-"""Собирает train/hard_skills.json из splitter_output/*.splitter.v*.json.
+"""Собирает train/hard_skills.json из splitter_output/**/*.v*.qa-split.json (и legacy *.qa-split.v*.json).
 
 Берёт только последнюю версию (vN) на каждый source_id, фильтрует
 question_type == "hard", добавляет в каждый item поле source_id первым.
-Дубликат старого имени junior_data_scientist_собеседование_karpov_courses_20220330
-исключён по согласованию (канон — karpov_junior_ds_20220330).
 """
 
 from __future__ import annotations
@@ -14,28 +12,28 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parents[3]
 SPLITTER_DIR = REPO_ROOT / "splitter_output"
 OUT_PATH = REPO_ROOT / "train" / "hard_skills.json"
 
-EXCLUDED_SOURCE_IDS = {
-    "junior_data_scientist_собеседование_karpov_courses_20220330",
-}
-
-VERSION_RE = re.compile(r"\.splitter\.v(\d+)\b")
+VERSION_RE_NEW = re.compile(r"\.v(\d+)\.qa-split\.json$")
+VERSION_RE_OLD = re.compile(r"\.qa-split\.v(\d+)\.json$")
 
 
 def parse_version(path: Path) -> int:
-    m = VERSION_RE.search(path.name)
+    m = VERSION_RE_NEW.search(path.name) or VERSION_RE_OLD.search(path.name)
     if not m:
-        raise ValueError(f"no .splitter.vN in filename: {path.name}")
+        raise ValueError(f"no vN qa-split json in filename: {path.name}")
     return int(m.group(1))
 
 
 def main() -> int:
-    files = sorted(SPLITTER_DIR.glob("*.splitter.v*.json"))
+    files = sorted(
+        set(SPLITTER_DIR.glob("**/*.v*.qa-split.json"))
+        | set(SPLITTER_DIR.glob("**/*.qa-split.v*.json"))
+    )
     if not files:
-        print(f"no splitter files in {SPLITTER_DIR}", file=sys.stderr)
+        print(f"no qa-split json files in {SPLITTER_DIR}", file=sys.stderr)
         return 1
 
     latest_per_source: dict[str, tuple[int, Path, dict]] = {}
@@ -46,9 +44,6 @@ def main() -> int:
         source_id = data.get("source_id")
         if not source_id:
             print(f"WARN: {f.name} has no source_id, skipping", file=sys.stderr)
-            continue
-        if source_id in EXCLUDED_SOURCE_IDS:
-            print(f"skip (excluded duplicate): {f.name}", file=sys.stderr)
             continue
         prev = latest_per_source.get(source_id)
         if prev is None or version > prev[0]:

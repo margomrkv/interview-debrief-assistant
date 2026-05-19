@@ -2,6 +2,10 @@
 
 This project uses **bd** (beads) for issue tracking. Run `bd prime` for full workflow context.
 
+## Splitter pipeline
+
+Reproducible Q&A split: **`.claude/skills/splitter/SKILL.md`** (Cursor + Claude Code). Post-LLM: `scripts/splitter_post.sh`.
+
 ## Quick Reference
 
 ```bash
