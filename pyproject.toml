@@ -2,7 +2,7 @@
 name = "am-best-offer"
 version = "0.1.0"
 description = "Course project: interview transcripts → structured assessment"
-requires-python = ">=3.11"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "dspy-ai>=2.5",
     "optuna>=3.5",
