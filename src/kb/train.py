@@ -18,20 +18,20 @@ from typing import Any
 import dspy
 from dspy.teleprompt import MIPROv2
 
-from src.train.cost_callback import (
+from src.kb.cost_callback import (
     CostCallback,
     MIPROPhaseHandler,
     cost_breakdown_markdown,
 )
-from src.train.prompt_tracer import PromptTracer
-from src.train.tracer_setup import setup_phoenix, shutdown_phoenix
-from src.train.dspy_modules import (
+from src.kb.prompt_tracer import PromptTracer
+from src.kb.tracer_setup import setup_phoenix, shutdown_phoenix
+from src.kb.dspy_modules import (
     METRICS,
     ScoringEvaluator,
     mae_metric,
 )
-from src.train.eval_runner import INPUT_FIELDS, run_evaluation
-from src.train.llm_factory import (
+from src.kb.eval_runner import INPUT_FIELDS, run_evaluation
+from src.kb.llm_factory import (
     LABEL_MODEL_ID,
     PROMPT_MODEL_ALIASES,
     TASK_MODEL_ID,

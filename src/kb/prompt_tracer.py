@@ -19,7 +19,7 @@ from typing import Any
 
 from dspy.utils.callback import BaseCallback
 
-from src.train.cost_callback import CostCallback
+from src.kb.cost_callback import CostCallback
 
 _log = logging.getLogger(__name__)
 
