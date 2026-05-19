@@ -10,12 +10,14 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.kb.dspy_modules import METRICS
-from src.kb.eval_runner import run_evaluation
-from src.kb.llm_factory import TASK_MODEL_ID
-from src.kb.train import _load_data
+from src.common.dataset import load_split_examples
+from src.common.dspy_modules import METRICS
+from src.common.eval_runner import run_evaluation
+from src.common.llm_factory import TASK_MODEL_ID
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_CORPUS = REPO_ROOT / "train" / "hard_skills.json"
+DEFAULT_SPLITS = REPO_ROOT / "kb" / "splits.json"
 
 
 def _strip_frontmatter(text: str) -> str:
@@ -36,11 +38,13 @@ def main() -> None:
     p.add_argument("--prompt", type=Path, required=True, help="Path to runs/<ts>/evaluator_prompt.md")
     p.add_argument("--split", choices=["train", "test"], default="test")
     p.add_argument("--out", type=Path, default=None)
+    p.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
+    p.add_argument("--splits", type=Path, default=DEFAULT_SPLITS)
     args = p.parse_args()
 
     args.prompt = args.prompt.resolve()
     prompt = _load_prompt(args.prompt)
-    train, test, _ = _load_data()
+    train, test, _ = load_split_examples(args.corpus, args.splits)
     examples = test if args.split == "test" else train
 
     print(f"evaluating {len(examples)} {args.split} examples with prompt={args.prompt.name} on {TASK_MODEL_ID}")

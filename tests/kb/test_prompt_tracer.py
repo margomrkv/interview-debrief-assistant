@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from src.kb.cost_callback import CostCallback
-from src.kb.prompt_tracer import PromptTracer
+from src.common.cost_callback import CostCallback
+from src.common.prompt_tracer import PromptTracer
 
 
 class _FakeLM:

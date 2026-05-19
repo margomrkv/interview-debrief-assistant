@@ -14,25 +14,17 @@ from typing import Any
 
 import dspy
 
-from src.kb.dspy_modules import (
+from src.common.dataset import INPUT_FIELDS
+from src.common.dspy_modules import (
     METRICS,
     ScoringEvaluator,
     accuracy_pm1,
     bootstrap_ci_95,
     mae_raw,
 )
-from src.kb.llm_factory import task_lm
+from src.common.llm_factory import task_lm
 
 logger = logging.getLogger(__name__)
-
-INPUT_FIELDS: tuple[str, ...] = (
-    "interviewer_question",
-    "candidate_answer",
-    "reference_answer",
-    "interviewer_feedback",
-    "question_topic",
-    "interview_stage",
-)
 
 
 def _predict_one(student: dspy.Module, ex: dspy.Example) -> Any:
