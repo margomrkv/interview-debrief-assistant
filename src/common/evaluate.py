@@ -10,10 +10,13 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.common.dataset import load_split_examples
-from src.common.dspy_modules import METRICS
-from src.common.eval_runner import run_evaluation
-from src.common.llm_factory import TASK_MODEL_ID
+# MUST be imported before dspy/litellm — installs warning filters at import time.
+from src.common.logging_setup import configure_logging  # noqa: I001
+
+from src.common.dataset import load_split_examples  # noqa: E402
+from src.common.dspy_modules import METRICS  # noqa: E402
+from src.common.eval_runner import run_evaluation  # noqa: E402
+from src.common.llm_factory import TASK_MODEL_ID  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CORPUS = REPO_ROOT / "train" / "hard_skills.json"
@@ -50,7 +53,11 @@ def main() -> None:
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     p.add_argument("--splits", type=Path, default=DEFAULT_SPLITS)
+    p.add_argument("--log-file", type=Path, default=None, help="Mirror logs into this file (append).")
+    p.add_argument("--verbose", action="store_true", help="DEBUG-level logging (e.g. cost throttle).")
     args = p.parse_args()
+
+    logger = configure_logging("evaluate", log_file=args.log_file, verbose=args.verbose)
 
     if args.prompt is None:
         if args.run_id is None:
@@ -62,7 +69,10 @@ def main() -> None:
     train, test, _ = load_split_examples(args.corpus, args.splits)
     examples = test if args.split == "test" else train
 
-    print(f"evaluating {len(examples)} {args.split} examples with prompt={args.prompt.name} on {TASK_MODEL_ID}")
+    logger.info(
+        "evaluating %d %s examples with prompt=%s on %s",
+        len(examples), args.split, args.prompt.name, TASK_MODEL_ID,
+    )
     metrics = run_evaluation(prompt, examples)
 
     run_label = args.prompt.parent.name
@@ -103,10 +113,11 @@ def main() -> None:
         )
 
     out.write_text("\n".join(lines) + "\n")
-    print(f"wrote {out.relative_to(REPO_ROOT)}")
-    print(
-        f"MAE={metrics['mae']:.3f}  acc±1={metrics['accuracy_pm1']:.3f}  "
-        f"CI=[{metrics['ci_low']:.3f},{metrics['ci_high']:.3f}]  failures={metrics['fails']}"
+    logger.info("wrote %s", out.relative_to(REPO_ROOT))
+    logger.info(
+        "MAE=%.3f  acc±1=%.3f  CI=[%.3f,%.3f]  failures=%d",
+        metrics["mae"], metrics["accuracy_pm1"],
+        metrics["ci_low"], metrics["ci_high"], metrics["fails"],
     )
 
 

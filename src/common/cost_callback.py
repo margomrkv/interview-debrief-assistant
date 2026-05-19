@@ -2,7 +2,8 @@
 
 Hooks all LM calls via `dspy.utils.callback.BaseCallback`, aggregates tokens
 and dollars per model using an explicit `PRICES` table, and writes one JSONL
-line per call. Stderr summary is throttled to `stderr_throttle_sec`.
+line per call. Throttled summary is emitted via `logger.debug` (hidden by
+default; surfaced with `--verbose`).
 
 Phase/trial tracking is handled by `MIPROPhaseHandler`, a `logging.Handler`
 that sniffs INFO records from `dspy.teleprompt.mipro_v2`.
@@ -15,7 +16,6 @@ from __future__ import annotations
 import json
 import logging
 import re
-import sys
 import threading
 import time
 from collections import defaultdict
@@ -41,7 +41,7 @@ _SHORT_NAMES: dict[str, str] = {
     "openrouter/nvidia/nemotron-3-super-120b-a12b:free": "nemotron",
 }
 
-_log = logging.getLogger(__name__)
+_log = logging.getLogger("cost")
 
 
 @dataclass
@@ -72,11 +72,11 @@ class CostCallback(BaseCallback):
         version: str,
         jsonl_path: Path,
         prices: dict[str, dict[str, float]] | None = None,
-        stderr_throttle_sec: float = 2.0,
+        throttle_sec: float = 2.0,
     ) -> None:
         self.version = version
         self.prices = prices if prices is not None else PRICES
-        self.stderr_throttle_sec = stderr_throttle_sec
+        self.throttle_sec = throttle_sec
         self.totals: dict[str, ModelStats] = defaultdict(ModelStats)
         self.current_phase: str = "init"
         self.current_trial: str = "-"
@@ -86,7 +86,7 @@ class CostCallback(BaseCallback):
         self._call_history_len: dict[str, int] = {}
         self._claimed_uuids: set[str] = set()
         self._unknown_warned: set[str] = set()
-        self._last_stderr_t: float = 0.0
+        self._last_log_t: float = 0.0
         self._lock = threading.Lock()
         # Counts DSPy-logger ERRORs that the LM callback can't see (adapter
         # parse failures happen after on_lm_end with a healthy token count, so
@@ -162,9 +162,9 @@ class CostCallback(BaseCallback):
                 s.failures += 1
             phase = self.current_phase
             trial = self.current_trial
-            should_print = (now - self._last_stderr_t) >= self.stderr_throttle_sec
-            if should_print:
-                self._last_stderr_t = now
+            should_log = (now - self._last_log_t) >= self.throttle_sec
+            if should_log:
+                self._last_log_t = now
             snapshot = {m: (st.calls, st.in_tok, st.out_tok, st.spend) for m, st in self.totals.items()}
 
         # JSONL write (outside lock except for fp — fp itself is single-writer-safe enough
@@ -189,36 +189,31 @@ class CostCallback(BaseCallback):
             self._jsonl_fp.write(line + "\n")
             self._jsonl_fp.flush()
 
-        if should_print:
-            self._print_stderr(phase, trial, snapshot)
+        if should_log:
+            self._log_throttled(phase, trial, snapshot)
 
-    def _print_stderr(
+    def _log_throttled(
         self,
         phase: str,
         trial: str,
         snapshot: dict[str, tuple[int, int, int, float]],
     ) -> None:
+        if not _log.isEnabledFor(logging.DEBUG):
+            return
         try:
             total_calls = sum(v[0] for v in snapshot.values())
             total_in = sum(v[1] for v in snapshot.values())
             total_out = sum(v[2] for v in snapshot.values())
             total_spend = sum(v[3] for v in snapshot.values())
             parts = [f"{_short(m)}=${v[3]:.3f}" for m, v in snapshot.items()]
-            line = (
-                f"[{phase} {trial}] calls={total_calls}  "
-                f"in={total_in / 1000:.1f}k out={total_out / 1000:.1f}k  "
-                f"${total_spend:.3f}  ({' '.join(parts)})"
+            _log.debug(
+                "[%s %s] calls=%d  in=%.1fk out=%.1fk  $%.3f  (%s)",
+                phase, trial, total_calls,
+                total_in / 1000, total_out / 1000, total_spend,
+                " ".join(parts),
             )
-            # Write directly to the real underlying stderr to bypass any
-            # tqdm/asyncio wrapping that swallows ad-hoc prints during MIPRO.
-            stream = sys.__stderr__ or sys.stderr
-            try:
-                stream.write(line + "\n")
-                stream.flush()
-            except Exception:
-                print(line, file=sys.stderr, flush=True)
         except Exception as e:
-            _log.warning("CostCallback stderr render failed: %s", e)
+            _log.warning("CostCallback throttled render failed: %s", e)
 
     def render_summary(self) -> dict[str, Any]:
         with self._lock:

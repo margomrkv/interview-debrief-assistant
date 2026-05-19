@@ -15,22 +15,25 @@ import logging
 from pathlib import Path
 from typing import Any
 
-import dspy
-from dspy.teleprompt import MIPROv2
+# MUST be imported before dspy/litellm — installs warning filters at import time.
+from src.common.logging_setup import configure_logging  # noqa: I001
 
-from src.common.cost_callback import (
+import dspy  # noqa: E402
+from dspy.teleprompt import MIPROv2  # noqa: E402
+
+from src.common.cost_callback import (  # noqa: E402
     CostCallback,
     MIPROPhaseHandler,
     cost_breakdown_markdown,
 )
-from src.common.dataset import load_split_examples
-from src.common.dspy_modules import (
+from src.common.dataset import load_split_examples  # noqa: E402
+from src.common.dspy_modules import (  # noqa: E402
     METRICS,
     ScoringEvaluator,
     mae_metric,
 )
-from src.common.eval_runner import run_evaluation
-from src.common.llm_factory import (
+from src.common.eval_runner import run_evaluation  # noqa: E402
+from src.common.llm_factory import (  # noqa: E402
     LABEL_MODEL_ID,
     PROMPT_MODEL_ALIASES,
     TASK_MODEL_ID,
@@ -38,8 +41,8 @@ from src.common.llm_factory import (
     resolve_prompt_model_id,
     task_lm,
 )
-from src.common.prompt_tracer import PromptTracer
-from src.common.tracer_setup import setup_phoenix, shutdown_phoenix
+from src.common.prompt_tracer import PromptTracer  # noqa: E402
+from src.common.tracer_setup import setup_phoenix, shutdown_phoenix  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 HARD_SKILLS = REPO_ROOT / "train" / "hard_skills.json"
@@ -172,8 +175,9 @@ def _write_artifacts(
             f"- Просмотр: `jq 'select(.phase==\"propose\")' {rel}`",
         ]
     report_path.write_text("\n".join(lines) + "\n")
-    print(f"wrote {prompt_path.relative_to(REPO_ROOT)}")
-    print(f"wrote {report_path.relative_to(REPO_ROOT)}")
+    logger = logging.getLogger("train")
+    logger.info("wrote %s", prompt_path.relative_to(REPO_ROOT))
+    logger.info("wrote %s", report_path.relative_to(REPO_ROOT))
 
 
 def main() -> None:
@@ -211,7 +215,11 @@ def main() -> None:
         default=None,
         help="Override run_id (default: generated from now() in local TZ).",
     )
+    p.add_argument("--log-file", type=Path, default=None, help="Mirror logs into this file (append).")
+    p.add_argument("--verbose", action="store_true", help="DEBUG-level logging (e.g. cost throttle).")
     args = p.parse_args()
+
+    logger = configure_logging("train", log_file=args.log_file, verbose=args.verbose)
 
     prompt_model_id = resolve_prompt_model_id(args.prompt_model)
 
@@ -224,7 +232,7 @@ def main() -> None:
     trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
 
     train, test, splits_meta = load_split_examples(HARD_SKILLS, SPLITS)
-    seed_prompt = SEED_PROMPT.read_text()
+    seed_prompt = 'Оцени ответ кандидата'
 
     student = ScoringEvaluator()
     student.score.predict.signature = student.score.predict.signature.with_instructions(seed_prompt)
@@ -234,6 +242,9 @@ def main() -> None:
 
     cb = CostCallback(version=run_id, jsonl_path=jsonl_path)
     tracer = PromptTracer(version=run_id, jsonl_path=trace_jsonl_path, phase_ref=cb)
+    # MIPROPhaseHandler is a sniffer (not a renderer): it watches INFO records
+    # on DSPy's optimizer/evaluator loggers and mutates cb.current_phase /
+    # cb.parse_failures. Display formatting is now owned by configure_logging.
     phase_handler = MIPROPhaseHandler(cb)
     mipro_loggers = [
         logging.getLogger("dspy.teleprompt.mipro_optimizer_v2"),
@@ -242,18 +253,25 @@ def main() -> None:
     ]
     for lg in mipro_loggers:
         lg.addHandler(phase_handler)
-        lg.setLevel(logging.INFO)
 
     tp = None if args.no_phoenix else setup_phoenix(project_name=f"evaluator-train-{run_id}")
     dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
     try:
-        print(f"compiling MIPROv2 num_trials={args.num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
-        print(f"run dir: {run_dir.relative_to(REPO_ROOT)}")
-        print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
-        print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
+        logger.info(
+            "compiling MIPROv2 num_trials=%d task=%s prompt=%s",
+            args.num_trials, TASK_MODEL_ID, prompt_model_id,
+        )
+        logger.info("run dir: %s", run_dir.relative_to(REPO_ROOT))
+        logger.info("cost log: %s", jsonl_path.relative_to(REPO_ROOT))
+        logger.info("trace log: %s", trace_jsonl_path.relative_to(REPO_ROOT))
         if tp is not None:
-            print("phoenix UI: http://localhost:6006")
+            logger.info("phoenix UI: http://localhost:6006")
+        logger.info(
+            "metric note: 'Average Metric: X / N (Y%)' = sum of mae_metric across "
+            "N examples; mae_metric = 5 - mean_abs_err per metric, range 0..5. "
+            "Y% = avg * 100 (~500% perfect, ~400% current baseline)."
+        )
         optimizer = MIPROv2(
             metric=mae_metric,
             prompt_model=prompt,
@@ -274,12 +292,19 @@ def main() -> None:
         # path evaluate.py uses (fresh ScoringEvaluator, clean dspy context,
         # no JSONAdapter / track_usage / callbacks). See am-best-offer-et4.
         compiled_prompt = _extract_prompt(compiled) or seed_prompt
-        print("evaluating on train...")
+        logger.info("evaluating on train...")
         train_metrics = run_evaluation(compiled_prompt, train, lm=task)
-        print(f"  train MAE={train_metrics['mae']:.3f}  acc±1={train_metrics['accuracy_pm1']:.3f}")
-        print("evaluating on test...")
+        logger.info(
+            "  train MAE=%.3f  acc±1=%.3f",
+            train_metrics["mae"], train_metrics["accuracy_pm1"],
+        )
+        logger.info("evaluating on test...")
         test_metrics = run_evaluation(compiled_prompt, test, lm=task)
-        print(f"  test MAE={test_metrics['mae']:.3f}  acc±1={test_metrics['accuracy_pm1']:.3f}  CI=[{test_metrics['ci_low']:.3f},{test_metrics['ci_high']:.3f}]")
+        logger.info(
+            "  test MAE=%.3f  acc±1=%.3f  CI=[%.3f,%.3f]",
+            test_metrics["mae"], test_metrics["accuracy_pm1"],
+            test_metrics["ci_low"], test_metrics["ci_high"],
+        )
 
         cost_summary = cb.render_summary()
         _write_artifacts(
@@ -296,10 +321,11 @@ def main() -> None:
             cost_summary=cost_summary,
             trace_jsonl_path=trace_jsonl_path,
         )
-        print(
-            f"cost: ${cost_summary['total_spend']:.4f}  "
-            f"calls={cost_summary['total_calls']}  "
-            f"tokens={cost_summary['total_in'] + cost_summary['total_out']:,}"
+        logger.info(
+            "cost: $%.4f  calls=%d  tokens=%s",
+            cost_summary["total_spend"],
+            cost_summary["total_calls"],
+            f"{cost_summary['total_in'] + cost_summary['total_out']:,}",
         )
     finally:
         for lg in mipro_loggers:

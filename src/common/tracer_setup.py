@@ -1,12 +1,15 @@
 """Phoenix (Arize) tracing setup for DSPy trainer.
 
 Soft-degrades when optional `[tracing]` deps are not installed: returns None
-and prints an install hint. The trainer keeps running (CostCallback +
+and logs an install hint. The trainer keeps running (CostCallback +
 PromptTracer continue to write JSONL).
 """
 from __future__ import annotations
 
+import logging
 from typing import Any
+
+_log = logging.getLogger("tracer_setup")
 
 
 def setup_phoenix(project_name: str) -> Any | None:
@@ -15,7 +18,7 @@ def setup_phoenix(project_name: str) -> Any | None:
         from phoenix.otel import register
         from openinference.instrumentation.dspy import DSPyInstrumentor
     except ImportError:
-        print(
+        _log.info(
             "phoenix tracing disabled (install with: pip install -e '.[tracing]')"
         )
         return None
