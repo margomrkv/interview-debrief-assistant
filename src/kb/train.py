@@ -39,6 +39,7 @@ from src.common.llm_factory import (
     resolve_prompt_model_id,
     task_lm,
 )
+from src.common.logging_setup import configure_logging, phase_banner
 from src.common.prompt_tracer import PromptTracer
 from src.common.tracer_setup import setup_phoenix, shutdown_phoenix
 from src.kb.build_splits import (
@@ -54,7 +55,8 @@ DEFAULT_RUNS_DIR = REPO_ROOT / "runs"
 EvalSplits = Literal["test", "train", "both", "none"]
 
 
-def _local_run_id() -> str:
+def default_run_id() -> str:
+    """Local-TZ timestamp used as the default `run_id` for a kb pipeline run."""
     return dt.datetime.now().astimezone().strftime("%Y-%m-%d_%H-%M-%S")
 
 
@@ -258,13 +260,16 @@ def run_kb_pipeline(
       - `splits_path` (kb/splits.json) — overwritten by build_splits
       - `runs_dir/<run_id>/` — fresh directory with prompt, reports, logs
     """
-    logger = logging.getLogger("train")
+    # Defensive: scripts/kb.py normally configures logging first (with log_file),
+    # but library callers may import run_kb_pipeline directly. configure_logging
+    # is idempotent — a prior call from the entry point script wins.
+    logger = configure_logging("train")
     corpus = input_path or DEFAULT_CORPUS
     splits_out = splits_path or DEFAULT_SPLITS
     runs_root = runs_dir or DEFAULT_RUNS_DIR
 
     prompt_model_id = resolve_prompt_model_id(prompt_model)
-    run_id = run_id or _local_run_id()
+    run_id = run_id or default_run_id()
     run_dir = runs_root / run_id
     (run_dir / "logs").mkdir(parents=True, exist_ok=True)
     prompt_path = run_dir / "evaluator_prompt.md"
@@ -273,6 +278,7 @@ def run_kb_pipeline(
     trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
 
     # Step 1 — build splits
+    phase_banner(logger, 1, 3, "build_splits")
     splits_meta = build_splits(
         input_path=corpus,
         output_path=splits_out,
@@ -282,6 +288,7 @@ def run_kb_pipeline(
     logger.info("wrote %s", splits_out.relative_to(REPO_ROOT))
 
     # Step 2 — train (MIPROv2 compile) + write prompt/report
+    phase_banner(logger, 2, 3, "train (DSPy MIPROv2)")
     train, test, _ = load_split_examples(corpus, splits_out)
     seed_prompt = "Оцени ответ кандидата"
 
@@ -293,6 +300,9 @@ def run_kb_pipeline(
 
     cb = CostCallback(version=run_id, jsonl_path=jsonl_path)
     tracer = PromptTracer(version=run_id, jsonl_path=trace_jsonl_path, phase_ref=cb)
+    # MIPROPhaseHandler is a sniffer (not a renderer): it watches INFO records
+    # on DSPy's optimizer/evaluator loggers and mutates cb.current_phase /
+    # cb.parse_failures. Level/format are owned by configure_logging.
     phase_handler = MIPROPhaseHandler(cb)
     mipro_loggers = [
         logging.getLogger("dspy.teleprompt.mipro_optimizer_v2"),
@@ -301,19 +311,26 @@ def run_kb_pipeline(
     ]
     for lg in mipro_loggers:
         lg.addHandler(phase_handler)
-        lg.setLevel(logging.INFO)
 
     tp = None if no_phoenix else setup_phoenix(project_name=f"evaluator-train-{run_id}")
     dspy.configure(lm=task, adapter=dspy.JSONAdapter(), callbacks=[cb, tracer], track_usage=True)
 
     cached_metrics: dict[str, dict[str, Any]] = {}
     try:
-        print(f"compiling MIPROv2 num_trials={num_trials} task={TASK_MODEL_ID} prompt={prompt_model_id}")
-        print(f"run dir: {run_dir.relative_to(REPO_ROOT)}")
-        print(f"cost log: {jsonl_path.relative_to(REPO_ROOT)}")
-        print(f"trace log: {trace_jsonl_path.relative_to(REPO_ROOT)}")
+        logger.info(
+            "compiling MIPROv2 num_trials=%d task=%s prompt=%s",
+            num_trials, TASK_MODEL_ID, prompt_model_id,
+        )
+        logger.info("run dir: %s", run_dir.relative_to(REPO_ROOT))
+        logger.info("cost log: %s", jsonl_path.relative_to(REPO_ROOT))
+        logger.info("trace log: %s", trace_jsonl_path.relative_to(REPO_ROOT))
         if tp is not None:
-            print("phoenix UI: http://localhost:6006")
+            logger.info("phoenix UI: http://localhost:6006")
+        logger.info(
+            "metric note: 'Average Metric: X / N (Y%)' = sum of mae_metric across "
+            "N examples; mae_metric = 5 - mean_abs_err per metric, range 0..5. "
+            "Y% = avg * 100 (~500% perfect, ~400% current baseline)."
+        )
         optimizer = MIPROv2(
             metric=mae_metric,
             prompt_model=prompt,
@@ -333,14 +350,18 @@ def run_kb_pipeline(
         # path `predict_all` uses (fresh ScoringEvaluator, clean dspy context,
         # no JSONAdapter / track_usage / callbacks). See am-best-offer-et4.
         compiled_prompt = _extract_prompt(compiled) or seed_prompt
-        print("evaluating on train...")
+        logger.info("evaluating on train...")
         train_metrics = run_evaluation(compiled_prompt, train, lm=task)
-        print(f"  train MAE={train_metrics['mae']:.3f}  acc±1={train_metrics['accuracy_pm1']:.3f}")
-        print("evaluating on test...")
+        logger.info(
+            "  train MAE=%.3f  acc±1=%.3f",
+            train_metrics["mae"], train_metrics["accuracy_pm1"],
+        )
+        logger.info("evaluating on test...")
         test_metrics = run_evaluation(compiled_prompt, test, lm=task)
-        print(
-            f"  test MAE={test_metrics['mae']:.3f}  acc±1={test_metrics['accuracy_pm1']:.3f}  "
-            f"CI=[{test_metrics['ci_low']:.3f},{test_metrics['ci_high']:.3f}]"
+        logger.info(
+            "  test MAE=%.3f  acc±1=%.3f  CI=[%.3f,%.3f]",
+            test_metrics["mae"], test_metrics["accuracy_pm1"],
+            test_metrics["ci_low"], test_metrics["ci_high"],
         )
         cached_metrics["train"] = train_metrics
         cached_metrics["test"] = test_metrics
@@ -360,10 +381,11 @@ def run_kb_pipeline(
             cost_summary=cost_summary,
             trace_jsonl_path=trace_jsonl_path,
         )
-        print(
-            f"cost: ${cost_summary['total_spend']:.4f}  "
-            f"calls={cost_summary['total_calls']}  "
-            f"tokens={cost_summary['total_in'] + cost_summary['total_out']:,}"
+        logger.info(
+            "cost: $%.4f  calls=%d  tokens=%s",
+            cost_summary["total_spend"],
+            cost_summary["total_calls"],
+            f"{cost_summary['total_in'] + cost_summary['total_out']:,}",
         )
     finally:
         for lg in mipro_loggers:
@@ -375,7 +397,10 @@ def run_kb_pipeline(
     # Step 3 — eval reports per requested split (reuse train/test metrics from
     # the post-compile production-mirror eval — identical to what evaluate.py
     # used to compute, just without spawning a subprocess).
-    for split in _resolve_eval_splits(eval_splits):
+    resolved_eval = _resolve_eval_splits(eval_splits)
+    if resolved_eval:
+        phase_banner(logger, 3, 3, "evaluate (eval reports)")
+    for split in resolved_eval:
         examples = train if split == "train" else test
         metrics = cached_metrics[split]
         out = run_dir / f"eval_{split}.md"
@@ -386,9 +411,10 @@ def run_kb_pipeline(
             metrics=metrics,
             out_path=out,
         )
-        print(
-            f"  {split}: MAE={metrics['mae']:.3f}  acc±1={metrics['accuracy_pm1']:.3f}  "
-            f"failures={metrics['fails']}  → {out.relative_to(REPO_ROOT)}"
+        logger.info(
+            "  %s: MAE=%.3f  acc±1=%.3f  failures=%d  → %s",
+            split, metrics["mae"], metrics["accuracy_pm1"],
+            metrics["fails"], out.relative_to(REPO_ROOT),
         )
 
     return run_dir

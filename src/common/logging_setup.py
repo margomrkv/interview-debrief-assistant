@@ -1,17 +1,19 @@
-"""Single entry point for all train-pipeline logging.
+"""Single entry point for all pipeline logging.
 
-Every script (`scripts/train_prompt.py`, `src/kb/build_splits.py`,
-`src/kb/train.py`, `src/common/evaluate.py`) calls `configure_logging(...)`
-first thing in its `main()`. The function:
+`scripts/kb.py` and `scripts/ar.py` call `configure_logging(...)` first thing
+in their `main()` (before any dspy/litellm import propagates further). The
+function:
 
 - installs one stdout `StreamHandler` and optionally one append-mode
-  `FileHandler` (so all three sub-steps mirror into a single
-  `runs/<id>/logs/pipeline.log`);
+  `FileHandler` (so a full kb run mirrors into `runs/<id>/logs/pipeline.log`);
 - normalises DSPy's own loggers to our format (drops their default handler
   + lets records propagate to root);
 - silences known non-actionable warnings (LiteLLM bedrock/sagemaker
   pre-load, Optuna `multivariate` ExperimentalWarning);
 - is idempotent — re-entrant calls only update the file handler.
+
+`run_kb_pipeline` also calls `configure_logging("train")` defensively, so
+library callers that import it directly still see formatted output.
 """
 from __future__ import annotations
 
@@ -113,3 +115,19 @@ def configure_logging(
             setattr(root, _FILE_HANDLER_ATTR, fh)
 
     return logging.getLogger(component)
+
+
+def phase_banner(logger: logging.Logger, step: int, total: int, name: str) -> None:
+    """Emit a 4-line section banner via the given logger.
+
+    Visually separates `run_kb_pipeline`'s build_splits / train / evaluate
+    phases in stdout and `pipeline.log`.
+    """
+    title = f" PHASE {step}/{total} — {name} "
+    width = max(48, len(title) + 4)
+    bar = "═" * (width - 2)
+    pad = width - 2 - len(title)
+    logger.info("")
+    logger.info("╔%s╗", bar)
+    logger.info("║%s%s║", title, " " * pad)
+    logger.info("╚%s╝", bar)
