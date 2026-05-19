@@ -1,13 +1,13 @@
 ---
 name: scoring-prompt-trainer
-description: Phase 3 trainer для prompt evaluator'а scoring-evaluator. Запускает DSPy MIPROv2 на train/hard_skills.json, оптимизирует prompt против golden labels, пишет все артефакты одного прогона в runs/<YYYY-MM-DD_HH-MM-SS>/ (локальная TZ). Аргументы: --smoke (2 source_id, ~$3), --budget {light|medium}, --num-trials, --prompt-model.
+description: Phase 3 trainer для prompt evaluator'а scoring-evaluator. Запускает DSPy MIPROv2 на train/hard_skills.json, оптимизирует prompt против golden labels, пишет все артефакты одного прогона в runs/<YYYY-MM-DD_HH-MM-SS>/ (локальная TZ). Аргументы:  --num-trials, --prompt-model
 ---
 
-# Skill: Scoring Prompt Trainer (Phase 3)
+# Skill: Scoring Prompt Trainer
 
 ## Идентификация прогонов
 
-Каждый запуск `train.py` создаёт новую папку `runs/<YYYY-MM-DD_HH-MM-SS>/` (timestamp в локальной TZ, фиксируется один раз в начале запуска). Имя папки = `run_id`; оно же пишется в frontmatter prompt'а и в заголовок отчёта. Семантического `vN`-версионирования больше нет.
+Каждый запуск скилла создаёт новую папку `runs/<YYYY-MM-DD_HH-MM-SS>/` (timestamp в локальной TZ, фиксируется один раз в начале запуска). Имя папки = `run_id`; оно же пишется в frontmatter prompt'а и в заголовок отчёта. 
 
 ## Назначение
 
@@ -44,40 +44,34 @@ flowchart LR
     EV --> ER["runs/&lt;run_id&gt;/eval_&lt;split&gt;.md"]
 ```
 
-Подробности — см. план `~/.claude/plans/elegant-chasing-planet.md` (architecture diagrams, decisions D1-D14, risks R1-R8).
-
 ## Prerequisites
 
 1. `.env` с `ANTHROPIC_API_KEY` и `OPENROUTER_API_KEY` (см. `.env.example`).
 2. `pip install -e .` (deps: dspy-ai>=2.5, anthropic>=0.40). Для Phoenix UI: `pip install -e ".[tracing]"`.
 3. Golden set уже существует: `train/hard_skills.json` (81 labeled QA, 8 unscored auto-excluded).
 
+Если python падает с ошибкой, не правь его сам
+
 ## Шаги
+
+Запускай именно эти действия после проверки пререквизитов, не читай другие файлы
 
 ### Шаг 1 — Split
 
 ```bash
-python -m src.train.build_splits [--smoke]
+python -m src.train.build_splits
 ```
 Пишет `kb/splits.json`. Smoke: 2 source_id → 17/7 QA. Full: 6 source_ids → 57/24 QA.
 
 ### Шаг 2 — Train
 
 ```bash
-python -m src.train.train --budget light
+python -m src.train.train 
 ```
-
-Запускает DSPy MIPROv2. Параметры (из `src/train/llm_factory.py`):
-- task_model: `openrouter/nvidia/nemotron-3-super-120b-a12b:free`
-- prompt_model: `anthropic/claude-haiku-4-5-20251001` (default; override `--prompt-model {sonnet|gpt-4o-mini|gemini-flash}`)
-- num_threads=4 (под free-tier 20 req/min)
-- num_retries=5 (exp backoff)
-
-Бюджет: light ~$1/smoke на Haiku (~$3 на Sonnet), full пропорционально. Time: ~10-30 min.
 
 В начале запуска stdout печатает путь к свежей папке `runs/<run_id>/`, куда сложатся `evaluator_prompt.md`, `train_report.md`, `logs/train.jsonl`, `logs/train.trace.jsonl`.
 
-### Шаг 3 — Evaluate (опционально, отдельно от train)
+### Шаг 3 — Evaluate
 
 ```bash
 python -m src.train.evaluate --prompt runs/<run_id>/evaluator_prompt.md --split test
