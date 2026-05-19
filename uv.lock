@@ -120,13 +120,15 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
-dev = [
-    { name = "pytest" },
-]
 tracing = [
     { name = "arize-phoenix" },
     { name = "openinference-instrumentation-dspy" },
     { name = "opentelemetry-exporter-otlp" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
 ]
 
 [package.metadata]
@@ -138,11 +140,13 @@ requires-dist = [
     { name = "openinference-instrumentation-dspy", marker = "extra == 'tracing'", specifier = ">=0.1" },
     { name = "opentelemetry-exporter-otlp", marker = "extra == 'tracing'", specifier = ">=1.25" },
     { name = "optuna", specifier = ">=3.5" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "python-dotenv", specifier = ">=1.0" },
     { name = "tenacity", specifier = ">=9.0" },
 ]
-provides-extras = ["tracing", "dev"]
+provides-extras = ["tracing"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=8.0" }]
 
 [[package]]
 name = "annotated-doc"

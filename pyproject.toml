@@ -18,6 +18,8 @@ tracing = [
     "openinference-instrumentation-dspy>=0.1",
     "opentelemetry-exporter-otlp>=1.25",
 ]
+
+[dependency-groups]
 dev = [
     "pytest>=8.0",
 ]
