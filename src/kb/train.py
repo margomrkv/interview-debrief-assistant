@@ -18,20 +18,19 @@ from typing import Any
 import dspy
 from dspy.teleprompt import MIPROv2
 
-from src.kb.cost_callback import (
+from src.common.cost_callback import (
     CostCallback,
     MIPROPhaseHandler,
     cost_breakdown_markdown,
 )
-from src.kb.prompt_tracer import PromptTracer
-from src.kb.tracer_setup import setup_phoenix, shutdown_phoenix
-from src.kb.dspy_modules import (
+from src.common.dataset import load_split_examples
+from src.common.dspy_modules import (
     METRICS,
     ScoringEvaluator,
     mae_metric,
 )
-from src.kb.eval_runner import INPUT_FIELDS, run_evaluation
-from src.kb.llm_factory import (
+from src.common.eval_runner import run_evaluation
+from src.common.llm_factory import (
     LABEL_MODEL_ID,
     PROMPT_MODEL_ALIASES,
     TASK_MODEL_ID,
@@ -39,6 +38,8 @@ from src.kb.llm_factory import (
     resolve_prompt_model_id,
     task_lm,
 )
+from src.common.prompt_tracer import PromptTracer
+from src.common.tracer_setup import setup_phoenix, shutdown_phoenix
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 HARD_SKILLS = REPO_ROOT / "train" / "hard_skills.json"
@@ -49,36 +50,6 @@ RUNS_DIR = REPO_ROOT / "runs"
 
 def _local_run_id() -> str:
     return dt.datetime.now().astimezone().strftime("%Y-%m-%d_%H-%M-%S")
-
-
-def _text(field: Any) -> str:
-    if field is None:
-        return ""
-    if isinstance(field, dict):
-        return field.get("text") or ""
-    return str(field)
-
-
-def _to_example(item: dict[str, Any]) -> dspy.Example:
-    return dspy.Example(
-        interviewer_question=_text(item["interviewer_question"]),
-        candidate_answer=_text(item["candidate_answer"]),
-        reference_answer=_text(item.get("reference_answer")),
-        interviewer_feedback=_text(item.get("interviewer_feedback")),
-        question_topic=item.get("question_topic", "") or "",
-        interview_stage=item.get("interview_stage", "") or "",
-        reference_score=item["reference_score"],
-        source_id=item["source_id"],
-    ).with_inputs(*INPUT_FIELDS)
-
-
-def _load_data() -> tuple[list[dspy.Example], list[dspy.Example], dict[str, Any]]:
-    raw = json.loads(HARD_SKILLS.read_text())
-    items = raw["items"]
-    splits = json.loads(SPLITS.read_text())
-    train = [_to_example(items[i]) for i in splits["train_indices"]]
-    test = [_to_example(items[i]) for i in splits["test_indices"]]
-    return train, test, splits
 
 
 def _extract_prompt(student: dspy.Module) -> str:
@@ -247,7 +218,7 @@ def main() -> None:
     jsonl_path = run_dir / "logs" / "train.jsonl"
     trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
 
-    train, test, splits_meta = _load_data()
+    train, test, splits_meta = load_split_examples(HARD_SKILLS, SPLITS)
     seed_prompt = SEED_PROMPT.read_text()
 
     student = ScoringEvaluator()

@@ -59,14 +59,14 @@ flowchart LR
 ### Шаг 1 — Split
 
 ```bash
-python -m src.train.build_splits
+python -m src.kb.build_splits
 ```
 Пишет `kb/splits.json`. Smoke: 2 source_id → 17/7 QA. Full: 6 source_ids → 57/24 QA.
 
 ### Шаг 2 — Train
 
 ```bash
-python -m src.train.train 
+python -m src.kb.train 
 ```
 
 В начале запуска stdout печатает путь к свежей папке `runs/<run_id>/`, куда сложатся `evaluator_prompt.md`, `train_report.md`, `logs/train.jsonl`, `logs/train.trace.jsonl`.
@@ -74,7 +74,7 @@ python -m src.train.train
 ### Шаг 3 — Evaluate
 
 ```bash
-python -m src.train.evaluate --prompt runs/<run_id>/evaluator_prompt.md --split test
+python -m src.common.evaluate --prompt runs/<run_id>/evaluator_prompt.md --split test
 ```
 
 Пишет `runs/<run_id>/eval_test.md` (рядом с prompt'ом) с MAE per metric/source_id и top-20 worst cases. Override места: `--out <path>`.
