@@ -196,6 +196,7 @@ def _write_prompt_evolution(
         "Полная траектория поиска MIPROv2: какие инструкции/демо рассмотрены и что",
         "набрали. Победитель = строка с ★ (выбор `_extract_prompt` по score, затем",
         "числу demos). Score = сумма `mae_metric` по valset (выше — лучше, ~N идеал, где N = размер valset).",
+        "Eval-репорты показывают тот же метрик усреднённым: `score_metric` = score/N ∈ [0,1].",
         "",
         "## Победитель",
         "",
@@ -304,9 +305,9 @@ def _write_artifacts(
         "split_strategy": splits_meta["strategy"],
         "smoke": splits_meta.get("smoke", False),
         "num_trials": num_trials,
-        "train_mae": round(train_metrics["mae"], 3),
-        "test_mae": round(test_metrics["mae"], 3),
-        "test_mae_ci_95": [round(test_metrics["ci_low"], 3), round(test_metrics["ci_high"], 3)],
+        "train_score": round(train_metrics["score"], 3),
+        "test_score": round(test_metrics["score"], 3),
+        "test_score_ci_95": [round(test_metrics["ci_low"], 3), round(test_metrics["ci_high"], 3)],
         "accuracy_pm1": round(test_metrics["accuracy_pm1"], 3),
         "test_failures": test_metrics["fails"],
     }
@@ -332,24 +333,26 @@ def _write_artifacts(
         "",
         "## Aggregate metrics",
         "",
-        f"- train MAE: **{fm['train_mae']}**",
-        f"- test MAE: **{fm['test_mae']}** (95% CI: [{fm['test_mae_ci_95'][0]}, {fm['test_mae_ci_95'][1]}])",
+        "score = 1 − MAE/SCORE_RANGE, [0,1] higher=better (same metric MIPROv2 maximizes).",
+        "",
+        f"- train score: **{fm['train_score']}**",
+        f"- test score: **{fm['test_score']}** (95% CI: [{fm['test_score_ci_95'][0]}, {fm['test_score_ci_95'][1]}])",
         f"- accuracy ±1: **{fm['accuracy_pm1']}**",
         f"- test failures: {test_metrics['fails']}",
         "",
-        "## Test MAE per source_id",
+        "## Test score per source_id",
         "",
-        "| source_id | MAE |",
+        "| source_id | score |",
         "|---|---|",
     ]
-    for src, m in sorted(test_metrics["per_source_mae"].items(), key=lambda kv: -kv[1]):
+    for src, m in sorted(test_metrics["per_source_score"].items(), key=lambda kv: kv[1]):
         lines.append(f"| {src} | {m:.3f} |")
     lines += ["", "## Worst 20 cases (test)", ""]
-    for rank, (avg_err, ex, p) in enumerate(test_metrics["worst"], 1):
+    for rank, (score, ex, p) in enumerate(test_metrics["worst"], 1):
         ref = ex.reference_score
         preds = {m: getattr(p, m, None) for m in METRICS}
         lines.append(
-            f"{rank}. avg_err={avg_err:.2f} src={ex.source_id} "
+            f"{rank}. score={score:.2f} src={ex.source_id} "
             f"ref={ref} pred={preds} "
             f"q={ex.interviewer_question[:80]!r}"
         )
@@ -389,27 +392,28 @@ def _write_eval_report(
         "",
         "## Aggregate",
         "",
-        f"- MAE: **{metrics['mae']:.3f}** (95% CI: [{metrics['ci_low']:.3f}, {metrics['ci_high']:.3f}])",
+        f"- score (1 − MAE/SCORE_RANGE, higher=better): **{metrics['score']:.3f}** "
+        f"(95% CI: [{metrics['ci_low']:.3f}, {metrics['ci_high']:.3f}])",
         f"- accuracy ±1: **{metrics['accuracy_pm1']:.3f}**",
         "",
-        "## MAE per metric",
+        "## Score per metric",
         "",
-        "| metric | MAE |",
+        "| metric | score |",
         "|---|---|",
     ]
     for m in METRICS:
-        lines.append(f"| {m} | {metrics['per_metric_mae'][m]:.3f} |")
+        lines.append(f"| {m} | {metrics['per_metric_score'][m]:.3f} |")
 
-    lines += ["", "## MAE per source_id", "", "| source_id | MAE | n |", "|---|---|---|"]
-    for src, mae in sorted(metrics["per_source_mae"].items(), key=lambda kv: -kv[1]):
-        lines.append(f"| {src} | {mae:.3f} | {metrics['per_source_n'][src]} |")
+    lines += ["", "## Score per source_id", "", "| source_id | score | n |", "|---|---|---|"]
+    for src, sc in sorted(metrics["per_source_score"].items(), key=lambda kv: kv[1]):
+        lines.append(f"| {src} | {sc:.3f} | {metrics['per_source_n'][src]} |")
 
     lines += ["", "## Worst 20 cases", ""]
-    for i, (avg_err, ex, pr) in enumerate(metrics["worst"], 1):
+    for i, (score, ex, pr) in enumerate(metrics["worst"], 1):
         ref = ex.reference_score
         pred = {m: getattr(pr, m, None) for m in METRICS}
         lines.append(
-            f"{i}. avg_err={avg_err:.2f} src={ex.source_id} "
+            f"{i}. score={score:.2f} src={ex.source_id} "
             f"ref={ref} pred={pred} q={ex.interviewer_question[:80]!r}"
         )
 
@@ -522,7 +526,9 @@ def run_kb_pipeline(
             "metric note: 'Average Metric: X / N (Y%)' = sum of mae_metric across "
             "N examples; mae_metric = 1 - mean_abs_err/SCORE_RANGE, range 0..1. "
             "Y% = avg * 100 (~100% perfect, ~80% current baseline; "
-            "full-eval sum X tops out at N, not 5*N)."
+            "full-eval sum X tops out at N, not 5*N). Eval reports show the SAME "
+            "metric averaged (score_metric = X/N), so 'test score' is comparable "
+            "to the winner's Average Metric."
         )
         # demo-фильтр MIPROv2: оставляем кандидатов с mean abs err <= этого (в баллах).
         # threshold выражен в error-space, чтобы пережить смену шкалы (см. SCORE_RANGE).
@@ -572,14 +578,14 @@ def run_kb_pipeline(
         logger.info("evaluating on train...")
         train_metrics = run_evaluation(compiled_prompt, train, lm=task)
         logger.info(
-            "  train MAE=%.3f  acc±1=%.3f",
-            train_metrics["mae"], train_metrics["accuracy_pm1"],
+            "  train score=%.3f  acc±1=%.3f",
+            train_metrics["score"], train_metrics["accuracy_pm1"],
         )
         logger.info("evaluating on test...")
         test_metrics = run_evaluation(compiled_prompt, test, lm=task)
         logger.info(
-            "  test MAE=%.3f  acc±1=%.3f  CI=[%.3f,%.3f]",
-            test_metrics["mae"], test_metrics["accuracy_pm1"],
+            "  test score=%.3f  acc±1=%.3f  CI=[%.3f,%.3f]",
+            test_metrics["score"], test_metrics["accuracy_pm1"],
             test_metrics["ci_low"], test_metrics["ci_high"],
         )
         cached_metrics["train"] = train_metrics
@@ -632,8 +638,8 @@ def run_kb_pipeline(
             out_path=out,
         )
         logger.info(
-            "  %s: MAE=%.3f  acc±1=%.3f  failures=%d  → %s",
-            split, metrics["mae"], metrics["accuracy_pm1"],
+            "  %s: score=%.3f  acc±1=%.3f  failures=%d  → %s",
+            split, metrics["score"], metrics["accuracy_pm1"],
             metrics["fails"], out.relative_to(REPO_ROOT),
         )
 
