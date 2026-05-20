@@ -41,6 +41,7 @@ from src.common.llm_factory import (
 )
 from src.common.logging_setup import configure_logging, phase_banner
 from src.common.prompt_tracer import PromptTracer
+from src.common.score_logger import ScoreLogger, make_logged_metric
 from src.common.tracer_setup import setup_phoenix, shutdown_phoenix
 from src.kb.build_splits import (
     DEFAULT_INPUT as DEFAULT_CORPUS,
@@ -426,6 +427,7 @@ def run_kb_pipeline(
     candidates_path = run_dir / "prompt_candidates.md"
     jsonl_path = run_dir / "logs" / "train.jsonl"
     trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
+    scores_csv_path = run_dir / "logs" / "train.scores.csv"
 
     # Step 1 — build splits
     phase_banner(logger, 1, 3, "build_splits")
@@ -450,6 +452,9 @@ def run_kb_pipeline(
 
     cb = CostCallback(version=run_id, jsonl_path=jsonl_path)
     tracer = PromptTracer(version=run_id, jsonl_path=trace_jsonl_path, phase_ref=cb)
+    # Per-iteration score log: one CSV row per metric call (ref vs pred), tagged
+    # with cb.current_phase / cb.current_trial. Captures bootstrap + trial evals.
+    score_logger = ScoreLogger(csv_path=scores_csv_path, phase_ref=cb)
     # MIPROPhaseHandler is a sniffer (not a renderer): it watches INFO records
     # on DSPy's optimizer/evaluator loggers and mutates cb.current_phase /
     # cb.parse_failures. Level/format are owned by configure_logging.
@@ -474,6 +479,7 @@ def run_kb_pipeline(
         logger.info("run dir: %s", run_dir.relative_to(REPO_ROOT))
         logger.info("cost log: %s", jsonl_path.relative_to(REPO_ROOT))
         logger.info("trace log: %s", trace_jsonl_path.relative_to(REPO_ROOT))
+        logger.info("scores log: %s", scores_csv_path.relative_to(REPO_ROOT))
         if tp is not None:
             logger.info("phoenix UI: http://localhost:6006")
         logger.info(
@@ -482,7 +488,7 @@ def run_kb_pipeline(
             "Y% = avg * 100 (~500% perfect, ~400% current baseline)."
         )
         optimizer = MIPROv2(
-            metric=mae_metric,
+            metric=make_logged_metric(mae_metric, score_logger),
             prompt_model=prompt,
             task_model=task,
             auto=None,
@@ -547,6 +553,7 @@ def run_kb_pipeline(
             lg.removeHandler(phase_handler)
         cb.close()
         tracer.close()
+        score_logger.close()
         shutdown_phoenix(tp)
 
     # Step 3 — eval reports per requested split (reuse train/test metrics from
