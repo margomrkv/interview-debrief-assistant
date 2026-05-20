@@ -26,7 +26,7 @@ def main() -> None:
     )
     p.add_argument("--run-id", default=None, help="Override run_id (default: now() in local TZ).")
     p.add_argument("--smoke", action="store_true", help="Use only first 2 source_ids in splits.")
-    p.add_argument("--num-trials", type=int, default=15, help="MIPROv2 num_trials (default 3).")
+    p.add_argument("--num-trials", type=int, default=10, help="MIPROv2 num_trials (default 3).")
     p.add_argument(
         "--num-candidates",
         type=int,

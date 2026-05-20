@@ -563,7 +563,7 @@ def run_kb_pipeline(
             student,
             trainset=train,
             num_trials=num_trials,
-            minibatch_size=25,
+            minibatch_size=15,
             max_labeled_demos=2,
             max_bootstrapped_demos=2
         )
