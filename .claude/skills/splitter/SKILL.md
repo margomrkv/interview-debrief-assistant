@@ -1,13 +1,14 @@
 ---
 name: splitter
 description: >
-  Split interview transcript into Q&A JSON: prepare → LLM → Excel → validation.
-  Announce each step and total runtime to the user. Full procedure in this file.
+  Split interview transcript into Q&A JSON: prepare → LLM → Excel → validation →
+  mandatory correction loop until validation-report shows ✅ ПРОЙДЕНО (max 2 retries).
+  Same procedure in Cursor (/splitter) and Claude Code. Full steps in this file.
 ---
 
 # Splitter
 
-Last updated: 2026-05-19
+Last updated: 2026-05-20
 
 Документ для людей, **Cursor** (skill `/splitter`) и **Claude Code** (`/splitter`). Cursor Rules для splitter **не используются** — только этот SKILL.md. Отдельного `README.md` в skill нет.
 
@@ -24,9 +25,9 @@ Last updated: 2026-05-19
 | 5 LLM-валидация | `step5-validate-llm/` | `validation_llm_system_prompt.txt`, `validation_llm_output_schema.json` |
 | — | `adhoc/` | разовые утилиты, не в пайплайне |
 
-Постобработка после шага 2: `scripts/splitter_post.sh` в корне репо (Excel + шаг 4 + приложение LLM в конце того же `.md`).
+Постобработка после шага 2: `scripts/splitter_post.sh` в корне репо (Excel + шаг 4 + промпт шага 5 в `pipeline-log.md`).
 
-**Шаг 4 vs 5:** шаг **4** — детерминированный отчёт (таблица YouTube ↔ сплиттер, непокрытые фрагменты). Шаг **5** — семантика через LLM: приложение в **том же** `*.validation.vN.md` → `*.validation.llm.vN.json` → строки LLM в таблице при `--llm-json`.
+**Шаг 4 vs 5:** шаг **4** — детерминированный `validation-report.md`. Шаг **5** — промпт в `pipeline-log.md`, ответ JSON в конце `validation-report.md` → строки LLM при перезапуске валидатора.
 
 ---
 
@@ -43,10 +44,11 @@ Last updated: 2026-05-19
 
 **Правила для агента:**
 
-1. Читать модель из `run_config.json`, из `{basename}.vN.run.json` и из `RUNTIME_HINTS` в `*.llm-input.txt` (шаг 2) / приложении LLM в `*.validation.md` (шаг 5).
+1. Читать модель из `run_config.json` и из `RUNTIME_HINTS` в `{basename}.vN.pipeline-log.md` — секции `LLM_INPUT_STEP_2` и `LLM_INPUT_STEP_5`.
 2. **Не выбирать модель самостоятельно** (не GPT, не «лучшую на взгляд») и **не** запускать subagent/Task с другой моделью.
-3. В Cursor: режим Agent с **Claude Sonnet 4.6** (или эквивалент `claude-sonnet-4-6` из config). В Claude Code: та же модель по имени из config.
-4. Смена модели — только если пользователь явно попросил; тогда зафиксировать в отчёте «Готово».
+3. **Шаг 5 обязателен** при наличии `video.md`: после `splitter_post.sh` агент **в том же чате** выполняет `LLM_INPUT_STEP_5`, сохраняет JSON в `validation-report.md`, перезапускает `splitter_validate_video.py`. **Не завершать** прогон `/splitter`, пока в отчёте шаг 5 не отражён (колонка «Смысл (5)» и строки «Проверка главы»).
+4. В Cursor: режим Agent с **Claude Sonnet 4.6** (или эквивалент `claude-sonnet-4-6` из config). В Claude Code: та же модель по имени из config.
+5. Смена модели — только если пользователь явно попросил; тогда зафиксировать в блоке «Готово».
 
 Почему Sonnet: одна и та же модель доступна в Cursor и Claude Code; temperature 0 для воспроизводимости.
 
@@ -106,9 +108,8 @@ splitter_output/real-interviews/<publisher>/<basename>/
 |------|------------|
 | **`{basename}.vN.qa-split.json`** | **Главный результат** — массив пар Q&A |
 | **`{basename}.vN.qa-split.xlsx`** | Те же данные в Excel — удобно читать человеку |
-| **`{basename}.vN.validation.md`** | **Единственный** отчёт валидации (если есть `video.md`) |
-| **`{basename}.vN.llm-input.txt`** | Снимок всего, что ушло в модель на этапе извлечения Q&A |
-| **`{basename}.vN.run.json`** / **`.run.md`** | Протокол прогона: модели, шаги, входы/выходы, длительности |
+| **`{basename}.vN.validation-report.md`** | Отчёт валидации (если есть `video.md`) |
+| **`{basename}.vN.pipeline-log.md`** | Журнал прогона + промпты LLM (manifest в HTML-комментарии) |
 
 Фильтр одного прогона в IDE: `*{basename}.v8*`. Старые имена `*.qa-split.vN.*` — legacy (см. `scripts/migrate_splitter_v_prefix_names.py`).
 
@@ -156,7 +157,7 @@ splitter_output/real-interviews/<publisher>/<basename>/
 
 Скрипт: `step4-validate-chapters/splitter_validate_video.py` (из `scripts/splitter_post.sh`).
 
-**Артефакт для человека — только** `{basename}.vN.validation.md`. Протокол прогона — `{basename}.vN.run.md`. Не создавать `*.summary.md`, `*.full.md`.
+**Отчёт валидации:** `{basename}.vN.validation-report.md` — в начале секция **«Прогон пайплайна»** (длительности шагов, статусы) и ссылка на журнал. **Журнал прогона и промпты LLM:** `{basename}.vN.pipeline-log.md` (`PIPELINE_MANIFEST` + таблица Steps). Не создавать `*.summary.md`, `*.full.md`, отдельные `llm-input.txt` / `user-prompt.txt`.
 
 **Содержимое файла (сверху вниз):**
 
@@ -169,9 +170,7 @@ splitter_output/real-interviews/<publisher>/<basename>/
 7. **Распознанные вопросы** — полные Q/A/reference/feedback (примеры).
 8. **Фрагменты транскрипта без Q&A** — непокрытые куски `timecodes.txt`.
 9. Комментарий и справочные таблицы.
-10. **Приложение: LLM-валидация (шаг 5)** — в конце **того же** `.md`.
-
-**Не путать с отчётом:** `*.validation.llm.vN.json` — только машинный ответ шага 5 для подмешивания строк LLM, не второй human-readable отчёт.
+10. **Шаг 5 (LLM)** — промпт в `pipeline-log.md`; ответ JSON в секции `Semantic validation` в конце **этого же** `validation-report.md`.
 
 **Coverage** = доля вопросных глав (без подводок 🔗) с ≥1 item в **±tolerance** от маркера главы. Сдвиг тайм-кода (YouTube `00:30:57`, сплиттер `00:30:44`) — **не ошибка**, если item есть и Δt в допуске.
 
@@ -184,24 +183,36 @@ splitter_output/real-interviews/<publisher>/<basename>/
 | 🔗 подводка | не отдельный вопрос |
 | — исключено | вступление, разбор, конец |
 
-### LLM-валидация (шаг 5, опционально)
+### LLM-валидация (шаг 5)
 
-1. В конце `*.qa-split.validation.vN.md` — раздел **«Приложение: LLM-валидация»** (вход для модели).
-2. Агент пишет JSON → `*.validation.llm.vN.json`.
-3. Повторный запуск валидатора с `--llm-json` подмешивает строки **LLM — тайм-коды** / **LLM — содержание** в тот же `.md`.
+**Как шаг 2:** LLM вызывает **агент в Cursor** (модель из подписки / `run_config.json`), не скрипт в терминале.  
+`splitter_post.sh` только готовит промпт (`--prepare-llm` → `LLM_INPUT_STEP_5` в `pipeline-log.md`).
+
+1. Вход — секция `LLM_INPUT_STEP_5` в `*.pipeline-log.md`.
+2. Агент возвращает JSON → `save_semantic_json_to_report` / блок `<!-- SEMANTIC_VALIDATION -->` в `validation-report.md`.
+3. Повторный запуск `splitter_validate_video.py` (те же `--splitter --video --out`) подмешивает строки шага 5 в детали по главам.
+
+Шаг 5 **обязателен** в полном прогоне `/splitter` в Cursor (сразу после `splitter_post.sh`, в том же чате).
 
 Поля LLM на главу: `time_alignment_ok`, `content_alignment_ok`, `notes`.
 
-### Что внутри `llm-input`
+**Критерии шага 5 (допуск 120 сек, строже шага 4 не нужно):**
 
-Один текстовый файл, который собирает `splitter_prepare_prompt.py`:
+- `time_alignment_ok = true`: есть item в этом или соседнем окне с тайм-кодом в пределах **60 сек** от маркера главы — и содержание совпадает. Сдвиг в единицы или десятки секунд — **не ошибка**; шаг 4 использует жёсткие границы окон, шаг 5 — семантику и допуск.
+- `content_alignment_ok = true`: содержание главы покрыто — item в этом или соседнем окне в пределах 60 сек по теме.
+- Если chapter `not_recognized` (0 items в окне): **сначала проверить последний item предыдущей главы**. Если его тайм-код < 60 сек до маркера текущей главы и тема совпадает → оба флага `true`, `notes: ""`. False только при реально пропущенном вопросе или сегменте-обсуждении без своего Q&A.
+- `notes` оставлять `""` когда оба флага `true` — мелкие технические детали (дрейф в секунды) в notes не нужны.
 
-- system-промпт (`splitter_system_prompt.txt`) — как резать Q&A;
-- JSON Schema (`splitter_output_schema.json`);
-- транскрипт (`timecodes.txt` или `transcript.txt`);
-- `SOURCE_ID`, `SPLITTER_MODE`, путь куда сохранить `.json`.
+### Входы LLM в `pipeline-log.md`
 
-На этапе извлечения Q&A модель читает **только** этот файл.
+Секции `<!-- LLM_INPUT_STEP_N -->` заполняют скрипты:
+
+| Шаг | Кто пишет | Содержимое |
+|-----|-----------|------------|
+| 2 | `splitter_prepare_prompt.py` | system + user + schema + транскрипт + RUNTIME_HINTS |
+| 5 | `splitter_validate_video.py --prepare-llm` | payload для семантической проверки глав |
+
+На шаге 2 модель читает **только** блок `LLM_INPUT_STEP_2` (не `video.md`, не другие интервью).
 
 ---
 
@@ -209,27 +220,82 @@ splitter_output/real-interviews/<publisher>/<basename>/
 
 | # | Название | Папка / скрипт | LLM? | Вход → выход |
 |---|----------|----------------|------|----------------|
-| 1 | **Подготовка** | `step1-prepare/splitter_prepare_prompt.py` | Нет | Папка в `transcripts/` → `*.qa-split.llm-input.vN.txt` |
-| 2 | **Извлечение Q&A** | `step2-extract-qa/` (агент) | Да | `llm-input` → `*.qa-split.vN.json` |
-| 3 | **Excel** | `step3-excel/splitter_json_to_excel.py` | Нет | `json` → `*.qa-split.vN.xlsx` |
-| 4 | **Валидация по главам** | `step4-validate-chapters/splitter_validate_video.py` | Нет | `json` + `video.md` → `*.qa-split.validation.vN.md` |
-| 5 | **LLM-валидация** | `step5-validate-llm/` (агент) | Да | приложение в том же `.md` → `*.validation.llm.vN.json` → строки LLM в `.md` |
+| 1 | **Подготовка** | `step1-prepare/splitter_prepare_prompt.py` | Нет | Папка → `pipeline-log` (секция step 2) |
+| 2 | **Извлечение Q&A** | `step2-extract-qa/` (агент) | Да | `pipeline-log` step 2 → `*.vN.qa-split.json` |
+| 3 | **Excel** | `step3-excel/splitter_json_to_excel.py` | Нет | `json` → `*.vN.qa-split.xlsx` |
+| 4 | **Валидация по главам** | `step4-validate-chapters/splitter_validate_video.py` | Нет | `json` + `video.md` → `*.vN.validation-report.md` |
+| 5 | **LLM-валидация** | `step5-validate-llm/` (агент) | Да | `pipeline-log` step 5 → JSON в `validation-report.md` → строки в report |
 
-Шаги **3 и 4** одной командой: `scripts/splitter_post.sh <json> --video <папка>/video.md` (внутри Excel, validate, `--prepare-llm` для шага 5).  
-Шаг **5** — отдельно в чате; затем перезапуск validate с теми же аргументами (json подхватится).
+Шаги **3–4** одной командой: `scripts/splitter_post.sh <json> --video <папка>/video.md` (Excel, validate, промпт шага 5).  
+Шаг **5** — агент в том же чате после `splitter_post.sh` (как шаг 2 после prepare).
 
 Без `video.md`: только шаги 1–3 (`splitter_mode: split_only`).
 
-Повторный прогон с исправленным промптом: снова шаги 1–5 с версией `vN+1`.
+Повторный прогон с исправленным промптом: снова шаги **1–5** с версией **`vN+1`** (новые четыре файла на версию; старый `vN` не перезаписывать).
 
-### Цикл исправления (после шага 4)
+### Критерий «валидация пройдена» (шаг 4)
 
-Если в `*.qa-split.validation.vN.md` есть ❌ **не распознан** или вердикт не **ПРОЙДЕНО**:
+В `{basename}.vN.validation-report.md` строка **`### Вердикт:`** должна содержать **`✅ ПРОЙДЕНО`**.
 
-1. Показать пользователю список нераспознанных глав и цитаты транскрипта из отчёта.
-2. Решить: пропуск сплиттера → правка промпта / повтор шага 2; ложная глава YouTube → `EXPLANATION_PREFIXES` в `splitter_validate_video.py` или правка `video.md`.
-3. При повторе извлечения: шаги **1–2** (новая версия `vN+1`), затем **3–5**. Не перезаписывать json без новой версии.
-4. Максимум **2** полных цикла за один запуск `/splitter`, дальше — эскалация пользователю.
+Проверка в терминале (для агента):
+
+```bash
+python3 .claude/skills/splitter/scripts/splitter_verdict.py \
+  splitter_output/.../data-scientist-junior-karpov-2022-03-30.v9.validation-report.md
+echo $?   # 0 = пройдено, 1 = не пройдено, 2 = частично
+```
+
+Шаг 5 (семантика LLM) **не меняет** этот вердикт — только колонку «Смысл (5)» и «Проверка 3». Цикл исправления смотрит на вердикт **после** шагов 4–5.
+
+Дополнительный триггер: в таблице глав есть статус **❌ не распознан** — даже при «ЧАСТИЧНО» нужен исправляющий цикл.
+
+### Цикл исправления (обязателен для агента)
+
+**Когда:** после шага 5 (или после шага 4, если шаг 5 пропущен нет `video.md` — тогда критерий только шаг 4), если:
+
+- `splitter_verdict.py` → exit **1** или **2**, **или**
+- в отчёте есть **❌ не распознан**.
+
+**Не писать «Готово»**, пока вердикт не **✅ ПРОЙДЕНО** (exit 0), если пользователь не попросил остановиться раньше.
+
+| Попытка | Версия | Действие |
+|---------|--------|----------|
+| 1 | `vN` | Первый полный прогон шагов 1–5 |
+| 2 | `vN+1` | Исправление + повтор 1–5 |
+| 3 | `vN+2` | Второе исправление + повтор 1–5 |
+| — | — | После **2** неудачных исправлений — эскалация пользователю с кратким разбором |
+
+#### Шаг R — диагностика (прочитать отчёт)
+
+Файл: **`splitter_output/.../{basename}.vN.validation-report.md`**. Журнал: **`{basename}.vN.pipeline-log.md`**.
+
+1. **`### Вердикт:`** — что не сошлось (Coverage / Topic / JSON / нераспознанные главы).
+2. Таблица **«Все главы YouTube»** — строки **❌ не распознан**, **несколько Q&A**.
+3. Секции **«Не распознанные»**, **«Фрагменты транскрипта без Q&A»**, **«Проверка 1»** (JSON Schema).
+4. **«Проверка 3»** — замечания LLM по главам (не блокируют вердикт, но подсказывают правки промпта шага 2).
+
+Кратко сообщить пользователю: 2–5 пунктов «что сломано» + гипотеза.
+
+#### Шаг R — что править
+
+| Симптом | Куда править | Повтор |
+|---------|--------------|--------|
+| Пропуск вопроса, плохая нарезка Q&A, подводки не в том item | `.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt` | шаги **1–5**, новая `vN+1` |
+| Неверный `question_topic` / тип | тот же промпт или `section_topic_map.*.json` (шаг 4) | 1–5 или только 3–4 |
+| Ложная «служебная» глава на YouTube | `EXPLANATION_PREFIXES` в `step4-validate-chapters/splitter_validate_video.py` | шаги **3–5** на том же json |
+| Ошибка в `video.md` / тайм-кодах YouTube | `transcripts/.../video.md` | шаги **3–5** |
+| Только семантика (шаг 5) | пересмотреть ответ LLM / транскрипт; при системной ошибке — `step5-validate-llm/validation_llm_system_prompt.txt` | шаг **5** + перезапуск валидатора |
+
+**Не перезаписывать** `{basename}.vN.qa-split.json` — только новая версия **`vN+1`** через шаг 1 (`splitter_prepare_prompt.py` сам поднимет версию).
+
+#### Шаг R — повтор
+
+1. Внести правки в репозиторий (промпт / skill / валидатор / `video.md`).
+2. `splitter_prepare_prompt.py --folder "$FOLDER"` → новый `vN+1`, новый `pipeline-log.md`.
+3. Шаги 2 → `splitter_post.sh` → 5, как в первом прогоне.
+4. Снова `splitter_verdict.py` на новый `validation-report.md`.
+
+Зафиксировать в чате: **«Цикл исправления k/2»**, какие файлы менялись.
 
 ### Шаг 1 — Подготовка
 
@@ -238,22 +304,22 @@ python3 .claude/skills/splitter/step1-prepare/splitter_prepare_prompt.py \
   --folder transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30
 ```
 
-Скрипт не вызывает API. В терминале — пути к `llm-input`, будущему `json` и команде `splitter_post.sh`.
+Скрипт не вызывает API. В терминале — пути к `pipeline-log.md`, будущему `json` и команде `splitter_post.sh`.
 
 ### Шаг 2 — Извлечение Q&A
 
-- Прочитать `*.qa-split.llm-input.vN.txt`.
+- Прочитать секцию `LLM_INPUT_STEP_2` в `*.vN.pipeline-log.md`.
 - Модель: **`inference.model`** из `run_config.json` (см. RUNTIME_HINTS в файле).
 - Не подмешивать `video.md` и другие интервью.
 - Ответ: **только JSON**, без markdown-обёртки; temperature 0.
-- Сохранить в путь `.json` из `llm-input`.
+- Сохранить в путь `.json` из промпта (блок step 2).
 
 ### Шаг 3 — Excel
 
 ```bash
 python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py \
-  splitter_output/.../....qa-split.vN.json \
-  --out splitter_output/.../....qa-split.vN.xlsx
+  splitter_output/.../data-scientist-junior-karpov-2022-03-30.vN.qa-split.json \
+  --out splitter_output/.../data-scientist-junior-karpov-2022-03-30.vN.qa-split.xlsx
 ```
 
 Или вместе со шагом 4 через `scripts/splitter_post.sh`.
@@ -262,20 +328,20 @@ python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py \
 
 ```bash
 python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
-  --splitter splitter_output/.../....qa-split.vN.json \
+  --splitter splitter_output/.../data-scientist-junior-karpov-2022-03-30.vN.qa-split.json \
   --video transcripts/.../video.md \
-  --out splitter_output/.../....qa-split.validation.vN.md \
+  --out splitter_output/.../data-scientist-junior-karpov-2022-03-30.vN.validation-report.md \
   --prepare-llm
 ```
 
 Обычно вызывается из `splitter_post.sh` (там же `--prepare-llm`).
 
-### Шаг 5 — LLM-валидация
+### Шаг 5 — LLM-валидация (агент, как шаг 2)
 
-- Прочитать раздел **«Приложение: LLM-валидация»** в конце `*.qa-split.validation.vN.md`.
-- Модель: **`validation_inference.model`** из `run_config.json` (RUNTIME_HINTS в файле).
-- Ответ: JSON по `step5-validate-llm/validation_llm_output_schema.json`.
-- Сохранить JSON по пути из приложения; перезапустить валидатор с `--llm-json` (те же `--splitter --video --out`).
+- Прочитать `LLM_INPUT_STEP_5` в `*.vN.pipeline-log.md` (после `splitter_post.sh`).
+- Модель: **`validation_inference.model`** из `run_config.json` (агент Cursor, как шаг 2).
+- Ответ: JSON по `step5-validate-llm/validation_llm_output_schema.json` → `validation-report.md` (`<!-- SEMANTIC_VALIDATION -->`).
+- Перезапуск: `splitter_validate_video.py` с теми же `--splitter --video --out`.
 
 ---
 
@@ -296,10 +362,11 @@ python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.
 □ Шаг 2 — Извлечение Q&A (LLM)
 □ Шаг 3 — Excel (step3-excel / splitter_post.sh)
 □ Шаг 4 — Валидация по главам (step4-validate-chapters)   [если есть video.md]
-□ Шаг 5 — LLM-валидация (step5-validate-llm)             [если в .md есть приложение LLM]
+□ Шаг 5 — LLM-валидация (агент, как шаг 2)               [если есть video.md]
+□ Цикл исправления — до ✅ ПРОЙДЕНО (макс. 2 ретрая)     [если есть video.md]
 ```
 
-Шаги 4–5 помечать «пропуск», если нет `video.md` / не делали `--prepare-llm`.
+Шаги 4–5 и цикл исправления помечать «пропуск», если нет `video.md`. Шаг 5 обязателен в полном прогоне: после `splitter_post.sh` агент читает `LLM_INPUT_STEP_5`.
 
 ### Перед каждым шагом
 
@@ -307,7 +374,7 @@ python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.
 
 ```text
 ▶ Шаг 2/4 — Извлечение Q&A (LLM)
-Читаю: splitter_output/.../....qa-split.llm-input.v6.txt
+Читаю: splitter_output/.../....v6.pipeline-log.md (LLM_INPUT_STEP_2)
 ```
 
 Нумерация: **текущий / всего запланированных** (шаг 0 не входит в знаменатель). Полный прогон с `video.md`: **5** шагов (1–5).
@@ -321,39 +388,48 @@ python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.
 | `splitter_validate_video.py` | **Шаг 4** |
 | LLM validation → json + обновить md | **Шаг 5** |
 
-`splitter_post.sh` объединяет шаги 3–4 и готовит llm-input для шага 5 — в сообщениях можно писать «▶ Шаг 3–4» один раз, но в плане лучше перечислить 3, 4, 5 отдельно.
+`splitter_post.sh` — шаги 3–4 + промпт для шага 5. Затем агент **обязан** выполнить «▶ Шаг 5/5» (LLM в том же чате).
 
 ### После каждого шага
 
-1–2 строки итога: что создано (путь, версия `vN`), ошибка или ок. Обновлять **`{basename}.vN.run.json`** (шаги 2 и 5 — через `splitter_run_log.py`).
+1–2 строки итога: что создано (путь, версия `vN`), ошибка или ок. Обновлять **`{basename}.vN.pipeline-log.md`** (шаги 2 и 5 — через `splitter_run_log.py`).
 
 ```text
-✓ Шаг 1 готов — llm-input: .../....v6.llm-input.txt, json: ...v6.qa-split.json, run: ...v6.run.md
+✓ Шаг 1 готов — pipeline-log: .../....v6.pipeline-log.md, json: ...v6.qa-split.json
 ```
 
 **Лог шагов (агент):**
 ```bash
 python3 .claude/skills/splitter/scripts/splitter_run_log.py \
-  --run-json splitter_output/.../....vN.run.json \
+  --pipeline-log splitter_output/.../....vN.pipeline-log.md \
   --step 2 --name qa_extraction --llm --model claude-sonnet-4-6 \
-  --input ...vN.llm-input.txt --output ...vN.qa-split.json --duration-sec 120
+  --input ...vN.pipeline-log.md#LLM_INPUT_STEP_2 --output ...vN.qa-split.json --duration-sec 120
 ```
 Шаги 3–4 пишет `scripts/splitter_post.sh` автоматически.
 
 ### В конце
 
+Писать **«Готово»** только если:
+
+- нет `video.md` — после шага 3, **или**
+- есть `video.md` — шаг 5 выполнен **и** `splitter_verdict.py` → exit **0** (✅ ПРОЙДЕНО), **или**
+- пользователь явно попросил остановиться / исчерпаны 2 цикла исправления (тогда указать причину).
+
 1. Время окончания и **длительность** (минуты и секунды, от старта до финала).
-2. Итоговый отчёт (пути, число items, вердикт validation, примеры глав).
+2. Итоговый отчёт (пути, число items, вердикт validation, число циклов исправления).
 
 ```text
 Готово
 ──────
-Старт:  2026-05-19 14:32
-Финиш:  2026-05-19 14:58
-Время:  26 мин
+Старт:  2026-05-20 14:32
+Финиш:  2026-05-20 15:12
+Время:  40 мин
 
 FOLDER: transcripts/.../data-scientist-junior-karpov-2022-03-30
-Версия: v6 | items: 33
+Версия: v10 | items: 36 | циклы исправления: 1
+Вердикт: ✅ ПРОЙДЕНО
+Артефакты: ...v10.qa-split.json, ...v10.qa-split.xlsx,
+           ...v10.validation-report.md, ...v10.pipeline-log.md
 ...
 ```
 
@@ -372,39 +448,54 @@ FOLDER: transcripts/.../data-scientist-junior-karpov-2022-03-30
 
 FOLDER=transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30
 
-Обязательно следуй .claude/skills/splitter/SKILL.md (разделы «Протокол для пользователя» и «Запуск в Cursor»).
+Обязательно следуй .claude/skills/splitter/SKILL.md целиком:
+«Протокол для пользователя», «Цикл исправления», «Запуск в Cursor».
 
 Перед стартом — зафиксируй время, выведи план шагов (□), затем выполняй с объявлением «▶ Шаг N/…» до и «✓» после каждого шага.
 
 Шаг 0 — проверка:
-1) FOLDER существует; файлы: timecodes.txt / transcript.txt, video.md.
-2) mock-interviews или real-interviews, basename.
+1) FOLDER существует; файлы: timecodes.txt или transcript.txt; video.md (если полная валидация).
+2) mock-interviews или real-interviews; basename = имя листовой папки.
 
-Шаги (выполни все):
+Функция run_pipeline (выполни 1–5 для текущей версии vN):
 1. Подготовка (без LLM):
    python3 .claude/skills/splitter/step1-prepare/splitter_prepare_prompt.py --folder "$FOLDER"
-   Запомни из вывода: путь к llm-input, путь к будущему json, версию vN.
+   Запомни: {basename}.vN.pipeline-log.md, {basename}.vN.qa-split.json, команду splitter_post.sh.
 
 2. Извлечение Q&A (LLM):
-   - Прочитай ТОЛЬКО *.qa-split.llm-input.vN.txt из splitter_output (не video.md, не другие интервью).
-   - Ответ: один JSON без markdown-обёртки, temperature 0.
-   - Сохрани в путь json из llm-input.
+   - Только LLM_INPUT_STEP_2 в *.vN.pipeline-log.md (не video.md).
+   - Ответ: один JSON, temperature 0 → {basename}.vN.qa-split.json
+   - splitter_run_log.py --step 2 …
 
-3–4. Постобработка (без LLM), если есть video.md:
-   scripts/splitter_post.sh <путь-к-json> --video "$FOLDER/video.md"
-   (Excel + validation.md с приложением LLM для шага 5)
+3–4. Если есть video.md:
+   scripts/splitter_post.sh splitter_output/.../{basename}.vN.qa-split.json --video "$FOLDER/video.md"
+   → {basename}.vN.qa-split.xlsx, {basename}.vN.validation-report.md
 
-5. LLM-валидация (раздел «Приложение» в конце того же *.qa-split.validation.vN.md):
-   - Прочитай приложение, верни JSON по step5-validate-llm/validation_llm_output_schema.json.
-   - Сохрани в *.validation.llm.vN.json (путь в приложении).
-   - Перезапусти step4-validate-chapters/splitter_validate_video.py с --llm-json.
+5. Если есть video.md (ОБЯЗАТЕЛЬНО):
+   - LLM_INPUT_STEP_5 в *.vN.pipeline-log.md → JSON по validation_llm_output_schema.json
+   - Вставить в {basename}.vN.validation-report.md: <!-- SEMANTIC_VALIDATION --> … <!-- /SEMANTIC_VALIDATION -->
+     (или: python3 -c "… save_semantic_json_to_report …" из splitter_validate_chapters)
+   - Перезапуск splitter_validate_video.py (--splitter, --video, --out на тот же validation-report.md)
+   - splitter_run_log.py --step 5 …
 
-В конце — блок «Готово» со временем (старт, финиш, длительность) и отчёт:
-- FOLDER и версия vN
-- число items в json
-- пути: json, xlsx, validation.md, llm-input (и llm.json если был шаг 5)
-- вердикт из validation.md (ПРОЙДЕНО / ЧАСТИЧНО / ПРОВАЛ)
-- 2–3 главы YouTube: «не распознан» / «несколько Q&A», если есть
+Цикл исправления (если есть video.md) — после шага 5:
+   python3 .claude/skills/splitter/scripts/splitter_verdict.py \
+     splitter_output/.../{basename}.vN.validation-report.md
+   - exit 0 → можно «Готово»
+   - exit 1 или 2, или в отчёте есть «❌ не распознан»:
+     a) Прочитай validation-report.md: ### Вердикт, нераспознанные главы, Проверка 1–3
+     b) Кратко объясни пользователю причину
+     c) Правь: splitter_system_prompt.txt / EXPLANATION_PREFIXES / video.md / section_topic_map (см. SKILL)
+     d) «Цикл исправления 1/2» или 2/2 → снова run_pipeline (новая vN+1, не перезаписывать старый json)
+   - После 2 неудачных циклов — «Готово» с ⚠️ и эскалацией
+
+Без video.md: только шаги 1–3, splitter_mode split_only, цикл исправления не нужен.
+
+«Готово» — только при ✅ ПРОЙДЕНО (или без video.md после шага 3):
+- старт, финиш, длительность
+- FOLDER, финальная vN, items, число циклов исправления
+- 4 файла: *.vN.qa-split.json, *.vN.qa-split.xlsx, *.vN.validation-report.md, *.vN.pipeline-log.md
+- вердикт; 2–3 проблемных главы, если были
 ```
 
 ### Пример для теста (Karpov junior DS)
@@ -414,28 +505,64 @@ FOLDER=transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-3
 | Вход | `transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/` |
 | Выход | `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/` |
 
-В папке входа должны быть `timecodes.txt` и `video.md`. Следующий прогон создаст `v6` (если уже есть v1–v5).
+В папке входа должны быть `timecodes.txt` и `video.md`. Следующий прогон создаст следующий `vN` (см. уже существующие `*.vN.*` в `splitter_output/.../`).
 
 ### Custom Agent в Cursor (опционально)
 
 **Cursor Settings → Agents → New Agent**
 
 - **Name:** `Splitter pipeline`
-- **Instructions:** текст из промпта выше + «всегда читай `.claude/skills/splitter/SKILL.md`; соблюдай протокол шагов и времени для пользователя».
+- **Instructions:** текст из промпта выше + «всегда читай `.claude/skills/splitter/SKILL.md`; соблюдай протокол шагов, цикл исправления до ✅ ПРОЙДЕНО, время для пользователя».
 
-Запуск: новый чат → выбери агента **Splitter pipeline** → вставь только строку  
-`FOLDER=transcripts/...`  
-или полный промпт.
+Запуск: новый чат → Agent mode → skill **`/splitter`** или агент **Splitter pipeline** → `FOLDER=transcripts/...`.
 
 ### Что смотреть после прогона
 
-1. **`*.qa-split.vN.json`** — главный результат.
-2. **`*.qa-split.vN.xlsx`** — то же для глаз.
-3. **`*.qa-split.validation.vN.md`** — единственный отчёт валидации (таблица + непокрытые фрагменты транскрипта).
+На одну версию **`vN`** — ровно **4 файла** (см. `splitter_output/README.md`):
+
+1. **`{basename}.vN.qa-split.json`** — главный результат.
+2. **`{basename}.vN.qa-split.xlsx`** — то же для глаз.
+3. **`{basename}.vN.validation-report.md`** — вердикт, таблица глав, проверки 1–3; JSON шага 5 в `<!-- SEMANTIC_VALIDATION -->`.
+4. **`{basename}.vN.pipeline-log.md`** — журнал прогона, `LLM_INPUT_STEP_2` / `_5`.
 
 ---
 
-## Cursor / Claude Code
+## Запуск в Claude Code
 
-- **Cursor:** skill `/splitter` или промпт из раздела «Запуск в Cursor».
-- **Claude Code:** `/splitter` + путь к папке интервью.
+Тот же SKILL.md — единственный источник процедуры для Cursor и Claude Code.
+
+| Способ | Действие |
+|--------|----------|
+| Skill | `/splitter` и путь к папке интервью (или `FOLDER=…` в сообщении) |
+| Явно | «Выполни `.claude/skills/splitter/SKILL.md` для `transcripts/.../basename`» |
+
+Агент обязан:
+
+1. Соблюдать **протокол шагов** (□ / ▶ / ✓) и **модели** из `run_config.json`.
+2. Выполнить шаги **1–5**, если есть `video.md`.
+3. Запустить **цикл исправления** до **✅ ПРОЙДЕНО** (`splitter_verdict.py` exit 0) или до **2** ретраев — как в разделе «Цикл исправления».
+
+Промпт для Claude Code (эквивалент Cursor):
+
+```text
+/splitter
+
+FOLDER=transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30
+
+Полный pipeline по .claude/skills/splitter/SKILL.md:
+шаги 0–5, цикл исправления до ✅ ПРОЙДЕНО (макс. 2 ретрая),
+протокол времени и «Готово» только при exit 0 от splitter_verdict.py.
+```
+
+Скрипты — те же пути от корня репозитория (`python3 .claude/skills/splitter/...`, `scripts/splitter_post.sh`).
+
+---
+
+## Cursor / Claude Code (сводка)
+
+| Среда | Как запустить |
+|-------|----------------|
+| **Cursor** | Skill `/splitter` или промпт из «Запуск в Cursor» |
+| **Claude Code** | `/splitter` + `FOLDER=…` или явная ссылка на SKILL.md |
+
+Оба читают **один** `.claude/skills/splitter/SKILL.md`; отдельных Cursor Rules для splitter нет.
