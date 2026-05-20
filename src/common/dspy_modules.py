@@ -22,17 +22,16 @@ TOLERANCE_PM1: int = 1                      # "near miss" band for accuracy_pm1,
 
 
 class ScoreInterviewQA(dspy.Signature):
-    """Evaluate one interview QA pair on three 1..5 anchored axes.
+    """Evaluate one interview QA pair on three 1..10 anchored axes (blind mode).
 
-    Score policy: use signal from interviewer_feedback and/or reference_answer;
-    do not infer scores from industry baseline or generic expectations.
-    Output integers in 1..5.
+    Score policy: judge candidate_answer against interviewer_question using your
+    own domain knowledge — there is no reference answer or interviewer feedback.
+    Calibrate expectations to the interview_stage and question_topic in context.
+    Output integers in 1..10.
     """
 
     interviewer_question: str = dspy.InputField()
     candidate_answer: str = dspy.InputField()
-    reference_answer: str = dspy.InputField(desc="may be empty string")
-    interviewer_feedback: str = dspy.InputField(desc="may be empty string")
     question_topic: str = dspy.InputField()
     interview_stage: str = dspy.InputField()
 
