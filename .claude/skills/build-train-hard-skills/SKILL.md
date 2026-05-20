@@ -63,7 +63,8 @@ created_date: 2026-05-16
       "interviewer_feedback": {"text": "..." | null, "time": "MM:SS" | null},
       "question_type": "hard",
       "question_topic": "...",
-      "interview_stage": "..."
+      "interview_stage": "...",
+      "grade": "junior" | "middle" | "senior"
     }
   ]
 }
