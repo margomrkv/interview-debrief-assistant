@@ -564,6 +564,8 @@ def run_kb_pipeline(
             trainset=train,
             num_trials=num_trials,
             minibatch_size=25,
+            max_labeled_demos=2,
+            max_bootstrapped_demos=2
         )
 
         # Prompt-evolution log: dump every instruction/demo candidate MIPROv2

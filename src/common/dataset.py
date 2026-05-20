@@ -15,8 +15,6 @@ import dspy
 INPUT_FIELDS: tuple[str, ...] = (
     "interviewer_question",
     "candidate_answer",
-    "reference_answer",
-    "interviewer_feedback",
     "question_topic",
     "interview_stage",
 )
@@ -34,8 +32,6 @@ def _to_example(item: dict[str, Any]) -> dspy.Example:
     return dspy.Example(
         interviewer_question=_text(item["interviewer_question"]),
         candidate_answer=_text(item["candidate_answer"]),
-        reference_answer=_text(item.get("reference_answer")),
-        interviewer_feedback=_text(item.get("interviewer_feedback")),
         question_topic=item.get("question_topic", "") or "",
         interview_stage=item.get("interview_stage", "") or "",
         reference_score=item["reference_score"],
@@ -47,8 +43,6 @@ def _to_inference_example(item: dict[str, Any], source_id: str) -> dspy.Example:
     return dspy.Example(
         interviewer_question=_text(item["interviewer_question"]),
         candidate_answer=_text(item["candidate_answer"]),
-        reference_answer=_text(item.get("reference_answer")),
-        interviewer_feedback=_text(item.get("interviewer_feedback")),
         question_topic=item.get("question_topic", "") or "",
         interview_stage=item.get("interview_stage", "") or "",
         source_id=source_id,
