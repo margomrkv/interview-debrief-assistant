@@ -1,0 +1,2745 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 2,
+  "basename": "system-design-senior-karpov-2023-07-14",
+  "transcript_folder": "transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14",
+  "source_id": "system_design_senior_karpov_2023_07_14",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 18:13:13 +0200",
+  "updated_at": "2026-05-20 18:17:07 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/timecodes.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 18:13:13 +0200"
+    },
+    {
+      "id": 2,
+      "name": "qa_extraction",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json"
+      ],
+      "status": "completed",
+      "duration_sec": 480.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:16:34 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:17:03 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:17:03 +0200"
+    },
+    {
+      "id": 5,
+      "name": "llm_validation",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 120.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:17:07 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v2
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14`
+- **Source ID:** `system_design_senior_karpov_2023_07_14`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 18:13:13 +0200
+- **Last updated:** 2026-05-20 18:17:07 +0200
+
+Фильтр в IDE: `*system-design-senior-karpov-2023-07-14.v2*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/timecodes.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md` | — | completed |
+| 2 | qa_extraction | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md#LLM_INPUT_STEP_2` | `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json` | 480.0s | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.xlsx` | 1.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md` | 1.0s | completed |
+| 5 | llm_validation | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md#LLM_INPUT_STEP_5` | `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md` | 120.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: system_design_senior_karpov_2023_07_14
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:18] говорят Мы в эфире
+[00:00:21] не знаю насколько этого можно верить
+[00:00:24] Будем считать что можно верить мне так
+[00:00:27] Они прислали ссылку на сам эфир
+[00:00:29] попробую сейчас найти чтобы я мог
+[00:00:33] смотреть на ехидные не очень комментарии
+[00:00:35] вижу ссылку на эфир Я думаю что у нас с
+[00:00:39] тобой есть что два часа
+[00:00:41] эти
+[00:00:43] вообще может быть меньше Может быть
+[00:00:45] полтора часа 90 минут стандартное
+[00:00:47] собеседование 45 живет Ну да что у нас
+[00:00:52] будет 2 по 45 потому что этого
+[00:00:54] собеседование секретная часть которая
+[00:00:56] никто не знал до тех пор пока я не
+[00:00:57] заявил об этом прямо сейчас
+[00:01:03] в этом же самой цели поэтому я думаю как
+[00:01:09] построим Я сначала вопрос
+[00:01:14] а потом уже перейдем к основной части мы
+[00:01:17] не будем совсем уходить полные симуляции
+[00:01:20] [музыка]
+[00:01:22] в этом расскажу сначала немножечко о
+[00:01:24] себе
+[00:01:25] людям окружающим
+[00:01:27] Да конечно
+[00:01:29] начал изучать программирование с 16 17
+[00:01:32] года до этого никогда не изучал закончил
+[00:01:36] вышку химик-инженер Химик механик точнее
+[00:01:39] потом много разное пробовал наткнулся
+[00:01:42] поступил в кандидатуру
+[00:01:45] сдал кандидатский минимум кандидатскую
+[00:01:47] не защищал и там наткнулся на одну
+[00:01:50] задачу где нужно было применить
+[00:01:51] программирование и понял что мне это
+[00:01:54] как-то нравится там обычные был цикл Но
+[00:01:56] я даже с этим тогда не справился
+[00:01:58] из семнадцатого года начал изучать
+[00:02:00] сначала начал Java языка изучать потом
+[00:02:03] пробовал разные направления
+[00:02:05] фронтендов и наткнулся на дата сайнс
+[00:02:09] машинками понял что это Моя страсть это
+[00:02:12] мне реально нравится я всегда любил
+[00:02:13] предсказывать по цифрам таблицы и что-то
+[00:02:17] в этом это и математику Я очень любил
+[00:02:19] что в школе в Олимпиадах участвовал и
+[00:02:22] выиграл
+[00:02:23] начал углубляться с 18 года переехал
+[00:02:27] никакого экспириенса в программирование
+[00:02:30] ничего не было сам искал дома проекты на
+[00:02:33] прошлой работе работал экологом и джавы
+[00:02:37] делал там автоматизацию по собственной
+[00:02:39] инициативе с 18 года в конце переехал в
+[00:02:43] лос-анджелес
+[00:02:44] здесь искал Первую работу около года
+[00:02:47] параллельно также учился сложно было
+[00:02:50] найти сначала нацелился на дата сайнс
+[00:02:53] Machine Leica Как именно туда хотел но с
+[00:02:56] первого нахлеста очень тяжело туда войти
+[00:02:58] особенно человеку без опыта без
+[00:03:00] американского экспириенса практически
+[00:03:03] нереально устроился сначала в страховую
+[00:03:06] как сначала разработчик но за три года
+[00:03:09] там написал наверное 10 строчек Java
+[00:03:11] кода в основном был там JavaScript
+[00:03:14] Apex и вот мы на salesforce делали ботов
+[00:03:18] то есть площадка они предоставляют своих
+[00:03:22] свой так сказать искусственный интеллект
+[00:03:24] где ты создаешь Бота чтобы общаться с
+[00:03:26] клиентами то есть там немножко элементы
+[00:03:29] были дата санкции но очень маленький
+[00:03:31] параллельно делал свои проекты постоянно
+[00:03:33] как-то развивался
+[00:03:35] были различные выгорания и были
+[00:03:39] серьезные выгорания это как бы
+[00:03:41] незаменимая часть у многих это случается
+[00:03:44] понял что потом проходил различные курсы
+[00:03:48] прошел курс hard-mail сначала его начал
+[00:03:51] но у меня родилась дочка еще появился
+[00:03:53] дополнительный проект Я понял что не
+[00:03:55] вывожу решил его завершить сказать что
+[00:03:59] ребята я не могу но сразу понял что это
+[00:04:02] необходимый курс мне очень понравился мы
+[00:04:05] начали Сначала с Игоря конченкова третий
+[00:04:08] поток он был рекомендательная система
+[00:04:09] уже или вторая было тяжело но мне было
+[00:04:12] очень интересно проходить это все Кстати
+[00:04:15] хочу поехать поблагодарить очень сильно
+[00:04:17] за этот курс как ты принял участие он
+[00:04:20] мне очень сильно помог в дальнейшем
+[00:04:22] именно прокачать себя
+[00:04:24] после
+[00:04:29] во всех планах и физическом
+[00:04:33] после понял что уже начинается снова
+[00:04:36] выгорания так как искал работу на
+[00:04:39] нынешней работе мне давали очень
+[00:04:41] интересные задания как с которыми
+[00:04:43] справится обычная обезьянка там где
+[00:04:45] нужно дракон дроп делать мне такое
+[00:04:47] вообще не нравится Я люблю именно чисто
+[00:04:48] писать код без какого-либо визуализации
+[00:04:52] решил что активно искал работу понял что
+[00:04:56] не вывожу их там и там решил уволиться
+[00:04:59] то есть не было еще работы я уволился
+[00:05:01] два месяца еще искал работу потом
+[00:05:05] начали проходить собеседование в Google
+[00:05:07] это была контрактная работа то есть
+[00:05:10] непосредственно с командой уже проходил
+[00:05:13] у меня не было полноценных пяти интервью
+[00:05:15] но я полноценный проходил в мету два
+[00:05:18] раза я пошел первый раз через два месяца
+[00:05:21] они не ответили что типа не прошел через
+[00:05:23] два месяца они мне снова пишут типа вот
+[00:05:25] кандидат который себя хорошо показал мы
+[00:05:27] даем шанс гораздо раньше не нужно ждать
+[00:05:29] года но потом у них случился и ничего не
+[00:05:32] продвинулось а с другом получилось было
+[00:05:35] первое интервью там спросили сначала SQL
+[00:05:38] вопросы какую-то технические части по
+[00:05:41] машинам очень хорошо прошло ответил
+[00:05:45] Отлично На SQL довольно таки быстро
+[00:05:46] потом второе было интервью там тоже
+[00:05:50] спросили алгоритмы там было
+[00:05:53] многопоточность и еще какая-то по
+[00:05:56] алгоритму Я уже не помню но задача
+[00:05:57] приближенные не просто задачи как она
+[00:05:59] легко а именно приближенная к бизнесу
+[00:06:02] бизнес стороны что мне очень понравилось
+[00:06:04] тоже быстро прошел интервью это было
+[00:06:06] наверное первый или второе интервью
+[00:06:08] которое закончилось раньше времени то
+[00:06:10] есть первое было первое Google а второе
+[00:06:12] было второе потом они дали оффер Я там
+[00:06:15] поработал четыре месяца Сначала делали
+[00:06:19] апачи-би не переводили код в продакшене
+[00:06:21] чтобы запускать полноценно потом дали
+[00:06:25] какую-то тоже фигню перенос старого кода
+[00:06:27] который где-то останется не имеет
+[00:06:29] отношения но я этим занимался и через
+[00:06:32] четыре месяца меня
+[00:06:33] были у всех они все контрактников
+[00:06:37] пришел недавно в первую очередь тем
+[00:06:40] более контактников это проще всего с
+[00:06:42] ними самыми первыми распрощаются пытался
+[00:06:45] что-то искать то есть это был уже Март
+[00:06:47] этого года попытался искать работу но
+[00:06:50] рынок был перегружен очень сильно
+[00:06:52] слишком много кандидатов уволилась
+[00:06:54] параллельно у меня были клиенты знакомые
+[00:06:58] ребята у которых свой бизнес продают на
+[00:07:00] amazon eBay автозапчасти в частности
+[00:07:01] бампера Ну я с ними уже давно общался
+[00:07:03] еще когда хардену проходил что вот можем
+[00:07:05] сделать и рекомендательную и
+[00:07:08] ценообразование собирайте данные
+[00:07:09] начинайте это делать они что-то
+[00:07:11] пособирали Ну я как-то параллельно
+[00:07:13] поиском работы после Гугла начал им
+[00:07:16] делать проект потом решил полностью в
+[00:07:18] эту углубиться потому что мне это
+[00:07:19] нравится Ну и впоследствии Они
+[00:07:22] согласились какую-то минималку будем
+[00:07:24] оплачивать Ну так я и открыл компанию
+[00:07:25] сейчас свою полностью сейчас делаю для
+[00:07:29] них именно ценообразование еще в
+[00:07:32] дальнейшем это реализация
+[00:07:34] растрат на рекламу делать вообще с этого
+[00:07:38] начали но потом переключились только на
+[00:07:39] ценообразование так как лучше отклик был
+[00:07:41] запустили вот на этой неделе Первую
+[00:07:44] вторую версию уже тестов
+[00:07:46] Смотрим как будет следим за средним
+[00:07:49] чеком том что ордеры не падали
+[00:07:51] Вот то есть сейчас полностью посвящаю в
+[00:07:55] это время
+[00:07:56] занимаюсь спортом люблю пейнтбол
+[00:07:58] тренажерку растяжку 31 год впервые сел
+[00:08:01] на шпагат никогда
+[00:08:05] серьезные достижения интересные
+[00:08:07] интересный путь но у меня есть тебе еще
+[00:08:09] ряд вопросов
+[00:08:10] даже чуть более серьезных и один из
+[00:08:14] вопросов который мне беспокоит уже
+[00:08:15] последние несколько десятилетия Так кто
+[00:08:18] сильнее чужой или Хищник вчера тебя
+[00:08:21] интересовало Кто сильнее Терминатор или
+[00:08:23] рыбаков
+[00:08:26] не перенапрягать у меня есть ряд
+[00:08:30] безусловно волнует Мне кажется все таки
+[00:08:33] Хищник Я как большой фанат
+[00:08:35] Predators игры и фильмов Мне все-таки
+[00:08:39] кажется что Хищник более сильный
+[00:08:45] тогда перейдем Чуть более реальным
+[00:08:47] персонажем
+[00:08:48] Рокки борьбу или Рэмбо
+[00:08:52] а Роки как-то мимо меня прошел Рэмбо Я
+[00:08:55] очень любил детстве поэтому Рэмбо
+[00:08:59] Рэмбо дзюдо или бразильское джиу-джитсу
+[00:09:04] не тем ничем не занимался но сейчас
+[00:09:06] очень интересно в дзюдо пойти
+[00:09:09] позаниматься Потому что много на это
+[00:09:11] натыкаюсь поэтому выберу
+[00:09:13] нужно было тебе идти в Питере заниматься
+[00:09:16] лет 50 назад Сейчас уже
+[00:09:21] я себе поэтому не получилось но может
+[00:09:25] быть бразильское
+[00:09:27] не пробовал
+[00:09:37] Почему
+[00:09:38] [музыка]
+[00:09:43] больше практики было но тоже мало что
+[00:09:56] потому что хорошо
+[00:10:02] Харди мель или ВУЗ кардане сто процентов
+[00:10:06] я Всем рекомендую сейчас карпа в курсе
+[00:10:09] Потому что у меня большой опыт
+[00:10:10] прохождения онлайн курсов я полный
+[00:10:12] самоучка и Карпов и хардмейл они прям
+[00:10:16] дают очень хорошую практику но лучше
+[00:10:18] чтобы у вас база была начнется со старта
+[00:10:21] очень шикарно мне нравится и последний
+[00:10:24] вопрос Какая твоя самая любимая Голова в
+[00:10:26] книжке про систему дизайн
+[00:10:35] вышел открытый доступ а не знаю я
+[00:10:39] приобрел книжку твою она еще до меня не
+[00:10:41] дошла сразу как я увидел пока еще не
+[00:10:44] прочитал но я вообще целом Я имею
+[00:10:48] дизайне Какая главная голова мне больше
+[00:10:51] нравится чем заниматься что
+[00:10:55] они у нас 11 глава пока мы только дали
+[00:10:59] первые семь хотя уже
+[00:11:01] заслали на публикацию 16 Так ладно а
+[00:11:05] когда планирует
+[00:11:06] когда получить
+[00:11:11] довольно скоро
+[00:11:14] есть подозрение что где-то за следующие
+[00:11:17] два месяца
+[00:11:22] так Я думаю мы можем перейти к основному
+[00:11:26] зачем мы здесь собрались
+[00:11:28] а именно к рекламе курс систем дизайн
+[00:11:32] Но на самом деле нет что мы сейчас
+[00:11:34] делаем с тобой нас есть 90 минуток и я
+[00:11:40] попрошу тебя я прошу тебя за дизайне
+[00:11:43] следующую систему достаточно
+[00:11:45] может быть сложной может простой 25
+[00:11:49] тысяч
+[00:11:50] точек по всему миру точка Это
+[00:11:56] заправка
+[00:11:58] что на бизнес заправке есть На них есть
+[00:12:00] магазин
+[00:12:02] в котором продают всякие пирожки булочки
+[00:12:06] чипсы тапочки и прочие ерунду кофейни
+[00:12:10] и собственно заправка
+[00:12:13] на самой заправке цены могут меняться
+[00:12:16] там электронное табло быстро
+[00:12:21] желание
+[00:12:23] в магазине они так быстро меняться не
+[00:12:26] могут
+[00:12:27] заправки эти раскиданы
+[00:12:30] по разным странам
+[00:12:33] а соответственно одна из важных задач у
+[00:12:36] этой системы иметь возможность понимать
+[00:12:38] сколько заработано каждый момент времени
+[00:12:40] денег а это как ты понимаешь зависит от
+[00:12:44] двух моментов зависит от того сколько и
+[00:12:48] чего ты получил В какой валюте Правда же
+[00:12:51] То есть ты если получил 100 рублей
+[00:12:53] сейчас и 100 рублей две недели назад а
+[00:12:56] сегодняшнюю статистику например в
+[00:12:59] долларах то это будет не одно и то же
+[00:13:02] [музыка]
+[00:13:05] более того даже 100 рублей полученных в
+[00:13:08] 12 часов дня и 12:30 тоже могут быть не
+[00:13:11] всегда одним и тем же
+[00:13:14] Но мы же можем считать все полностью
+[00:13:17] сразу в долларах и все даже если нас
+[00:13:24] и система
+[00:13:27] работает
+[00:13:28] с деньгами понятное дело
+[00:13:31] При этом она должна
+[00:13:34] иметь возможность даже если что-то
+[00:13:36] сломалось моменте закончить все текущие
+[00:13:39] операции потому что мы не хотим чтобы
+[00:13:41] человек заливал бензин в тачку у нас
+[00:13:43] произошел сбой на сервере и все
+[00:13:46] остановилось
+[00:13:49] Нужно ли нам что-то для этого
+[00:13:51] планировать
+[00:13:52] Ну и в целом это все хочется понять что
+[00:13:56] нам нужно со стороны
+[00:13:59] дизайна иметь чтобы все это радость
+[00:14:02] обслуживать
+[00:14:03] понятно что должна быть достаточно
+[00:14:06] высокая
+[00:14:08] надежность мы не хотим чтобы тут были
+[00:14:10] какие-то перебои и мы хотим чтобы у нас
+[00:14:14] была
+[00:14:15] консистентность как минимум моменте
+[00:14:17] оплату Мы же работаем деньгами
+[00:14:25] Окей так за шарю экран я тогда давай
+[00:14:39] [музыка]
+[00:14:44] я сделал
+[00:14:50] сразу предупреждал
+[00:14:54] только в теории на практике у меня
+[00:14:56] ничего не было и больше
+[00:15:01] Поэтому есть какие пробелы у меня
+[00:15:08] Я вообще люблю начинать систем дизайна
+[00:15:10] когда есть какой-то общий план
+[00:15:12] изначально где расписаны каждый пункты и
+[00:15:16] дальше видео углубляться в каждый пункт
+[00:15:17] и конкретно расписывать и тогда меньше
+[00:15:20] пропустишь и больше будет охвата поэтому
+[00:15:23] я хочу сделать это то же самое мы сейчас
+[00:15:26] вот этот текст сюда берем и здесь
+[00:15:28] создадим новенький и это будет у нас то
+[00:15:32] есть первое что нам нужно
+[00:15:36] я пишу по-английски у меня остатка
+[00:15:39] полностью английская клавиатура может
+[00:15:41] где-то по-русски будет писать я надеюсь
+[00:15:42] ничего страшного в этом нет
+[00:15:46] Первое это давай возьмем
+[00:15:49] то есть уточнение что нам нужно
+[00:15:53] чтобы Я создаю вопросы и для моего
+[00:15:56] большего понимания что хочет бизнес и
+[00:15:58] как бизнес хочет чтобы это
+[00:16:00] функционировал
+[00:16:03] второе это будет
+[00:16:06] [музыка]
+[00:16:18] [музыка]
+[00:16:21] 4 это у нас
+[00:16:26] оценка на груз и
+[00:16:34] это High Level Design
+[00:16:45] 6 у нас компонентный дизайн
+[00:16:55] 7
+[00:16:57] [музыка]
+[00:17:01] здесь у меня слабое место
+[00:17:05] и
+[00:17:07] тогда вторая часть
+[00:17:18] так поехали про скоплен файнмент То есть
+[00:17:22] у нас есть заправка я буду чуть-чуть
+[00:17:25] описывать заправку которую я наблюдаю
+[00:17:27] здесь за последние пять лет мне так
+[00:17:29] проще будет просто в России может много
+[00:17:30] сейчас поменялось у нас допустим есть
+[00:17:32] три заправочные станции
+[00:17:35] то есть человек юзер он подъезжает он
+[00:17:38] может выбрать бензин То есть это он
+[00:17:41] хочет выбирать то есть это
+[00:17:44] уже больше функциональности экран потому
+[00:17:48] что людям не видно из-за плохого
+[00:17:50] разрешения на стриме кстати ребят если
+[00:17:53] мы Стрим Можем ли мы сделать
+[00:17:55] разрешение побольше Вот так увеличить
+[00:17:59] просит
+[00:18:09] нам Какие требования должны к этой
+[00:18:12] системе У нас есть бензин то есть мы
+[00:18:14] должны мониторить бензин
+[00:18:19] одна Лесная то есть сколько мы тратим
+[00:18:21] Сколько заливается Сколько нам нужно
+[00:18:24] закупать какие-то оберты когда бензин
+[00:18:26] заканчивается либо какой-то этот график
+[00:18:29] по доставке тоже должен учитываться
+[00:18:31] у нас нужно еще чтобы было
+[00:18:36] возможность оплаты то есть это
+[00:18:39] payments у нас должны поддерживать
+[00:18:42] различные виды фэймонсов кэш Карат карта
+[00:18:45] дебет карта может быть какие-то за
+[00:18:49] бонусы еще расплавится система
+[00:18:50] лояльности может быть какая-то
+[00:18:59] еще у нас то есть человек может
+[00:19:02] отслеживать
+[00:19:10] Какое количество товаров по какой цене
+[00:19:13] Потому что люди также может покупать нам
+[00:19:15] нужно также отслеживать какие-то
+[00:19:16] заканчиваются докупать в эту последнюю
+[00:19:19] непосредственно заправку
+[00:19:21] у нас еще должно быть обязательно
+[00:19:24] [музыка]
+[00:19:27] Управление персоналом
+[00:19:37] у нас должно быть
+[00:19:41] возможность связываться с внешними
+[00:19:44] системами это в частности банковские
+[00:19:46] системы так как мы должны отправить
+[00:19:47] транзакцию на банк и мы должны получить
+[00:19:49] подтверждение и тогда юзеру то есть но
+[00:19:52] это уже дальше пойдем то есть это
+[00:20:03] Я человек я приезжаю я оплатил газ Я
+[00:20:06] выбрал газ я оплатил либо я периодически
+[00:20:10] напомнить что я человек
+[00:20:14] иногда это полезно делать это
+[00:20:18] очень
+[00:20:21] само настройка
+[00:20:24] я Приезжай я выбрал я оплатил то есть
+[00:20:27] выбор способа оплаты это Мы записали Я
+[00:20:30] хочу что-то купить непосредственно в
+[00:20:32] магазине То есть это возможность выбора
+[00:20:34] товара Окей
+[00:20:42] может быть какая-то возможность
+[00:20:45] предзаказа чтобы товар был готов уже
+[00:20:48] непосредственно в магазине это какие-то
+[00:20:49] дополнительные системы это тоже
+[00:20:56] Майк потому что на заправках часто мойки
+[00:20:58] и автомойки и это
+[00:21:01] как одна из услуг кофе чем кофе не мойка
+[00:21:09] просто Отметим потом если что углубимся
+[00:21:12] в это тоже
+[00:21:16] понять не будет
+[00:21:21] Окей То есть я там выбрал Ну вроде все Я
+[00:21:25] как понимаю это основное а
+[00:21:33] мы там выбираем покупаем Ну я правильно
+[00:21:38] описал или еще что-то добавить какие-то
+[00:21:40] отдельные системы то есть вот у нас
+[00:21:47] Мы можем провести по-разному мы можем
+[00:21:50] провести интервью как интервью в которой
+[00:21:52] вообще принципе должен молчать или может
+[00:21:54] провести в режиме
+[00:21:56] с подсказками и тут и так и так нужно в
+[00:22:00] режиме подсказки прямо по ходу Правда же
+[00:22:04] да Мне тоже так кажется потому что ну
+[00:22:07] себя интервью Я не вижу смысла мне это
+[00:22:09] не для чего в принципе
+[00:22:17] два момента я
+[00:22:21] собеседовал и умных людей есть часто
+[00:22:24] привычка себя топить вот человек умный
+[00:22:27] он начинает отопить и делать свою жизнь
+[00:22:28] сложнее Хотя Казалось бы если человек на
+[00:22:30] его задача делать свою жизнь легче
+[00:22:32] Правда же получается как-то наоборот
+[00:22:34] смотришь человек там кого-то избивал в
+[00:22:39] школе Плохо учился сидела теперь он
+[00:22:42] депутат Да вот отличник у него жизнь
+[00:22:44] очень сложилось но тем не менее первый
+[00:22:48] совет не топи себя Вот зачем ты начал
+[00:22:50] усложнять какие-то предзаказы уже
+[00:22:53] отложенные там ну то есть ты хочешь
+[00:22:55] показать что ты об этом подумал об этом
+[00:22:58] нужно говорить нет
+[00:23:00] о том что можно конечно поговорить и о
+[00:23:03] таком функционале так как он для нас не
+[00:23:06] является ключевым мы его учитывать не
+[00:23:08] будем но в голове держим Что такое ты
+[00:23:10] показал что ты подумал что такое может
+[00:23:13] быть но сейчас ты специально не
+[00:23:15] сфокусировался и сделал
+[00:23:18] а ты вот начался все нормально второй
+[00:23:21] момент ты уже перечислил сколько раз два
+[00:23:24] три 4 5 6 7 причем Клево ты поставил
+[00:23:26] себя на место мало того что человека
+[00:23:29] но и человека покупателя это важно то
+[00:23:35] есть ты прошел с его точки зрения путь
+[00:23:38] возможно Раз уж ты так решил сделать
+[00:23:40] тебе нужно еще пройти путь с точки
+[00:23:42] зрения продавца
+[00:23:44] могут ли они отличаются Правда же то
+[00:23:47] есть какие-то роли то есть Окей А какие
+[00:23:49] Тогда тогда так Какие роли терпишь роль
+[00:23:51] кастана
+[00:23:59] Смотри это уже другой вопрос Если ты
+[00:24:01] хотел сделать там там нужно было
+[00:24:04] начинать ставить себя на место клиента
+[00:24:06] правда
+[00:24:08] я хотел понять именно мы же создаем для
+[00:24:11] пользователей наш пользователь клиент
+[00:24:13] который приносит нам деньги это именно
+[00:24:16] человек который покупает а не человек
+[00:24:18] который продает
+[00:24:22] для пользователя или для продавца
+[00:24:30] а ну да спасибо большое за
+[00:24:33] этот эту подсказку У меня такое
+[00:24:37] добывается что начинаю слишком долго
+[00:24:39] гуляться и Может проще нужно сказать и
+[00:24:42] пойти дальше Ну хорошо давай тогда
+[00:24:45] пойдем дальше не будем сильно
+[00:24:46] углубляться в различные сервисы и
+[00:24:49] возьмем что у нас есть заправка У нас
+[00:24:51] есть два непосредственных юзера это
+[00:24:54] продавец который взаимодействует с этой
+[00:24:55] системой и у нас есть покупатель который
+[00:24:58] приходит чтобы купить либо бензин либо
+[00:25:00] бензин и Товары какие у них
+[00:25:03] функциональные требования
+[00:25:06] могут быть какие-то Вообще должны быть
+[00:25:10] функциональные требования
+[00:25:12] указмера должна быть возможность выбрать
+[00:25:16] это самое первое выбрать способ оплаты
+[00:25:21] может быть
+[00:25:29] товар
+[00:25:48] исчезла что ли отлично
+[00:25:54] [музыка]
+[00:26:02] сейчас тут чуть-чуть у меня сбои
+[00:26:04] технические
+[00:26:11] лучше
+[00:26:14] а выбрать товар
+[00:26:17] что у нас еще может быть кастомер Какие
+[00:26:20] функциональные требования
+[00:26:22] оплатить получить подтверждение
+[00:26:24] транзакции
+[00:26:30] что она завершенная
+[00:26:35] шлюзы все правда же ты же не будешь
+[00:26:38] делать заново свой страх
+[00:26:41] Страйп не знаю даже что это такое
+[00:26:51] компания с оценкой
+[00:26:57] потому что дальше я могу Ты можешь
+[00:26:59] начать А вот не для своего нужно найти
+[00:27:01] Чтобы понять какой у меня процесс
+[00:27:03] процент транзакций негативных чтобы меня
+[00:27:07] не отрубили но
+[00:27:09] Окей
+[00:27:12] Хорошо давай не будем усложнять то есть
+[00:27:16] основные действия клиента Я прихожу я
+[00:27:18] выбираю газ я выбираю fayment я
+[00:27:19] Оплачиваю также я могу выбрать айты мы я
+[00:27:23] платить У нас есть два вида оплаты это
+[00:27:26] либо ты оплачиваешь непосредственно на
+[00:27:28] самой заправке либо ты оплачиваешь
+[00:27:30] внутри внутри ты оплачиваешь как бензин
+[00:27:32] так и там уже непосредственно То есть
+[00:27:35] можно это как отдельную сервис сделать
+[00:27:37] будет транзакции там и транзакции на
+[00:27:40] непосредственно колонки
+[00:27:44] вернемся в принципе основное у продавца
+[00:27:48] должно быть
+[00:27:51] оплатить полностью покупку
+[00:27:56] провести транзакцию
+[00:28:01] также должен быть монитор сколько
+[00:28:05] заправился
+[00:28:14] клиент
+[00:28:16] также это уже непосредственно
+[00:28:20] чтобы автоматически оповещения товаров
+[00:28:23] это уже наверное тоже топлю себя
+[00:28:26] что еще у нас у продавца я как
+[00:28:29] продавецком я либо Оплачиваю там либо
+[00:28:34] принимают здесь заказы
+[00:28:38] ну такие как выставка товара вот это вот
+[00:28:42] все но это тоже я думаю уже больше я
+[00:28:44] начинаю топить себя
+[00:28:46] конечно у тебя вот смотри ты же Мэри
+[00:28:49] занимался Да конечно и занимаюсь одной
+[00:28:52] из важных вещей это умение быстро
+[00:28:54] построить бы излайн от которого ты
+[00:28:56] будешь отталкиваться Правда же
+[00:28:58] со своим дизайном у тебя должен быть
+[00:29:01] какой-то Костяк
+[00:29:02] [музыка]
+[00:29:04] конечно у тебя главное в дизайне иметь
+[00:29:07] возможность его адаптивно подстраивать
+[00:29:10] какие-то изменения чтобы ты мог какие-то
+[00:29:12] куски сюда сюда внах ставить но ты не
+[00:29:15] можешь На дизайне сразу на все у тебя
+[00:29:18] если мы подумаем о подходит к реальному
+[00:29:20] дизайну который включает себя модульную
+[00:29:23] или микросервисную архитектуру Хотя
+[00:29:26] конечно люди могут начать говорить вот
+[00:29:27] чуваки же из амазона перешли с
+[00:29:29] микросервисов на Монолит правда люди
+[00:29:32] наверное не прочитали статью Чуков
+[00:29:33] амазонок я не просто имели микро сервисы
+[00:29:37] на каждую функцию я потом 10 функций в
+[00:29:40] один микросервис и люди кричать вот
+[00:29:42] Монолит победил это
+[00:29:46] есть там какой-то Мега микросервисы там
+[00:29:49] нано сервисы они сделали из них
+[00:29:51] микросервисы но
+[00:29:53] вернувшись микросервис правильно Мы же
+[00:29:56] должны иметь возможность нахлобучивать
+[00:29:57] что-то сверху и как-то на этом основном
+[00:29:59] кустике паразитировать или помогать
+[00:30:01] симбиотировать
+[00:30:04] поэтому опять же ты уходишь довольно
+[00:30:07] далеко мне кажется уже выставка товара
+[00:30:10] какая-то выставка товара тебе особо там
+[00:30:13] нужна в дизайне системы которая
+[00:30:16] поддержите вот понятно продать и
+[00:30:20] соответственно вот купить этот
+[00:30:21] функционал
+[00:30:22] наличие товара Ну конечно функционал
+[00:30:25] наличие
+[00:30:28] газ бензина тоже товар что еще какие-то
+[00:30:32] основные вещи
+[00:30:37] не уходи так глубоко потому что мы
+[00:30:39] вернемся когда первую операцию пройдем
+[00:30:42] мы потом пойдем дальше хорошо давай
+[00:30:44] тогда первый раз я просто хочу еще
+[00:30:46] добавить
+[00:30:50] не функциональные требования какие у нас
+[00:30:52] могут быть
+[00:30:54] [музыка]
+[00:30:58] должно быть
+[00:31:01] точной завершенный То есть это должно
+[00:31:03] быть вылобило ты В первую очередь потому
+[00:31:06] что это должно быть доступно Я как
+[00:31:08] кастом должен всегда получать и
+[00:31:11] завершенность транзакции
+[00:31:18] Мы хотим убедиться что у нас Мы не
+[00:31:21] перевели больше бензина то есть вот это
+[00:31:24] было что одна транзакция завершилась и
+[00:31:27] все то есть точные получили количество
+[00:31:29] денег
+[00:31:31] по поводу
+[00:31:38] [музыка]
+[00:31:41] Нам еще нужно знать какие Сколько денег
+[00:31:44] это тоже зарабатывается то есть какие-то
+[00:31:46] конвертации должны быть в единую валюту
+[00:31:49] и чтобы это сразу
+[00:31:51] отчитывалась где-то следилось какой-то
+[00:31:54] мониторинг должен быть
+[00:31:56] потому что это должно быть Окей То есть
+[00:31:59] это тогда
+[00:32:00] [музыка]
+[00:32:03] написано там маленький
+[00:32:11] денег на нынешний момент заработал эта
+[00:32:14] заправка за каждый день чтобы мы это
+[00:32:15] знали в какой-то одной валюте
+[00:32:20] Окей
+[00:32:22] должна быть надежная должна быть
+[00:32:25] доступная система
+[00:32:28] То есть это я должен получать к ней
+[00:32:30] доступ я должен убеждаться что это все
+[00:32:34] завершенно Мне нужно мониторить как
+[00:32:37] газ Сколько потрачено чтобы не
+[00:32:39] переливался этот газ и чтобы это
+[00:32:42] заливалось Абсолютно верно
+[00:32:45] Окей Ладно если что-то еще добавим
+[00:32:51] ты сказал что у нас 25
+[00:32:56] и в каждой есть 100 То есть получается
+[00:32:59] Допустим мы возьмем 200 машин в день Это
+[00:33:04] нормально или больше учитывать на каждую
+[00:33:06] заправку в среднем
+[00:33:09] есть машина в день допустим заправка
+[00:33:13] работает 24 часа в сутки
+[00:33:17] мы говорим о чем Да что это на один час
+[00:33:21] меньше 10 машин
+[00:33:23] в принципе когда проходишь мимозаправки
+[00:33:27] даже в любое время Но кроме ночи пожалуй
+[00:33:30] там всегда есть машины машинка
+[00:33:35] Ну окей Чтобы проще посчитать тогда
+[00:33:38] давай возьмем 1000 машин в день
+[00:33:43] получается 25
+[00:33:45] заправок в каждой Вот 1000 машин и у нас
+[00:33:51] получается это
+[00:33:58] день
+[00:34:03] машину как
+[00:34:07] дальше это получается
+[00:34:13] допустим у нас каждый день мы берем
+[00:34:15] одинаковые мы не возьмем сейчас выходные
+[00:34:18] и сезонности а возьмем просто что В
+[00:34:21] каждый день одинаковое количество машин
+[00:34:23] получается
+[00:34:28] у нас
+[00:34:32] [музыка]
+[00:34:39] по идее там количество транзакций
+[00:34:42] количество
+[00:34:43] создаваемой памяти должно быть
+[00:34:46] минимальные возьмем допустим 1 мегабайт
+[00:34:48] То есть каждый User создает один
+[00:34:50] мегабайт тень
+[00:34:53] я думаю это будет нормально и получается
+[00:34:57] у нас
+[00:34:59] 25 тысяч
+[00:35:03] 250 тысяч получается
+[00:35:06] 250
+[00:35:24] переводы у меня не очень Сейчас секунду
+[00:35:52] гигабайта правильно значит если ты один
+[00:35:56] казачок получается гигабайт а 2К
+[00:35:59] получается терабайт получается вот так
+[00:36:02] вот могу 25 терабайт
+[00:36:04] 25 терабайт за какой срок это за день
+[00:36:08] за день
+[00:36:14] соответственно 75 терабайт это за месяц
+[00:36:23] или 750
+[00:36:27] здесь у нас будет 750 так как у нас 30
+[00:36:53] [музыка]
+[00:36:56] так сетевой трафик примерно
+[00:37:00] 25 тогда в день будет
+[00:37:09] сколько у нас необходимо давать
+[00:37:12] дискового пространства тогда получается
+[00:37:14] чтобы хранить чтобы эта система
+[00:37:16] полностью работала
+[00:37:22] это если мы возьмем 750 терабайт в месяц
+[00:37:25] и нам нужно это как-то сохранять мы
+[00:37:28] можем потом это сохранять вот здесь не
+[00:37:31] совсем уверен Как правильно будет
+[00:37:32] посчитать То есть у нас 750 месяц мы
+[00:37:36] возьмем за год Сколько нам нужно
+[00:37:38] хранилища за год но мы можем эти
+[00:37:40] сохранилище как-то перераспределять и
+[00:37:42] старые данные сохранять нам более
+[00:37:44] дешевые ресурсы
+[00:37:46] другой вопрос
+[00:37:47] [музыка]
+[00:37:58] Это довольно чувствительное количество
+[00:38:00] информации
+[00:38:03] вот сколько одно слово занимает
+[00:38:08] памяти
+[00:38:11] меня очень слабо с этим
+[00:38:17] у нас какие есть кодировки есть да
+[00:38:26] [музыка]
+[00:38:27] значит идти в 16 скорее всего говорит о
+[00:38:31] чем Что там на один символ ну вряд ли от
+[00:38:34] 16 мегабайт Правда же вряд ли 16 Гб
+[00:38:38] скорее всего даже не 16 байт скорее
+[00:38:40] всего 16 правильно
+[00:38:43] Ну да на один
+[00:38:48] дальше Допустим мы возьмем даже utf 32
+[00:38:52] потому что нас там разные страны мало ли
+[00:38:54] чем мы хотим увеличим разрядность значит
+[00:38:57] 32 бит 32 бита это у нас что 4 байта
+[00:39:01] правильно
+[00:39:03] слово в среднем это Пусть что 55
+[00:39:07] символов 6
+[00:39:10] Ну по-разному там может быть длинные
+[00:39:13] слова но если
+[00:39:20] мы уже посчитали что у нас сколько
+[00:39:22] значит
+[00:39:31] 25 20
+[00:39:34] получается на один килобайт сколько слов
+[00:39:40] в одном тысяча байт это получается 1000
+[00:39:44] разделим на 25 получается
+[00:39:50] 40 А дальше 40 это килобайт правильно Да
+[00:39:58] 40 килобайт Значит у нас
+[00:40:04] мегабайки будет соответственно
+[00:40:07] 40 тысяч слов правильно
+[00:40:11] это очень моя
+[00:40:13] книга по системе Это около 100 тысяч
+[00:40:16] слов 120 тысяч слов тысячи утверждает
+[00:40:19] что каждая покупка человека это в
+[00:40:21] кодировке F16 эта книга
+[00:40:28] скорее всего не мегабайт
+[00:40:40] большие цифры
+[00:40:55] но вряд ли там одна покупка человека по
+[00:40:57] информации равна как целой книге
+[00:41:00] Там транзакция за какую покупку купил
+[00:41:03] Кто купил минимальное количество и один
+[00:41:06] на этом название этому какого-то либо
+[00:41:08] газа Окей получается у нас 25 тогда у
+[00:41:12] нас не 25 терабайт будет раз у нас
+[00:41:15] 1000 получается
+[00:41:18] гигабайт гигабайта
+[00:41:20] жизнь становится резко веселее Правда
+[00:41:23] уже лучше гораздо уже более реально
+[00:41:25] получается
+[00:41:31] 750 гигабайт за месяц и получается у нас
+[00:41:34] в год это будет
+[00:41:40] [музыка]
+[00:41:52] не получается такой вот хранилище за год
+[00:41:55] нужно получается 9 ТБ в принципе уже
+[00:41:57] более-менее что-то реально
+[00:42:01] это можно на ноутбуке хранить
+[00:42:07] Окей Так что у нас еще вот Установи еще
+[00:42:10] мы можем записать то есть какой трафик у
+[00:42:13] нас в день Это примерно идет
+[00:42:16] 25 гигабайт в день на все суммарно но в
+[00:42:22] принципе вроде Лотос Ты понимаешь на все
+[00:42:23] или я что-то отпускаю
+[00:42:27] нет
+[00:42:29] будем считать или не будем
+[00:42:35] [музыка]
+[00:42:42] но мы можем все не передавать у нас Эта
+[00:42:44] система может быть работать локально без
+[00:42:46] сервисного чтобы сохранять а потом
+[00:42:48] как-то вообще отправлять что нам не
+[00:42:49] нужно это каждый день сразу как-то
+[00:42:51] отправлять Я как-то так думал передавать
+[00:42:54] со всего мира 25 гигабайт трафика не
+[00:42:57] выглядит как чтобы невероятно правда
+[00:43:03] Ну да
+[00:43:05] Так что звучит
+[00:43:15] Когда у нас 25 без каких-либо проблем Мы
+[00:43:19] можем это передавать
+[00:43:21] Я просто сетевым трафиком особо не
+[00:43:24] работал Поэтому какие-то смотри Ну мы
+[00:43:26] четко с этим трафиком что 25 Гб в день
+[00:43:30] передавать на 25 тысяч точек это такой
+[00:43:33] ну сколько с точки нужно передать давай
+[00:43:35] так 25000 точно 25 ГБ
+[00:43:41] Наверное это не проблема конечно
+[00:43:47] в плохом месте то скорее всего ты
+[00:43:51] сможешь мегабайт в день передать
+[00:43:55] живое обновление Ну хотя нет по
+[00:43:58] транзакция но мы можем сделать чисто по
+[00:43:59] деньгам если мы хотим влага считать это
+[00:44:01] как-то отдельно что-то передавалась
+[00:44:08] Это не проблема
+[00:44:15] большая задача и делать всякие сиены
+[00:44:24] и прочее
+[00:44:27] чтобы как с этим работать прекрасно
+[00:44:34] Давай посмотрим сейчас хайвел дизайн то
+[00:44:38] есть начнем его рисовать
+[00:44:41] а hillow дизайн я начну чуть-чуть
+[00:44:44] подальше вот здесь чтобы это рисовать
+[00:44:48] Так у нас есть юзер
+[00:44:56] юзер
+[00:44:58] взаимодействует с нашим сервисом Давай
+[00:45:02] сервиса Мы возьмем такого цвета чтобы
+[00:45:04] отличалось
+[00:45:11] это назовем сначала просто сделаю
+[00:45:16] [музыка]
+[00:45:20] потом я буду увеличивать и это идет
+[00:45:25] [музыка]
+[00:45:35] а теперь у нас У этого юзера Какие
+[00:45:40] сервисы То есть это будет
+[00:45:47] должна быть возможность
+[00:45:51] Ну как для кастомер так и для сэллера
+[00:45:54] сейчас пока юзер сделаем
+[00:46:02] на все это должно быть
+[00:46:04] [музыка]
+[00:46:12] Ладно пока так сделай Потом будем думать
+[00:46:15] как их разделять и пойман То есть это
+[00:46:18] Селект газ
+[00:46:20] мне тоже чтобы записать Какой газ мы
+[00:46:23] выбрали какую поймать это тоже надо
+[00:46:26] [музыка]
+[00:46:33] [музыка]
+[00:46:35] Так
+[00:46:40] ну можно назначить если мы как-то через
+[00:46:43] какой-то будем выбирать чтобы человека
+[00:46:46] была возможность выбрать через App А это
+[00:46:48] непосредственно в магазине
+[00:46:56] кое-ап зачем зачем ты зачем ты себя
+[00:47:01] без всего делаем просто человек приходит
+[00:47:04] человек выбирает газ человек может
+[00:47:08] оплатить на месте это payments или
+[00:47:11] человек может оплатить внутри Ну давай
+[00:47:13] все-таки сделаем отдельную для
+[00:47:16] внутренней транзакции то есть хочу
+[00:47:18] разделить почему-то транзакцию на
+[00:47:21] заправке возле колонки и транзакции
+[00:47:25] внутри
+[00:47:26] [музыка]
+[00:47:37] будет еще цепляться непосредственно наш
+[00:47:40] продавец
+[00:47:46] это будет все вместе
+[00:47:51] [музыка]
+[00:48:05] когда человек выбрал газ человек
+[00:48:08] заплатил за газ либо человек заплатил
+[00:48:10] внутри выбор приложения это он Вне нашей
+[00:48:13] системы непосредственно делает Я как
+[00:48:15] юзер
+[00:48:17] заправками не взаимодействию больше Окей
+[00:48:21] теперь давай мы создадим у нас
+[00:48:26] целлера
+[00:48:34] [музыка]
+[00:48:40] [музыка]
+[00:48:43] значит цели точно также может помочь
+[00:48:46] выбрать газ так как они могут удаленно
+[00:48:48] это включать какой непосредственно
+[00:48:55] [музыка]
+[00:49:00] но
+[00:49:03] хотя это в принципе одна сути это все
+[00:49:06] время совет делает когда человек
+[00:49:07] приходит Внутри тоже совету
+[00:49:09] непосредственно оплачивает человек
+[00:49:10] взаимодействует только вот здесь просто
+[00:49:17] у селлера еще должна быть обязательно
+[00:49:20] функция мониторинга
+[00:49:27] нам нужно знать сколько у нас газа
+[00:49:29] осталось и Сколько заправляется
+[00:49:36] Мониторинг это будет
+[00:49:38] [музыка]
+[00:49:51] мониторинг Газа
+[00:49:57] целлер еще должно быть
+[00:50:06] [музыка]
+[00:50:13] чтобы узнать сколько он конкретно
+[00:50:15] работает
+[00:50:19] отслеживать время Ну про оплаты пока
+[00:50:23] вообще ничего не буду делать сейчас это
+[00:50:24] в голову пришло можно об этом подумать
+[00:50:26] дальше но я пока не буду этим усложнять
+[00:50:28] чтобы всегда не топить совсем
+[00:50:30] смотри а вот payments микросервис да Ну
+[00:50:34] какой сервис и payment in Store разница
+[00:50:38] поймать Это непосредственно Ты
+[00:50:40] оплачиваешь возле газ стоишь она где-то
+[00:50:41] вот приложил карту это одна система
+[00:50:43] которая считывает система которая должна
+[00:50:46] работать они все скорее всего Будут
+[00:50:48] потом идти не в базу данных а можно
+[00:50:51] сделать в отдельный сервис То есть это
+[00:50:52] отдельный потом можно выпустить
+[00:50:54] отдельную статью и сказать что вот эта
+[00:50:56] компания перешла на Монолит когда она
+[00:51:00] хорошо
+[00:51:02] Я не возражаю но можно и вместе в
+[00:51:05] принципе это сделать
+[00:51:08] хотим сделать это два разных сервиса
+[00:51:17] но я думаю зачем юзару мониторить зачем
+[00:51:20] для каждого по отдельности я так себе
+[00:51:22] это представлял
+[00:51:23] что мониторить для как не имеет
+[00:51:27] отношения к мониторингу никакого
+[00:51:45] с другой сервис отправлять это который
+[00:51:47] аутсорс чтобы он это выполнял
+[00:51:51] Окей Так что еще можно здесь добавить
+[00:51:57] Я выбрал я оплатил либо оплатил внутри
+[00:52:00] продавец либо принял на закраску либо
+[00:52:03] выбрал за меня газ если просто зашел
+[00:52:05] внутренних системы что-то там не
+[00:52:06] работает на заправочной станции также
+[00:52:09] продавец должен отслеживать Сколько газа
+[00:52:12] но мониторинг этого но
+[00:52:15] можно принципе это в одно даже сейчас
+[00:52:18] сделать как-то чтобы они тоже айтем соул
+[00:52:20] и газ и этот ну ладно потому что добавим
+[00:52:23] можно записать
+[00:52:27] Какие количество
+[00:52:29] продаются так мне все время кажется что
+[00:52:32] я что-то упускаю изначальных твоих
+[00:52:35] требований когда мы говорили про
+[00:52:38] бизнеса да
+[00:52:44] то есть вот этот я отметил что еще нам
+[00:52:47] нужно изменение цены газа чтобы было
+[00:52:50] очень быстро а изменение в сторону
+[00:52:53] как это должно сказаться на моей системе
+[00:52:57] то есть
+[00:53:00] газ должен быть в лаве и конектится и
+[00:53:03] обновляться как-то постоянно чтобы
+[00:53:05] чекать эту информацию где-то на общем
+[00:53:07] сервере для каждой конкретной заправки а
+[00:53:10] прайс Store это может только когда будет
+[00:53:14] какой-то запрос либо сервера отправлены
+[00:53:16] либо на сервер правильно чтобы проверить
+[00:53:18] допустим какие-то определенные никогда
+[00:53:21] может быть все это решается Просто
+[00:53:24] каким-то полем базе данных
+[00:53:35] что должно быть цена должна иметь
+[00:53:38] возможность поменяться правильно
+[00:53:39] цена меняется она значит где-то прежде
+[00:53:43] чем отображаться считывается правильно
+[00:53:44] периодически проверять новую цену
+[00:53:50] который постоянно проверяет обновление
+[00:53:52] именно даже знаем такой механизм и
+[00:53:57] правильно получает информацию
+[00:54:10] Ну да просто мы сохраняем тогда цены
+[00:54:18] То есть это юзер Окей То есть это в
+[00:54:22] поэте
+[00:54:23] Это должно быть Ну где-то после тогда
+[00:54:27] получается
+[00:54:32] наверное Вот так я думаю даже
+[00:54:38] Но это ну да то есть они совершили
+[00:54:42] покупку это мне кажется надо как-то
+[00:54:45] отдельно сделать
+[00:54:47] эту схему
+[00:54:51] как грамотно это сделать сейчас секунду
+[00:54:53] я подумаю ты можешь наверно пока
+[00:54:56] запустить
+[00:55:01] интересные вопросы среди тех людей
+[00:55:05] которые читают на YouTube пишет
+[00:55:08] комментарии пока кроме человека который
+[00:55:10] не прочитал статью от амазона на
+[00:55:12] утверждает что там было
+[00:55:14] больше ничего интересного нет спрошу ты
+[00:55:17] рисуешь уже несколько раз спрашивали
+[00:55:18] почему один раз я даже написал что это
+[00:55:20] искали дроп Но это такой Очень
+[00:55:22] популярный вопрос
+[00:55:26] [музыка]
+[00:55:28] Давай мы это вообще каким-то может быть
+[00:55:31] отдельным сервисом и от них Вот это
+[00:55:34] paymance будет идти то есть я бы вот так
+[00:55:37] наверное сделал
+[00:55:39] Ну и кстати кто-то спросил А зачем
+[00:55:41] разделять
+[00:55:43] payments и payments and 100 какой в этом
+[00:55:46] смысл
+[00:55:47] Но мы уже про это говорили Да это вопрос
+[00:55:51] уже слышали Правда Уже где-то вопросы
+[00:55:54] настаивайте давайте сделаем Просто
+[00:55:56] поймать
+[00:55:58] Чтобы меньше было
+[00:56:05] вопросов я в принципе здесь согласен
+[00:56:11] и здесь тогда у нас еще один
+[00:56:16] сделаем это будет
+[00:56:19] [музыка]
+[00:56:29] [музыка]
+[00:56:33] из которой он
+[00:56:35] берет и записывает
+[00:56:39] и также он будет идти непосредственно в
+[00:56:42] paymance чтобы ставить эту цену за какую
+[00:56:45] должен купить
+[00:56:49] человек
+[00:56:51] да
+[00:56:53] наверное вот так проще
+[00:56:56] OK И еще нам нужно мониторить Live
+[00:57:05] Ладно спрашивают как можно заказать мою
+[00:57:08] книгу в России она будет на зоне или
+[00:57:09] где-то еще и можно заказать электронном
+[00:57:11] виде откуда угодно Главное чтобы могли
+[00:57:14] ее платить А на бумаге и конечно сейчас
+[00:57:16] тяжеловато заказать в России как очень
+[00:57:18] многие другие физические вещи возможно
+[00:57:21] же не бег который в этом чате
+[00:57:22] присутствует как человек из Казахстана
+[00:57:24] поможет организовать параллельный импорт
+[00:57:26] этой книги но могу сказать что с нами
+[00:57:28] связались люди из издательства и
+[00:57:31] предложили перевод на русский язык
+[00:57:35] покупку прав перевод поэтому она
+[00:57:37] возможно будет опубликована бумаги на
+[00:57:39] русском языке Но на код соответственно
+[00:57:40] позже
+[00:57:45] все же мы обсуждали с Димой статьи
+[00:57:50] статью от амазона где они перешли там с
+[00:57:52] 5 нано сервисов на микросервис и все
+[00:57:55] сказали Монолит Монолит Монолит
+[00:57:57] возвращается
+[00:57:59] [музыка]
+[00:58:12] это у нас будет
+[00:58:27] Тогда наверное это даже вот так я это
+[00:58:30] сделал
+[00:58:32] и Live времени это куда-то тоже
+[00:58:34] сохраняет в отдельно и там уже
+[00:58:37] непосредственно с этим работать я
+[00:58:40] добавил Вот это liveranny это которая
+[00:58:41] как раз условия чтобы каждый день в
+[00:58:45] лайве оценивать сколько непосредственно
+[00:58:47] зарабатывает это заправка проходит она
+[00:58:51] сохраняется полностью сколько транзакция
+[00:58:52] совершилось и другой сервис уже
+[00:58:55] непосредственно высчитывает и сохраняет
+[00:58:57] другую базу данных Где это будет
+[00:58:58] непосредственно я Откровенно говоря не
+[00:59:01] уверен что это должен быть целый Ну
+[00:59:04] конечно же вопрос называть сервиса но
+[00:59:06] мне кажется это какая-то просто батча
+[00:59:07] обработка и создание какой-то витрины с
+[00:59:09] агрегатами Правда же Ну то есть не тянет
+[00:59:13] на сервис и отдельную БД То есть это
+[00:59:16] классическое У тебя есть какие-то слои у
+[00:59:18] тебя есть дальше какие-то агрегаты из
+[00:59:20] агрегатов
+[00:59:22] Ну то есть ты имеешь ввиду что не делать
+[00:59:24] никакую отдельную БД а просто сервис
+[00:59:26] который бы обработал все я бы ну вот я
+[00:59:28] бы не делал отдельное БД над ней Если
+[00:59:30] мне нужны были по дневные агрегаты любые
+[00:59:33] агрегаты я бы просто имел какую-то
+[00:59:35] витрину Ну то есть витринка это что
+[00:59:37] такое БАДы правда но я понял на какой-то
+[00:59:41] даже чтобы это смотреть
+[00:59:43] Я так понял
+[00:59:45] Окей
+[00:59:47] [музыка]
+[00:59:50] так чтобы себя больше
+[00:59:54] Давай еще раз пробежимся по
+[00:59:57] нашему
+[00:59:58] [музыка]
+[01:00:00] тормонитор газ Танчик
+[01:00:06] сторону это мы уже уберем пока это к
+[01:00:09] системе не имеет отношения
+[01:00:11] к нашей непосредственной
+[01:00:14] момент
+[01:00:18] [музыка]
+[01:00:25] хорошо то есть мы сохранили Потом давай
+[01:00:27] теперь добавим еще
+[01:00:35] это у нас получится самое главное это из
+[01:00:39] пэймонса будет идти в банк на его
+[01:00:43] возьмем
+[01:00:46] пусть будет такие аутсор сервисы у нас
+[01:01:06] Но эти соответственно должно эти Стрелка
+[01:01:09] как туда так и обратно чтобы мы получили
+[01:01:11] подтверждение от банковской транзакции
+[01:01:13] завершена и она окончательно
+[01:01:20] OK
+[01:01:26] [музыка]
+[01:01:30] Что еще можно добавить
+[01:01:47] [музыка]
+[01:02:03] Так ну вроде основное такое High Level
+[01:02:07] мы сделали
+[01:02:09] сейчас если можно как-то распределять
+[01:02:12] эту нагрузку чтобы всякие
+[01:02:15] вот балансеры до реплики
+[01:02:32] Да я думаю с Халил дизайном
+[01:02:37] более-менее Понятно Сейчас
+[01:02:39] компания дизайн более подробно каждый
+[01:02:42] этот расписать
+[01:02:46] какие у нас будут работать так ну юзер
+[01:02:49] начнем с него
+[01:02:51] взаимодействует у нас с двумя сервисами
+[01:02:55] их очень много нам также нужно
+[01:03:00] каждая заправка стоит на своем месте то
+[01:03:04] есть по сути она может локально делать И
+[01:03:06] вот здесь отправлять
+[01:03:12] не было практики только голая теория
+[01:03:14] поэтому буду изобретать из головы
+[01:03:18] она вообще есть что нужен
+[01:03:22] у нас мы с тобой еще знаем но по сути да
+[01:03:26] мы сохраняем тысяча запросов в сутки
+[01:03:30] да то есть мы наверное у нас есть
+[01:03:34] наверно какой-то локальный
+[01:03:36] сервер Правда же локальный комп мало
+[01:03:39] себя сейчас Есть сейчас нет мы где
+[01:03:45] значит А дальше мы это отправляем ну и
+[01:03:50] сколько
+[01:03:53] по сути
+[01:03:56] 10 тысяч запросов секунду листа
+[01:04:00] сколько с может держать одна тачка
+[01:04:04] запрос секунду сколько можно держать
+[01:04:08] Ну вот
+[01:04:11] чуваки из Вотсапа
+[01:04:14] компании которые я имел некоторые
+[01:04:17] отношения еще в далеком 2015 году
+[01:04:21] держать на одной машине
+[01:04:32] по сути нам не нужны тогда если мы все
+[01:04:34] сохраняем будем локально хранить потом
+[01:04:36] просто разово как-то отправлять
+[01:04:39] можем отправлять Когда мы можем
+[01:04:41] правильно Ну да да когда есть связь
+[01:04:43] может не быть мы отправили единственное
+[01:04:46] мы не будем тогда оценивать Life на него
+[01:04:48] каждый раз когда мы не можем отправлять
+[01:04:49] это уже другой вопрос а так-то по сути
+[01:04:52] на все данные когда пришел у нас все
+[01:04:54] данные системы сохранились в локальном и
+[01:04:57] потом было
+[01:05:00] 2 миллиона Connection of на сервак
+[01:05:05] 2 миллиона
+[01:05:13] это видимо очень много
+[01:05:19] [музыка]
+[01:05:30] рассказывал как в принципе многие
+[01:05:32] сервисы которые
+[01:05:37] [музыка]
+[01:05:40] Ну или на одном серваке
+[01:05:45] даже так здесь Какая нагрузка
+[01:05:50] 25 гигов в день меня PlayStation игры
+[01:05:53] скачиваю там 100 гигов может быть
+[01:05:59] Окей тогда никакой балансера нам не
+[01:06:02] нужен
+[01:06:02] Но нам нужны по любому чтобы у нас
+[01:06:05] ничего не рухнуло Хотя если это тоже все
+[01:06:08] мы данные будем хранить локально нам
+[01:06:10] такие реплики Но если базы данных упадет
+[01:06:12] чтобы была реплика тоже это
+[01:06:18] а еще сидим по сути
+[01:06:24] а если система вот это вот как она
+[01:06:27] сидел То есть когда есть один локальный
+[01:06:30] и другие территориально в других местах
+[01:06:31] находится так как у нас это по всему
+[01:06:33] миру
+[01:06:45] Но единственное что я вижу это какие-то
+[01:06:48] вот сторонние сервисы чтобы это работало
+[01:06:51] То есть если один крашенный кто-то
+[01:06:53] другой чтобы
+[01:06:55] поддерживал это то есть по каждому
+[01:06:57] сервису какие-то тоже самое базами
+[01:07:00] данных Если вдруг что-то произойдет она
+[01:07:02] как-то упадет чтобы была возможность
+[01:07:03] другая другу в другое место записать
+[01:07:05] какие-то
+[01:07:07] и она Подожди это вопрос баба во-первых
+[01:07:11] что и называть базы данных Правда же мы
+[01:07:14] с тобой вообще не Выбрались
+[01:07:17] многие базы данных они автоматом по себе
+[01:07:20] они во-первых сразу несколько машин
+[01:07:22] бегают создают реплики и там проблема
+[01:07:25] решена сразу
+[01:07:28] условно говоря имеет фактор репликации
+[01:07:30] Правда же
+[01:07:32] и все и не думаешь ни о чем
+[01:07:37] значит тогда сейчас стоит выбрать Какие
+[01:07:41] базы данных почто конкретно используется
+[01:07:44] и это уже очень хороший вопрос переходим
+[01:07:48] тогда это седьмой ком
+[01:07:52] ну у нас есть основном это 4 виды базы
+[01:07:56] данных есть конечно больше это
+[01:07:59] стандартная Революционная с которым мне
+[01:08:01] больше всего опыта
+[01:08:06] и колоночные
+[01:08:10] с остальными я особо документе
+[01:08:16] давай подумаем
+[01:08:18] когда выбирает газ и чтобы это все
+[01:08:22] сохранять
+[01:08:25] нам наверное все таки здесь какая-то
+[01:08:30] реляционная то есть когда Юза что-то
+[01:08:32] сохраняет вот здесь вот будет
+[01:08:33] реляционная
+[01:08:35] держим все лицо Правда же
+[01:08:39] мы в принципе можем вообще взять Зачем
+[01:08:42] нам мучиться с Non relation Мы берем
+[01:08:45] relation у нас гарантия
+[01:08:48] условные постры работает прекрасно на
+[01:08:51] этой нагрузке да
+[01:08:54] а какие-то данные которые уплывает
+[01:08:57] далеко ты дам Пишу какой-нибудь куда
+[01:09:03] прекрасно
+[01:09:20] бежит не нужно все держать в какой-то
+[01:09:23] базе данных сразу
+[01:09:27] какие-то агрегаты ты можешь держать Но
+[01:09:30] очевидно что тебя было тысяча покупок то
+[01:09:32] держать один агрегат сумма покупок за
+[01:09:35] этот день это в тысячу раз меньше данных
+[01:09:37] Правда же
+[01:09:38] [музыка]
+[01:09:39] но а нам Иногда нужно будет знать каждую
+[01:09:42] покупку Если мы будем держать только
+[01:09:43] одну если нужно можешь просканить и уйти
+[01:09:46] в глубь ну нужно будет пойдешь а не
+[01:09:49] нужно будет не пойдешь это уже вопрос
+[01:09:50] аналитически Когда нужно правда да
+[01:09:53] Вопрос Что быстрее
+[01:09:55] что-то из своей реляционной базы данных
+[01:09:58] какой-нибудь
+[01:09:59] Прости Господи
+[01:10:02] от Google
+[01:10:22] так
+[01:10:27] Давай дальше выбираем тогда по сути
+[01:10:30] можем так у нас маленький объем Если я
+[01:10:33] правильно понимаю это все можно везде
+[01:10:35] напихать
+[01:10:42] Да это все будет взаимосвязано если
+[01:10:45] нужно как-то обрабатывать
+[01:10:57] то есть по сути
+[01:11:24] и прайс change Да тоже можно сюда
+[01:11:28] сохранить Зачем мое другое но уже
+[01:11:30] какие-то сторонние не используем на
+[01:11:33] посторонний также подключается к этой
+[01:11:35] тогда базе данных даст какой-то доступ и
+[01:11:37] все
+[01:11:45] а что аутсос
+[01:11:52] сторонние сервисы на которые мы
+[01:11:54] отправляем поймать какие-то банковские
+[01:11:56] системы
+[01:12:00] надо получать просто какой-то
+[01:12:02] микросервис который
+[01:12:05] подтверждает транзакцию Ну ты говорил
+[01:12:07] это как раз вот другие компании там
+[01:12:09] делают как ты отправил просто
+[01:12:12] получил отправил
+[01:12:15] Они должны отправить подтверждение Я так
+[01:12:17] понимаю то что транзакция чтобы
+[01:12:18] завершена ты можешь отправить Там
+[01:12:20] какая-то ошибка они тебе ничего нам
+[01:12:21] чтобы убедиться что транзакция завершена
+[01:12:23] и деньги списались
+[01:12:29] я с платежными системами просто не
+[01:12:30] работал пока еще
+[01:12:33] ты отправил найти что-то вернул У тебя
+[01:12:36] шесть всяких шейки и прочее правильно
+[01:12:39] подтверждение
+[01:12:40] Ну окей Да какой сервис какой сервис
+[01:12:43] какой-то сервис Согласен Все нормально
+[01:12:59] так
+[01:13:03] что нам еще добавить до того как пойти
+[01:13:09] и думать о том как это лучше сканировать
+[01:13:17] базы данных есть мы здесь сохраняем
+[01:13:19] маленький
+[01:13:23] [музыка]
+[01:13:31] но мне кажется в принципе можно идти уже
+[01:13:33] смотреть складу то есть вот такая вот
+[01:13:35] система будет работать для наших условий
+[01:13:37] для 25к заправок сейчас только понять
+[01:13:41] Как это распределить и если это по всему
+[01:13:43] миру и нам нужно это
+[01:13:46] получать деньги то какой-то сервер
+[01:13:53] Ты же сказал что нужно и постоянно
+[01:13:55] следить каждый день Сколько заработала
+[01:13:58] заправка
+[01:14:00] помочь
+[01:14:05] заработали
+[01:14:07] в какой-то конкретной валюте для этого
+[01:14:10] нужно получили в какой момент времени
+[01:14:16] [музыка]
+[01:14:22] мешает сразу с банком через банк Это
+[01:14:25] Откровенно говоря
+[01:14:27] [музыка]
+[01:14:30] в нужную валюту
+[01:14:33] Через банки уже тогда получать эту
+[01:14:35] информацию то есть мы можем Даже
+[01:14:37] его в нужной валюте
+[01:14:43] значит тогда все это работает Давай
+[01:14:45] переходим тогда в сковороте
+[01:14:50] и масштабирование
+[01:14:53] [музыка]
+[01:14:55] так нос масштабированием тоже я не имею
+[01:14:59] К сожалению практики реальные только все
+[01:15:01] теоретическое Что изучал на систем
+[01:15:03] дизайне и читал какие-либо книжки
+[01:15:05] поэтому поехали
+[01:15:10] у нас могут быть пиковые какие-то
+[01:15:12] нагрузки в течение дня у нас могут быть
+[01:15:14] циклы нагрузки в течение также какой-то
+[01:15:17] сезонность если люди часто куда-то
+[01:15:19] уезжают Особенно это замечается в
+[01:15:21] какие-нибудь праздники когда люди ездят
+[01:15:24] за город чаще заправляются Но это все
+[01:15:28] равно не такая сильная нагрузка Так у
+[01:15:30] нас не так много данных
+[01:15:32] [музыка]
+[01:15:34] но так как это по всей системе по всему
+[01:15:37] миру
+[01:15:40] первое что мне приходит Сиде но как вы
+[01:15:44] здесь конкретно использовать потому что
+[01:15:46] это для масштабирования очень удобно как
+[01:15:49] я понял когда по всему миру раскидано
+[01:15:55] Я просто рассуждаю вслух сейчас чтобы
+[01:15:58] мне больше как-то понять и информацию
+[01:16:00] какую-то вытащить из своего мозга Я вот
+[01:16:02] только это делаю поэтому я могу уходить
+[01:16:04] и закапывать себя это да я сказал
+[01:16:06] практики нету поэтому я чисто теорию
+[01:16:08] что-то вспоминаю что-то додумываю и
+[01:16:11] где-то Да захожу глупо И копаюсь
+[01:16:16] хорошо Дай тогда мне направление куда
+[01:16:19] мне идти Вот поэтому складывать Если я
+[01:16:21] сейчас начинаю себя закапывать мы на
+[01:16:23] самом деле Вот ты основная Здесь
+[01:16:25] проблема которая произошла то что все
+[01:16:27] закопал я в принципе вся система которую
+[01:16:29] мы Я тебе даже дал свое время сам начале
+[01:16:32] намек Помнишь когда мы посчитали 9
+[01:16:34] терабайт в год я тебе сказал что это на
+[01:16:36] ноутбуке хранить это уже было Да вот это
+[01:16:40] было довольно сильная подсказка если у
+[01:16:42] тебя год данных можно держать ноутбуке
+[01:16:44] никакого нет то в принципе это у тебя
+[01:16:47] уже отвечает сразу на кучу вопросов
+[01:16:51] база Да Окей
+[01:16:55] мы знаем что нам очень полезно
+[01:16:57] реляционно Правда же даже
+[01:17:01] килобайт пользователя данных я там При
+[01:17:04] желании можно мне кажется ужаться и Да
+[01:17:06] там еще меньше
+[01:17:10] [музыка]
+[01:17:12] можно как-то компрессию водить и прочее
+[01:17:16] но не суть Пусть килобайт соответственно
+[01:17:19] все это вы уже тебе отвечает Какая база
+[01:17:22] данных
+[01:17:24] сервисы не сервисы и всякая
+[01:17:28] масштабирование все здесь нет
+[01:17:29] масштабирования науки Будьте допустим не
+[01:17:31] 25000 заправок а 250 тысяч вообще дом
+[01:17:35] верится честно говоря в такое
+[01:17:36] масштабирование заправок потому что
+[01:17:38] физические объекты это не онлайн объекты
+[01:17:40] и просто редко бывает допустим OK это
+[01:17:44] превращается аж в 90 терабайт в год
+[01:17:48] тоже не так уж много тоже не так
+[01:17:51] принципе там все что угодно можно иметь
+[01:17:54] любое лицо Окей в день это становится
+[01:17:58] 250 Гб
+[01:18:00] держит хочешь побыстрее Возвращайся С
+[01:18:04] какими грин-планом а дальше все просто
+[01:18:06] делаешь операции
+[01:18:11] сливаешь опять куда-то же
+[01:18:15] Ну если так говорим когда получается нам
+[01:18:19] нужно просто реплика чтобы
+[01:18:40] вот у меня вопрос
+[01:18:42] а мы же не хотим в базе хранить много
+[01:18:45] много данных Правда же
+[01:18:48] А у нас давай подумаем допустим есть
+[01:18:51] пачка чипсов скорее всего на нас
+[01:18:54] продается эта пачка чипсов
+[01:18:56] в множестве разных стран
+[01:19:01] И у нее могут быть все атрибуты основные
+[01:19:05] одинаковые а какие-то отличаться там
+[01:19:08] локальное название цена что-то еще да
+[01:19:12] какой бы структуру мы как бы мы это
+[01:19:15] сохранили в базе данных структуры мы
+[01:19:17] использовали чтобы минимизировать
+[01:19:18] количество места которые нам потребуется
+[01:19:21] для использования
+[01:19:23] вот этих
+[01:19:24] знаний наших что у нас очень много
+[01:19:27] дублирование То есть наверное мы не
+[01:19:29] хотим же иметь эту информацию что пачка
+[01:19:34] допустим
+[01:19:38] и у тебя на каждую страну дублирование
+[01:19:40] целый джейсончик где у тебя 95
+[01:19:45] одинаковые не меняется
+[01:19:49] в этом случае скорее всего Как я вижу
+[01:19:51] больше подходит какая-то
+[01:19:53] документационная база данных Где будет
+[01:19:55] записано как-то в документе есть
+[01:19:57] какие-то общие и под каждую страну по
+[01:19:59] отдельности тогда у нас общие будут все
+[01:20:01] в одном месте под каждые По отдельности
+[01:20:03] Не будет никакого дублирования будет
+[01:20:06] одна пачка Lays под нее будет какое-то
+[01:20:08] Вот дисончик где будет расписано
+[01:20:12] то есть какой-то айтинг карточка айтона
+[01:20:15] вот так как
+[01:20:17] Ну как раз покажи мне покажи Ну хорошо
+[01:20:21] давайте покажу
+[01:20:22] запрограммирование структуру Открой мне
+[01:20:24] Интернет
+[01:20:25] то есть допустим у нас есть прям здесь
+[01:20:29] сделаю
+[01:20:31] [музыка]
+[01:20:39] [музыка]
+[01:20:42] Ладно давай так
+[01:20:44] вот у нас идет допустим это
+[01:20:50] дальше идет какие-то стандартные у него
+[01:20:59] 10
+[01:21:03] и так далее какие-то стандартные которые
+[01:21:06] одинаковые для всех пачки дальше идет
+[01:21:16] что если это для каждой стороны по
+[01:21:19] отдельности но мы по стране же lace они
+[01:21:21] одинаковые там везде название одинаковые
+[01:21:23] цены одинаковые цены Окей могут быть
+[01:21:25] отличаться по стране это как бы другому
+[01:21:28] это уже интереснее интереснее уже тогда
+[01:21:35] если мы возьмем Country
+[01:21:46] и возьмем допустим
+[01:21:52] здесь какие-то цены это цены тогда по
+[01:21:55] каждому штату области будут разные Ну
+[01:21:59] можно и так в принципе тогда вот тогда
+[01:22:02] вот так лучше сделать
+[01:22:05] и здесь идет уже непосредственно
+[01:22:08] разделение по странам
+[01:22:14] в России Здесь идет по области допустим
+[01:22:33] дальше идет страна другая
+[01:22:46] вся 10
+[01:22:49] какой-то еще можно добавить description
+[01:22:57] до каждого этого Lay's
+[01:23:00] для айтона вот я представляю то в
+[01:23:03] каком-то вот в таком виде тогда у нас не
+[01:23:05] сильно будет повторяться это все точно с
+[01:23:07] одинаковой сайт одинаковый если это
+[01:23:09] будет что мы сэкономим Давай сэкономим
+[01:23:13] по сравнению если бы мы все дублировали
+[01:23:15] если мы делали революционную базу данных
+[01:23:18] у нас было много записей по description
+[01:23:21] по сайту и вот эти вот все данные
+[01:23:24] которые первоначально идут к общему они
+[01:23:26] повторялись для каждого региона для
+[01:23:29] каждой страны
+[01:23:33] Какое количество Сколько было повторение
+[01:23:35] у нас 25 тысяч если заправок
+[01:23:41] но скорее всего меньше процент
+[01:23:44] информации чем будет посмотрим
+[01:23:51] да
+[01:23:59] У нас есть описание То есть это какой-то
+[01:24:00] string
+[01:24:02] сколько там 4 байта Стрим будет Вот это
+[01:24:05] все но может там чуть побольше но
+[01:24:07] возьмем допустим сколько там описание 20
+[01:24:14] тоже там это что-то минимальное значение
+[01:24:19] наверное тоже 4 какие-то
+[01:24:26] что еще общего у нас
+[01:24:28] производительную это все description
+[01:24:30] будет какие-то описания еще что-то
+[01:24:34] это все вот здесь вот будет сидеть
+[01:24:40] получается на минимальное количество
+[01:24:42] сохраняем это вообще Но это за каждый Ай
+[01:24:45] ты моя если на сайт много мы это еще
+[01:24:48] умножаем на количество атомов То есть
+[01:24:50] получается сколько у нас там в истории
+[01:24:53] Но 1000 наверное побольше наверное
+[01:24:57] различных товаров хотел заправки они там
+[01:25:00] маленькие есть крупные какие-то нет
+[01:25:02] тысячи наверное
+[01:25:05] получается 24 килобайта
+[01:25:10] мы для всех iTunes сохраняем Но это
+[01:25:15] копейки
+[01:25:32] тут у нас зашла дискуссия про
+[01:25:36] базы данных попросили мне рассказать про
+[01:25:40] New sequal не про ногти про нее или база
+[01:25:45] данных то я все Прогресс на секциях и
+[01:25:48] сразу в 2010 году
+[01:25:50] и говорят что кроуч диби Яндекс
+[01:25:56] должен признать что не про одну из этих
+[01:25:58] названий кроме Google finer Я не слышал
+[01:26:00] про Google spinner Я читал статью
+[01:26:03] но претензия до конца непонятно потому
+[01:26:05] что мы здесь упомянули и Green Club
+[01:26:08] который мы обсуждали в контексте если
+[01:26:11] нам нужно дальше и параллелец который
+[01:26:12] позволяет горизонтально параллерить и
+[01:26:15] даже быстренько проверил в чем
+[01:26:16] соотносится Google spanner и Green Plan
+[01:26:19] и значит
+[01:26:22] горизонтальные вертикальное присутствует
+[01:26:25] highwaybility присутствует там и там
+[01:26:27] одинаковые
+[01:26:28] сильные консистенция и там и там SQL там
+[01:26:31] и там асит и там и там
+[01:26:36] правда присутствует
+[01:26:40] Green план Global Rich
+[01:26:44] данным контексте
+[01:26:47] но в общем лмки выдали мне что это очень
+[01:26:51] похожее вещи
+[01:26:52] поэтому не могу принять
+[01:26:55] в том что мы не упомянули эти вещи если
+[01:26:58] мы их упомянули
+[01:27:04] я вот сегодня
+[01:27:12] рассказывали но этот второй момент что
+[01:27:16] я предпочитаю
+[01:27:19] потому что скучных технологиях процент
+[01:27:23] как известно неизвестного неизвестного и
+[01:27:25] известного неизвестного уже известен и
+[01:27:29] они проверены только если нет реально
+[01:27:31] какого-то преимущества пока я не видел
+[01:27:33] чтобы решалась какая-то задача которая
+[01:27:35] раньше не решалась то есть да я понимаю
+[01:27:37] что вот тут Кирилл пишет что можно
+[01:27:39] ходить в один он сам раскидывает данные
+[01:27:42] но Я подозреваю что на самом деле много
+[01:27:44] где можно настраивать кассандре по-моему
+[01:27:46] что-то такое можно поставить
+[01:27:48] ногу вещей
+[01:27:50] Алла база колоть нет значит Грин план не
+[01:27:54] колоночная база
+[01:27:57] вот Кирилл пишет Это база колоночные
+[01:28:00] базы или ты имеешь в виду что спаннер
+[01:28:02] это колоночная база
+[01:28:05] спанр конкретно это просто
+[01:28:10] relational раз параллелен и как надо это
+[01:28:15] не колоночные
+[01:28:28] я должен признать что я может что-то не
+[01:28:31] понимаю здесь Я не претендую название
+[01:28:34] экспертах данных а Google
+[01:28:44] в отличие Ну хорошо Google ну подожди
+[01:28:47] query тоже колоночная
+[01:28:51] в чем в чем преимущество Надо почитать
+[01:28:56] Аси Да хотя там чуть можно настройками
+[01:29:07] [музыка]
+[01:29:10] кому интересно
+[01:29:13] Google
+[01:29:33] получается тогда
+[01:29:37] тогда тоже не могу принять Да гринпан
+[01:29:40] тоже рекламы
+[01:29:51] это действительно так вот Я поэтому
+[01:29:53] удивился что он колоночный мне выдался
+[01:29:55] ответ
+[01:30:02] Ну пишут что Дак колоночный надо прям
+[01:30:07] последовать этот вопрос
+[01:30:10] а себе нет
+[01:30:17] Кирилла чем кликаунс плохо хорошая BD
+[01:30:24] потому что пишет игры бабочка кликал
+[01:30:27] свой Я кстати ниже проблема скликался
+[01:30:28] достаточно хорошая штука которая один из
+[01:30:31] немногих продуктов
+[01:30:34] из России который я видел используется
+[01:30:37] много где за пределами в разных
+[01:30:40] компаниях довольно успешно у меня
+[01:30:43] знакомые в своих стартапах компаниях
+[01:30:45] тоже Яндекс
+[01:30:57] Надо почитать про эти Новые тогда базы
+[01:30:59] данных мне потому что сейчас скоро будут
+[01:31:04] такой вопрос Ну я пока не нашел от самых
+[01:31:08] отличий между гринпам и спандером
+[01:31:11] понятно
+[01:31:38] пишут что спаннер для глобально
+[01:31:40] распределенных транзакций подходит прям
+[01:31:43] прекрасно
+[01:31:55] а ты больше какими пользовался у тебя из
+[01:31:58] личного опыта базовых данных для своих
+[01:32:01] проектов
+[01:32:02] Клик Big Very posgro
+[01:32:06] Green
+[01:32:13] такое Яндекс
+[01:32:18] надо пользоваться продуктами которые
+[01:32:20] имеют нормальную поддержку глобальное
+[01:32:23] представление Я чисто права и тебе не
+[01:32:25] слышал Может быть я и ошибаюсь
+[01:32:37] называется
+[01:32:48] пишет что вайди бит аналог Google spaner
+[01:32:57] Ну да асит есть у них хорошо и
+[01:33:00] дистрибьюция то есть
+[01:33:03] Ну надо сказать что с гринпам часто
+[01:33:07] бывает боль поэтому Пожалуй да я
+[01:33:09] соглашусь что если от Google spaner у
+[01:33:12] людей хорошие отзывы то наверное стоит
+[01:33:14] попробовать не Green pum а спамер
+[01:33:21] с экономически Спрашивается
+[01:33:22] экономическим образованием слабого ВУЗа
+[01:33:24] при самообразование можно стать крутым
+[01:33:25] аналитиком может можно хардена
+[01:33:31] сколько данных в итоге таким образом
+[01:33:33] сохраним Скажи мне какая у нас
+[01:33:35] компрессия будет ну Я посчитал что 24
+[01:33:38] килобайт мало сохранимся 1000 а это
+[01:33:43] 24 килобайта от 40 это много а ты от
+[01:33:47] 1000
+[01:33:49] ну здесь наверное будет
+[01:33:53] для пользователей у нас же на пользу а
+[01:33:55] ну окей
+[01:33:57] Мы же по документам то что я вот про это
+[01:34:00] сохраним если мы используем все записи
+[01:34:02] повторяем Либо мы не Вот это я отсюда
+[01:34:04] считал Я получил где-то за один айтом
+[01:34:07] сохраним то есть
+[01:34:13] 1000 на 24000 айтмов мы вот эти 1000 вы
+[01:34:17] не будем сохранять То есть это
+[01:34:18] получается 24 Мб
+[01:34:24] если 1000 этого записывать не в строчные
+[01:34:26] А в документационную где будет
+[01:34:29] как мы можем сократить количество данных
+[01:34:32] для
+[01:34:33] пользователей как можем жать что мы там
+[01:34:35] можем сделать У пользователя
+[01:34:41] Да вот мы написали что килобайт до на
+[01:34:44] пользователя мы можем как-то пожить
+[01:34:46] Слушайте я действительно посмотрю на
+[01:34:48] спаннер следующий раз когда мне нужно
+[01:34:50] будет что-то типа глобального
+[01:34:52] реляционного сиквела
+[01:34:55] не будет держать Но здесь данном случае
+[01:34:57] не вижу смысла ни в каком споре Хотя
+[01:35:00] может я ошибаюсь просто потому что нет
+[01:35:02] такой нагрузки
+[01:35:04] нет необходимости все это прекрасно
+[01:35:06] будет Раиса и передаваться потому что у
+[01:35:09] вас присутствует точка на каждой из
+[01:35:11] станции так уже сама по себе а так на
+[01:35:14] спанр Конечно я посмотрю и наверное да
+[01:35:17] это будет хорошая замена Да
+[01:35:19] действительно
+[01:35:21] хорошую замена к этому ужасу
+[01:35:30] в конце сделать пару вопросов меня для
+[01:35:33] тебя конечно
+[01:35:37] что время там заложить тогда
+[01:35:41] тут спрашивают депрессии 21 бросил ВУЗ
+[01:35:43] не знаешь куда идти Я посоветую написать
+[01:35:45] человеку который также поступил Напишите
+[01:35:47] Игорю кутенкову
+[01:35:51] Давай последнее посчитаем чего с тобой
+[01:35:53] подумаем как можем сократить количество
+[01:35:55] данных для пользователя вот Какая
+[01:35:57] информация о пользователе чем купил
+[01:36:00] сколько он купил Сколько стоит правильно
+[01:36:05] а это
+[01:36:15] наверное можем описать каким-нибудь
+[01:36:18] интеджером правда вряд ли у нас больше
+[01:36:20] чем Окей значит мы можем
+[01:36:33] [музыка]
+[01:36:35] 2 8 это 1056
+[01:36:37] Бывает ли баки больше на 256 литров
+[01:36:45] как и баки подожди ты про что сейчас Но
+[01:36:49] неважно же может быть коньки количество
+[01:36:50] литров правильно бензина Да
+[01:36:53] Аки Пусть мы сделаем не 8 бит один байт
+[01:36:58] а два байта заложим Пусть это будет 2 в
+[01:37:01] 16 это очень много все вот значит два
+[01:37:04] байта Мы точно можем здесь хранить Можем
+[01:37:07] даже ужас два байт
+[01:37:10] это два байт правильно добавить на
+[01:37:13] одного юзера Мы можем
+[01:37:15] тебя два укуса
+[01:37:20] об этом уже писали Я не стал тогда
+[01:37:22] читать Окей
+[01:37:26] прайс Ну наверное тоже никак не можем
+[01:37:28] ужать нам нужна достаточно точно хотя мы
+[01:37:31] обычно дальше двух знаков после запятой
+[01:37:33] не идем Правда же Ну да то есть
+[01:37:37] 32 то есть четыре
+[01:37:46] а соответственно айтом айтем у нас
+[01:37:49] описывается словами а этого мы не хотим
+[01:37:52] мы же на самом деле понимаем что у нас
+[01:37:54] это какой-то эскаюда какой-то из
+[01:37:58] Соответственно что писать чипсы layscrap
+[01:38:02] что Представь сколько чипсы да А мы у
+[01:38:06] нас получается чипсы это уже 20 байт
+[01:38:08] просто чипсы Да если у нас 32
+[01:38:12] каждая из них это 4 байта
+[01:38:16] чипсы 520 ужас ужас настолько чипсы уже
+[01:38:20] в два раза больше всего остальное Не
+[01:38:25] говоря уже что чипсы Lays тра-та-та
+[01:38:31] соответственно Наверное мы можем через
+[01:38:33] Каю Да если мы вместо
+[01:38:35] одного слова пусть у нас среднем будет
+[01:38:39] это на самом деле
+[01:38:40] символов здесь символов это чего у нас
+[01:38:43] 40 байт вместо 40 байт мы будем
+[01:38:47] использовать какой-то идеи с кюйди
+[01:38:49] вместо 40
+[01:38:54] будем использовать уникальное ID Пусть
+[01:38:57] нас будет очень много этих ходи Пусть
+[01:38:59] это будет Flow 32 это будет 4 байта в 10
+[01:39:02] раз сократили да
+[01:39:03] [музыка]
+[01:39:06] соответственно было у нас изначально 46
+[01:39:09] байтов а сократили мы до 10 правильно
+[01:39:13] да получается так это четыре раза
+[01:39:17] можем сделать лучше
+[01:39:27] но лучше чем почесал Валера мы не сможем
+[01:39:29] точно сделать Я думаю
+[01:39:33] почему ты в принципе
+[01:39:36] если у нас Мы точно знаем что копейки
+[01:39:39] это всегда число
+[01:39:45] соответственно А 2 86 значит 27
+[01:39:51] или можно еще лучше сделать
+[01:39:58] Сколько нужно нам данных для
+[01:40:00] репрезентации копеек
+[01:40:03] там нужно всего сколько два наверное
+[01:40:10] что от 0 до
+[01:40:14] значит что вариантов это меньше чем 27
+[01:40:17] 27 128
+[01:40:20] то есть семью битами Мы точно это опишем
+[01:40:29] правильно
+[01:40:32] для тентов не не байтов
+[01:40:37] мы
+[01:40:39] просто Bit
+[01:40:47] но тут вопрос Окей какой мы хотим
+[01:40:50] предельную цену поставить
+[01:40:52] чтобы у нас чек вмещалась
+[01:40:57] Ну допустим вот у нас была на цену 4
+[01:41:00] байта выделено так
+[01:41:02] то есть 32 бита 7 мы уже взяли у нас
+[01:41:06] осталось 25
+[01:41:08] 25
+[01:41:09] довольно большое число потому что
+[01:41:12] два в десятой тысяч еще на два десятка
+[01:41:15] тысяч это уже миллион правильно
+[01:41:19] или он достаточно большое число
+[01:41:21] там даже больше
+[01:41:25] такие цены будут
+[01:41:27] Ну это вот миллион влазит
+[01:41:34] мы делаем гречиш нас нельзя продавать в
+[01:41:36] чеке больше чем на миллион
+[01:41:40] причем Это понятно что валюта на самом
+[01:41:42] деле валюта открыл грибы бывают разные
+[01:41:43] миллион долларов и миллион
+[01:41:46] зимбабвистских долларов ни одной но там
+[01:41:49] можно конечно всегда сделать Как сказать
+[01:41:51] что домножай потом вот настолько тонули
+[01:41:54] правда разрядность
+[01:42:02] Но это принципе Понятно игра При желании
+[01:42:06] если мы хотим не больше миллиона Мы в
+[01:42:08] принципе можем взять еще 20 байт и вот
+[01:42:12] мы уже сохранили просто сократились
+[01:42:14] тридцати двух байт до аж 27
+[01:42:21] 5
+[01:42:23] играли то есть соответственно если нас
+[01:42:26] было 80 бит стало 75 нормально
+[01:42:37] это по одному этому только если у нас их
+[01:42:47] Тотал
+[01:42:48] [музыка]
+[01:42:51] что-то еще делать можно
+[01:42:56] количество в принципе у нас два СК юных
+[01:42:59] сделали
+[01:43:00] что еще цена айтем количество
+[01:43:06] Ну они тоже можем потому что Sky У нас
+[01:43:10] два в 32 это дохренища с Каю Да я почти
+[01:43:13] уверен что Sky легко может быть и 2 там
+[01:43:17] 24 хватит на все
+[01:43:19] Ну да вот самих пишет коэффициентами для
+[01:43:22] разных регионов Да и можно в принципе
+[01:43:23] хранить это отдельную разрядности просто
+[01:43:27] Вставлять Ее в центре региональные Вот
+[01:43:29] это кстати хотел на это вывести Но это
+[01:43:32] отдельная строки Что еще можно сделать
+[01:43:37] чтобы сохранить как-то объемы Чтобы
+[01:43:40] меньше это записывать
+[01:43:43] по юзеру
+[01:43:55] но в принципе уже неплохо уже сократили
+[01:43:59] мы сократили скольки с 320 бит до
+[01:44:07] 67 69
+[01:44:11] у нас было 46 байт Да стало 10 то есть
+[01:44:15] 320 350
+[01:44:22] 350 сократились до 75
+[01:44:28] нормально В пять раз дожались уже
+[01:44:37] двадцати пяти
+[01:44:40] уходит теперь что там 10 10 байт да то
+[01:44:46] есть у нас скорее всего будет меньше чем
+[01:44:48] 100 записи Правда же в среднем Ну
+[01:44:50] по-любому там в основном чеки будет мне
+[01:44:52] кажется одна запись даже в среднем чисто
+[01:44:57] пользователя килобайт это получается 100
+[01:45:00] по 10 байт пусть даже будет ходить
+[01:45:02] Получается у нас на самом деле данных
+[01:45:04] будет еще 10 раз меньше
+[01:45:05] мы так сделаем превращается
+[01:45:11] [музыка]
+[01:45:21] когда Strike подключаться будем уже про
+[01:45:24] деньги списывать в архитектуре
+[01:45:28] Шамиль мы просто посчитали что на самом
+[01:45:30] деле если мы так будем хранить данные то
+[01:45:32] у нас на пользователя сколько мы
+[01:45:36] посчитали конкретно уже что нужно про
+[01:45:37] пользователя хранить
+[01:45:39] в чеке Да передать Какую информацию
+[01:45:42] которая чисто учитесь уникальная потому
+[01:45:44] что одна и та же там локации прочие не
+[01:45:46] имеет смысла передать новую информацию и
+[01:45:49] это у нас занимает мы посчитали даже
+[01:45:52] меньше 10 байт соответственно Мы приняли
+[01:45:55] волевое решение что у нас скорее всего
+[01:45:58] будет в среднем 10 позиций в чеке
+[01:46:03] не боль Ну даже вот это Верхняя оценка
+[01:46:07] раз здесь в чеке Значит у нас
+[01:46:08] пользователи будет не килобайт А 100
+[01:46:10] байт то есть 10 раз меньше данных и
+[01:46:13] соответственно все наши оценки еще на 10
+[01:46:16] деле
+[01:46:18] Я бы кстати отдельно обсудил с кем-то
+[01:46:20] напишет мне какие преимущества даст
+[01:46:24] спаннер в этом составе по сравнению с
+[01:46:25] грисиком что мы получим от спандеры
+[01:46:29] просто потому что людей которые работали
+[01:46:31] с возрастом нужно понимать что есть
+[01:46:33] такой момент когда-то делать какую-то
+[01:46:34] реальную систему что это не только что
+[01:46:37] технология была но чтобы технологию
+[01:46:38] технологию люди умели работать умели ей
+[01:46:41] управлять и устанавливать ее
+[01:46:42] поддерживать и очевидно что люди которые
+[01:46:44] работали с постгры их Ну очень много по
+[01:46:47] сравнению с теми кто работал с тем же
+[01:46:49] спаунером и если уже идти на спад это
+[01:46:51] значит себе сразу режешь найму
+[01:46:53] усложняешь на им
+[01:46:54] сложнее отдавшим и прочее это должны
+[01:46:57] иметь какие-то преимущества
+[01:47:01] но я думаю Дима пришло время тебе
+[01:47:03] задавать мне вопрос У нас немножечко
+[01:47:05] времени осталось
+[01:47:08] у меня такие вопросы больше будут по
+[01:47:10] e-mail вот использовался moji Я просто
+[01:47:14] натыкался на него вот переходить на этот
+[01:47:16] программный программирования что он
+[01:47:19] плюсы пайтона производительность
+[01:47:22] Ну я не вижу тогда причин почему не
+[01:47:24] переходить на раз или на голланг то есть
+[01:47:27] знаешь
+[01:47:29] в принципе моё Мне сложно сказать опять
+[01:47:32] же логика та же Зачем переходить на
+[01:47:36] что-то есть Так такой Нетворк эффект
+[01:47:38] любого языка у любого комьюнити что
+[01:47:41] во-первых ты куда-то приходишь там люди
+[01:47:42] пришли на этом языке там уже на этом
+[01:47:44] языке написано это должно реальными
+[01:47:46] какие-то сильные преимущества по
+[01:47:47] сравнению с тем что есть у какого-то
+[01:47:49] условного питона то есть принципе
+[01:47:50] условный питон это вообще клей У тебя
+[01:47:53] есть библиотеки написанные на
+[01:47:55] эффективных языках То есть я не совсем
+[01:47:58] понимаю какие именно питона если у тебя
+[01:48:00] там ты три библиотеки все написанные на
+[01:48:02] плюсах хорошими командами просто
+[01:48:04] соединил в одном месте и нигде
+[01:48:07] Постарайся не пролететь воды Вот у тебя
+[01:48:09] есть парень У тебя есть неважно торч
+[01:48:12] тоже написано не на питоне это просто
+[01:48:14] питоновская и как буст написан не на
+[01:48:16] питоне это обёртка над плюсами то есть с
+[01:48:20] этой стороны питон На мой взгляд это это
+[01:48:22] это клей
+[01:48:24] поэтому
+[01:48:26] переходить с него специально что-то
+[01:48:28] другое То есть я видел что чуваки
+[01:48:30] какие-то писали нарасти свои библиотеки
+[01:48:32] для фичеров для фича инжиниринга что так
+[01:48:35] на фичи отрабатывать удобнее хорошо Ну
+[01:48:38] на мой взгляд Если бы я был этими
+[01:48:40] чуваками имел хорошо писать нарасти я бы
+[01:48:41] это сделал для себя не скрип для кого а
+[01:48:44] это вернул библиотеку опенсорс выпустил
+[01:48:46] и это бы все интегрировал в питон и
+[01:48:48] поклонялись бы мне потом как создатели
+[01:48:50] условного там пая
+[01:48:53] Ну то есть поэтому я просто я не говорю
+[01:48:56] Нет но я не знаю какие есть
+[01:49:01] читал постоянно там же постоянно то
+[01:49:04] торчащих всех а тот Джулия всех победит
+[01:49:07] сейчас
+[01:49:13] живем мы видим куда это приведет
+[01:49:15] появление всяких разных языков но по
+[01:49:18] сути Это то же самое просто с другой
+[01:49:19] стороны
+[01:49:21] поэтому я
+[01:49:23] который хоронят питон
+[01:49:26] Ну окей если будет что-то отвечу Так
+[01:49:30] если будет что-то удобнее питона Что
+[01:49:31] позволит легче легко все проекты
+[01:49:34] перенести будет обладать плюсами всеми
+[01:49:37] плюсами питонами одни минусом питона Ну
+[01:49:39] наверное люди перейдут
+[01:49:42] [музыка]
+[01:49:46] Благодарю за ответ такой второй Сейчас
+[01:49:49] будет это больше наверное архитектурный
+[01:49:51] Просто я уже с этим сталкивался и раньше
+[01:49:54] сейчас в нынешнем проекте
+[01:49:57] Какие архитектуры для файлов ты
+[01:50:01] используешь в частности вот я просто
+[01:50:03] чуть-чуть покажу у меня происходит
+[01:50:06] начинается много файлов то есть вот я
+[01:50:08] начал с первого то есть Я разбиваю
+[01:50:10] сначала идет Connection потом
+[01:50:13] генерация дата тренингата Сета и каждый
+[01:50:16] питомновский ноутбук по отдельности
+[01:50:18] естественно все потом переделаю это
+[01:50:20] подчиненные флоуи буду там это все
+[01:50:23] запускать но пока чисто через ноутбуки
+[01:50:25] так как это детишка и Но получается
+[01:50:27] слишком много я использую такой как
+[01:50:30] номерация файликов и дальше добавляю
+[01:50:32] один Ай То есть если я делаю какой-то
+[01:50:33] апдейт фаре там становится 2 Б или два
+[01:50:36] б.а У тебя что-то есть что будет не
+[01:50:38] создавать большую массу файлов и не
+[01:50:42] писать все в одном ноутбуке Так как это
+[01:50:44] потом найдешь Вот какие наверное тут
+[01:50:48] наверное вопрос даже не про ноутбуки
+[01:50:50] потому что я никогда не писал много
+[01:50:51] ноутбуков я писал много питоновских
+[01:50:53] файлов которые
+[01:50:57] мне удобнее честно говоря если что-то
+[01:51:00] серьезное пишу и не стараюсь не писать
+[01:51:02] это ноутбуке я стараюсь это нормальными
+[01:51:04] петровскими скриптами и вопрос кто к
+[01:51:08] какому балансу приходит это же примерно
+[01:51:10] как вопрос Какого размера должен быть
+[01:51:11] микросервис когда это должно становиться
+[01:51:14] обиды микросервис Когда присоединяться в
+[01:51:15] текущую микросервиса На мой взгляд это
+[01:51:18] должно соответствовать двум критерии
+[01:51:20] Первое это должно быть легко
+[01:51:21] поддерживать если твой отдельный
+[01:51:23] питонских сложите уже тяжело
+[01:51:24] поддерживать что-то не так второе Там
+[01:51:27] должна быть какая-то понятная логика
+[01:51:29] Поэтому ты в принципе всегда рисуешь ну
+[01:51:31] если уже что-то становится сложно ты
+[01:51:33] рисуешь карту этого проекта важно как мы
+[01:51:36] Но это опять зависит от проекта то есть
+[01:51:39] Может быть у тебя например Вполне может
+[01:51:41] быть отдельный файл слов функции
+[01:51:46] Но это как бы это еще разделение по
+[01:51:50] домену
+[01:51:56] Contex Да очевидно что лоссы и метрики
+[01:52:00] это вещи отдельно это какие-то бауден
+[01:52:03] контексы которые хорошо бы выносить в
+[01:52:06] отдельный файл наверное иметь отдельный
+[01:52:07] файл Под каждый лосс это немножко меньше
+[01:52:10] смысла И правда же согласен Ну как
+[01:52:13] какой-то строгое правило есть а больше
+[01:52:16] 300 строчек Но вот я вижу тебя здесь 800
+[01:52:19] строчек это кажется
+[01:52:21] многовато это класс сути То есть у меня
+[01:52:24] то есть я сюда записываю все классы и
+[01:52:26] дальше эти классы вызываем ноутбуках То
+[01:52:28] есть у меня есть класс фича дженератинга
+[01:52:30] Да это были процессе Connection как
+[01:52:31] различным базам данных
+[01:52:34] Может быть эти можно подрать на
+[01:52:37] подтеритесь Я практически уверен потому
+[01:52:39] что сто процентов
+[01:52:43] и FTP Connect и и
+[01:52:48] просто я как бы уже четко понимаю
+[01:52:52] Ну естественно Да это другое совершенно
+[01:52:57] Коннект Google Sprite
+[01:53:00] в моей голове уже
+[01:53:03] Да кладутся в одну голода это просто так
+[01:53:07] спичек и фичесз уже как-то отдельно от
+[01:53:10] них стоят понимаешь Я вот уже здесь вижу
+[01:53:13] опять же по контексту
+[01:53:15] я пока видишь не разбивал я просто
+[01:53:17] создал утилиты файл и в него записываю
+[01:53:19] функцию То есть я работаю в ноутбуках
+[01:53:21] вот этот вот планы у меня есть здесь
+[01:53:23] четыре основных ноутбука от 0 1 2 3 4
+[01:53:25] которые запускается а в каждом
+[01:53:27] вызывается вот эти вот уже классные А в
+[01:53:29] дальнейшем Когда переходить на airflow
+[01:53:31] Apache и писать уже нормально это всё я
+[01:53:33] хотел Вот это да конечно
+[01:53:35] какой-то другой Васян и смотрит утилити
+[01:53:38] сохранить Что такое утилитесь А если у
+[01:53:40] него там Connection
+[01:53:42] process
+[01:53:45] это откровенно
+[01:53:47] куда идти
+[01:53:57] работаешь один
+[01:54:01] часто для людей
+[01:54:03] есть масштабировать языка по нагрузке А
+[01:54:07] есть масштабируемость практика по
+[01:54:09] количеству людей участвующих в проекте
+[01:54:13] кому-то и вы начнете себя как
+[01:54:15] организовать чтобы вам было лучше
+[01:54:18] Короче надо привлекать людей и тогда уже
+[01:54:21] с ними как-то коллаборировать чтобы это
+[01:54:24] улучшать все А так вот пишут что спамер
+[01:54:28] это замена Big tablectable же один из
+[01:54:31] блоков be query правда
+[01:54:38] Ну ладно это отдельная история но
+[01:54:40] по-моему да Биг тейбл одна из самых
+[01:54:41] частей это что там много чего же bequery
+[01:54:43] спрашивают мое мнение о том что вышку в
+[01:54:47] нынешнее время лучше получить из 23:25
+[01:54:49] так как это момент иметь более-менее
+[01:54:50] нормальное представление о будущем я
+[01:54:52] вообще считаю что для этого и существует
+[01:54:54] двух системная
+[01:54:56] духовная система образования когда есть
+[01:54:59] бакалавриат и магистратура И когда ты
+[01:55:00] получаешь первые четыре года образования
+[01:55:02] потом ты начинаешь чем-то ещё заниматься
+[01:55:05] по жизни понимаешь ага вот теперь мне
+[01:55:07] ещё 2 года нужно вот по такому то есть
+[01:55:09] Моё понимание
+[01:55:11] магистратура чтобы соблюсти тот период
+[01:55:14] обучения когда человеку ещё После школы
+[01:55:16] всё помнит ему можно ещё напихать базы а
+[01:55:19] дальше насчёт дополнительно 2 года
+[01:55:20] полирует уже магистратуры и дальше
+[01:55:22] я вот из своего практика Я закончил
+[01:55:24] специалитет Но полностью
+[01:55:26] программирование выучил самостоятельно
+[01:55:27] онлайн и есть какие-то определенные
+[01:55:30] профессии которые ты можешь выучить
+[01:55:32] онлайн и тебе не нужно ни магистратуру
+[01:55:34] ни бакалавра Но это нужен свой
+[01:55:36] тайм-менеджмент и хорошо с собой
+[01:55:38] управлять
+[01:55:39] планировать это все но в принципе это
+[01:55:41] все реальные даже ты Меньше времени
+[01:55:43] потратишь потому что за бакалавра из
+[01:55:46] магистратуры будут давать много знаний
+[01:55:48] которые тебе мало пригодятся или не
+[01:55:50] нужно будет
+[01:55:55] Ну да Вопрос само мотивации поэтому
+[01:55:59] вообще как ни странно когда люди за
+[01:56:02] что-то платят у них исключается
+[01:56:04] дополнительная мотивация особенно если
+[01:56:05] человек который
+[01:56:07] даже вместе с кем-то ходить качалку
+[01:56:10] легче чем одному Потому что ты захочешь
+[01:56:12] про халявить он скажет идем идем и ты
+[01:56:14] уже идешь
+[01:56:17] и друг друга Вы подталкиваете то есть а
+[01:56:21] когда есть когда ты ещё заплатила тебя
+[01:56:23] подталкивают ещё это это ну безусловно
+[01:56:27] можно и самому всё это сделать только
+[01:56:30] это займет это тяжелее
+[01:56:32] со многих сторон понять что учить Как
+[01:56:34] учить и мотивироваться
+[01:56:38] какие-то хорошие курсы где уже Вот точно
+[01:56:41] отжатый выбранная информация которая
+[01:56:43] именно с практикой которая тебе будет
+[01:56:45] необходимо в реальном жизни на реальной
+[01:56:48] работе
+[01:56:49] это тоже нужно делать Я просто вот за
+[01:56:51] свой ВУЗ когда учился эти пять лет Ну я
+[01:56:54] не вижу что прям давали Вот именно то
+[01:56:55] что нужно для практики сам потом это
+[01:56:59] как-то выучиваешь это всегда отставание
+[01:57:01] между вузом и реальной жизни
+[01:57:05] не будем не будем о грустном
+[01:57:09] у тебя еще есть какой-то вопрос Нет
+[01:57:12] Валера Я хочу поблагодарить тебя за это
+[01:57:15] время за это интервью и также я хочу
+[01:57:18] дополнительно поблагодарить тебя за
+[01:57:19] твоим дизайн интервью которые вы
+[01:57:21] проводили вот три Я бы хотел Конечно
+[01:57:23] больше но они мне очень сильно помогли
+[01:57:25] Вот именно понять и устроиться в Google
+[01:57:28] непосредственно это легче стало и делать
+[01:57:30] эту систему поэтому я очень благодарен
+[01:57:33] за то что ты делаешь и продолжай
+[01:57:35] пожалуйста делать еще много людей будет
+[01:57:37] это делать вот Единственное последний
+[01:57:40] вопрос просто какой-то картину об этом
+[01:57:42] дизайне носим дизайне и
+[01:57:45] а я ты себя сам закопал
+[01:57:50] во-первых тут меня спрашивают на какую
+[01:57:53] греть на какой Great это бессмысленно
+[01:57:54] потому что изначально я сказал что это
+[01:57:55] будет 90 минут То есть наверное мы
+[01:57:58] изначально был другой формат самый
+[01:58:00] большой твой То есть ты нормально шоу У
+[01:58:04] тебя есть какой-то шаблон ты
+[01:58:04] действительно сказал ты это делать все
+[01:58:06] нормально Ты можешь пройти это
+[01:58:07] собеседование
+[01:58:08] Если будешь тебя накапать
+[01:58:11] Если ты не будешь выдавать
+[01:58:20] рабочие лучше чем не рабочий самолет
+[01:58:24] поэтому
+[01:58:30] сервис Это тебе не нужно блокбастеры
+[01:58:33] выкинем
+[01:58:36] с другой стороны скорее всего тебе на
+[01:58:39] собеседование реально почему-то дают
+[01:58:41] нереальные запросы типа постройте
+[01:58:43] пожалуйста нам Facebook Fit Блин ну кому
+[01:58:46] он чуваки э-э никто не строит Facebook
+[01:58:49] Fit с нуля со свежий нами вы строите
+[01:58:52] какой-нибудь там микросервис к этому
+[01:58:54] Facebook веду и получаете промо после
+[01:58:56] этого если вы смотрели это сделать Ну
+[01:58:57] серьёзно вы понимаете но собеседование и
+[01:59:00] реальность разные вещи поэтому тебе не
+[01:59:01] нужно закапывать себя
+[01:59:03] ты хотел
+[01:59:05] Я тоже хочу поблагодарить во-первых тебя
+[01:59:08] что пришел во-вторых отдельных О чём
+[01:59:09] поблагодарить э как минимум Кирилла и
+[01:59:12] Шамиля и Манхэттен 94 за то что они меня
+[01:59:17] гнобили и
+[01:59:19] по рассказывали мне про новые слова про
+[01:59:22] которые я почитаю и обсудили тут спардер
+[01:59:25] и прочие истории в принципе я считаю что
+[01:59:27] это важное роль таких вещей давать
+[01:59:31] какой-то обратную связь чтобы на то и
+[01:59:34] щука в реке или в пруду чтобы карась не
+[01:59:37] дремал
+[01:59:38] всем спасибо тебе спасибо что пришел и
+[01:59:41] до встречи Да пока
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v2 only.
+Write JSON only to: splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. system-design-senior-karpov-2023-07-14.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json \
+    --video transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json --out splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.qa-split.json \
+    --video transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: /Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/video.md
+
+--- CHAPTER `00:13:35` — Нефункциональные требования — надёжность и завершённость транзакций ---
+window: 00:13:35 .. 00:31:40
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+--- CHAPTER `00:31:40` — Мультивалютная отчётность ---
+window: 00:31:40 .. 00:32:50
+recognition_status: single (1 items)
+
+ITEM #3
+  interviewer_question: time=00:31:41 text='Нам еще нужно знать какие Сколько денег это тоже зарабатывается то есть какие-то конвертации должны быть в единую валюту и чтобы это сразу отчитывалась где-то следилось какой-то мониторинг должен быть потому что это должно быть Окей То есть это тогда написано там маленький денег на нынешний момент заработал эта заправка за каждый день чтобы мы это знали в какой-то одной валюте'
+  candidate_answer: time=00:32:22 text='должна быть надежная должна быть доступная система То есть это я должен получать к ней доступ я должен убеждаться что это все завершенно Мне нужно мониторить как газ Сколько потрачено чтобы не переливался этот газ и чтобы это заливалось Абсолютно верно я добавил Вот это liveranny это которая как раз условия чтобы каждый день в лайве оценивать сколько непосредственно зарабатывает это заправка проходит она сохраняется полностью сколько транзакция совершилось и другой сервис уже непосредственно высчитывает и сохраняет другую базу данных Где это будет непосредственно я Откровенно говоря не уверен что это должен быть целый Ну конечно же вопрос называть сервиса но мне кажется это какая-то просто батча обработка и создание какой-то витрины с агрегатами Правда же Ну то есть не тянет на сервис и отдельную БД'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:59:28 text='я бы не делал отдельное БД над ней Если мне нужны были по дневные агрегаты любые агрегаты я бы просто имел какую-то витрину Ну то есть витринка это что такое БАДы правда но я понял на какой-то даже чтобы это смотреть'
+  question_topic: Product Metrics
+
+--- CHAPTER `00:32:50` — Расчёт нагрузки (estimation) ---
+window: 00:32:50 .. 00:44:35
+recognition_status: multiple (2 items)
+
+ITEM #4
+  interviewer_question: time=00:32:51 text='ты сказал что у нас 25 и в каждой есть 100 То есть получается Допустим мы возьмем 200 машин в день Это нормально или больше учитывать на каждую заправку в среднем'
+  candidate_answer: time=00:33:35 text='Ну окей Чтобы проще посчитать тогда давай возьмем 1000 машин в день получается 25 заправок в каждой Вот 1000 машин и у нас получается это день машину как дальше это получается допустим у нас каждый день мы берем одинаковые мы не возьмем сейчас выходные и сезонности а возьмем просто что В каждый день одинаковое количество машин получается у нас по идее там количество транзакций количество создаваемой памяти должно быть минимальные возьмем допустим 1 мегабайт То есть каждый User создает один мегабайт тень я думаю это будет нормально и получается у нас 25 тысяч 250 тысяч получается 250 переводы у меня не очень Сейчас секунду гигабайта правильно значит если ты один казачок получается гигабайт а 2К получается терабайт получается вот так вот могу 25 терабайт 25 терабайт за какой срок это за день за день соответственно 750 терабайт это за месяц или 750 здесь у нас будет 750 так как у нас 30 не получается такой вот хранилище за год нужно получается 9 ТБ в принципе уже более-менее что-то реально это можно на ноутбуке хранить Окей Так что у нас еще вот Установи еще мы можем записать то есть какой трафик у нас в день Это примерно идет 25 гигабайт в день на все суммарно'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:43:05 text='Так что звучит Когда у нас 25 без каких-либо проблем Мы можем это передавать Я просто сетевым трафиком особо не работал Поэтому какие-то смотри Ну мы четко с этим трафиком что 25 Гб в день передавать на 25 тысяч точек это такой ну сколько с точки нужно передать давай так 25000 точно 25 ГБ Наверное это не проблема конечно в плохом месте то скорее всего ты сможешь мегабайт в день передать живое обновление Ну хотя нет по транзакция но мы можем сделать чисто по деньгам если мы хотим влага считать это как-то отдельно что-то передавалась Это не проблема большая задача и делать всякие сиены и прочее чтобы как с этим работать прекрасно Давай посмотрим сейчас хайвел дизайн то'
+  question_topic: Product Metrics
+
+ITEM #5
+  interviewer_question: time=00:44:34 text='Давай посмотрим сейчас хайвел дизайн то есть начнем его рисовать'
+  candidate_answer: time=00:44:48 text='Так у нас есть юзер юзер взаимодействует с нашим сервисом Давай сервиса Мы возьмем такого цвета чтобы отличалось а теперь у нас У этого юзера Какие сервисы То есть это будет должна быть возможность выбрать газ непосредственно оплачивает человек взаимодействует только вот здесь просто у селлера еще должна быть обязательно функция мониторинга нам нужно знать сколько у нас газа осталось и Сколько заправляется Мониторинг это будет мониторинг Газа смотри а вот payments микросервис да Ну какой сервис и payment in Store разница поймать Это непосредственно Ты оплачиваешь возле газ стоишь она где-то вот приложил карту это одна система которая считывает система которая должна работать они все скорее всего Будут потом идти не в базу данных а можно сделать в отдельный сервис еще нам нужно изменение цены газа чтобы было очень быстро а изменение в сторону как это должно сказаться на моей системе газ должен быть в лаве и конектится и обновляться как-то постоянно чтобы чекать эту информацию где-то на общем сервере для каждой конкретной заправки а прайс Store это может только когда будет какой-то запрос либо сервера отправлены либо на сервер правильно чтобы проверить Давай мы это вообще каким-то может быть отдельным сервисом и от них Вот это paymance будет идти то есть я бы вот так наверное сделал и Live времени это куда-то тоже сохраняет в отдельно и там уже непосредственно с этим работать я добавил Вот это liveranny это которая как раз условия чтобы каждый день в лайве оценивать сколько непосредственно зарабатывает это заправка проходит она сохраняется полностью сколько транзакция совершилось и другой сервис уже непосредственно высчитывает и сохраняет другую базу данных это у нас получится самое главное это из пэймонса будет идти в банк на его возьмем пусть будет такие аутсор сервисы у нас Но эти соответственно должно эти Стрелка как туда так и обратно чтобы мы получили подтверждение от банковской транзакции завершена и она окончательно OK Так ну вроде основное такое High Level мы сделали'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:59:09 text='мне кажется это какая-то просто батча обработка и создание какой-то витрины с агрегатами Правда же Ну то есть не тянет на сервис и отдельную БД То есть это классическое У тебя есть какие-то слои у тебя есть дальше какие-то агрегаты из агрегатов'
+  question_topic: Data Modeling
+
+--- CHAPTER `00:44:35` — High-Level Design ---
+window: 00:44:35 .. 01:07:40
+recognition_status: single (1 items)
+
+ITEM #6
+  interviewer_question: time=01:07:07 text='Подожди это вопрос баба во-первых что и называть базы данных Правда же мы с тобой вообще не Выбрались многие базы данных они автоматом по себе они во-первых сразу несколько машин бегают создают реплики и там проблема решена сразу условно говоря имеет фактор репликации Правда же и все и не думаешь ни о чем значит тогда сейчас стоит выбрать Какие базы данных почто конкретно используется и это уже очень хороший вопрос переходим тогда это седьмой ком'
+  candidate_answer: time=01:07:52 text='ну у нас есть основном это 4 виды базы данных есть конечно больше это стандартная Революционная с которым мне больше всего опыта и колоночные с остальными я особо документе давай подумаем когда выбирает газ и чтобы это все сохранять нам наверное все таки здесь какая-то реляционная то есть когда Юза что-то сохраняет вот здесь вот будет реляционная держим все лицо Правда же мы в принципе можем вообще взять Зачем нам мучиться с Non relation Мы берем relation у нас гарантия условные постры работает прекрасно на этой нагрузке да а какие-то данные которые уплывает далеко ты дам Пишу какой-нибудь куда прекрасно бежит не нужно все держать в какой-то базе данных сразу какие-то агрегаты ты можешь держать Но очевидно что тебя было тысяча покупок то держать один агрегат сумма покупок за этот день это в тысячу раз меньше данных Правда же но а нам Иногда нужно будет знать каждую покупку Если мы будем держать только одну если нужно можешь просканить и уйти в глубь ну нужно будет пойдешь а не нужно будет не пойдешь это уже вопрос аналитически Когда нужно правда да Вопрос Что быстрее что-то из своей реляционной базы данных какой-нибудь Прости Господи от Google Давай дальше выбираем тогда по сути можем так у нас маленький объем Если я правильно понимаю это все можно везде напихать Да это все будет взаимосвязано если нужно как-то обрабатывать и прайс change Да тоже можно сюда сохранить Зачем мое другое но уже какие-то сторонние не используем на посторонний также подключается к этой тогда базе данных даст какой-то доступ и все'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:17:22 text='все это вы уже тебе отвечает Какая база данных сервисы не сервисы и всякая масштабирование все здесь нет масштабирования науки Будьте допустим не 25000 заправок а 250 тысяч вообще дом верится честно говоря в такое масштабирование заправок потому что физические объекты это не онлайн объекты и просто редко бывает допустим OK это превращается аж в 90 терабайт в год тоже не так уж много тоже не так принципе там все что угодно можно иметь любое лицо Окей в день это становится 250 Гб держит хочешь побыстрее Возвращайся С какими грин-планом а дальше все просто делаешь операции сливаешь опять куда-то же'
+  question_topic: Data Modeling
+
+--- CHAPTER `01:07:40` — Выбор базы данных ---
+window: 01:07:40 .. 01:18:50
+recognition_status: single (1 items)
+
+ITEM #7
+  interviewer_question: time=01:18:42 text='а мы же не хотим в базе хранить много много данных Правда же А у нас давай подумаем допустим есть пачка чипсов скорее всего на нас продается эта пачка чипсов в множестве разных стран И у нее могут быть все атрибуты основные одинаковые а какие-то отличаться там локальное название цена что-то еще да какой бы структуру мы как бы мы это сохранили в базе данных структуры мы использовали чтобы минимизировать количество места которые нам потребуется для использования вот этих знаний наших что у нас очень много дублирование То есть наверное мы не хотим же иметь эту информацию что пачка допустим и у тебя на каждую страну дублирование целый джейсончик где у тебя 95 одинаковые не меняется'
+  candidate_answer: time=01:19:49 text="в этом случае скорее всего Как я вижу больше подходит какая-то документационная база данных Где будет записано как-то в документе есть какие-то общие и под каждую страну по отдельности тогда у нас общие будут все в одном месте под каждые По отдельности Не будет никакого дублирования будет одна пачка Lays под нее будет какое-то Вот дисончик где будет расписано то есть какой-то айтинг карточка айтона вот так как Ну как раз покажи мне покажи Ну хорошо давайте покажу вот у нас идет допустим это дальше идет какие-то стандартные у него 10 и так далее какие-то стандартные которые одинаковые для всех пачки дальше идет что если это для каждой стороны по отдельности но мы по стране же lace они одинаковые там везде название одинаковые цены одинаковые цены Окей могут быть отличаться по стране это как бы другому это уже интереснее интереснее уже тогда если мы возьмем Country и возьмем допустим здесь какие-то цены это цены тогда по каждому штату области будут разные Ну можно и так в принципе тогда вот так лучше сделать и здесь идет уже непосредственно разделение по странам в России Здесь идет по области допустим дальше идет страна другая вся 10 какой-то еще можно добавить description до каждого этого Lay's для айтона вот я представляю то в каком-то вот в таком виде тогда у нас не сильно будет повторяться это все точно с одинаковой сайт одинаковый если это будет что мы сэкономим Давай сэкономим по сравнению если бы мы все дублировали если мы делали революционную базу данных у нас было много записей по description по сайту и вот эти вот все данные которые первоначально идут к общему они повторялись для каждого региона для каждой страны Какое количество Сколько было повторение у нас 25 тысяч если заправок У нас есть описание То есть это какой-то string сколько там 4 байта Стрим будет Вот это все но может там чуть побольше но возьмем допустим сколько там описание 20 тоже там это что-то минимальное значение наверное тоже 4 какие-то это все вот здесь вот будет сидеть получается на минимальное количество сохраняем это вообще Но это за каждый Ай ты моя если на сайт много мы это еще умножаем на количество атомов То есть получается сколько у нас там в истории Но 1000 наверное побольше наверное различных товаров хотел заправки они там маленькие есть крупные какие-то нет тысячи наверное получается 24 килобайта мы для всех iTunes сохраняем Но это копейки"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:25:32 text='но я думаю Дима пришло время тебе задавать мне вопрос У нас немножечко времени осталось'
+  question_topic: Data Modeling
+
+--- CHAPTER `01:18:50` — Оптимизация хранения товарного каталога ---
+window: 01:18:50 .. 01:47:01
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+SAVE JSON: вставьте ответ в конец файла /Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/system-design-senior-karpov-2023-07-14/system-design-senior-karpov-2023-07-14.v2.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

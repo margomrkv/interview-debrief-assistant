@@ -52,7 +52,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Критерии оценки     | `grading/`         | `Project Criteria & Scoring.docx` и смежные документы                |
 | Код                 | — (пока нет)       | В репозитории ещё нет исходников; появятся — разместить здесь        |
 | Данные              | `transcripts/`     | Транскрипты интервью — `mock-interviews/`, `real-interviews/`, `youtube-sessions/`, `own/` |
-| Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | шаги `step1-prepare/` … `step5-validate-llm/`, постобработка `scripts/splitter_post.sh`; процедура в **`splitter/SKILL.md`**; артефакты: **`splitter_output/{mock\|real}-interviews/.../<leaf-slug>/*.qa-split.v<N>.*`** (см. `splitter_output/README.md`) |
+| Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | шаги 1–5 + цикл исправления до ✅ в **`splitter/SKILL.md`** (`/splitter` в Cursor и Claude Code); постобработка `scripts/splitter_post.sh`; 4 файла на прогон: **`{basename}.vN.qa-split.json`**, `.xlsx`, `.validation-report.md`, `.pipeline-log.md` (см. `splitter_output/README.md`) |
 
 ### Правила 
 

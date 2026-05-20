@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Post-LLM splitter: JSON → xlsx → validation.md (with LLM appendix when --prepare-llm).
-# Updates {basename}.vN.run.json for steps 3–4.
+# Post-LLM splitter: JSON → xlsx → validation-report.md; step 5 prompt → pipeline-log.md (LLM via Cursor agent).
+# Updates {basename}.vN.pipeline-log.md for steps 3–4.
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
@@ -49,18 +49,18 @@ if [[ "$JSON_PATH" =~ \.v([0-9]+)\.qa-split\.json$ ]]; then
   VER="${BASH_REMATCH[1]}"
   BASE="${JSON_PATH%.v${VER}.qa-split.json}"
   XLSX_PATH="${BASE}.v${VER}.qa-split.xlsx"
-  VALIDATION_PATH="${BASE}.v${VER}.validation.md"
-  RUN_JSON="${BASE}.v${VER}.run.json"
+  VALIDATION_PATH="${BASE}.v${VER}.validation-report.md"
+  PIPELINE_LOG_MD="${BASE}.v${VER}.pipeline-log.md"
 elif [[ "$JSON_PATH" =~ \.qa-split\.v([0-9]+)\.json$ ]]; then
   VER="${BASH_REMATCH[1]}"
   BASE="${JSON_PATH%.qa-split.v${VER}.json}"
   XLSX_PATH="${BASE}.qa-split.v${VER}.xlsx"
   VALIDATION_PATH="${BASE}.qa-split.validation.v${VER}.md"
-  RUN_JSON="${BASE}.v${VER}.run.json"
+  PIPELINE_LOG_MD="${BASE}.v${VER}.pipeline-log.md"
 else
   XLSX_PATH="${JSON_PATH%.json}.xlsx"
-  VALIDATION_PATH="${JSON_PATH}.validation.md"
-  RUN_JSON="${JSON_PATH%.json}.run.json"
+  VALIDATION_PATH="${JSON_PATH%.json}.validation-report.md"
+  PIPELINE_LOG_MD="${JSON_PATH%.json}.pipeline-log.md"
 fi
 
 T0=$(date +%s)
@@ -98,14 +98,15 @@ if [[ -n "$VIDEO_PATH" ]]; then
   T3=$(date +%s)
   VAL_SEC=$((T3 - T2))
   echo "Validation: $VALIDATION_PATH"
+  echo "Step 5: LLM_INPUT_STEP_5 in ${PIPELINE_LOG_MD:-pipeline-log} — agent runs next (same chat as step 2)."
 else
   VAL_SEC=0
   echo "Skip validation (no --video)."
 fi
 
-if [[ -f "$RUN_JSON" ]]; then
+if [[ -f "$PIPELINE_LOG_MD" ]]; then
   python3 "$SKILL/scripts/splitter_run_log.py" \
-    --run-json "$RUN_JSON" \
+    --pipeline-log "$PIPELINE_LOG_MD" \
     --step 3 \
     --name "excel" \
     --input "$JSON_PATH" \
@@ -113,7 +114,7 @@ if [[ -f "$RUN_JSON" ]]; then
     --duration-sec "$EXCEL_SEC"
   if [[ -n "$VIDEO_PATH" ]]; then
     python3 "$SKILL/scripts/splitter_run_log.py" \
-      --run-json "$RUN_JSON" \
+      --pipeline-log "$PIPELINE_LOG_MD" \
       --step 4 \
       --name "validate_chapters" \
       --input "$JSON_PATH" \
@@ -121,7 +122,7 @@ if [[ -f "$RUN_JSON" ]]; then
       --output "$VALIDATION_PATH" \
       --duration-sec "$VAL_SEC"
   fi
-  echo "Run log: $RUN_JSON"
+  echo "Pipeline log: $PIPELINE_LOG_MD"
 fi
 
 echo "Excel: $XLSX_PATH"

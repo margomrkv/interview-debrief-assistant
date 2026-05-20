@@ -24,11 +24,14 @@ only coverage (did the splitter find every question chapter?) is reported.
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
+
+SKILL_DIR = Path(__file__).resolve().parent.parent
 
 
 # ─── Section → accepted question_topic values ────────────────────────────────
@@ -223,6 +226,12 @@ def _preview(text: str, limit: int = 100) -> str:
     if len(t) <= limit:
         return t
     return t[: limit - 1] + "…"
+
+
+def read_time_offset_seconds(video_md_text: str) -> int:
+    """Read <!-- time_offset_seconds: N --> from video.md comments. Returns 0 if absent."""
+    m = re.search(r"<!--\s*time_offset_seconds:\s*(\d+)", video_md_text)
+    return int(m.group(1)) if m else 0
 
 
 def parse_video_md(
@@ -679,6 +688,14 @@ def build_report(
     validation_body: dict[str, list[str]] | None = None,
     gaps_section_lines: list[str] | None = None,
     coverage_stats: dict[str, int | float] | None = None,
+    json_contract_lines: list[str] | None = None,
+    metrics_howto_lines: list[str] | None = None,
+    items_count: int | None = None,
+    *,
+    json_contract_ok: bool = True,
+    check3_lines: list[str] | None = None,
+    llm_verdicts: dict | None = None,
+    pipeline_run_summary_lines: list[str] | None = None,
 ) -> str:
     lines: list[str] = []
 
@@ -703,237 +720,149 @@ def build_report(
         window_total = total_q_chapters
         coverage_pct = tolerance_pct
 
-    # Infer Excel path from JSON path (replace .json with .xlsx)
     excel_path = splitter_path.with_suffix(".xlsx")
-
-    # ── Шапка ─────────────────────────────────────────────────────────────────
-    lines.append("# Отчёт валидации сплиттера\n")
-    lines.append(f"- **Разбивка Q&A (JSON)**: `{splitter_path}`")
-    if excel_path.exists():
-        lines.append(f"- **Разбивка Q&A (Excel)**: `{excel_path}`")
-    else:
-        lines.append(f"- **Разбивка Q&A (Excel)**: не найден (запустите `splitter_json_to_excel.py`)")
-    lines.append(f"- **Описание видео**: `{video_path}`")
-    lines.append("")
-
     topic_map = section_topic_map or {}
 
-    # ── Вердикт (±tolerance от маркера главы; см. сводную таблицу) ───────────
+    lines.append("# Отчёт валидации сплиттера\n")
+    lines.append("")
+    if pipeline_run_summary_lines:
+        lines.extend(pipeline_run_summary_lines)
+    lines.append("### Артефакты этого прогона\n")
+    lines.append(f"- **Разбивка Q&A (JSON):** `{splitter_path}`")
+    if excel_path.exists():
+        lines.append(f"- **Разбивка Q&A (Excel):** `{excel_path}`")
+    lines.append(
+        f"- **Эталон для проверки:** `{video_path}` — описание YouTube с тайм-кодами "
+        "и рубриками; сплиттер при извлечении Q&A этот файл **не видел**"
+    )
+    lines.append(
+        f"- **Порог расхождения тайм-кодов:** ±{tolerance_sec} с — максимальная разница "
+        "между тайм-кодом вопроса на YouTube и временем `interviewer_question.time` в JSON, "
+        "при которой пара Q&A всё ещё считается относящейся к этой главе"
+    )
+    lines.append("")
+
+    # Verdict
     if window_not_rec > 0:
         if coverage_pct >= 70 and topic_pct >= 70:
             verdict = (
                 f"⚠️ ЧАСТИЧНО — {window_not_rec} "
-                f"{'вопросная глава' if window_not_rec == 1 else 'вопросных глав'} "
-                f"без item в ±{tolerance_sec} с"
+                f"{'глава' if window_not_rec == 1 else 'глав'} без Q&A у маркера"
             )
         else:
-            verdict = "❌ ПРОВАЛ — нераспознанные главы или темы"
-    elif coverage_pct >= 90 and topic_pct >= 90:
+            verdict = "❌ НЕ ПРОЙДЕНО"
+    elif coverage_pct >= 90 and topic_pct >= 90 and json_contract_ok:
         verdict = "✅ ПРОЙДЕНО"
-    elif coverage_pct >= 70 and topic_pct >= 70:
-        verdict = "⚠️ ЧАСТИЧНО — проверьте отмеченные пункты"
+    elif coverage_pct >= 70 and topic_pct >= 70 and json_contract_ok:
+        verdict = "⚠️ ЧАСТИЧНО"
     else:
-        verdict = "❌ ПРОВАЛ — серьёзные проблемы с покрытием или темами"
+        verdict = "❌ НЕ ПРОЙДЕНО"
 
-    lines.append(f"## Вердикт: {verdict}\n")
-
-    # Key metrics table (right after verdict)
     topic_consistency_value = (
-        f"**{topic_ok_count}/{len(topic_checks)} ({topic_pct:.0f}%)**"
-        if topic_checks else
-        "**Н/Д**"
+        f"{topic_ok_count}/{len(topic_checks)} ({topic_pct:.0f}%)"
+        if topic_checks else "Н/Д"
     )
-    topic_consistency_note = (
-        "Доля items с `question_topic`, совпадающим с ожидаемой секцией видео"
-        if topic_checks else
-        "Секции не заданы — задайте `--section-config` или добавьте `Секция «…»` в video.md Description"
+    json_status = "✅" if json_contract_ok else "❌"
+    json_result = (
+        f"{items_count or 0} items, JSON Schema OK"
+        if json_contract_ok
+        else "ошибки структуры / схемы"
     )
+    yt_status = (
+        "✅"
+        if coverage_pct >= 90 and topic_pct >= 90 and window_not_rec == 0
+        else ("⚠️" if coverage_pct >= 70 and topic_pct >= 70 else "❌")
+    )
+    yt_result = (
+        f"Coverage {coverage_pct:.0f}% ({matched}/{window_total}), "
+        f"Topic consistency {topic_pct:.0f}%"
+        if topic_checks
+        else f"Coverage {coverage_pct:.0f}% ({matched}/{window_total}), Topic consistency Н/Д"
+    )
+    llm_status = "⏳"
+    llm_result = "шаг 5 не выполнен"
+    if llm_verdicts:
+        n = len(llm_verdicts)
+        both = sum(
+            1 for v in llm_verdicts.values()
+            if v.time_alignment_ok and v.content_alignment_ok
+        )
+        if both == n:
+            llm_status = "✅"
+            llm_result = f"все {n} глав без замечаний"
+        elif both >= n * 0.7:
+            llm_status = "⚠️"
+            llm_result = f"{both}/{n} глав без замечаний"
+        else:
+            llm_status = "❌"
+            llm_result = f"{both}/{n} глав ок"
 
-    lines.append("| Метрика | Результат | Пояснение |")
-    lines.append("|---------|-----------|-----------|")
-    lines.append(
-        f"| **Coverage** | **{matched}/{window_total} ({coverage_pct:.0f}%)** | "
-        f"Вопросные главы YouTube (без подводок) с ≥1 item в ±{tolerance_sec} с от маркера; "
-        "см. сводную таблицу |"
-    )
-    if window_not_rec > 0:
-        lines.append(
-            f"| **Нераспознанные главы** | **{window_not_rec}** | "
-            "Нет item в пределах ±tolerance (❌ в оглавлении) |"
+    from splitter_validate_chapters import build_unified_pipeline_checks_table
+
+    lines.extend(
+        build_unified_pipeline_checks_table(
+            verdict=verdict,
+            json_status=json_status,
+            json_result=json_result,
+            yt_status=yt_status,
+            yt_result=yt_result,
+            yt_goal="Coverage ≥90%, Topic consistency ≥90%",
+            llm_status=llm_status,
+            llm_result=llm_result,
+            has_video_rubrics=bool(topic_map),
         )
-    if max_drift is not None:
-        lines.append(
-            f"| **Макс. |Δt|** | **{max_drift} с** | "
-            f"Среди первых items вопросных глав (допуск ±{tolerance_sec} с) |"
-        )
-    lines.append(
-        f"| **Topic Consistency** | {topic_consistency_value} | {topic_consistency_note} |"
     )
+    lines.append("---\n")
+
+    if json_contract_lines:
+        lines.extend(json_contract_lines)
+        lines.append("")
+
+    lines.append("---\n")
+    lines.append("## Проверка 2. Сверка с тайм-кодами YouTube (шаг 4)\n")
     lines.append("")
 
+    from splitter_validate_chapters import build_check2_glossary
+
+    lines.extend(build_check2_glossary())
+
+    if metrics_howto_lines:
+        lines.extend(metrics_howto_lines)
+
     if validation_body:
-        lines.append(
-            "> **Один файл отчёта:** `*.qa-split.validation.vN.md`. "
-            "Файл `*.validation.llm.vN.json` — только ответ модели для подмешивания строк LLM, "
-            "это не второй отчёт.\n"
-        )
-        for key in ("primer", "index", "excluded", "lead_ins", "unrecognized", "recognized"):
+        for key in (
+            "youtube_intro",
+            "section_audit",
+            "index",
+            "unrecognized",
+            "chapter_details",
+            "speaker_mix",
+        ):
             section = validation_body.get(key) or []
             if section:
                 lines.extend(section)
+        lines.append("")
+
+    if check3_lines:
+        lines.extend(check3_lines)
         lines.append("")
 
     if gaps_section_lines:
         lines.extend(gaps_section_lines)
         lines.append("")
 
-    # ── Комментарий ────────────────────────────────────────────────────────────
-    non_q = [c for c in all_chapters if not c.is_question]
-    topic_pct_for_commentary = topic_ok_count / len(topic_checks) * 100 if topic_checks else 100
-
-    lines.append("## Комментарий\n")
-    _commentary = _build_commentary(
-        match_results=match_results,
-        unmatched_items=unmatched_items,
-        non_q_chapters=non_q,
-        coverage_pct=coverage_pct,
-        topic_pct=topic_pct_for_commentary,
-        topic_checks=topic_checks,
-        tolerance_sec=tolerance_sec,
-        window_not_recognized=window_not_rec,
-    )
-    lines.extend(_commentary)
-    lines.append("")
-
     items_all, _ = parse_splitter_json(splitter_path)
     short_items = [it for it in items_all if it.short_answer]
-
     if short_items:
-        lines.append("### ⚠️ Подозрительно короткие ответы кандидата\n")
+        lines.append("#### Короткие ответы кандидата (≤4 слов)\n")
         lines.append(
-            "Ответ состоит из ≤4 слов — проверьте, не обрезан ли span в транскрипте.\n"
+            "Проверьте по транскрипту: это **осмысленный** короткий ответ на вопрос, "
+            "а не обрезанный span или пропуск речи кандидата.\n"
         )
         lines.append("| Item | Время | Ответ |")
         lines.append("|------|-------|-------|")
         for it in short_items:
             lines.append(f"| #{it.index} | {it.q_time_str or '—'} | {it.a_text_preview} |")
-        lines.append("")
-
-    # ── Items без тайм-кода ────────────────────────────────────────────────────
-    if unmatched_items:
-        lines.append("## Items сплиттера без тайм-кода в описании видео\n")
-        lines.append(
-            "Эти items извлечены сплиттером, но не имеют соответствующего тайм-кода "
-            "в описании видео. Это **не ошибка** — авторы видео размечали только крупные "
-            "тематические переходы. Скорее всего, это уточняющие под-вопросы или "
-            "дополнительные вопросы интервьюера, которые сплиттер верно захватил.\n"
-        )
-        lines.append("| Item # | Время | Тема | Вопрос (первые 70 символов) |")
-        lines.append("|--------|-------|------|------------------------------|")
-        for it in unmatched_items:
-            lines.append(
-                f"| #{it.index} | {it.q_time_str or '—'} | `{it.question_topic or '—'}` "
-                f"| {it.q_text_preview[:70]} |"
-            )
-        lines.append("")
-
-    # ── Исключённые тайм-коды ─────────────────────────────────────────────────
-    if non_q:
-        lines.append("## Исключённые тайм-коды (не вопросы)\n")
-        lines.append(
-            "Тайм-коды из описания видео, исключённые из проверки: их заголовки "
-            "указывают на вступление, переход между темами, разбор задачи или паузу. "
-            "Покрытие сплиттером для них не проверяется.\n"
-        )
-        for c in non_q:
-            lines.append(f"- `{c.time_str}` [{c.section or '—'}] {c.title}")
-        lines.append("")
-
-    # ── Разбивка по секциям (только если задана секционная карта) ─────────────
-    if section_rows and topic_map:
-        lines.append("## Разбивка по секциям\n")
-        lines.append(
-            "Сравнение количества вопросов по секциям: описание видео (эталон) vs. сплиттер. "
-            "Дельта = сплиттер − видео.\n"
-        )
-        lines.append("| Секция | Вопросов в видео | Items сплиттера | Дельта | Темы сплиттера |")
-        lines.append("|--------|------------------|-----------------|--------|----------------|")
-        for row in section_rows:
-            delta = row["delta"]
-            delta_str = f"+{delta}" if delta > 0 else str(delta)
-            delta_icon = "✅" if delta >= 0 else "❌"
-            topics_str = ", ".join(f"`{t}`" for t in row["topics"]) if row["topics"] else "—"
-            lines.append(
-                f"| {row['section']} | {row['video_q_count']} | {row['splitter_count']} "
-                f"| {delta_icon} {delta_str} | {topics_str} |"
-            )
-        lines.append("")
-
-        any_missing = any(row["missing_chapters"] for row in section_rows)
-        if any_missing:
-            lines.append("### Пропущенные вопросы по секциям\n")
-            for row in section_rows:
-                if row["missing_chapters"]:
-                    lines.append(f"**{row['section']}**\n")
-                    for ch in row["missing_chapters"]:
-                        lines.append(f"- `{ch.time_str}` {ch.title}")
-                    lines.append("")
-
-    # ── Как работает валидация (в конце) ──────────────────────────────────────
-    lines.append("---\n")
-    lines.append("## Как работает валидация\n")
-    lines.append(
-        "Валидатор сравнивает разбивку Q&A (JSON) с тайм-кодами из описания видео на YouTube. "
-        "**Важно:** сплиттер при своей работе `video.md` **не видит** — он работает только с "
-        "транскриптом. Описание видео используется исключительно для независимой проверки результата "
-        "и является внешним эталоном: тайм-коды расставлены авторами видео вручную.\n"
-    )
-    lines.append("**Шаг 1 — Разбор тайм-кодов видео.**")
-    lines.append(
-        "Из блока `## Chapters` в описании видео извлекаются тайм-коды с заголовками. "
-        "Вступления, паузы, разборы задачи и прочие переходы (заголовки типа «Интро», «Перерыв», "
-        "«A case study» и т.п.) исключаются из проверки — остаются только реальные вопросы.\n"
-    )
-    lines.append("**Шаг 2 — Окна глав и items.**")
-    lines.append(
-        "Каждая глава YouTube задаёт интервал до следующей главы. "
-        "Все items, чьё `interviewer_question.time` попадает в интервал, относятся к этой главе. "
-        "0 items → не распознан; 1 → один Q&A; 2+ → несколько Q&A.\n"
-    )
-    lines.append("**Шаг 2b — LLM-валидация (опционально).**")
-    lines.append(
-        "Шаг 5: вход для модели — раздел **«Приложение: LLM-валидация»** в конце **этого же** "
-        "`.md`. Ответ сохраняется в `*.validation.llm.vN.json` и подмешивается в таблицу при "
-        "повторном запуске валидатора с `--llm-json`.\n"
-    )
-    lines.append("**Шаг 3 — Coverage.**")
-    lines.append(
-        f"```\nCoverage = вопросные главы с ≥1 item в ±{tolerance_sec} с / "
-        "всего вопросных глав (без подводок) × 100\n```\n"
-        "**Δt** в сводной таблице — только у первого item группы. "
-        "Подводки (🔗) не считаются отдельным вопросом. "
-        "Непокрытые фрагменты транскрипта — отдельный раздел ниже сводной таблицы.\n"
-    )
-    lines.append("**Шаг 4 — Topic Consistency.**")
-    if topic_map:
-        lines.append(
-            "```\nTopic Consistency = items с верной темой / сопоставленные items с известной секцией × 100\n```\n"
-            "Проверяет, что поле `question_topic` в JSON соответствует ожидаемой теме секции:\n"
-        )
-        for sec, allowed in topic_map.items():
-            lines.append(f"- Секция **{sec}** → допустимые темы: {allowed}")
-        lines.append("")
-    else:
-        lines.append(
-            "_Для этого интервью `--section-config` не передан, поэтому Topic Consistency = Н/Д. "
-            "Чтобы включить проверку тем, создайте JSON-файл с `section_timecodes` и `topic_map` "
-            "и передайте его через `--section-config`._\n"
-        )
-    if avg_drift is not None:
-        lines.append(
-            f"**Δt тайм-кодов** (справочно): средний {avg_drift:.1f}с, "
-            f"максимальный {max_drift}с — в пределах допуска ±{tolerance_sec}с."
-        )
         lines.append("")
 
     return "\n".join(lines) + "\n"
@@ -1027,34 +956,59 @@ def main():
 
     chapters = parse_video_md(video_path, section_timecodes=section_timecodes or None)
 
+    # Apply time_offset_seconds from video.md (multi-candidate clips with relative timecodes).
+    # chapter.time_str keeps absolute value for display; time_sec is shifted to match item times.
+    time_offset = read_time_offset_seconds(video_text)
+    if time_offset:
+        import dataclasses
+        chapters = [dataclasses.replace(c, time_sec=c.time_sec - time_offset) for c in chapters]
+        print(f"time_offset_seconds={time_offset} applied to chapter times", file=sys.stderr)
+
     # Apply time range filter if requested
     if args.time_from or args.time_to:
         tf = _ts_to_sec(args.time_from) if args.time_from else 0
         tt = _ts_to_sec(args.time_to) if args.time_to else 10**9
         chapters = [c for c in chapters if tf <= c.time_sec <= tt]
     items, raw_items = parse_splitter_json(splitter_path)
-    match_results = match_chapters_to_items(chapters, items, args.tolerance, section_topic_map)
-    unmatched_items = find_unmatched_items(items, match_results)
-    section_rows = build_section_breakdown(match_results, unmatched_items, chapters)
-
     from splitter_validate_chapters import (
+        assign_items_to_primary_chapters,
         build_chapter_blocks,
+        build_chapter_coverage_states,
+        build_check3_semantic_section,
+        build_json_contract_section,
+        build_match_results_from_states,
+        build_metrics_howto,
         build_validation_body,
         build_transcript_gaps_section,
-        chapter_tolerance_stats,
+        coverage_stats_from_states,
         find_transcript_gaps,
         group_items_by_question_chapter,
         load_llm_verdicts,
+        load_semantic_json_from_report,
         load_timecoded_transcript,
-        build_llm_validation_appendix,
         llm_json_sidecar_path,
+        prepare_step5_llm_in_pipeline_log,
+        save_semantic_json_to_report,
+        validate_json_contract,
+        SEMANTIC_HEADING,
     )
 
     question_chapters = [c for c in chapters if c.is_question]
+    item_primary = assign_items_to_primary_chapters(
+        question_chapters, items, args.tolerance
+    )
+    states = build_chapter_coverage_states(
+        chapters, items, args.tolerance, item_primary
+    )
     assignments = group_items_by_question_chapter(
         question_chapters, items, args.tolerance
     )
-    coverage_stats = chapter_tolerance_stats(question_chapters, assignments)
+    coverage_stats = coverage_stats_from_states(states)
+    match_results = build_match_results_from_states(
+        states, items, section_topic_map
+    )
+    unmatched_items = [it for it in items if it.index not in item_primary]
+    section_rows = build_section_breakdown(match_results, unmatched_items, chapters)
     transcript_lines = load_timecoded_transcript(video_path.parent)
 
     q_bounds = None
@@ -1066,22 +1020,55 @@ def main():
 
     llm_json_path = Path(args.llm_json) if args.llm_json else None
     if args.out and llm_json_path is None:
-        llm_json_auto = llm_json_sidecar_path(Path(args.out))
-        if llm_json_auto.exists():
-            llm_json_path = llm_json_auto
+        llm_json_path = llm_json_sidecar_path(Path(args.out))
     llm_verdicts = load_llm_verdicts(llm_json_path)
+
+    schema_path = SKILL_DIR / "step1-prepare" / "splitter_output_schema.json"
+    json_ok, json_issues, json_summary = validate_json_contract(splitter_path, schema_path)
+    json_contract_lines = build_json_contract_section(
+        splitter_path,
+        schema_path,
+        ok=json_ok,
+        issues=json_issues,
+        summary=json_summary,
+    )
+    metrics_howto_lines = build_metrics_howto(args.tolerance, section_topic_map)
+    check3_lines = build_check3_semantic_section(llm_verdicts)
 
     validation_body = build_validation_body(
         chapters,
-        question_chapters,
         items,
         raw_items,
+        states,
         assignments,
         args.tolerance,
+        section_topic_map=section_topic_map,
         transcript_lines=transcript_lines,
         llm_verdicts=llm_verdicts,
     )
     gaps_lines = build_transcript_gaps_section(gaps)
+
+    pipeline_run_summary_lines: list[str] = []
+    try:
+        skill_dir = Path(__file__).resolve().parents[1]
+        if str(skill_dir) not in sys.path:
+            sys.path.insert(0, str(skill_dir))
+        from artifact_paths import pipeline_log_md_from_json  # noqa: WPS433
+        from run_manifest import build_pipeline_run_summary_for_report, load_run  # noqa: WPS433
+
+        pl_md = pipeline_log_md_from_json(splitter_path)
+        if pl_md.exists():
+            run_manifest = load_run(pl_md)
+            pipeline_run_summary_lines = build_pipeline_run_summary_for_report(
+                run_manifest, pl_md
+            )
+    except (FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
+        pipeline_run_summary_lines = [
+            "## Прогон пайплайна\n",
+            f"_Журнал не найден или без `PIPELINE_MANIFEST`: {exc}. "
+            "Запустите `splitter_prepare_prompt.py` для этого интервью._\n",
+            "",
+        ]
 
     report = build_report(
         match_results, unmatched_items, chapters, section_rows,
@@ -1090,18 +1077,55 @@ def main():
         validation_body=validation_body,
         gaps_section_lines=gaps_lines,
         coverage_stats=coverage_stats,
+        json_contract_lines=json_contract_lines,
+        metrics_howto_lines=metrics_howto_lines,
+        items_count=len(items),
+        json_contract_ok=json_ok,
+        check3_lines=check3_lines,
+        llm_verdicts=llm_verdicts,
+        pipeline_run_summary_lines=pipeline_run_summary_lines or None,
     )
 
     if args.out:
         out_path = Path(args.out)
-        if args.prepare_llm:
-            llm_json_out = llm_json_sidecar_path(out_path)
-            blocks = build_chapter_blocks(chapters, items, raw_items)
-            report = report.rstrip() + "\n\n" + "\n".join(
-                build_llm_validation_appendix(blocks, video_path, llm_json_out)
-            )
-            print(f"Step 5 payload appended to report; save LLM JSON to: {llm_json_out}")
+        semantic_preserved = load_semantic_json_from_report(out_path)
         out_path.write_text(report, encoding="utf-8")
+        if semantic_preserved:
+            save_semantic_json_to_report(out_path, semantic_preserved)
+        if args.prepare_llm:
+            skill_dir = Path(__file__).resolve().parents[1]
+            if str(skill_dir) not in sys.path:
+                sys.path.insert(0, str(skill_dir))
+            from artifact_paths import pipeline_log_md_from_json  # noqa: WPS433
+
+            pl_md = pipeline_log_md_from_json(splitter_path)
+            blocks = build_chapter_blocks(chapters, items, raw_items)
+            prepare_step5_llm_in_pipeline_log(
+                blocks, video_path, out_path, pl_md
+            )
+            if pl_md.exists():
+                from run_manifest import load_run, record_llm_input, save_run  # noqa: WPS433
+
+                cfg_path = SKILL_DIR / "step1-prepare" / "run_config.json"
+                val_model = None
+                if cfg_path.exists():
+                    val_cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+                    vi = val_cfg.get("validation_inference") or val_cfg.get("inference") or {}
+                    val_model = vi.get("model")
+                try:
+                    run = load_run(pl_md)
+                    record_llm_input(
+                        run,
+                        step=5,
+                        name="semantic_validation",
+                        model=val_model,
+                        log_md=pl_md,
+                    )
+                    save_run(run, pl_md)
+                except (FileNotFoundError, ValueError):
+                    pass
+            print(f"Step 5 LLM input: {pl_md}")
+            print(f"Save semantic JSON: end of {out_path} ({SEMANTIC_HEADING})")
         print(f"Report written to: {out_path}")
     else:
         print(report)

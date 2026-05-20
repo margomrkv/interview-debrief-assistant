@@ -1,6 +1,6 @@
 # Splitter output
 
-Last updated: 2026-05-19
+Last updated: 2026-05-20
 
 ## Layout
 
@@ -11,39 +11,43 @@ splitter_output/mock-interviews/<publisher>/<basename>/
 splitter_output/real-interviews/<publisher>/<basename>/
 ```
 
-## File naming (canonical)
+## File naming (canonical) — **4 files per run**
 
 **Version immediately after basename** — filter one run with `*{basename}.v8*`:
 
 ```text
-{basename}.v{N}.qa-split.json          # главный результат Q&A
-{basename}.v{N}.qa-split.xlsx
-{basename}.v{N}.validation.md          # отчёт валидации (+ приложение LLM в конце)
-{basename}.v{N}.validation.llm.json    # служебный JSON шага 5
-{basename}.v{N}.llm-input.txt           # снимок промпта шага 2
-{basename}.v{N}.user-prompt.txt         # user-часть (без system)
-{basename}.v{N}.run.json                # протокол прогона (модели, шаги, in/out)
-{basename}.v{N}.run.md                  # тот же протокол для чтения
+{basename}.v{N}.qa-split.json           # главный результат Q&A
+{basename}.v{N}.qa-split.xlsx           # Excel для человека
+{basename}.v{N}.validation-report.md    # отчёт валидации + JSON шага 5 в конце
+{basename}.v{N}.pipeline-log.md         # журнал прогона + промпты LLM (шаги 2 и 5)
 ```
 
-Пример (все файлы v8):
+**Внутри `pipeline-log.md`:**
+
+- `<!-- PIPELINE_MANIFEST ... -->` — машинный журнал шагов (для скриптов)
+- `<!-- LLM_INPUT_STEP_2 -->` / `_5` — что подавали модели
+
+**Внутри `validation-report.md`:**
+
+- `<!-- SEMANTIC_VALIDATION -->` … `<!-- /SEMANTIC_VALIDATION -->` — ответ LLM шага 5 (```json)
+
+Пример (v9):
 
 ```text
-data-scientist-junior-karpov-2022-03-30.v8.qa-split.json
-data-scientist-junior-karpov-2022-03-30.v8.validation.md
-data-scientist-junior-karpov-2022-03-30.v8.run.md
+data-scientist-junior-karpov-2022-03-30.v9.qa-split.json
+data-scientist-junior-karpov-2022-03-30.v9.qa-split.xlsx
+data-scientist-junior-karpov-2022-03-30.v9.validation-report.md
+data-scientist-junior-karpov-2022-03-30.v9.pipeline-log.md
 ```
 
-### Legacy (до 2026-05-19)
+### Legacy (удалены при миграции)
 
-```text
-{basename}.qa-split.v{N}.json
-{basename}.qa-split.validation.v{N}.md
-…
+`*.pipeline-log.json`, `*.validation-semantic.json`, `*.llm-input.txt`, `*.run.json`, …
+
+```bash
+python3 scripts/migrate_splitter_consolidate_json.py
 ```
-
-Миграция: `python3 scripts/migrate_splitter_v_prefix_names.py` (поддерживается чтение обоих форматов).
 
 `source_id` in JSON = leaf folder name with `-` → `_`.
 
-Version `vN`: next free index per interview folder (`artifact_paths.next_version`).
+Version `vN`: `artifact_paths.next_version` — each `vN` is a **separate full run**; step 2 must **not** copy QA from `v(N-1).qa-split.json` (see `.claude/skills/splitter/SKILL.md` → «Каждый прогон с нуля»).

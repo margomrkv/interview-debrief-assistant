@@ -4,7 +4,7 @@ splitter_prepare_prompt.py — step 1 (prepare), lives in step1-prepare/
 
 Writes per-run artifacts under `splitter_output/` (mirrors `transcripts/` tree):
 - `splitter_output/<mock|real>-interviews/<publisher>/<basename>/` — basename **without** mock-/real- prefix
-- `.../<basename>.qa-split.llm-input.v<N>.txt` — system + user + schema (subagent input)
+- `.../<basename>.v<N>.pipeline-log.md` — журнал прогона + секция `LLM_INPUT_STEP_2` (system + user + schema)
 
 Режим: video.md в папке интервью → split_and_validate, иначе split_only.
 Транскрипт mock: timecodes.txt предпочтительно, иначе transcript.txt.
@@ -13,7 +13,7 @@ Writes per-run artifacts under `splitter_output/` (mirrors `transcripts/` tree):
 Имена: `{basename}.v<N>.<artifact>.{ext}` — см. `splitter_output/README.md` и `artifact_paths.py`.
 Версия `vN`: если `--version` не задан — max среди `{basename}.qa-split.v*.json` в папке + 1 (или 1).
 
-В каждый llm-input добавляется RUNTIME_HINTS из `step1-prepare/run_config.json` (`inference.*`); скрипт API не вызывает.
+В промпт шага 2 (в pipeline-log) добавляется RUNTIME_HINTS из `run_config.json` (`inference.*`); скрипт API не вызывает.
 """
 
 from __future__ import annotations
@@ -117,7 +117,6 @@ def main() -> None:
         default=None,
         help="Force vN. If omitted: next version from existing *.v*.qa-split.json (or legacy *.qa-split.v*.json).",
     )
-    parser.add_argument("--out-user-prompt", default=None)
     parser.add_argument("--transcript-file", default=None)
     parser.add_argument("--source-id-suffix", default=None)
     args = parser.parse_args()
@@ -146,14 +145,8 @@ def main() -> None:
     artifacts = paths_for_run(output_dir, basename, version)
     out_json = artifacts["json"]
     out_xlsx = artifacts["xlsx"]
-    out_validation = artifacts["validation_md"]
-    out_user = (
-        Path(args.out_user_prompt)
-        if args.out_user_prompt
-        else artifacts["user_prompt"]
-    )
-    out_llm_input = artifacts["llm_input"]
-    out_run_json = artifacts["run_json"]
+    out_validation = artifacts["validation_report_md"]
+    out_pipeline_log_md = artifacts["pipeline_log_md"]
 
     sys_prompt_path = _resolve_artifact(
         config.get("system_prompt", "splitter_system_prompt.txt")
@@ -254,6 +247,27 @@ def main() -> None:
             user_blocks.append(f"Suggested max_tokens: {mt}")
         user_blocks.append("")
 
+    user_blocks += [
+        "=" * 70,
+        "STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)",
+        "=" * 70,
+        f"Target version for this run: v{version} only.",
+        f"Write JSON only to: {out_json.relative_to(REPO_ROOT)}",
+        "",
+        "FORBIDDEN on step 2:",
+        "- Read, copy, merge, or patch any prior qa-split JSON in this interview folder",
+        f"  (e.g. {basename}.v1.qa-split.json, v2, ... except the target path above).",
+        "- Reuse items[] or field text from older splitter runs because validation passed before.",
+        "",
+        "REQUIRED on step 2:",
+        "- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.",
+        "- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).",
+        "- Full fresh extraction; overwrite the target JSON completely.",
+        "- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.",
+        "- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.",
+        "",
+    ]
+
     py_post = "scripts/splitter_post.sh"
     py = f"python3 {SKILL_SH}/step3-excel/splitter_json_to_excel.py"
     py_val = f"python3 {SKILL_SH}/step4-validate-chapters/splitter_validate_video.py"
@@ -311,14 +325,7 @@ def main() -> None:
     ]
     combined_llm_input = "\n".join(bundle_sections)
 
-    out_llm_input.parent.mkdir(parents=True, exist_ok=True)
-    out_llm_input.write_text(combined_llm_input, encoding="utf-8")
-    if args.out_user_prompt:
-        out_user.parent.mkdir(parents=True, exist_ok=True)
-        out_user.write_text(user_text, encoding="utf-8")
-        print(f"User prompt:   {out_user.relative_to(REPO_ROOT)}")
-
-    from run_manifest import init_run, save_run  # noqa: E402
+    from run_manifest import init_run, record_llm_input, save_run, set_llm_input_section  # noqa: E402
 
     transcript_input = (
         f"{args.folder}/timecodes.txt" if has_timecodes else f"{args.folder}/transcript.txt"
@@ -336,10 +343,23 @@ def main() -> None:
             "schema": str(schema_path.relative_to(REPO_ROOT) if schema_path.is_relative_to(REPO_ROOT) else schema_path),
         },
     )
-    save_run(run, out_run_json)
+    inf = config.get("inference") or {}
+    set_llm_input_section(
+        out_pipeline_log_md,
+        2,
+        "Шаг 2 — извлечение Q&A",
+        combined_llm_input,
+    )
+    record_llm_input(
+        run,
+        step=2,
+        name="qa_extraction",
+        model=inf.get("model"),
+        log_md=out_pipeline_log_md,
+    )
+    save_run(run, out_pipeline_log_md)
 
-    print(f"Run log:       {out_run_json.relative_to(REPO_ROOT)}")
-    print(f"LLM input:     {out_llm_input.relative_to(REPO_ROOT)}")
+    print(f"Pipeline log:  {out_pipeline_log_md.relative_to(REPO_ROOT)}")
     print(f"Output JSON:   {out_json.relative_to(REPO_ROOT)}")
     print(f"Output Excel:  {out_xlsx.relative_to(REPO_ROOT)}")
     if has_video_md:
@@ -350,7 +370,10 @@ def main() -> None:
     print()
     print(f"Skill (orchestration): {SKILL_SH}/SKILL.md")
     print("Per-run artifacts live under splitter_output/ (see splitter_output/README.md).")
-    print(f"Cloud / subagent: use {out_llm_input.relative_to(REPO_ROOT)}")
+    print(
+        f"Step 2 LLM input: {out_pipeline_log_md.relative_to(REPO_ROOT)} "
+        "(section LLM_INPUT_STEP_2)"
+    )
 
 
 if __name__ == "__main__":
