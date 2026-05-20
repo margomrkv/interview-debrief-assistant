@@ -1,0 +1,132 @@
+{
+  "source_id": "data_scientist_middle_karpov_python_2022_07_02",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "Первое задание: есть текст. Напиши функцию, которая создаёт коллекцию — dict: ключ — токен (слово), value — список всех индексов, где токен встречается в тексте.",
+        "time": "00:01:14"
+      },
+      "candidate_answer": {
+        "text": "Разбиваем текст на токены, убираем знаки препинания. Пустой словарь; для каждого токена с индексом — append индекса в список по ключу (через get с дефолтом).",
+        "time": "00:02:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Запусти, посмотри — всё так. Хорошо, получила коллекцию.",
+        "time": "00:07:11"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_coding"
+    },
+    {
+      "interviewer_question": {
+        "text": "Организуй поиск в коллекции по слову или части слова: функция принимает коллекцию и строку-запрос, возвращает tuple из двух list — точные совпадения и вхождения как подстроки.",
+        "time": "00:26:50"
+      },
+      "candidate_answer": {
+        "text": "По ключам: полное совпадение с запросом → первый list; in/find как подстрока (не точное) → второй list. Возвращаю tuple из двух списков.",
+        "time": "00:27:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Работает. Проверяем полное совпадение и вхождение. Долго, но хорошо.",
+        "time": "00:49:36"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_coding"
+    },
+    {
+      "interviewer_question": {
+        "text": "Скорость поиска — всегда ли O(1) при поиске по ключу в словаре?",
+        "time": "00:51:05"
+      },
+      "candidate_answer": {
+        "text": "Не всегда O(1) — при коллизиях (дублирующиеся хеши) поиск может занять дольше.",
+        "time": "00:51:08"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Верно — если коллизии, не от единицы.",
+        "time": "00:51:20"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Какие варианты работы с коллизиями в хеш-таблицах ты знаешь?",
+        "time": "00:51:32"
+      },
+      "candidate_answer": {
+        "text": "Составной ключ из двух значений — меньше шанс совпадения. Chaining — список в ячейке. Open addressing — linear probing, следующая свободная ячейка.",
+        "time": "00:51:39"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Окей, хорошо. Следующий вопрос — init vs new.",
+        "time": "00:52:10"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Чем __init__ в классе отличается от __new__?",
+        "time": "00:52:20"
+      },
+      "candidate_answer": {
+        "text": "__new__ создаёт объект, вызывается первым. __init__ инициализирует уже созданный объект. При наследовании super().__init__() для родительской инициализации.",
+        "time": "00:52:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Верно. Четвёртая часть — A/B тесты: дизайн эксперимента для рекомендательной модели.",
+        "time": "00:57:41"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Опишите дизайн эксперимента: проверить рекомендательную модель, если делить пользователей можно только по геопозиции; рекомендательного блока раньше не было.",
+        "time": "00:58:14"
+      },
+      "candidate_answer": {
+        "text": "Три алгоритма: топ по частоте, рандом, умная модель. Делим по регионам — выбираем похожие (временные ряды, нормировка, кластеризация), на алгоритм 2–3 региона. Сначала A/A на 1–2 недели (топ-рекомендации) — оценка конверсии и длительности. Основной тест: группам регионов — свой алгоритм. Метрика: конверсия клик→просмотр или просмотр. Внутри группы — сравнить регионы; между группами — значимость; при нехватке мощности — продлить тест.",
+        "time": "00:58:59"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "По Python есть вопросики, но в целом хорошо. По A/B — отлично: метрики, сравнение групп, похожесть регионов.",
+        "time": "01:16:51"
+      },
+      "question_type": "hard",
+      "question_topic": "Experimentation",
+      "interview_stage": "technical_case"
+    }
+  ]
+}

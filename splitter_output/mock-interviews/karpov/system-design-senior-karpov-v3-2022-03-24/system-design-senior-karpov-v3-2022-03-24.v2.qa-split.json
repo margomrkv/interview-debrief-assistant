@@ -1,0 +1,258 @@
+{
+  "source_id": "system_design_senior_karpov_v3_20220324",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "Задача: спроектируй Uber-like сервис такси — где водитель и пассажир, поездки, глобально, ~500 млн пассажиров и ~5 млн водителей.",
+        "time": "01:37"
+      },
+      "candidate_answer": {
+        "text": "Главная особенность — локальный матчинг: искать водителя рядом с точкой вызова, а не глобально как в Twitter.",
+        "time": "02:50"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Опиши функциональные требования для пешехода и водителя.",
+        "time": "04:24"
+      },
+      "candidate_answer": {
+        "text": "Пешеход: указать адрес, найти водителя, поездка, профиль/оплата. Водитель: выйти на смену, принять/отклонить заказ, поездка, рейтинг, снова принять или завершить смену.",
+        "time": "04:42"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Communication",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Какие нефункциональные требования?",
+        "time": "07:20"
+      },
+      "candidate_answer": {
+        "text": "Низкая латентность поиска машины, высокая доступность, для водителя — заказы рядом, оптимальный маршрут/стоимость, прозрачность цены.",
+        "time": "07:29"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Сделай estimate: трафик, одновременные поездки, RPS.",
+        "time": "09:50"
+      },
+      "candidate_answer": {
+        "text": "Порядка 1 млн поездок/день → ~10 RPS на инициацию; поездка ~1 ч → ~40k одновременных поездок; с учётом гео-поиска — сотни RPS на matching.",
+        "time": "12:48"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Перейдём к оценке хранения информации.",
+        "time": "14:15"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Сколько места нужно для хранения профилей, поездок и данных сервиса?",
+        "time": "14:17"
+      },
+      "candidate_answer": {
+        "text": "Отдельные сервисы: pedestrian, driver, matching/connection, trip history, payments; профили в БД, поездки в DWH/Kafka; гео-данные — отдельный location service.",
+        "time": "16:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "GEO: как понять, что пользователь и водитель рядом?",
+        "time": "18:49"
+      },
+      "candidate_answer": {
+        "text": "Нужен geo backend: хранить координаты водителей, быстро искать ближайших к точке заказа; не реляционная БД — KV/гео-индекс.",
+        "time": "18:20"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Расчёт quadtree для Москвы — сколько уровней, сколько ячеек?",
+        "time": "25:22"
+      },
+      "candidate_answer": {
+        "text": "Делим карту на квадранты рекурсивно; для Москвы оцениваем глубину дерева и число листьев в зависимости от требуемой точности и числа водителей в ячейке.",
+        "time": "25:22"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Опиши поиск по дереву и его сложность.",
+        "time": "29:35"
+      },
+      "candidate_answer": {
+        "text": "Спуск по quadtree до нужной ячейки — O(log N) по глубине; в листе — список водителей; обновление позиции — пересчёт ячейки.",
+        "time": "29:35"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Можно ли захэшировать поиск?",
+        "time": "31:14"
+      },
+      "candidate_answer": {
+        "text": "Хэш по координатам не заменяет гео-поиск — нужна структура по близости; кэшировать можно результаты запроса в hot-зонах.",
+        "time": "31:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Можем ли быстро получить текущую позицию водителя?",
+        "time": "33:13"
+      },
+      "candidate_answer": {
+        "text": "Да — частые обновления GPS в location service, in-memory индекс или quadtree с TTL; read по driver_id или по гео-запросу.",
+        "time": "33:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Опиши общую архитектуру сервиса — полная схема компонентов.",
+        "time": "34:52"
+      },
+      "candidate_answer": {
+        "text": "LB → app servers → matching + trip service + Kafka events; geo service; DB профилей; кэш для hot reads; event-driven завершение поездки и оплата.",
+        "time": "34:52"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Redundancy и availability — как обеспечить отказоустойчивость?",
+        "time": "43:36"
+      },
+      "candidate_answer": {
+        "text": "Репликация geo и stateful сервисов, несколько AZ, health checks, graceful degradation при падении matching; Kafka для асинхронных side-effects.",
+        "time": "43:36"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    }
+  ]
+}
