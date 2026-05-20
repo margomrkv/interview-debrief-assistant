@@ -81,6 +81,17 @@ class CostCallback(BaseCallback):
         self.totals: dict[str, ModelStats] = defaultdict(ModelStats)
         self.current_phase: str = "init"
         self.current_trial: str = "-"
+        # Demoset / instruction indices of the trial currently under evaluation.
+        # Updated *before* eval by the wrapper around MIPROv2's
+        # `_select_and_insert_instructions_and_demos` (see src/kb/train.py); stay
+        # "-" for bootstrap and the baseline full-eval (trial 1) that bypass it.
+        self.current_demoset: str = "-"
+        self.current_instruction: str = "-"
+        # Proposed instruction texts in the order MIPROv2 proposed them (propose
+        # phase). Filled by MIPROPhaseHandler from the `j: <instruction>` records;
+        # consumed by _write_prompt_evolution to number instructions I0..In in
+        # proposal order rather than first-seen-in-candidate_programs order.
+        self.proposed_instructions: list[str] = []
         self._call_start: dict[str, float] = {}
         self._call_model: dict[str, str] = {}
         self._call_instance: dict[str, Any] = {}
@@ -266,6 +277,9 @@ class MIPROPhaseHandler(logging.Handler):
     """
 
     _TRIAL_RE = re.compile(r"[Tt]rial\s+(\d+)\s*/?\s*(\d+)?")
+    # MIPROv2 logs each proposed instruction as one record `f"{j}: {instruction}"`
+    # (mipro_optimizer_v2.py:504); DOTALL captures multi-line instruction bodies.
+    _PROPOSED_RE = re.compile(r"^(\d+):\s(.*)", re.DOTALL)
 
     def __init__(self, cb: CostCallback) -> None:
         super().__init__(level=logging.INFO)
@@ -290,6 +304,21 @@ class MIPROPhaseHandler(logging.Handler):
         if m:
             total = m.group(2)
             self.cb.current_trial = f"{m.group(1)}/{total}" if total else m.group(1)
+        # Capture proposed instructions in proposal order (only during propose).
+        # j=0 is later overwritten with the seed by MIPROv2 — last write wins,
+        # which mirrors the optimizer's own instruction_candidates[i][0] = seed.
+        if self.cb.current_phase == "propose":
+            pm = self._PROPOSED_RE.match(msg)
+            if pm:
+                j, text = int(pm.group(1)), pm.group(2).strip()
+                lst = self.cb.proposed_instructions
+                if j < len(lst):
+                    lst[j] = text
+                elif j == len(lst):
+                    lst.append(text)
+                else:  # gap (shouldn't happen) — pad to keep index alignment
+                    lst.extend([""] * (j - len(lst)))
+                    lst.append(text)
 
 
 def cost_breakdown_markdown(summary: dict[str, Any]) -> list[str]:

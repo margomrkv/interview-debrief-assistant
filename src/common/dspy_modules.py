@@ -65,9 +65,9 @@ def _pred(pred: Any, metric: str) -> int | None:
 
 
 def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
-    """MIPRO maximizes the metric — we return (5 - mean_abs_err) so higher is better.
+    """MIPRO maximizes the metric — we return (5 - mean_abs_err)/5 so higher is better.
 
-    Range: [0, 5]. Perfect match = 5.0. Worst case (5 vs 1) = 1.0.
+    Normalized to [0, 1]. Perfect match = 1.0. Worst case (5 vs 1) = 0.2.
     """
     errs: list[int] = []
     for m in METRICS:
