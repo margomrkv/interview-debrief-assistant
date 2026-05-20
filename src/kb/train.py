@@ -139,25 +139,34 @@ def _write_prompt_evolution(
     run_id: str,
     out_path: Path,
     seed_prompt: str,
+    proposed_order: list[str] | None = None,
 ) -> None:
     """Dump the full MIPROv2 search trajectory to runs/<id>/prompt_candidates.md.
 
     Reads MIPROv2's own bookkeeping off the compiled program (track_stats=True):
       - candidate_programs    — full-eval programs, the pool _extract_prompt picks from
       - mb_candidate_programs  — minibatch trials (cheap probes, not full-eval)
+      - trial_logs            — per-trial chosen (instruction_idx, demoset_idx, score)
     Each entry is {"score", "program", "full_eval"}; instruction + demos live on the
-    program's predictor. We dedup instructions into a numbered list (I0…) so the
-    trajectory tables stay scannable, and mark the row _extract_prompt selects.
+    program's predictor. Instructions are numbered I0…In in MIPROv2's *proposal*
+    order (`proposed_order`, captured during the propose phase) so the index matches
+    `trial_logs`' instruction indices; anything not seen there is appended. We mark
+    the row _extract_prompt selects.
     """
     full = list(getattr(compiled, "candidate_programs", None) or [])
     mb = list(getattr(compiled, "mb_candidate_programs", None) or [])
+    trial_logs = getattr(compiled, "trial_logs", None) or {}
     winner = max(full, key=_candidate_sort_key) if full else None
 
-    # Dedup instruction texts → stable I-index in first-seen order.
+    # I-index = proposal order (MIPROv2's instruction_candidates index), seeded from
+    # the propose-phase capture so it lines up with trial_logs. Texts that never
+    # appeared there (edge case) are appended in first-seen order.
     instr_ids: dict[str, int] = {}
+    for text in (proposed_order or []):
+        instr_ids.setdefault(text.strip(), len(instr_ids))
 
     def _iid(program: dspy.Module | None) -> int:
-        text = _candidate_instruction(program)
+        text = _candidate_instruction(program).strip()
         if text not in instr_ids:
             instr_ids[text] = len(instr_ids)
         return instr_ids[text]
@@ -185,7 +194,7 @@ def _write_prompt_evolution(
         "",
         "Полная траектория поиска MIPROv2: какие инструкции/демо рассмотрены и что",
         "набрали. Победитель = строка с ★ (выбор `_extract_prompt` по score, затем",
-        "числу demos). Score = сумма `mae_metric` по valset (выше — лучше, ~500 идеал).",
+        "числу demos). Score = сумма `mae_metric` по valset (выше — лучше, ~N идеал, где N = размер valset).",
         "",
         "## Победитель",
         "",
@@ -194,7 +203,7 @@ def _write_prompt_evolution(
         wprog = winner.get("program")
         lines += [
             f"- score: **{_fmt_score(winner.get('score'))}**",
-            f"- инструкция: **I{instr_ids.get(_candidate_instruction(wprog), '?')}** (см. ниже)",
+            f"- инструкция: **I{instr_ids.get(_candidate_instruction(wprog).strip(), '?')}** (см. ниже)",
             f"- few-shot demos: **{_candidate_demos(wprog)}**",
             "",
         ]
@@ -229,6 +238,32 @@ def _write_prompt_evolution(
     ]
     for r in sorted(mb_rows, key=lambda r: (r["score"] if r["score"] is not None else -1e9), reverse=True):
         lines.append(f"| {_fmt_score(r['score'])} | I{r['iid']} | {r['ndemos']} |")
+
+    # Per-trial parameters straight from MIPROv2's trial_logs: which instruction
+    # (proposal-order I-index) and which demoset (Few-Shot Set index) each trial
+    # used. Lets you join train.scores.csv rows (tagged demoset/instruction) back
+    # to the trajectory. Predictor 0 only (single-predictor ScoringEvaluator).
+    if trial_logs:
+        lines += [
+            "",
+            "## Параметры по трайлам (из trial_logs)",
+            "",
+            "instr — индекс инструкции в порядке предложения (= I-индекс выше); "
+            "demoset — индекс few-shot set; те же значения тэгируют строки train.scores.csv.",
+            "",
+            "| trial | instr | demoset | full_eval_score |",
+            "|---|---|---|---|",
+        ]
+        for tnum in sorted(trial_logs.keys(), key=lambda k: (isinstance(k, str), k)):
+            tl = trial_logs[tnum] or {}
+            instr_idx = tl.get("0_predictor_instruction", "-")
+            demoset_idx = tl.get("0_predictor_demos", "-")
+            instr_cell = f"I{instr_idx}" if isinstance(instr_idx, int) else str(instr_idx)
+            fe_score = tl.get("full_eval_score")
+            lines.append(
+                f"| {tnum} | {instr_cell} | {demoset_idx} | "
+                f"{_fmt_score(fe_score) if fe_score is not None else '-'} |"
+            )
 
     if winner is not None:
         wdemos = getattr(_first_predictor(winner.get("program")), "demos", []) or []
@@ -484,8 +519,9 @@ def run_kb_pipeline(
             logger.info("phoenix UI: http://localhost:6006")
         logger.info(
             "metric note: 'Average Metric: X / N (Y%)' = sum of mae_metric across "
-            "N examples; mae_metric = 5 - mean_abs_err per metric, range 0..5. "
-            "Y% = avg * 100 (~500% perfect, ~400% current baseline)."
+            "N examples; mae_metric = (5 - mean_abs_err)/5, range 0..1. "
+            "Y% = avg * 100 (~100% perfect, ~80% current baseline; "
+            "full-eval sum X tops out at N, not 5*N)."
         )
         optimizer = MIPROv2(
             metric=make_logged_metric(mae_metric, score_logger),
@@ -493,20 +529,37 @@ def run_kb_pipeline(
             task_model=task,
             auto=None,
             num_threads=2,
-            num_candidates=num_candidates if num_candidates is not None else num_trials,
-            metric_threshold=4.66/5
+            num_candidates=num_candidates,
+            metric_threshold=4.66/5,
         )
+
+        # Real-time demoset/instruction tagging for train.scores.csv: MIPROv2 picks
+        # the (instruction, demoset) combo for a trial inside this method *before*
+        # evaluating it (the indices only hit the logs *after* eval, too late to
+        # sniff). We wrap the bound method so the indices land on `cb` before the
+        # metric calls fire — bootstrap and the baseline full-eval bypass it and
+        # keep "-". Instance attribute shadows the class method.
+        _orig_select = optimizer._select_and_insert_instructions_and_demos
+
+        def _select_traced(*a: Any, **kw: Any) -> Any:
+            chosen, raw = _orig_select(*a, **kw)
+            cb.current_demoset = str(raw.get("0_predictor_demos", "-"))
+            cb.current_instruction = str(raw.get("0_predictor_instruction", "-"))
+            return chosen, raw
+
+        optimizer._select_and_insert_instructions_and_demos = _select_traced
+
         compiled = optimizer.compile(
             student,
             trainset=train,
-            requires_permission_to_run=False,
             num_trials=num_trials,
+            minibatch_size=25,
         )
 
         # Prompt-evolution log: dump every instruction/demo candidate MIPROv2
         # considered + their scores (am-best-offer-udt). Reads compiled's own
         # bookkeeping — no re-parsing of pipeline.log.
-        _write_prompt_evolution(compiled, run_id, candidates_path, seed_prompt)
+        _write_prompt_evolution(compiled, run_id, candidates_path, seed_prompt, cb.proposed_instructions)
 
         # Production-mirror eval: run the extracted prompt through the same
         # path `predict_all` uses (fresh ScoringEvaluator, clean dspy context,

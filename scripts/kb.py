@@ -30,7 +30,7 @@ def main() -> None:
     p.add_argument(
         "--num-candidates",
         type=int,
-        default=None,
+        default=5,
         help="MIPROv2 num_candidates (default: mirrors --num-trials).",
     )
     p.add_argument(
