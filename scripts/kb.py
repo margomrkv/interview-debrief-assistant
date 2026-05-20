@@ -87,6 +87,7 @@ def main() -> None:
     )
     candidates = [
         run_dir / "evaluator_prompt.md",
+        run_dir / "prompt_candidates.md",
         run_dir / "train_report.md",
         run_dir / "logs" / "train.jsonl",
         run_dir / "logs" / "train.trace.jsonl",

@@ -60,13 +60,35 @@ def default_run_id() -> str:
     return dt.datetime.now().astimezone().strftime("%Y-%m-%d_%H-%M-%S")
 
 
+def _first_predictor(program: dspy.Module | None) -> Any | None:
+    """The first named predictor of a (candidate) program, or None."""
+    if program is None:
+        return None
+    for _name, p in program.named_predictors():
+        return p
+    return None
+
+
+def _candidate_instruction(program: dspy.Module | None) -> str:
+    """The instruction text on a candidate program's (first) predictor."""
+    p = _first_predictor(program)
+    return (getattr(getattr(p, "signature", None), "instructions", "") or "") if p else ""
+
+
 def _candidate_demos(program: dspy.Module | None) -> int:
     """Number of few-shot demos on a candidate program's (first) predictor."""
-    if program is None:
-        return 0
-    for _name, p in program.named_predictors():
-        return len(getattr(p, "demos", []) or [])
-    return 0
+    p = _first_predictor(program)
+    return len(getattr(p, "demos", []) or []) if p else 0
+
+
+def _demo_label(demo: Any) -> str:
+    """One-line `source_id: question…` label for a few-shot demo."""
+    d = demo.toDict() if hasattr(demo, "toDict") else dict(demo)
+    q = d.get("interviewer_question", "")
+    if isinstance(q, dict):
+        q = q.get("text", "")
+    src = d.get("source_id", "?")
+    return f"{src}: {str(q).strip()[:70]}"
 
 
 def _candidate_sort_key(cp: Any) -> tuple[float, int]:
@@ -97,10 +119,7 @@ def _extract_prompt(student: dspy.Module) -> str:
         best = max(cps, key=_candidate_sort_key)
         if isinstance(best, dict) and best.get("program") is not None:
             target = best["program"]
-    predictor = None
-    for _name, p in target.named_predictors():
-        predictor = p
-        break
+    predictor = _first_predictor(target)
     if predictor is None:
         return ""
     instr = getattr(predictor.signature, "instructions", "") or ""
@@ -112,6 +131,115 @@ def _extract_prompt(student: dspy.Module) -> str:
             for d in demos
         )
     return f"{instr}{demos_md}"
+
+
+def _write_prompt_evolution(
+    compiled: dspy.Module,
+    run_id: str,
+    out_path: Path,
+    seed_prompt: str,
+) -> None:
+    """Dump the full MIPROv2 search trajectory to runs/<id>/prompt_candidates.md.
+
+    Reads MIPROv2's own bookkeeping off the compiled program (track_stats=True):
+      - candidate_programs    — full-eval programs, the pool _extract_prompt picks from
+      - mb_candidate_programs  — minibatch trials (cheap probes, not full-eval)
+    Each entry is {"score", "program", "full_eval"}; instruction + demos live on the
+    program's predictor. We dedup instructions into a numbered list (I0…) so the
+    trajectory tables stay scannable, and mark the row _extract_prompt selects.
+    """
+    full = list(getattr(compiled, "candidate_programs", None) or [])
+    mb = list(getattr(compiled, "mb_candidate_programs", None) or [])
+    winner = max(full, key=_candidate_sort_key) if full else None
+
+    # Dedup instruction texts → stable I-index in first-seen order.
+    instr_ids: dict[str, int] = {}
+
+    def _iid(program: dspy.Module | None) -> int:
+        text = _candidate_instruction(program)
+        if text not in instr_ids:
+            instr_ids[text] = len(instr_ids)
+        return instr_ids[text]
+
+    def _rows(pool: list[Any]) -> list[dict[str, Any]]:
+        out = []
+        for cp in pool:
+            prog = cp.get("program") if isinstance(cp, dict) else None
+            out.append({
+                "score": cp.get("score") if isinstance(cp, dict) else None,
+                "iid": _iid(prog),
+                "ndemos": _candidate_demos(prog),
+                "is_winner": cp is winner,
+            })
+        return out
+
+    full_rows = _rows(full)
+    mb_rows = _rows(mb)
+
+    def _fmt_score(s: Any) -> str:
+        return f"{s:.2f}" if isinstance(s, (int, float)) else str(s)
+
+    lines = [
+        f"# Prompt evolution — {run_id}",
+        "",
+        "Полная траектория поиска MIPROv2: какие инструкции/демо рассмотрены и что",
+        "набрали. Победитель = строка с ★ (выбор `_extract_prompt` по score, затем",
+        "числу demos). Score = сумма `mae_metric` по valset (выше — лучше, ~500 идеал).",
+        "",
+        "## Победитель",
+        "",
+    ]
+    if winner is not None:
+        wprog = winner.get("program")
+        lines += [
+            f"- score: **{_fmt_score(winner.get('score'))}**",
+            f"- инструкция: **I{instr_ids.get(_candidate_instruction(wprog), '?')}** (см. ниже)",
+            f"- few-shot demos: **{_candidate_demos(wprog)}**",
+            "",
+        ]
+    else:
+        lines += ["- нет candidate_programs (track_stats off?)", ""]
+
+    lines += ["## Инструкции-кандидаты", ""]
+    for text, i in sorted(instr_ids.items(), key=lambda kv: kv[1]):
+        seed_tag = " — = seed" if text.strip() == seed_prompt.strip() else ""
+        lines += [f"### I{i}{seed_tag}", "", "```", text or "<пусто>", "```", ""]
+
+    lines += [
+        "## Full-eval кандидаты (ранжированы)",
+        "",
+        "| rank | score | instr | demos | win |",
+        "|---|---|---|---|---|",
+    ]
+    for rank, r in enumerate(
+        sorted(full_rows, key=lambda r: ((r["score"] if r["score"] is not None else -1e9), r["ndemos"]), reverse=True),
+        1,
+    ):
+        lines.append(
+            f"| {rank} | {_fmt_score(r['score'])} | I{r['iid']} | {r['ndemos']} | {'★' if r['is_winner'] else ''} |"
+        )
+
+    lines += [
+        "",
+        "## Minibatch trials (дешёвые пробы, не full-eval)",
+        "",
+        "| score | instr | demos |",
+        "|---|---|---|",
+    ]
+    for r in sorted(mb_rows, key=lambda r: (r["score"] if r["score"] is not None else -1e9), reverse=True):
+        lines.append(f"| {_fmt_score(r['score'])} | I{r['iid']} | {r['ndemos']} |")
+
+    if winner is not None:
+        wdemos = getattr(_first_predictor(winner.get("program")), "demos", []) or []
+        lines += ["", "## Демо победителя", ""]
+        if wdemos:
+            for d in wdemos:
+                lines.append(f"- {_demo_label(d)}")
+        else:
+            lines.append("- (победитель без few-shot demos)")
+
+    out_path.write_text("\n".join(lines) + "\n")
+    logging.getLogger("train").info("wrote %s", out_path.relative_to(REPO_ROOT))
 
 
 def _write_artifacts(
@@ -295,6 +423,7 @@ def run_kb_pipeline(
     (run_dir / "logs").mkdir(parents=True, exist_ok=True)
     prompt_path = run_dir / "evaluator_prompt.md"
     report_path = run_dir / "train_report.md"
+    candidates_path = run_dir / "prompt_candidates.md"
     jsonl_path = run_dir / "logs" / "train.jsonl"
     trace_jsonl_path = run_dir / "logs" / "train.trace.jsonl"
 
@@ -366,6 +495,11 @@ def run_kb_pipeline(
             requires_permission_to_run=False,
             num_trials=num_trials,
         )
+
+        # Prompt-evolution log: dump every instruction/demo candidate MIPROv2
+        # considered + their scores (am-best-offer-udt). Reads compiled's own
+        # bookkeeping — no re-parsing of pipeline.log.
+        _write_prompt_evolution(compiled, run_id, candidates_path, seed_prompt)
 
         # Production-mirror eval: run the extracted prompt through the same
         # path `predict_all` uses (fresh ScoringEvaluator, clean dspy context,
