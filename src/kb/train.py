@@ -28,6 +28,7 @@ from src.common.cost_callback import (
 from src.common.dataset import load_split_examples
 from src.common.dspy_modules import (
     METRICS,
+    SCORE_RANGE,
     ScoringEvaluator,
     mae_metric,
 )
@@ -519,10 +520,13 @@ def run_kb_pipeline(
             logger.info("phoenix UI: http://localhost:6006")
         logger.info(
             "metric note: 'Average Metric: X / N (Y%)' = sum of mae_metric across "
-            "N examples; mae_metric = (5 - mean_abs_err)/5, range 0..1. "
+            "N examples; mae_metric = 1 - mean_abs_err/SCORE_RANGE, range 0..1. "
             "Y% = avg * 100 (~100% perfect, ~80% current baseline; "
             "full-eval sum X tops out at N, not 5*N)."
         )
+        # demo-фильтр MIPROv2: оставляем кандидатов с mean abs err <= этого (в баллах).
+        # threshold выражен в error-space, чтобы пережить смену шкалы (см. SCORE_RANGE).
+        THRESHOLD_MAX_MEAN_ERR = 0.34
         optimizer = MIPROv2(
             metric=make_logged_metric(mae_metric, score_logger),
             prompt_model=prompt,
@@ -530,7 +534,7 @@ def run_kb_pipeline(
             auto=None,
             num_threads=2,
             num_candidates=num_candidates,
-            metric_threshold=4.66/5,
+            metric_threshold=1.0 - THRESHOLD_MAX_MEAN_ERR / SCORE_RANGE,  # = 0.915 на шкале 1..5
         )
 
         # Real-time demoset/instruction tagging for train.scores.csv: MIPROv2 picks
