@@ -17,10 +17,11 @@ import dspy
 from src.common.dataset import INPUT_FIELDS
 from src.common.dspy_modules import (
     METRICS,
+    SCORE_RANGE,
     ScoringEvaluator,
     accuracy_pm1,
     bootstrap_ci_95,
-    mae_raw,
+    score_metric,
 )
 from src.common.llm_factory import task_lm
 
@@ -73,14 +74,15 @@ def run_evaluation(
 ) -> dict[str, Any]:
     """Evaluate `prompt_text` on `examples` against their reference_score.
 
-    Thin wrapper over `predict_all` that aggregates MAE / accuracy±1 / bootstrap
-    CI / per-source-id / per-metric / worst cases. Examples MUST carry a
+    Thin wrapper over `predict_all` that aggregates the train metric score
+    (1 − MAE/SCORE_RANGE, [0,1] higher=better) / accuracy±1 / bootstrap CI /
+    per-source-id / per-metric / worst cases. Examples MUST carry a
     `reference_score` dict.
     """
     preds = predict_all(prompt_text, examples, lm=lm)
 
     fails = sum(1 for p in preds if getattr(p, "_error", None))
-    mae = mae_raw(preds, examples)
+    score = score_metric(preds, examples)
     acc = accuracy_pm1(preds, examples)
     med, lo, hi = bootstrap_ci_95(preds, examples)
 
@@ -100,10 +102,14 @@ def run_evaluation(
                 per_metric_errs[m].append(err)
             except (TypeError, ValueError):
                 pass
-    per_source_mae = {src: sum(es) / len(es) for src, es in per_source_errs.items() if es}
+    per_source_score = {
+        src: 1.0 - (sum(es) / len(es)) / SCORE_RANGE
+        for src, es in per_source_errs.items() if es
+    }
     per_source_n = {src: len(es) for src, es in per_source_errs.items() if es}
-    per_metric_mae = {
-        m: (sum(per_metric_errs[m]) / len(per_metric_errs[m]) if per_metric_errs.get(m) else 0.0)
+    per_metric_score = {
+        m: (1.0 - (sum(per_metric_errs[m]) / len(per_metric_errs[m])) / SCORE_RANGE
+            if per_metric_errs.get(m) else 0.0)
         for m in METRICS
     }
 
@@ -122,18 +128,18 @@ def run_evaluation(
             except (TypeError, ValueError):
                 pass
         if errs:
-            worst.append((sum(errs) / len(errs), ex, pr))
-    worst.sort(key=lambda t: -t[0])
+            worst.append((1.0 - (sum(errs) / len(errs)) / SCORE_RANGE, ex, pr))
+    worst.sort(key=lambda t: t[0])  # lowest score = worst, first
 
     return {
         "fails": fails,
-        "mae": mae,
+        "score": score,
         "accuracy_pm1": acc,
         "ci_median": med,
         "ci_low": lo,
         "ci_high": hi,
-        "per_source_mae": per_source_mae,
+        "per_source_score": per_source_score,
         "per_source_n": per_source_n,
-        "per_metric_mae": per_metric_mae,
+        "per_metric_score": per_metric_score,
         "worst": worst[:20],
     }

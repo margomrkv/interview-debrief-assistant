@@ -72,11 +72,8 @@ def _pred(pred: Any, metric: str) -> int | None:
         return None
 
 
-def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
-    """MIPRO maximizes the metric — we return 1 - mean_abs_err/SCORE_RANGE so higher is better.
-
-    Normalized to [0, 1]. Perfect match = 1.0. Worst case (SCORE_MAX vs SCORE_MIN) = 0.0.
-    """
+def _example_errs(example: Any, pred: Any) -> list[int]:
+    """Abs errors for one example's valid axes (skips axes where ref/pred is None)."""
     errs: list[int] = []
     for m in METRICS:
         ref = _ref(example, m)
@@ -84,9 +81,29 @@ def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
         if ref is None or pv is None:
             continue
         errs.append(abs(pv - ref))
+    return errs
+
+
+def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
+    """MIPRO maximizes the metric — we return 1 - mean_abs_err/SCORE_RANGE so higher is better.
+
+    Normalized to [0, 1]. Perfect match = 1.0. Worst case (SCORE_MAX vs SCORE_MIN) = 0.0.
+    """
+    errs = _example_errs(example, pred)
     if not errs:
         return 0.0
     return 1.0 - (sum(errs) / len(errs)) / SCORE_RANGE
+
+
+def score_metric(preds: Sequence[Any], refs: Sequence[Any]) -> float:
+    """Batch aggregate of the train metric: mean over examples of mae_metric.
+
+    Equals MIPROv2's "Average Metric / N" by construction — the single [0, 1]
+    higher-is-better number used in eval reports. Examples with no valid axis
+    are skipped (not counted as 0.0).
+    """
+    vals = [mae_metric(r, p) for p, r in zip(preds, refs) if _example_errs(r, p)]
+    return sum(vals) / len(vals) if vals else 0.0
 
 
 def mae_raw(preds: Sequence[Any], refs: Sequence[Any]) -> float:
@@ -121,7 +138,10 @@ def bootstrap_ci_95(
     n: int = 1000,
     seed: int = 42,
 ) -> tuple[float, float, float]:
-    """Returns (median_mae, ci_low_2.5%, ci_high_97.5%)."""
+    """Bootstrap CI on score_metric (the train metric). Returns (median, lo_2.5%, hi_97.5%).
+
+    Score-space [0, 1], higher = better — so `lo` is the pessimistic bound.
+    """
     rng = random.Random(seed)
     paired = list(zip(preds, refs))
     if not paired:
@@ -130,6 +150,6 @@ def bootstrap_ci_95(
     for _ in range(n):
         bootstrap = [rng.choice(paired) for _ in range(len(paired))]
         ps, rs = zip(*bootstrap)
-        samples.append(mae_raw(ps, rs))
+        samples.append(score_metric(ps, rs))
     samples.sort()
     return samples[n // 2], samples[int(n * 0.025)], samples[int(n * 0.975)]
