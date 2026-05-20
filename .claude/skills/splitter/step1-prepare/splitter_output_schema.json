@@ -39,7 +39,7 @@
             "additionalProperties": false,
             "required": ["text", "time"],
             "properties": {
-              "text": { "type": "string" },
+              "text": { "type": ["string", "null"] },
               "time": { "type": ["string", "null"] }
             }
           },

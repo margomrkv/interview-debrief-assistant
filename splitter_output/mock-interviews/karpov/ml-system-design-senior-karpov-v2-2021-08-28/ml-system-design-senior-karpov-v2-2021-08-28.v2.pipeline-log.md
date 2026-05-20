@@ -1,0 +1,2605 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 2,
+  "basename": "ml-system-design-senior-karpov-v2-2021-08-28",
+  "transcript_folder": "transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28",
+  "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 18:13:12 +0200",
+  "updated_at": "2026-05-20 18:19:05 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/timecodes.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 18:13:12 +0200"
+    },
+    {
+      "id": 2,
+      "name": "qa_extraction",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json"
+      ],
+      "status": "completed",
+      "duration_sec": 180.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:17:17 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 2.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:17:20 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:17:20 +0200"
+    },
+    {
+      "id": 5,
+      "name": "semantic_validation",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 90.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:19:05 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v2
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28`
+- **Source ID:** `ml_system_design_senior_karpov_v2_2021_08_28`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 18:13:12 +0200
+- **Last updated:** 2026-05-20 18:19:05 +0200
+
+Фильтр в IDE: `*ml-system-design-senior-karpov-v2-2021-08-28.v2*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/timecodes.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md` | — | completed |
+| 2 | qa_extraction | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md#LLM_INPUT_STEP_2` | `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json` | 180.0s | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.xlsx` | 2.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md` | 1.0s | completed |
+| 5 | semantic_validation | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md#LLM_INPUT_STEP_5` | `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md` | 90.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: ml_system_design_senior_karpov_v2_2021_08_28
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:00] как мы построим все эту жвачку к нашему
+[00:00:03] сейчас сделаем перед тобой валер
+[00:00:04] бабушкин который работает в
+[00:00:06] расслабленной позе такой тебя ты
+[00:00:08] подпишешься под своими словах у игрока
+[00:00:10] может пригореть в раке в раке поэтому
+[00:00:14] это воспринимает как хорошую возможность
+[00:00:16] потренироваться кажется это де кастро
+[00:00:18] сон а до я я бы не факт что нашел себе
+[00:00:21] смелость какая-либо пушкин кого ними
+[00:00:24] прыжки на собеседовании такой хуев
+[00:00:27] так как член секты хлыстов почти
+[00:00:34] всем привет и это второе видео вообще не
+[00:00:38] знаках 0 2 1 или 3 двадцать второе это
+[00:00:41] был второй собеседованием здесь мы
+[00:00:43] собрались чтобы обсудить результаты
+[00:00:45] собеседования поймали дизайну полу
+[00:00:47] пройти нгу и снова здесь я валери
+[00:00:50] бабушки на момент записи видео работы
+[00:00:53] фейсбуке в лондоне всем привет меня
+[00:00:55] зовут стас я работаю с берье аптеки и
+[00:00:59] занимайтесь динамическим прессингом и
+[00:01:01] параллели с этим виду собственно модули
+[00:01:03] в курсе харда мель в карпов корпус по
+[00:01:06] динамическому просил
+[00:01:08] меня зовут игорь на данный момент я
+[00:01:10] работаю алиэкспрессе я занимаюсь
+[00:01:12] алиэкспрессе matching от тем же
+[00:01:13] занимался в яндекс-маркете и
+[00:01:15] мой модуль в курсе хардом или называется
+[00:01:18] точно также matching и ранжирование как
+[00:01:20] хорошо что нас видосами связанные с 3
+[00:01:22] pro matching и ранжирование как
+[00:01:25] невероятно заводи не pro price она
+[00:01:28] так к нам пришел александр and
+[00:01:30] собеседование я не знаю что это говорит
+[00:01:33] мое мнение вдруг она влияет на вас
+[00:01:35] хорошо стать после пира посмотрела и ты
+[00:01:38] посмотрел туда хорошо спасибо что пришел
+[00:01:41] меня зовут валера в принципе я наговорил
+[00:01:44] пообщались мы уже познакомились но так
+[00:01:47] как это у нас уже второе собеседование
+[00:01:49] предыдущий человек уже побеседовал с
+[00:01:51] зрители меня скорее всего знают тебя
+[00:01:53] скорее всего не знаю поэтому я чуть-чуть
+[00:01:55] ему расскажешь о себе это будет здорово
+[00:01:58] кей меня зовут саша я рассказать по
+[00:02:01] технические моменты я заканчивал кокаин
+[00:02:03] в школу заканчивала магистратуру тоже
+[00:02:07] вышку ну-ка данных заканчивал shot почти
+[00:02:09] закончил там осталось чуть-чуть и
+[00:02:11] работал в основном в деле области миля
+[00:02:14] краз работал
+[00:02:16] в мыле работал в яндексе чуть-чуть
+[00:02:19] сейчас работаю в стартапе к занимаюсь
+[00:02:21] всякими разными deep фейками что этим
+[00:02:23] связано то что за состав майне labs
+[00:02:25] потому что нас был человек из pixar то
+[00:02:28] до этого который к твоей павел сейчас в
+[00:02:31] snap лондон второй человек связан и 1
+[00:02:34] этих такой старой траектория здорово
+[00:02:36] здорово то есть листы ты тоже скоро
+[00:02:38] пришло ну давай чуть-чуть расскажем
+[00:02:40] опять про
+[00:02:42] поскольку задача про постановку задачи
+[00:02:44] вообще что такое и даже мимо не смогли
+[00:02:46] сразу после того как ах он хорошо
+[00:02:47] расскажем достичь хотя бы вы там значит
+[00:02:49] иметь дизайн это как я уже несколько раз
+[00:02:52] говорил одно из важнейших интервью на
+[00:02:54] определения сеньор насти инженера это
+[00:02:57] уровне 5 6 7 8 по факту это кроличья
+[00:03:02] нора в которой можно провалиться
+[00:03:03] максимально глубоко и это должно быть
+[00:03:06] сольное выступление практически на 45
+[00:03:08] минут и поэтому она довольно тяжелым уж
+[00:03:10] тяжело русская церковь чем интервью
+[00:03:12] меньше вопросы задает тем лучше она
+[00:03:14] должна иметь некоторую целостность то
+[00:03:16] есть это построенная история раз два три
+[00:03:20] 4 5 вот это первая итерация вот это
+[00:03:22] боязно им теперь вернулись сюда здесь
+[00:03:24] здесь можно сделать так лучше могут быть
+[00:03:27] такие какие-то проблемы деньги здесь
+[00:03:29] что-то этот человек показывает что я
+[00:03:30] могу от начала и до конца сделать дизайн
+[00:03:34] то есть архитектуру системы которая
+[00:03:36] будет приносить что-то полезное
+[00:03:38] соответственно мы обсуждали здесь если
+[00:03:40] на сороковой минуте 45 человек думает а
+[00:03:42] что вообще не надо сделать например не
+[00:03:44] очень хороший но понятно любая
+[00:03:48] 45-минутная беседа любое собеседование
+[00:03:50] это некоторая брести которых мы пытаемся
+[00:03:53] к противном получится ограниченное
+[00:03:55] количество времени я тебе дам какую-то
+[00:03:57] тему напишу какая задача а дальше все на
+[00:04:01] тебе будет лежать как-то эту задачу
+[00:04:02] будешь решать
+[00:04:03] в конце 45 минут у нас будут те
+[00:04:06] собеседования в конце я тебе немножко
+[00:04:09] расскажу что нам взгляд было хорошо на
+[00:04:11] что уделить внимание может быть ни на
+[00:04:13] что не надо будет взять она не может я
+[00:04:14] буду радостно прыгать ну такое тоже
+[00:04:16] может быть и возможно мы сейчас
+[00:04:19] преподавателем хардом или отдельно
+[00:04:20] разберем то я собеседование почему
+[00:04:22] потому что если особенно это будет тема
+[00:04:24] который щас дам я я щас выбираю между
+[00:04:26] мягкий маме на самом деле которая
+[00:04:29] попадается в хардом или то логично
+[00:04:31] послушать преподаватель но это отдельная
+[00:04:32] история просто тебе расскажу
+[00:04:34] я откровенно говоря думал между двумя
+[00:04:38] темами какую дать и решил выбрать
+[00:04:40] посложнее
+[00:04:42] интерес к несколько вопросов интеллект
+[00:04:45] или нет на самом деле любая тема в мыле
+[00:04:48] дизайне это кроличья нора потому что вам
+[00:04:49] нужно уйти бесконечно долго задачей тема
+[00:04:53] следующей pricing представь ты
+[00:04:55] marketplace люди которые сейчас студии
+[00:04:57] слышали первое интервью они наверно уже
+[00:04:59] залюбовались потому что мы тоже решали
+[00:05:01] задачу marketplace а до этого мальчонка
+[00:05:02] но сейчас pricing и в чем суть
+[00:05:05] ты какую-то цену предлагаешь какой-то
+[00:05:10] товар за какую-то цену каким-то людям
+[00:05:12] причем очевидно что как marketplace ты
+[00:05:16] можешь продавать там и свои товары и там
+[00:05:18] продают товары и другие организации
+[00:05:21] продавцы и так далее ну например
+[00:05:22] wildberries это marketplace aliexpress
+[00:05:25] это marketplace на алиэкспресс выходят
+[00:05:26] ребятки и продают товары но marketplace
+[00:05:30] он обладает технологической экспертизой
+[00:05:32] и он может сказать ребята вот если вы
+[00:05:34] будете продавать допустим не за эту цену
+[00:05:36] за эту у вас общие продажи вырастут
+[00:05:40] допустим этой подаете за 100 рублей вы
+[00:05:42] продадите 10 единиц товара а если 95
+[00:05:44] продадите 20 до вас маржа на каждом
+[00:05:46] отдельном товаре упадет но суммарные
+[00:05:48] джей ви или и или revenue или оборот у
+[00:05:51] вас вырастет и абсолютная маржа если вы
+[00:05:53] вновь конечно минус не уходите может
+[00:05:56] быть его себе 196 95 не очень хорошие
+[00:05:59] истории тоже вырастет но и
+[00:06:01] соответственно
+[00:06:02] проблема еще состоит в том я тебе хотя
+[00:06:05] нет это
+[00:06:06] большая и задач следующее вот это
+[00:06:09] сказать что на этот товар вот эта цена
+[00:06:12] оптимизирует у нас максимизирует
+[00:06:15] такую-то метрику возьмем для метрики к
+[00:06:18] джим в оборот но при этом мы не хотим
+[00:06:21] торговать себе в минус
+[00:06:23] простой пример у нас есть есть то товар
+[00:06:27] у него есть маржа допустим он
+[00:06:29] себестоимость 80 мы можем продавать его
+[00:06:32] от 80 до 100 рублей smd дешевле 80 мы
+[00:06:35] будем в минус поэтому даже если мы видим
+[00:06:36] что у нас будет отличный джимми при 79
+[00:06:39] возможно мы это не будем делать потому
+[00:06:41] что не можем себе это позволить маржа у
+[00:06:43] нас есть такой constraint снизу ну и
+[00:06:46] вопрос достаточно простой вот у тебя
+[00:06:47] есть этот marketplace
+[00:06:50] marketplace возле думаю ты видел опять
+[00:06:52] же aliexpress
+[00:06:54] андрей смолин wildberries озон и стоит
+[00:06:56] задача у тебя построить систему
+[00:06:59] ценообразования с точки зрения мы не с
+[00:07:02] точки зрения инфраструктуры все это млм
+[00:07:04] выбитой мой дизайн то как бы ты это
+[00:07:07] делал
+[00:07:10] окей ну в целом я расскажу увертюры на
+[00:07:14] кого общий план так какие там эти
+[00:07:15] компоненты что что она делать
+[00:07:18] начали но вот мы определили как этап 11
+[00:07:22] стал определить такая какие у нас есть
+[00:07:23] ограничение в целом и по задаче и полу
+[00:07:25] инфраструктуре там и в целом такие вещи
+[00:07:29] во-первых
+[00:07:30] я подозреваю скорее всего образование та
+[00:07:33] штука который не должна работать прям
+[00:07:35] очень быстро скорее всего она должна там
+[00:07:37] какое-то приходит товары там весь
+[00:07:38] какой-то доли секунды две 10-20 то есть
+[00:07:41] не нужно real-time а поэтому скорее
+[00:07:44] всего как-то исхитриться насчет быстрых
+[00:07:47] моделей там легковесных быстрых это
+[00:07:49] можно забыть есть целом обсчитывать это
+[00:07:51] на бэг-энде достаточно эффективно вот
+[00:07:55] roaming торнадо то уточнить это
+[00:07:59] прокрас качества то есть важные нам
+[00:08:02] отвечать более качественное там либо
+[00:08:05] стрелы менее качественно в данном случае
+[00:08:08] думаю такой thread'ов русское скорее
+[00:08:10] всего нам хочется чуть более качественно
+[00:08:12] поэтому эту отметку на эту штуку
+[00:08:14] обратите внимание отдельно встретишь ту
+[00:08:16] которая очень важно как раз определить
+[00:08:17] метрику именно бизнеса чтобы как раз там
+[00:08:20] строить уже дальше какие-то
+[00:08:22] метрики мониторинге чтобы следить за
+[00:08:24] всем этим делом вот так как у нас
+[00:08:26] метрика это в целом оборот компании не
+[00:08:29] сильно разбираюсь в этих оборот вот
+[00:08:32] оборот oki data set стоит
+[00:08:36] задирать голове
+[00:08:38] так и отвернул m-elle system design ты
+[00:08:42] мне кажется там сам главных компонента
+[00:08:43] это про данные по модели про данные то
+[00:08:46] как мы будем собирать как раз где мы
+[00:08:48] будем брать как хранить и обрабатывать
+[00:08:50] вот скорее всего
+[00:08:54] про то как мы их будем собирать нужно ну
+[00:08:57] какие то машин обучение нужно выборка
+[00:08:59] где на что внутри него цена что будем
+[00:09:01] предсказывать вот
+[00:09:02] нужно как-то собраться тем как мы будем
+[00:09:04] штаны размечать чтобы дальше учить
+[00:09:06] модели откуда общее брать разметку я
+[00:09:09] сразу скажу честно что такую сдачу
+[00:09:10] никогда не shall но подозреваю что там
+[00:09:12] есть какие-то
+[00:09:13] исторические данные то есть там к это
+[00:09:15] описание товара и катара магазины
+[00:09:17] продают и сами люди и есть какая-то цена
+[00:09:21] на которой они продавали есть цифры вот
+[00:09:25] это наверно кидание можно cars
+[00:09:26] пособирать то есть заранее чтобы обучать
+[00:09:28] и параллельно этом как раз вы стоите в
+[00:09:31] pipeline тоже line
+[00:09:34] сбора данных то есть когда приходит
+[00:09:36] людей покупают то такой денег в крис бак
+[00:09:39] они где то есть где записываются
+[00:09:40] epilogue как раз данные туда параллельно
+[00:09:43] брать
+[00:09:44] вот ну и в целом как бы там есть у нас
+[00:09:48] много больше бюджет током всегда есть
+[00:09:50] возможность изменить что-то руками там
+[00:09:52] пособирать и посмотреть там как бы берем
+[00:09:54] многу дети локеров чуть и условных они
+[00:09:56] что-то могу такое разметить но это такой
+[00:09:58] то для начала
+[00:10:00] вот такая штука у так именно модельки
+[00:10:04] для
+[00:10:06] ценообразования
+[00:10:08] я позеваешь технику глубинное обучение
+[00:10:11] скорее всего что-то ну а стоит начать с
+[00:10:15] такого то вообще в идеале прототип
+[00:10:17] делается без имели волны что там быстро
+[00:10:19] посмотреть и чтобы чтобы в общем плане
+[00:10:21] было что то что делать предсказания и
+[00:10:23] уже построить общий план там замерить
+[00:10:25] мониторинге метрики что все не падала и
+[00:10:28] уже потом можно докручивать модельки но
+[00:10:31] с точки земную да пусть у нас есть к
+[00:10:33] этом состоянии мыльная модель талантом
+[00:10:35] не знаю ultramax берет и говорит такая
+[00:10:37] цена
+[00:10:38] закупается на там плюс 5 допустим так
+[00:10:42] стакан штука мы хотим ну чуть более
+[00:10:45] мыльная это например допустим у нас есть
+[00:10:48] данный тип этом это описание товара то
+[00:10:53] есть он просто к это дискрипшн по тексту
+[00:10:55] ли по картинкам и все это есть мы по
+[00:10:57] этим почему поэтому писание можем
+[00:10:59] построить кучи митингов благо есть там
+[00:11:00] всякие про допущенные две штуки где
+[00:11:03] можем
+[00:11:04] презентацию для текста и для картинки
+[00:11:06] дальность что он начался что но сразу же
+[00:11:08] кен свою моделировать и ученики нам
+[00:11:10] смоделировать ангины созданы хорошо в
+[00:11:14] данный он рассказал как меня есть какие
+[00:11:16] то данные как я могу получить их
+[00:11:17] репрезентацию пока ну пока легитимно но
+[00:11:22] давайте свои пять копеек вставлю на мой
+[00:11:27] субъективный взгляд лучше всего идти и
+[00:11:29] сразу от бизнес-задач вот
+[00:11:31] в первую очередь определить вообще что
+[00:11:33] мы хотим делаем
+[00:11:35] что мы собираемся прогнозирует что мы
+[00:11:37] собираемся растить увеличиваете или там
+[00:11:39] визировать наоборот и так далее и уже от
+[00:11:42] этого и тела к данным в силу того что
+[00:11:44] нам нужно точно и четко представлять
+[00:11:47] очень бизнес-задач но согласно 5 же
+[00:11:49] структуры да ну трактора то есть как вы
+[00:11:54] уже говорили повторить мы все удивились
+[00:11:56] что никто не пользовался доской
+[00:11:58] практически а доставить это очень
+[00:12:00] здорово и для тебя структурировать опять
+[00:12:02] же не на быть то что ты говорил что ты
+[00:12:04] писал сюда вернуться или здесь потом с
+[00:12:06] ним сделалось
+[00:12:07] практически к хлебные крошки уганды
+[00:12:09] аллегретто ли что они спасли детишек и
+[00:12:14] плечо так это по временным рядам там
+[00:12:17] посещение этого товара тоже мы такую
+[00:12:19] популярность собрать ссылка blu 21 века
+[00:12:23] сперва то есть хорошие вещи для описания
+[00:12:26] в любого почти объекта это это по
+[00:12:27] двадцать первый век тот первый год вот и
+[00:12:31] такие лектора мы запустим это у нас иксы
+[00:12:32] a train там как раз будут это я не знаю
+[00:12:35] как правильно сам решал гайюсу
+[00:12:37] повторился но допустим это там водка это
+[00:12:38] цена которой вот мы знаем таргетной цена
+[00:12:40] при которой вот просто вещественное
+[00:12:42] число потому что сказал как иксы и
+[00:12:44] игреки
+[00:12:46] другой вопрос легитимные to the guide
+[00:12:49] совсем справедливо нас и
+[00:12:52] близко вот пара наши иксы и игреки
+[00:12:55] обязательно тяжело обучать многих систем
+[00:12:58] снова по обучению
+[00:13:01] согласен группу согласен логичная цена 1
+[00:13:05] этого товара дарит нам пусть поэтому это
+[00:13:07] чучелко ему по факту таких парах там
+[00:13:09] доктора представления два товара и
+[00:13:10] чуть-чуть челки будем предсказывать это
+[00:13:13] якобы учитывает может осветить constrain
+[00:13:16] и типа что
+[00:13:17] цена не должна быть предсказание должно
+[00:13:19] быть меньше . порог другим присадочного
+[00:13:21] товара ну да там идеально то есть то что
+[00:13:24] нам это даст могут мы будем знать там
+[00:13:27] при какой то ну ка бы я такую вложила
+[00:13:29] сам что это есть когда так этом цена при
+[00:13:31] которой покупатель купить это и в целом
+[00:13:34] но там будет больше продолжать так
+[00:13:36] если у нас покупатель проедется не купят
+[00:13:39] у нас таргетом что является
+[00:13:43] вот так это общий объем
+[00:13:46] выборки общий оборот допустим это не
+[00:13:51] определимся старые дома это важно с не
+[00:13:53] сначала скал таргет эта цена товара
+[00:13:55] теперь таргет это общий оборот и от на
+[00:13:58] семена в моей модели это будет со
+[00:13:59] товарами цена товара тропарь по ценам и
+[00:14:01] мы при прогнозируем цену товара можно
+[00:14:03] здесь вот небольшой
+[00:14:05] небольшой установку сделать мольеру
+[00:14:08] вообще я на самом деле заметил что во
+[00:14:10] время собеседования
+[00:14:12] ты достаточно часто помогал
+[00:14:15] такого реально редко бывает редко бывает
+[00:14:19] что тебе дают какие-то наводящие вопросы
+[00:14:20] зачастую ну типа ожидают что человек
+[00:14:23] будет говорить самостоятельно
+[00:14:26] может быть до может быть нет но суть
+[00:14:29] меня 40 минут и сейчас идет в одну степи
+[00:14:32] далеко от таргета неправильно
+[00:14:34] возможно у него затык только в этом
+[00:14:36] состоит то есть у меня есть какая-то
+[00:14:38] линия времени все здесь он делает
+[00:14:41] какую-то ошибку начинают ревновать не и
+[00:14:42] он пошел и сюда-сюда-сюда здесь у
+[00:14:44] неправильно и тогда все понятно что уже
+[00:14:47] вся система построена
+[00:14:49] он сказал что она специалист это хорошо
+[00:14:53] я опять же сделаю на эту скидку как
+[00:14:55] минимум он поярче снимаюсь ганы геккона
+[00:14:59] и где брать энди pricing
+[00:15:03] поэтому я хочу четко понять при том он
+[00:15:06] не опять же он мне два раза сказал
+[00:15:08] разные вещи вы помните за один раз call
+[00:15:09] цену просто скал оборот я на считаю что
+[00:15:13] это естественно меня вопрос слитки
+[00:15:14] что-то в духе
+[00:15:16] здесь мне кажется был момент что
+[00:15:20] александр не совсем понимал собственно
+[00:15:23] вообще бизнес-задач и если бы он нет на
+[00:15:26] мой субъективный взгляд нету ничего
+[00:15:28] страшного если ты не разбираешься
+[00:15:30] спросить собственно какой таргет как он
+[00:15:33] считается это было на мой опять таки на
+[00:15:36] мой субъективный взгляд много упростило
+[00:15:39] бы дальнейшей ответ в силу того что ты
+[00:15:41] сразу записал вот в я записал прям что
+[00:15:44] ты пытаешься оптимизировать и уже от
+[00:15:46] этого идешь не был в институте предмет
+[00:15:49] материаловедение и там преподавал доктор
+[00:15:53] наук и ты начинаешь что-то рассказал
+[00:15:54] пишут лида buried какой это из-за феррит
+[00:15:57] он говорит так бабушки ты подпишешься
+[00:16:01] под своими словами лишь подпишись
+[00:16:04] подпишись на как он пишет в раке в рамки
+[00:16:07] сих пор я заполнял что писать
+[00:16:11] но получается мы приди к тем же модели
+[00:16:13] цену товара если татарки таргет туда
+[00:16:15] просто а что дальше с этим делаем
+[00:16:20] из нас есть на камне которая
+[00:16:22] предсказывает идеально цен на товар
+[00:16:23] хорошо мы знаем что как почему это
+[00:16:25] идеально просто на который мы поставили
+[00:16:26] то есть если мы как-то рвет берем ту
+[00:16:29] цену которую мы ставили раньше почему-то
+[00:16:31] ожидаем что она идеальная цена зачем его
+[00:16:33] предсказывать мы ее поставили сами
+[00:16:37] это грубо говоря такая цена то есть из
+[00:16:40] данных что она не слишком большая никто
+[00:16:43] не купит не слишком маленькая что мы не
+[00:16:45] проходим просто продолжу что мы не будем
+[00:16:46] продавать там закупочный плюс один я
+[00:16:49] такой идеальный баланс чтобы настолько
+[00:16:50] распродавали много чтобы в сумме как раз
+[00:16:53] не будем на этом фокусируется на
+[00:16:55] несколько раз обсудили но опять же вот я
+[00:16:57] считаю что правильно сказал как бизнеса
+[00:16:58] то есть он сказал но не не закупка плюс
+[00:17:02] 1 это мы уже сбалансированная цена да
+[00:17:05] есть еще момент наверное тут тоже ну я
+[00:17:09] просто во время просмотра обратил на это
+[00:17:11] внимание что ты
+[00:17:12] дал очень специфическую задачу на самом
+[00:17:16] деле с определенными ограничениями
+[00:17:18] это то что нам нужно поднять
+[00:17:20] товарооборот при падении поможение не
+[00:17:23] больше но не уйти в минус да ну по сути
+[00:17:26] своей до смысл в том что
+[00:17:30] это очень важно на самом деле все что
+[00:17:33] связано с динамическим ценообразованием
+[00:17:35] очень важно от стратегии который мы
+[00:17:37] принимаем то здесь повышение
+[00:17:39] товарооборота при не уйти в минус маржи
+[00:17:43] иногда это было бывает наоборот
+[00:17:45] выкрутить маржу в максимум при условии
+[00:17:48] что у нас товарооборот не упадет ниже
+[00:17:50] определенной отметки и так далее и
+[00:17:54] здесь ну как бы от этого нужно прыгать
+[00:17:57] вообще от в идеале за писателем данного
+[00:18:01] да очень специфично задача типа и дальше
+[00:18:05] от этого прыгать там типов задач и
+[00:18:07] описать собственно ограничения потому
+[00:18:09] что очень специфичное условия от этого
+[00:18:12] ибо easy line по разному можно строить
+[00:18:14] трудно не согласиться со станиславом
+[00:18:16] который был твоим рукой нет очень и
+[00:18:20] очень недолгое время к сожалению мудрый
+[00:18:22] выбор
+[00:18:24] бен знаешь и нет я считаю что мне не
+[00:18:28] хватило с игорем поработать поэтому мы
+[00:18:31] продолжаем общаться она под этим хорошим
+[00:18:34] мы построили модель собрали данные дает
+[00:18:37] момент все отлично совсем не интересно
+[00:18:39] то есть я хочу понять все и до этого
+[00:18:41] момента все не то что то еще я все
+[00:18:43] понимаю
+[00:18:45] простая понимают на меняться лично я не
+[00:18:48] понимаю я я грущу
+[00:18:50] мы построили модель которая нам выдают
+[00:18:54] цену обучился на текста на которые мы
+[00:18:56] ставили ну хорошо допустим а как мы
+[00:18:58] использовать были
+[00:18:59] ну какой готовый товар так для него
+[00:19:02] можем сказать эту идеальную цену с точки
+[00:19:05] зрения того что наши католические данных
+[00:19:08] скоро я согласен что тут не совсем все
+[00:19:11] понятно верно как почему это коррелирует
+[00:19:13] с нашими ногами задницу да носовыми
+[00:19:16] целью ну а вот и сам что-то сказал про
+[00:19:19] вероятность покупки помнишь а
+[00:19:21] где насти как она здесь учитывается ну
+[00:19:25] по нечто типа цена сильно это большая
+[00:19:28] средний цена покупки уменьшается
+[00:19:32] вероятность покупки
+[00:19:34] то что это блин а учитывается на как
+[00:19:37] здесь
+[00:19:38] предсказаний до
+[00:19:41] искал мы взяли описание товара в
+[00:19:45] векторном виде получили это через фичи
+[00:19:47] экстракторы куча при добычного есть в
+[00:19:50] качестве таргета взяли цену это уже
+[00:19:51] товара
+[00:19:52] нам теперь у нас поступил новый товар и
+[00:19:55] наша модель говорит вот такая цена но
+[00:19:58] позднее наверно плюс-минус такая должна
+[00:20:00] да а
+[00:20:01] вероятность покупки здесь как
+[00:20:03] учитывается
+[00:20:05] конкретно здесь да никак не как
+[00:20:09] так много хорошо мы к этом вопрос
+[00:20:12] вернемся ты ж сам сказал бы и celine
+[00:20:13] пойдем дальше ну вот это чтобы мы
+[00:20:15] сделаем первую итерацию 1 кружочек потом
+[00:20:17] вернемся к момент такого потом я зайду в
+[00:20:19] трапе погуглю как правильно делается
+[00:20:21] ценообразования смотри
+[00:20:23] это пробная его задач в том числе
+[00:20:27] научиться то есть в принципе ты можешь
+[00:20:29] вообще сказать мне к контроллеру но не
+[00:20:31] заткнись мало знает что я сейчас первую
+[00:20:33] итерацию сделал я посмотрю что мне не
+[00:20:35] хватает вернусь к этому и
+[00:20:38] ракету это вполне set 4 штуки но
+[00:20:42] допустим такая катя лель которая просто
+[00:20:44] не обещает удачу в раньше когда хорошо
+[00:20:47] да поворотом ты когда начинаешь
+[00:20:48] мониторить может увидеть что тебе нужно
+[00:20:49] что-то да и это красота например гель
+[00:20:53] брать брать данные там их что мы будем
+[00:20:55] их булан тоже там собирать и хранить там
+[00:20:58] такая простая модель к
+[00:20:59] в 3 штука следы которая там стоит делать
+[00:21:02] когда муж выкатили модель это очень до
+[00:21:04] этого это как раз
+[00:21:06] сделать такой мониторинг и в целом всей
+[00:21:09] нашей системы потому что достаточно
+[00:21:10] важно чтобы там ловить какие-то баги и
+[00:21:12] какие-то неточности какие-то файлы здесь
+[00:21:15] он сказал что нужно пойти на поставки
+[00:21:17] данных хранения данных и deploy модели
+[00:21:20] pipeline мониторинга модели здесь все
+[00:21:24] вообще без [ __ ] без задоринки прям мы
+[00:21:27] тоже все хорошо всегда да но все таки на
+[00:21:30] мой взгляд это точно равно при учете что
+[00:21:32] больше если работа даже задач на самом
+[00:21:34] деле быстро и на нормальном он будет от
+[00:21:36] количества давайте же вещи с очень нужны
+[00:21:38] да просто евро что они должны обучить
+[00:21:41] пожить и
+[00:21:42] нам нужно мониторить целом восемь раз
+[00:21:46] таки есть три метрики на 3 группы
+[00:21:48] метрика это файл метрики . раз мы когда
+[00:21:51] можем считать в целом какие-то метрики
+[00:21:53] ну то есть метрики именно и моими
+[00:21:56] например ну то есть там есть на
+[00:21:57] следующую за чуть grace the boot camp
+[00:21:59] msn насколько мы там вдалеке от
+[00:22:02] проявляться минусом японии что что цена
+[00:22:04] обычно распределяется не нормально
+[00:22:06] поэтому мы светом не совсем хорошо брать
+[00:22:08] то можно мая то есть абсолютное
+[00:22:10] отклонение великим таки там близ близким
+[00:22:13] метрики вот потом line метрики это
+[00:22:16] больше про бизнесовые штуки даст мы как
+[00:22:19] раз хотим померить
+[00:22:21] как наш как наш прогресс с точки зрения
+[00:22:23] бизнеса это обычно как раз вот наш
+[00:22:27] основная медика который мы
+[00:22:28] оборот а наоборот там мере под оборотом
+[00:22:31] по дням папа недели по месяцам там
+[00:22:34] по-разному понимаем что плохо что хорошо
+[00:22:36] то пока вы просто меряем вот и
+[00:22:39] да я учился
+[00:22:42] вот и плюс там киньте посетят ростом
+[00:22:45] количества там покупок духе все что вот
+[00:22:49] есть маркер converse я примерно
+[00:22:52] представляю себе как это устроено
+[00:22:53] остальные слова и
+[00:22:56] там 3 класс метрик он такой больше
+[00:22:59] про инфраструктурную штуку то есть сам
+[00:23:02] про в город наших запроса магнитов
+[00:23:04] продам
+[00:23:05] скорее всего вся эта штука какая сдача
+[00:23:08] она требует переобучение модели часто
+[00:23:10] вот поэтому как раз нужно будет
+[00:23:12] мониторить скорость среди плохо смотрели
+[00:23:15] выкатки все это дело это картошка будет
+[00:23:18] стоить будет мониторить вот коснитесь
+[00:23:21] эти метрики есть то это супер то есть
+[00:23:23] там аналитики смотрят на лизе
+[00:23:25] анализируешь как это происходит и могут
+[00:23:28] отключить чего
+[00:23:31] какой-то лорд сказать
+[00:23:34] вот вторая секрету который столько
+[00:23:37] сделал такую в общем плане у
+[00:23:41] нас есть мечты выкате она работает и
+[00:23:46] там скажу куда это будет работать на на
+[00:23:50] сервер и поэтому это просто какая-то
+[00:23:52] обычная клин сервис к взаимодействие тут
+[00:23:54] ничего интересного нету то есть там
+[00:23:56] никого на девайсе читать надо этого тут
+[00:23:59] все просто и обычно на как бы есть вы
+[00:24:01] берёте какой-нить картинки это было бы
+[00:24:03] гораздо интереснее
+[00:24:05] вот и скорее всего тогда такая штука
+[00:24:09] аналитический там есть очень много
+[00:24:11] всяких разных моделей появляется часто и
+[00:24:13] нужно будет там перри выкатывать новые и
+[00:24:15] смотреть там замерять а чтобы стало чуть
+[00:24:18] лучше ли что-то стало хуже водка раз
+[00:24:20] становится тебя б тесты
+[00:24:22] те самые и
+[00:24:23] это нужно будет урок 1 контроль так что
+[00:24:27] мы что-то сделали ее красном переключать
+[00:24:31] там наш модели на какую-то группу
+[00:24:32] пользователей на самом деле меня вот
+[00:24:34] вопрос ты спрашиваешь вопрос как
+[00:24:37] насколько подробно нужно отвечать на
+[00:24:40] этот вопрос на интервью когда у тебя вот
+[00:24:42] 45 минут
+[00:24:44] на интервью обычно висят часы ты можешь
+[00:24:49] сказать опять же
+[00:24:51] ты можешь сказать ребята я буду делать
+[00:24:53] apts попытайся не что нужного пытаясь
+[00:24:55] нужно контрольная тестовая группа не
+[00:24:58] нужно понять сколько не нужно в день ее
+[00:24:59] ненужной метрики я сейчас не буду
+[00:25:02] говорить как это рокировать я знаю что
+[00:25:03] все это нужно делать останется время вот
+[00:25:05] к этому менту вернет есть ты определил
+[00:25:06] список небо как дальше ты говорю а я
+[00:25:08] знаю что может быть проблем мощного
+[00:25:10] сравнение я знаю что может быть проблема
+[00:25:12] у меня связано и с тем что произойдет
+[00:25:15] какой-то банк данных и доме нужен оао
+[00:25:17] тест на память вот такими дальше уже не
+[00:25:20] говорю чтобы сделать от с чтобы сделать
+[00:25:22] скриншот и не ты прыгаешь я все эти вещи
+[00:25:25] знаю вернусь к нему позже
+[00:25:27] но вопрос какую метрик вам это если ты
+[00:25:30] будешь оценивать все таки можно сказать
+[00:25:32] это в крайне важно чтобы результаты он
+[00:25:35] теперь apts классный почему у нас
+[00:25:37] метрика выросла какая не знаю
+[00:25:41] бы теста красил метрику какую когда это
+[00:25:46] неважно как бы мы оценивали у нас же
+[00:25:48] ценообразование крон ног распаковка то у
+[00:25:53] нас есть нет цена обрезаем мы можем
+[00:25:54] разве показывать разным пользователям
+[00:25:56] разную цену до вообще на самом деле
+[00:25:59] очень хитрый очень такой непростой
+[00:26:02] вопрос непростой он давал можем ли мы
+[00:26:05] показывать различные цену различным
+[00:26:07] людям ответ кстати можем зависимости от
+[00:26:11] geo da по гео может потому что если мы
+[00:26:15] возьмем просто
+[00:26:17] большую какую-нибудь страну типа нашей
+[00:26:19] пони должны были появиться от москвы до
+[00:26:22] отличается или тюменская область там от
+[00:26:25] какой нагрузкой от той же московской то
+[00:26:28] или тверской там области сильно
+[00:26:30] отличается что также был большой скандал
+[00:26:32] там запретили по musik к диску и тушь
+[00:26:34] почтовый код вы четко указывают каком ты
+[00:26:36] живешь в районе бедные и богатые
+[00:26:38] вообще ну там с точки зрения
+[00:26:41] дискриминации очень очень частая схема
+[00:26:43] это когда знаете один и тот же товар в
+[00:26:46] допустим в какой-нибудь онлайн игре на
+[00:26:49] одних устройствах стоят одну цену на
+[00:26:50] других устройствах другую страну центов
+[00:26:52] и здесь но честно у игрока может
+[00:26:55] пригореть так но то есть вопрос был
+[00:26:59] хитрый но справедливый справедливый
+[00:27:03] полностью и здесь ну очень интересно на
+[00:27:07] самом деле надо посмотреть на его ответ
+[00:27:09] вроде бы он здесь ну не наступил на мину
+[00:27:12] можно так вопрос мы послушаем мы можем
+[00:27:14] разве показывать разным пользователям
+[00:27:16] разную цену по нелегально лет и до
+[00:27:19] 4 не знаем и не могу скорее тысяч это
+[00:27:22] дискриминация
+[00:27:24] времен это не кнопка на сайте ну кукла
+[00:27:27] пытаясь разгрызть не зная условно на это
+[00:27:29] не разный цвет
+[00:27:30] иконочки на сайте это не разного горит
+[00:27:33] ранжирования это разная цена на акции до
+[00:27:35] подходите по служением как-то будет то
+[00:27:37] есть но смотрите даже чтоб меня устроило
+[00:27:40] мы сейчас представим потому что
+[00:27:42] правильно ответил он сам не дал мы к
+[00:27:44] нему вышли им рассказал
+[00:27:47] словно правильно это на что на самом
+[00:27:48] деле многим из вариантов может делать
+[00:27:51] это можно назвать это по тестам это
+[00:27:52] большой бросок скорее просто будет
+[00:27:55] механизм оценки через смещение модель и
+[00:27:57] так далее но и важно был осыпан за вы
+[00:28:00] сказать да к бутылочка опыта я хочу
+[00:28:04] проверять
+[00:28:05] как смотри мы можем искоренить мы не
+[00:28:07] можем то есть как то придумать вот этот
+[00:28:10] базовый дизайн оба теста пока что
+[00:28:12] пытайся нас а новый модель сара мы
+[00:28:13] меняем цены десяток можем все отлично
+[00:28:16] если не можем проблема нужно обращаться
+[00:28:18] к специалистам по тестированию тоже
+[00:28:21] ответ
+[00:28:22] то есть такое тоже принимается я просто
+[00:28:25] запишу что вы оба тестах человек
+[00:28:28] хорош да не спине специально опять опять
+[00:28:32] же мы же говорим что есть разные уровни
+[00:28:33] есть уровень 6 7 8 5 очевидно что они
+[00:28:37] этот этот этот прошел но по-разному
+[00:28:38] прошли телесами то есть человек может
+[00:28:40] вообще в каждом объем в каждом пункте
+[00:28:45] быть мега экспертом может такое но
+[00:28:48] вероятность такого можем порвать с ты
+[00:28:51] рассказал и как модель построит и данные
+[00:28:53] собрать очевидно что do it never как это
+[00:28:56] очень крутой чувак чувак может быть
+[00:28:57] крутой но чуть менее как то есть тут
+[00:28:59] тоже понятно бесовщину я знаю базовый
+[00:29:02] теория пытаться на а б а это я знаю а
+[00:29:05] как вот здесь делать что я не могу я не
+[00:29:07] знаю это не тривиальная задача я буду
+[00:29:10] разбираться
+[00:29:12] беда для меня уже то ответ что он понял
+[00:29:15] что это проблема подсветил я потому что
+[00:29:19] а теперь представьте сделана система те
+[00:29:21] же то результатов а потому и мы не знаем
+[00:29:23] как их оценить плохо очень а пока эта
+[00:29:26] система делится на знаешь этот проблемы
+[00:29:28] это же уделяем внимание он понял что
+[00:29:30] проблема возникла когда его навели на то
+[00:29:33] что там будет проблемам могла
+[00:29:35] ситуация такая уж никто на это не
+[00:29:37] обратил внимание а он инженер который
+[00:29:40] делал дизайн выведу мы ведущий инженер
+[00:29:42] главный став неважно принцип инженер не
+[00:29:44] обратил на это внимание никто не врать и
+[00:29:46] мы честно в такой ситуации к это вопрос
+[00:29:48] правда ли что эмма дизайн системы
+[00:29:50] делается 45мл каким-то человеком о нем
+[00:29:52] нет
+[00:29:54] есть потенциально там за два-три дня он
+[00:29:56] может додуматься разобрался у меня был
+[00:30:00] опыт делать имели дизайнер система
+[00:30:02] реальная большому кейси зазоров ничего
+[00:30:05] получилось да ну вот и вы прошли я
+[00:30:08] прекращал дамир пришлось но
+[00:30:11] опять же не нужно говорить о деталь я не
+[00:30:14] прошу решить эту проблему но подсветить
+[00:30:17] что это может быть проблема это важно то
+[00:30:19] есть вопрос хорошо сколько нужно время
+[00:30:22] чтобы понять что эта проблема
+[00:30:23] возник
+[00:30:24] да мы с чего начать 45-минутное имей
+[00:30:28] ограничение во времени сказать проблемой
+[00:30:30] как они за я знаю что отправляет вообще
+[00:30:31] тоже немало важно понимать где у тебя
+[00:30:33] лежит плоды можем проявить краснея не
+[00:30:36] абэ тестированием туристам когда разные
+[00:30:38] цены показывать а можно просто проверять
+[00:30:40] что ему что-то выкатили и смотреть в
+[00:30:43] целом по отдельного
+[00:30:46] лайм метрикам то для этого нужно иметь
+[00:30:50] чтобы смотреть на метрикам
+[00:30:53] забиты вот выкатил новую модель
+[00:30:56] ну да да я-то как раз к что она лучше
+[00:30:58] или хуже
+[00:30:59] дорогие дамы и как мы не можем взять в
+[00:31:01] группу людей ты просто выкатил бы что-то
+[00:31:04] но для кит товары там каточку эту
+[00:31:06] маленькую для принял просто группы людей
+[00:31:07] только для них и там сравнил бы на
+[00:31:09] исторических данных на люди на на людях
+[00:31:11] не получится ли столько но в в онлайне
+[00:31:13] над людях какой-то группе не получится
+[00:31:15] новую другую цену ставить на товарах
+[00:31:17] получится то есть ты можешь для всех
+[00:31:19] людей поменять цену на товар ну да
+[00:31:22] ну да себе память и цену людей такого
+[00:31:25] рода скорее носит как я бы как эту
+[00:31:28] модельку на прием товары так а дальше
+[00:31:30] что да и как раз смотрю
+[00:31:33] меняется ли вы самая группа из товаров
+[00:31:37] он там была цена какой то она на них там
+[00:31:39] не один месяц стало другое потом там
+[00:31:41] другая второй месяц я как раз смотрю там
+[00:31:43] по этим товарам там в сумме там прибыль
+[00:31:46] увеличилась увеличилось но и будем
+[00:31:48] считать что это не мороженое и один
+[00:31:49] месяц не апреля другой нимой ну да так и
+[00:31:52] совсем базу и сам желательно конечно
+[00:31:53] хотя конечно drive небольшие
+[00:31:55] эксперименты что нам нужно значит в
+[00:31:57] идеале имеет для того чтобы таким
+[00:31:59] методом пользоваться
+[00:32:00] вот и тыс мы сейчас вы понимаем что в
+[00:32:03] мае мороженого продается больше даст по
+[00:32:05] себе это у нас получается есть некоторое
+[00:32:08] внутри модель мира на слет дорогой а
+[00:32:11] теперь если этот процесс раскрыть для
+[00:32:13] того чтобы провести такой квази б какой
+[00:32:15] стране нам нужно иметь папа формализуем
+[00:32:18] формализует свои свои б то есть ты тут у
+[00:32:21] тебя был алгоритм а до был алгоритм б
+[00:32:24] были продажи слуга ритмом были продаж
+[00:32:26] алгоритм б и
+[00:32:28] ты говоришь теперь продаже с алгоритма б
+[00:32:31] лучше если
+[00:32:32] но если выручка выросла вы роста по
+[00:32:35] сравнению с чем
+[00:32:37] посылочка это в прошлого не но в прошлом
+[00:32:39] месяце совсем корректно сравнивать
+[00:32:40] бренда с ожидаемой выручкой в этом
+[00:32:43] месяце
+[00:32:44] вообще мне кажется это дико стресово да
+[00:32:48] я я бы не факт что нашел себе смелость
+[00:32:51] мире бабушкину кого не либо ручки на
+[00:32:53] собеседование и что значит укажет
+[00:33:00] на столешне приходишь мало того что он
+[00:33:03] тебя давит я одолел я задача подсказывал
+[00:33:07] помогал не льняной типа представь ты
+[00:33:08] приходишь хотя дикий стресс ты должен
+[00:33:11] решать задачи который день и когда я
+[00:33:13] решал перед тобой валер бабушкин который
+[00:33:16] работает фейсбуке который сидит в
+[00:33:18] максимально раз
+[00:33:20] расслабленной позе такой тебя ну что и
+[00:33:23] потом какие-то три чувака
+[00:33:25] тебя до того как ты прошел собеседование
+[00:33:29] прошло
+[00:33:36] просто не так молодежь так и живет с
+[00:33:39] tick tock youtube вот посмотрите и
+[00:33:42] коментируйте трусом форма местах или это
+[00:33:45] неприменимо что он тебя из нас разделяет
+[00:33:47] десятилетие реально 10 лет здесь
+[00:33:51] я большая с гусаром он пошел к неплохо
+[00:33:54] да ну он неплох достойно достойно maxio
+[00:33:59] нужен как раз предсказывает временной
+[00:34:01] ряд типа прибыли на этом как бы старые
+[00:34:04] данные наши советы да кстати а дальше
+[00:34:07] если ты умеешь предсказывать у тебя в
+[00:34:10] любом случае будут остатки от модели
+[00:34:11] правильно это остатки между
+[00:34:14] предсказаниями фактом да как-то ты
+[00:34:17] можешь посмотрев на эти остатки сделать
+[00:34:19] какие-то выводы
+[00:34:22] я понимаю что занимаешься дэвида я тебе
+[00:34:24] тебя виду в картошке и мы как бы скорее
+[00:34:26] всего там если мы что-то предсказали а
+[00:34:28] на самом деле оказалось так то как раз
+[00:34:29] там можно скорректировать наши
+[00:34:31] предсказания по этим остатков есть
+[00:34:32] остатки будут смещены к но дорога как
+[00:34:36] поэтому смещение вот можно наши сказать
+[00:34:38] нашему деду корректировать по нашим
+[00:34:40] предсказали некроз ну предсказанием
+[00:34:41] катрен вакцины у меня тебе вопрос возник
+[00:34:45] вопрос частично потому что мы уже
+[00:34:48] обсуждали но у нас теперь pipeline какой
+[00:34:50] мы ставим цены на основе того какие цены
+[00:34:53] на рынке ставили мы очень модель торги g
+[00:34:55] мы берем 2 каком сайт для новых товаров
+[00:34:57] раунда а какой-то момент ведь получится
+[00:34:59] так что все предыдущие цены у нас тоже
+[00:35:01] поставленной моделью на этом пире
+[00:35:03] обучаемся что есть модели учиться на
+[00:35:05] результаты модели что в принципе хорошо
+[00:35:08] затем можно не учит это называется
+[00:35:11] фидбэк лук плохо это хорошо или не как
+[00:35:14] то есть что в нашем случае ну на мой
+[00:35:17] субъективный взгляд да есть меняя цену
+[00:35:20] ты меняешь собственно спрос на
+[00:35:22] определенные группы товаров и меняется
+[00:35:24] поведение покупателей соответственно так
+[00:35:27] или иначе у тебя есть влияние
+[00:35:28] непосредственно на
+[00:35:30] собственно свою аудиторию соответственно
+[00:35:33] нужно как-то с этим работать как
+[00:35:37] это секрет да нет ну типа на мой
+[00:35:42] субъективный взгляд можно фидбэк лук за
+[00:35:44] вернуть обратно с точки зрения там
+[00:35:46] выбора какую цену ставить на
+[00:35:48] определенных групп товаров в
+[00:35:50] определенных регионах
+[00:35:53] что это значит что в целом мы там цены
+[00:35:56] можем изменять каким-то образом причем
+[00:35:58] мы ну там с точки зрения изменения цены
+[00:36:01] и есть различные подходы есть подход с
+[00:36:03] точки зрения эластичности
+[00:36:06] подход с точки зрения там типа
+[00:36:08] предсказание спроса прочие вещи но самый
+[00:36:12] тупой наверное да этот подход по сетке
+[00:36:14] когда мы просто берём у нас есть товар у
+[00:36:17] него есть определенная себестоимость мы
+[00:36:19] накидываем какую-то наценку и кстати
+[00:36:21] вроде бы александр об этом рассказывает
+[00:36:24] там попозже мы накидываем какую-то
+[00:36:26] определенную наценку и уже от этого
+[00:36:29] изменяется собственно ну спрос на тот
+[00:36:32] товар в маркетплейсе мы это можем
+[00:36:35] увидеть
+[00:36:36] добавляем сюда многоликих бандитов и
+[00:36:39] можем увидеть что на определенную группу
+[00:36:41] товаров нужно поставить такую наценку
+[00:36:43] там по сетке для других групп товаров
+[00:36:46] другую наценку ну и кажется что здесь
+[00:36:50] опять-таки могут быть различные
+[00:36:52] стратегии я помню вот игорь рассказывал
+[00:36:55] про эпсилон гляди страстно был такой про
+[00:36:58] upper confidence bound мне очень честно
+[00:37:01] импонирует там вариант который предложил
+[00:37:05] все время алексей чернобров который
+[00:37:07] говорил о том что в случае когда у нас
+[00:37:09] нет возможности постоянно проводить тест
+[00:37:11] на это кстати тоже важный момент
+[00:37:13] то мы можем некоторым образом ускорить
+[00:37:17] поиск оптимального точки где мы
+[00:37:20] максимально много зарабатываем или у нас
+[00:37:23] максимальный товарооборот пишет он через
+[00:37:25] за добавление так называемом комиссии
+[00:37:27] это
+[00:37:28] параметризация определенно относительно
+[00:37:32] определенной точки в кривой прибыли в
+[00:37:35] зависимости от сана это не тоже самое
+[00:37:36] что задать приор какой то это то же
+[00:37:39] самое что
+[00:37:40] типа смысл в том что до это ты просто
+[00:37:43] знаешь где лучше всего ты пытаешься
+[00:37:46] найти ручку за счет там пары
+[00:37:48] эксперимента вот собственно в
+[00:37:50] зависимости от того как много у нас
+[00:37:52] эксперимент можем ли мы постоянно менять
+[00:37:55] что-то смотреть в зависимости от того
+[00:37:57] как мы собственно работаем с фидбэк
+[00:38:00] глупом какие стратегии используем мы
+[00:38:03] кстати можно решать различные бизнес
+[00:38:05] задачи и здесь это тоже важно собственно
+[00:38:09] поэтому важно очень важно помимо бизнес
+[00:38:11] задачи собственно что мы делаем
+[00:38:13] товарооборот станислав миксе возникло 2
+[00:38:15] вопроса первый в учебных местах нет мной
+[00:38:17] летели существуют ли они были зация и
+[00:38:19] нужно это учитывать при оптимизации цен
+[00:38:22] на нескольких товаров одновременно ну
+[00:38:24] давай так с точки зрения наверное моего
+[00:38:27] ответа
+[00:38:28] вот в рамках например собеседования я бы
+[00:38:31] наверное сказал что есть вот проблемы
+[00:38:33] связаны с канализацией за таркой на
+[00:38:35] будущее прочие вещи связанные с общим
+[00:38:39] потреблением как бы но я бы не
+[00:38:42] углублялся потом почему потому что вещь
+[00:38:46] достаточно непростая вот с точки зрения
+[00:38:48] оценки к мобилизации как один товар к
+[00:38:51] ним лидирует группу товаров и так далее
+[00:38:53] это вопрос очень непростой с точки
+[00:38:56] зрения того что нам нужно во-первых
+[00:38:58] определить товар который будет
+[00:39:01] иметь некоторые аналоги в во всем вот в
+[00:39:05] этом пространстве затем как один товар к
+[00:39:09] ним лидируют другие товары на сколько
+[00:39:11] там к мобилизации одного товара сильно
+[00:39:13] влияет на
+[00:39:14] наш основной товар каннибала да тут
+[00:39:17] честно черт ногу сломит и и вот как
+[00:39:20] валера говорил что это просто вот дыра
+[00:39:22] который ты залезаешь ее вряд ли
+[00:39:24] выберешься но я бы сказал наверное об
+[00:39:27] этом ну вы но стоит упомянуть особенно
+[00:39:29] бесит и хочешь а пытаться проводить в
+[00:39:30] разрезе разные товары разную цену чтобы
+[00:39:32] не дискриминировать людей разными
+[00:39:33] моделями на один и тот же товар
+[00:39:35] не понял еще разок либо за чего раньше
+[00:39:39] обсуждалось что в области как-то уж
+[00:39:41] проводить об этой с разными твои мудрыми
+[00:39:42] сын образующими на один и тот же товар
+[00:39:44] не можешь выставить две разные цены
+[00:39:46] двумя разными моделями даками и поэтому
+[00:39:47] ты не можешь такое бы тасс проводите
+[00:39:48] нужно по товарам сплитить да и вот что
+[00:39:50] это может выстрелить в б что ты на одну
+[00:39:52] куда-то натравил модель что там отец мы
+[00:39:54] поменялись и у тебя из-за этого а группа
+[00:39:57] поехала да ну давай такое может быть
+[00:40:00] добывает и бывает больше ничего не стал
+[00:40:03] говорить на его потратил столько
+[00:40:04] проблема есть я думал что был бы очень
+[00:40:05] ценный point если кто-то заметил на
+[00:40:07] эмаль дизайнер интервью ты привычно
+[00:40:10] который выдал ходить нужно банальной
+[00:40:13] законе были зации может измениться
+[00:40:14] слушайте знаете на самом деле это
+[00:40:16] специфическая для ритой да да
+[00:40:19] да абсолютно прав и этом заткнул не на
+[00:40:22] второй вопрос вообще насколько вообще
+[00:40:24] нужно понимать что еще что-то может
+[00:40:25] произойти и каких проблемах нужно думать
+[00:40:27] во первых нужно расширять свой кругозор
+[00:40:28] попытаться бы работать в разных возможно
+[00:40:30] отраслях не только замыкается на одну
+[00:40:32] бизнес задачу и которой типа является
+[00:40:33] watcher no matching например наводчик и
+[00:40:35] кидайте придется очень высокоуровневые
+[00:40:37] понимания ты имеешь возможность очень
+[00:40:38] легко перекатываться другие задачи и в
+[00:40:40] них ведь какие-то проблемы чем больше ты
+[00:40:43] в жизни повидал чем мы тебе легче быть
+[00:40:44] чем-то вам строить ваши полностью
+[00:40:47] согласен много повидал вот волосы
+[00:40:49] потерял
+[00:40:51] ни одного на самом деле да очень
+[00:40:56] чем с большим
+[00:40:58] с более широким спектром задачи ты
+[00:41:01] сталкивалась с тем много проще
+[00:41:03] тебе проходить возможно такие интервью в
+[00:41:06] силу того что значит назначения с петель
+[00:41:07] очень глубокомысленный вывод что
+[00:41:09] опытному человеку проходить проходить
+[00:41:11] себе сигналить этими опытному с этим
+[00:41:13] сложно поспорить не совсем пропал
+[00:41:15] займешь это не только опыт по годам но и
+[00:41:16] индустрия не только по industry ну ты
+[00:41:19] сам должен формировать себе желание
+[00:41:20] разобраться в чем-то не решить какую-то
+[00:41:22] техническую задачу так как вырасти до
+[00:41:23] сеньора и выше что проходить такие
+[00:41:25] интервью тебе нужно самому пытаться них
+[00:41:27] разобраться и работать как бы на
+[00:41:28] опережение а
+[00:41:30] еще
+[00:41:32] смотреть хардом и точно не только смотри
+[00:41:36] то покупать
+[00:41:39] смотрели купили купите смотреть да еще
+[00:41:42] домашнее задание делать куда его пища
+[00:41:45] обязательно на помогает это называется
+[00:41:48] фидбэк лук плохо это хорошо или не как
+[00:41:51] то есть что в нашем случае я просто
+[00:41:54] когда учит скорее у нас там очень очень
+[00:41:55] много данных там очень много
+[00:41:56] пользователей малики томским простые там
+[00:41:59] может принтере обучиться скорее всего
+[00:42:01] там на
+[00:42:03] выучить время не знаю как выбрать
+[00:42:05] правильный ответ наверное как скажем так
+[00:42:08] фидбэк лук есть ну допустим мы не знаем
+[00:42:11] плохо это или хорошо но кто-то придет
+[00:42:13] это плохо кто скажет хорошо как мы как
+[00:42:15] мы можем этот фидбэк лук лук погасла
+[00:42:17] бить
+[00:42:18] ну как раз но какие-то корректировки
+[00:42:20] наши данные то есть по не учится на том
+[00:42:22] что предсказали там какие-то сторонников
+[00:42:25] рано или поздно мы вынуждены будем
+[00:42:26] учиться на том чтобы сказались на модели
+[00:42:28] всех новых товаров используем прошло
+[00:42:29] какой то период времени год 238 можем
+[00:42:31] учиться на сейчас обучить на 2013 году
+[00:42:34] на ценах в 2021 оставь на особенно
+[00:42:37] россии в рублях что-то
+[00:42:40] ну я пробираюсь там как-то масштаб будет
+[00:42:43] разные до ночи пока этот интент в целом
+[00:42:45] как смещение это помнишь ты сказал про
+[00:42:48] арк макс а
+[00:42:49] вот разве эту тему что что арматор cmax
+[00:42:52] какие еще есть варианты то есть это мне
+[00:42:54] кажется ты вошел в правильную сторону а
+[00:42:57] потом про неё забыл
+[00:42:59] про что решение которое можно дней
+[00:43:02] мылись в нашу крытом случае это скорее
+[00:43:05] всего вот видно клуб мы хотим как-то
+[00:43:07] борозда разбавить его здесь мы там нас
+[00:43:09] есть там какой товар и есть там
+[00:43:10] закупочная цена и
+[00:43:12] мы просмотрим как раз допустим за иную
+[00:43:15] цену этого товара пустой типу столько
+[00:43:18] плюс там 20 процентов отлично то есть ты
+[00:43:21] предлагаешь сделать ряд сценарным
+[00:43:22] дифференцируем при все ну да будет так
+[00:43:26] хотим мы прибывшим с булатом такая-то и
+[00:43:28] вот столько и окажи товары накидываем
+[00:43:31] так хорошо вы мужчина с первой операция
+[00:43:33] сделана да у нас в принципе разобрана
+[00:43:37] что данные у нас есть pipeline по
+[00:43:39] поставке данных у нас есть какое-то по и
+[00:43:41] celine виде модели нас есть
+[00:43:44] репрезентация у нас есть мониторинге у
+[00:43:46] нас есть оффлайн метрики качества этой
+[00:43:47] модели у нас есть онлайн метрики оборот
+[00:43:50] мы можем даже как-то будем считать что
+[00:43:52] проверять эту модель другой но все же у
+[00:43:55] меня вопрос следующий
+[00:43:57] здесь как эта модель какая строится
+[00:44:00] делается какая-то какая-то предпосылка
+[00:44:02] куда сам же и у нас предпосылка что цены
+[00:44:05] который мы раньше ставили идеальные она
+[00:44:09] звучит басиста сеанса улыбался потому
+[00:44:12] что харрода как решал поэтому не надо бы
+[00:44:14] допустим допустим я потому тебе и задал
+[00:44:17] в эту тему потому что не сказал чем ты
+[00:44:19] занимаешься
+[00:44:20] конечно вы в этом этом этом же весь
+[00:44:22] интерес
+[00:44:23] тут и предыдущий человек тоже приходил я
+[00:44:26] ему тоже спрашивал не прога на в этом в
+[00:44:29] этом интерес то есть понять как эта
+[00:44:31] система работает попробуйте за дизайне
+[00:44:33] до очевидно что ты не за дизайне ши и
+[00:44:34] глупо ожидать тебя что ты еще сделаешь
+[00:44:38] человек тардис лет работал цена в звании
+[00:44:40] тогда возникает опросе чем 10 отдел
+[00:44:42] аналогично но в целом ты и все крупные
+[00:44:45] блоки поставил правильно нам
+[00:44:49] все очень сильно собеседование вообще
+[00:44:52] это достаточно лишь себе тебя трос когда
+[00:44:54] усредняется много различных сабис
+[00:44:55] следующих и не пытайтесь и аргумента это
+[00:44:58] уже какая-то попытка объективизации но
+[00:45:01] мы сделал предложение нас идеальная цена
+[00:45:03] раньше было то есть на лучшее не был и
+[00:45:07] все такими не дает покоя когда-то сказал
+[00:45:09] про вероятность покупки
+[00:45:11] просит искал города стуку я все еще не
+[00:45:14] вижу как здесь вероятность покупки
+[00:45:15] учитывается как здесь а вдруг у нас была
+[00:45:18] не идеальная цена мод же такое быть либо
+[00:45:21] хотим друг актавис текут вероятно
+[00:45:22] составляющую там раз мы хотим
+[00:45:24] аккуратность покупки с такой-то ценой
+[00:45:26] вот тут и сказал не ну я подозреваю что
+[00:45:30] так но эту штуку можно как как рождается
+[00:45:33] что это будет делать
+[00:45:38] теперь опять вот ты тогда сказал таргет
+[00:45:40] и фичи но есть в такой постановке дата
+[00:45:43] мы просто можем как раз
+[00:45:45] вас примем такой постановке лишь когда
+[00:45:47] мне что лишь на удачу депрессии то в
+[00:45:50] целом мы как бы скажет очень наше
+[00:45:51] предсказание будем считать там
+[00:45:52] вероятность про предсказания вероятность
+[00:45:54] вероятность предсказания еще раз
+[00:45:56] вероятностью ты считаешь ну вот мы
+[00:45:58] делать предсказания и вот может принять
+[00:46:01] вероятность в точке этого предсказания
+[00:46:02] насколько вот там правдоподобно то есть
+[00:46:04] ты говоришь я хочу в качестве своей фичи
+[00:46:07] иметь в том числе и цену и говорить что
+[00:46:10] с этой ценой вместо кайта вероятностью
+[00:46:11] купят ну да мы пришли теперь плюс-минус
+[00:46:15] уже
+[00:46:17] можно правильному так ну вот правильной
+[00:46:21] задачи когда к тому вариантов задачи
+[00:46:24] которые мы считаем оптимально ну да да
+[00:46:26] да не если вы пружин вариант задача было
+[00:46:29] объяснено почему так можно решать я не
+[00:46:32] могу тоже чтобы вещь для день для одного
+[00:46:34] пользователя правильно то это может
+[00:46:36] сказать для кого-то притонам объекта но
+[00:46:38] для для опары пользователя да ладно .
+[00:46:41] почему-то пользователь товара цена
+[00:46:43] вероятность покупки систему чем как бы
+[00:46:45] не просто мне матсья такую вероятно что
+[00:46:47] всё тело вниз мы вероятность зачем нам
+[00:46:50] из я
+[00:46:52] ну тоже вернула кстати вот опять таки на
+[00:46:55] мой субъективный взгляд мы здесь ты
+[00:46:57] просто ему сказал что да он ошибся и от
+[00:47:00] прям красный флажок ну да ну да да да
+[00:47:03] да да
+[00:47:05] но мне нужно все равно с человеком
+[00:47:08] прокатить его по всем стадиям чтобы
+[00:47:10] дальше я мог сказать дружище смотри вот
+[00:47:13] здесь было клёво крыла вот здесь то
+[00:47:15] недоработал не доработаем обратимая а
+[00:47:18] есть мы пройдемся по трем стадии мы
+[00:47:19] списка что красный флаг расходимся или
+[00:47:23] он будет на этой третьей стадии где он
+[00:47:24] буксуют все интервью проведет моего
+[00:47:27] судна 4 5 не узнаем что там происходит
+[00:47:29] сегодня там ему нужно дать в том что он
+[00:47:32] уже пришел потратил время на нас мы на
+[00:47:34] него мы должны дать ему какую-то
+[00:47:36] обратную будем вечно будет полезно то
+[00:47:39] есть но вот например мы чего-то сказали
+[00:47:41] что пропал плане прям вот четко было
+[00:47:43] сказано помощь допустим пора бы хорошо
+[00:47:45] чуть-чуть не дотянула здесь да вино но
+[00:47:48] вот со все старые там была беда да у
+[00:47:51] этой абсолютно не специфика александра
+[00:47:54] тогда нам что нужно
+[00:47:56] . не пускать вероятность этого ну как
+[00:47:59] раз пары том что они такие то есть мы у
+[00:48:02] нас есть вектор вектор i can катим цена
+[00:48:05] и качество торги то что
+[00:48:08] 0 1 0 1 то есть мы учим на какую функцию
+[00:48:12] потерь
+[00:48:13] на вариант выбирай null огласку где
+[00:48:17] много вас хорошо так теперь у нас что
+[00:48:20] получается есть у нас есть для пары
+[00:48:22] товар пользователь вероятность покупки
+[00:48:24] да это хорошо есть проблема мы не можем
+[00:48:28] ставить разным пользователям разную цену
+[00:48:31] что
+[00:48:32] начал все запутывать очень она была
+[00:48:35] говорит что теперь мы делаем
+[00:48:39] в экран адрес эти данные из этой
+[00:48:42] вероятности там выставить какую-то цену
+[00:48:44] то как как ты это сделаешь
+[00:48:47] так и приходил вероятность то я не
+[00:48:49] знаком с этим цену
+[00:48:51] тут тоже на свечу ставишь а в плане типа
+[00:48:55] что
+[00:48:56] входные данные от есть такое письмо
+[00:48:58] тогда если мы берем как хочу цену то
+[00:49:03] как раз можем как раз эту цену и ставить
+[00:49:05] и там 200 вероятности там как бы так
+[00:49:08] просили как раз цена которую мы их
+[00:49:09] останется начали как свеча есть как
+[00:49:11] вероятность забирая период длится до
+[00:49:13] может открыть матожидание типа там нашей
+[00:49:15] выручки и как раз вот так и что мы еще
+[00:49:17] можем сделать
+[00:49:19] если дать разную цену prague ну да и как
+[00:49:22] раз мы можем то есть от этого перед
+[00:49:24] вероятность крита и цену маневрировать
+[00:49:26] получают вероятность нажатии на цену
+[00:49:28] допускает ожиданий как раз там выбрать в
+[00:49:30] тулу вероятность сердце котлу кабуто
+[00:49:32] шелковый какой-то и кто нас устраивает
+[00:49:34] такая на прибыль вообще на самом деле
+[00:49:36] опять таки вот возвращайся про объекты
+[00:49:40] да
+[00:49:41] вот здесь за просадка пошла от этого то
+[00:49:45] есть на самом деле не то чтобы это я
+[00:49:47] придумал я это прочитал вчера когда я
+[00:49:49] готовился к сегодняшнему то есть
+[00:49:51] но это клёво и это еще раз до целой к
+[00:49:54] формату то есть там было чётко написано
+[00:49:56] что и как нужно делать каком порядке там
+[00:49:57] был один из первых пунктов то есть
+[00:49:58] перейдем даже какой говорите про иксы и
+[00:50:00] игреки грехи что вас является объектом
+[00:50:01] ваще как не планируете устроить что мне
+[00:50:03] бы такую прочитать инструкцию под своим
+[00:50:07] собеседник автор статьи благо я был
+[00:50:10] авторство нет нет
+[00:50:11] но было в его
+[00:50:13] признание нас
+[00:50:16] возникает вопрос на который на который
+[00:50:18] тут не доказать что-либо знаешь его не
+[00:50:20] знаешь не знаешь ее в принципе нравится
+[00:50:22] то что опять же ты занимаешься дает
+[00:50:23] матожидания до того что получить
+[00:50:26] матожидание нам нужно иметь цену иметь
+[00:50:28] вероятность мысли на величину а модель
+[00:50:30] тебе действительно будет выдавать
+[00:50:32] вероятность
+[00:50:35] гарантирует ли тебе модель что она
+[00:50:36] выдает вероятность
+[00:50:39] какой-то знакомый вопрос где ты была в
+[00:50:42] теории машину обучения
+[00:50:44] что такое было
+[00:50:49] потом накида гарантий нет там как раз ли
+[00:50:51] какие-то штуки которые используют для
+[00:50:53] того чтобы верно не будем вдаваться
+[00:50:54] подробно загрузить или надо эта модель
+[00:50:57] выдает тебе скор на армия как
+[00:50:59] откалибровать это дело типа чтобы это
+[00:51:00] было как раз вероятность все отлично
+[00:51:02] отлично так вот после того как мы уже
+[00:51:04] получили от калиброванную вероятность мы
+[00:51:06] получаем от ожидания есть проблем
+[00:51:09] всегда бездне
+[00:51:11] проблема следующий мы научились получать
+[00:51:14] это для пары пользователь товар ok но мы
+[00:51:17] же с тобой знаем что мы не можем по
+[00:51:19] скорей сегодня нам все-таки
+[00:51:20] предположение так как вектор
+[00:51:21] пользователя будет меняться
+[00:51:23] скорее всего для каждого праздного
+[00:51:25] пользователя будет разная цена ну да
+[00:51:28] подходящий а мы не может так делать
+[00:51:31] дискриминирую что делать в целом можем
+[00:51:34] как-то к раз наши фичи пользователя
+[00:51:37] зомбировать там где поступал в середине
+[00:51:39] тимка распутать какую-то одну ну как то
+[00:51:42] так учить как то либо там хороший
+[00:51:45] вариант можно развитию ты предложил
+[00:51:48] чтобы я правильно тебя понял то есть и
+[00:51:50] не всегда лучше проговариваешь маллори
+[00:51:53] катя пойму это же ты имеешь ввиду ты
+[00:51:55] приложил представить некоего
+[00:51:56] усредненного пользователя ну да и
+[00:51:59] но это может быть правильно может быть
+[00:52:01] модель сойдется опыта никогда таких
+[00:52:03] вещей не видела никогда не видела 025
+[00:52:05] мужчины например если ты используешь ты
+[00:52:07] усреднил тебя на из четырех человек 3
+[00:52:11] женщин и один мужчина и модель сходи с
+[00:52:14] ума
+[00:52:15] чуть дальше если пойти что можно сделать
+[00:52:19] подумаем что у нас есть и мы ты можешь
+[00:52:21] расписать попробуем немного было скобы
+[00:52:23] есть там как раз товар вопросам товары
+[00:52:25] автомата
+[00:52:26] что у нас есть для каждого пользователя
+[00:52:28] после того как я построил модель которая
+[00:52:30] может выдавать вероятность покупки при
+[00:52:31] такой-то цене
+[00:52:33] где прибыль кто получаю оборот
+[00:52:35] образовалась матожидания оборота при
+[00:52:37] этой цене с этого человека для тебя и то
+[00:52:40] есть для каждого да но ты можешь выбрать
+[00:52:42] только одну цену до что теперь
+[00:52:47] мы просто не можем от ожидания гривну
+[00:52:50] просто реагируем по этой цене по факту
+[00:52:52] делаем грубой по по цене еще
+[00:52:55] среднем или медиан там-то ну а затем два
+[00:52:58] сумма интересует открыт говоря удобно
+[00:52:59] потому что средние как раз найти нас не
+[00:53:01] интересует нас интересует сумма уже в
+[00:53:04] сумму хотим
+[00:53:05] хорошо
+[00:53:08] отлично теперь
+[00:53:10] вернёмся к вопросам функций потерь ты
+[00:53:14] сказал
+[00:53:16] что мы будем учить на ну ты ты правильно
+[00:53:20] сказал что скорее всего цена не
+[00:53:22] нормальное распределение поэтому
+[00:53:24] возможные мысли не зайдет можно мая
+[00:53:25] можно наверно что-то еще делать но
+[00:53:30] представим пра-пра-пра
+[00:53:32] вероятностью модель понятно отыскал
+[00:53:34] калибровку откалибрую не будем вдаваться
+[00:53:35] в детали а
+[00:53:37] как нам оценить вообще вот у нас какая
+[00:53:39] то есть модель offline
+[00:53:41] теперь как мы понимаем что она нам
+[00:53:44] скорее всего revenue поднесу так нам и и
+[00:53:45] оценивать
+[00:53:47] уложились там плиты исторические данные
+[00:53:49] можно использовать их и посмотреть там
+[00:53:52] уютно там этот отрезок времени такой то
+[00:53:54] там поспорить нашу модель и посмотреть
+[00:53:56] насколько там и i predict и совпадают по
+[00:54:00] какой методике как реальными ну проникли
+[00:54:03] сюда мы просто это чисел k там наша
+[00:54:05] прибыль
+[00:54:07] ну все есть нас есть там просто 2 чисел
+[00:54:10] китам то сколько мы там сработались
+[00:54:12] какой-то промежуток времени наши
+[00:54:13] предсказания и
+[00:54:15] итоговая и истина я
+[00:54:18] просто вариант прослушка другого и что
+[00:54:20] смотреть вопрос вот реально человек
+[00:54:24] никогда не занимался pricing дак и он
+[00:54:28] предлагает 2 метрики которые на самом
+[00:54:29] деле ну такие стандартные в решении
+[00:54:33] задачи нам регресса и в во временных
+[00:54:36] рядах и так далее вот на мой
+[00:54:37] субъективный взгляд то что он вообще
+[00:54:39] предложил эти две метки и а еще он там
+[00:54:42] про нас есть чуть вспомнил да про мы в
+[00:54:47] кажется что это уже неплохо неплохо
+[00:54:50] согласен да ну то есть сам факт того что
+[00:54:53] он перечислил а вот эти метрики по-моему
+[00:54:55] мы по выполнил звал моек назвал по-моему
+[00:54:58] я выиграю сказал что есть такие вот
+[00:55:00] пробелы ты сказал про мы нет по его там
+[00:55:04] не было я
+[00:55:05] зря я был до посмотрим возможно я просто
+[00:55:09] сказал но по-моему он прямо над нами был
+[00:55:11] такой вопрос то есть он своем хорошо но
+[00:55:14] следующий вопрос какой метрику игры и и
+[00:55:15] почему я не ту враги что же вопрос
+[00:55:19] план у нас равна 1 метр и каждым пусть
+[00:55:22] он
+[00:55:23] я бы не задал вопрос только одно а тут у
+[00:55:26] нас метрик очень много почему это же
+[00:55:28] ладно мы говорим про функцию пати и
+[00:55:30] pantheon скал функцию потерь модель тела
+[00:55:32] blows формально углов вопросов а потому
+[00:55:37] что важно что метрика вызовешь были мне
+[00:55:38] по функции ватель точно прическа у меня
+[00:55:40] в углов 012
+[00:55:42] как здорово это очень смешно но в матче
+[00:55:45] где мы измеряли прокси метрику одной
+[00:55:47] модели к промежуточных и финальный через
+[00:55:50] логос но это был самый быстрый способ и
+[00:55:52] самый ну короче он очень сильно
+[00:55:53] коррелирована вас прокси метре когда то
+[00:55:55] есть понятно что вообще лосс как-то
+[00:55:56] должен комментировать метр который хочет
+[00:55:58] достичь хочет чего-то его оптимизирует
+[00:56:00] по умолчанию вас это некоторые просто
+[00:56:02] метрика так мы мы посмотрели за за
+[00:56:05] понедельник вторник среда четверг
+[00:56:06] пятница суббота воскресенье увидели
+[00:56:07] какие-то чисел ки мы агрегированного
+[00:56:09] рассмотрим это сказал да ну не писал как
+[00:56:12] можно так раз поднялись как будто
+[00:56:13] предсказали там до падения такого такого
+[00:56:15] комплекса мария ну вот можно просто
+[00:56:20] краз
+[00:56:24] ну поэтому света между ними поправим
+[00:56:27] простом что м с его котором я примерно
+[00:56:30] представляю почему ты там типа это
+[00:56:33] весело к прибыли на обычно но она не
+[00:56:34] вернешь плена
+[00:56:36] нормально сто процентов и чаще отказ
+[00:56:39] какая то решать задачу там приказание
+[00:56:40] цен она split налога нормальные там
+[00:56:43] просто набрать это логарифмы что как раз
+[00:56:45] и этом центрировать чтобы она была
+[00:56:46] колокольчик когда читать мысли я на
+[00:56:49] вопросы вы высказываете и считать вам
+[00:56:51] валить будет что у нас есть формализуем
+[00:56:54] у нас есть модель который у нас для пары
+[00:56:57] пользователь товар говорит что при
+[00:56:59] такой-то цене будет так а это
+[00:57:00] матожидание оборота мы соответственно
+[00:57:03] можем сказать что вот эта цена будет
+[00:57:06] оптимальная просто сгруппировав по ней и
+[00:57:09] просуммировав все матожидания при этой
+[00:57:12] цене для всех пользователь по всем
+[00:57:13] товарам благодаря так далее так далее
+[00:57:16] как две модели будем сравнивать в
+[00:57:18] оффлайне жесткий вопрос очень очень
+[00:57:20] жесткий вопрос как сравнивать в оффлайне
+[00:57:23] кто знает как раз говорил врач
+[00:57:27] исторический денежная которые были до
+[00:57:29] этого и
+[00:57:32] делать там сказали на прошлом для чего
+[00:57:35] бы обучаться на прошлом и делает клане
+[00:57:38] будущее но только для нас есть и данные
+[00:57:39] исторические и смотреть там по дням там
+[00:57:42] или в целом поэтому за весь период
+[00:57:43] насколько мы так далеки от истинных
+[00:57:46] поклонников ребята пока метрики ну я бы
+[00:57:49] делали попросту углубленной массе я
+[00:57:52] например нарисую
+[00:57:54] благо у нас в селе в принципе открыто
+[00:57:56] грэм и первой итерации прошли она
+[00:57:57] подходящая то есть
+[00:57:59] [музыка]
+[00:58:01] но теперь мы можем немножко вообще
+[00:58:04] представь что у нас есть две модели
+[00:58:06] представь что у нас есть ground roof или
+[00:58:09] лейбл это но 10 раз пасту я напишу так
+[00:58:12] просто 10 постов вот это наш grand rue у
+[00:58:16] нас есть модель номер один которая везде
+[00:58:19] нам сказала
+[00:58:21] 300
+[00:58:27] есть модель номер два
+[00:58:29] которое нам сказала девять раз пасту и
+[00:58:34] один раз тысячи
+[00:58:38] теперь мы прописать что мы сравним две
+[00:58:41] модели и пусть мы сравниваем их по
+[00:58:42] метрике мая и по метрике м с я
+[00:58:47] я же здесь писал голубеньким что еще
+[00:58:52] подумают люди что черная это относится к
+[00:58:54] этой модели и все-все поломается
+[00:58:56] мая м с я
+[00:59:00] подумаем так мая нас здесь везде посту
+[00:59:05] беседе патрис и значит у них разница 200
+[00:59:08] на каждом значит средняя разница тоже
+[00:59:12] 200 это это это мая мая здесь будет
+[00:59:15] значит черной модели
+[00:59:18] 200
+[00:59:20] здесь мая будет девять раз по нулю
+[00:59:24] один раз 900
+[00:59:27] средние 90 потому что 900 на 1090
+[00:59:30] каждая чем это чтобы учесть масштаб
+[00:59:32] предсказаний теперь теперь эмоция ну вот
+[00:59:35] этой скалы мы съехались я буду оценивать
+[00:59:36] пмс и двое поначалу да у нас есть запись
+[00:59:40] у
+[00:59:41] нас есть запись так смотрим что у нас
+[00:59:44] будет поймать я здесь у нас будет двести
+[00:59:48] квадрата 200 то что 400 тысяч четыреста
+[00:59:52] тысяч везде будет
+[00:59:54] квадрата 200 400000 получается
+[00:59:58] средняя ширина 4 400 тысяч значит
+[01:00:02] записываем 400 тысяч
+[01:00:10] девяносто
+[01:00:12] теперь здесь у нас будет 900 до
+[01:00:17] 900 в квадрате это что будет 810 тысяч
+[01:00:22] a200 это через тысяч или 40200 2000
+[01:00:26] 20000 40000 до 40 на нолик 40000
+[01:00:32] здесь будет 901
+[01:00:35] 1810 пол и конечно но на разделить на 10
+[01:00:38] 81 тысяч
+[01:00:43] 81000 а здесь вот так здесь ноль смотрю
+[01:00:47] а здесь допишем теперь смотрим
+[01:00:50] получается что у нас по мая
+[01:00:52] побеждает
+[01:00:55] вот эта модель
+[01:00:58] пмс е убеждает вот эта модель а теперь
+[01:01:01] скажи мне в случае нашего оборота какая
+[01:01:04] из этих двух моделей нам будет больше
+[01:01:05] подходит
+[01:01:07] [музыка]
+[01:01:10] наверное больше подходит к 1 2
+[01:01:13] зелененькая почему
+[01:01:17] дать правильный ответ не даст
+[01:01:23] я не исходя из цифра просто том плане
+[01:01:25] что она там девять раз попал точно и
+[01:01:28] один раз там ошиблась сильно но как бы
+[01:01:30] начну н с е смотрят
+[01:01:34] когда отклонение ну ладно в каждой
+[01:01:37] смотрят на отклонение если бы они все
+[01:01:39] были здесь просто везде были бы 0 и
+[01:01:41] правильно дома этом сильно штрафует
+[01:01:44] канатам далеко от правильно ответа новым
+[01:01:47] светом нас есть квадрат системы и беседы
+[01:01:49] на выбор смотрят туда а вопрос нам когда
+[01:01:52] мы предсказываем оборот нам важно из
+[01:01:55] какой день сильно ошибемся или нам важно
+[01:01:57] в среднем меньше ошибаться
+[01:02:00] ника самом важном среднем меньше
+[01:02:01] ошибаться высота это это это я не знаю
+[01:02:05] стоит ли нам дальше купить или можно
+[01:02:06] просто обсудить но чтобы наполнить этот
+[01:02:08] момент да
+[01:02:09] что здесь ну там были предложены 2
+[01:02:14] метрики мы молились и
+[01:02:17] и собственно на этих двух метриках мы
+[01:02:19] пытались выбрать какую модель лучше
+[01:02:21] всего поставить и с одной стороны у нас
+[01:02:24] там одна метрика простить одна модель
+[01:02:27] постоянно ошибалась другая модель и
+[01:02:30] пошло вас только один раз но он
+[01:02:31] достаточно сильно и вставал вопрос какую
+[01:02:35] собственно модель выбрать честно вообще
+[01:02:38] вот метрики сильно за ну как ты
+[01:02:41] правильно сказал они должны
+[01:02:42] аппроксимировать наш таргет условно и
+[01:02:46] очень важно понимать что мы какую задачу
+[01:02:49] решаем потому что зависимости от мы
+[01:02:51] выбираем либо одну либо другую метку
+[01:02:53] возможно иногда нам нужно типа пусть мы
+[01:02:56] будем ошибаться до постоянно это типа не
+[01:03:00] так будет страшно как один раз сильно
+[01:03:03] ошибаются это вас только в день
+[01:03:05] распродажи да это же вообще ну типа надо
+[01:03:08] понять какую сторону ошибаюсь здесь тоже
+[01:03:11] кстати вот
+[01:03:13] очень интересно там например с точки
+[01:03:15] зрения предсказания квартир да вот цены
+[01:03:17] на квартиру они же используют очень
+[01:03:20] хитрый лосс насколько я помню это рмс
+[01:03:24] л.е. где берут логарифм не он работает
+[01:03:27] очень интересном типа если ты не ду
+[01:03:30] не дошел до вот слова трубы значения то
+[01:03:35] у тебя достаточно сильных штраф а если
+[01:03:38] ты типа чуть выше спрогнозировал то у
+[01:03:40] тебя уже не такой сильный штраф и
+[01:03:43] это важно на самом деле важно понимать
+[01:03:46] от какого торги то мы идем какую метрику
+[01:03:47] nubira но мы опять же возвращаемся к
+[01:03:49] тому что если задача четко описано доске
+[01:03:52] работать со всем остальном становится
+[01:03:53] графиком надо это постоянно выстреливает
+[01:03:55] нам ногу так мая или м.с. ну значит
+[01:03:59] видосик показывает что лучше случае моя
+[01:04:01] почта мы меньше смотрим если пранипат
+[01:04:03] например там с мая была допустим
+[01:04:06] суммарно и правда тысяч из мая тысяча
+[01:04:08] девятьсот модели 1900 другой три
+[01:04:11] помните 10 по 300 там было да это 3000
+[01:04:15] правильно на другом случае было 9 по
+[01:04:17] стоит 9000 и то есть тысяча девятьсот а
+[01:04:20] правда было 10 по сто тысяч я и мои
+[01:04:24] мысли было что здесь мы ошиблись не 900
+[01:04:27] сама она уже в среднем интересно сколько
+[01:04:28] машин то там мы ошиблись на 2000 но если
+[01:04:31] но выбор софта меньше вопрос выбросов
+[01:04:34] каких какую сторону out у стойки плохо
+[01:04:37] особенно в ней распродажа
+[01:04:40] но не как говорит не просто не всем
+[01:04:44] парков пришли кого-то с током при том
+[01:04:45] что мы говорим про просека не про
+[01:04:47] прогноз спроса то есть оно понятно что
+[01:04:49] мы вовремя не связано но я бы не включал
+[01:04:51] это общем сколько эту задачу честно
+[01:04:54] опять-таки это наверное специфика очень
+[01:04:57] сильно специфика конкретная там и
+[01:05:00] коммерса retail и прочего почему потому
+[01:05:02] что ну там с точки зрения вот остатков
+[01:05:05] на
+[01:05:06] складе с точки зрения того
+[01:05:10] сколько у тебя блин да даже возьмем ps 5
+[01:05:13] да вот почему ps 5 сейчас стоит в 2 раза
+[01:05:16] дороже можно в полтора раза дороже да я
+[01:05:20] знаю игорь ты недавно ее купил за 40 до
+[01:05:23] него настойку перекупать натаскать
+[01:05:25] прошла дороже счету буквально значит
+[01:05:27] раза маркета не нужно придется я месяц
+[01:05:30] назад смотрела на стоил 8 то все все
+[01:05:33] хорошо ну типа и для желающих начал
+[01:05:35] смысл в том что это из за того что есть
+[01:05:39] большая нехватка товара соответственно
+[01:05:42] он и стоит в разы больше и реальность
+[01:05:46] покупки вы при такой-то цене понижается
+[01:05:47] количество товара с ней находится .
+[01:05:49] баллона да
+[01:05:51] ты из на этот крест дефолтной до тихона
+[01:05:54] к носу чём как только мы понижаем центре
+[01:05:56] повышаем ценам и же понижаем повышаем
+[01:05:58] вероятность покупки знаешь мы понижаем
+[01:06:00] повышаем оборот за счет чего за счет
+[01:06:02] увеличения уменьшения продаж и дальше
+[01:06:05] нам тоже а если мы не можем достичь
+[01:06:07] этого
+[01:06:08] матожидания потому что они вообще
+[01:06:10] распроданы тоже нужно это уже сам с
+[01:06:12] двумя звездочками вопрос номер 2 горячий
+[01:06:14] сверху .
+[01:06:16] при расчете метрики врачом теперь
+[01:06:17] представь реальный представь что это
+[01:06:19] реальный оборот он верху сколько тысячи
+[01:06:21] ну да первое в тот первый модель
+[01:06:23] предсказала сколько 3000 а вторая
+[01:06:25] предсказала 1900
+[01:06:29] но и собственно хотя черная модель у нас
+[01:06:33] лучше несмотря на то что она приз очень
+[01:06:36] далеко в среднем но у нее меньше на нее
+[01:06:38] меньше выбросов зеленая модель в среднем
+[01:06:40] нам прыскало гораздо лучше но не весь
+[01:06:43] один выброс
+[01:06:46] хорошо low читают еще деньги наверное
+[01:06:50] надо ним из я там arms этом брать корень
+[01:06:52] но и в те я от калиновская хочу сказать
+[01:06:54] никогда этого не говорит потому что если
+[01:06:57] ты возьмешь корни 40000 из 81 тысячи у
+[01:06:59] тебя все равно будет эти числа потому
+[01:07:02] что я не а горне эта монотонная функция
+[01:07:05] поэтому цену скажешь вы знаете я взял
+[01:07:06] корень у меня зеленая модель в этом даже
+[01:07:08] при массе и зеленая модель будет лучше
+[01:07:10] это просто как бы числа будут такие
+[01:07:12] гнить измене рублей в новой валютой
+[01:07:14] когда ты можешь короче оперировать
+[01:07:16] стандарт на самом же деле тебе в среднем
+[01:07:19] ну да интересно поэтому
+[01:07:22] средний абсолютная ошибка тебе важнее
+[01:07:24] чем среднеквадратичная ошибка там еще
+[01:07:27] есть эта метрика маппет которые ели так
+[01:07:28] раз на эту суку
+[01:07:30] может быть при этом made это
+[01:07:33] средняя абсолютно ошибка в процент да но
+[01:07:37] тут ездить денег эти столбики и другая
+[01:07:39] проблема
+[01:07:40] есть другая проблема с мейком свайпом но
+[01:07:42] это я не специалист
+[01:07:45] но как работает мэйд
+[01:07:50] есть товар который стоит ли у которого
+[01:07:53] продаж на 100000 есть товару который
+[01:07:56] правил который продажи на 100
+[01:07:59] миллионов
+[01:08:01] теперь представь что здесь мы сказали
+[01:08:04] что будет продаж на 110 тысяч
+[01:08:08] ошибку нас процентов 10 правильно а
+[01:08:11] если 120
+[01:08:13] то ошибка в процентах 20 здесь у нас 100
+[01:08:17] миллионов мы сказали 101 миллион
+[01:08:22] ошибка будет один процент теперь если мы
+[01:08:26] посмотрим вот это и вот это то них мы
+[01:08:28] будет десять с половиной процентов
+[01:08:30] почему на сложили разделили надо и
+[01:08:33] модель каштак так дружище даже еще я
+[01:08:35] здесь были стремится уменьшить здесь
+[01:08:37] ошибку а здесь можно увеличить допустим
+[01:08:39] если здесь будет 10 процентов а здесь
+[01:08:41] будет 5
+[01:08:43] здесь здесь и здесь 5 то суммарно это у
+[01:08:45] них будет сколько 7 половин да это же
+[01:08:50] меньше нагрев но отлично значит здесь
+[01:08:52] делаем 10 пусть здесь будет 110-ка а
+[01:08:55] здесь будет пусть 105 миллионов то есть
+[01:08:58] если раньше мы ошибались на
+[01:09:00] 1020000 составе ошибаться на на 5 black
+[01:09:03] man ну то есть все каждый метрики есть
+[01:09:06] свои
+[01:09:07] спасла
+[01:09:09] александр сказал что ребят я вообще
+[01:09:12] дольщик и понятно какие то вещи по этому
+[01:09:16] поводу мы просто на них закрываем глаза
+[01:09:18] на как на какие-то вещи
+[01:09:21] не можем закрыть глаза на какие вещи мы
+[01:09:23] не можем приказа
+[01:09:25] самое важное на торги это от чего мы
+[01:09:29] идем затем это
+[01:09:31] собственно объекты на который мы смотрим
+[01:09:34] с которым мы будем работать и дизайн
+[01:09:37] наверное эксперимента б здесь ну вот он
+[01:09:39] немного дизайна бы может где угодно быть
+[01:09:42] неважно дельта занимаешься да да это все
+[01:09:45] равно очень важно кто-то же должен это
+[01:09:47] делать а не просто принимать что другие
+[01:09:50] как другое да другие сделали твои
+[01:09:52] сотрудники другие же не будем делать с
+[01:09:55] одной стороны хочется сказать что тут с
+[01:09:58] прям совсем не классический дейсвительно
+[01:09:59] нужно как хоть что то с этим поделать с
+[01:10:00] этим поработать чтобы понимать и могут
+[01:10:03] возникать подводные камни и пытаться их
+[01:10:05] обойти с другой стороны даже там же
+[01:10:06] диоптриями если например ты делаешь
+[01:10:08] распознавание лиц и пытаешься фотографии
+[01:10:11] разных разных фотографий к одному
+[01:10:12] человеку то потенциальное та же самая
+[01:10:14] проблема . есть фотографии который ты не
+[01:10:16] берешь тренировочного руку сможешь как
+[01:10:17] на них performing так далее и как ты
+[01:10:19] пытаешься по-честному по сплитить
+[01:10:20] симулируя то что тебе продаж не
+[01:10:23] происходить то есть как бы если ты
+[01:10:24] наверное да и просто ешь до высокого
+[01:10:25] уровня в декор никита все равно ты
+[01:10:27] погружаешься и обычно это не должно
+[01:10:29] являться оправданием того чтобы не
+[01:10:30] можете занять в этот
+[01:10:32] ох какой то
+[01:10:35] такой хлыст я не говорю как силен сектах
+[01:10:39] last of
+[01:10:41] montenegro когда хорошо области я это
+[01:10:44] жилось симуляция теста в фанк вот я
+[01:10:46] полагаю что человек который бы что
+[01:10:49] человек пришел где пленки модельку зашли
+[01:10:50] него не было бы оправданием что он ни
+[01:10:52] разу стать мира бы ни была правда правда
+[01:10:54] не бы не был точно потому что если ты
+[01:10:56] хочешь опять и и тем более выше то ты
+[01:10:57] точно должен понимать вообще может быть
+[01:11:00] специфика практически любая задача раша
+[01:11:01] жесткий газ скажи в целом впечатление к
+[01:11:03] но тут очень большая была проблема в том
+[01:11:05] что человек не до конца разобрался с тем
+[01:11:07] чем он работает и как он будет делать
+[01:11:09] собрать воедино торги то и понимать как
+[01:11:12] они влияют на эту метрику которой
+[01:11:14] пытаясь оптимизировать это прям самая
+[01:11:16] самая важно потому что отсюда когти
+[01:11:17] брали говорил ты можешь полностью не ту
+[01:11:19] сторону и заниматься абсолютно не тем
+[01:11:21] это же тех сразу же поможет выйти на
+[01:11:22] функций потерь и ты говоришь как ты
+[01:11:24] оцениваешь модели метрики это уже должен
+[01:11:27] был который момент обсудить и это типа
+[01:11:29] завет очень легко дальше 3-го говоришь
+[01:11:31] вот это у нас будет с данными сапр что
+[01:11:33] нас может быть согнута смог заснуть
+[01:11:34] такие про на основе этих метрик может
+[01:11:36] возникнуть такие проблемы возможно ты
+[01:11:37] можешь позволить себе нос суёшь ошибки
+[01:11:39] сказать нет сейчас мы дошли до б я
+[01:11:40] помнишь нас нужно выбрать другую метрику
+[01:11:42] так тоже не возбраняется вообще глаза но
+[01:11:45] без записи на доске опять же тяжело
+[01:11:47] бизнеса это очень сложно потому что в
+[01:11:49] целом типичными ну в целом у меня
+[01:11:51] впечатления следующий что в принципе
+[01:11:54] учитывая то что он вообще никак не
+[01:11:56] связан с этой спецификой он неплох
+[01:11:59] отвечал на частью вопросов но как вот
+[01:12:02] правильно заметил что
+[01:12:04] честно ну пишите пишите резануть мне
+[01:12:08] показалось что александр явно сеньор ный
+[01:12:11] инженер и мне показалось что у него
+[01:12:14] именно инженерии больше по работе чем
+[01:12:17] или меня могу ошибаться он очень классно
+[01:12:20] рассказывал по инженерные вещи pipeline
+[01:12:22] и мониторинга pipeline с ником вот это
+[01:12:26] было очень человека и боевики можно
+[01:12:28] сложилась еще такая стая может быть он
+[01:12:30] больше инженерии за него чем мы
+[01:12:33] но в целом кажется что-то может он
+[01:12:37] какие-то дни мы и сроки подготовятся и
+[01:12:40] пройти сто процентов в принципе что эти
+[01:12:42] хочу сказать не твой подход нравится
+[01:12:44] подхода видно что ты человек сеньор нас
+[01:12:46] опытом приятно нет ты действительно
+[01:12:49] начал с правильных всех вещей опять же
+[01:12:54] понятно что ты сын образование работал
+[01:12:56] поэтому я тебя не буду про про это
+[01:12:58] сейчас оценивать
+[01:13:00] подход хороший ты начал с чего данные
+[01:13:05] потом модель дособираем pipeline
+[01:13:08] поставки данных модель на текущем на
+[01:13:10] первом это неважно потом мы заменим это
+[01:13:12] все
+[01:13:13] ты правильно разбил на метрики оффлайн
+[01:13:16] метрики на метрики мониторинг то есть
+[01:13:18] тут никаких у меня нету
+[01:13:21] претензий все сделано хорошо
+[01:13:25] не знаю даже имеет ли смысл передавать
+[01:13:28] какие советы в плане дрель потому что
+[01:13:30] насколько там важно знать эти метрики
+[01:13:32] так далее в боксе ну кажется что неважно
+[01:13:36] нам не спится я повторю специально не
+[01:13:38] стал тебя гнать потому что ты знаешь
+[01:13:41] потому что я и так уже знает какая то
+[01:13:44] есть начале идет я del я немножко знаю
+[01:13:47] но я бы не изменение могу туда глубоко
+[01:13:49] лись но все очень хорошо единственное
+[01:13:52] что вес и тогда таком интервью будешь в
+[01:13:55] реальная жизнь
+[01:13:56] старайтесь всегда формировать то с чем
+[01:13:58] мы хотим достичь этой степени как раз от
+[01:14:00] скалы чего хочет бизнес чего нужно
+[01:14:02] достичь то есть и и и вот видишь как они
+[01:14:04] начали обсуждать что деньги а в среднем
+[01:14:06] то есть нам это наверное важнее по тебя
+[01:14:09] пошли мысли немножко другие и и прямо
+[01:14:12] формализует а если сегодня даю такое а
+[01:14:14] формально определенности согласен
+[01:14:17] или кивнул вы по потом все четко кивал
+[01:14:20] голов согласился но мне особо нечего
+[01:14:25] добавить то есть если мы берем именно
+[01:14:26] framework общего куда-то хорошо хорошо
+[01:14:31] так что если диска мне вопрос задавай
+[01:14:34] либо мы будем прощаться с ребятами
+[01:14:35] которые мы смотрим не спасибо что пришел
+[01:14:39] пасе у тебя что думаю на этом закончим
+[01:14:41] на найти что-то еще ты хочешь сказать
+[01:14:44] нет нет тогда пасибо что послушали ей
+[01:14:47] очень благодарна александру недюжинное
+[01:14:51] мужество требуется чтобы придти я бы
+[01:14:53] например не пришли
+[01:14:56] ни периоде
+
+FEEDBACK_MD:
+---
+section: "Как ослабить feedback loop"
+start: "00:42:15"
+end: "00:43:33"
+start_seconds: 2535
+end_seconds: 2613
+---
+
+мы можем этот фидбэк лук лук погасла бить ну как раз но какие-то корректировки наши данные то есть по не учится на том что предсказали там какие-то сторонников рано или поздно мы вынуждены будем учиться на том чтобы сказались на модели всех новых товаров используем прошло какой то период времени год 238 можем учиться на сейчас обучить на 2013 году на ценах в 2021 оставь на особенно россии в рублях что-то ну я пробираюсь там как-то масштаб будет разные до ночи пока этот интент в целом как смещение это помнишь ты сказал про арк макс а вот разве эту тему что что арматор cmax какие еще есть варианты то есть это мне кажется ты вошел в правильную сторону а потом про неё забыл про что решение которое можно дней мылись в нашу крытом случае это скорее всего вот видно клуб мы хотим как-то борозда разбавить его здесь мы там нас есть там какой товар и есть там закупочная цена и мы просмотрим как раз допустим за иную цену этого товара пустой типу столько плюс там 20 процентов отлично то есть ты предлагаешь сделать ряд сценарным дифференцируем при все ну да будет так хотим мы прибывшим с булатом такая-то и вот столько и окажи товары накидываем так хорошо вы мужчина с первой операция
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v2 only.
+Write JSON only to: splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. ml-system-design-senior-karpov-v2-2021-08-28.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json \
+    --video transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json --out splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.qa-split.json \
+    --video transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: /Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/video.md
+
+--- CHAPTER `00:08:40` — Как собирать данные ---
+window: 00:08:40 .. 00:10:01
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+--- CHAPTER `00:10:01` — Про ценообразование ---
+window: 00:10:01 .. 00:11:05
+recognition_status: single (1 items)
+
+ITEM #2
+  interviewer_question: time=00:10:01 text='вот такая штука у так именно модельки для ценообразования'
+  candidate_answer: time=00:10:08 text='я позеваешь технику глубинное обучение скорее всего что-то ну а стоит начать с такого то вообще в идеале прототип делается без имели волны что там быстро посмотреть и чтобы чтобы в общем плане было что то что делать предсказания и уже построить общий план там замерить мониторинге метрики что все не падала и уже потом можно докручивать модельки но с точки земную да пусть у нас есть к этом состоянии мыльная модель талантом не знаю ultramax берет и говорит такая цена закупается на там плюс 5 допустим так стакан штука мы хотим ну чуть более мыльная это например допустим у нас есть данный тип этом это описание товара то есть он просто к это дискрипшн по тексту ли по картинкам и все это есть мы по этим почему поэтому писание можем построить кучи митингов благо есть там всякие про допущенные две штуки где можем презентацию для текста и для картинки'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:11:22 text='на мой субъективный взгляд лучше всего идти и сразу от бизнес-задач вот в первую очередь определить вообще что мы хотим делаем что мы собираемся прогнозирует что мы собираемся растить увеличиваете или там визировать наоборот и так далее и уже от этого и тела к данным'
+  question_topic: ML
+
+--- CHAPTER `00:13:36` — Что является таргетом при ценообразовании ---
+window: 00:13:36 .. 00:14:04
+recognition_status: single (1 items)
+
+ITEM #3
+  interviewer_question: time=00:13:36 text='если у нас покупатель проедется не купят у нас таргетом что является'
+  candidate_answer: time=00:13:43 text='вот так это общий объем выборки общий оборот допустим это не определимся старые дома это важно с не сначала скал таргет эта цена товара теперь таргет это общий оборот и от на семена в моей модели это будет со товарами цена товара тропарь по ценам и мы при прогнозируем цену товара'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:14:08 text='я на самом деле заметил что во время собеседования ты достаточно часто помогал такого реально редко бывает'
+  question_topic: ML
+
+--- CHAPTER `00:18:51` — Как использовать модель ---
+window: 00:18:51 .. 00:19:18
+recognition_status: single (1 items)
+
+ITEM #4
+  interviewer_question: time=00:18:51 text='а как мы использовать были ну какой готовый товар так для него можем сказать эту идеальную цену с точки зрения того что наши католические данных'
+  candidate_answer: time=00:19:41 text='искал мы взяли описание товара в векторном виде получили это через фичи экстракторы куча при добычного есть в качестве таргета взяли цену это уже товара нам теперь у нас поступил новый товар и наша модель говорит вот такая цена но позднее наверно плюс-минус такая должна да'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:19:08 text='скоро я согласен что тут не совсем все понятно верно как почему это коррелирует с нашими ногами задницу да носовыми целью'
+  question_topic: ML
+
+--- CHAPTER `00:19:18` — Как и где учитывается вероятность покупки ---
+window: 00:19:18 .. 00:21:01
+recognition_status: single (1 items)
+
+ITEM #5
+  interviewer_question: time=00:19:18 text='где насти как она здесь учитывается ну по нечто типа цена сильно это большая средний цена покупки уменьшается вероятность покупки то что это блин а учитывается на как здесь предсказаний до'
+  candidate_answer: time=00:20:05 text='конкретно здесь да никак не как'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:20:09 text='так много хорошо мы к этом вопрос вернемся ты ж сам сказал бы и celine пойдем дальше'
+  question_topic: ML
+
+--- CHAPTER `00:21:01` — Мониторинг данных ---
+window: 00:21:01 .. 00:24:33
+recognition_status: single (1 items)
+
+ITEM #6
+  interviewer_question: time=00:21:01 text='сделать такой мониторинг и в целом всей нашей системы потому что достаточно важно чтобы там ловить какие-то баги и какие-то неточности'
+  candidate_answer: time=00:21:46 text='нам нужно мониторить целом восемь раз таки есть три метрики на 3 группы метрика это файл метрики . раз мы когда можем считать в целом какие-то метрики ну то есть метрики именно и моими например ну то есть там есть на следующую за чуть grace the boot camp msn насколько мы там вдалеке от проявляться минусом японии что что цена обычно распределяется не нормально поэтому мы светом не совсем хорошо брать то можно мая то есть абсолютное отклонение великим таки там близ близким метрики вот потом line метрики это больше про бизнесовые штуки даст мы как раз хотим померить как наш как наш прогресс с точки зрения бизнеса это обычно как раз вот наш основная медика который мы оборот а наоборот там мере под оборотом по дням папа недели по месяцам там по-разному понимаем что плохо что хорошо то пока вы просто меряем вот и да я учился вот и плюс там киньте посетят ростом количества там покупок духе все что вот есть маркер converse я примерно представляю себе как это устроено остальные слова и там 3 класс метрик он такой больше про инфраструктурную штуку то есть сам про в город наших запроса магнитов продам скорее всего вся эта штука какая сдача она требует переобучение модели часто вот поэтому как раз нужно будет мониторить скорость среди плохо смотрели выкатки все это дело это картошка будет стоить будет мониторить'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:21:15 text='он сказал что нужно пойти на поставки данных хранения данных и deploy модели pipeline мониторинга модели здесь все вообще без задоринки прям мы тоже все хорошо всегда'
+  question_topic: Product Metrics
+
+--- CHAPTER `00:24:33` — Насколько подробно отвечать на вопрос «как вести A/B тест»? ---
+window: 00:24:33 .. 00:25:55
+recognition_status: single (1 items)
+
+ITEM #7
+  interviewer_question: time=00:24:33 text='насколько подробно нужно отвечать на этот вопрос на интервью когда у тебя вот 45 минут'
+  candidate_answer: time=00:24:51 text='ты можешь сказать ребята я буду делать apts попытайся не что нужного пытаясь нужно контрольная тестовая группа не нужно понять сколько не нужно в день ее ненужной метрики я сейчас не буду говорить как это рокировать я знаю что все это нужно делать останется время вот к этому менту вернет есть ты определил список небо как дальше ты говорю а я знаю что может быть проблем мощного сравнение я знаю что может быть проблема у меня связано и с тем что произойдет какой-то банк данных и доме нужен оао тест на память вот такими дальше уже не говорю чтобы сделать от с чтобы сделать скриншот и не ты прыгаешь я все эти вещи знаю вернусь к нему позже'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Experimentation
+
+--- CHAPTER `00:25:55` — Можно ли показывать разным пользователям разные цены ---
+window: 00:25:55 .. 00:27:37
+recognition_status: single (1 items)
+
+ITEM #8
+  interviewer_question: time=00:25:55 text='можем ли мы показывать различные цену различным людям'
+  candidate_answer: time=00:26:11 text='ответ кстати можем зависимости от geo da по гео может потому что если мы возьмем просто большую какую-нибудь страну типа нашей пони должны были появиться от москвы до отличается или тюменская область там от какой нагрузкой от той же московской то или тверской там области сильно отличается'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:27:14 text='вопрос мы послушаем мы можем разве показывать разным пользователям разную цену по нелегально лет и до 4 не знаем и не могу скорее тысяч это дискриминация'
+  question_topic: Communication
+
+--- CHAPTER `00:30:35` — Альтернативная система оценки ---
+window: 00:30:35 .. 00:34:08
+recognition_status: single (1 items)
+
+ITEM #9
+  interviewer_question: time=00:30:35 text='можно просто проверять что ему что-то выкатили и смотреть в целом по отдельного лайм метрикам то для этого нужно иметь чтобы смотреть на метрикам забиты вот выкатил новую модель ну да да я-то как раз к что она лучше или хуже'
+  candidate_answer: time=00:31:22 text='ну да себе память и цену людей такого рода скорее носит как я бы как эту модельку на прием товары так а дальше что да и как раз смотрю меняется ли вы самая группа из товаров он там была цена какой то она на них там не один месяц стало другое потом там другая второй месяц я как раз смотрю там по этим товарам там в сумме там прибыль увеличилась увеличилось но и будем считать что это не мороженое и один месяц не апреля другой нимой ну да так и совсем базу и сам желательно конечно хотя конечно drive небольшие эксперименты что нам нужно значит в идеале имеет для того чтобы таким методом пользоваться'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Experimentation
+
+--- CHAPTER `00:34:08` — Какие выводы можно сделать по остаткам модели ---
+window: 00:34:08 .. 00:34:43
+recognition_status: single (1 items)
+
+ITEM #10
+  interviewer_question: time=00:34:08 text='если ты умеешь предсказывать у тебя в любом случае будут остатки от модели правильно это остатки между предсказаниями фактом да как-то ты можешь посмотрев на эти остатки сделать какие-то выводы'
+  candidate_answer: time=00:34:22 text='я понимаю что занимаешься дэвида я тебе тебя виду в картошке и мы как бы скорее всего там если мы что-то предсказали а на самом деле оказалось так то как раз там можно скорректировать наши предсказания по этим остатков есть остатки будут смещены к но дорога как поэтому смещение вот можно наши сказать нашему деду корректировать по нашим предсказали некроз ну предсказанием катрен вакцины'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Statistics
+
+--- CHAPTER `00:34:43` — Что делать с переобучением ---
+window: 00:34:43 .. 00:35:17
+recognition_status: single (1 items)
+
+ITEM #11
+  interviewer_question: time=00:34:43 text='у нас теперь pipeline какой мы ставим цены на основе того какие цены на рынке ставили мы очень модель торги g мы берем 2 каком сайт для новых товаров раунда а какой-то момент ведь получится так что все предыдущие цены у нас тоже поставленной моделью на этом пире обучаемся что есть модели учиться на результаты модели'
+  candidate_answer: time=00:35:37 text='это секрет да нет ну типа на мой субъективный взгляд можно фидбэк лук за вернуть обратно с точки зрения там выбора какую цену ставить на определенных групп товаров в определенных регионах'
+  reference_answer: time=00:35:11 text='фидбэк лук плохо это хорошо или не как то есть что в нашем случае ну на мой субъективный взгляд да есть меняя цену ты меняешь собственно спрос на определенные группы товаров и меняется поведение покупателей соответственно так или иначе у тебя есть влияние непосредственно на собственно свою аудиторию соответственно нужно как-то с этим работать'
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+--- CHAPTER `00:42:15` — Как ослабить feedback loop ---
+window: 00:42:15 .. 00:43:33
+recognition_status: single (1 items)
+
+ITEM #12
+  interviewer_question: time=00:42:15 text='как ослабить feedback loop'
+  candidate_answer: time=00:42:18 text='ну как раз но какие-то корректировки наши данные то есть по не учится на том что предсказали там какие-то сторонников рано или поздно мы вынуждены будем учиться на том чтобы сказались на модели всех новых товаров используем прошло какой то период времени год 238 можем учиться на сейчас обучить на 2013 году на ценах в 2021 оставь на особенно россии в рублях что-то'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:42:48 text='вот разве эту тему что что арматор cmax какие еще есть варианты то есть это мне кажется ты вошел в правильную сторону а потом про неё забыл'
+  question_topic: ML
+
+--- CHAPTER `00:45:08` — Как ввести вероятность покупки ---
+window: 00:45:08 .. 00:49:36
+recognition_status: single (1 items)
+
+ITEM #13
+  interviewer_question: time=00:45:08 text='я все еще не вижу как здесь вероятность покупки учитывается как здесь а вдруг у нас была не идеальная цена мод же такое быть либо хотим друг актавис текут вероятно составляющую там раз мы хотим аккуратность покупки с такой-то ценой'
+  candidate_answer: time=00:45:26 text='вот тут и сказал не ну я подозреваю что так но эту штуку можно как как рождается что это будет делать'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:45:38 text='теперь опять вот ты тогда сказал таргет и фичи но есть в такой постановке дата мы просто можем как раз вас примем такой постановке лишь когда мне что лишь на удачу депрессии то в целом мы как бы скажет очень наше предсказание будем считать там вероятность про предсказания вероятность'
+  question_topic: ML
+
+--- CHAPTER `00:50:17` — Модель выдает мат ожидание? ---
+window: 00:50:17 .. 00:51:12
+recognition_status: single (1 items)
+
+ITEM #14
+  interviewer_question: time=00:50:17 text='гарантирует ли тебе модель что она выдает вероятность'
+  candidate_answer: time=00:50:49 text='потом накида гарантий нет там как раз ли какие-то штуки которые используют для того чтобы верно не будем вдаваться подробно загрузить или надо эта модель выдает тебе скор на армия как откалибровать это дело типа чтобы это было как раз вероятность все отлично'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:50:23 text='матожидания до того что получить матожидание нам нужно иметь цену иметь вероятность мысли на величину а модель тебе действительно будет выдавать вероятность'
+  question_topic: Statistics
+
+--- CHAPTER `00:51:12` — Как избежать дискриминации пользователей по цене ---
+window: 00:51:12 .. 00:53:10
+recognition_status: single (1 items)
+
+ITEM #15
+  interviewer_question: time=00:51:12 text='мы же с тобой знаем что мы не можем по скорей сегодня нам все-таки предположение так как вектор пользователя будет меняться скорее всего для каждого праздного пользователя будет разная цена ну да подходящий а мы не может так делать дискриминирую что делать'
+  candidate_answer: time=00:51:34 text='в целом можем как-то к раз наши фичи пользователя зомбировать там где поступал в середине тимка распутать какую-то одну ну как то так учить как то либо там хороший вариант можно развитию ты предложил чтобы я правильно тебя понял то есть и не всегда лучше проговариваешь маллори катя пойму это же ты имеешь ввиду ты приложил представить некоего усредненного пользователя ну да'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:51:48 text='но это может быть правильно может быть модель сойдется опыта никогда таких вещей не видела никогда не видела 025 мужчины например если ты используешь ты усреднил тебя на из четырех человек 3 женщин и один мужчина и модель сходи с ума'
+  question_topic: ML
+
+--- CHAPTER `00:53:10` — Как оценить модель ---
+window: 00:53:10 .. 00:54:21
+recognition_status: single (1 items)
+
+ITEM #16
+  interviewer_question: time=00:53:10 text='как нам оценить вообще вот у нас какая то есть модель offline теперь как мы понимаем что она нам скорее всего revenue поднесу так нам и и оценивать'
+  candidate_answer: time=00:53:47 text='уложились там плиты исторические данные можно использовать их и посмотреть там уютно там этот отрезок времени такой то там поспорить нашу модель и посмотреть насколько там и i predict и совпадают по какой методике как реальными ну проникли сюда мы просто это чисел k там наша прибыль ну все есть нас есть там просто 2 чисел китам то сколько мы там сработались какой-то промежуток времени наши предсказания и итоговая и истина я'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+--- CHAPTER `00:57:18` — Как сравнить две модели в офлайне ---
+window: 00:57:18 .. 01:02:03
+recognition_status: single (1 items)
+
+ITEM #17
+  interviewer_question: time=00:57:18 text='как две модели будем сравнивать в оффлайне жесткий вопрос очень очень жесткий вопрос как сравнивать в оффлайне'
+  candidate_answer: time=00:57:27 text='исторический денежная которые были до этого и делать там сказали на прошлом для чего бы обучаться на прошлом и делает клане будущее но только для нас есть и данные исторические и смотреть там по дням там или в целом поэтому за весь период насколько мы так далеки от истинных поклонников ребята пока метрики ну я бы делали попросту углубленной массе я например нарисую благо у нас в селе в принципе открыто грэм и первой итерации прошли она подходящая то есть'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:58:01 text='но теперь мы можем немножко вообще представь что у нас есть две модели представь что у нас есть ground roof или лейбл это но 10 раз пасту я напишу так просто 10 постов'
+  question_topic: Experimentation
+
+--- CHAPTER `01:09:22` — На какие вещи нельзя закрыть глаза несмотря на то, что человек не специалист в этой области ---
+window: 01:09:22 .. 01:12:42
+recognition_status: single (1 items)
+
+ITEM #18
+  interviewer_question: time=01:09:22 text='не можем закрыть глаза на какие вещи мы не можем приказа'
+  candidate_answer: time=None text=None
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:11:03 text='в целом впечатление к но тут очень большая была проблема в том что человек не до конца разобрался с тем чем он работает и как он будет делать собрать воедино торги то и понимать как они влияют на эту метрику которой пытаясь оптимизировать это прям самая самая важно'
+  question_topic: Communication
+
+SAVE JSON: вставьте ответ в конец файла /Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/ml-system-design-senior-karpov-v2-2021-08-28/ml-system-design-senior-karpov-v2-2021-08-28.v2.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

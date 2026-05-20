@@ -1,3 +1,160 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 8,
+  "basename": "data-scientist-junior-karpov-2022-03-30",
+  "transcript_folder": "transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30",
+  "source_id": "data_scientist_junior_karpov_2022_03_30",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 11:35:00 +0200",
+  "updated_at": "2026-05-20 11:42:32 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json",
+    "xlsx": "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.xlsx",
+    "validation_report_md": "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.pipeline-log.md"
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/timecodes.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.llm-input.txt",
+        "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.user-prompt.txt"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 11:35:00 +0200"
+    },
+    {
+      "id": 2,
+      "name": "qa_extraction",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.llm-input.txt"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json"
+      ],
+      "status": "completed",
+      "duration_sec": 420.0,
+      "notes": "v7 baseline + inserted self-answered item #14 for YT 00:36:04; reference trimmed",
+      "finished_at": "2026-05-20 11:42:32 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 0.0,
+      "notes": null,
+      "finished_at": "2026-05-20 11:41:57 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation.md"
+      ],
+      "status": "completed",
+      "duration_sec": 0.0,
+      "notes": null,
+      "finished_at": "2026-05-20 11:41:57 +0200"
+    },
+    {
+      "id": 5,
+      "name": "llm_validation",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation.md"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation.llm.json"
+      ],
+      "status": "completed",
+      "duration_sec": 90.0,
+      "notes": null,
+      "finished_at": "2026-05-20 11:42:32 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v8
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30`
+- **Source ID:** `data_scientist_junior_karpov_2022_03_30`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 11:35:00 +0200
+- **Last updated:** 2026-05-20 11:42:32 +0200
+
+Фильтр в IDE: `*data-scientist-junior-karpov-2022-03-30.v8*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/timecodes.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.llm-input.txt`<br>`splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.user-prompt.txt` | — | completed |
+| 2 | qa_extraction | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.llm-input.txt` | `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json` | 420.0s | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.xlsx` | 0.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation.md` | 0.0s | completed |
+| 5 | llm_validation | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation.md` | `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation.llm.json` | 90.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.json`
+- **xlsx:** `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.qa-split.xlsx`
+- **validation_report_md:** `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/data-scientist-junior-karpov-2022-03-30.v8.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
 ======================================================================
 SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
 ======================================================================
@@ -2323,3 +2480,6 @@ Optional topic_map override:
   --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
 
 Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->

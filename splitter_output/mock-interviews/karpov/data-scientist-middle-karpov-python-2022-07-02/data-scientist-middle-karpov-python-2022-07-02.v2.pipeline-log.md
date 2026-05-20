@@ -1,0 +1,1697 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 2,
+  "basename": "data-scientist-middle-karpov-python-2022-07-02",
+  "transcript_folder": "transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02",
+  "source_id": "data_scientist_middle_karpov_python_2022_07_02",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 18:07:30 +0200",
+  "updated_at": "2026-05-20 18:12:05 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/timecodes.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 18:07:30 +0200"
+    },
+    {
+      "id": 2,
+      "name": "qa_extraction",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json"
+      ],
+      "status": "completed",
+      "duration_sec": 180.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:11:04 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:12:05 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:12:05 +0200"
+    },
+    {
+      "id": 5,
+      "name": "semantic_validation",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md#SEMANTIC_VALIDATION"
+      ],
+      "status": "completed",
+      "duration_sec": 60.0,
+      "notes": null,
+      "finished_at": "2026-05-20 18:11:40 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v2
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02`
+- **Source ID:** `data_scientist_middle_karpov_python_2022_07_02`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 18:07:30 +0200
+- **Last updated:** 2026-05-20 18:12:05 +0200
+
+Фильтр в IDE: `*data-scientist-middle-karpov-python-2022-07-02.v2*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/timecodes.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md` | — | completed |
+| 2 | qa_extraction | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md#LLM_INPUT_STEP_2` | `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json` | 180.0s | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.xlsx` | 1.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md` | 1.0s | completed |
+| 5 | semantic_validation | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md#LLM_INPUT_STEP_5` | `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md#SEMANTIC_VALIDATION` | 60.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: data_scientist_middle_karpov_python_2022_07_02
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:01] [музыка]
+[00:00:03] перейдем дальше
+[00:00:05] капитану ты не против да давай если мы
+[00:00:09] поймали закончили давай ну я думаю что
+[00:00:13] более чем принципе ты много чего
+[00:00:15] интересного рассказала видно что вот и
+[00:00:18] хорошо погружена В эту тему вот
+[00:00:22] не так чтобы очень сложные вопросики
+[00:00:25] были соглашусь
+[00:00:27] Ты очень много
+[00:00:29] дополнил Слушай мы с тобой поговорим про
+[00:00:33] сложная вещь
+[00:00:40] вы Ну раз ты меня вот так вот
+[00:00:43] я решил я не буду давать тебе
+[00:00:47] возможности
+[00:00:50] Прости пожалуйста Значит у нас будет
+[00:00:54] непростая Тема мы поговорим с тобой про
+[00:01:00] сложной структуры да
+[00:01:03] Вот надеюсь ты что-то знаешь
+[00:01:07] но мы поговорим с тобой про сложные
+[00:01:10] структуры данных на каких-то примерах
+[00:01:14] давай возьмем
+[00:01:16] пример простой
+[00:01:20] вот есть у нас
+[00:01:25] Я сейчас напишу текст
+[00:01:29] значит первая задача при работе с
+[00:01:32] текстами нам нужно уметь делать так
+[00:01:35] называемую коллекцию
+[00:01:38] значит
+[00:01:45] Что значит коллекция коллекция это не
+[00:01:48] что иное как дикт
+[00:01:51] твоя задача сейчас будет написать
+[00:01:53] функцию
+[00:01:54] которая будет создавать дикты из нашего
+[00:01:58] текста
+[00:02:00] а затем организовать поиск
+[00:02:03] либо слово либо под строки
+[00:02:08] в данном тексте
+[00:02:11] подожди дикт который будет состоять из
+[00:02:14] слов
+[00:02:16] Да ну из токенов из токенов Ну в тексте
+[00:02:21] есть понятие токены там токены заданные
+[00:02:24] токены это слова или у меня не заданы Да
+[00:02:28] у тебя Ну тебе нужно будет создать
+[00:02:30] коллекцию ты когда-нибудь с текстами
+[00:02:33] работал
+[00:02:36] тебе нужно будет создать коллекцию
+[00:02:40] вопросы
+[00:02:43] токены это типа часть текста на которую
+[00:02:46] он разбит это могут быть там предложение
+[00:02:48] в больших текстах
+[00:02:52] случае это просто будет слова я
+[00:02:55] изначально знаю что токены это слова и
+[00:02:57] считают слова или мне оставить себе
+[00:02:59] пространство чтобы могла задавать
+[00:03:01] какие-то другие например по запятыми
+[00:03:04] вставать или я точно сплитую по пробелым
+[00:03:06] все ну вот я здесь добавил одну
+[00:03:10] заглавную букву и одну запятую в надежде
+[00:03:12] что ты ее берешь когда будешь создавать
+[00:03:20] короче токены это слово
+[00:04:02] я могу отладку на лету делать или нет
+[00:04:05] Так ну ты можешь запускать смотреть
+[00:04:08] да да
+[00:04:26] что делать
+[00:04:55] если честно вообще забыла эти методы но
+[00:04:58] я попробую вспомнить
+[00:05:03] происходящему далее
+[00:05:19] супер
+[00:05:21] Давай сделаем
+[00:05:24] я вспоминала работает ли это так и к
+[00:05:27] строке или нужно вызвать по-другому
+[00:05:40] Теперь нужно исключить
+[00:05:44] регуляркой
+[00:05:47] ты можешь погуглить как это сделать Да я
+[00:05:50] просто правда не помню
+[00:05:54] [музыка]
+[00:05:56] можешь в этом окошке
+[00:05:58] Ну в смысле здесь браузере о
+[00:06:04] явно было хорошо
+[00:06:10] так
+[00:06:11] [музыка]
+[00:06:16] нужно исключить действительно числа
+[00:06:19] процентов здесь есть пример где есть
+[00:06:22] только
+[00:06:28] возможно поиск тебе поможет
+[00:06:36] смысле прям конкретный запросом
+[00:06:41] первую строчку
+[00:06:52] А сколько времени у меня есть О вот это
+[00:06:56] выглядит как то что я делала
+[00:07:00] выглядит хорошо
+[00:07:14] утов Не партнёте
+[00:07:18] ну хорошо
+[00:07:21] смысле он есть интервью конечно конечно
+[00:07:24] же регулярки
+[00:07:36] сколько бы я что-то не делать регулярком
+[00:07:39] каждый раз я гуглю
+[00:07:48] Нет
+[00:07:51] resapp это изменение как раз все было
+[00:07:55] правильно просто в самой регулярке самом
+[00:07:57] регулярном значении
+[00:08:14] я буду подбором извините это стыдно но я
+[00:08:17] попробую Ничего страшного
+[00:08:26] ты все пропил удалил
+[00:08:45] он здесь тебе ничего не делает но если
+[00:08:49] бы у нас были цифры то он бы их не взял
+[00:08:59] это происходит
+[00:09:03] это кажется я пробовала
+[00:09:11] Давай поищем регулярное выражение
+[00:09:53] принтер что-то такое близкое
+[00:09:58] Давай вспомним
+[00:10:04] Давай чисто вот как подсказка не через
+[00:10:08] регуляр
+[00:10:09] сделать не через регулярку нас есть
+[00:10:12] функция replace
+[00:10:14] можем просто в рамках чтобы не
+[00:10:20] сидеть долго смысле запятую конкретно Ну
+[00:10:24] да
+[00:10:31] запомним что это надо было сделать через
+[00:10:33] регулярку да
+[00:10:38] чтобы просто не терять время
+[00:11:57] Ой я там случайно пробел двери в самом
+[00:12:01] начале в тексте
+[00:12:02] хорошо Это я странный человек
+[00:12:14] Давай в чем проблема в том что эта
+[00:12:18] коллекция это не
+[00:12:20] Да я знаю Я просто посмотрела что
+[00:12:29] а мы хотим считать же да количество
+[00:12:32] строк количество слов входящих
+[00:12:34] коллекция смотри в коллекции в коллекции
+[00:12:38] зачастую Давай сделаем собственную
+[00:12:40] коллекцию
+[00:12:42] в коллекции сделаем следующую вещь у нас
+[00:12:45] будет
+[00:12:46] дикт в котором будет
+[00:12:49] ключ это токен
+[00:12:52] а вылью это индекс Где он есть этот
+[00:12:57] токен в тексте
+[00:13:01] первый индекс или все индексы все
+[00:13:05] индексы конечно
+[00:13:53] я могу вслух думать могу сама
+[00:13:58] в общем вопрос что мы можем идти У меня
+[00:14:01] же ключи здесь не уникальные
+[00:14:04] и есть Ключ Здесь
+[00:14:09] который присутствует несколько раз мне
+[00:14:12] нужно запомнить позиции сейчас у меня
+[00:14:14] кис на самом деле не кис а просто все
+[00:14:16] слова я могла бы сейчас
+[00:14:19] чтобы получить уникальный токены
+[00:14:23] и потом идти по листу и искать в листе
+[00:14:26] вхождения этих токенов индексы
+[00:14:29] Но кажется что это будут
+[00:14:32] затратно потому что сначала буду делать
+[00:14:34] сет потом буду по нему ходить
+[00:14:36] и буду еще и второй раз искать индексы
+[00:14:40] много операций Поэтому лучше я пойду
+[00:14:44] просто один раз поэтому
+[00:14:49] И вообще можно было не перезаписать
+[00:14:54] но пока так оставлю
+[00:14:57] на слайм маленькая наверное для красоты
+[00:15:01] кода это пряности можно ставить второй
+[00:15:03] переменную можно было бы перезаписать
+[00:15:08] вот на самом деле это не кисло токенс
+[00:15:16] Где же так пишется
+[00:15:21] [музыка]
+[00:15:24] мы будем сразу идти проверять вхождение
+[00:15:27] в коллекции ключа
+[00:15:31] и если не входит то добавлять если
+[00:15:33] входит то
+[00:15:36] аккаунта даже
+[00:15:43] нам важно же позиция
+[00:15:49] индекс поэтому легче типа индексу потому
+[00:15:53] не вычислять
+[00:16:30] Сейчас я проверю
+[00:17:05] это не работает
+[00:17:11] вообще не работает нет почему это
+[00:17:17] что ты хочешь сделать проверить
+[00:17:21] хождением
+[00:17:23] Зачем тебе вхождение
+[00:17:26] пожалуйста
+[00:17:30] вот у тебя есть токены у меня есть
+[00:17:33] список ключей которые сейчас в коллекции
+[00:17:34] есть
+[00:17:36] так типа лист от collections или там
+[00:17:40] Kiss вернуть от дикта который у меня уже
+[00:17:42] есть я проверяю если в этом листе будет
+[00:17:48] Тебе же коллекцию нужно создать создай
+[00:17:50] коллекцию создай дикт пройдясь по листу
+[00:17:54] все
+[00:17:56] и вывалилась Запиши
+[00:17:59] либо
+[00:18:01] одно значение либо лист индексов где они
+[00:18:05] находятся
+[00:18:14] функция in есть
+[00:18:17] [музыка]
+[00:18:21] Вот у тебя есть стой Что ты делаешь
+[00:18:25] он возвращает один индекс не все то есть
+[00:18:30] индекс в листе возвращаются индексы А ты
+[00:18:33] хочешь так сделать я хотела идти Смотри
+[00:18:36] у меня же и Ну типа in Range Я хочу Я же
+[00:18:41] знаю этот индекс Я хочу добавлять и
+[00:18:43] просто
+[00:18:45] не я могу короче я могу создать это
+[00:18:49] придется сет создавать Я не хочу
+[00:18:55] Иди по листу и создавай коллекцию У меня
+[00:18:58] есть токен
+[00:19:00] правильно вот этот Я знаю его индекс и я
+[00:19:05] его типа записываю сюда нужно делать
+[00:19:08] проверку если у меня уже этот токен если
+[00:19:10] у меня уже этот токен есть где коллекции
+[00:19:14] Так ну и напиши
+[00:19:18] его нет Мне нужно создать
+[00:19:21] проверку на вхождение этого ключа в
+[00:19:24] словарь
+[00:19:27] [музыка]
+[00:19:30] Можно где-то наверное каким-нибудь
+[00:19:33] я хотела это сделать через лист потому
+[00:19:36] что взять ключи из словаря и проверить
+[00:19:38] Входит ли Вот это значение в лист
+[00:19:41] значение слова
+[00:19:44] Я знаю что есть нормальная функция
+[00:19:46] подожди Ну ты же ты же идешь по листу
+[00:19:49] Вот подожди Точнее по строке
+[00:19:53] Ты ее уже разбила
+[00:19:56] Ты идешь
+[00:19:58] все что тебе нужно это вот типа новые
+[00:20:01] токи вопрос Он есть в коллекции
+[00:20:09] проверка на вхождение элементов лист
+[00:20:13] в Collection
+[00:20:16] из коллекции можно взять ключи и список
+[00:20:20] ключей Это лифт
+[00:20:23] понял
+[00:20:25] Потому что я не помню как проверить как
+[00:20:28] по-твоему как по-твоему ты будешь идти
+[00:20:32] вот коллекция пустая коллекция пустая Да
+[00:20:36] ты берешь токи
+[00:20:40] один вот вырываешь этот токены из
+[00:20:45] лайна
+[00:20:53] Я просто делаю пустую коллекцию да
+[00:20:57] потом
+[00:21:01] да Он пустой и можно проверить если в
+[00:21:06] нем что-то Да ответ будет
+[00:21:14] конкретные
+[00:21:16] для словаря но нет ну можно Конечно я
+[00:21:21] хотела это сделать
+[00:21:23] Окей есть функция для словаря Get
+[00:21:26] которая возвращает тебе
+[00:21:28] но она может вернуть нам
+[00:21:34] Окей когда можно так сделать
+[00:21:42] [музыка]
+[00:21:53] она возвращается
+[00:21:56] она да
+[00:22:04] но тебе нужно прописать чтобы этот чтобы
+[00:22:07] Давай напишем Ну вот напиши ты точка Get
+[00:22:12] вот где-нибудь у тебя T как словарь есть
+[00:22:16] точка Get и какой-нибудь ключ
+[00:22:21] Да вот он на тебя отработал он даже не
+[00:22:24] упал ничего
+[00:22:25] тебе нужно прописать чтобы он возвращал
+[00:22:28] этот нам
+[00:22:30] он потому что тебе сейчас нами
+[00:22:32] возвращает
+[00:22:34] дед выглядит как
+[00:22:36] Что ищем запятая в случае false
+[00:22:42] нет подожди и что возвращаем
+[00:22:51] то что мы возвращаем
+[00:23:04] дефолтное значение
+[00:23:19] типа то что я передаю
+[00:23:23] или он вернет тебе любой Ну все что
+[00:23:27] угодно случай если он не найдет
+[00:23:33] делает давай
+[00:23:39] ты создала сет
+[00:23:57] если ты напишешь сей запятая на
+[00:24:08] Да ты получишь на
+[00:24:10] Вот и Сравни с нулем
+[00:24:15] можно да
+[00:24:24] Окей ну типа он тебе пусто вернул пусто
+[00:24:28] пусто возвращает
+[00:24:37] короче можно не прописывать что нам Но
+[00:24:40] для читаемости кода Да ладно
+[00:25:26] мне не надо не надо приравнивать
+[00:25:32] да ты же добавляешь вот здесь все
+[00:25:45] я проверю еще раз
+[00:25:51] так для
+[00:25:56] и задавай список который будет служить
+[00:26:00] только и включу к этому ключу
+[00:26:06] должен вернуть этот список и допиндить
+[00:26:09] еще
+[00:26:10] попробуем
+[00:26:12] С какой проблемой ты столкнешься
+[00:26:15] Ладно Запусти
+[00:26:18] да запусти Запусти посмотри хорошо
+[00:26:38] всё так а что какая проблема ожидалось а
+[00:26:42] никакой
+[00:26:44] Это был вопрос
+[00:26:46] понятно хорошо
+[00:26:49] ты получила вот такую коллекцию
+[00:26:52] теперь я хочу чтобы ты организовала
+[00:26:55] поиск
+[00:26:57] внутри этой коллекции по слову или части
+[00:27:01] слова Я хочу чтобы ты организовала такую
+[00:27:04] функцию которую на вход будет принимать
+[00:27:08] коллекцию
+[00:27:10] затем слово
+[00:27:12] слово будет сын и я хочу чтобы вот этот
+[00:27:18] поиск
+[00:27:23] ну назови как-нибудь я слушаю тебя думаю
+[00:27:27] ты думаешь они ну Опусти вниз Я хочу
+[00:27:31] чтобы ты посмотрела вот есть слово
+[00:27:33] singing
+[00:27:35] Я хочу чтобы поиск выдавал
+[00:27:39] позицию 10
+[00:27:42] а затем как часть слова в слове Наций
+[00:27:47] семь и 13
+[00:27:49] То есть он должен мне выдавать тьюбл
+[00:27:53] с двумя листами Да смотри тут то есть не
+[00:27:57] позицию конкретно вот этого свинг то
+[00:27:59] есть нужно прибавить два прям семь 13 не
+[00:28:02] 9 и 15 а 7 и 13 Ну должно быть 10 13
+[00:28:13] потому что
+[00:28:15] на самом деле его позиция не 79
+[00:28:21] Нет на самом деле нет ты же здесь
+[00:28:24] индексы представляешь
+[00:28:28] [музыка]
+[00:28:34] хорошо
+[00:29:27] а можно тебя попросить написать
+[00:29:29] собственно вот этот тест
+[00:29:32] для функции Search
+[00:29:38] помнишь
+[00:29:42] не очень окей ладно
+[00:29:46] [музыка]
+[00:29:52] забей записи проверяет хождение типа
+[00:29:54] проверяют какое-то условие в конце когда
+[00:29:57] применяют его ладно
+[00:30:08] я теперь буду думать не пиши пиши
+[00:30:15] [музыка]
+[00:30:18] 5 строковые методы которые я вообще не
+[00:30:21] помню Сейчас я попробую понять Как это
+[00:30:24] работает
+[00:30:28] вне функции я пойму как работает
+[00:30:34] если они вообще
+[00:30:37] а можно же получать индекс
+[00:30:41] [музыка]
+[00:30:59] Fine
+[00:31:00] Подожди подожди что ты хочешь сделать
+[00:31:03] получить номер вхождения
+[00:31:09] в строке
+[00:31:29] а что ты хочешь возвращать если не
+[00:31:32] найдено
+[00:31:34] пусто
+[00:31:44] лист у меня будет plain Flat такой
+[00:31:47] долить смысле у меня будет не лист
+[00:31:49] листов с одного слова из другой просто
+[00:31:52] лист 10713
+[00:31:54] на самом деле очень важно Очень важно
+[00:31:57] чтобы это был
+[00:32:00] где первые значения Это лист и второе
+[00:32:05] значение это лист для tuple 0 это будет
+[00:32:09] там где только слово
+[00:32:12] а титул один это подстрока
+[00:32:17] а если это разные слова в которой она
+[00:32:22] входит то есть если у меня тут насинг
+[00:32:24] был бы энисинг оно все в один лист он
+[00:32:28] был бы внутри второго листать вот так
+[00:32:35] ок
+[00:32:39] ну и соответственно Если бы у нас слово
+[00:32:42] циник было бы много раз
+[00:32:54] В общем первое что я сделаю сейчас за
+[00:32:57] нужно быть несколько проверок первая
+[00:33:00] проверка на полное совпадение
+[00:33:03] Потому что если бы я просто сделаю find
+[00:33:05] sing и равно ровно 0 это не гарантирует
+[00:33:09] мне что это тоже самое слово поэтому
+[00:33:11] все-таки придется делать проверку
+[00:33:14] равенство
+[00:33:17] чтобы минимизировать количество проверок
+[00:33:19] Сначала можно сделать find
+[00:33:47] я вспомню
+[00:34:44] [музыка]
+[00:34:46] Наверное это равнозначная процедуры
+[00:34:49] поэтому наверное все равно будет первый
+[00:34:54] В смысле сравнение полное все равно
+[00:34:57] пойдет по всем символам и сравнит
+[00:34:59] и Fine пойдет найдет первое включение
+[00:35:03] этому первому
+[00:36:44] так смотрю на тебя я потерял счет
+[00:36:46] времени
+[00:36:50] что очень долго
+[00:36:54] сейчас короче ладно я буду прописывать
+[00:36:57] условия
+[00:36:58] если из на Ничего не найдено то мы
+[00:37:01] просто должны вообще Выйти отсюда
+[00:37:10] если равно строке Spring Good то
+[00:37:17] нет
+[00:37:19] ничего не делаем
+[00:37:24] потому что мы ходим по ключам мы не
+[00:37:27] возвращаем когда дойдем тогда вернем до
+[00:37:30] конца
+[00:37:31] если
+[00:37:33] ключ равенства строке то
+[00:37:57] Мне нужно будет То что находится как
+[00:38:00] строка аппендить
+[00:38:02] поэтому
+[00:38:07] сейчас попробую возможно я удалю сделаю
+[00:38:11] первую версию этого возможно ее более
+[00:38:13] красивый если полностью
+[00:38:17] я подумал что
+[00:38:20] с двумя листами
+[00:38:25] не помешает
+[00:38:30] Я просто верну два Велли у меня будет
+[00:38:33] две переменные одна которая полностью
+[00:38:35] отверстие 2 Ну кажется что я должен
+[00:38:38] справиться
+[00:38:39] наверное
+[00:38:41] так или нет
+[00:38:48] сделаем хорошо и
+[00:38:57] ты хочешь возвращать пустой лист если не
+[00:38:59] найдено или возвращать Смотри у меня
+[00:39:02] будет тупол у меня тебе должен вернуться
+[00:39:04] на если не найдено типа полное
+[00:39:07] совпадение то Я возвращаю NAN и второе
+[00:39:10] это лист
+[00:39:13] NAN и
+[00:39:15] Ну у тебя тупо может состоять из NAN Да
+[00:39:20] NAN хорошо лист NAN и так далее
+[00:39:34] [музыка]
+[00:39:39] Я на две минутки отойду Давай я пишу
+[00:39:43] Если что или не писать пиши
+[00:42:45] я сейчас подумаю лучше это сделать
+[00:42:50] Что работает за то что написала или нет
+[00:42:58] что писать
+[00:43:09] Если что я тебя не слышу может микроне
+[00:43:12] включил Ой да я забыл я тебе подарки
+[00:43:16] выпадать его
+[00:43:20] Я как почуяла что слишком уж тихо
+[00:43:25] Так что там Передаем lection а потом
+[00:43:47] [музыка]
+[00:43:49] сейчас
+[00:43:51] тебя вернул все вообще просто
+[00:44:06] то есть 09 отрабатывает правильно А вот
+[00:44:09] вторая вещь
+[00:44:38] Ладно потом скручу это слишком сложный
+[00:44:41] слой кажется не дублируется
+[00:44:44] [музыка]
+[00:44:56] не помню Можно ли так пробую
+[00:45:15] так я проверяю сейчас я Пройдусь по нему
+[00:45:20] а
+[00:45:25] я беру индекс если
+[00:45:29] нахожу собственник если не нахожусь в
+[00:45:32] string то ничего не делаю
+[00:45:34] Если я не знаю как будет работать честно
+[00:45:43] случае Ну вот недостаточно на самом деле
+[00:45:46] ответов в
+[00:45:50] первым и LF последним
+[00:45:54] сейчас ты думаешь что из нанги так
+[00:45:57] работает да вот это вот сейчас я проверю
+[00:46:23] [музыка]
+[00:46:36] нужно проверять тогда это нужно
+[00:46:40] все одним проверять
+[00:46:46] Ну кажется что если есть
+[00:46:50] Да я еще принесу
+[00:46:54] только больше нуля плохое условие
+[00:46:57] Почему
+[00:46:59] а если
+[00:47:01] согласна согласна просто
+[00:47:05] больше единицы
+[00:47:13] чтобы
+[00:47:17] ржаться
+[00:47:24] этот в конце надо сделать
+[00:48:19] не он все так просто тут прикол в том
+[00:48:23] что ты типа в моменте не задаешь
+[00:48:27] последовательность
+[00:48:28] он тебе последовательность сначала нам
+[00:48:31] кинул потом а мне нужно обратно вот если
+[00:48:35] ты здесь
+[00:48:37] поставь
+[00:48:39] да скобки решают
+[00:48:42] [музыка]
+[00:48:54] сейчас
+[00:48:58] вообще не возвращает просто да
+[00:49:03] не возвращает не работает
+[00:49:09] Да у тебя Да я понял
+[00:49:15] у тебя первое условие забирает все
+[00:49:18] первое условие
+[00:49:22] Да как будет когда у тебя совпадает
+[00:49:26] да
+[00:49:30] я поняла я хотел сначала проверить
+[00:49:32] вхождение потом проверять ладно это не
+[00:49:36] работает поэтому в любом случае
+[00:49:40] [музыка]
+[00:49:53] так проверяем полное хождение проверяем
+[00:49:56] что она вообще входит экстензия
+[00:50:00] Да но есть нюанс
+[00:50:05] смысле искать посмотри посмотри как как
+[00:50:09] это работает
+[00:50:23] все правильно
+[00:50:31] а теперь буква А
+[00:50:36] [музыка]
+[00:50:42] Так выглядит как правда
+[00:50:45] 8 Так сколько раз сейчас Раз два три
+[00:50:50] четыре пять пять раз Ну да пять раз
+[00:50:55] выглядит похоже
+[00:50:58] Ну Насть не учитывая то что это было
+[00:51:01] очень долго
+[00:51:03] хорошо
+[00:51:05] скорость поиска
+[00:51:08] [музыка]
+[00:51:12] от единицы
+[00:51:15] в случае
+[00:51:18] Всегда ли от единицы не всегда
+[00:51:23] Почему если будут дубли в Ключах
+[00:51:27] мамы Если будет коллеги то будет не от
+[00:51:31] единицы
+[00:51:32] Какие виды варианты работа с коллизи Ты
+[00:51:36] знаешь
+[00:51:39] вообще вот Каким образом избегают
+[00:51:43] коллизия
+[00:51:47] Это вопрос со звездочкой
+[00:51:50] можно
+[00:51:52] чтобы вообще не падала в один ключ
+[00:51:55] Можно несколько ключей считать
+[00:51:58] ключ из двух
+[00:52:03] это меньше вероятность будет того что
+[00:52:05] они оба совпадут Окей Ладно хорошо
+[00:52:09] вопрос такой
+[00:52:18] чем функция init в классе
+[00:52:24] отличается от функции New
+[00:52:32] вообще функции нет в классе
+[00:52:35] функции нет в классе
+[00:52:37] инициализирует объект
+[00:52:40] класса так создает объект
+[00:52:47] Я до сих пор так и не знаю что делать
+[00:52:55] потому что я читала и я так и не
+[00:52:57] запомнила как ты видишь
+[00:52:59] да Ну там
+[00:53:03] объект класса и класс по сути своей вот
+[00:53:07] в этом есть разница в том что когда
+[00:53:10] создается классы когда создается объект
+[00:53:13] класса они создают класс Нет они там в
+[00:53:17] различное время запускаются своей они
+[00:53:19] запускаются в различное время одна
+[00:53:22] запускается в один момент времени другая
+[00:53:24] запускается другой момент Но есть еще
+[00:53:27] прикол в том что допустим вот у нас есть
+[00:53:30] Потомок класса
+[00:53:31] и мы хотим
+[00:53:36] как-то переопределить функцию
+[00:53:39] допустим функцию Нет я хочу чтобы
+[00:53:43] сначала что-то происходило а затем
+[00:53:46] шел инит потом точнее инит родителя как
+[00:53:51] мы это делаем
+[00:53:52] Какую функцию используем
+[00:53:56] Сейчас подожди у меня есть класс
+[00:54:06] он родитель Да я поняла
+[00:54:11] [музыка]
+[00:54:30] да
+[00:54:32] ничего
+[00:54:44] [музыка]
+[00:54:56] что мы хотим делать до того как
+[00:55:00] Мы хотим переопределить иметь чайлд
+[00:55:03] таким образом чтобы сначала выполнялось
+[00:55:05] что-то а затем и нет
+[00:55:17] а что Ну знаешь какие-то переменные Ну
+[00:55:21] да допустим я определял бы какие-то
+[00:55:22] перемены а затем определял все то что
+[00:55:25] был классе
+[00:55:30] Это вопрос такой простой там
+[00:55:33] [музыка]
+[00:55:34] есть функция супер
+[00:55:37] позволяет вызвать функцию
+[00:55:40] класса от которого я просто не очень
+[00:55:43] типа понимаю какой момент когда я и ничу
+[00:55:47] какой момент вызывается и нет торрента
+[00:55:55] когда создаю объект
+[00:56:01] Я вот здесь вот вы нити меня и нет вот
+[00:56:05] этот
+[00:56:06] Но ты его
+[00:56:08] пересопределяю да
+[00:56:11] а чтобы
+[00:56:13] ты имеешь ввиду что здесь какие-то там
+[00:56:15] например а равно там
+[00:56:20] Ну например мне нужно задать какой-то
+[00:56:22] функции
+[00:56:23] чему-то потому что я передовые да
+[00:56:30] Да нет можешь ничего не передавать Зачем
+[00:56:32] Не ну окей типа я вот так сделала
+[00:56:36] Потом
+[00:56:37] пишешь супер
+[00:56:43] Я поняла И потом я пишу вызов супер
+[00:56:49] супер
+[00:56:55] [музыка]
+[00:57:03] Я тобой отработала да да ну типа если у
+[00:57:07] тебя в parents допустим есть определение
+[00:57:09] какого-то б допустим А ты в чайлде
+[00:57:13] определяешь А и хочешь чтобы тебя б тоже
+[00:57:16] было определено
+[00:57:17] так вот и типа я здесь тоже селфи
+[00:57:22] Да допустим и ты хочешь
+[00:57:27] обратиться нет обратиться к атрибуту то
+[00:57:31] ты можешь через Супер это сделать
+[00:57:34] Хорошо
+[00:57:37] давай четвертую часть
+[00:57:40] Настя
+[00:57:42] четвертая часть будет про б тесты я не
+[00:57:45] буду тебя спрашивать про работу с
+[00:57:47] данными Потому что ты работала слишком
+[00:57:49] много с данными и ты слишком много сама
+[00:57:52] задаешь вопрос про данные четвертая
+[00:57:54] часть будет про а ПТС
+[00:57:57] Давай Пожалуйста расскажи мне
+[00:58:01] мы такой вопрос задаем и это будет очень
+[00:58:05] близко к тому что ты делала
+[00:58:08] вопрос про рекомендательные модели
+[00:58:13] пожалуйста Опишите дизайн эксперимента
+[00:58:16] того как мы проверяем работу
+[00:58:19] рекомендательной модели
+[00:58:23] при условии что
+[00:58:27] у нас нет возможности
+[00:58:30] делить людей
+[00:58:35] каким-то простым образом
+[00:58:38] У нас есть возможность делить их по делу
+[00:58:43] И рекомендации до нашего момента не было
+[00:58:48] То есть ты сейчас запускаешь новые
+[00:58:50] рекомендации
+[00:58:53] Я хочу чтобы ты рассказал максимально
+[00:58:56] подробно
+[00:58:59] Так у нас есть
+[00:59:01] запрос а есть больше подробностей где мы
+[00:59:05] хотим это запускать это типа
+[00:59:08] онлайн или нет
+[00:59:14] Это рекомендации Где мы можем все
+[00:59:16] метрики посчитать нормально Да конечно
+[00:59:24] Как называется
+[00:59:27] билборды типа ничего такого
+[00:59:29] онлайн рекомендации на сайте
+[00:59:34] Окей нас есть какой-то алгоритм мы не
+[00:59:40] будем углубляться что это хороший хорош
+[00:59:43] нас есть хороший алгоритм будем говорить
+[00:59:46] что это рекомендательная система
+[00:59:49] Мы хотим узнать сколько прошло Она
+[00:59:52] работает при этом не можем делить людей
+[00:59:57] нормально
+[00:59:59] понимаем при этом что алгоритм новый и
+[01:00:03] мы не знаем А может мне завершить шаринг
+[01:00:06] кроме Да можно Завершить
+[01:00:16] понимаем что сам если у нас не было до
+[01:00:19] этого никогда блока рекомендаций понятно
+[01:00:22] что скорее всего этот блок не может вряд
+[01:00:25] ли делать хуже скорее всего этот блок
+[01:00:28] приносит какой-то вылью даже если там
+[01:00:30] показывают что угодно и нам нужно это в
+[01:00:34] тесте смоделировать то что мы показываем
+[01:00:36] что-то не очень умное но что-то
+[01:00:39] тривиальное тривиальная рекомендации это
+[01:00:41] топы Можно несколько рекомендаций
+[01:00:44] генерировать например толпы товаров за
+[01:00:48] месяц за неделю зависимости от бизнеса
+[01:00:51] насколько он подвержен каким-то
+[01:00:55] Насколько быстро меняются
+[01:00:58] топы продаж какая там сезонность
+[01:01:03] в зависимости от этого общем выберем
+[01:01:05] период за который мы берем топы можем
+[01:01:07] считать полные топы можем считать топы в
+[01:01:10] категориях
+[01:01:12] для человека для каких-то
+[01:01:16] сложная штука для того чтобы просто
+[01:01:19] сравнивать наверное можно просто
+[01:01:20] остановиться
+[01:01:25] и рекомендательная система где будет
+[01:01:27] работать положение сказать на сайте
+[01:01:29] рассылках или где
+[01:01:31] корзине или мы вообще ничего не просто
+[01:01:34] главный экран сайт Пусть это будет
+[01:01:36] онлайн сервис Пусть это будет
+[01:01:39] какой-нибудь
+[01:01:43] но это не на карточке какой-то фильма А
+[01:01:47] это будет именно пользователю на главной
+[01:01:50] странице вне зависимости от поэтому
+[01:01:54] взаимодействуют люди страницы
+[01:01:57] короче это блог на главной странице Окей
+[01:02:00] тогда проверяем топы самые часто
+[01:02:04] просматриваемые рекомендуем
+[01:02:10] случайные наверное как-нибудь
+[01:02:15] мы для человека на самом деле тоже можем
+[01:02:17] построить чтобы в его категориях любимых
+[01:02:19] Но это потребует от нас какого-то знания
+[01:02:21] что человек любит больше наверное не
+[01:02:23] стоит можно случайные рекомендации того
+[01:02:26] что этот блок в принципе сам может
+[01:02:28] работать что-то рандомно рекомендовать и
+[01:02:30] это уже будут какие-то если закажут
+[01:02:33] фильм Человек плачет какие-то продажи А
+[01:02:36] если просто смотрят взаимодействие
+[01:02:39] дополнительные Мне нужно оценить
+[01:02:42] Как работать
+[01:02:44] эту информацию в интернете
+[01:02:48] и есть алгоритм первый алгоритм
+[01:02:54] второй алгоритм
+[01:02:56] за какой-то период например пусть будет
+[01:02:59] за две недели
+[01:03:03] если вас много трафика Наверное этого
+[01:03:05] хватит И третье это какая-то умная
+[01:03:08] рекомендательная система основанная на
+[01:03:10] пользователей или основными на контенте
+[01:03:13] не важно мы не можем делить
+[01:03:18] насколько я понимаю мы не можем делить
+[01:03:22] по-нормальному легкими способами Значит
+[01:03:25] мы не можем трафик распределять группу и
+[01:03:29] группы Б
+[01:03:30] значит должны делить как-то по регионам
+[01:03:32] это
+[01:03:35] информация о
+[01:03:38] мне придется в общем тесте наверное
+[01:03:41] раскатывать на разные регионы
+[01:03:45] разные алгоритмы Можно попробовать так
+[01:03:50] Для этого мне нужно выбрать во-первых
+[01:03:52] регионы сколько у меня доступны регионов
+[01:03:56] наверное точно Ну если мы берем Россию
+[01:03:59] например вряд ли Москва похожа на
+[01:04:03] кого-то Вообще
+[01:04:04] сомнительно Возможно на Питер но это
+[01:04:07] нужно смотреть в общем нужно произвести
+[01:04:09] такой довольно серьезный анализ того
+[01:04:11] насколько регионы сопоставим друг с
+[01:04:15] другом то что взять похожие регионы
+[01:04:17] если мы хотим делить их алгоритм
+[01:04:20] вот поэтому сначала нужно во-первых
+[01:04:25] отобрать
+[01:04:27] по региону на каждую на каждый алгоритм
+[01:04:32] Хотя бы три региона лучше я бы взяла 6
+[01:04:38] Потому что ты знаешь как я это делала до
+[01:04:40] этого для того чтобы исключить какой-то
+[01:04:44] Случайность
+[01:04:45] себя немного еще больше убедить что
+[01:04:49] действительно воспроизводимо и на двух
+[01:04:51] похожих регионах нет работает один тот
+[01:04:54] же метод работает одинаково
+[01:04:55] Похоже
+[01:04:57] мы подбираем регионы с Анализируя их
+[01:05:02] [музыка]
+[01:05:04] кривые просмотры насколько регионы
+[01:05:07] похожи друг на друга можно по-разному
+[01:05:08] смотреть например там по
+[01:05:10] [музыка]
+[01:05:13] каким-то средним метрикам в регионе по
+[01:05:16] количеству людей но если мы будем
+[01:05:18] скалировать значение то количество людей
+[01:05:20] наверное не очень важно но все равно
+[01:05:22] население но популяция в регионе
+[01:05:24] наверное тоже несет какую-то информацию
+[01:05:26] Я бы подбирала сначала похожие по
+[01:05:31] там кривым каким-нибудь
+[01:05:35] Сколько клиентов к нам приходят каждый
+[01:05:37] день по кривым
+[01:05:40] там Сколько подписчиков оформляют или
+[01:05:43] еще что какие-то метрики на которые
+[01:05:45] будем смотреть что можем смотреть Мы
+[01:05:47] продаем фильм или мы
+[01:05:49] смотрим ли мы на деньги или просто на
+[01:05:52] просмотры Ну давай упростим задачу Пусть
+[01:05:55] это будут просто просмотры Но вообще
+[01:05:57] конечно зачастую бизнес смотрит на
+[01:06:00] какие-то сложные метрики хорошо
+[01:06:02] просмотры тогда мы смотрим
+[01:06:05] кривые то есть временной ряд для каждого
+[01:06:07] региона строим временный ряд количество
+[01:06:10] просмотров людей
+[01:06:13] подумаем насколько долго будем проводить
+[01:06:15] тест от этого будет зависеть
+[01:06:17] какой разбиение мы будем делать для
+[01:06:20] этого подбор
+[01:06:22] например пусть будет
+[01:06:28] чтобы не было очень много данных
+[01:06:30] наверное стоит построить там раз в день
+[01:06:32] листочка у меня количество просмотров
+[01:06:35] день количество уникальных пользователей
+[01:06:37] в день
+[01:06:41] количество уникального контента в день
+[01:06:43] можно попробовать эти временные ряды
+[01:06:46] кластеризовать найти группы похожих
+[01:06:48] регионов там отобрать визуально
+[01:06:53] Кроме того я бы Добавила все же
+[01:06:56] регион разные населению поэтому возможно
+[01:07:00] динамика похоже абсолютное значение нет
+[01:07:03] поэтому я говорю про скалирование нужно
+[01:07:06] проскалировать кривые
+[01:07:09] сопоставимые и нас интересует именно
+[01:07:12] динамика изменения во времени этом будем
+[01:07:16] считать похожими регионами но я бы все
+[01:07:17] же обратила внимание на то чтобы регионы
+[01:07:22] Ну то есть не получилось бы так что
+[01:07:25] Москва попадает в какую-то группу
+[01:07:27] потом с благосостоянию людей Ну короче
+[01:07:31] как-то попробовать отобрать регионы не
+[01:07:33] только по
+[01:07:34] динамике изменения показателей Но если
+[01:07:38] будет возможность внутри этих групп
+[01:07:40] кластеров по динамике я бы еще выбрала
+[01:07:42] регионы которые похожи по численности и
+[01:07:47] там не знаю может быть территориально
+[01:07:48] как-то и какому-то коэффициенту
+[01:07:51] благосостояния людей в регионах потому
+[01:07:55] что возможно это отражает поведение
+[01:07:58] так принципе Таким образом мы отбираем
+[01:08:01] регионы на тест
+[01:08:03] проводим внутри этого там еще а тест
+[01:08:07] на периоде который
+[01:08:10] нам нужно определить период сколько мы
+[01:08:13] будем гонять этот тест поскольку не было
+[01:08:16] до этого
+[01:08:19] никакого блока правильно или у нас был
+[01:08:22] другой блок не было
+[01:08:24] сообщение было блоком вообще не знаем
+[01:08:26] конверсию которая с этого блока идет
+[01:08:30] и поэтому непонятно какой объем выборки
+[01:08:34] мы получим после того как тест пройдет
+[01:08:37] поэтому можно пробно запустить
+[01:08:40] какую-то из простых моделей для того
+[01:08:43] чтобы понять примерную конверсию в день
+[01:08:46] и Оцените количество просмотров которые
+[01:08:50] мы будем получать но я бы на конверсию
+[01:08:52] общественный минус чтобы хотя бы на
+[01:08:53] конверсии поймать какой-то эффект это
+[01:08:55] нужно для того чтобы
+[01:09:00] я на каком-то периоде для того чтобы
+[01:09:02] оценить За какой период мы сможем
+[01:09:05] набрать нужное количество
+[01:09:07] наблюдений
+[01:09:09] Например если мы увидим что там две
+[01:09:13] недели там или месяц достаточно будет Мы
+[01:09:16] будем проводить тест на периоде отбор
+[01:09:19] регионов именно месяц
+[01:09:21] грубо говоря от сегодняшнего момента на
+[01:09:24] подбор регионов Я одним месяц
+[01:09:27] там посмотрю всякие динамики и вот на
+[01:09:30] месяцы которые Я выучила месяц назад До
+[01:09:32] сегодняшнего момента я проведу тесты
+[01:09:35] внутри групп и между группами смотрю что
+[01:09:38] различий там нет если у меня все регионы
+[01:09:42] Ну по идее у меня все регионы должны не
+[01:09:44] давать со значимых отличий если значимое
+[01:09:47] отличие в метрике то есть количество в
+[01:09:50] конверсиях
+[01:09:53] количество просмотров
+[01:09:58] мне же не было блока У меня нет этой
+[01:10:01] истории на месяц
+[01:10:04] я могу сделать
+[01:10:06] на котором я это такая это не
+[01:10:09] стопроцентная проверка но я наверное это
+[01:10:11] сделала если Мне дадут
+[01:10:15] Лучше тогда не день делать чтобы оценить
+[01:10:18] и период на тест и понять Вообще Ну
+[01:10:22] похоже или нет Вот типа Можно такое
+[01:10:24] настоящий а сделать просто поставить
+[01:10:27] этот блок с рандомными рекомендациями
+[01:10:30] лучше с топовыми чтобы Рандом он может
+[01:10:33] немного людей
+[01:10:35] напрячь Потому что люди которые будут
+[01:10:38] анализировать Почему им что-то
+[01:10:39] показывают могут быть недовольны а топы
+[01:10:42] вряд ли заставят людей сомневаться что
+[01:10:44] будет понятно что это какой-то известный
+[01:10:46] там популярный сейчас только что выше
+[01:10:49] фильм вряд ли это
+[01:10:52] и топ это типа алгоритм сравнения короче
+[01:10:54] на отобранных регионах У меня три
+[01:10:57] алгоритма Я хочу отобрать 6 регионов
+[01:10:59] я запущу на эти 6 регионов топы и неделю
+[01:11:05] посмотрю что будет происходить тут я
+[01:11:08] померяю и конверсию померяю просмотры
+[01:11:10] которые приходили стопов
+[01:11:13] посмотрю сколько мне достаточно периода
+[01:11:17] чтобы зафиксировать эффект
+[01:11:20] это снимать много проблем
+[01:11:24] и тут же я провожу
+[01:11:26] правильно все хорошо после этого то есть
+[01:11:32] у меня все были в топах дальше
+[01:11:34] начинается период теста например на
+[01:11:37] месяц
+[01:11:40] и
+[01:11:41] Ну все случайно горитмы по трем группам
+[01:11:46] по каждому алгоритму 2 региона
+[01:11:49] ждем пока накопится данные ждем месяц
+[01:11:53] после этого начинаем анализировать
+[01:12:02] Ну по сути это были бы конверсии в
+[01:12:06] книге конверсии в показ
+[01:12:10] пока смысле что после клика произошло не
+[01:12:13] после клика А после показа этого блока
+[01:12:16] произошло событие переход по клику и
+[01:12:19] просмотр фильма Но это можно было бы
+[01:12:21] обсудить бизнесом что можно смотреть
+[01:12:22] Просто ну если человек не тыкнет на этот
+[01:12:25] фильм конкретно в блоке возможно все
+[01:12:27] равно его увидела в этом блоке потом его
+[01:12:30] посмотрел можно было бы обсудить какую
+[01:12:32] метрику конкретно Мы хотим отслеживать
+[01:12:34] Земли мы отслеживать что человек именно
+[01:12:36] кликнул на этот блок потом начал
+[01:12:38] смотреть или то что он в течение часа
+[01:12:42] этот фильм начал смотреть
+[01:12:44] это тоже считается что мы как-то
+[01:12:47] повлияли решение
+[01:12:50] сначала показали а потом как-то пришел
+[01:12:54] Мне кажется что если блок заметный
+[01:12:57] если человек Мы точно знаем что человек
+[01:13:00] его видел например сам начале страницы и
+[01:13:03] человек волей-неволей Он открывает сайт
+[01:13:05] он видит этот блог и он довольно крупный
+[01:13:08] то скорее всего
+[01:13:09] ну это могло повлиять на решение
+[01:13:13] человека открыть этот фильм
+[01:13:15] короче это обсуждаемо это может
+[01:13:18] попробовать посчитать и
+[01:13:19] проконсультироваться с бизнесом что
+[01:13:21] точно не хотят видеть какой-то именно
+[01:13:23] воронку или такую метрику
+[01:13:27] Так у нас накопленные данные на самом
+[01:13:29] деле чтобы я проверяла что внутри группы
+[01:13:32] с одним алгоритмом
+[01:13:34] у меня эффект одинаковый
+[01:13:39] вне группы с одним алгоритмом эффект
+[01:13:41] разный ты имеешь в виду что вот группа
+[01:13:44] Город города условно Они похожи друг на
+[01:13:47] друга да Ну что Метрика
+[01:13:50] остается похожей для одинакового
+[01:13:53] алгоритма То есть если у меня был
+[01:13:55] алгоритм топов в первой группе листик
+[01:13:59] лежит где написано поэтому я его смотрю
+[01:14:02] и не путаюсь
+[01:14:04] первая группа это группа рандомов внутри
+[01:14:07] этой первой группы у меня там есть два
+[01:14:10] города два региона в которых у меня не
+[01:14:13] должно быть отличие в метрике то есть в
+[01:14:17] конверсии пока версии Клик
+[01:14:20] во второй группе с топами то же самое не
+[01:14:22] должно быть отличие между собой потому
+[01:14:24] что я показываю один алгоритм ожидаю что
+[01:14:26] это будет одинаково работать на похожих
+[01:14:28] регионах если это не исполняется что-то
+[01:14:30] не так Ну наверное надо как минимум
+[01:14:32] предупредить об этом остальных
+[01:14:34] заинтересованных лиц
+[01:14:36] А вот между группами
+[01:14:38] рандомами и топами наверное будет
+[01:14:42] отличие И самое главное что у нас есть
+[01:14:44] третья группа рекомендательной системы
+[01:14:45] где работала какая-то
+[01:14:48] классная система она должна выигрышную
+[01:14:52] сторону в лучшую сторону По метрикам
+[01:14:54] отличаться топ фронтомов
+[01:14:59] если не отличается можем
+[01:15:01] [музыка]
+[01:15:05] Ну если не отличается то мы честно
+[01:15:08] признаемся говорим а Давайте попробуем
+[01:15:11] провести еще один тест по-другому
+[01:15:15] может быть нам не хватило Ну вопрос типа
+[01:15:18] насколько не отличается если там не
+[01:15:21] достигнули павелью можно сказать мы не
+[01:15:24] набрали нужный выбор
+[01:15:26] наш эффект видимо ниже чем
+[01:15:28] мы ожидали да Давайте попробуем
+[01:15:31] поддержать подольше если мы не отключали
+[01:15:33] тест
+[01:15:36] [музыка]
+[01:15:38] Это конечно очень плохо
+[01:15:40] Наверное мы можем продолжить
+[01:15:44] Но вообще это нехорошо это типа пикинг
+[01:15:48] проблем так делать нельзя
+[01:15:53] Вот Но в принципе мы просто даем Вывод
+[01:15:56] что мы не увидели пока эффекта можем
+[01:16:01] переосмыслить эксперимент провести
+[01:16:03] немного по-другому и потом можно
+[01:16:05] провести как раз эксперимент с отменой
+[01:16:08] наверное смотреть
+[01:16:11] перемешать
+[01:16:12] алгоритмы между собой вместе
+[01:16:18] и потом меняем группы указываем
+[01:16:21] какому-то региону где у нас там были
+[01:16:23] Рандом и показываем нашу алгоритм
+[01:16:26] рекомендаций где были топ Ну короче
+[01:16:28] ротацию производим
+[01:16:31] и смотрим Что вот в этом случае будет
+[01:16:37] хорошо опять меряем типа эффект
+[01:16:40] смотрим Меняется ли там кривая какая-то
+[01:16:43] эффект на Первом периоде на втором
+[01:16:46] периоде
+[01:16:48] хорошо
+[01:16:49] Слушай ну в принципе все
+[01:16:52] Насть ну по обратной связи
+[01:16:55] [музыка]
+[01:16:57] питон конечно вызывает вопросики но
+[01:17:00] честно говоря очень хорошие ответы были
+[01:17:02] на Ну как очень хороший
+[01:17:06] не хватает немного структурированности в
+[01:17:08] мл дизайне но в целом
+[01:17:11] ответ неплохой были Конечно вопросы
+[01:17:15] связанные с метриками
+[01:17:17] особенно когда я сказал что типа важен
+[01:17:21] нет прогноз и Ты выбирала там метрики
+[01:17:25] связанные с
+[01:17:26] выбросами но затем как-то перешла в
+[01:17:29] другую сторону и мы в целом потом
+[01:17:32] обсудили на DS части что на самом деле
+[01:17:37] ты посмотрела немного по-другому на все
+[01:17:41] вот эти вещи
+[01:17:43] были хорошие развернутые ответы целом
+[01:17:47] мне понравилось
+[01:17:49] больше всего наверное Понравилось
+[01:17:54] потому что видно что
+[01:17:56] видно что ты готовилась узнала принципе
+[01:17:59] знала ответ это самое важное вот по
+[01:18:05] питону есть вопросики не буду
+[01:18:08] Вот но в целом я просто знаю как ты
+[01:18:12] пишешь код я знаю когда reviewish код и
+[01:18:15] это
+[01:18:15] как тебе сказать я по тебе авансом
+[01:18:18] поставил потому что знаю как ты
+[01:18:20] работаешь вот по
+[01:18:23] B тестом все хорошо но как бы Вопросов
+[01:18:27] нет
+[01:18:28] в целом ты обсудила все остальные вещи
+[01:18:32] какие метрики смотрел как бы сравнивала
+[01:18:34] что с чем достаточно много внимания
+[01:18:37] уделила тому как ты проверяла
+[01:18:41] похоже не похоже
+[01:18:43] группы это конечно
+[01:18:46] вот
+[01:18:47] я знаю у тебя есть кошка и собака
+[01:18:51] они сегодня не приходили тебя не
+[01:18:55] отвлекали Подскажи Честно говоря да но
+[01:19:00] они с ними все хорошо
+
+FEEDBACK_MD:
+---
+section: "Обратная связь"
+start: "01:16:51"
+end: "01:19:11"
+start_seconds: 4611
+end_seconds: 4751
+---
+
+Насть ну по обратной связи [музыка] питон конечно вызывает вопросики но честно говоря очень хорошие ответы были на Ну как очень хороший не хватает немного структурированности в мл дизайне но в целом ответ неплохой были Конечно вопросы связанные с метриками особенно когда я сказал что типа важен нет прогноз и Ты выбирала там метрики связанные с выбросами но затем как-то перешла в другую сторону и мы в целом потом обсудили на DS части что на самом деле ты посмотрела немного по-другому на все вот эти вещи были хорошие развернутые ответы целом мне понравилось больше всего наверное Понравилось потому что видно что видно что ты готовилась узнала принципе знала ответ это самое важное вот по питону есть вопросики не буду Вот но в целом я просто знаю как ты пишешь код я знаю когда reviewish код и это как тебе сказать я по тебе авансом поставил потому что знаю как ты работаешь вот по B тестом все хорошо но как бы Вопросов нет в целом ты обсудила все остальные вещи какие метрики смотрел как бы сравнивала что с чем достаточно много внимания уделила тому как ты проверяла похоже не похоже группы это конечно вот я знаю у тебя есть кошка и собака они сегодня не приходили тебя не отвлекали Подскажи Честно говоря да но они с ними все хорошо
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v2 only.
+Write JSON only to: splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. data-scientist-middle-karpov-python-2022-07-02.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json \
+    --video transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json --out splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.qa-split.json \
+    --video transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: /Users/mm/projects/ds-final-project/transcripts/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/video.md
+
+--- CHAPTER `00:01:14` — Блок Python, первое задание: создать коллекцию ---
+window: 00:01:14 .. 00:26:50
+recognition_status: single (1 items)
+
+ITEM #1
+  interviewer_question: time=00:01:14 text='Первое задание: есть текст. Напиши функцию, которая создаёт коллекцию — dict: ключ — токен (слово), value — список всех индексов, где токен встречается в тексте.'
+  candidate_answer: time=00:02:00 text='Разбиваем текст на токены, убираем знаки препинания. Пустой словарь; для каждого токена с индексом — append индекса в список по ключу (через get с дефолтом).'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:07:11 text='Запусти, посмотри — всё так. Хорошо, получила коллекцию.'
+  question_topic: Python
+
+--- CHAPTER `00:26:50` — Поиск по слову или части в коллекции ---
+window: 00:26:50 .. 00:51:05
+recognition_status: single (1 items)
+
+ITEM #2
+  interviewer_question: time=00:26:50 text='Организуй поиск в коллекции по слову или части слова: функция принимает коллекцию и строку-запрос, возвращает tuple из двух list — точные совпадения и вхождения как подстроки.'
+  candidate_answer: time=00:27:00 text='По ключам: полное совпадение с запросом → первый list; in/find как подстрока (не точное) → второй list. Возвращаю tuple из двух списков.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:49:36 text='Работает. Проверяем полное совпадение и вхождение. Долго, но хорошо.'
+  question_topic: Python
+
+--- CHAPTER `00:51:05` — Скорость поиска ---
+window: 00:51:05 .. 00:51:32
+recognition_status: single (1 items)
+
+ITEM #3
+  interviewer_question: time=00:51:05 text='Скорость поиска — всегда ли O(1) при поиске по ключу в словаре?'
+  candidate_answer: time=00:51:08 text='Не всегда O(1) — при коллизиях (дублирующиеся хеши) поиск может занять дольше.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:51:20 text='Верно — если коллизии, не от единицы.'
+  question_topic: Python
+
+--- CHAPTER `00:51:32` — Варианты работы с коллизиями ---
+window: 00:51:32 .. 00:52:20
+recognition_status: single (1 items)
+
+ITEM #4
+  interviewer_question: time=00:51:32 text='Какие варианты работы с коллизиями в хеш-таблицах ты знаешь?'
+  candidate_answer: time=00:51:39 text='Составной ключ из двух значений — меньше шанс совпадения. Chaining — список в ячейке. Open addressing — linear probing, следующая свободная ячейка.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:52:10 text='Окей, хорошо. Следующий вопрос — init vs new.'
+  question_topic: Python
+
+--- CHAPTER `00:52:20` — Отличие функций init и new в классах ---
+window: 00:52:20 .. 00:57:41
+recognition_status: single (1 items)
+
+ITEM #5
+  interviewer_question: time=00:52:20 text='Чем __init__ в классе отличается от __new__?'
+  candidate_answer: time=00:52:32 text='__new__ создаёт объект, вызывается первым. __init__ инициализирует уже созданный объект. При наследовании super().__init__() для родительской инициализации.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:57:41 text='Верно. Четвёртая часть — A/B тесты: дизайн эксперимента для рекомендательной модели.'
+  question_topic: Python
+
+--- CHAPTER `00:58:14` — Дизайн эксперимента проверки работы рекомендательной модели при условии деления пользователей по геопозиции ---
+window: 00:58:14 .. 01:16:51
+recognition_status: single (1 items)
+
+ITEM #6
+  interviewer_question: time=00:58:14 text='Опишите дизайн эксперимента: проверить рекомендательную модель, если делить пользователей можно только по геопозиции; рекомендательного блока раньше не было.'
+  candidate_answer: time=00:58:59 text='Три алгоритма: топ по частоте, рандом, умная модель. Делим по регионам — выбираем похожие (временные ряды, нормировка, кластеризация), на алгоритм 2–3 региона. Сначала A/A на 1–2 недели (топ-рекомендации) — оценка конверсии и длительности. Основной тест: группам регионов — свой алгоритм. Метрика: конверсия клик→просмотр или просмотр. Внутри группы — сравнить регионы; между группами — значимость; при нехватке мощности — продлить тест.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:16:51 text='По Python есть вопросики, но в целом хорошо. По A/B — отлично: метрики, сравнение групп, похожесть регионов.'
+  question_topic: Experimentation
+
+SAVE JSON: вставьте ответ в конец файла /Users/mm/projects/ds-final-project/splitter_output/mock-interviews/karpov/data-scientist-middle-karpov-python-2022-07-02/data-scientist-middle-karpov-python-2022-07-02.v2.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->
