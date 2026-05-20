@@ -1,7 +1,8 @@
 """Собирает train/hard_skills.json из splitter_output/**/*.v*.qa-split.json (и legacy *.qa-split.v*.json).
 
 Берёт только последнюю версию (vN) на каждый source_id, фильтрует
-question_type == "hard", добавляет в каждый item поле source_id первым.
+question_type in ACCEPTED_QUESTION_TYPES ("hard", "technical_qna"),
+добавляет в каждый item поле source_id первым.
 """
 
 from __future__ import annotations
@@ -20,6 +21,9 @@ VERSION_RE_NEW = re.compile(r"\.v(\d+)\.qa-split\.json$")
 VERSION_RE_OLD = re.compile(r"\.qa-split\.v(\d+)\.json$")
 
 GRADES = ("junior", "middle", "senior")
+
+# Какие question_type попадают в корпус (см. SKILL.md §Конфигурация).
+ACCEPTED_QUESTION_TYPES = {"hard", "technical_qna"}
 
 
 def parse_version(path: Path) -> int:
@@ -68,7 +72,7 @@ def main() -> int:
     missing_grade: list[str] = []
     for source_id, (version, path, data) in sorted(latest_per_source.items()):
         items = data.get("items", [])
-        hard_items = [i for i in items if i.get("question_type") == "hard"]
+        hard_items = [i for i in items if i.get("question_type") in ACCEPTED_QUESTION_TYPES]
         if not hard_items:
             skipped_zero_hard.append(f"{source_id} (v{version})")
             continue
