@@ -442,7 +442,7 @@ def run_kb_pipeline(
     # Step 2 — train (MIPROv2 compile) + write prompt/report
     phase_banner(logger, 2, 3, "train (DSPy MIPROv2)")
     train, test, _ = load_split_examples(corpus, splits_out)
-    seed_prompt = "Оцени ответ кандидата"
+    seed_prompt = "Оцени ответ кандидата (**Factual Correctness**, **Focus**, **Clarity**)"
 
     student = ScoringEvaluator()
     student.score.predict.signature = student.score.predict.signature.with_instructions(seed_prompt)
