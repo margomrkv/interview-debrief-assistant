@@ -1,5 +1,17 @@
 {
   "split_strategy": "по source_id (см. md/train.md §Обучение)",
+  "labeling": {
+    "labeled_at": "2026-05-20",
+    "labeler": "claude-code-opus-4-7",
+    "scale": "1..10",
+    "criteria_source": ".claude/skills/label-train-hard-skills/SKILL.md (1..10, calibrated per item.grade)",
+    "policy": "score only from interviewer_feedback and/or reference_answer; calibrate to item.grade; no industry baseline",
+    "stats": {
+      "total": 175,
+      "labeled": 168,
+      "unscored": 7
+    }
+  },
   "items": [
     {
       "source_id": "behavioral_senior_karpov_v2_2022_12_15",
@@ -22,7 +34,15 @@
       "question_type": "technical_qna",
       "question_topic": "CV vs deep learning",
       "interview_stage": "technical_qna",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: точное и полное разграничение CV/DL; интервьюер по ходу подтверждает (DL — обучение сетей в разных доменах), не корректирует."
+      }
     },
     {
       "source_id": "behavioral_senior_karpov_v3_2023_01_21",
@@ -45,7 +65,15 @@
       "question_type": "technical_qna",
       "question_topic": "Analytics roles",
       "interview_stage": "technical_qna",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: разумное разграничение BA vs продуктовый аналитик; интервьюер вовлечён, хвалит ('зришь в корень'), без существенных правок."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -68,7 +96,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: честный self-report по хардам (Python чуть, SQL через CRM), но навыки ограниченны; интервьюер лишь нейтрально подтверждает ('Хорошо')."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -91,7 +127,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: фрагмент кейса — отвечает на буквальный вопрос (пользуешься ли FB); содержательного мало, интервьюер просто продолжает."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -114,7 +158,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верное направление — нужно знать нормальное поведение, распределение по дням; интервьюер хвалит ('очень хорошая мысль, в нужное направление')."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -137,7 +189,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верная интуиция о вечернем пике и обеденном всплеске; интервьюер по сути соглашается."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -160,7 +220,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: задаёт диапазоны, учитывает сезонность будни/выходные; интервьюер принимает, добавляет праздники."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -183,7 +251,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно предлагает сравнение с тем же днём прошлой недели; интервьюер: 'неделя к неделе — очень важная история'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -206,7 +282,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — окно сравнения должно быть ограничено; интервьюер подтверждает рабочесть подхода день-к-дню/неделя-к-неделе."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -229,7 +313,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: сильный ответ 'пусть бизнес решает' + абсолютные vs относительные числа; интервьюер хвалит, но просит общий статистический подход."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -252,7 +344,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Junior: сам доходит до стандартного отклонения и Z-оценки; ref/fb подтверждают важность ухода от точечной оценки к распределению."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -275,7 +375,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: определение ДИ с классической частотной неточностью ('5% шанс не попасть'); fb правит формулировку, но называет ответ хорошим."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -298,7 +406,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: то же определение ДИ с неточностью интерпретации; ref даёт эталон через процедуру, fb — 'хороший ответ' с поправкой."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -321,7 +437,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: оценочная прикидка слов в языке с обоснованием; интервьюер: 'нормальный, хороший подход'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -344,7 +468,9 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -367,7 +493,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: прикидка MAU через миллион/день ×30 — обоснование слабое/произвольное; fb лишь нейтральный повтор."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_pasha_2021_06_24",
@@ -390,7 +524,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: 'пошёл по нижней границе' — обоснование hand-wavy; ref/fb предлагают лучший путь через ЦА и %% интернет-пользователей."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -413,7 +555,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Junior: дошёл до разворота списка через индексы; ref показывает [::-1], fb — 'круто, первый вопрос зачтён'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -436,7 +586,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: корректно импортирует pandas и читает csv; интервьюер: 'абсолютно верно, тоже хорошо'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -459,7 +617,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно через df.section.unique(); интервьюер хвалит, противопоставляет худшему варианту с циклом."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -482,7 +648,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: рабочее, но избыточное решение через pivot_table; интервьюер '5 с минусом', решение засчитано, лишнее действие отмечено."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -505,7 +679,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 4,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "feedback",
+        "rationale": "Junior: логически неверное решение (исключил строки feed, а не пользователей с feed); интервьюер оценивает исходно 'на ноль', ошибка тонкая."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -528,7 +710,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: с наводкой верно объясняет суть ошибки (исключил записи, а не пользователей); после понимания интервьюер ставит 'на 5'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -551,7 +741,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: рабочее решение через два df с max/min, гуглит timedelta; ref показывает агрегацию двумя функциями, fb — '4 с плюсом'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_sasha_2021_09_13",
@@ -574,7 +772,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: разумные идеи для графика (распределение времени, бар по дням); интервьюер: 'на самом деле хорошо, хорошо'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -597,7 +803,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: объясняет p-value, но конфлирует с 'уровнем значимости'; пример с монеткой; интервьюер просит заземлить, неточность остаётся."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -620,7 +834,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: формулирует H0/H1 приемлемо ('монетка честная/специальная'); ref/fb уточняют до 'равновероятно/неравновероятно'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -643,7 +865,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: корректно — p-value как вероятность при H0, считает (1/2)^20, сравнивает с 5%; интервьюер: 'ну да, хорошо'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -666,7 +896,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "both",
+        "rationale": "Junior: подтвердил неверную формулировку ('именно такие различия'), упустил 'или более экстремальные'; ref/fb прямо указывают на ошибку."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -689,7 +927,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: кратко но по сути верно про дву/односторонние ('не знаем в какую сторону'); ref/fb расширяют."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -712,7 +958,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: разумно — рассылка для удержания, но упускает прямую денежную логику; интервьюер добавляет 'теряем деньги'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -735,7 +989,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 4,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "feedback",
+        "rationale": "Junior: очень тонкий end-to-end ('лайки, время на сайте полезно'); интервьюер вынужден сам разворачивать постановку."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -758,7 +1020,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: операционализированные фичи (время в сек, лайки, друзья, гео); интервьюер хвалит идею с географией."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -781,7 +1051,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "feedback",
+        "rationale": "Junior: вместо ответа уточняющий вопрос (лайки свои/чужие), содержания нет; интервьюер сам ведёт к нормировке."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -804,7 +1082,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: предлагает нормировать на число друзей; ref — на просмотренные посты; fb принимает ('конечно')."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -827,7 +1113,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно отмечает проблему фонового времени на сайте; интервьюер ведёт к иному способу подсчёта."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -850,7 +1144,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — среднее в день; интервьюер соглашается ('в день, да; год — перебор')."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -873,7 +1175,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно объясняет confound суммарных друзей и предлагает 'новых друзей за период'; интервьюер: 'абсолютно верно'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -896,7 +1206,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: произвольный порог '2 недели'; интервьюер просит статистическое обоснование ('почему две, не три')."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -919,7 +1237,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 5,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: частично к цели (история вовлечённости), но не доходит до подготовки выборки по распределению разрывов; ref/fb ведут туда."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -942,7 +1268,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: верная интуиция (день не значит уход); ref/fb расширяют до поиска порога через распределение разрывов сессий."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -965,7 +1299,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: называет градиентный бустинг; интервьюер: 'why not, обучили, всё работает' — для уровня достаточно."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -988,7 +1330,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: общий ответ (уведомление/напоминание); интервьюер просит конкретику ('что именно отправляем')."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_vyacheslav_2021_06_24",
@@ -1011,7 +1361,15 @@
       "question_type": "hard",
       "question_topic": "Product Metrics",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: конкретное предложение (пуш про группы/интересное предложение); интервьюер: 'идея правильная'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1034,7 +1392,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: тривиальный установочный ответ ('отсюда'); содержания нет, интервьюер описывает данные."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1057,7 +1423,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: нужна подсказка ('до поля или после'); интервьюер даёт hint про toDate — самостоятельности мало."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1080,7 +1454,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: рабочая логика через WITH, синтаксис ClickHouse чуть иной; интервьюер: 'засчитано, логика корректна, понравилось'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1103,7 +1485,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 1,
+        "focus": 1,
+        "clarity": 1,
+        "aggregate": "missing",
+        "signal_source": "both",
+        "rationale": "Junior: ответа кандидата нет (интервьюер диктует команду) — пустой candidate_answer, writer проставит missing."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1126,7 +1516,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Junior: countDistinct; ref — uniq; интервьюер '5 с минусом', минус лишь за стиль (запятые)."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1149,7 +1547,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно через HAVING; интервьюер: 'абсолютно валидно, с конструкцией HAVING знаком'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1172,7 +1578,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: верная логика медианы по уникальным дням, но исходно count вместо uniq (критич. ошибка); после правки — 'на 5'."
+      }
     },
     {
       "source_id": "data_analyst_junior_karpov_yegor_2021_09_13",
@@ -1195,7 +1609,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: путается с группировкой по дню, нужна сильная помощь с декомпозицией; интервьюер 'в целом мог', но не без наводок."
+      }
     },
     {
       "source_id": "data_analyst_senior_karpov_2024_05_23",
@@ -1218,7 +1640,15 @@
       "question_type": "technical_qna",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Senior: сильно — survivorship bias, парадокс Симпсона, confound по цилиндрам; ref совпадает, интервьюер вовлечён и доволен."
+      }
     },
     {
       "source_id": "data_analyst_senior_karpov_2024_05_23",
@@ -1241,7 +1671,15 @@
       "question_type": "technical_qna",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Senior: верно — добавить все переменные в регрессию, коэф. как частная производная; ref подтверждает, интервьюер благодарит."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1264,7 +1702,9 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1287,7 +1727,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 3,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "both",
+        "rationale": "Junior: грубо неверно — назвал списки неизменяемыми; ref даёт корректный список, fb: 'ты не прав, dict не неизменяемый'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1310,7 +1758,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "both",
+        "rationale": "Junior: верный ответ 'true' про мутацию dict; ref/fb подтверждают, объяснение минимальное."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1333,7 +1789,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "both",
+        "rationale": "Junior: решение не сработало (b=a без копии); ref даёт b=a.copy(); fb: 'кажется, не сработало'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1356,7 +1820,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 2,
+        "focus": 2,
+        "clarity": 3,
+        "aggregate": "weak",
+        "signal_source": "reference",
+        "rationale": "Junior: 'ничего сказать не смогу' — фактически не ответил; ref даёт ответ про GC и ссылки."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1379,7 +1851,9 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1402,7 +1876,15 @@
       "question_type": "hard",
       "question_topic": "Experimentation",
       "interview_stage": "technical_case",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: полный дизайн эксперимента (метрики, A/A, размер выборки, тесты); интервьюер: 'про дизайн всё говоришь, это хорошо'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1425,7 +1907,15 @@
       "question_type": "hard",
       "question_topic": "Experimentation",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: критерий для долей, две метрики; интервьюер: 'супер, что предложил минимум две метрики'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1448,7 +1938,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "reference",
+        "rationale": "Junior: только бутстрап приходит в голову; ref добавляет chi-square; ответ минимальный, но в верном направлении."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1471,7 +1969,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "reference",
+        "rationale": "Junior: называет нормальность и число наблюдений; ref отмечает спорность нормальности — частично верно."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1494,7 +2000,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: называет Shapiro-Wilk; интервьюер: 'лучше иметь минимум два ответа, но первый уже хорошо'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1517,7 +2031,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — непараметрические, Манна-Уитни; интервьюер: 'применяют либо t-test, либо Mann-Whitney'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1540,7 +2062,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — ЦПТ; интервьюер: 'супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1563,7 +2093,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно про порядок group by/having и агрегацию; интервьюер: 'хорошо, супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1586,7 +2124,9 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1609,7 +2149,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: все числа строк джойнов верны (100/25/125/150); интервьюер: 'супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1632,7 +2180,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — cross join декартово произведение 100×50; интервьюер: 'хорошо'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1655,7 +2211,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 3,
+        "focus": 3,
+        "clarity": 4,
+        "aggregate": "weak",
+        "signal_source": "both",
+        "rationale": "Junior: оконные функции не знает ('наверное нет'); ref — это обязательный минимум; fb: 'точнее, плохо'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1678,7 +2242,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_coding",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 5,
+        "clarity": 4,
+        "aggregate": "weak",
+        "signal_source": "reference",
+        "rationale": "Junior: расплывчатый план (цикл, три переменные), рабочего решения нет; ref даёт dt.get(g,0)+i по zip."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1701,7 +2273,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: описывает простую линейную регрессию; интервьюер: 'хорошо' — базово приемлемо."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1724,7 +2304,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верная формула Y=a0+bx; интервьюер: 'супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1747,7 +2335,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно про функцию ошибки MSE/MAE; интервьюер: 'супер, расскажи подробнее'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1770,7 +2366,9 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1793,7 +2391,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — модуль не дифференцируем в нуле; интервьюер: 'супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1816,7 +2422,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "reference",
+        "rationale": "Junior: 'градиент — производная, показывает изменения' — частично верно/неточно; ref уточняет вектор частных производных и антиградиент."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1839,7 +2453,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "reference",
+        "rationale": "Junior: концептуально верно — найти градиент, спускаться к минимуму; ref даёт полную итеративную последовательность."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1862,7 +2484,9 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1885,7 +2509,9 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": null,
+      "unscored_reason": "no_interviewer_signal"
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1908,7 +2534,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "reference",
+        "rationale": "Junior: разумно объясняет суть кросс-валидации; ref подтверждает как способ борьбы с переобучением."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1931,7 +2565,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Junior: верно — равное представление подгрупп в train; ref/fb подтверждают (особенно multiclass), 'это супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1954,7 +2596,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 2,
+        "focus": 2,
+        "clarity": 3,
+        "aggregate": "weak",
+        "signal_source": "reference",
+        "rationale": "Junior: 'не слышал' про CV во временных рядах; ref объясняет expanding window."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -1977,7 +2627,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Junior: верно — больше данных; интервьюер: 'супер'."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -2000,7 +2658,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "reference",
+        "rationale": "Junior: верно — узлы-предикаты, энтропия как мера неопределённости, выбор признака; ref подтверждает про точку разбиения."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -2023,7 +2689,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 3,
+        "focus": 4,
+        "clarity": 4,
+        "aggregate": "weak",
+        "signal_source": "reference",
+        "rationale": "Junior: не объяснил почему RF работает ('удивительно что работает'); ref даёт >0.5 на дерево и bagging."
+      }
     },
     {
       "source_id": "data_scientist_junior_karpov_2022_03_30",
@@ -2046,7 +2720,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "reference",
+        "rationale": "Junior: верное рассуждение — при шуме RF на подмножествах ~0.5, логрег опирается на незашумлённые признаки; ref совпадает."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2069,7 +2751,15 @@
       "question_type": "technical_qna",
       "question_topic": "LTV prediction challenges",
       "interview_stage": "system_design",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: полный список проблем LTV-прогноза (дрейф, цензура, сезонность, long-tail); интервьюер обсуждает аномалии/сезонность, соглашается."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2092,7 +2782,15 @@
       "question_type": "technical_qna",
       "question_topic": "Cold start problem",
       "interview_stage": "system_design",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: cold-start фичи момента регистрации, отдельные модели, прогрессивное обновление; интервьюер 'супер супер', добавляет когорты."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2115,7 +2813,15 @@
       "question_type": "technical_qna",
       "question_topic": "Model presentation to business",
       "interview_stage": "fit_hr",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: перевод ML-метрик в бизнес-ценность, lift curve, ROI; интервьюер 'супер супер отлично', добавляет область применимости."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2138,7 +2844,15 @@
       "question_type": "technical_qna",
       "question_topic": "MSE loss function",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: обоснование MSE (дифференцируемость, штраф больших ошибок, MLE); интервьюер ведёт к относительным метрикам для денег, но база верна."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2161,7 +2875,15 @@
       "question_type": "technical_qna",
       "question_topic": "Asymmetric loss functions",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: несимметричные лоссы (asymmetric MSE, pinball/quantile), бизнес-применения; интервьюер обсуждает Huber/quantile — релевантно и точно."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2184,7 +2906,15 @@
       "question_type": "technical_qna",
       "question_topic": "Regression models",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: дерево регрессии + полный список регрессоров; интервьюер обсуждает прунинг, gain, проблему экстраполяции."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2207,7 +2937,15 @@
       "question_type": "technical_qna",
       "question_topic": "Gradient boosted trees",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: верно — последовательный ансамбль, псевдо-остатки, learning rate; интервьюер подтверждает 'доучивается на ошибки предыдущего, хорошо'."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2230,7 +2968,15 @@
       "question_type": "technical_qna",
       "question_topic": "Advanced ML question",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Middle: candidate_answer — мета-плейсхолдер, но fb показывает корректное обсуждение регуляризации (L1/L2, любая норма), интервьюер 'хорошо'."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_ml_2022_06_26",
@@ -2253,7 +2999,15 @@
       "question_type": "technical_qna",
       "question_topic": "Dimensionality reduction",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: полный обзор снижения размерности (PCA/t-SNE/UMAP/autoencoders, selection vs extraction); fb положителен про визуализацию эмбеддингов."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_python_2022_07_02",
@@ -2276,7 +3030,15 @@
       "question_type": "technical_qna",
       "question_topic": "Data structures",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: верно — не всегда O(1) из-за коллизий; интервьюер подтверждает."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_python_2022_07_02",
@@ -2299,7 +3061,15 @@
       "question_type": "technical_qna",
       "question_topic": "Data structures",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: называет chaining и open addressing (+составной ключ); интервьюер принимает ('Окей, хорошо')."
+      }
     },
     {
       "source_id": "data_scientist_middle_karpov_python_2022_07_02",
@@ -2322,7 +3092,15 @@
       "question_type": "technical_qna",
       "question_topic": "Python OOP",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: чётко __new__ vs __init__ и super().__init__(); интервьюер 'супер'."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2345,7 +3123,15 @@
       "question_type": "technical_qna",
       "question_topic": "Lootbox analysis",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: грамотный заход в анализ лутбоксов (вопросы, метрики, сегментация); интервьюер обсуждает проверку дроп-рейтов и значимость."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2368,7 +3154,15 @@
       "question_type": "technical_qna",
       "question_topic": "Lootbox metrics",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: детальные метрики лутбоксов (purchase/engagement/game-specific/distribution); интервьюер обсуждает редкость карточек и данные."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2391,7 +3185,15 @@
       "question_type": "technical_qna",
       "question_topic": "Payment analysis insights",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: инсайты платёжеспособности (сегменты, офферы, LTV, баланс); интервьюер обсуждает корректировку трафика/таргетинг."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2414,7 +3216,15 @@
       "question_type": "technical_qna",
       "question_topic": "Lootbox gameplay impact",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: влияние на gameplay с confounders, PSM, natural experiment, pay-to-win; интервьюер поднимает тот же confound лояльности."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2437,7 +3247,15 @@
       "question_type": "technical_qna",
       "question_topic": "Progression hypothesis testing",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: проверка гипотезы прогресса (когорты, контроль, Mann-Whitney, эффект-размер); интервьюер предлагает пороги по числу игр."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2460,7 +3278,15 @@
       "question_type": "technical_qna",
       "question_topic": "Win rate analysis",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: win rate (scatter spend×winrate, pay-to-win порог, PvP/PvE); интервьюер обсуждает рост winrate со временем и синтетический split."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2483,7 +3309,15 @@
       "question_type": "technical_qna",
       "question_topic": "A/B testing monetization",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: полный A/B-дизайн монетизации (гипотеза, метрики, рандомизация, мощность, guardrails); интервьюер обсуждает китов/распределения."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2506,7 +3340,15 @@
       "question_type": "technical_qna",
       "question_topic": "Payer distribution",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: распределение платящих (long-tail, биннинг, log-scale, перцентили, KS-test); интервьюер обсуждает определение китов по окну."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2529,7 +3371,15 @@
       "question_type": "technical_qna",
       "question_topic": "Monetization model selection",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: выбор модели по primary+guardrails, LTV>ARPU; интервьюер обсуждает нюанс кристаллов/retention."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2552,7 +3402,15 @@
       "question_type": "technical_qna",
       "question_topic": "Currency overflow check",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: контроль выдачи валюты (инфляция, баланс economy, whale detection, baseline); интервьюер обсуждает confound лояльности."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2575,7 +3433,15 @@
       "question_type": "technical_qna",
       "question_topic": "Monetization risks",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: полный список рисков монетизации (отток F2P, репутация, regulatory, whale churn, инфляция, кратко/долгосрок)."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2598,7 +3464,15 @@
       "question_type": "technical_qna",
       "question_topic": "LTV impact assessment",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: LTV=ARPU×lifetime из A/B, survival analysis; интервьюер обсуждает риск быстрого исчерпания lifetime."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2621,7 +3495,15 @@
       "question_type": "technical_qna",
       "question_topic": "A/B testing variants",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: варианты A/B (price/bundle/timing/discount/UI, MAB); интервьюер обсуждает price-тест и эластичность."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2644,7 +3526,15 @@
       "question_type": "technical_qna",
       "question_topic": "Content pricing",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: ценообразование контента (demand-based, benchmark, gameplay value, prestige); интервьюер обсуждает оценку по времени прохождения."
+      }
     },
     {
       "source_id": "game_analyst_middle_karpov_2021_11_20",
@@ -2667,7 +3557,15 @@
       "question_type": "technical_qna",
       "question_topic": "Player data collection",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: полный перечень данных об игроках + GDPR/PII; интервьюер обсуждает wifi/locale/timezone, гео по играм."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2690,7 +3588,15 @@
       "question_type": "technical_qna",
       "question_topic": "Uplift modeling",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: полно про uplift (инкрементальный эффект, 4 типа клиентов, persuadables); интервьюер обсуждает трансформацию классов/регрессию."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2713,7 +3619,15 @@
       "question_type": "technical_qna",
       "question_topic": "Churn model",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: churn как бинарная классификация (фичи, таргет, дисбаланс, SMOTE, метрики); интервьюер обсуждает связь uplift/churn и threshold."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2736,7 +3650,15 @@
       "question_type": "technical_qna",
       "question_topic": "Imbalanced classification metrics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — при дисбалансе PR AUC/F1/Precision@K, ROC может вводить в заблуждение; интервьюер обсуждает precision/recall."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2759,7 +3681,15 @@
       "question_type": "technical_qna",
       "question_topic": "Bootstrap confidence interval",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верная процедура бутстрапа для ДИ PR AUC; интервьюер подтверждает построение ДИ через бутстрап."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2782,7 +3712,15 @@
       "question_type": "technical_qna",
       "question_topic": "Bootstrap",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: детальный алгоритм бутстрапа (+OOB ~36.8%); интервьюер: 'всё правильно', замечание про размер выборки, который кандидат назвал."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2805,7 +3743,15 @@
       "question_type": "technical_qna",
       "question_topic": "Metric estimation without resampling",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: оценка метрики через K оценок моделей (mean/std, SE, jackknife/CV); интервьюер обсуждает CV-фолды и ЦПТ."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2828,7 +3774,15 @@
       "question_type": "technical_qna",
       "question_topic": "Cross-validation schemes",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: полный обзор схем CV (K-Fold, Stratified, LOO, Group, Temporal, Nested); интервьюер обсуждает holdout и временную зависимость."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2851,7 +3805,15 @@
       "question_type": "technical_qna",
       "question_topic": "Bias-variance tradeoff",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: чёткий bias-variance tradeoff (bias²+var+noise, bagging/boosting/регуляризация); интервьюер обсуждает смещение vs разброс для выбора."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2874,7 +3836,15 @@
       "question_type": "technical_qna",
       "question_topic": "A/B test components",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: полный список компонентов A/B (H0/H1, метрики, α/мощность, MDE, n, группы, период); интервьюер обсуждает ошибки I/II рода."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2897,7 +3867,15 @@
       "question_type": "technical_qna",
       "question_topic": "P-value interpretation",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: корректное определение p-value и частые ошибки; интервьюер: 'почти всё верно', уточняет 'любая статистика, не только разница средних'."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2920,7 +3898,15 @@
       "question_type": "technical_qna",
       "question_topic": "Sample size calculation",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: формула размера выборки через σ², MDE, α, β (+для долей); интервьюер обсуждает формулу и нормальность."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2943,7 +3929,15 @@
       "question_type": "technical_qna",
       "question_topic": "A/B test simulations",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: симуляции (A/A, мощность, размер выборки); интервьюер обсуждает мощность и ошибку II рода через симуляцию."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2966,7 +3960,15 @@
       "question_type": "technical_qna",
       "question_topic": "Gradient boosting",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно — последовательный ансамбль, остатки=отриц.градиент, learning rate; интервьюер обсуждает производные и коэффициент."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -2989,7 +3991,15 @@
       "question_type": "technical_qna",
       "question_topic": "Gradient boosting internals",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: про удаление первого дерева частично путается (база=среднее, потом дерево); интервьюер: 'не совсем ты верно сказал'."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3012,7 +4022,15 @@
       "question_type": "technical_qna",
       "question_topic": "Tree construction differences",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: детально RF vs GB и level-wise vs leaf-wise (+GOSS/EFB); интервьюер подтверждает leaf-wise/асимметрию деревьев."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3035,7 +4053,15 @@
       "question_type": "technical_qna",
       "question_topic": "Regression metrics",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: полный набор регрессионных метрик (MAE/MSE/RMSE/MAPE/R²) с бизнес-контекстом; fb уходит в оценку уверенности бустинга."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3058,7 +4084,15 @@
       "question_type": "technical_qna",
       "question_topic": "ML deployment",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Junior: перечислил подходы деплоя (REST/batch/streaming/Docker), но fb выдаёт неуверенность в REST-терминах ('может некорректно называю')."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3081,7 +4115,15 @@
       "question_type": "technical_qna",
       "question_topic": "Web frameworks for ML",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "feedback",
+        "rationale": "Junior: fb показывает реальную слабость — назвал библиотеку request вместо фреймворка, 'это ещё не фреймворк'; не назвал Flask/FastAPI сам."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3104,7 +4146,15 @@
       "question_type": "technical_qna",
       "question_topic": "Dependency management",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: верно про фиксацию версий (requirements, Docker, конфликты); интервьюер подтверждает гарантию окружения."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3127,7 +4177,15 @@
       "question_type": "technical_qna",
       "question_topic": "Post-deployment monitoring",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: называет latency и число запросов как технические метрики; интервьюер принимает, ведёт дальше."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3150,7 +4208,15 @@
       "question_type": "technical_qna",
       "question_topic": "Fallback strategies",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: fallback-стратегии (кэш, baseline, правила, простая модель, circuit breaker); интервьюер подтверждает идею предыдущих значений."
+      }
     },
     {
       "source_id": "ml_engineer_junior_karpov_2023_03_09",
@@ -3173,7 +4239,15 @@
       "question_type": "technical_qna",
       "question_topic": "Demand forecasting",
       "interview_stage": "technical_qna",
-      "grade": "junior"
+      "grade": "junior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Junior: подходы прогноза спроса (ARIMA/Prophet/LightGBM/LSTM, фичи); интервьюер обсуждает итеративное усложнение от baseline."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3196,7 +4270,15 @@
       "question_type": "technical_qna",
       "question_topic": "ML System Design principles",
       "interview_stage": "fit_hr",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: верное мета-понимание ML System Design (бизнес-задача, целостность, A/B); интервьюер подтверждает формат и важность."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3219,7 +4301,15 @@
       "question_type": "technical_qna",
       "question_topic": "Business objective",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Senior: верно — не только клики, длинные деньги, композитный таргет; интервьюер критикует порядок изложения (прыгал между темами)."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3242,7 +4332,15 @@
       "question_type": "technical_qna",
       "question_topic": "Feature engineering",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Senior: список фичей баннера/пользователя/контекста; интервьюер отмечает 'выкрикивание слов' и что стоило спросить о доступности данных."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3265,7 +4363,15 @@
       "question_type": "technical_qna",
       "question_topic": "Evaluation metrics",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: offline/online разделение метрик, ранжирование, A/B по деньгам; интервьюер соглашается ('начать с онлайн')."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3288,7 +4394,15 @@
       "question_type": "technical_qna",
       "question_topic": "Target variable",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: клики vs покупки с tradeoff'ами, композитный таргет, время на странице; интервьюер 'композит логично, меня бы устроило'."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3311,7 +4425,15 @@
       "question_type": "technical_qna",
       "question_topic": "A/B testing at scale",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: проблема множественного тестирования (~5% ложных, Bonferroni/FDR, проверить дизайн); интервьюер очень доволен ('A/B sick решил, грамотно')."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3334,7 +4456,15 @@
       "question_type": "technical_qna",
       "question_topic": "Multiple testing problem",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: ~50 ложных позитивов на 1000, family-wise поправки; интервьюер отмечает, что не сразу назвал, но в целом верно."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3357,7 +4487,15 @@
       "question_type": "technical_qna",
       "question_topic": "User interactions",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: типы взаимодействий (позитив/негатив/нейтрал), важность жалоб; интервьюер: 'всё прекрасно', бонусом ждал бы pairwise loss."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3380,7 +4518,15 @@
       "question_type": "technical_qna",
       "question_topic": "Ranking metrics",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: метрики ранжирования (Precision@K, NDCG, MRR), корреляция offline/online; интервьюер обсуждает pairwise-метрику, 'меня устроило'."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3403,7 +4549,15 @@
       "question_type": "technical_qna",
       "question_topic": "Negative signal types",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Senior: типы 'не кликов' разобраны верно, но fb критикует недостаток контекста/кандидатной генерации в общем ответе."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3426,7 +4580,15 @@
       "question_type": "technical_qna",
       "question_topic": "Overfitting + train/test split",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: переобучение в ранжировании — temporal split, feature leakage, регуляризация; интервьюер обсуждает epsilon-greedy, сезонные баннеры."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v1_2021_08_03",
@@ -3449,7 +4611,15 @@
       "question_type": "technical_qna",
       "question_topic": "Temporal train/test split",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: верный temporal split + walk-forward, без shuffle; панель-резюме положительное (хорошо разобрался с A/B, метриками, переобучением)."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
@@ -3472,7 +4642,15 @@
       "question_type": "technical_qna",
       "question_topic": "A/B testing for pricing",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: A/B прайсинга — рандомизация на юзере, interference/SUTVA, длительность, легальность разных цен; интервьюер обсуждает тайм-менеджмент."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
@@ -3495,7 +4673,15 @@
       "question_type": "technical_qna",
       "question_topic": "Personalized pricing legality",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: легальность персонализированных цен (GDPR, Amazon, варианты); интервьюер очень доволен — кандидат подсветил проблему ('абсолютно прав')."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
@@ -3518,7 +4704,15 @@
       "question_type": "technical_qna",
       "question_topic": "Model residuals analysis",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: анализ остатков (систематические ошибки, гетероскедастичность, автокорреляция, выбросы); интервьюер обсуждает коррекцию предсказаний."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
@@ -3541,7 +4735,15 @@
       "question_type": "technical_qna",
       "question_topic": "Overfitting in pricing models",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: переобучение в прайсинге + feedback loop, temporal split, ансамбли; интервьюер ценит, что поднял feedback loop и легальный point."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
@@ -3564,7 +4766,15 @@
       "question_type": "technical_qna",
       "question_topic": "Expected value vs distribution",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: matожидание недостаточно (risk aversion, tail risk, CVaR, quantile/conformal); интервьюер выводит на калибровку вероятностей."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v2_2021_08_28",
@@ -3587,7 +4797,15 @@
       "question_type": "technical_qna",
       "question_topic": "Offline model comparison",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: offline-сравнение (counterfactual/IPS, doubly robust, симуляция, bootstrap CI); интервьюер обсуждает MAE/MSE/RMSLE/MAPE и сторону ошибки."
+      }
     },
     {
       "source_id": "ml_system_design_senior_karpov_v3_2021_09_19",
@@ -3610,7 +4828,15 @@
       "question_type": "technical_qna",
       "question_topic": "ML model comparison BERT vs TF-IDF",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 6,
+        "clarity": 7,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Senior: BERT vs TF-IDF разобран верно, но fb критикует пропуск многоэтапной системы и бизнес-метрики ('правильная метрика не прозвучала')."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3633,7 +4859,15 @@
       "question_type": "hard",
       "question_topic": "Behavioral",
       "interview_stage": "fit_hr",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: внятный рассказ о себе (6 лет, InDrive, A/B, SQL, Python); интервьюер позитивно резюмирует навыки."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3656,7 +4890,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 7,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Middle: оптимизация SQL (фильтрация, агрегации в один шаг), но не назвал план запроса — ожидаемый триггер; интервьюер это отмечает."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3679,7 +4921,15 @@
       "question_type": "hard",
       "question_topic": "SQL",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "weak",
+        "signal_source": "feedback",
+        "rationale": "Middle: план запроса фактически не знает ('ну джоины, шесть джоинов'); интервьюер уходит от темы."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3702,7 +4952,15 @@
       "question_type": "hard",
       "question_topic": "Python",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: задачи на Python (pandas/numpy/визуализация/гипотезы); интервьюер: 'опыт есть', для миддла достаточно."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3725,7 +4983,15 @@
       "question_type": "hard",
       "question_topic": "ML",
       "interview_stage": "technical_qna",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Middle: ML только базовая теория из вуза, практики мало; для миддла приемлемо (по словам интервьюера), но сигнал слабый."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3748,7 +5014,15 @@
       "question_type": "hard",
       "question_topic": "Behavioral",
       "interview_stage": "behavioral",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: кейс с медиафайлами и снижением отмен на 30-40% через A/B; интервьюер ценит, отмечает уровень миддла."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3771,7 +5045,15 @@
       "question_type": "hard",
       "question_topic": "Behavioral",
       "interview_stage": "behavioral",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: формирование бэклога (продукт+Discovery+я, аналитический вклад); интервьюер позитивно, советует больше времени на сегментацию."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3794,7 +5076,15 @@
       "question_type": "hard",
       "question_topic": "Behavioral",
       "interview_stage": "behavioral",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: устройство планирования (годовое/квартальное, Discovery+операционка, задаёт 'почему'); интервьюер принимает."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3817,7 +5107,15 @@
       "question_type": "hard",
       "question_topic": "Behavioral",
       "interview_stage": "behavioral",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: приоритизация и умение говорить 'нет' (важность для бизнеса, дедлайны, гант, эскалация); интервьюер: 'понял про скоринг задач'."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3840,7 +5138,15 @@
       "question_type": "hard",
       "question_topic": "Behavioral",
       "interview_stage": "behavioral",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: отказ с доводами и эскалация к руководителям; интервьюер принимает, переходит дальше."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3863,7 +5169,15 @@
       "question_type": "hard",
       "question_topic": "Experimentation",
       "interview_stage": "technical_case",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: задача с неопределённостью (продукт хотел A/B, кандидат уточнил и спроектировал); интервьюер: 'для миддла вполне супер'."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3886,7 +5200,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_case",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 5,
+        "focus": 5,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Middle: слишком расплывчато о 'сложной методологии множественных A/B'; интервьюер не смог оценить сложность, лишь повод поговорить дальше."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3909,7 +5231,15 @@
       "question_type": "hard",
       "question_topic": "Statistics",
       "interview_stage": "technical_coding",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "both",
+        "rationale": "Middle: верная стратегия и итог 4.25 (E=3.5, брать если >3.5); ref совпадает; интервьюер: 'видел правильную стратегию', в конце слегка замялся."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3932,7 +5262,15 @@
       "question_type": "hard",
       "question_topic": "Product",
       "interview_stage": "technical_case",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: конкретное предложение (встроенный переводчик в личных чатах); интервьюер принимает, ведёт к продуктовой гипотезе."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3955,7 +5293,15 @@
       "question_type": "hard",
       "question_topic": "Product",
       "interview_stage": "technical_case",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: гипотеза от бизнес-нужд к метрикам и user story; интервьюер хвалит ('сразу с метрик'), минус — не сразу для пользователя И компании."
+      }
     },
     {
       "source_id": "product_analyst_middle_avito_avito_2024_04_04",
@@ -3978,7 +5324,15 @@
       "question_type": "hard",
       "question_topic": "Experimentation",
       "interview_stage": "technical_case",
-      "grade": "middle"
+      "grade": "middle",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Middle: грамотный A/B-дизайн (метрика, MDE/мощность, peeking, сокращение дисперсии); интервьюер: 'видно большой опыт, владеешь тестами'."
+      }
     },
     {
       "source_id": "system_design_senior_karpov_2023_07_14",
@@ -4001,7 +5355,15 @@
       "question_type": "technical_qna",
       "question_topic": "Database selection",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: разумный выбор БД (PostgreSQL/ACID для транзакций, ClickHouse OLAP, MongoDB каталог); интервьюер обсуждает масштаб/реплики."
+      }
     },
     {
       "source_id": "system_design_senior_karpov_2023_07_14",
@@ -4024,7 +5386,15 @@
       "question_type": "technical_qna",
       "question_topic": "Data storage optimization",
       "interview_stage": "system_design",
-      "grade": "senior"
+      "grade": "senior",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 7,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Senior: нормализация каталога (база+региональные атрибуты, INT-центы, UUID); fb в основном уходит в смежные темы, без негативного сигнала."
+      }
     }
   ]
 }
