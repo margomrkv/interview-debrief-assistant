@@ -494,7 +494,7 @@ def run_kb_pipeline(
             auto=None,
             num_threads=2,
             num_candidates=num_candidates if num_candidates is not None else num_trials,
-            metric_threshold=4.66
+            metric_threshold=4.66/5
         )
         compiled = optimizer.compile(
             student,
