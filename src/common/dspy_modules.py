@@ -78,7 +78,7 @@ def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
         errs.append(abs(pv - ref))
     if not errs:
         return 0.0
-    return 5.0 - (sum(errs) / len(errs))
+    return (5.0 - (sum(errs) / len(errs)))/5
 
 
 def mae_raw(preds: Sequence[Any], refs: Sequence[Any]) -> float:
