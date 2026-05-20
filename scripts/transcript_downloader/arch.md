@@ -13,12 +13,14 @@
 ## CLI
 
 ```
-single:    python main.py <video-url>    --slug SLUG --date YYYYMMDD   [--lang ru,en] [--overwrite]
-playlist:  python main.py <playlist-url> --playlist-name NAME          [--lang ru,en] [--overwrite]
+single:    python main.py <video-url>    --slug SLUG --date YYYYMMDD [--bucket PATH] [--lang ru,en] [--overwrite]
+playlist:  python main.py <playlist-url> --playlist-name PATH         [--lang ru,en] [--overwrite]
 ```
 
-- **Single video**: `--slug` и `--date` обязательны. `--playlist-name` запрещён. Папка → `transcripts/single_videos/<slug>-<YYYYMMDD>/`.
-- **Playlist**: `--playlist-name` обязателен. `--slug`/`--date` запрещены. Для каждого видео создаётся своя папка: `slug` = slugified title из YouTube, `date` = `upload_date` из yt-dlp в формате `YYYYMMDD`. Папка → `transcripts/<playlist-name>/<slug>-<YYYYMMDD>/`. Пользователь при необходимости переименовывает вложенные папки под convention (`mock-<company>-<role>-<level>-YYYY-MM-DD/` и т.п.) руками.
+Именование leaf и дерево каталогов: [`NAMING.md`](NAMING.md).
+
+- **Single video**: `--slug` и `--date` обязательны. `--playlist-name` запрещён. Папка → `transcripts/<bucket>/<slug>-<YYYY-MM-DD>/` (default bucket: `single_videos`).
+- **Playlist**: `--playlist-name` обязателен (может быть вложенным: `mock-interviews/karpov`). `--slug`/`--date` запрещены. Per-video папка: slugified title + `YYYY-MM-DD`; затем ручное переименование в hiring-паттерн из NAMING.md.
 - `--lang` — приоритетный список языков, default `ru,en`.
 - `--overwrite` — иначе skip+warn при существующей папке.
 

@@ -1,0 +1,10 @@
+{
+  "_comment": "topic_map for Karpov mock interviews (Python / A/B / SQL / ML sections). section_timecodes are auto-parsed from video.md Description when omitted.",
+  "section_timecodes": {},
+  "topic_map": {
+    "Python": ["Python"],
+    "A/B-тесты": ["Experimentation", "Statistics"],
+    "Работа с данными": ["SQL", "Python"],
+    "ML алгоритмы": ["ML"]
+  }
+}

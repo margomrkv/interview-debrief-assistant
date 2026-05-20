@@ -1,0 +1,12 @@
+{
+  "system_prompt": "splitter_system_prompt.txt",
+  "schema": "splitter_output_schema.json",
+  "inference": {
+    "model": "claude-sonnet-4-6",
+    "temperature": 0
+  },
+  "validation_inference": {
+    "model": "claude-sonnet-4-6",
+    "temperature": 0
+  }
+}

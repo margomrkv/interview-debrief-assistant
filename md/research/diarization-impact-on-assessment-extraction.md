@@ -8,14 +8,14 @@ related:
   - [[diarization]]
   - [[arch]]
   - [[spec]]
-source-experiment: transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/
+source-experiment: transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/
 ---
 
 # Влияние диаризации на извлечение Assessment Items
 
 ## Контекст
 
-Эксперимент: ручная разметка одного интервью (`junior-data-scientist-собеседование-karpov-courses-20220330`) на Assessment Items. Результат — 19 уверенных + 4 пограничных items в [`assessment_items.csv`](../../transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/assessment_items.csv) и [`assessment_items_doubtful.csv`](../../transcripts/karpov-courses-собеседования/junior-data-scientist-собеседование-karpov-courses-20220330/assessment_items_doubtful.csv).
+Эксперимент: ручная разметка одного интервью (`mock-data-scientist-junior-karpov-2022-03-30`) на Assessment Items. Результат — 19 уверенных + 4 пограничных items в [`assessment_items.csv`](../../transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/assessment_items.csv) и [`assessment_items_doubtful.csv`](../../transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/assessment_items_doubtful.csv).
 
 В процессе разметки выявлены классы ошибок. Заметка отвечает на вопрос: **насколько диаризация снимает эти ошибки.**
 
@@ -163,7 +163,7 @@ flowchart LR
 
 **MacWhisper «диаризация» = разделение по каналам.** Тривиально: если в записи L = один спикер, R = другой (типичный экспорт из Zoom/Riverside) — это просто две независимые транскрипции. DER ≈ 0%, потому что разделение происходит ещё до ASR, на физическом уровне.
 
-**YouTube → mixdown.** Что бы ни было в исходниках, на YouTube заливается **один смикшированный стерео-трек**. Per-speaker потоков физически не существует в выкаченном файле — их нельзя «достать», их там нет. См. источник [karpov-courses-собеседования](../../transcripts/karpov-courses-собеседования/) — все интервью в [[transcripts]] — это YouTube-выкачки, значит для них доступна **только** диаризация по голосам.
+**YouTube → mixdown.** Что бы ни было в исходниках, на YouTube заливается **один смикшированный стерео-трек**. Per-speaker потоков физически не существует в выкаченном файле — их нельзя «достать», их там нет. См. [mock-interviews/karpov](../../transcripts/mock-interviews/karpov/) — все интервью в [[transcripts]] — это YouTube-выкачки, значит для них доступна **только** диаризация по голосам.
 
 → Это меняет численную оценку из таблицы выше: цифры (~95% Q/A boundary, ~98% attribution) актуальны для **mix-аудио + pyannote/WhisperX**, не для multichannel-сетапа. Multichannel был бы ещё выше, но его у нас нет.
 

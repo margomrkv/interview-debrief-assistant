@@ -1,4 +1,8 @@
-"""Download YouTube interview transcripts into transcripts/<bucket>/<slug>-<YYYYMMDD>/."""
+"""Download YouTube interview transcripts into transcripts/.
+
+Folder layout and leaf naming: see NAMING.md in this directory
+(and transcripts/README.md). Single video: transcripts/<bucket>/<slug>-<YYYY-MM-DD>/.
+"""
 
 from __future__ import annotations
 
@@ -255,13 +259,30 @@ def write_folder(folder: Path, meta: dict, snippets, overwrite: bool,
 def parse_args(argv=None):
     p = argparse.ArgumentParser(
         prog="transcript-downloader",
-        description="Download YouTube transcripts into transcripts/<slug>-<YYYYMMDD>/",
+        description=(
+            "Download YouTube transcripts. Naming: scripts/transcript_downloader/NAMING.md"
+        ),
+        epilog=(
+            "Leaf pattern: {kind}-{role}-{level}[-{target}]-{publisher}[-{candidate}]"
+            "[-{topic}]-{YYYY-MM-DD}. See NAMING.md."
+        ),
     )
     p.add_argument("url", help="Video or playlist URL")
-    p.add_argument("--slug", help="Slug for single video (required for single video)")
-    p.add_argument("--date", help="Date YYYYMMDD for single video (required for single video)")
-    p.add_argument("--playlist-name", dest="playlist_name",
-                   help="Bucket folder name under transcripts/ (required for playlist URL)")
+    p.add_argument(
+        "--slug",
+        help="Leaf folder base without date, e.g. data-scientist-junior-karpov",
+    )
+    p.add_argument("--date", help="Date YYYYMMDD (required for single video)")
+    p.add_argument(
+        "--bucket",
+        default="single_videos",
+        help="Path under transcripts/ for single video (default: single_videos = staging)",
+    )
+    p.add_argument(
+        "--playlist-name",
+        dest="playlist_name",
+        help="Path under transcripts/ for playlist, e.g. mock-interviews/karpov",
+    )
     p.add_argument("--lang", default="ru,en",
                    help="Comma-separated language priority (default: ru,en)")
     p.add_argument("--overwrite", action="store_true", help="Overwrite existing folder")
@@ -303,11 +324,18 @@ def main(argv=None) -> int:
             print(f"error: failed to resolve video meta: {exc}", file=sys.stderr)
             return 1
         feedback_text = build_feedback_text(snippets, meta["chapters"])
-        folder = repo_root / "transcripts" / "single_videos" / f"{args.slug}-{args.date}"
+        iso_date = _format_iso_date(args.date)
+        folder = repo_root / "transcripts" / args.bucket / f"{args.slug}-{iso_date}"
         written = write_folder(folder, meta, snippets, args.overwrite,
                                feedback_text=feedback_text)
         print(f"{'wrote' if written else 'skipped'}: {folder}"
               f"{' (+feedback)' if written and feedback_text else ''}")
+        if written and args.bucket == "single_videos":
+            print(
+                "hint: move to mock-interviews/<publisher>/ or real-interviews/<publisher>/ "
+                "per scripts/transcript_downloader/NAMING.md",
+                file=sys.stderr,
+            )
         return 0 if written else 1
 
     if args.slug or args.date:
@@ -337,7 +365,7 @@ def main(argv=None) -> int:
         date = e["upload_date"] or "00000000"
         if date == "00000000":
             print(f"warn: no upload_date for {vid}, using 00000000", file=sys.stderr)
-        folder = bucket / f"{slug}-{date}"
+        folder = bucket / f"{slug}-{_format_iso_date(date)}"
         try:
             snippets = fetch_transcript(vid, lang_priority)
         except CouldNotRetrieveTranscript as exc:
