@@ -12,6 +12,14 @@ import dspy
 
 METRICS: tuple[str, str, str] = ("factual_correctness", "focus", "clarity")
 
+# Single source of truth for the scoring scale. To switch to 1..10 later, edit
+# SCORE_MAX here — mae_metric normalization, field descs and accuracy_pm1 all
+# derive from these (data relabeling + prompt regen are a separate migration).
+SCORE_MIN: int = 1
+SCORE_MAX: int = 5
+SCORE_RANGE: int = SCORE_MAX - SCORE_MIN   # max possible abs error per axis = 4
+TOLERANCE_PM1: int = 1                      # "near miss" band for accuracy_pm1, in points
+
 
 class ScoreInterviewQA(dspy.Signature):
     """Evaluate one interview QA pair on three 1..5 anchored axes.
@@ -28,9 +36,9 @@ class ScoreInterviewQA(dspy.Signature):
     question_topic: str = dspy.InputField()
     interview_stage: str = dspy.InputField()
 
-    factual_correctness: int = dspy.OutputField(desc="1..5 anchored")
-    focus: int = dspy.OutputField(desc="1..5 anchored")
-    clarity: int = dspy.OutputField(desc="1..5 anchored")
+    factual_correctness: int = dspy.OutputField(desc=f"{SCORE_MIN}..{SCORE_MAX} anchored")
+    focus: int = dspy.OutputField(desc=f"{SCORE_MIN}..{SCORE_MAX} anchored")
+    clarity: int = dspy.OutputField(desc=f"{SCORE_MIN}..{SCORE_MAX} anchored")
 
 
 class ScoringEvaluator(dspy.Module):
@@ -65,9 +73,9 @@ def _pred(pred: Any, metric: str) -> int | None:
 
 
 def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
-    """MIPRO maximizes the metric — we return (5 - mean_abs_err)/5 so higher is better.
+    """MIPRO maximizes the metric — we return 1 - mean_abs_err/SCORE_RANGE so higher is better.
 
-    Normalized to [0, 1]. Perfect match = 1.0. Worst case (5 vs 1) = 0.2.
+    Normalized to [0, 1]. Perfect match = 1.0. Worst case (SCORE_MAX vs SCORE_MIN) = 0.0.
     """
     errs: list[int] = []
     for m in METRICS:
@@ -78,7 +86,7 @@ def mae_metric(example: Any, pred: Any, trace: Any = None) -> float:
         errs.append(abs(pv - ref))
     if not errs:
         return 0.0
-    return (5.0 - (sum(errs) / len(errs)))/5
+    return 1.0 - (sum(errs) / len(errs)) / SCORE_RANGE
 
 
 def mae_raw(preds: Sequence[Any], refs: Sequence[Any]) -> float:
@@ -103,7 +111,7 @@ def accuracy_pm1(preds: Sequence[Any], refs: Sequence[Any]) -> float:
             if ref is None or pv is None:
                 continue
             total += 1
-            hits += int(abs(pv - ref) <= 1)
+            hits += int(abs(pv - ref) <= TOLERANCE_PM1)
     return hits / total if total else 0.0
 
 
