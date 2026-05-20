@@ -60,6 +60,30 @@ def default_run_id() -> str:
     return dt.datetime.now().astimezone().strftime("%Y-%m-%d_%H-%M-%S")
 
 
+def _candidate_demos(program: dspy.Module | None) -> int:
+    """Number of few-shot demos on a candidate program's (first) predictor."""
+    if program is None:
+        return 0
+    for _name, p in program.named_predictors():
+        return len(getattr(p, "demos", []) or [])
+    return 0
+
+
+def _candidate_sort_key(cp: Any) -> tuple[float, int]:
+    """Rank candidate_programs by (score, demo_count).
+
+    The demo_count is the tie-breaker: MIPROv2 routinely produces a bare
+    baseline (0 demos) and a demo-bearing candidate that score *identically*
+    (am-best-offer-7xc — both full-eval at 432.59). The baseline is added first,
+    so a plain `max(...)` would pick it and drop the demos. Preferring more demos
+    on ties surfaces the richer prompt without ever overriding a strictly better
+    score.
+    """
+    score = cp.get("score") if isinstance(cp, dict) and cp.get("score") is not None else float("-inf")
+    program = cp.get("program") if isinstance(cp, dict) else None
+    return (score, _candidate_demos(program))
+
+
 def _extract_prompt(student: dspy.Module) -> str:
     # The canonical MIPROv2 winner lives in student.candidate_programs (list of
     # {"program": Module, "score": float}). On this ScoringEvaluator the attribute
@@ -70,10 +94,7 @@ def _extract_prompt(student: dspy.Module) -> str:
     cps = getattr(student, "candidate_programs", None) or []
     target: dspy.Module = student
     if cps:
-        best = max(
-            cps,
-            key=lambda cp: (cp.get("score") if isinstance(cp, dict) and cp.get("score") is not None else float("-inf")),
-        )
+        best = max(cps, key=_candidate_sort_key)
         if isinstance(best, dict) and best.get("program") is not None:
             target = best["program"]
     predictor = None
