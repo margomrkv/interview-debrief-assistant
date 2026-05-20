@@ -16,7 +16,7 @@ METRICS: tuple[str, str, str] = ("factual_correctness", "focus", "clarity")
 # SCORE_MAX here — mae_metric normalization, field descs and accuracy_pm1 all
 # derive from these (data relabeling + prompt regen are a separate migration).
 SCORE_MIN: int = 1
-SCORE_MAX: int = 5
+SCORE_MAX: int = 10
 SCORE_RANGE: int = SCORE_MAX - SCORE_MIN   # max possible abs error per axis = 4
 TOLERANCE_PM1: int = 1                      # "near miss" band for accuracy_pm1, in points
 
