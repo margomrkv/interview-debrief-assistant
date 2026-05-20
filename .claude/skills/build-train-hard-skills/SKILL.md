@@ -1,6 +1,6 @@
 ---
 name: build-train-hard-skills
-description: Запускает `scripts/build_train_hard_skills.py` — собирает `train/hard_skills.json` из `splitter_output/*.splitter.v*.json`. Берёт последнюю версию (vN) на каждый source_id, фильтрует `question_type == "hard"`, дополняет каждый item полем `source_id`. Дубликат старого имени `junior_data_scientist_собеседование_karpov_courses_20220330` исключён в пользу канонического `karpov_junior_ds_20220330`. Аргументов не принимает; перезапись идемпотентна.
+description: Запускает `build_train_hard_skills.py` — собирает `train/hard_skills.json` из `splitter_output/**/*.qa-split.v*.json`. Берёт последнюю версию (vN) на каждый source_id, фильтрует `question_type == "hard"`, дополняет каждый item полем `source_id`. Аргументов не принимает; перезапись идемпотентна.
 author: claude-code-opus-4-7
 created_date: 2026-05-16
 ---

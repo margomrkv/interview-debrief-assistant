@@ -51,8 +51,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |                     | `internal-notes/`   | Транскрипты встреч по проекту                                        |
 | Критерии оценки     | `grading/`         | `Project Criteria & Scoring.docx` и смежные документы                |
 | Код                 | — (пока нет)       | В репозитории ещё нет исходников; появятся — разместить здесь        |
-| Данные              | `transcripts/`     | Транскрипты интервью (mock и собственные) — основной вход проекта    |
-| Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | `config/`, **`prompt,output_schema/`**, `scripts/`; артефакты: **`<source_id>.splitter.v<N>.<mock\|raw>.*`** (версия без `--version` — max+1 по всем таким файлам); папка **`splitter/`** — только краткий `README.md` (без `output/`) |
+| Данные              | `transcripts/`     | Транскрипты интервью — `mock-interviews/`, `real-interviews/`, `youtube-sessions/`, `own/` |
+| Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | шаги `step1-prepare/` … `step5-validate-llm/`, постобработка `scripts/splitter_post.sh`; процедура в **`splitter/SKILL.md`**; артефакты: **`splitter_output/{mock\|real}-interviews/.../<leaf-slug>/*.qa-split.v<N>.*`** (см. `splitter_output/README.md`) |
+
+### Правила 
+
+Не запускай тесты с реальной платной моделью в процессе разработки без необходимости
+
 
 ### Правила 
 
@@ -63,11 +68,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Встречи (`internal-notes/`): `YYYY-MM-DD-transcript-<participants>-<topic>.{txt|md}`
   - Примеры: `2026-04-06-transcript-margo-anton-project-kickoff.txt`, `2026-04-22-transcript-alex-weekly-meeting-1.md`
-- Mock-интервью (папка в `transcripts/`): `mock-<company>-<role>-<level>-YYYY-MM-DD/`
-  - Содержимое: `transcript.txt`, `link.txt`, `timecodes.txt`; при скачанных у нас mock-интервью с YouTube — ещё `video.md` (главы для валидации сплиттера, не для LLM-контекста извлечения)
-- Собственные интервью (папка в `transcripts/`): `<person>-<company>-YYYYMMDD/` (дата без дефисов)
+- Mock-интервью: `transcripts/mock-interviews/<publisher>/mock-{role}-{level}-…-{YYYY-MM-DD}/` — см. `transcripts/README.md`
+  - Содержимое: `transcript.txt`, `link.txt`, `timecodes.txt`; с YouTube — ещё `video.md` (главы для валидации сплиттера)
+- Реальные (записи каналов): `transcripts/real-interviews/novoselov/real-…` (publisher slug **`novoselov`**, не `vadim`)
+- Лайвы / разборы (не интервью): `transcripts/youtube-sessions/…`
+- Собственные интервью: `transcripts/own/<person>-<company>-YYYYMMDD/`
   - Содержимое: `cv.md`, `transcript.txt`, `feedback.txt`, опционально `vacancy.txt` и файлы отчётов
-- Шаблон новой папки mock-интервью: `transcripts/mock-template/`
+- Шаблон новой папки: `transcripts/_template/`
+- Миграция путей: `transcripts/aliases.yaml`
 
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
