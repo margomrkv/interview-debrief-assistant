@@ -4,7 +4,7 @@ This project uses **bd** (beads) for issue tracking. Run `bd prime` for full wor
 
 ## Splitter pipeline
 
-Reproducible Q&A split: **`.claude/skills/splitter/SKILL.md`** (Cursor + Claude Code). Post-LLM: `scripts/splitter_post.sh`.
+Reproducible Q&A split: **`.claude/skills/splitter/SKILL.md`** (Cursor `/splitter` + Claude Code `/splitter`) — steps 1–5, then correction loop until `splitter_verdict.py` exit 0. Post-LLM: `scripts/splitter_post.sh`.
 
 ## Quick Reference
 

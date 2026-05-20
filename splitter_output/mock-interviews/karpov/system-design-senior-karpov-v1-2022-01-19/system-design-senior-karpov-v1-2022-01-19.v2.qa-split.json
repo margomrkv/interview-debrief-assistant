@@ -1,0 +1,216 @@
+{
+  "source_id": "system_design_senior_karpov_v1_20220119",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "Спроектируй глобальный сервис коротких ссылок: пользователь присылает длинный URL, получает короткий на нашем домене; по клику — редирект на оригинал. Каждая короткая ссылка живёт не более двух лет.",
+        "time": "03:04"
+      },
+      "candidate_answer": {
+        "text": "Уточнил: общий домен tiny-url, после слэша — наш укороченный ключ; одной длинной ссылке соответствует одна короткая (если нет ограничений по времени); по истечении двух лет ключ освобождается и может переиспользоваться.",
+        "time": "03:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Хороший вопрос — пусть каждая короткая ссылка живёт не более двух лет.",
+        "time": "05:41"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Знаком ли ты с хэш-функцией? Как привести URL переменной длины к ключу фиксированной длины?",
+        "time": "10:12"
+      },
+      "candidate_answer": {
+        "text": "Можно захэшировать URL — хэш всегда фиксированной длины (например MD5 даёт 128 бит). Дальше можно ужать до нужного числа бит и закодировать в base64.",
+        "time": "10:44"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "MD5 — 128 бит. Можем ли ещё ужать?",
+        "time": "11:54"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Сколько ссылок создаём в день, сколько ключей в базе за два года хранения? Преимущественно read или write?",
+        "time": "11:55"
+      },
+      "candidate_answer": {
+        "text": "~1 млн ссылок в день, храним 2 года → порядка 10^8 ключей в БД. Чаще переходят по ссылке (read-heavy), чем создают.",
+        "time": "12:59"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Перед хайвей — хорошо, запомним. Сначала про общую нагрузку.",
+        "time": "13:06"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Есть риск коллизий при хэшировании и обрезании хэша. Можно ли заранее подготовить ключи и не генерировать на лету?",
+        "time": "19:55"
+      },
+      "candidate_answer": {
+        "text": "При урезанном хэше риск коллизий растёт. Можно заранее сгенерировать пул ключей (например base64-последовательности) и выдавать по одному при создании ссылки — коллизий не будет.",
+        "time": "22:10"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Представь: заранее посчитал тысячи ключей, при запросе берёшь первый свободный.",
+        "time": "23:15"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Альтернатива хэшу: как хранить свободные и занятые ключи — одна таблица с флагом или две таблицы?",
+        "time": "21:59"
+      },
+      "candidate_answer": {
+        "text": "Две таблицы эффективнее: незанятые ключи — брать первый за O(1); занятые — ключ, время, исходный URL. Линейный поиск по всей таблице неэффективен.",
+        "time": "29:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Просто убирать из таблицы незанятых и писать в занятые — константная операция.",
+        "time": "29:05"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Как устроить хранение: сколько памяти на пул ключей, нужен ли отдельный статус занятости?",
+        "time": "28:07"
+      },
+      "candidate_answer": {
+        "text": "Ключ ~8 символов base64 → ~48 бит → ~6 байт на ключ; на 10^8 ключей ~5 ГБ. Можно держать все ключи заранее; при записи переносить из free в occupied с URL и timestamp.",
+        "time": "25:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Нарисуй верхнеуровневый сервис: пользователь создаёт или переходит по короткой ссылке — что делает сервер и БД?",
+        "time": "33:33"
+      },
+      "candidate_answer": {
+        "text": "Пользователь → сервер → БД: при создании — взять ключ из незанятых, записать в занятые (ключ, время, исходный URL), вернуть короткую ссылку; при чтении — lookup в занятых и redirect на original URL.",
+        "time": "34:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Верхний уровень плюс-минус ясен. Пойдём глубже — память для занятых ключей.",
+        "time": "38:26"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Сколько места нужно для таблицы занятых ключей (URL, время) при 10^8 ссылок?",
+        "time": "38:28"
+      },
+      "candidate_answer": {
+        "text": "Исходная ссылка ~100 байт в среднем, время ~4–8 байт; на 10^8 записей порядка ~100 ГБ суммарно (ключи ~5 ГБ + URL + время).",
+        "time": "42:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Суммарно ~100 ГБ на всё — можно хранить даже на одном компе.",
+        "time": "42:18"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Сколько запросов в секунду на запись и на чтение?",
+        "time": "43:41"
+      },
+      "candidate_answer": {
+        "text": "~1 млн write/день → ~10 write RPS; read примерно в 100 раз чаще → ~1000 read RPS.",
+        "time": "44:37"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "10 запросов на запись — запиши. Read-heavy.",
+        "time": "44:39"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Latency ~200 мс, глобальный сервис — как масштабировать на несколько машин: load balancer, кэш, key generator?",
+        "time": "45:55"
+      },
+      "candidate_answer": {
+        "text": "Load balancer → несколько серверов; read идёт в кэш, при miss — KV по ключу; write — key generator выдаёт блок ключей в RAM с lock, чтобы избежать гонок; ~100 ГБ данных можно реплицировать на все ноды.",
+        "time": "55:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Сначала CAP и расчёты, потом масштабирование. Неплохо.",
+        "time": "57:28"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    }
+  ]
+}

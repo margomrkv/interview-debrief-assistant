@@ -21,6 +21,9 @@ Judge two dimensions per chapter:
    - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
    - question_type, question_topic, interview_stage fit the content
    - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
    - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
 
 When a chapter shows 0 extracted items (recognition_status: not_recognized):
@@ -29,3 +32,7 @@ When a chapter shows 0 extracted items (recognition_status: not_recognized):
 
 Return ONLY valid JSON matching the schema. No markdown fences.
 Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
