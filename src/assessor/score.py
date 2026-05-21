@@ -14,11 +14,14 @@ import json
 from pathlib import Path
 from typing import Any
 
-from src.common.dataset import load_splitter_examples
+from src.common.dataset import _to_inference_example, load_splitter_examples
 from src.common.dspy_modules import METRICS
 from src.common.eval_runner import predict_all
 from src.common.llm_factory import TASK_MODEL_ID
 from src.common.prompt_io import load_prompt_artifact
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PROMPT = REPO_ROOT / "prompts" / "scoring.txt"
 
 
 def _default_out_path(splitter_json: Path, source_id: str) -> Path:
@@ -36,6 +39,29 @@ def _predictions(pred: Any) -> dict[str, int | None]:
             out[m] = int(v)
         except (TypeError, ValueError):
             out[m] = None
+    return out
+
+
+def assess_one(
+    qa: dict[str, Any],
+    *,
+    prompt_path: Path = DEFAULT_PROMPT,
+    lm: Any = None,
+) -> dict[str, Any]:
+    """Score a single QA pair (one LLM call) — the UI-facing per-item entry.
+
+    `qa` carries the splitter input fields (`interviewer_question`,
+    `candidate_answer`, `question_topic`, `interview_stage`). Returns the three
+    METRICS as ints plus `error` and `reasoning`; the interview-level rollup is
+    the caller's job. An empty/missing `prompt_path` falls back to the signature's
+    built-in instructions (see eval_runner.predict_all).
+    """
+    prompt_text = load_prompt_artifact(prompt_path) if prompt_path.exists() else ""
+    ex = _to_inference_example(qa, qa.get("source_id", "live"))
+    pred = predict_all(prompt_text, [ex], lm=lm)[0]
+    out: dict[str, Any] = dict(_predictions(pred))
+    out["error"] = getattr(pred, "_error", None)
+    out["reasoning"] = getattr(pred, "reasoning", None)
     return out
 
 

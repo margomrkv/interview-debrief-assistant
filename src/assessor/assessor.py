@@ -1,17 +1,17 @@
 """Apply a trained evaluator prompt to one splitter JSON → predictions JSON.
 
-Thin argparse → `src.ar.score.score_interview` wrapper.
+Thin argparse → `src.assessor.score.score_interview` wrapper.
 """
 from __future__ import annotations
 
 import argparse
 from pathlib import Path
 
-# MUST be imported before src.ar.score (which imports dspy/litellm) so the
+# MUST be imported before src.assessor.score (which imports dspy/litellm) so the
 # litellm bedrock/sagemaker pre-load warnings are filtered at import time.
 from src.common.logging_setup import configure_logging  # noqa: I001
 
-from src.ar.score import score_interview  # noqa: E402
+from src.assessor.score import score_interview  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

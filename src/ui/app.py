@@ -1,15 +1,21 @@
-"""Demo UI server — stdlib only, zero install.
+"""Demo UI server — single-page UI + JSON/SSE API over a pluggable backend.
 
-Run:  python3 src/ui/app.py    # then open http://127.0.0.1:8000
+Run:  python3 src/ui/app.py              # emulator (stdlib only, zero install)
+      python3 src/ui/app.py --mode live  # real per-item LLM scoring
+      UI_BACKEND=live python3 src/ui/app.py 8011
 
-Serves a single-page UI and a small JSON/SSE API backed by ``src.ui.emulator``.
-The Splitter → Scoring pipeline is *replayed* (no LLM calls) and streamed over
-Server-Sent Events so each Q&A and each score appears as soon as it is "ready",
-satisfying the async requirement in md/ui.md.
+The Splitter → Scoring pipeline is streamed over Server-Sent Events so each Q&A
+and each score appears as soon as it is "ready" (async requirement in md/ui.md).
+The backend is chosen at startup via ``make_backend`` (see ``src.ui.backend``):
+``emulator`` replays ``data/emulator-data`` files; ``live`` sources Q&A from the
+emulator and scores each via ``src.assessor``. The SSE contract is identical, so
+the frontend is backend-agnostic.
 """
 from __future__ import annotations
 
+import argparse
 import json
+import os
 import sys
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -18,7 +24,7 @@ from urllib.parse import parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.ui import emulator  # noqa: E402
+from src.ui.backend import make_backend  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 STATIC = HERE / "static"
@@ -30,6 +36,10 @@ SCORE_DELAY = 0.32
 
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
+
+    @property
+    def backend(self):
+        return self.server.backend  # injected in main()
 
     # ---- helpers -----------------------------------------------------------
     def _send_json(self, obj, status=200):
@@ -69,11 +79,11 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_file(STATIC / "styles.css", "text/css; charset=utf-8")
 
         if route == "/api/interviews":
-            return self._send_json(emulator.list_interviews())
+            return self._send_json(self.backend.list_interviews())
 
         if route == "/api/transcript":
             sid = parse_qs(parsed.query).get("source_id", [""])[0]
-            return self._send_json({"source_id": sid, "text": emulator.transcript_text(sid)})
+            return self._send_json({"source_id": sid, "text": self.backend.transcript_text(sid)})
 
         if route == "/api/stream":
             sid = parse_qs(parsed.query).get("source_id", [""])[0]
@@ -90,15 +100,18 @@ class Handler(BaseHTTPRequestHandler):
                 text = json.loads(raw).get("text", "")
             except json.JSONDecodeError:
                 text = raw
-            sid = emulator.match_source(text)
+            sid = self.backend.match_source(text)
             return self._send_json({"source_id": sid})
         self.send_error(404, "Not found")
 
     # ---- the two-stage pipeline as an SSE stream ---------------------------
     def _stream_pipeline(self, source_id: str):
-        items = emulator.split_items(source_id)
+        backend = self.backend
+        items = backend.split_items(source_id)
         if not items:
             return self.send_error(404, "Unknown source_id")
+
+        delay = backend.demo_delays  # artificial pauses for the emulator only
 
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -111,29 +124,42 @@ class Handler(BaseHTTPRequestHandler):
             self._sse_event("stage", {"stage": "splitter", "status": "running",
                                       "total": len(items)})
             for it in items:
-                time.sleep(SPLIT_DELAY)
+                if delay:
+                    time.sleep(SPLIT_DELAY)
                 self._sse_event("split_item", it)
             self._sse_event("stage", {"stage": "splitter", "status": "done"})
 
-            # Stage 2 — Scoring
+            # Stage 2 — Scoring (one LLM call per item in live mode)
             self._sse_event("stage", {"stage": "scoring", "status": "running",
                                       "total": len(items)})
             for it in items:
-                time.sleep(SCORE_DELAY)
-                self._sse_event("score_item", emulator.score_item(source_id, it["idx"]))
+                if delay:
+                    time.sleep(SCORE_DELAY)
+                self._sse_event("score_item", backend.score_item(source_id, it["idx"]))
             self._sse_event("stage", {"stage": "scoring", "status": "done"})
 
             # Rollup
-            self._sse_event("report", emulator.report(source_id))
+            self._sse_event("report", backend.report(source_id))
             self._sse_event("done", {})
         except (BrokenPipeError, ConnectionResetError):
             pass  # client navigated away mid-stream
 
 
 def main():
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-    server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"Demo UI → http://127.0.0.1:{port}  (Ctrl-C to stop)")
+    parser = argparse.ArgumentParser(description="Demo UI server (emulator or live LLM backend).")
+    parser.add_argument("port", nargs="?", type=int, default=8000, help="listen port (default 8000)")
+    parser.add_argument(
+        "--mode",
+        choices=["emulator", "live"],
+        default=os.getenv("UI_BACKEND", "emulator"),
+        help="backend: replay files (emulator) or call the real LLM (live). "
+             "Default from $UI_BACKEND, else 'emulator'.",
+    )
+    args = parser.parse_args()
+
+    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    server.backend = make_backend(args.mode)
+    print(f"Demo UI [{args.mode}] → http://127.0.0.1:{args.port}  (Ctrl-C to stop)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
