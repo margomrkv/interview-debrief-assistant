@@ -4,7 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 from types import SimpleNamespace
 
-from src.assessor import score
+from src.assessor import assess
 
 QA = {
     "interviewer_question": "What is a closure?",
