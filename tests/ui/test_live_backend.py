@@ -1,15 +1,59 @@
-"""LiveBackend — offline, assess_one monkeypatched (no LM).
+"""LiveBackend — offline, split_transcript & assess_one monkeypatched (no LM).
 
-Splitting/match/transcript delegate to the real EmulatorBackend (file replay);
-only the scoring call is faked, so these exercise the live wiring without network.
+The catalogue/transcript/match delegate to the real EmulatorBackend (file replay);
+both LLM calls (Stage 1 splitter, Stage 2 scoring) are faked, so these exercise the
+live wiring without network.
 """
 from __future__ import annotations
 
-from src.ui import live_backend
+import pytest
+
+from src.ui import emulator, live_backend
 from src.ui.live_backend import LiveBackend
 from src.ui.models import Aggregate, ScoreItem, Verdict
 
 SID = "data_scientist_junior_karpov_2022_03_30"
+
+
+@pytest.fixture(autouse=True)
+def _offline_split(monkeypatch):
+    """Default: stub Stage-1 so score_item/report never hit the splitter LLM.
+
+    Returns one trivial raw item per real emulator Q&A so item counts (and the
+    999-out-of-range case) stay valid. Tests that care about the split mapping
+    re-patch ``split_transcript`` in their own body (last setattr wins).
+    """
+    n = len(emulator.split_items(SID))
+    raw = [{
+        "interviewer_question": {"text": "q", "time": "00:00"},
+        "candidate_answer": {"text": "a", "time": "00:01"},
+        "question_type": "hard", "question_topic": "ML",
+        "interview_stage": "technical_qna",
+    } for _ in range(n)]
+    monkeypatch.setattr(live_backend, "split_transcript",
+                        lambda transcript_text, source_id, **kw: raw)
+
+# Two splitter-schema items the fake split_transcript returns.
+_RAW_ITEMS = [
+    {
+        "interviewer_question": {"text": "Расскажи о себе", "time": "00:30"},
+        "candidate_answer": {"text": "Я дата-сайентист", "time": "00:35"},
+        "reference_answer": {"text": None, "time": None},
+        "interviewer_feedback": {"text": None, "time": None},
+        "question_type": "soft",
+        "question_topic": "Communication",
+        "interview_stage": "fit_hr",
+    },
+    {
+        "interviewer_question": {"text": "Что такое p-value?", "time": "05:00"},
+        "candidate_answer": {"text": "Это вероятность", "time": "05:10"},
+        "reference_answer": {"text": None, "time": None},
+        "interviewer_feedback": {"text": None, "time": None},
+        "question_type": "hard",
+        "question_topic": "Statistics",
+        "interview_stage": "technical_qna",
+    },
+]
 
 
 def _fake_assess(**scores):
@@ -18,12 +62,32 @@ def _fake_assess(**scores):
     return _inner
 
 
-def test_split_and_match_delegate_to_emulator() -> None:
+def test_split_maps_to_qa_and_caches(monkeypatch) -> None:
+    calls = {"n": 0}
+
+    def fake_split(transcript_text, source_id, **kwargs):
+        calls["n"] += 1
+        return _RAW_ITEMS
+
+    monkeypatch.setattr(live_backend, "split_transcript", fake_split)
     lb = LiveBackend()
     items = lb.split_items(SID)
-    assert len(items) == 29
+
+    assert len(items) == 2
     assert items[0].id == "q01"
-    # match a real transcript back to its source_id
+    assert items[0].question == "Расскажи о себе"
+    assert items[0].question_time == "00:30"
+    assert items[1].answer == "Это вероятность"
+    assert items[1].question_topic == "Statistics"
+
+    # cached: re-reading the split (as the stream does per item) must not re-call.
+    lb.split_items(SID)
+    lb.split_items(SID)
+    assert calls["n"] == 1
+
+
+def test_match_delegates_to_emulator() -> None:
+    lb = LiveBackend()
     assert lb.match_source(lb.transcript_text(SID)) == SID
     assert lb.match_source("totally unrelated text") is None
 
