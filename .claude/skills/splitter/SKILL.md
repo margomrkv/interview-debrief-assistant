@@ -106,6 +106,19 @@ Last updated: 2026-05-21
 
 Если агент «ускоряет» прогон через наследование — прогон **невалиден**, даже при ✅ в отчёте.
 
+**Техническая реализация (обязательно):**
+
+| Момент | Скрипт | Что делает |
+|--------|--------|------------|
+| Шаг 1 | `step1-prepare/splitter_prepare_prompt.py` | Пишет **пустой** `{basename}.vN.qa-split.json` (`items: []`) и список **запрещённых** файлов `v1…v(N-1)` в `pipeline-log.md` |
+| После шага 2 | `step1-prepare/splitter_check_prior_leak.py` | Exit **1**, если fingerprint `items[]` **совпадает** с любой старой версией |
+| Шаг 3–4 | `step3-excel/splitter_post.sh` | Повторяет `splitter_check_prior_leak.py` перед Excel/validate |
+
+```bash
+python3 .claude/skills/splitter/step1-prepare/splitter_check_prior_leak.py \
+  data/knowledgebase/splitted/.../{basename}.vN.qa-split.json
+```
+
 ### Разделение спикеров (частые ошибки на behavioral)
 
 В транскриптах **нет меток спикера**; длинный монолог кандидата часто продолжается **после** короткой реплики интервьюера.
@@ -132,6 +145,21 @@ Last updated: 2026-05-21
 Подробности: `splitter_system_prompt.txt` (§ `interviewer_question vs candidate_answer`, § `interviewer_feedback`).
 
 **Проверка в отчёте:** `validation-report.md` → секция «Проверка границ реплик» (эвристика: дубли Q/A, обрывки вопроса, смешение в answer).
+
+### Pair programming (`technical_coding`) — реплики перемешаны
+
+В Colab/screen-share **нет diarization**: строка `[00:49:39]` может содержать и кандидата («ну я бы видел цикл»), и интервьюера («супер напиши») в одной строке.
+
+| Поле | Содержимое |
+|------|------------|
+| `interviewer_question` | только постановка задачи |
+| `candidate_answer` | **только** реплики кандидата за всю задачу (склейка span'ов) |
+| `interviewer_feedback` | **только** подсказки интервьюера за ту же задачу (может быть длинным) |
+| `reference_answer` | финальное эталонное решение в конце |
+
+**Запрещено:** один длинный `candidate_answer` с «ты видишь», «давай напишем», «не слушай ты усложняешь» — это речь интервьюера, не кандидата.
+
+Эвристика в отчёте: `pair programming (technical_coding): …` у item'ов вроде group-by Python.
 
 ---
 
@@ -367,8 +395,9 @@ data/knowledgebase/splitted/real-interviews/<publisher>/<basename>/
 
 ```bash
 python3 .claude/skills/splitter/step4-validate-chapters/splitter_verdict.py \
-  data/knowledgebase/splitted/.../data-scientist-junior-karpov-2022-03-30.v9.validation-report.md
-echo $?   # 0 = пройдено, 1 = не пройдено, 2 = частично
+  data/knowledgebase/splitted/.../data-scientist-junior-karpov-2022-03-30.v9.validation-report.md \
+  --json data/knowledgebase/splitted/.../data-scientist-junior-karpov-2022-03-30.v9.qa-split.json
+echo $?   # 0 = пройдено, 1 = не пройдено / prior leak, 2 = частично
 ```
 
 Шаг 5 (семантика LLM) **не меняет** этот вердикт — только колонку «Смысл (5)» и «Проверка 3». Цикл исправления смотрит на вердикт **после** шагов 4–5.
@@ -441,7 +470,8 @@ python3 .claude/skills/splitter/step1-prepare/splitter_prepare_prompt.py \
 - **Запрещено:** читать/копировать `*.v(N-1).qa-split.json` или любой старый qa-split (см. «Каждый прогон с нуля»).
 - Извлечь Q&A **заново** из `PRIMARY_TRANSCRIPT`; проверить, что `interviewer_feedback` не содержит речь кандидата.
 - Ответ: **только JSON**, без markdown-обёртки; temperature 0.
-- Сохранить в путь `.json` из промпта (блок step 2) — **полная перезапись** файла.
+- Сохранить в путь `.json` из промпта (блок step 2) — **полная перезапись** файла (шаг 1 уже создал пустой stub).
+- Сразу после сохранения — **`splitter_check_prior_leak.py`** на этот JSON; при exit **1** пересобрать из транскрипта, не копировать v(N-1).
 
 ### Шаг 3 — Excel
 
@@ -627,8 +657,9 @@ FOLDER=data/knowledgebase/raw/mock-interviews/karpov/data-scientist-junior-karpo
 
 Цикл исправления (если есть video.md) — после шага 5:
    python3 .claude/skills/splitter/step4-validate-chapters/splitter_verdict.py \
-     data/knowledgebase/splitted/.../{basename}.vN.validation-report.md
-   - exit 0 → можно «Готово»
+     data/knowledgebase/splitted/.../{basename}.vN.validation-report.md \
+     --json data/knowledgebase/splitted/.../{basename}.vN.qa-split.json
+   - exit 0 → можно «Готово» (в т.ч. leak check пройден)
    - exit 1 или 2, или в отчёте есть «❌ не распознан»:
      a) Прочитай validation-report.md: ### Вердикт, нераспознанные главы, Проверка 1–3
      b) Кратко объясни пользователю причину

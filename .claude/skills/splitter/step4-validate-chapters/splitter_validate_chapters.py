@@ -160,6 +160,33 @@ _INTERVIEWER_PIVOT_IN_ANSWER = (
     "но теперь ты руководитель",
 )
 
+# Pair-programming / live coding: interviewer coaching misplaced in candidate_answer.
+_CODING_INTERVIEWER_IN_ANSWER = (
+    "ты видишь",
+    "типа ты видишь",
+    "не слушай ты",
+    "не слушай, ты",
+    "ты усложня",
+    "тебе нужно просто",
+    "тебе нужно",
+    "ты должен",
+    "ты здесь пытаешь",
+    "супер напиши",
+    "давай напишем",
+    "давай напиши",
+    "проговори логику",
+    "проговори",
+    "нам нужно сделать",
+    "давай сделаем",
+    "давай я сверху",
+    "создадим",
+    "перезагрузи",
+    "перезагрузить страничку",
+    "огромная подсказка",
+    "хорошо, давай напишем",
+    "хорошо давай напишем",
+)
+
 _TRUNCATED_QUESTION_ENDINGS = (
     " не что",
     " не",
@@ -981,6 +1008,45 @@ def detect_speaker_mix_in_answer(text: str | None) -> str | None:
     return None
 
 
+def detect_coding_interviewer_in_answer(
+    text: str | None,
+    *,
+    interview_stage: str | None,
+) -> str | None:
+    """Pair programming: interviewer coaching must not live in candidate_answer."""
+    if interview_stage != "technical_coding" or not text or not str(text).strip():
+        return None
+    low = str(text).lower()
+    hits = [m for m in _CODING_INTERVIEWER_IN_ANSWER if m in low]
+    if not hits:
+        return None
+    return (
+        "pair programming (`technical_coding`): в `candidate_answer` речь интервьюера "
+        f"(«{hits[0]}»…). Вынести подсказки в `interviewer_feedback`, "
+        "в answer оставить только реплики кандидата (system prompt § technical_coding)."
+    )
+
+
+def detect_coding_feedback_missing(
+    answer: str | None,
+    feedback: str | None,
+    *,
+    interview_stage: str | None,
+) -> str | None:
+    """Long coding task with interviewer lines in answer but empty feedback."""
+    if interview_stage != "technical_coding":
+        return None
+    a = (answer or "").strip()
+    if len(a) < 400 or (feedback or "").strip():
+        return None
+    if detect_coding_interviewer_in_answer(a, interview_stage=interview_stage):
+        return (
+            "`interviewer_feedback` пустой, но в `candidate_answer` есть подсказки интервьюера — "
+            "соберите длинный блок coaching в `interviewer_feedback` (pair programming)."
+        )
+    return None
+
+
 def build_speaker_mix_warnings(raw_items: list[dict]) -> list[str]:
     """Deterministic warnings for role boundaries in Q/A fields."""
     hits: list[tuple[int, str]] = []
@@ -989,12 +1055,15 @@ def build_speaker_mix_warnings(raw_items: list[dict]) -> list[str]:
         a = (raw.get("candidate_answer") or {}).get("text")
         fb = (raw.get("interviewer_feedback") or {}).get("text")
         ref = (raw.get("reference_answer") or {}).get("text")
+        stage = raw.get("interview_stage")
         for detector in (
             lambda: detect_qa_duplicate_prefix(q, a),
             lambda: detect_truncated_question(q),
             lambda: detect_candidate_text_in_question(q),
             lambda: detect_interviewer_pivot_in_answer(a),
             lambda: detect_speaker_mix_in_answer(a),
+            lambda: detect_coding_interviewer_in_answer(a, interview_stage=stage),
+            lambda: detect_coding_feedback_missing(a, fb, interview_stage=stage),
             lambda: detect_feedback_overlaps_answer(a, fb, ref),
         ):
             msg = detector()
@@ -2267,12 +2336,15 @@ def _item_boundary_warnings(raw: dict) -> str | None:
     a = (raw.get("candidate_answer") or {}).get("text")
     fb = (raw.get("interviewer_feedback") or {}).get("text")
     ref = (raw.get("reference_answer") or {}).get("text")
+    stage = raw.get("interview_stage")
     for detector in (
         lambda: detect_qa_duplicate_prefix(q, a),
         lambda: detect_truncated_question(q),
         lambda: detect_candidate_text_in_question(q),
         lambda: detect_interviewer_pivot_in_answer(a),
         lambda: detect_speaker_mix_in_answer(a),
+        lambda: detect_coding_interviewer_in_answer(a, interview_stage=stage),
+        lambda: detect_coding_feedback_missing(a, fb, interview_stage=stage),
         lambda: detect_feedback_overlaps_answer(a, fb, ref),
     ):
         msg = detector()

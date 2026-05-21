@@ -41,6 +41,12 @@ if [[ ! -f "$JSON_PATH" ]]; then
   exit 1
 fi
 
+# Reject qa-split identical to a prior version (copy-paste from vN-1 guard)
+if ! python3 "$SKILL/step1-prepare/splitter_check_prior_leak.py" "$JSON_PATH"; then
+  echo "ERROR: prior-version leak — re-run step 2 from PRIMARY_TRANSCRIPT only (see SKILL.md)" >&2
+  exit 1
+fi
+
 if [[ "$JSON_PATH" != /* ]]; then
   JSON_PATH="$REPO_ROOT/$JSON_PATH"
 fi
