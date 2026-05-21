@@ -113,6 +113,7 @@ source = { editable = "." }
 dependencies = [
     { name = "anthropic" },
     { name = "dspy-ai" },
+    { name = "jsonschema" },
     { name = "litellm" },
     { name = "optuna" },
     { name = "python-dotenv" },
@@ -136,6 +137,7 @@ requires-dist = [
     { name = "anthropic", specifier = ">=0.40" },
     { name = "arize-phoenix", marker = "extra == 'tracing'", specifier = ">=5.0" },
     { name = "dspy-ai", specifier = ">=2.5" },
+    { name = "jsonschema", specifier = ">=4.0" },
     { name = "litellm", specifier = ">=1.50" },
     { name = "openinference-instrumentation-dspy", marker = "extra == 'tracing'", specifier = ">=0.1" },
     { name = "opentelemetry-exporter-otlp", marker = "extra == 'tracing'", specifier = ">=1.25" },
