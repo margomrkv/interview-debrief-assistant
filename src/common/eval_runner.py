@@ -55,7 +55,8 @@ def predict_all(
     Failures are returned as objects with `_error` set and METRICS attrs as None.
     """
     student = ScoringEvaluator()
-    student.score.predict.signature = student.score.predict.signature.with_instructions(prompt_text)
+    if prompt_text:
+        student.score.predict.signature = student.score.predict.signature.with_instructions(prompt_text)
 
     with dspy.context(
         lm=(lm or task_lm()),

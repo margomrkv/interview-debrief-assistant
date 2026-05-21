@@ -20,11 +20,10 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from src.ui.report import rollup_report
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 EMU_ROOT = REPO_ROOT / "data" / "emulator-data"
-
-METRICS = ("factual_correctness", "focus", "clarity")
-SCORE_MIN, SCORE_MAX = 1, 10
 
 
 def _text(node: Any) -> str | None:
@@ -162,35 +161,16 @@ def score_item(source_id: str, idx: int) -> dict[str, Any]:
 
 
 def report(source_id: str) -> dict[str, Any]:
-    """Interview-level rollup → AlignmentReport-style verdict (md/spec.md §3.4)."""
+    """Interview-level rollup → AlignmentReport-style verdict (md/spec.md §3.4).
+
+    Delegates the verdict math to ``rollup_report`` so the emulator and live
+    backends report identical numbers from the same per-item triplets.
+    """
     entry = _entry(source_id)
     pairs = entry["pairs"] if entry else []
     scored = [p["score"]["reference_score"] for p in pairs
               if p["score"].get("reference_score")]
-
-    means: dict[str, float | None] = {}
-    all_vals: list[float] = []
-    for m in METRICS:
-        vals = [rs[m] for rs in scored if rs.get(m) is not None]
-        means[m] = round(sum(vals) / len(vals), 1) if vals else None
-        all_vals += vals
-
-    overall = sum(all_vals) / len(all_vals) if all_vals else None
-    if overall is None:
-        p_hire, verdict = None, None
-    else:
-        p_hire = round((overall - SCORE_MIN) / (SCORE_MAX - SCORE_MIN) * 100)
-        verdict = "HIRE" if p_hire >= 50 else "NO_HIRE"
-
-    return {
-        "source_id": source_id,
-        "means": means,
-        "overall": round(overall, 1) if overall is not None else None,
-        "p_hire": p_hire,
-        "verdict": verdict,
-        "n_questions": len(pairs),
-        "n_scored": len(scored),
-    }
+    return rollup_report(source_id, scored, n_questions=len(pairs))
 
 
 def match_source(uploaded_text: str) -> str | None:
