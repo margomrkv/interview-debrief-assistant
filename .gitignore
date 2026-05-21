@@ -48,3 +48,4 @@ logs/
 # Per-run artifact directories (prompt, train_report, eval_*, logs/*.jsonl)
 runs/
 /kb/splits.json
+/data/knowledgebase/train/splits.json
