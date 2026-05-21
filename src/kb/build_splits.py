@@ -4,8 +4,8 @@ See plan §"Fixed decisions" D7, D8, D13.
 """
 from __future__ import annotations
 
-import argparse
 import json
+import logging
 import random
 from pathlib import Path
 from typing import Any
@@ -93,32 +93,11 @@ def build_splits(
     return result
 
 
-def _print_summary(result: dict[str, Any]) -> None:
+def log_split_summary(result: dict[str, Any], logger: logging.Logger) -> None:
     s = result["stats"]
-    print(f"split: {s['train']} train / {s['test']} test (excluded unscored: {s['excluded_unscored']})")
-    for src, b in s["per_source"].items():
-        print(f"  {src}: {b['train']} train / {b['test']} test")
-
-
-def main() -> None:
-    p = argparse.ArgumentParser(description="Build kb/splits.json from train/hard_skills.json")
-    p.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    p.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    p.add_argument("--train-ratio", type=float, default=0.7)
-    p.add_argument("--seed", type=int, default=42)
-    p.add_argument("--smoke", action="store_true", help=f"limit to first {SMOKE_SOURCE_COUNT} source_ids")
-    args = p.parse_args()
-
-    result = build_splits(
-        input_path=args.input,
-        output_path=args.output,
-        train_ratio=args.train_ratio,
-        seed=args.seed,
-        smoke=args.smoke,
+    logger.info(
+        "split: %d train / %d test (excluded unscored: %d)",
+        s["train"], s["test"], s["excluded_unscored"],
     )
-    _print_summary(result)
-    print(f"wrote {args.output.relative_to(REPO_ROOT)}")
-
-
-if __name__ == "__main__":
-    main()
+    for src, b in s["per_source"].items():
+        logger.info("  %s: %d train / %d test", src, b["train"], b["test"])

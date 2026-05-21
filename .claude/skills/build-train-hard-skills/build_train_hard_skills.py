@@ -1,7 +1,8 @@
 """Собирает train/hard_skills.json из splitter_output/**/*.v*.qa-split.json (и legacy *.qa-split.v*.json).
 
 Берёт только последнюю версию (vN) на каждый source_id, фильтрует
-question_type == "hard", добавляет в каждый item поле source_id первым.
+question_type in ACCEPTED_QUESTION_TYPES ("hard", "technical_qna"),
+добавляет в каждый item поле source_id первым.
 """
 
 from __future__ import annotations
@@ -19,12 +20,27 @@ OUT_PATH = REPO_ROOT / "train" / "hard_skills.json"
 VERSION_RE_NEW = re.compile(r"\.v(\d+)\.qa-split\.json$")
 VERSION_RE_OLD = re.compile(r"\.qa-split\.v(\d+)\.json$")
 
+GRADES = ("junior", "middle", "senior")
+
+# Какие question_type попадают в корпус (см. SKILL.md §Конфигурация).
+ACCEPTED_QUESTION_TYPES = {"hard", "technical_qna"}
+
 
 def parse_version(path: Path) -> int:
     m = VERSION_RE_NEW.search(path.name) or VERSION_RE_OLD.search(path.name)
     if not m:
         raise ValueError(f"no vN qa-split json in filename: {path.name}")
     return int(m.group(1))
+
+
+def parse_grade(path: Path) -> str | None:
+    """Grade (junior|middle|senior) from the leaf interview folder slug, e.g.
+    data-analyst-*junior*-karpov-... -> 'junior'. Returns None if absent."""
+    tokens = set(path.parent.name.split("-"))
+    found = [g for g in GRADES if g in tokens]
+    if len(found) == 1:
+        return found[0]
+    return None
 
 
 def main() -> int:
@@ -53,15 +69,19 @@ def main() -> int:
     per_source_hard: Counter[str] = Counter()
     skipped_zero_hard: list[str] = []
 
+    missing_grade: list[str] = []
     for source_id, (version, path, data) in sorted(latest_per_source.items()):
         items = data.get("items", [])
-        hard_items = [i for i in items if i.get("question_type") == "hard"]
+        hard_items = [i for i in items if i.get("question_type") in ACCEPTED_QUESTION_TYPES]
         if not hard_items:
             skipped_zero_hard.append(f"{source_id} (v{version})")
             continue
+        grade = parse_grade(path)
+        if grade is None:
+            missing_grade.append(f"{source_id} (folder: {path.parent.name})")
         per_source_hard[source_id] = len(hard_items)
         for item in hard_items:
-            enriched = {"source_id": source_id, **item}
+            enriched = {"source_id": source_id, **item, "grade": grade}
             flat_items.append(enriched)
 
     out = {
@@ -83,6 +103,10 @@ def main() -> int:
     if skipped_zero_hard:
         print(f"skipped (0 hard items): {len(skipped_zero_hard)}", file=sys.stderr)
         for s in skipped_zero_hard:
+            print(f"  {s}", file=sys.stderr)
+    if missing_grade:
+        print(f"WARN: no grade in folder name ({len(missing_grade)}):", file=sys.stderr)
+        for s in missing_grade:
             print(f"  {s}", file=sys.stderr)
     return 0
 

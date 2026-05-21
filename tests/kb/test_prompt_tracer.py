@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from src.train.cost_callback import CostCallback
-from src.train.prompt_tracer import PromptTracer
+from src.common.cost_callback import CostCallback
+from src.common.prompt_tracer import PromptTracer
 
 
 class _FakeLM:
@@ -89,6 +89,47 @@ def test_records_exception(tracer: PromptTracer, cost_cb: CostCallback) -> None:
     assert "ValueError" in row["error"]
     assert "boom" in row["error"]
     assert row["model"] is None  # no history entry was added
+    cost_cb.close()
+
+
+class _PydanticLikeUsageDetails:
+    """Mimics litellm.types.utils.CompletionTokensDetailsWrapper: a pydantic
+    BaseModel with model_dump(). Stdlib json can't serialize it directly."""
+
+    def __init__(self, **fields: int) -> None:
+        self._fields = fields
+
+    def model_dump(self) -> dict:
+        return dict(self._fields)
+
+
+def test_serializes_pydantic_usage_details(tracer: PromptTracer, cost_cb: CostCallback) -> None:
+    """Regression for am-best-offer-d4z: litellm puts pydantic models inside
+    `usage.completion_tokens_details`; the tracer must not silently drop the line."""
+    lm = _FakeLM()
+    tracer.on_lm_start(call_id="c1", instance=lm, inputs={})
+    details = _PydanticLikeUsageDetails(cached_tokens=12, reasoning_tokens=34)
+    lm.history.append(
+        {
+            "uuid": "u1",
+            "model": "fake/model",
+            "messages": [{"role": "user", "content": "hi"}],
+            "outputs": ["yo"],
+            "usage": {
+                "prompt_tokens": 5,
+                "completion_tokens": 1,
+                "completion_tokens_details": details,
+            },
+        }
+    )
+    tracer.on_lm_end(call_id="c1", outputs={})
+    tracer.close()
+
+    rows = _read_jsonl(tracer.jsonl_path)
+    assert len(rows) == 1
+    usage = rows[0]["usage"]
+    assert usage["prompt_tokens"] == 5
+    assert usage["completion_tokens_details"] == {"cached_tokens": 12, "reasoning_tokens": 34}
     cost_cb.close()
 
 
