@@ -48,10 +48,11 @@ TASK_MODEL_ID = "openrouter/google/gemma-4-26b-a4b-it"
 # `train.py --prompt-model {sonnet|haiku|gpt-4o-mini|gemini-flash}`.
 PROMPT_MODEL_ID = "anthropic/claude-haiku-4-5-20251001"
 LABEL_MODEL_ID = "anthropic/claude-opus-4-7"
-# Splitter LM (transcript → Q&A). Used by src/splitter/split.py via litellm.completion
-# (response_format=json_object); the live UI backend calls it for Stage 1. Override
-# via SPLITTER_MODEL env. Priced in src/common/cost_callback.py.
-SPLITTER_MODEL_ID = os.getenv("SPLITTER_MODEL", "openrouter/openai/gpt-5.4-nano")
+# Splitter LM (transcript → Q&A). Used by src/splitter/split.py via litellm.completion;
+# the live UI backend calls it for Stage 1. Sonnet by design: one-shot full-transcript
+# extraction needs a strong model — gpt-5.4-nano/gpt-5-mini under-extract long interviews
+# (18-19/29 vs sonnet 30/29; see am-best-offer-4r0). Override via SPLITTER_MODEL env.
+SPLITTER_MODEL_ID = os.getenv("SPLITTER_MODEL", "anthropic/claude-sonnet-4-6")
 
 # Short aliases for the --prompt-model CLI flag (A/B testing the MIPROv2 proposer).
 # See am-best-offer-351 for rationale (DSPy #1596, paper 2406.11695).
