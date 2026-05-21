@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interview Assessment — emulator</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Interview Assessment <span class="tag">emulator</span></div>
+    <div class="pipeline">
+      <span class="step" id="step-splitter">1 · Splitter</span>
+      <span class="arrow">→</span>
+      <span class="step" id="step-scoring">2 · Scoring</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h2>Транскрипты</h2>
+        <label class="upload" title="Загрузить .txt — сопоставится с известным интервью">
+          <input type="file" id="file" accept=".txt" hidden />
+          ↥ Загрузить
+        </label>
+      </div>
+      <ul id="interviews" class="interviews"></ul>
+    </aside>
+
+    <section class="content">
+      <div id="empty" class="empty">
+        Выберите транскрипт слева или загрузите <code>.txt</code>, чтобы запустить
+        двухэтапный разбор (Splitter → Scoring).
+      </div>
+
+      <div id="run" class="run" hidden>
+        <div class="run-head">
+          <h1 id="run-title"></h1>
+          <div id="run-meta" class="run-meta"></div>
+        </div>
+
+        <div id="verdict" class="verdict" hidden></div>
+
+        <details class="transcript">
+          <summary>Транскрипт (вход Splitter)</summary>
+          <pre id="transcript-text"></pre>
+        </details>
+
+        <div id="progress" class="progress"></div>
+        <ol id="qa" class="qa"></ol>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
