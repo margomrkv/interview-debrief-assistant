@@ -33,6 +33,8 @@ PRICES: dict[str, dict[str, float]] = {
     "anthropic/claude-haiku-4-5-20251001": {"input": 1.0, "output": 5.0},
     "openrouter/openai/gpt-5.4-nano": {"input": 0.2, "output": 1.5},
     "openrouter/nvidia/nemotron-3-super-120b-a12b:free": {"input": 0.0, "output": 0.0},
+    'openrouter/google/gemma-4-26b-a4b-it': {"input": 0.06, "output": 0.33},
+    "openrouter/qwen/qwen-2.5-7b-instruct": {"input": 0.04, "output": 0.10},
 }
 
 _SHORT_NAMES: dict[str, str] = {
