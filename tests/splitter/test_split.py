@@ -45,6 +45,15 @@ def test_parses_items_from_json() -> None:
     assert out[0]["question_topic"] == "Statistics"
 
 
+def test_parses_markdown_fenced_json() -> None:
+    # Anthropic ignores response_format=json_object and wraps output in a ```json fence.
+    inner = json.dumps({"source_id": "x", "items": [ITEM]})
+    fenced = f"```json\n{inner}\n```"
+    out = split_transcript("текст интервью", "x", complete=_fake_complete(fenced))
+    assert len(out) == 1
+    assert out[0]["question_topic"] == "Statistics"
+
+
 def test_malformed_json_returns_empty() -> None:
     out = split_transcript("some transcript", "x",
                            complete=_fake_complete("not json {{{"))
