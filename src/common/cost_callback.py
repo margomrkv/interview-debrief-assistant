@@ -2,7 +2,8 @@
 
 Hooks all LM calls via `dspy.utils.callback.BaseCallback`, aggregates tokens
 and dollars per model using an explicit `PRICES` table, and writes one JSONL
-line per call. Stderr summary is throttled to `stderr_throttle_sec`.
+line per call. Throttled summary is emitted via `logger.debug` (hidden by
+default; surfaced with `--verbose`).
 
 Phase/trial tracking is handled by `MIPROPhaseHandler`, a `logging.Handler`
 that sniffs INFO records from `dspy.teleprompt.mipro_v2`.
@@ -15,7 +16,6 @@ from __future__ import annotations
 import json
 import logging
 import re
-import sys
 import threading
 import time
 from collections import defaultdict
@@ -31,7 +31,10 @@ PRICES: dict[str, dict[str, float]] = {
     "anthropic/claude-sonnet-4-6": {"input": 3.0, "output": 15.0},
     "anthropic/claude-opus-4-7": {"input": 15.0, "output": 75.0},
     "anthropic/claude-haiku-4-5-20251001": {"input": 1.0, "output": 5.0},
+    "openrouter/openai/gpt-5.4-nano": {"input": 0.2, "output": 1.5},
     "openrouter/nvidia/nemotron-3-super-120b-a12b:free": {"input": 0.0, "output": 0.0},
+    'openrouter/google/gemma-4-26b-a4b-it': {"input": 0.06, "output": 0.33},
+    "openrouter/qwen/qwen-2.5-7b-instruct": {"input": 0.04, "output": 0.10},
 }
 
 _SHORT_NAMES: dict[str, str] = {
@@ -41,7 +44,7 @@ _SHORT_NAMES: dict[str, str] = {
     "openrouter/nvidia/nemotron-3-super-120b-a12b:free": "nemotron",
 }
 
-_log = logging.getLogger(__name__)
+_log = logging.getLogger("cost")
 
 
 @dataclass
@@ -72,22 +75,38 @@ class CostCallback(BaseCallback):
         version: str,
         jsonl_path: Path,
         prices: dict[str, dict[str, float]] | None = None,
-        stderr_throttle_sec: float = 2.0,
+        throttle_sec: float = 2.0,
     ) -> None:
         self.version = version
         self.prices = prices if prices is not None else PRICES
-        self.stderr_throttle_sec = stderr_throttle_sec
+        self.throttle_sec = throttle_sec
         self.totals: dict[str, ModelStats] = defaultdict(ModelStats)
         self.current_phase: str = "init"
         self.current_trial: str = "-"
+        # Demoset / instruction indices of the trial currently under evaluation.
+        # Updated *before* eval by the wrapper around MIPROv2's
+        # `_select_and_insert_instructions_and_demos` (see src/kb/train.py); stay
+        # "-" for bootstrap and the baseline full-eval (trial 1) that bypass it.
+        self.current_demoset: str = "-"
+        self.current_instruction: str = "-"
+        # Proposed instruction texts in the order MIPROv2 proposed them (propose
+        # phase). Filled by MIPROPhaseHandler from the `j: <instruction>` records;
+        # consumed by _write_prompt_evolution to number instructions I0..In in
+        # proposal order rather than first-seen-in-candidate_programs order.
+        self.proposed_instructions: list[str] = []
         self._call_start: dict[str, float] = {}
         self._call_model: dict[str, str] = {}
         self._call_instance: dict[str, Any] = {}
         self._call_history_len: dict[str, int] = {}
         self._claimed_uuids: set[str] = set()
         self._unknown_warned: set[str] = set()
-        self._last_stderr_t: float = 0.0
+        self._last_log_t: float = 0.0
         self._lock = threading.Lock()
+        # Counts DSPy-logger ERRORs that the LM callback can't see (adapter
+        # parse failures happen after on_lm_end with a healthy token count, so
+        # ModelStats.failures stays 0 even when MIPROv2 loses 46% of examples).
+        # Surfaced in render_summary; populated by MIPROPhaseHandler.emit.
+        self.parse_failures: int = 0
         jsonl_path.parent.mkdir(parents=True, exist_ok=True)
         self._jsonl_fp = open(jsonl_path, "a", encoding="utf-8")
         self.jsonl_path = jsonl_path
@@ -157,9 +176,9 @@ class CostCallback(BaseCallback):
                 s.failures += 1
             phase = self.current_phase
             trial = self.current_trial
-            should_print = (now - self._last_stderr_t) >= self.stderr_throttle_sec
-            if should_print:
-                self._last_stderr_t = now
+            should_log = (now - self._last_log_t) >= self.throttle_sec
+            if should_log:
+                self._last_log_t = now
             snapshot = {m: (st.calls, st.in_tok, st.out_tok, st.spend) for m, st in self.totals.items()}
 
         # JSONL write (outside lock except for fp — fp itself is single-writer-safe enough
@@ -184,36 +203,31 @@ class CostCallback(BaseCallback):
             self._jsonl_fp.write(line + "\n")
             self._jsonl_fp.flush()
 
-        if should_print:
-            self._print_stderr(phase, trial, snapshot)
+        if should_log:
+            self._log_throttled(phase, trial, snapshot)
 
-    def _print_stderr(
+    def _log_throttled(
         self,
         phase: str,
         trial: str,
         snapshot: dict[str, tuple[int, int, int, float]],
     ) -> None:
+        if not _log.isEnabledFor(logging.DEBUG):
+            return
         try:
             total_calls = sum(v[0] for v in snapshot.values())
             total_in = sum(v[1] for v in snapshot.values())
             total_out = sum(v[2] for v in snapshot.values())
             total_spend = sum(v[3] for v in snapshot.values())
             parts = [f"{_short(m)}=${v[3]:.3f}" for m, v in snapshot.items()]
-            line = (
-                f"[{phase} {trial}] calls={total_calls}  "
-                f"in={total_in / 1000:.1f}k out={total_out / 1000:.1f}k  "
-                f"${total_spend:.3f}  ({' '.join(parts)})"
+            _log.debug(
+                "[%s %s] calls=%d  in=%.1fk out=%.1fk  $%.3f  (%s)",
+                phase, trial, total_calls,
+                total_in / 1000, total_out / 1000, total_spend,
+                " ".join(parts),
             )
-            # Write directly to the real underlying stderr to bypass any
-            # tqdm/asyncio wrapping that swallows ad-hoc prints during MIPRO.
-            stream = sys.__stderr__ or sys.stderr
-            try:
-                stream.write(line + "\n")
-                stream.flush()
-            except Exception:
-                print(line, file=sys.stderr, flush=True)
         except Exception as e:
-            _log.warning("CostCallback stderr render failed: %s", e)
+            _log.warning("CostCallback throttled render failed: %s", e)
 
     def render_summary(self) -> dict[str, Any]:
         with self._lock:
@@ -237,6 +251,7 @@ class CostCallback(BaseCallback):
             "total_in": total_in,
             "total_out": total_out,
             "total_spend": round(total_spend, 6),
+            "parse_failures": self.parse_failures,
             "jsonl_path": str(self.jsonl_path),
         }
 
@@ -255,15 +270,27 @@ class CostCallback(BaseCallback):
 
 
 class MIPROPhaseHandler(logging.Handler):
-    """Sniff `dspy.teleprompt.mipro_v2` INFO records to update phase/trial on `cb`."""
+    """Sniff `dspy.teleprompt.mipro_v2` INFO records to update phase/trial on `cb`.
+
+    Also counts ERROR-level records from DSPy's parallelizer/bootstrap/utils
+    loggers as `cb.parse_failures` — these are adapter parse failures that
+    don't surface through the LM callback (the LM call itself succeeded; only
+    the structured-output extraction failed).
+    """
 
     _TRIAL_RE = re.compile(r"[Tt]rial\s+(\d+)\s*/?\s*(\d+)?")
+    # MIPROv2 logs each proposed instruction as one record `f"{j}: {instruction}"`
+    # (mipro_optimizer_v2.py:504); DOTALL captures multi-line instruction bodies.
+    _PROPOSED_RE = re.compile(r"^(\d+):\s(.*)", re.DOTALL)
 
     def __init__(self, cb: CostCallback) -> None:
         super().__init__(level=logging.INFO)
         self.cb = cb
 
     def emit(self, record: logging.LogRecord) -> None:
+        if record.levelno >= logging.ERROR:
+            with self.cb._lock:
+                self.cb.parse_failures += 1
         try:
             msg = record.getMessage()
         except Exception:
@@ -279,6 +306,21 @@ class MIPROPhaseHandler(logging.Handler):
         if m:
             total = m.group(2)
             self.cb.current_trial = f"{m.group(1)}/{total}" if total else m.group(1)
+        # Capture proposed instructions in proposal order (only during propose).
+        # j=0 is later overwritten with the seed by MIPROv2 — last write wins,
+        # which mirrors the optimizer's own instruction_candidates[i][0] = seed.
+        if self.cb.current_phase == "propose":
+            pm = self._PROPOSED_RE.match(msg)
+            if pm:
+                j, text = int(pm.group(1)), pm.group(2).strip()
+                lst = self.cb.proposed_instructions
+                if j < len(lst):
+                    lst[j] = text
+                elif j == len(lst):
+                    lst.append(text)
+                else:  # gap (shouldn't happen) — pad to keep index alignment
+                    lst.extend([""] * (j - len(lst)))
+                    lst.append(text)
 
 
 def cost_breakdown_markdown(summary: dict[str, Any]) -> list[str]:
@@ -297,5 +339,8 @@ def cost_breakdown_markdown(summary: dict[str, Any]) -> list[str]:
         f"| **TOTAL** | {summary['total_calls']} | {summary['total_in']:,} | "
         f"{summary['total_out']:,} | **${summary['total_spend']:.4f}** |"
     )
+    parse_failures = summary.get("parse_failures", 0)
+    if parse_failures:
+        lines += ["", f"⚠ DSPy adapter parse-failures: **{parse_failures}** (examples lost during bootstrap/evaluate)"]
     lines += ["", f"JSONL log: `{summary['jsonl_path']}`"]
     return lines

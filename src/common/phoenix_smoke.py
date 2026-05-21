@@ -1,6 +1,6 @@
 """Sanity check that Phoenix + DSPyInstrumentor start without errors.
 
-Run: `python scripts/phoenix_smoke.py`
+Run: `python -m src.common.phoenix_smoke`
 Expected: prints "phoenix UI: http://localhost:6006" and "OK" (or an install
 hint if the optional `[tracing]` extras are missing).
 
@@ -10,11 +10,8 @@ the Phoenix in-process app starts.
 from __future__ import annotations
 
 import sys
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from src.train.tracer_setup import setup_phoenix, shutdown_phoenix  # noqa: E402
+from src.common.tracer_setup import setup_phoenix, shutdown_phoenix
 
 
 def main() -> int:
