@@ -3,55 +3,49 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interview Assessment — emulator</title>
+  <title>Interview Assessment</title>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">Interview Assessment <span class="tag">emulator</span></div>
-    <div class="pipeline">
-      <span class="step" id="step-splitter">1 · Splitter</span>
-      <span class="arrow">→</span>
-      <span class="step" id="step-scoring">2 · Scoring</span>
+  <!-- ===== Screen 1 — upload ===== -->
+  <section id="view-upload" class="view active">
+    <div class="hero">
+      <div class="logo">IA</div>
+      <h1>Interview Assessment</h1>
+      <p class="lead">Загрузите транскрипт интервью — система разберёт его на
+        вопросы и ответы и оценит каждый ответ.</p>
+
+      <label id="drop" class="dropzone">
+        <input type="file" id="file" accept=".txt,text/plain" hidden />
+        <div class="dz-icon">↥</div>
+        <div class="dz-title">Перетащите <b>.txt</b> сюда или нажмите, чтобы выбрать</div>
+        <div class="dz-sub">Транскрипт интервью в текстовом формате</div>
+      </label>
+
+      <div class="or">или</div>
+      <button id="use-demo" class="btn btn-primary">Use demo</button>
+
+      <div id="upload-msg" class="upload-msg" hidden></div>
     </div>
-  </header>
+  </section>
 
-  <main class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-head">
-        <h2>Транскрипты</h2>
-        <label class="upload" title="Загрузить .txt — сопоставится с известным интервью">
-          <input type="file" id="file" accept=".txt" hidden />
-          ↥ Загрузить
-        </label>
-      </div>
-      <ul id="interviews" class="interviews"></ul>
-    </aside>
+  <!-- ===== Screen 2 — results ===== -->
+  <section id="view-results" class="view">
+    <header class="rbar">
+      <button id="back" class="btn btn-ghost">← Загрузить другой</button>
+      <h1 id="run-title"></h1>
+    </header>
 
-    <section class="content">
-      <div id="empty" class="empty">
-        Выберите транскрипт слева или загрузите <code>.txt</code>, чтобы запустить
-        двухэтапный разбор (Splitter → Scoring).
+    <div class="rwrap">
+      <div id="status" class="status" hidden>
+        <span class="dot"></span> Анализирую интервью…
       </div>
 
-      <div id="run" class="run" hidden>
-        <div class="run-head">
-          <h1 id="run-title"></h1>
-          <div id="run-meta" class="run-meta"></div>
-        </div>
+      <div id="verdict" class="verdict" hidden></div>
 
-        <div id="verdict" class="verdict" hidden></div>
-
-        <details class="transcript">
-          <summary>Транскрипт (вход Splitter)</summary>
-          <pre id="transcript-text"></pre>
-        </details>
-
-        <div id="progress" class="progress"></div>
-        <ol id="qa" class="qa"></ol>
-      </div>
-    </section>
-  </main>
+      <ol id="qa" class="qa"></ol>
+    </div>
+  </section>
 
   <script src="/static/app.js"></script>
 </body>
