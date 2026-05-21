@@ -307,7 +307,7 @@ def _write_artifacts(
         "task_model": TASK_MODEL_ID,
         "prompt_model": prompt_model_id,
         "labeler": f"{LABEL_MODEL_ID} (pre-existing, not invoked in this run)",
-        "golden_source": "train/hard_skills.json",
+        "golden_source": "data/knowledgebase/train/hard_skills.json",
         "golden_coverage": f"{splits_meta['stats']['train'] + splits_meta['stats']['test']}/{splits_meta['stats']['train'] + splits_meta['stats']['test'] + splits_meta['stats']['excluded_unscored']}",
         "split_strategy": splits_meta["strategy"],
         "smoke": splits_meta.get("smoke", False),

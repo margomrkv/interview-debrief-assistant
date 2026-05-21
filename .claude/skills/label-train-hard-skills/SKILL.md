@@ -8,7 +8,7 @@ created_date: 2026-05-20
 ## Назначение
 
 Второй шаг тренировочного пайплайна (после `build-train-hard-skills`): берёт собранный
-`train/hard_skills.json` и проставляет золотые лейблы `reference_score` каждому hard-item по
+`data/knowledgebase/train/hard_skills.json` и проставляет золотые лейблы `reference_score` каждому hard-item по
 промпту-оценщику ниже. Результат — тот же файл с per-item `reference_score` (6 полей) и
 верхнеуровневым блоком `labeling`.
 
@@ -73,10 +73,10 @@ created_date: 2026-05-20
 
 ## Процедура
 
-1. Прочитать `train/hard_skills.json` (порядок items фиксирован build-скриптом — индекс 0..N-1 стабилен).
+1. Прочитать `data/knowledgebase/train/hard_skills.json` (порядок items фиксирован build-скриптом — индекс 0..N-1 стабилен).
 2. Для каждого item применить промпт-оценщик выше с учётом его `grade`. Источник сигнала зафиксировать:
    `signal_source` ∈ {`feedback`, `reference`, `both`}. Краткое (1–2 фразы) обоснование — `rationale`.
-3. Записать оценки в `labels.json` (рядом с этим файлом) — список объектов:
+3. Записать оценки в `data/knowledgebase/train/labels.json` (рядом с этим файлом) — список объектов:
    ```json
    [ { "idx": 0, "factual_correctness": 8, "focus": 7, "clarity": 7,
        "signal_source": "feedback", "rationale": "..." }, ... ]
