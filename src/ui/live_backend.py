@@ -10,8 +10,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from src.assessor.score import assess_one
+from src.assessor.assess import assess_one
 from src.ui.backend import EmulatorBackend
+from src.ui.models import Aggregate, InterviewReport, InterviewSummary, QA, ScoreItem
 from src.ui.report import METRICS, rollup_report
 
 # Aggregate token from the 1..10 mean of the triplet; matches the CSS classes the
@@ -19,23 +20,23 @@ from src.ui.report import METRICS, rollup_report
 AGG_STRONG, AGG_ADEQUATE = 7.0, 4.0
 
 
-def _to_qa(item: dict[str, Any]) -> dict[str, Any]:
-    """Rename emulator split-payload keys to the fields ``assess_one`` expects."""
+def _to_qa(item: QA) -> dict[str, Any]:
+    """Map a ``QA`` split item to the fields ``assess_one`` expects."""
     return {
-        "interviewer_question": item.get("question"),
-        "candidate_answer": item.get("answer"),
-        "question_topic": item.get("question_topic", ""),
-        "interview_stage": item.get("interview_stage", ""),
+        "interviewer_question": item.question,
+        "candidate_answer": item.answer,
+        "question_topic": item.question_topic or "",
+        "interview_stage": item.interview_stage or "",
     }
 
 
-def _aggregate(triplet: dict[str, int]) -> str:
+def _aggregate(triplet: dict[str, int]) -> Aggregate:
     mean = sum(triplet.values()) / len(triplet)
     if mean >= AGG_STRONG:
-        return "strong"
+        return Aggregate.STRONG
     if mean >= AGG_ADEQUATE:
-        return "adequate"
-    return "weak"
+        return Aggregate.ADEQUATE
+    return Aggregate.WEAK
 
 
 class LiveBackend:
@@ -47,7 +48,7 @@ class LiveBackend:
         self._scored: dict[str, list[dict[str, int]]] = {}  # source_id -> triplets
 
     # ---- delegated to the emulator (until a real splitter exists) ----------
-    def list_interviews(self) -> list[dict[str, Any]]:
+    def list_interviews(self) -> list[InterviewSummary]:
         return self._emu.list_interviews()
 
     def transcript_text(self, source_id: str) -> str:
@@ -56,30 +57,32 @@ class LiveBackend:
     def match_source(self, uploaded_text: str) -> str | None:
         return self._emu.match_source(uploaded_text)
 
-    def split_items(self, source_id: str) -> list[dict[str, Any]]:
+    def split_items(self, source_id: str) -> list[QA]:
         return self._emu.split_items(source_id)
 
     # ---- real scoring, one LLM call per item -------------------------------
-    def score_item(self, source_id: str, idx: int) -> dict[str, Any]:
+    def score_item(self, source_id: str, idx: int) -> ScoreItem:
         items = self.split_items(source_id)
         if not (0 <= idx < len(items)):
-            return {"idx": idx, "scored": False}
+            return ScoreItem(idx=idx, scored=False)
 
         res = assess_one(_to_qa(items[idx]), lm=self._lm)
         triplet = {m: res.get(m) for m in METRICS}
         if res.get("error") or any(v is None for v in triplet.values()):
-            return {"idx": idx, "scored": False}
+            return ScoreItem(idx=idx, scored=False)
 
         self._scored.setdefault(source_id, []).append(triplet)  # type: ignore[arg-type]
-        return {
-            "idx": idx,
-            "scored": True,
-            **triplet,
-            "aggregate": _aggregate(triplet),  # type: ignore[arg-type]
-            "rationale": res.get("reasoning"),
-        }
+        return ScoreItem(
+            idx=idx,
+            scored=True,
+            factual_correctness=triplet["factual_correctness"],
+            focus=triplet["focus"],
+            clarity=triplet["clarity"],
+            aggregate=_aggregate(triplet),  # type: ignore[arg-type]
+            rationale=res.get("reasoning"),
+        )
 
-    def report(self, source_id: str) -> dict[str, Any]:
+    def report(self, source_id: str) -> InterviewReport:
         return rollup_report(
             source_id,
             self._scored.get(source_id, []),

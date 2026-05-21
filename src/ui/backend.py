@@ -13,21 +13,22 @@ to decide whether to insert the artificial per-item pauses (emulator only).
 """
 from __future__ import annotations
 
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 from src.ui import emulator
+from src.ui.models import InterviewReport, InterviewSummary, QA, ScoreItem
 
 
 @runtime_checkable
 class Backend(Protocol):
     demo_delays: bool
 
-    def list_interviews(self) -> list[dict[str, Any]]: ...
+    def list_interviews(self) -> list[InterviewSummary]: ...
     def transcript_text(self, source_id: str) -> str: ...
     def match_source(self, uploaded_text: str) -> str | None: ...
-    def split_items(self, source_id: str) -> list[dict[str, Any]]: ...
-    def score_item(self, source_id: str, idx: int) -> dict[str, Any]: ...
-    def report(self, source_id: str) -> dict[str, Any]: ...
+    def split_items(self, source_id: str) -> list[QA]: ...
+    def score_item(self, source_id: str, idx: int) -> ScoreItem: ...
+    def report(self, source_id: str) -> InterviewReport: ...
 
 
 class EmulatorBackend:
@@ -35,7 +36,7 @@ class EmulatorBackend:
 
     demo_delays = True
 
-    def list_interviews(self) -> list[dict[str, Any]]:
+    def list_interviews(self) -> list[InterviewSummary]:
         return emulator.list_interviews()
 
     def transcript_text(self, source_id: str) -> str:
@@ -44,13 +45,13 @@ class EmulatorBackend:
     def match_source(self, uploaded_text: str) -> str | None:
         return emulator.match_source(uploaded_text)
 
-    def split_items(self, source_id: str) -> list[dict[str, Any]]:
+    def split_items(self, source_id: str) -> list[QA]:
         return emulator.split_items(source_id)
 
-    def score_item(self, source_id: str, idx: int) -> dict[str, Any]:
+    def score_item(self, source_id: str, idx: int) -> ScoreItem:
         return emulator.score_item(source_id, idx)
 
-    def report(self, source_id: str) -> dict[str, Any]:
+    def report(self, source_id: str) -> InterviewReport:
         return emulator.report(source_id)
 
 
