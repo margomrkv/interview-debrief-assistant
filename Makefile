@@ -14,7 +14,7 @@ APP    := src/ui/app.py
 TRAIN := src/kb/kb.py
 ARGS  ?=
 
-.PHONY: ui ui-emulator ui-live train train-smoke
+.PHONY: ui ui-emulator ui-live train train-smoke test
 
 ## ui: запустить UI в режиме эмулятора (по умолчанию)
 ui: ui-emulator
@@ -34,3 +34,7 @@ train:
 ## train-smoke: быстрый дешёвый цикл (2 source_id, 17/7 QA) для проверки пайплайна
 train-smoke:
 	$(PYTHON) $(TRAIN) --smoke $(ARGS)
+
+## test: прогнать pytest. Подмножество: make test ARGS="tests/ui -k report"
+test:
+	$(PYTHON) -m pytest $(ARGS)
