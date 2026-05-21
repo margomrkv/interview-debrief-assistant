@@ -7,9 +7,10 @@ import argparse
 import sys
 from pathlib import Path
 
-SKILL_DIR = Path(__file__).resolve().parents[1]
+STEP1_DIR = Path(__file__).resolve().parent
+SKILL_DIR = STEP1_DIR.parent
 REPO_ROOT = SKILL_DIR.parents[2]
-sys.path.insert(0, str(SKILL_DIR))
+sys.path.insert(0, str(STEP1_DIR))
 
 from run_manifest import append_step, load_run, save_run  # noqa: E402
 

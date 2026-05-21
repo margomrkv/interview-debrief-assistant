@@ -269,7 +269,7 @@ def enrich_file(json_path: Path, dry_run: bool = False) -> dict:
             json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
         )
         # Regenerate xlsx
-        xlsx_script = SKILL_DIR / "splitter_json_to_excel.py"
+        xlsx_script = SKILL_DIR / "step3-excel" / "splitter_json_to_excel.py"
         if xlsx_script.exists():
             subprocess.run(
                 [sys.executable, str(xlsx_script), str(json_path)],

@@ -1,4 +1,6 @@
-"""Canonical splitter_output artifact names: {basename}.v{N}.{artifact}.{ext}
+"""Canonical splitted artifact names: {basename}.v{N}.{artifact}.{ext}
+
+Artifacts live under ``data/knowledgebase/splitted/`` (see ``kb_paths.py``).
 
 Version comes right after basename so `ls *v8*` groups one run.
 Legacy names are still parsed for version detection and migration.

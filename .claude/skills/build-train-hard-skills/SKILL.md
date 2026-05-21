@@ -1,6 +1,6 @@
 ---
 name: build-train-hard-skills
-description: Запускает `build_train_hard_skills.py` — собирает `train/hard_skills.json` из `splitter_output/**/*.v*.qa-split.json`. Берёт последнюю версию (vN) на каждый source_id, фильтрует `question_type in {"hard", "technical_qna"}`, дополняет каждый item полем `source_id`. Аргументов не принимает; перезапись идемпотентна.
+description: Запускает `build_train_hard_skills.py` — собирает `train/hard_skills.json` из `data/knowledgebase/splitted/**/*.v*.qa-split.json`. Берёт последнюю версию (vN) на каждый source_id, фильтрует `question_type in {"hard", "technical_qna"}`, дополняет каждый item полем `source_id`. Аргументов не принимает; перезапись идемпотентна.
 author: claude-code-opus-4-7
 created_date: 2026-05-16
 ---
@@ -24,7 +24,7 @@ created_date: 2026-05-16
 > Строится golden set (ручная разметка эталонных оценок по подмножеству Q&A).
 > Разбиение train / test на уровне целых mock-сессий (чтобы не протекали коррелированные ответы из одного диалога).
 
-Сам корпус Q&A до этого жил россыпью в `splitter_output/`. Скилл собирает его в один файл с явным `source_id` на каждом item — это нужно и для последующей разметки, и для группировки при `train/test` split'е по сессиям.
+Сам корпус Q&A до этого жил россыпью в `data/knowledgebase/splitted/`. Скилл собирает его в один файл с явным `source_id` на каждом item — это нужно и для последующей разметки, и для группировки при `train/test` split'е по сессиям.
 
 Что **не** делает скилл (вне scope):
 - ручную разметку golden set (clarity / completeness / accuracy);
@@ -40,7 +40,7 @@ created_date: 2026-05-16
 
 - **Рабочий каталог:** корень репо (`git rev-parse --show-toplevel`).
 - **Скрипт:** `.claude/skills/build-train-hard-skills/build_train_hard_skills.py` (Python 3, только stdlib — без `uv run`, без deps).
-- **Вход:** `splitter_output/**/*.v*.qa-split.json` (новый нейминг, регулярка `\.v(\d+)\.qa-split\.json$`) + legacy `splitter_output/**/*.qa-split.v*.json` (регулярка `\.qa-split\.v(\d+)\.json$`). Рекурсивный обход подпапок (`mock-interviews/<publisher>/<leaf>/`).
+- **Вход:** `data/knowledgebase/splitted/**/*.v*.qa-split.json` (новый нейминг, регулярка `\.v(\d+)\.qa-split\.json$`) + legacy `data/knowledgebase/splitted/**/*.qa-split.v*.json` (регулярка `\.qa-split\.v(\d+)\.json$`). Рекурсивный обход подпапок (`mock-interviews/<publisher>/<leaf>/`).
 - **Выход:** `{project_dir}/train/hard_skills.json`. Папка `train/` создаётся, если её нет.
 - **Фильтры внутри скрипта (захардкожены):**
   - `question_type in ACCEPTED_QUESTION_TYPES` (`{"hard", "technical_qna"}`);
@@ -70,14 +70,14 @@ created_date: 2026-05-16
 }
 ```
 
-Item-схема идентична items в `splitter_output/**/*.v*.qa-split.json`, плюс одно добавленное поле `source_id` (в начале каждого item) и `grade` (в конце, из имени leaf-папки).
+Item-схема идентична items в `data/knowledgebase/splitted/**/*.v*.qa-split.json`, плюс одно добавленное поле `source_id` (в начале каждого item) и `grade` (в конце, из имени leaf-папки).
 
 ## Алгоритм
 
 ### Шаг 1: Проверка предусловий
 
 - Текущий каталог = корень репо (если нет — `cd $(git rev-parse --show-toplevel)`).
-- Существует `splitter_output/` с файлами `*.v*.qa-split.json` (>0 штук, рекурсивно). Если нет — остановиться с понятным сообщением: «нет splitter-артефактов для сборки».
+- Существует `data/knowledgebase/splitted/` с файлами `*.v*.qa-split.json` (>0 штук, рекурсивно). Если нет — остановиться с понятным сообщением: «нет splitter-артефактов для сборки».
 - Существует `.claude/skills/build-train-hard-skills/build_train_hard_skills.py`. Если нет — остановиться: «скрипт не найден, скилл не может работать».
 
 ### Шаг 2: Запуск
@@ -186,7 +186,7 @@ missing grade (если есть): <G>
 ```
 user: /build-train-hard-skills
 assistant:
-  [precheck] splitter_output/ есть, *.v*.qa-split.json присутствуют; скрипт на месте.
+  [precheck] data/knowledgebase/splitted/ есть, *.v*.qa-split.json присутствуют; скрипт на месте.
   [run] python3 .claude/skills/build-train-hard-skills/build_train_hard_skills.py
   [parse] total=175, sources=17, skipped(zero accepted)=6
   [sanity] OK: 175 items, 17 sources; by type: {'technical_qna': 74, 'hard': 101}

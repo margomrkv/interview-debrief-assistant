@@ -16,10 +16,11 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 SKILL_DIR = Path(__file__).resolve().parents[1]
+STEP1_DIR = SKILL_DIR / "step1-prepare"
 sys.path.insert(0, str(SKILL_DIR / "step4-validate-chapters"))
-sys.path.insert(0, str(SKILL_DIR))
+sys.path.insert(0, str(STEP1_DIR))
 
 from run_manifest import _LLM_SECTION_RE  # noqa: E402
 

@@ -1,4 +1,4 @@
-"""Собирает train/hard_skills.json из splitter_output/**/*.v*.qa-split.json (и legacy *.qa-split.v*.json).
+"""Собирает data/knowledgebase/train/hard_skills.json из splitted/**/*.v*.qa-split.json (и legacy *.qa-split.v*.json).
 
 Берёт только последнюю версию (vN) на каждый source_id, фильтрует
 question_type in ACCEPTED_QUESTION_TYPES ("hard", "technical_qna"),
@@ -14,8 +14,8 @@ from collections import Counter
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-SPLITTER_DIR = REPO_ROOT / "splitter_output"
-OUT_PATH = REPO_ROOT / "train" / "hard_skills.json"
+SPLITTER_DIR = REPO_ROOT / "data" / "knowledgebase" / "splitted"
+OUT_PATH = REPO_ROOT / "data" / "knowledgebase" / "train" / "hard_skills.json"
 
 VERSION_RE_NEW = re.compile(r"\.v(\d+)\.qa-split\.json$")
 VERSION_RE_OLD = re.compile(r"\.qa-split\.v(\d+)\.json$")
