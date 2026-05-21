@@ -51,6 +51,13 @@ from src.kb.build_splits import (
     log_split_summary,
 )
 
+NUM_TRIALS = 100
+NUM_CANDIDATES = 15
+MINIBATCH_SIZE = 20
+MAX_LABELED_DEMOS = 4
+MAX_BOOTSTRAPPED_DEMOS = 4
+
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RUNS_DIR = REPO_ROOT / "runs"
 
@@ -433,8 +440,6 @@ def _resolve_eval_splits(eval_splits: EvalSplits) -> list[str]:
 
 def run_kb_pipeline(
     *,
-    num_trials: int = 3,
-    num_candidates: int | None = None,
     prompt_model: str | None = None,
     smoke: bool = False,
     no_phoenix: bool = False,
@@ -457,6 +462,8 @@ def run_kb_pipeline(
     corpus = input_path or DEFAULT_CORPUS
     splits_out = splits_path or DEFAULT_SPLITS
     runs_root = runs_dir or DEFAULT_RUNS_DIR
+
+    num_trials = NUM_TRIALS
 
     prompt_model_id = resolve_prompt_model_id(prompt_model)
     run_id = run_id or default_run_id()
@@ -539,7 +546,7 @@ def run_kb_pipeline(
             task_model=task,
             auto=None,
             num_threads=2,
-            num_candidates=num_candidates,
+            num_candidates=NUM_CANDIDATES,
             metric_threshold=1.0 - THRESHOLD_MAX_MEAN_ERR / SCORE_RANGE,  # = 0.915 на шкале 1..5
         )
 
@@ -563,9 +570,9 @@ def run_kb_pipeline(
             student,
             trainset=train,
             num_trials=num_trials,
-            minibatch_size=15,
-            max_labeled_demos=2,
-            max_bootstrapped_demos=2
+            minibatch_size=MINIBATCH_SIZE,
+            max_labeled_demos=MAX_LABELED_DEMOS,
+            max_bootstrapped_demos=MAX_BOOTSTRAPPED_DEMOS,
         )
 
         # Prompt-evolution log: dump every instruction/demo candidate MIPROv2

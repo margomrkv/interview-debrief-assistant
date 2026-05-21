@@ -20,19 +20,14 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNS_DIR = REPO_ROOT / "runs"
 
 
+
 def main() -> None:
     p = argparse.ArgumentParser(
         description="Build splits → MIPROv2 train → eval on chosen split(s). Single process.",
     )
     p.add_argument("--run-id", default=None, help="Override run_id (default: now() in local TZ).")
     p.add_argument("--smoke", action="store_true", help="Use only first 2 source_ids in splits.")
-    p.add_argument("--num-trials", type=int, default=10, help="MIPROv2 num_trials (default 3).")
-    p.add_argument(
-        "--num-candidates",
-        type=int,
-        default=5,
-        help="MIPROv2 num_candidates (default: mirrors --num-trials).",
-    )
+
     p.add_argument(
         "--prompt-model",
         default=None,
@@ -71,8 +66,6 @@ def main() -> None:
     logger.info("log file: %s", log_file.relative_to(REPO_ROOT))
 
     run_dir = run_kb_pipeline(
-        num_trials=args.num_trials,
-        num_candidates=args.num_candidates,
         prompt_model=args.prompt_model,
         smoke=args.smoke,
         no_phoenix=args.no_phoenix,
