@@ -7,19 +7,14 @@
     "criteria_source": ".claude/skills/label-train-hard-skills/SKILL.md (1..10, calibrated per item.grade)",
     "policy": "score only from interviewer_feedback and/or reference_answer; calibrate to item.grade; no industry baseline",
     "stats": {
-      "total": 36,
+      "total": 29,
       "labeled": 29,
-      "unscored": 7
+      "unscored": 0
     }
   },
   "items": [
     {
       "id": "q01",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q02",
       "reference_score": {
         "factual_correctness": 3,
         "focus": 4,
@@ -30,7 +25,7 @@
       }
     },
     {
-      "id": "q03",
+      "id": "q02",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 6,
@@ -41,7 +36,7 @@
       }
     },
     {
-      "id": "q04",
+      "id": "q03",
       "reference_score": {
         "factual_correctness": 4,
         "focus": 4,
@@ -52,7 +47,7 @@
       }
     },
     {
-      "id": "q05",
+      "id": "q04",
       "reference_score": {
         "factual_correctness": 2,
         "focus": 2,
@@ -63,7 +58,7 @@
       }
     },
     {
-      "id": "q06",
+      "id": "q05",
       "reference_score": {
         "factual_correctness": 3,
         "focus": 3,
@@ -74,7 +69,7 @@
       }
     },
     {
-      "id": "q07",
+      "id": "q06",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
@@ -85,12 +80,7 @@
       }
     },
     {
-      "id": "q08",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q09",
+      "id": "q07",
       "reference_score": {
         "factual_correctness": 6,
         "focus": 6,
@@ -101,7 +91,7 @@
       }
     },
     {
-      "id": "q10",
+      "id": "q08",
       "reference_score": {
         "factual_correctness": 6,
         "focus": 6,
@@ -112,7 +102,7 @@
       }
     },
     {
-      "id": "q11",
+      "id": "q09",
       "reference_score": {
         "factual_correctness": 6,
         "focus": 6,
@@ -123,7 +113,7 @@
       }
     },
     {
-      "id": "q12",
+      "id": "q10",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 6,
@@ -134,7 +124,7 @@
       }
     },
     {
-      "id": "q13",
+      "id": "q11",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 6,
@@ -145,7 +135,7 @@
       }
     },
     {
-      "id": "q14",
+      "id": "q12",
       "reference_score": {
         "factual_correctness": 1,
         "focus": 1,
@@ -156,12 +146,7 @@
       }
     },
     {
-      "id": "q15",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q16",
+      "id": "q13",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
@@ -172,12 +157,7 @@
       }
     },
     {
-      "id": "q17",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q18",
+      "id": "q14",
       "reference_score": {
         "factual_correctness": 8,
         "focus": 8,
@@ -188,7 +168,7 @@
       }
     },
     {
-      "id": "q19",
+      "id": "q15",
       "reference_score": {
         "factual_correctness": 8,
         "focus": 7,
@@ -199,7 +179,7 @@
       }
     },
     {
-      "id": "q20",
+      "id": "q16",
       "reference_score": {
         "factual_correctness": 5,
         "focus": 5,
@@ -210,7 +190,7 @@
       }
     },
     {
-      "id": "q21",
+      "id": "q17",
       "reference_score": {
         "factual_correctness": 6,
         "focus": 6,
@@ -221,7 +201,7 @@
       }
     },
     {
-      "id": "q22",
+      "id": "q18",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
@@ -232,7 +212,7 @@
       }
     },
     {
-      "id": "q23",
+      "id": "q19",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
@@ -243,12 +223,7 @@
       }
     },
     {
-      "id": "q24",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q25",
+      "id": "q20",
       "reference_score": {
         "factual_correctness": 8,
         "focus": 7,
@@ -259,7 +234,7 @@
       }
     },
     {
-      "id": "q26",
+      "id": "q21",
       "reference_score": {
         "factual_correctness": 6,
         "focus": 6,
@@ -270,7 +245,7 @@
       }
     },
     {
-      "id": "q27",
+      "id": "q22",
       "reference_score": {
         "factual_correctness": 6,
         "focus": 6,
@@ -281,17 +256,7 @@
       }
     },
     {
-      "id": "q28",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q29",
-      "reference_score": null,
-      "unscored_reason": "no_interviewer_signal"
-    },
-    {
-      "id": "q30",
+      "id": "q23",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
@@ -302,7 +267,7 @@
       }
     },
     {
-      "id": "q31",
+      "id": "q24",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 6,
@@ -313,7 +278,7 @@
       }
     },
     {
-      "id": "q32",
+      "id": "q25",
       "reference_score": {
         "factual_correctness": 2,
         "focus": 3,
@@ -324,7 +289,7 @@
       }
     },
     {
-      "id": "q33",
+      "id": "q26",
       "reference_score": {
         "factual_correctness": 8,
         "focus": 7,
@@ -335,7 +300,7 @@
       }
     },
     {
-      "id": "q34",
+      "id": "q27",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
@@ -346,7 +311,7 @@
       }
     },
     {
-      "id": "q35",
+      "id": "q28",
       "reference_score": {
         "factual_correctness": 3,
         "focus": 3,
@@ -357,7 +322,7 @@
       }
     },
     {
-      "id": "q36",
+      "id": "q29",
       "reference_score": {
         "factual_correctness": 7,
         "focus": 7,
