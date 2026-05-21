@@ -11,6 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/fgx9ug4s3Y0/maxresdefault.jpg"
 tags: [google, google interview, coding interview, technical interview, programming interview, google phone interview, google software engineering interview, google mock interview, phone interview, software engineer interview, mock interview, swe interview, google software engineer interview, data wrangling interview, data wrangling google, data wrangling, data munging]
 ---
 
+## Chapters
+- [00:00] Google data wrangling technical interview
+
 ## Description
 
 Book a mock interview or coaching session with a Google engineer as early as tomorrow on interviewing.io! Sign up here: https://interviewing.io/signup?utm_source=youtube.com&utm_medium=referral&utm_campaign=video_link

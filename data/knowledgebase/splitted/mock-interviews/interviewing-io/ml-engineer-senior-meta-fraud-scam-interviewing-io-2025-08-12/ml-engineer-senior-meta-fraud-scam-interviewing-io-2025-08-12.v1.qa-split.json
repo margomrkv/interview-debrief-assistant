@@ -1,0 +1,258 @@
+{
+  "source_id": "ml_engineer_senior_meta_fraud_scam_interviewing_io_2025_08_12",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "This will be a machine learning system design interview. Um the way generally uh it works is that I want to know a little bit more about you. Uh what's your background? Um and if you have any interviews coming up um and what companies might they be uh so I might be able to tailor um my feedback accordingly. Um and generally the system design part lasts around 40 45 minutes. Um and I can do some feedback post uh on that. Um or if you want um some people like to get feedback as we go. So um so yeah",
+        "time": "00:51"
+      },
+      "candidate_answer": {
+        "text": "um yeah I'll give you a quick background. I um I have a uh PhD in physics. I graduated about three years ago and I have my on-site with Meta next Monday. Uh so that's what things are looking like. As for the feedback,",
+        "time": "01:38"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "what did you have in mind, by the way?",
+        "time": "03:08"
+      },
+      "candidate_answer": {
+        "text": "had recommended system. Yeah. No, but I thought harmful system",
+        "time": "03:11"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. Yeah, that's that sounds good. Um,",
+        "time": "03:06"
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "good. So um this is kind of your job here is that uh you come in as a machine learning engineer and the first thing that uh you might want to end up doing is um you want to develop something that can pick up um let's say with some confidence that this might be a fraudulent or this might be uh a scam content uh so that uh the content can either to be taken down uh or be used um kind of for manual review um or just be like kind of not recommended to users depending on the use case uh and u the score that the classifier produces.",
+        "time": "05:35"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Okay. So we'll start off with some clarifying questions. So first let's just talk think of scale. Um how many you know users are there and how many posts per day and like um what's the like historic history of fraudulent posts per day. Yeah. And 2% of back is is Yeah. right? Yep. Yeah. Uh yes. So we do have uh some of the people who are hired to do the reviews um and we do also get user reported content. Um so um that is also a source um which can be used generally user reported content goes for a review like a manual review. recommener system doesn't have as direct connection to to revenue but it still does have some right. So if you have a better system um that can reduce the need for human annotation. Uh so that's one way you can improve the revenue. The other is by promoting a safer environment um for advertisers, right? Like they don't want to advertise on a platform where there's a lot of you know negative content. The other is improve the you know trust and safety of the of the users. And finally, I can think of a third reason which is you know there could be some legal um you know things going on where harmful content not being suggested to um minors and things like that. Um so first I'll just give a kind of an outline of the um the system as a whole. I don't know if I can draw anywhere here like a whiteboard. Um, you can there's a power whiteboard. Uh, if if you want to just do like a rough boxes, that's fine. Yep, I see. it's going to store um the post and the associated data the metadata and uh uh content uh in our feature store. And there will also be you know uh some trained model that it sends the the the features to um the the classifier which I'll I'll talk on in a second. Okay. Yeah. So then in that case when you do you know identify the the that it's a scam or fraud we're going to notify the user for you know why that was the case. So that's kind of the highle design of what the system will look like. Let me just give a brief outline of some things I want to go over. So we're going to have the data. So you know features labels feature engineering right? Then we're going to have the um you know modeling aspect. So training it, evaluating it um and then deploying the model and monitoring the model. Feel like I'm forgetting something, but maybe I'll uh figure out as I go along. um data model. Yeah. So this is you know um this is um will look like. So let's think about what the data looks like. So we'll have um you know of course three sources. We'll have the user um and then this is this is some kind of Facebook post right for the item. And then we'll have user host interactions and we'll go through these um uh one by one. So for the user there's different kinds of um data associated with them. There's demographics, there's contextual information, there's also social information. So let's go through those. So we'll have the age, gender, location. Um what else? Date, finger, location. Yeah. Um and so for the context we'll have device, time of day, um things like that. Um social. So, so this will include things like, you know, number of reports they've received in the past, right? and you know here it's important that the image you know this can contain text itself you can extract via uh OCR so this is often the case in um you know memes uh there can be video audio I and then I'll just include one last one um so some kind of hyperlink um and then for the user post interactions Again, we could have number of of reports which um you know number of reports um um number of of comments, number of likes, the actual comments themselves and um I think that should be a good place to start. um because you know 11 p.m. is going to be closer to to 1:00 a.m. and that takes it into account. Um, number of reports. I think maybe the best way here would be um trying to think if it's going to have a skew is what's going through my mind right now. Um, maybe this might be best to just bucketize and uh, one hot code. So, you could have, you know, zero is not a lot of reports, one is a lot of reports and so on. You could also do something maybe like quantile binning here. Um let me um so number of messages sent in the last um n seconds. I think here probably just use some kind of um standardization and interactions with known offenders. Um you know maybe it's easest to just um have this as a one or a zero basically. So just one hunting code bat whether like one if they've interacted with known offender and zero zero otherwise. Okay. Um so now let's look at the the post itself. So um I guess I should have asked previously but um is this model you know global or multilingual? Yes. Give me a moment to think. H maybe that's what apply here. Um I'm I'm drawing a blank. Um maybe I'll ask you to step in actually for a moment. I changed my mind. is um is there the potential for like multiple things to interact to produce something harmful here? Uh what do you mean? So like in the case of um you know they're trying say if someone makes a Facebook post and you're trying to detect whether like um like if if you have a meme, right? So when you have a meme, the image by itself can be safe. the the text associated with the image can be safe by themselves, but when you combine them, it's bad, right? Okay. So, if you look at them in by themselves, they're fine. But when you combine them, then that becomes like a offending thing. Yep. So is there an analogous situation here? is fine. but if you are showing like people throwing cash in the air that's fine but if you're like I'm going to give you loan and then that's a picture associated with it and generally a bank wouldn't do that. Like that sounds like a scam. Yeah. Uh, great example. I I think that's pretty good. All right. So, um, I I'll continue on from there. So, okay, then in that case, um, you you wouldn't want to use late fusion then, uh, for that reason. Um, so you can't learn the joint distributions. Um, so, okay. So, um, then you have the option of early fusion. So, here, um, instead of training a model on each kind of scam, you, you know, concatenate all of the features above. uh immediately and then uh train a single model, right? Um and uh let go back to the whiteboard. So, uh start to kind of zoom in on the the model itself. So, um actually, let me just draw. So, there's a variety of different options as far as the model is concerned. So, um, you know, you could just have logistic regression. Um, there's problems with this at, uh, there's a few different problems with this. One is, um, you know, it's it's a binary classifier. So, it it can't identify the the kind of scam, which may, you know, may or may not be important. um uh when the there's you know colinearity in the features it's uh it's no it's known to struggle often it doesn't perform as strong as as other um uh models and um lastly uh it assumes the data is uh linearly separable which is often often not the case. it does have some pros. You know, it's fast, scales well, and so on. Um, you could instead consider something like a gradient boosted decision tree. Um, so some pros here include, you know, minimal feature processing. Um, you don't need to pre-process it like you do for the other ones. It's fast. It scale scales well. Um, but there are some cons. So, one con in particular is uh no online training. Uh so you have to retrain the entire model. You can't continuously train it which is a big drawback. Um another one is uh usually doesn't perform as good as something like a neural network when you have a lot of data which is is the case here. Um and then before I forget let me make a note for the cost and balance. So you want to probably use some kind of neural network approach. So it kind of alleviates a lot of the problems before. You're very free on the input layer is very flexible. You know, you can set it up to be multiclass, multilel, multitask, so on so forth. Um, you know, continuous learning. And of course, it performs well when you have a lot of data. Um, and so let's kind of briefly go over what the model might look like. So yeah, um okay. So you know, you're going to have the uh input features here. might make sense to run them through kind of a lightweight MLP um to pre-process them and then so um we talk about like a light light with MLP from the features. So these are the features that will be the embeddings that are coming out of the model that you described like slip or something like that. Oh yeah, sorry. I didn't mean for these this arrow to be em uh coming from the the feature store. But um sorry, what was your question",
+        "time": "06:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Um yeah. Yeah, I just wanted to know like um what what are the inputs to this",
+        "time": "35:06"
+      },
+      "candidate_answer": {
+        "text": "Oh yeah, sorry. Sorry. Yeah, I guess it it could come from there. Uh the user features. Sorry, I wasn't clear about that. The post features and then the user post interaction features will be the the input to the model. Um and this will just learn some kind of embedding. And um from here I think kind of uh uh maybe the best way is to have do multitask where you have you know some kind of um you know head for each um kind of scam you know whether it's crypto scam, cash app scam, you know um whatever uh you know cash uh bank related, right? And um so you feed all these features uh feed these features to to each of these models. Um and then um so each class, let's talk about how to train it. So you're going to have some uh a sigmoid activation at the end. And then for the loss function could use something just um since this each one of these is a binary classifier detecting um you could use something like binary cross entropy or you know normalized cross entropy which is just binary cross entropy dividing by the the average. Um but there is a class imbalance. Um, so there's a few different ways we can handle it here. So for the imbalance, you can use um class weights. So like you said, 2% of the post will be will be bad. So you could use class weights, you could win the threshold. Um, but I think maybe a better option at this stage would be to use a the focal loss um to handle the the the class imbalance. And you you you apply the same procedure across them all. And um then at the end the the the final loss is just the the sum of the the losses from before. And um yeah so the inputs will be you know like uh the the what I described earlier and then the outputs will be the the label for each one. It'll be a vector of like 1 1 0 or 1 0 1 0 0 1 so on so forth. Um and then probably you know you standard things like ru activation, dropout regularization um things like that. So the class imbalance um we addressed um before I forget let me write this down. Uh actually maybe I'll just bring up now. Yeah, there there is going to be some kind of label bias. Um so from what I've seen this is actually a a really hard problem. you know, if you have three different interviewers or uh not interviewers, three different people label label something, they might um well, actually, in the case of scans, I think it should probably maybe it wouldn't be in any case, maybe I'll come back to that. Um actually, yeah, like talk about that a little bit. So, um, so you're talking about label bias where there's multiple people who might, uh, label the same content differently.",
+        "time": "35:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "how do you think we can kind of handle that?",
+        "time": "38:56"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Um, that's that's a real problem. I I guess in the case of uh you know say maybe maybe here's an idea, right? So um in the case of like uh uh someone pushing some stock, wouldn't that even be a scam? It's hard to say. Like say someone's saying buy this this NFT memecoin that they're going to pump and dump, right? Like that's a scam. Um maybe that would be a um",
+        "time": "39:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "That's right.",
+        "time": "38:51"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "there's a difference between think like I think the the thing that you're describing here as as know like you yourself are having trouble trying to identify like would this be a scam or not? So um how do you identify in your model like how do you train your model so that it can differentiate between scam and scammy posts",
+        "time": "39:34"
+      },
+      "candidate_answer": {
+        "text": "Um, I'm guessing maybe the first thing that comes to my mind is the output probability. So if the model outputs like 0.5, right, then that suggests it's it's not confident one way or the other on whether or not it's a scam.",
+        "time": "40:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. Um, I think that's um maybe the best I can come up with right now.",
+        "time": "40:32"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Is there something we can do on the labeling side that might help with it?",
+        "time": "40:43"
+      },
+      "candidate_answer": {
+        "text": "Oh yeah, you could um you could assign like a confidence maybe to to the labels. So when you're actually going to do the labels, you know, if you're very confident it's a scam, you could label assign it more weight in the loss function.",
+        "time": "40:50"
+      },
+      "reference_answer": {
+        "text": "something like that. Yeah. So, it's more or less uh so what I was thinking was uh having multiple people review the same content and uh pick the majority, you know, so something like that. Um so, uh we kind of like try to tune out the bias there by showing off anything to more than one person. Um that's that's one of the things uh but I think in the end that turns out to be can be like a label weight because the the higher percentage of the people that mark this as a scam the label weight goes up.",
+        "time": "41:11"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Yeah. All right. So, you know, now we've got this model built. Let's think of some kind of uh offline ways to evaluate",
+        "time": "42:02"
+      },
+      "candidate_answer": {
+        "text": "it. So since it's a binary classifier, you can use you know the classics uh uh accuracy, precision, recall, accuracy not good because um imbalance recall um precision uh those are fine in this case. Probably want to favor recall over precision. um you know, you you want to catch all of the scams, right? You don't want to you don't want to let any through. And then um the the problem with these though is that they're dependent on some kind of threshold, right? So a metric like the area under the curve of ROC is a bit better because it, you know, operates o over multiple uh thresholds. And I think even better than that is the one I'll go with is the area on the curve for precision recall. So this tends to perform better when there is um imbalance which we have a a very large imbalance. Um and then finally I think uh the last step would be to just uh discuss the deployment and online metrics. So uh first let's I think it's best to start with you know coming up with how you want to monitor it first before you deploy it. So here um you know assuming users can like report these these these scams. Maybe something you would want to log is um you know the number of reports. Um, and you might even want to normalize this like like the by the posts per day because if you have post more posts, you might expect more more reports here. You might want to use something like um uh proactive, right? So um uh how many scams you identify before they're reported. Although since we're assuming um what was our time? 30 seconds. Okay. Yeah, that's fine. Um and then finally, you could have something like prevalence like um but this isn't so prevalence is um how many you know how many scans per you know posts are um persist on the platform. One problem with this is um it doesn't take into account, you know, how popular it uh it is, right? So, if you have a bunch of scams, but they get no views, no impressions versus, you know, one scam that gets a million impressions, that that matters a lot. Um, so here you might want to use something like kind of the the the harmful impressions idea where it's how many uh people, you know, interact with the with the scam. And then let's think, you know, now that we have these metrics in mind, let's talk briefly or talk about the uh deployment. So here there's a variety of options. You could use something like shadow deployment. So here you um deploy both models uh in parallel or not yeah you you you deploy both models but you only uh serve the old problem with this is a lot of infrastructure a lot of compute uh you could use a canary deployment um where you deploy to a certain demographic and also um with that in mind let me backtrack just a bit you know on these evaluation metrics um you know it could be the case that there's a bias present, you know, over some demographic. Um, you know, maybe this model performs better over uh or not guys. What am I thinking? Um um you know, cash app scams. Maybe it's really good at identifying cash app scams, but not you know the the bank scams or or or Telegram scams uh for for that matter, right? Um so you'd want to segment um you know the evaluation to see where it's performing uh good and bad. Uh so for the canary deployment you want to deploy to certain demographics or maybe certain regions. Um but there's some bias uh as I just mentioned. Finally the kind of standard way is to do some kind of AD AB testing. And in this case since we have a very you know sensitive um you know thing we're dealing with it'd be probably best to to gradually roll it out. You don't want to just deploy the model it not perform well and then expose a bunch of people to to harmful content. So you might want to start off with like a 9010 10% split and then once you gain some confidence slowly roll it out to 50/50",
+        "time": "42:10"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "and uh what metric are we using here uh to decide if we can roll out or not?",
+        "time": "47:07"
+      },
+      "candidate_answer": {
+        "text": "Thank you. Um, I think of course you want to take them all into account, but um I'd probably I think harmful impressions would be um if you had to pick one, you could just weight them too. You could take some linear combination of these um as well. Um but I think harmful impression makes most sense to to use as our metric.",
+        "time": "47:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "So I I just wonder like do you work with this kind of thing or do you just happen to study about this during your time?",
+        "time": "48:27"
+      },
+      "candidate_answer": {
+        "text": "Um, I mean, I have a background in ML and I, um, I've never had a real job in my life. I have no real formal training in ML. I I did my PhD in physics. So, um, I don't know if that answers your",
+        "time": "48:36"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "Um I I just want to know like what level are you applying for?",
+        "time": "59:39"
+      },
+      "candidate_answer": {
+        "text": "Uh yeah thanks for asking. Um there it wasn't specified. Um I I have no idea what my level will be.",
+        "time": "59:46"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Prioritization",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "So was that so? Okay. So this is a uh fresh grad, right? So you're So you finished your uh graduate school uh PhD and then this is your first job.",
+        "time": "59:56"
+      },
+      "candidate_answer": {
+        "text": "That's right. I finished uh almost 3 years ago about 2 and a half years ago. Um, Meta contacted me a few months ago uh for the interview and um yeah, this is um the only interview I have is this is basically the first interview I've ever done um postgraduation. I started a company of my own two and a half years ago and I've been working on that since then. Um so this will be my my first",
+        "time": "00:07"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "fit_hr"
+    }
+  ]
+}

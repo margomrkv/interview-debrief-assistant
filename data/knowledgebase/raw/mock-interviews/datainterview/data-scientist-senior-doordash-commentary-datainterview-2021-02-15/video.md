@@ -11,12 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/lthBkTN8Vpk/sddefault.jpg"
 ---
 
 ## Chapters
-- [00:00] <Untitled Chapter 1>
 - [02:10] What Does 90 Statistical Power Mean
 - [04:50] How Do You Determine the Practical Significance in a in an Experiment
-- [05:45] Business Metrics
 - [10:39] Type 1 Error Rate
-- [13:20] Calculate Tempo and Error Rate and Type 2 Error Rate
 
 ## Description
 

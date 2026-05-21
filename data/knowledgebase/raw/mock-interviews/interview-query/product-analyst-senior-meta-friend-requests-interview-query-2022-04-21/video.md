@@ -13,13 +13,11 @@ tags: [facebook mock interview, meta mock interview, product sense, facebook pro
 
 ## Chapters
 - [00:00] Question
-- [00:26] Clarifying Questions
 - [08:50] New Users vs Old Users
 - [10:27] Geographical Segmentation
 - [13:23] User Journey Analysis
 - [18:17] Conclusion
 - [21:07] Additional Key Points
-- [22:39] Feedback
 
 ## Description
 

@@ -16,7 +16,6 @@ thumbnail_url: "https://i.ytimg.com/vi/lBSLl4ANUhw/maxresdefault.jpg"
 - [06:16] Глубже про опыт, хранение
 - [08:11] Партиции в hdfs
 - [11:30] Сильные и слабые стороны hdfs
-- [13:19] Hadoop vs hdfs
 - [14:10] Репликация в hdfs
 - [16:40] Что было в кластере?
 - [17:12] Взаимодействие SparkSQL, Hadoop, Hive
@@ -26,7 +25,6 @@ thumbnail_url: "https://i.ytimg.com/vi/lBSLl4ANUhw/maxresdefault.jpg"
 - [29:48] Как отлаживаешь Spark Application?
 - [31:55] Практика на SQL (ускоренная)
 - [37:20] Вопросы от кандидата
-- [38:39] Не прощаемся, обратная связь на бусти
 
 ## Description
 

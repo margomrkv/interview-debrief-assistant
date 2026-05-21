@@ -13,8 +13,6 @@ tags: [dropbox data science interview, dropbox data scientist, data science inte
 
 ## Chapters
 - [00:00] Trash Folder Logic Question
-- [00:52] Explanation
-- [18:26] Interview Feedback
 
 ## Description
 

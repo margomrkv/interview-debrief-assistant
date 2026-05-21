@@ -12,20 +12,14 @@ tags: [machine learning, machine learning interview, machine learning basics, ma
 ---
 
 ## Chapters
-- [00:00:00] Introductions
 - [00:05:38] Question Starts
 - [00:07:35] Requirements
 - [00:10:19] Volume estimates
 - [00:14:07] Datasets
 - [00:33:53] Services
-- [00:36:35] POST API
-- [00:38:40] Online Metrics
-- [00:39:54] Training Metrics
 - [00:42:20] Objective of the model
-- [00:53:40] Global vs Local deployments
 - [00:54:48] How did the interviewee feel about their performance
-- [00:57:30] Did they pass?
-- [00:58:09] Feedback from the interviewer
+
 
 ## Description
 

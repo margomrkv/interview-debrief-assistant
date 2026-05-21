@@ -1,0 +1,1750 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 1,
+  "basename": "data-scientist-senior-samokat-ml-novoselov-2026-02-25",
+  "transcript_folder": "transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25",
+  "source_id": "data_scientist_senior_samokat_ml_novoselov_2026_02_25",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-21 10:21:52 +0200",
+  "updated_at": "2026-05-21 10:54:55 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json",
+    "xlsx": "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.xlsx",
+    "validation_report_md": "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.validation-report.md",
+    "pipeline_log_md": "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/timecodes.txt",
+        "ru",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-21 10:21:52 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 2.0,
+      "notes": null,
+      "finished_at": "2026-05-21 10:54:55 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-21 10:54:55 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v1
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25`
+- **Source ID:** `data_scientist_senior_samokat_ml_novoselov_2026_02_25`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-21 10:21:52 +0200
+- **Last updated:** 2026-05-21 10:54:55 +0200
+
+Фильтр в IDE: `*data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/timecodes.txt`<br>`ru`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.pipeline-log.md` | — | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.xlsx` | 2.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.validation-report.md` | 1.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json`
+- **xlsx:** `splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.validation-report.md`
+- **pipeline_log_md:** `splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+11) **Interview language (hard):** read `INTERVIEW_LANGUAGE` in the user message (`ru` or `en`).
+    - `ru` — all `text` fields (`interviewer_question`, `candidate_answer`, `interviewer_feedback`, `reference_answer`) MUST be verbatim Russian from PRIMARY_TRANSCRIPT. Never translate to English. Validation report for this run is Russian.
+    - `en` — all `text` fields MUST be verbatim English from PRIMARY_TRANSCRIPT. Never translate to Russian. Validation report for this run is English.
+    - Enum fields (`question_type`, `question_topic`, `interview_stage`) stay English per schema; only spoken-text fields follow interview language.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: data_scientist_senior_samokat_ml_novoselov_2026_02_25
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25
+INTERVIEW_LANGUAGE: ru
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:00] А подаёшь свои вопросы? Мы со своей
+[00:00:02] стороны поздаём свои вопросы, в общем,
+[00:00:04] поймём, насколько мы друг другу
+[00:00:05] подходим. А я с вами буду на встрече всё
+[00:00:08] время. В конце подключусь, ну, включу
+[00:00:10] камеру, буду без камеры, потом включу
+[00:00:11] камеру и с вами тогда попрощаюсь. Вот.
+[00:00:13] Желаю вам успешно пообщаться. Если вдруг
+[00:00:15] какие-то будут проблемы со связью или
+[00:00:17] ещё что-то, я постараюсь их устранить.
+[00:00:19] Вот. Спасибо. Тогда начинайте.
+[00:00:21] Станислав, пересгда.
+[00:00:25] Ээ, Вадим, ещё раз привет. Надеюсь, не
+[00:00:27] профино ты. Ээ, вот, собственно,
+[00:00:31] расскажу, что у нас вообще тут есть.
+[00:00:33] Раньше у нас была просто группа НЛП,
+[00:00:36] которая там на всех разных заказчиков
+[00:00:39] делала все сервисы. Вот сейчас она
+[00:00:41] сильно разрослась, и мы разделились на
+[00:00:42] маленькие подгрупки. Ээ, собственно, м я
+[00:00:46] вот сейчас в группе
+[00:00:48] пользовательского контента. Сейчас у нас
+[00:00:50] три человека всего. Я, ещё один инженер
+[00:00:53] и один такой ДС-аналитик.
+[00:00:57] Мы как бы официально
+[00:00:59] занимаемся
+[00:01:01] различным контентом от пользователей, то
+[00:01:03] есть это один конкретный заказчик, но на
+[00:01:04] самом деле есть несколько разных задач.
+[00:01:07] То есть тут
+[00:01:10] сложно сказать, что мы занимаемся только
+[00:01:11] контентом. По сути, ээ что в основном
+[00:01:16] есть, да, в основном есть это модерация
+[00:01:17] отзывов а и там вопросов, ответы, всё,
+[00:01:21] что приходит на платформу.
+[00:01:23] Соответственно, нужно
+[00:01:25] понимать, можем ли мы это публиковать.
+[00:01:28] Если можем опубликовать, если нет, тогда
+[00:01:30] там банит, отправлять модерацию, всё
+[00:01:32] остальное. Ну и здесь как полный цикл,
+[00:01:34] там тренировать модельки, делать сервис,
+[00:01:38] поддерживать его и так далее. Есть
+[00:01:41] отдельно SEO, где мы генерируем
+[00:01:45] различные метотеги для страниц для того,
+[00:01:47] чтобы оптимизировать ээ аранжирование по
+[00:01:50] внешней выдаче наших страниц. То есть
+[00:01:52] там либо описание, либо их тайтлы.
+[00:01:54] Пытаемся, в общем, повысить внешний
+[00:01:56] трафик. Э плюс сейчас добавляются
+[00:02:00] мм новые проекты. Один из них, который
+[00:02:03] вот начнётся только с следующего года,
+[00:02:05] это поиск на элмках. Ну, то есть условно
+[00:02:08] чатбот, который будет помогать в поиске.
+[00:02:12] Ээ тут, в общем, много вариантов
+[00:02:16] развития задачи, потому что она только
+[00:02:17] стартует, э, ну, и так далее.
+[00:02:21] Собственно, основная проблема в том, что
+[00:02:23] сейчас есть много
+[00:02:25] пишек. Ну, как бы не совсемпишек, есть
+[00:02:28] рабочие продовые сервисы, но они не в
+[00:02:30] идеальном состоянии, то есть хорошо бы
+[00:02:33] их привести там в порядок, добавить
+[00:02:35] более качественное логирование, более
+[00:02:37] хороший мониторинг, добавить
+[00:02:38] email-мониторинг, что-то там исслеживать
+[00:02:40] дриф данных и так далее. Вот,
+[00:02:42] собственно, для этого сейчас ищем
+[00:02:44] инженера, который этим уже занимался,
+[00:02:46] который представляет работать
+[00:02:48] SML-модельками, и при этом просто как
+[00:02:51] разработчик круто это всё может делать.
+[00:02:54] Вот, наверное, м всё, что пока что могу
+[00:02:57] рассказать. Если есть какие-то вопросы,
+[00:02:59] задавай.
+[00:03:00] >> Если ты готовишься к прохождению
+[00:03:01] сабесов, то помимо заучения технических
+[00:03:03] вопросов, я рекомендую тебе не забывать
+[00:03:05] про то, что этих сабесов должно быть
+[00:03:06] много и что помимо твоих технических
+[00:03:09] знаний также понадобятся софтскилы.
+[00:03:11] Поэтому обязательно забирай мой
+[00:03:12] приватный гайд по трудоустройству в IT.
+[00:03:14] Там я разбираю стратегию, которая
+[00:03:15] помогла мне пройти дохренища сабесов и
+[00:03:17] получить более тридцати оферов с
+[00:03:19] зарплатой от 220.000 руб. И даже по
+[00:03:21] специальностям, где я вообще ничего не
+[00:03:23] знал, то есть с абсолютного нуля.
+[00:03:25] Ссылочка будет в описании.
+[00:03:27] >> Да, всё понятно, хорошо.
+[00:03:31] >> А, о'кей. Можешь тогда про себя что-то
+[00:03:34] рассказать? Я вот читал, ты там вроде в
+[00:03:36] Яндекспогодел крутые сервисы. Ну да, ну
+[00:03:39] в целом, то есть не я один, да, но у нас
+[00:03:42] там команды отвечают за Яндекс AP,
+[00:03:45] а AP Яндекс погоды. Вот, собственно, да,
+[00:03:49] сейчас вот в основном этим занимаюсь.
+[00:03:51] Там сейчас в основном задачи связанные
+[00:03:54] с, ну, короче, с опишкой, да, там с
+[00:03:57] разработкой, доработкой, исправление
+[00:03:58] каких-то багов. Вот до этого тоже
+[00:04:01] проектировал микросервисы,
+[00:04:04] точнее участвовал, опять же, да, в
+[00:04:06] проектировании микросервисов в Яндексе.
+[00:04:08] До этого меня отправляли в отдел
+[00:04:12] тоже мы там ML-модели, короче,
+[00:04:14] раскатывали.
+[00:04:16] Но это уже не это уже было не в погоде,
+[00:04:18] это в другом отделе. Вот меня просто
+[00:04:20] попросили помочь.
+[00:04:22] >> А ещё до этого
+[00:04:26] Что ещё интересного было? Ну, с базами
+[00:04:28] данных работал, понятное дело. Вот такой
+[00:04:31] такого такого плана. До докер, вот это
+[00:04:34] всё знаю.
+[00:04:35] А всякие там, ну, а с базами данных
+[00:04:38] всякими ластиками там, скавкой я
+[00:04:41] работал,
+[00:04:42] >> да? Скавкой работает.
+[00:04:44] >> Угу. Всё понял. А,
+[00:04:46] >> ну скавкой на самом деле немного
+[00:04:48] работал. То есть у нас
+[00:04:50] >> Ну много на самом деле тут не нужно. Тут
+[00:04:52] скорее просто типа понимание, что это,
+[00:04:54] не знаю, когда её лучше использовать. То
+[00:04:56] есть
+[00:04:57] >> брокер сообщения.
+[00:04:59] >> Ну да, да, вроде того. Ээ, собственно,
+[00:05:03] по поводу микросервисов. А ты всё на чём
+[00:05:06] писал?
+[00:05:06] >> М, на Питоне ещё сейчас вот есть
+[00:05:08] некоторые задачи с Javaптом связан.
+[00:05:11] >> Угу.
+[00:05:13] А так чисто в теории, если нужно будет
+[00:05:16] что-то потом написать на го, насколько
+[00:05:18] ты готов был бы его поизучать?
+[00:05:21] >> Ну, типа, сейчас, сейчас я сейчас я не
+[00:05:24] напишу, но на го в принципе нормальная
+[00:05:26] тема писать. Его вообще сейчас у меня
+[00:05:28] даже многие друзья его начали изучать.
+[00:05:30] Потому что, ну, просто типа бэкэнд на
+[00:05:32] нём писать удобнее, как они говорят.
+[00:05:34] >> Ну не я, я просто, в принципе, у нас как
+[00:05:36] бы ещё достаточно мало таких задач, где
+[00:05:37] бы он мог понадобиться скорее, там в
+[00:05:39] поиске он нужен и так далее, но если они
+[00:05:42] будут просто ээ как бы скорее всего это
+[00:05:46] будет именно на го, ничем на другом,
+[00:05:47] потому что в компании просто остальные
+[00:05:49] уже пишут. Ну, короче, если что-то
+[00:05:52] нагруженное, то переходт на го.
+[00:05:53] >> Ну, го нормальная тема.
+[00:05:56] >> О'кей. А можешь тогда рассказать, а вот
+[00:06:00] про infence ML моделек?
+[00:06:03] Это что-то какие-то большие модельки
+[00:06:05] запускали или
+[00:06:08] там условно, не знаю, Кадст или
+[00:06:10] трансформеров?
+[00:06:11] >> Ну, можно сказать, это тоже была
+[00:06:12] ML-модель, которая вот с AP просто, ну,
+[00:06:15] короче, там на фаast написана обёртка и
+[00:06:18] она отдаёт просто какие-то ответы. Я я
+[00:06:20] не знаю, потом её использовали в
+[00:06:21] каких-то высонагруженных системах или
+[00:06:23] нет. Вот. То есть, ну, что я делал, я её
+[00:06:25] просто выкатывал в докер, вот, и потом в
+[00:06:28] наш аналог кубера.
+[00:06:29] >> У,
+[00:06:30] >> вот таким образом.
+[00:06:31] >> И там просто получается ресташка была,
+[00:06:33] то есть не закидывают там бач запросов,
+[00:06:35] она отдаёт. Ээ внутри она не, ну, то
+[00:06:38] есть она как-то внутри там балансирует
+[00:06:41] нагрузку или или она просто закинули, то
+[00:06:45] даёт,
+[00:06:46] >> ну, она сама не балансирует.
+[00:06:49] >> Угу.
+[00:06:49] >> Сама по себе. Вот.
+[00:06:51] Там уже, я думаю, они они они как-то,
+[00:06:54] ну, несколько инстансов подняли просто.
+[00:06:56] >> Дорогой мой друг или подруга, если ты
+[00:06:58] собираешься залетать в Data Science и
+[00:07:00] хочешь сделать это максимально быстро и
+[00:07:02] эффективно и на наиболее хорошую
+[00:07:04] зарплату, то для тебя у меня есть
+[00:07:05] программа Офер под ключ. И нет, нет,
+[00:07:07] нет, друзья, это не курсы, это
+[00:07:09] полноценная программа, где мы и дадим
+[00:07:11] тебе и хардскилы, и софтскилы, и поможем
+[00:07:14] составлениям резюме, и поможем пройти
+[00:07:16] весь путь, и трудоустроиться на работу,
+[00:07:18] и ещё поможем пройти испытательные
+[00:07:19] сроки. И всё это под ключ. В основном
+[00:07:21] хватает 3-4 месяца, чтобы устроиться на
+[00:07:23] работу и получить офер от 220.000 руб.,
+[00:07:26] даже если у тебя не было коммерческого
+[00:07:27] опыта до этого. Так что заходи на сайт
+[00:07:30] школы, заполняй анкету, и с тобой
+[00:07:31] свяжется менеджер, который расскажет
+[00:07:33] тебе про нашу программу и расскажет про
+[00:07:35] то, как именно в твоём случае лучше
+[00:07:36] поступить, оценит твои знания и
+[00:07:38] предложит тариф, который подходит именно
+[00:07:40] тебе. А мы переходим к нашему следующему
+[00:07:42] вопросу.
+[00:07:44] >> Ну, понятно. А по поводу, не знаю, там
+[00:07:48] вот потом мониторинга этой модельки
+[00:07:51] можешь, ну или в Яндекс погоде можешь
+[00:07:56] чуть подробнее рассказать, насколько
+[00:07:58] глубоко ты в эти темы погружался. Э
+[00:08:02] в виду про поддержание сервиса, то есть
+[00:08:06] >> Угу. Ну, если если модельки наши пишут
+[00:08:09] какие-то логи, то это, наверное, будет
+[00:08:11] кликхаус. А тогда просто будут типа
+[00:08:13] записываться разные типа, не знаю,
+[00:08:17] высокочастотные какие-то штуки.
+[00:08:19] Вот. Ну и потом оттуда уже можно будет
+[00:08:22] делать какую-то аналитику.
+[00:08:25] >> Они у вас прямо напрямую в клик всё
+[00:08:27] пишут.
+[00:08:28] >> И иногда, если сейчас, подожди, если я
+[00:08:31] не ошибаюсь, да, иногда некоторые прямо
+[00:08:34] напрямую пишут. У нас ещё есть вторая
+[00:08:36] база данных. Я и ябду, но она немного
+[00:08:39] для другого. То есть она типа такая
+[00:08:40] медленная. В основном
+[00:08:43] >> я понял. Ну у нас вот пока что из того,
+[00:08:46] что делали в основном, это что-то типа
+[00:08:48] писать в индекс ластика, который потом в
+[00:08:50] Кибани будет показывать, ну какую-то
+[00:08:53] аналитику и перегружать из ластика. Но
+[00:08:56] здесь иногда проблема возникает с тем,
+[00:08:59] насколько оно, ээ, ну, там что-нибудь в
+[00:09:02] кривое маппинге и так далее. То есть
+[00:09:05] вот насколько у вас мм не знаю, с
+[00:09:09] логированием всё было в порядке? Не было
+[00:09:10] такого, что там улетали форматы,
+[00:09:14] ээ, не знаю, он при профилировании
+[00:09:16] занимал много времени. Ээ, ну, я имею
+[00:09:19] сама стадия логирования в сервисе.
+[00:09:23] >> М, ну такого я не замечал. Опя, опять же
+[00:09:25] говорю, я всего один раз вот эту задачу
+[00:09:27] выполнял с ML-моделями. То есть часто я
+[00:09:31] им в принципе не делал.
+[00:09:34] Не, а я не проймаю модели, я имею в
+[00:09:35] виду, ну, ты же вроде как раз в
+[00:09:37] Яндекспогоде, я так понял, ты
+[00:09:40] >> отвечаешь просто за деплой сервисов. Ну,
+[00:09:42] в общем, работаешь там инженером.
+[00:09:44] >> Угу.
+[00:09:46] >> Да, я как раз-таки про это и спрашиваю.
+[00:09:49] То есть насколько что вы ещё делаете для
+[00:09:51] того, чтобы отслеживать ээ состояние
+[00:09:54] сервисов? Какие вот, не знаю,
+[00:09:56] мониторинги ты добавляешь?
+[00:10:00] У нас есть такая штука, как дежурство.
+[00:10:03] То есть там на у нас есть, ну, вот
+[00:10:06] можно, скажем, такая типа, где вся
+[00:10:08] статистика выводится, там серэмка. И,
+[00:10:11] допустим, мы сидим просто по очереди и
+[00:10:13] смотрим там всё ли с с моделью
+[00:10:16] нормально. Ты про это говоришь в этом
+[00:10:18] плане?
+[00:10:19] >> А не совсем. Я имею в виду, что вы
+[00:10:20] настраиваете для того, чтобы можно было
+[00:10:23] отслеживать, что все, что с ней всё
+[00:10:24] о'кей. Ну то есть можно там просто логи
+[00:10:26] сделать, можно настроить какой-то
+[00:10:28] определённый мониторинг на на что-то
+[00:10:30] конкретное. То есть просто здесь можно
+[00:10:31] там бесконечность всего сделать.
+[00:10:33] >> Ну я я понял, я только с логами
+[00:10:35] встречался.
+[00:10:36] >> Угу, я понял.
+[00:10:38] >> Ну а что ещё можно сделать?
+[00:10:41] Ну вот, в принципе, и в мэле, что обычно
+[00:10:43] используют.
+[00:10:45] >> Вот, собственно, это мы сейчас как раз
+[00:10:48] начинаем просто поднимать сервисы,
+[00:10:49] потому что у нас пока что есть
+[00:10:50] достаточно, ну, м простые мониторинги.
+[00:10:53] Мы хотим добавить сюда си, ну, то есть
+[00:10:56] хотим добавить что-то вроде
+[00:10:57] профилирования сервиса в время его
+[00:11:00] работы, смотреть там на каких участках,
+[00:11:02] на сколько время тратится э при реальной
+[00:11:05] нагрузке от пользователей.
+[00:11:07] >> А название самих фреймворков вы ещё не
+[00:11:09] знаете, да? То есть типа надо будет
+[00:11:11] поресерчить встречать,
+[00:11:12] >> да? То есть идея в том, что как раз
+[00:11:15] сейчас мы хотим, в общем, да, у нас нету
+[00:11:19] конкретного плана.
+[00:11:20] Есть план на кусочки, но
+[00:11:24] как бы идеально, если если ты уже умеешь
+[00:11:26] эти штуки делать и можешь скорее
+[00:11:28] показать, как это сделать корректно.
+[00:11:31] Вот. Ну, э там про часть вещей, не знаю,
+[00:11:34] про L мониторинг, дрифданных, допустим,
+[00:11:37] вроде как есть удобная штука типа
+[00:11:38] эвиденты, где всё из коробки. Часть
+[00:11:40] вещей мы там сами будем добавлять, ээ,
+[00:11:43] ну, там, не знаю, какое-нибудтическое
+[00:11:44] моделирование, в котором смотреть,
+[00:11:46] насколько у нас отзывы от пользователей.
+[00:11:48] э-э, со временем меняются,
+[00:11:52] я именно статистикой распределения по
+[00:11:54] тематикам, э, и там на этом на это
+[00:11:56] обращать внимание либо на распределение
+[00:11:58] с коров и так далее. Ну, то есть, ээ, в
+[00:12:00] целом идей много,
+[00:12:02] >> но, э, каких-то хороших практик того,
+[00:12:05] как это лучше сделать, наверное, в
+[00:12:08] общем, идей много, конкретного пути пока
+[00:12:10] что нету. Э поэтому ищень человек,
+[00:12:12] который прям,
+[00:12:14] в общем, готов самостоятельно в это
+[00:12:16] погружаться.
+[00:12:18] предлагать идеи.
+[00:12:23] Мм, так, ну, в целом, в целом вроде
+[00:12:26] понял всё. Можем мы с вами перейти к
+[00:12:28] технической части. Ээ тут по сути будет
+[00:12:31] просто
+[00:12:33] >> несколько задачек с
+[00:12:35] по типу лидкодовских,
+[00:12:37] >> да? А
+[00:12:40] сейчас, секунду,
+[00:12:44] может, что-то ещё помню из ээ
+[00:12:47] задач по литкоду.
+[00:12:49] Просто было время, я решал, опять же,
+[00:12:52] когда готовился там к Яндексу и ко
+[00:12:53] всему,
+[00:12:55] потому что как будто это
+[00:12:56] >> А ты ты ты ты ты ты ты ты ты ты ты ты ты
+[00:12:58] ты не знал, да, что сейчас будет
+[00:12:59] алгоритмический завес? Я как-то,
+[00:13:01] >> а, слушай, возможно, мне говорила, но я
+[00:13:07] это
+[00:13:08] Ну, короче, мне не принципиально, я всё
+[00:13:11] равно есть есть. Кинул ссылочку на
+[00:13:14] ноутбук. Угу.
+[00:13:15] >> Можешь по ней перейти и просто расшарить
+[00:13:17] экран. Вот.
+[00:13:19] >> Да.
+[00:13:20] >> Ну, скорее всего, там нужно будет
+[00:13:21] скопировать его к себе, потому что у
+[00:13:22] него доступ только на чтение.
+[00:13:24] >> А, на чтение, да.
+[00:13:26] >> Ну, там можно типа содам копию. Подожди.
+[00:13:29] Угу.
+[00:13:45] Да нет, вроде на выполнение тоже
+[00:13:47] работает.
+[00:13:49] Или есть ли изменения? Сейчас, секунду.
+[00:13:57] Не нормально.
+[00:13:59] Ну давай ты там прошалишь, пото что я
+[00:14:01] тоже видел, что происходит.
+[00:14:05] Сейчас, погоди, тут что-то с настройками
+[00:14:06] надо.
+[00:14:09] Так, видно, да?
+[00:14:15] >> Угу.
+[00:14:17] >> А
+[00:14:18] >> да,
+[00:14:20] >> нам нам дал очень сильный массив. Вот
+[00:14:23] ответ нужно вернуть такой листре, где
+[00:14:26] каждый элемент листа ит является
+[00:14:29] произведением всех элементов этого листа
+[00:14:32] нам, кроме
+[00:14:34] и так,
+[00:14:36] >> ну, короче, я могу пока чуть понятнее
+[00:14:40] переформулировать. У нас есть лист,
+[00:14:42] подаётся на вход. Тебе нужно вернуть
+[00:14:44] такой, где на, э, каждой позиции
+[00:14:47] произведение всех элементов, кроме его
+[00:14:49] самого.
+[00:14:50] >> Угу. Угу.
+[00:14:51] Но при этом нельзя
+[00:14:54] пользоваться операцией деления, короче.
+[00:14:56] Угу.
+[00:14:57] >> Ну, нельзя типа просто все перемножить и
+[00:14:59] потом на себя разделить. Так, так не
+[00:15:01] пойдёт.
+[00:15:02] >> Хорошо. Хорошо. То есть то есть там
+[00:15:04] какими-то либами типа нампая там, да,
+[00:15:06] тоже нельзя пользоваться,
+[00:15:08] >> да? Это просто логорифмическая задачка.
+[00:15:10] Типа по хорошему она вот за линейное
+[00:15:12] время решается. Ээ, собственно,
+[00:15:14] предлагается как раз такое решение и
+[00:15:16] придумать.
+[00:15:17] >> Угу. за линейное время. То есть,
+[00:15:20] >> сейчас типа самое самое базовое решение
+[00:15:24] было бы n², да, типа там, ну, самое
+[00:15:26] очевидное. То есть ты проходишься, типа
+[00:15:28] n раз n раз и всё перепере перемножаешь,
+[00:15:31] но а вот то, что не нельзя пользоваться
+[00:15:34] операцией деления, о'кей, это усложняет
+[00:15:37] немножко всё. Это
+[00:15:42] усложняет немножко всё.
+[00:15:47] А
+[00:15:57] так,
+[00:16:00] ну просто очевидно, да, было бы можно
+[00:16:02] как-то,
+[00:16:03] >> ну да, понятно, что можно переножить,
+[00:16:04] поделить. Тут
+[00:16:06] к этому методу претензий нет, как бы
+[00:16:09] просто. И
+[00:16:11] вот, ну, можно просто подумать, типа,
+[00:16:13] что в целом, как, в принципе, возможно
+[00:16:17] за линейное время решить какую-то задачу
+[00:16:19] с где нужно что-то умножать.
+[00:16:26] Мм,
+[00:16:28] ну, линейное время - это один проход
+[00:16:30] просто по массиву. То есть тут другого
+[00:16:32] нет. Это
+[00:16:35] >> N про, ну, типа, не обязательно один
+[00:16:37] просто,
+[00:16:37] >> да, несколько. Ну, короче, это это
+[00:16:40] независящее.
+[00:16:42] Вот. Ну, допустим,
+[00:16:46] сейчас
+[00:16:58] мы идём первый видим,
+[00:17:03] что-то с ним делаем.
+[00:17:26] Короче, идея в том, чтобы как бы
+[00:17:30] идти и умножать,
+[00:17:35] но Нет, тогда получается, тебе надо
+[00:17:37] будет изменить
+[00:17:39] во всех предыдущих
+[00:17:44] тоже.
+[00:17:52] А по памяти неважно, да?
+[00:17:57] >> А-э, ну да, можно по-разному. В целом
+[00:18:01] можно её за константу по памяти сделать.
+[00:18:05] >> Угу.
+[00:18:09] Ну, это не обязательно просто Угу.
+[00:19:25] M.
+[00:19:40] Может, как с двумя указателями
+[00:19:43] можно?
+[00:19:51] Ну, тут, конечно, да, можно использовать
+[00:19:54] указатели, но хотел бы чуть больше
+[00:19:56] конкретики всё-таки.
+[00:19:59] Ну,
+[00:19:59] >> это понятно, что хотелось бы.
+[00:20:28] Ну, то есть получается, раз это нужно за
+[00:20:30] линеймое время, то в проход проходи за
+[00:20:33] один проход нужно что-то записать уже в
+[00:20:36] элемент, в каждый элемент итогового
+[00:20:39] листа
+[00:20:41] >> и потом, видимо, за ещё какой-нибуд там
+[00:20:43] за один или ещё за один проход дописать
+[00:20:46] ещё что-то. Нужно просто, чтобы время
+[00:20:48] этих проходов было константное. То есть
+[00:20:50] нужно подумать, что в принципе
+[00:20:52] ээ можно
+[00:20:55] такого сделать, чтобы
+[00:20:58] то есть что вообще можно записать в эти
+[00:21:00] элементы.
+[00:21:02] Ну, логично, наверное, какое-нибудь
+[00:21:04] произведение,
+[00:21:07] э, что можно записать.
+[00:21:15] >> Ну да, да, всё так какой-то в каждый
+[00:21:17] элемент при проходе ты уже будешь
+[00:21:18] записывать какое-то произведение.
+[00:21:20] >> Ну вот я и думаю,
+[00:21:23] >> да, то есть если записывать ээ у меня
+[00:21:26] сейчас вот такой вариант был. Если мы
+[00:21:29] идём, допустим, и записываем в каждый
+[00:21:32] элемент произведения всех предыдущих,
+[00:21:36] вот, то нам то нам остаётся
+[00:21:40] >> потом ещё раз пройти. А, всё, я понял.
+[00:21:44] Да, реально с другой стороны просто и
+[00:21:47] тоже записать произведение всех
+[00:21:48] предыдущих каждый, ну, типа, и потом
+[00:21:50] перемножить.
+[00:21:53] >> Да, звучит звучит разумно.
+[00:21:57] Можно, наверное, реализовать и, ну, в
+[00:22:00] общем, да, давайс
+[00:22:10] Eh
+[00:23:04] Так, это мы один раз прошлись.
+[00:23:18] Потом прод равно
+[00:23:21] одному опять.
+[00:23:36] M.
+[00:24:08] Так, ну и потом получается
+[00:24:12] for
+[00:24:43] типа такого.
+[00:24:46] А, да,
+[00:24:48] вопрос, как это можно было сделать за
+[00:24:50] константное время по памяти? Ну, сейчас,
+[00:24:52] подожди, давай запустим.
+[00:24:58] >> Ну, тут, да, не совсем константно я имел
+[00:25:00] в виду. Если не
+[00:25:03] Давайте по примеров закину, кстати,
+[00:25:04] сейчас что ли погнать? И, по-моему,
+[00:25:07] кажется, там всё-таки есть сейчас косяк.
+[00:25:09] константное время имел, не учитывая
+[00:25:11] выходного массива. То есть, понятное
+[00:25:13] дело, что если мы на выход даём массив
+[00:25:15] размер N, то он уже, ну, типа размер N
+[00:25:20] по памяти,
+[00:25:20] >> да? Тут есть косяк. Сейчас, секунду.
+[00:25:45] Так, сейчас, секунду. Если тут косяк, то
+[00:25:50] надо посмотреть.
+[00:26:15] Так, forward получается,
+[00:26:18] э, произведение всех предыдущих
+[00:26:22] 1 2 Шесть.
+[00:26:27] Нет.
+[00:26:29] 1 1
+[00:26:32] 2 6
+[00:26:36] 1 2 6
+[00:26:38] и в обратном порядке 1 3. Нет, 1
+[00:26:46] сейчас 1 3 9
+[00:26:52] 18.
+[00:26:53] Так.
+[00:27:03] Так, всех предыдущих.
+[00:27:13] Так. И что нужно сделать? Получается
+[00:27:15] 1 3 18
+[00:27:19] 17
+[00:27:26] А, да, я понял. Нужно было перевернуть
+[00:27:29] вот этот э
+[00:27:31] >> Угу. Угу.
+[00:27:37] >> Вот вдруг так прокатит. 18 96. Ну да,
+[00:27:41] >> да, выглядит норм. Может на всякий
+[00:27:43] случай теперь ещё, э, ой,
+[00:27:49] э-
+[00:27:51] я там скинул, я просто не подумал то,
+[00:27:53] что тут в блокноте сейчас не смогу у
+[00:27:55] тебя код скопировать ээ просто функцию
+[00:27:57] там с четырьмя тестами.
+[00:28:00] >> Угу.
+[00:28:14] Ну да.
+[00:28:15] >> Угу. Всё, кайф. Давай дальше.
+[00:28:18] >> Давай. Имеется целочисленный массив нам,
+[00:28:21] состоящий из уникальных элементов. Пара
+[00:28:24] элементов, которые являются
+[00:28:26] ситуацией уникальных элементов. Пары
+[00:28:30] элементов, которые являются соседями.
+[00:28:34] Не понял.
+[00:28:37] Ну, типа, есть массив чисел, он у тебя
+[00:28:40] представили не в виде массива, а в виде
+[00:28:43] пар своих соседей. То есть у тебя
+[00:28:46] >> Угу.
+[00:28:47] >> На вход дан вот этот намс, который из
+[00:28:49] себя представляет
+[00:28:52] в в любой в любом порядке они могут
+[00:28:54] быть. То есть, грубо говоря, первая
+[00:28:57] запись значит то, что 4 и п между собой
+[00:28:59] соседей. А
+[00:28:59] >> вот 6,8 они же не они же не соседи 6 и8
+[00:29:03] или в чём
+[00:29:03] >> соседи. Вот видишь, output у тебя 86.
+[00:29:06] Нет, ээ, это ещё раз тебя значит, что
+[00:29:09] есть какой-то массив, в котором внутри
+[00:29:11] эти числа будут соседними.
+[00:29:13] >> А,
+[00:29:14] >> то есть, ну, здесь у тебя, грубо говоря,
+[00:29:15] был 8 6 5 4 9. И вот его можно расписать
+[00:29:19] как такие пары соседей.
+[00:29:22] Ну, нужно восстановить, соответственно,
+[00:29:23] из пары соседей сам массив. Ээ пара
+[00:29:26] соседей может быть в любом порядке
+[00:29:27] записана. То есть 68во - это значит, что
+[00:29:31] 6-во рядом, но ты не знаешь в каком
+[00:29:33] порядке. Типа надо здесь вот типа
+[00:29:35] шестёрку вот с этой шестёркой, да, как
+[00:29:37] бы соединить. Пятёрку вот с этой
+[00:29:39] пятёркой. Четвёрку вот с этой четвёркой
+[00:29:41] соединить.
+[00:29:45] >> Ну, типа того.
+[00:29:49] >> Угу.
+[00:29:59] Угу.
+[00:30:32] 49
+[00:31:08] А сложность какая?
+[00:31:13] А,
+[00:31:13] >> ну какой напишешь?
+[00:31:15] >> Ну, типа, вообще любая или это тоже
+[00:31:19] оценивается?
+[00:31:21] >> Ну, как бы чем лучше будет, чем меньше
+[00:31:24] сложность, тем лучше. Но в целом ээ как
+[00:31:27] бы любой вариант подходит.
+[00:31:30] Ну, просто предыдущей задачей было бы
+[00:31:32] прямо совсем странно. Её, ну, можно было
+[00:31:33] прямо в лоб решить. Здесь
+[00:31:37] не так просто.
+[00:31:40] Угу.
+[00:31:49] А гарантируется, что не будет, допустим,
+[00:31:51] три пары, где вот, допустим, есть ээ
+[00:31:54] пятёрка.
+[00:31:56] Да, гарантирует, что у тебя всё, ну,
+[00:31:59] задан на вход корректный массив, то есть
+[00:32:00] из него можно восстановить массив. Ну,
+[00:32:04] если его можно востановить по-разному,
+[00:32:05] тогда подойдёт любой из вариантов.
+[00:32:08] >> Угу. Угу.
+[00:32:54] Мм,
+[00:32:56] ну ладно, сейчас подумаю. Логично,
+[00:33:00] наверное, как-то отсортировать это было
+[00:33:02] бы всё дело.
+[00:33:05] То есть, если я отсортирую, допустим, по
+[00:33:07] первому ключу, получится
+[00:33:10] 45
+[00:33:19] 6
+[00:33:28] и
+[00:33:30] вот так.
+[00:33:33] То есть, когда я отсортирую, то у меня
+[00:33:36] получается
+[00:33:38] пары, они должны друг с другом как бы
+[00:33:42] совместиться. Теперь они будут уже по
+[00:33:44] два идти.
+[00:33:46] Вот. А вопрос, что делать дальше, если я
+[00:33:49] отсортирую
+[00:33:51] уже то же самое, но уже по другому?
+[00:33:56] >> Чат, на самом деле, не очень понял. Ещё
+[00:33:58] раз, что тебе сейчас даёт сортировка.
+[00:34:01] Сортировка тебе даёт вот такой
+[00:34:05] как тебе сказать стрим.
+[00:34:09] >> А, всё, я понял. У тебя по парам, да,
+[00:34:11] да, что у тебя
+[00:34:15] >> мм ну у тебя они могли быть записаны
+[00:34:17] по-другому. То есть у тебя, допустим,
+[00:34:19] первое четыре могло быть записано
+[00:34:20] наоборот 5четыре.
+[00:34:23] Ну, у тебя одно и то же число, но где-то
+[00:34:25] может быть первым, где-то вторым.
+[00:34:29] Ну, может, это что-то и даст. Я как не
+[00:34:31] продумал простартировку.
+[00:34:39] И можно теперь, если, допустим, я я
+[00:34:41] захочу отсортировать по второму ключу,
+[00:34:47] получается
+[00:34:49] 4 пять
+[00:35:33] Ну вот. Ой,
+[00:35:38] на всякий случай ещё один пример
+[00:35:39] закинул.
+[00:35:45] Угу. А ещё,
+[00:35:50] >> ну это в целом вроде ничего не меняет
+[00:35:52] тут. Эээ,
+[00:35:55] тут я скорее про то, что видишь, у тебя
+[00:35:57] может быть, ну, четыре встретиться, как
+[00:35:58] в начале, так и в конце парня. То есть,
+[00:36:02] >> ну, можно, ну, так вот без проблем можно
+[00:36:04] просто сначала пары отсортировать, потом
+[00:36:06] уже отсортировать ээ всё остальное.
+[00:36:11] То есть в этом плане, мне кажется,
+[00:36:14] всё нормально должно быть.
+[00:36:19] Ты просто говоришь, ну, я насколько
+[00:36:20] понял твою идею, что когда ты
+[00:36:21] сортируешь, у тебя пары с одинаковым
+[00:36:23] числом, типа четвёрка, они окажутся
+[00:36:25] подряд.
+[00:36:26] >> Да.
+[00:36:26] >> Вот я говорю, что в целом это не
+[00:36:28] обязательно, потому что у тебя в одной
+[00:36:29] паре четвёрка могла быть первая, а в
+[00:36:31] другой вторая, и ты когда сортируешь по
+[00:36:33] первому значению, у тебя они окажутся в
+[00:36:35] разных местах.
+[00:36:36] >> Ну так а ты можешь сначала отсортировать
+[00:36:37] эти пары сами внутри себя, чтобы у тебя
+[00:36:41] всегда было шестьвосемь.
+[00:36:44] Ну, у тебя
+[00:36:45] >> всегда возрастающий порядок будет.
+[00:36:50] >> Ну да, но всё равно у тебя в одной паре
+[00:36:52] четвёрка может быть, допустим, с
+[00:36:53] минусдвойкой, а в другой с шестёркой,
+[00:36:56] да? 4 5 6.
+[00:36:57] >> И у тебя получится в одной будет -24, а
+[00:37:00] в другой будет 46.
+[00:37:04] Угу.
+[00:37:53] Что-то ничего простого в голову не
+[00:37:54] приходит.
+[00:38:32] M.
+[00:39:02] Так, ну, допустим, иду просто циклом по
+[00:39:05] каждой паре.
+[00:39:11] Добавляю её в массив. Если
+[00:40:05] Так, а если мы, допустим, просто все
+[00:40:07] запишем в один массив? А, погоди,
+[00:40:12] а если просто все числа записать и потом
+[00:40:14] просто удалить ээ дубликаты,
+[00:40:18] ну, типа записать, отсортировать и
+[00:40:20] удалить дубликаты, что это не сработает,
+[00:40:23] что ли?
+[00:40:24] >> М,
+[00:40:26] ну тогда у тебя просто получится
+[00:40:27] отсортированный по
+[00:40:30] у тебя будет просто возрастающая
+[00:40:31] последовательность, то есть у тебя не
+[00:40:33] сохранится реальный порядок соседей. А,
+[00:40:36] а там же не обязательно, да?
+[00:40:39] Ну да, то есть вот даже по мере оно не
+[00:40:41] не возрастающее.
+[00:40:43] Ну, можно подумать над тем, как ещё
+[00:40:45] можно представить. То есть видишь, у
+[00:40:47] тебя в каком-то таком странном виде
+[00:40:49] представлен массив, который часто ещё
+[00:40:53] другие всякие штуки так представляют.
+[00:41:00] Ну, типа, как словарь.
+[00:41:07] А, ну
+[00:41:10] я не сам про это говорил, но, ну да,
+[00:41:12] можно и я скорее про
+[00:41:15] ну абстрактную штуку тебе. Видишь тебя
+[00:41:17] тут соседи всякие заданы.
+[00:41:22] >> Не знаю, ничего с соседями связано.
+[00:41:30] Так, этот вариант не прокатит. Если,
+[00:41:33] допустим,
+[00:41:36] идти по числу и добавлять к нему то, что
+[00:41:39] его соседи
+[00:41:44] пять, допустим,
+[00:41:47] >> индексше сосед. индекс 6, сосед 8 5
+[00:41:57] индекс 4 сосед ээ 59
+[00:42:05] потом пройтись по этим ключам
+[00:42:10] или типа там обратно типа там де индекс
+[00:42:14] де соседчетыре
+[00:42:23] А так давай сейчас нарисую, что он это
+[00:42:26] даст.
+[00:42:40] шесть
+[00:42:59] 9че 4
+[00:43:02] 5 6 4
+[00:43:11] 8 6
+[00:43:22] Угу.
+[00:43:28] Ну вот, кстати, с этим уже легче,
+[00:43:29] наверное, работать.
+[00:43:32] нарисовал типа кто чьи соседи.
+[00:43:35] >> Я я нарисовал вот такую штуку
+[00:43:39] типа
+[00:43:42] четыре.
+[00:43:44] Это 5
+[00:43:46] >> я понял и те, да. Ну вот можешь
+[00:43:48] посмотреть на пару особенностей в этом
+[00:43:50] словаре и ээ
+[00:43:53] они не сильно помогут.
+[00:43:55] >> 68 и второй словарь - это типа то же
+[00:43:59] самое, только в обратном порядке.
+[00:44:02] Не знаю, нам нужен будет или нет, но
+[00:44:05] пригодится.
+[00:44:12] Шесть.
+[00:44:17] Вот. Ну, особенность в том, что если у
+[00:44:19] него один сосед, то это обязательно
+[00:44:22] замыкающий чел. Вот поэтому его либо в
+[00:44:27] начало, либо в конец можно только
+[00:44:28] поставить. Угу. Угу. Да, всё. Так.
+[00:44:34] Вот единственное, что
+[00:44:37] >> важно, наверное, учесть, то, что они
+[00:44:38] всё-таки могут быть в любом порядке. То
+[00:44:42] есть не очень понятно просто, зачем два
+[00:44:43] словаря.
+[00:44:48] Эта штука вот в такую должна
+[00:44:50] преобразоваться. Это в 58
+[00:44:56] Ой, 5ше
+[00:44:59] 8 6 5.
+[00:45:05] Ну вот не обязательно опять же у тебя
+[00:45:06] они могут быть с разных сторон
+[00:45:08] соседними.
+[00:45:10] Она может приблизоться как в 9 45, так в
+[00:45:12] 549.
+[00:45:16] Да, ну это же проще.
+[00:45:21] А,
+[00:45:23] ну
+[00:45:26] просто если ставят такие тройки, их не в
+[00:45:28] любом не в любом случае получится
+[00:45:30] единить тогда. То есть,
+[00:45:32] >> ну вот, допустим, здесь 9 4 6 ээ 5 4
+[00:45:40] здесь 8ше. Вот в этом случае что
+[00:45:43] получается? Видишь, они как бы не
+[00:45:46] соединяются, но они типа соединяются по
+[00:45:49] последнему элементу.
+[00:45:52] То есть эти штуки, они будут соединяться
+[00:45:55] либо последний к первому, либо первый к
+[00:46:00] последнему, либо последний к последнему,
+[00:46:03] либо первый к первому.
+[00:46:07] То есть либо он
+[00:46:10] >> соединяется, либо перевёрнутый он
+[00:46:12] соединяется, как одной из сторон. Угу.
+[00:46:17] Да, да, тут всё так вот. Единственное,
+[00:46:19] всё-таки до сих пор не ошим два
+[00:46:21] словарям.
+[00:46:22] >> Ну это это просто для наглядности пока.
+[00:46:24] >> Чем они отличаются?
+[00:46:26] >> Они ничем с точки зрения вот этого
+[00:46:29] решения они не отличаются.
+[00:46:33] Вот так вот.
+[00:46:38] Это 8 6 5
+[00:46:42] 4 9.
+[00:46:48] Ага.
+[00:46:50] Ну да.
+[00:46:53] Если, допустим, здесь ситуация такая,
+[00:46:55] что 9 4 5,
+[00:46:59] то мы что делаем? Мы смотрим, вот эти
+[00:47:03] совпадают.
+[00:47:04] Нет.
+[00:47:07] Ну ладно, всё, я, короче, примерно могу,
+[00:47:10] наверное, написать.
+[00:47:14] Могу, наверное, примерно написать.
+[00:48:22] One.
+[00:48:28] Так, отлично.
+[00:48:39] Ну вот мы получили вот такой,
+[00:48:40] получается, словарь.
+[00:48:42] Дальше что? Проверяем if.
+[00:49:09] или я уже, кстати, не помню.
+[00:49:13] КВМ.
+[00:49:15] >> А, items. Да.
+[00:49:35] H.
+[00:49:43] Так, а если, допустим, у нас получится
+[00:49:45] больше, чем два?
+[00:49:49] >> Слушай, ну я я бы вот на самом деле
+[00:49:50] проговорил сначала всё-таки идею,
+[00:49:52] которую ты хочешь осуществить. То есть,
+[00:49:54] ээ, как бы у меня она была близка, но не
+[00:49:56] совсем такая же, поэтому я пока
+[00:50:03] не совсем понял. То есть
+[00:50:06] >> восемь.
+[00:50:06] >> Ну вот, условно, по нижнему словарю, тут
+[00:50:08] видно несколько интересных штук, что,
+[00:50:11] ну, там можно заметить, что у тебя
+[00:50:13] получается
+[00:50:15] ээ у части ключей всего одно значение.
+[00:50:19] Получается, что оно,
+[00:50:20] >> да,
+[00:50:21] >> либо начало, либо конец. Вот. Но я
+[00:50:24] просто думаю, вот если так составлять
+[00:50:26] словорит, точно ли точно ли будет
+[00:50:30] в общем, не нужно ли это всё в один
+[00:50:31] записать?
+[00:50:42] Хотя вроде реально собирается с
+[00:50:44] половины. Ну ладно.
+[00:50:52] Вот если вот такая вот ситуация,
+[00:50:53] допустим,
+[00:50:56] он вот не обязательно
+[00:50:58] пристыкуется к вот этом.
+[00:51:02] Хотя, погоди, вот в этом случае тут
+[00:51:04] каждый с каждым должен стаковаться.
+[00:51:09] Допустим, у нас будет там
+[00:51:21] 2 1 3
+[00:51:24] там пять, допустим, нет.
+[00:51:30] Ой.
+[00:51:43] 31. Вот так, например,
+[00:51:46] если у нас вот этот должен статыковаться
+[00:51:49] вот с этим,
+[00:51:52] а не вот этот вот с этим,
+[00:51:59] что тогда
+[00:52:13] Э, так, ну, в общем, то, что это про
+[00:52:16] соседей говорил, я имел в виду, что типа
+[00:52:17] это похоже на граф. Ну, точнее, не то,
+[00:52:20] что похоже на граф, просто можно
+[00:52:21] представить это как бы как граф через
+[00:52:24] соседей и потом подумать, как из него
+[00:52:26] составить список. То есть, ээ, вот
+[00:52:32] получается, если ты нарисуешь, где какие
+[00:52:34] соседи, тебе нужно будет просто что
+[00:52:37] сделать, чтобы
+[00:52:40] >> А я понял,
+[00:52:40] >> из них составить
+[00:52:42] >> состыковать граф просто, ну, типа обойти
+[00:52:44] графт, получается.
+[00:52:47] >> Ну, там, да, ладно, не совсем графя
+[00:52:50] скорее. Ну, ну да, да, можно так
+[00:52:52] сказать, то, что ты, мм, да, короче, ээ
+[00:52:56] тебе нужно будет понять, в какой в каком
+[00:52:58] они порядке стоят.
+[00:53:06] Ну, типа, а как я представлю это как
+[00:53:08] граф сейчас мне кодить, типа, структуру
+[00:53:10] графа или как?
+[00:53:13] Нене не не, я не про это. Я к тому, что,
+[00:53:14] ну, вот ты просто когда словарик
+[00:53:15] создавал, ээ, просто уже время к концу
+[00:53:18] подходит. Я поэтому
+[00:53:19] >> Давай, давай. Ну, можно можно, допустим,
+[00:53:22] в один словарь всё это создать. В любой
+[00:53:25] последовате в любой типа и так, и так,
+[00:53:28] любой последовательности числа внутри
+[00:53:30] пары.
+[00:53:30] >> Ну, один словарь, да, ты ты получается
+[00:53:34] создашь какое-то представление, где ты
+[00:53:36] будешь знать ээ соседей для каждого из
+[00:53:39] чисел.
+[00:53:41] Вот. И можно посмотреть, что из этого
+[00:53:43] всего.
+[00:53:44] >> А, я понял. То есть можно будет
+[00:53:45] обратиться по, допустим, по пятёрке,
+[00:53:49] посмотреть, какие соседи. Не,
+[00:53:52] что-то не не получится.
+[00:53:53] >> Ну то есть условно вот вот у тебя будет
+[00:53:55] такой словарик, и в нём будут какие-то
+[00:53:58] ключи. Ну то есть у всех ключей будет по
+[00:53:59] два элемента в листе в значениях, а у
+[00:54:02] каких-то будет один. Вот это о чём
+[00:54:04] говорит.
+[00:54:05] >> А типа добавлять не только вот так вот
+[00:54:08] ещё и добавлять ээ 8 5ше ты имеешь в
+[00:54:12] виду? И пять.
+[00:54:15] 68.
+[00:54:19] >> Да. Так вот.
+[00:54:22] >> А, ну тогда,
+[00:54:23] >> да,
+[00:54:24] >> да. Тогда получается, что если мы вот,
+[00:54:28] допустим, идём в восемь от восьмёрки
+[00:54:30] 5-6,
+[00:54:33] то мы как бы,
+[00:54:39] ну, типа про просто как как-то,
+[00:54:41] >> ну, вот если запишешь один один полный
+[00:54:44] такой, там будет прямо наглядно уже
+[00:54:46] понятно, что делать дальше.
+[00:54:48] >> Один полный, что ты имеешь в виду?
+[00:54:51] А, ну я имею для одного примера, если ты
+[00:54:52] запишешь полный словарик такой для
+[00:54:54] первого, например, ну, то есть тебе
+[00:54:56] просто нужно было по сути два словарика
+[00:54:58] в один записать и там было бы наглядно и
+[00:55:01] виднее уже, что
+[00:55:04] могло произойти.
+[00:55:06] 4 5
+[00:55:10] 6
+[00:55:12] Нет, 4 5 9
+[00:55:16] 5
+[00:55:19] 4
+[00:55:21] 6
+[00:55:25] 9
+[00:55:27] 4.
+[00:55:32] Так, дальше что?
+[00:55:36] Восемь ещё есть. Да.
+[00:55:42] >> А
+[00:55:44] 6 8 5
+[00:55:49] 8
+[00:55:52] 6
+[00:55:55] 8 6
+[00:55:59] Так, пять уже есть.
+[00:56:02] >> Всё, вроде всё записал.
+[00:56:06] Вот. Ну и что получается? У которых
+[00:56:09] один, с них типа это рекурсия
+[00:56:12] начинается,
+[00:56:14] получается девять.
+[00:56:19] Девять мы идём в четыре.
+[00:56:22] Из четырёх мы идём в
+[00:56:26] 5ше.
+[00:56:31] Ну, а вот как ты из четырёх перейдёшь в
+[00:56:34] пять потом? То есть как ты понял, что из
+[00:56:36] четырёх нужно в пять, а не в девять
+[00:56:38] идти?
+[00:56:42] Вот из четырёх мы идём в
+[00:56:46] 59.
+[00:56:47] >> Ну, типа,
+[00:56:50] а
+[00:56:51] >> сейчас, погоди. Да, да, да. Вот из из
+[00:56:53] четырёх мы идём в пять, в 5 девять,
+[00:56:55] допустим, из пятёрки мы идём в
+[00:56:58] >> э четыре. Ну, четыре мы уже пошли.
+[00:57:03] Шесть,
+[00:57:05] то есть в шестёрку. А, погоди, в девя
+[00:57:08] уже были. В девять уже были.
+[00:57:10] >> Во, да, я я и говорю. То есть как ты
+[00:57:14] >> Ну, если у нас девятка в четвёрке, а из
+[00:57:17] четвёрки ты куда?
+[00:57:19] >> Из девятки в четвёрку.
+[00:57:20] >> А как как ты это алгорит? Вот из, ну, из
+[00:57:23] девятки,
+[00:57:23] >> сори просто встаёт, поэтому
+[00:57:25] >> из четвёрки
+[00:57:26] >> ваю
+[00:57:27] >> в
+[00:57:29] пятёрку, потому что девять уже было. Ну,
+[00:57:31] это можно сет создать просто там, я не
+[00:57:33] знаю, что уже было, что уже встречалось,
+[00:57:35] либо просто смотреть на предыдущее
+[00:57:37] значение.
+[00:57:40] >> Ну, наверное, сет создать.
+[00:57:41] >> Угу.
+[00:57:42] >> Вот из из девятки в
+[00:57:47] ээ так нет из четвёрки в пятёрку. Из
+[00:57:51] пятёрки в четвёрка была уже в шестёрку.
+[00:57:55] Из шестёрки пятёрка была в восьмёрку. Из
+[00:57:57] восьмёрки только в шестёрку можно. Ну
+[00:57:59] вот таким образом.
+[00:58:02] >> Ну да. Ну то есть получается сейчас
+[00:58:04] просто уже закодить не успеем, а идейно
+[00:58:07] ты что получается? Какие будешь объекты
+[00:58:09] внутри создавать? Ну ты вот говоришь,
+[00:58:11] сет у тебя будет, который переверяет,
+[00:58:13] >> да, предыдущие значения.
+[00:58:16] А дальше,
+[00:58:19] >> ну и, наверное, всё. Просто надо начать
+[00:58:22] будет с, ну, лист. Понятно, куда мы это
+[00:58:24] всё будем складывать. Нача начать нужно
+[00:58:27] с любого числа, у которого один сосед,
+[00:58:32] >> и всё.
+[00:58:33] >> Угу.
+[00:58:35] И дальше просто идём типа
+[00:58:41] там
+[00:58:43] через while идём просто там, пока мы не
+[00:58:46] найдём число, у которого
+[00:58:48] число пока мы не найдём число, у
+[00:58:50] которого один сосед.
+[00:58:53] >> Ну да, идейно примерно оно и есть.
+[00:58:57] О'кей.
+[00:58:59] Э, всё, у нас просто уже время
+[00:59:01] закончилось. Угу.
+[00:59:03] >> Э, прикольно. Вот увидел, интересно было
+[00:59:06] решать. Если есть какие-то вопросы,
+[00:59:08] можедать.
+[00:59:11] Так, а что сейчас? Третье задание было
+[00:59:13] найти длину наибольшей возрастающей
+[00:59:15] последовательности.
+[00:59:18] А,
+[00:59:18] >> под последовательностью.
+[00:59:19] >> А, под последовательностью. Ой, это
+[00:59:20] какие-то ещё более жёсткие. То есть они
+[00:59:22] по сложности, да, идут?
+[00:59:25] >> Да. Нет, в целом, ну, последняя, она
+[00:59:28] прямо известная считается задача. Я её
+[00:59:31] просто в конец поставил, потому что
+[00:59:31] вдруг её её просто много кто может прямо
+[00:59:34] знать изначально.
+[00:59:37] >> Угу.
+[00:59:38] >> Ну да,
+[00:59:43] ну было бы быстрее там третью условно
+[00:59:45] решить, наверное, потом вторую. Ну
+[00:59:47] короче,
+[00:59:48] >> ну я просто тоже можно её просто можно
+[00:59:50] типа за n квадрат решать, а можно
+[00:59:52] логарифмически. Ну n n log n и вот n log
+[00:59:55] n уже, мне кажется, не так быстро был.
+[01:00:00] Окейшили. Логн - это, наверное, что у
+[01:00:02] нас?
+[01:00:03] >> Типа проход по массиву плюс какой-то
+[01:00:06] бинарный поиск.
+[01:00:09] >> Ну да, ровно оно есть.
+[01:00:12] >> Ну о'кей. Ладно.
+[01:00:16] >> Вот.
+[01:00:17] >> Э
+[01:00:20] >> так, коллеги,
+[01:00:21] >> Угу. [смех]
+[01:00:22] >> Вы закончили, я правильно поняла? Вадим,
+[01:00:24] есть ли, может быть, у тебя какие-то
+[01:00:26] вопросы к Станиславу? Может быть, что-то
+[01:00:27] хотел бы у него ещё уточнить, если у
+[01:00:29] Станислава ещё есть время какое-то.
+[01:00:31] >> Да нет, прикольно. Мне нравится интервью
+[01:00:34] с Конингом. Именно задачки политкода.
+[01:00:36] Очень необычно.
+[01:00:39] >> Ага. Отлично, Вадим, правильно понимаю,
+[01:00:41] вопросов нет?
+[01:00:42] >> Да, вопросов нет.
+[01:00:44] >> Отлично. Тогда я предлагаю тебе у
+[01:00:47] >> У меня на сегодня малень маленький
+[01:00:48] вопрос был, если не против. Я просто,
+[01:00:51] когда ещё в резмеке читал, ты там про
+[01:00:53] сервисы на Fastpсал, то что там типа
+[01:00:56] RPS, ну, типа около тысячи и так далее.
+[01:00:58] Просто интересно, а это вот при каком,
+[01:01:01] ну, насколько условно много там подовне
+[01:01:05] ээ ты забирал для этого PS? Ну, типа,
+[01:01:09] это это не одна копия, я так понимаю,
+[01:01:11] это несколько поднятых копий сервиса.
+[01:01:15] Слушай, я не помню уже, сколько там
+[01:01:18] копий было, но там было несколько, по
+[01:01:19] крайней мере.
+[01:01:23] >> Ну, а типа там большая разница у вас там
+[01:01:25] тысячи копий, типа, или что?
+[01:01:28] >> Не, мне просто интересно. Ну я как бы
+[01:01:30] вот при сравнении, я просто помню, там
+[01:01:32] другой сервис по по сказкам делал, там
+[01:01:35] тоже типа нужен был где-то 1.500 RPS, и
+[01:01:37] я видел, что мне это на Фаast типа
+[01:01:39] далеко не одна копия. Ну, там штук, не
+[01:01:41] знаю, пять-шесть хотя бы. Поэтому мне и
+[01:01:44] >> интересно,
+[01:01:45] >> короче, вдруг ты как-то супетимальный
+[01:01:48] просто пишешь, что у тебя в одной копии
+[01:01:50] так получается.
+[01:01:52] Вот.
+[01:01:56] >> О'кей. А,
+[01:01:58] >> Вадим, тогда Станислав, у тебя больше
+[01:01:59] вопросов нет?
+[01:02:01] >> Э, да, у меня всё. Вот рад
+[01:02:04] познакомиться.
+[01:02:05] >> Всё, тогда на этом у нас всё. Спасибо
+[01:02:06] тебе большое, что нам время. А как у
+[01:02:10] меня будет обратная связь, Танислава? Я
+[01:02:12] думаю, завтра, послезавтра я с тобой
+[01:02:13] свяжусь. Мы тогда определимся, чего
+[01:02:15] дальше поэтапам будем делать. Хорошо.
+[01:02:17] >> Всё, всё, всем счастливо.
+[01:02:19] >> Пока. M.
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v1 only.
+Write JSON only to: splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+======================================================================
+LOCALE (mandatory — JSON + validation report)
+======================================================================
+INTERVIEW_LANGUAGE: ru (обязательно для этого прогона)
+- Все поля text в JSON — дословные фрагменты из PRIMARY_TRANSCRIPT на русском. Без перевода на английский.
+- Запрещены пересказы («кандидат рассказал о…», «The candidate…»).
+- Метки question_type / question_topic / interview_stage — enum на английском (схема), тексты Q&A — только русский ASR.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json \
+    --video transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json --out splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.qa-split.json \
+    --video transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/video.md \
+    --tolerance 120 \
+    --out splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: /Users/mm/projects/ds-final-project/transcripts/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/video.md
+
+--- CHAPTER `00:04:06` — Микросервисы и деплой моделей в проде ---
+window: 00:04:06 .. 00:04:29
+recognition_status: single (1 items)
+
+ITEM #2
+  interviewer_question: time=04:22 text='А ещё до этого'
+  candidate_answer: time=04:26 text='Что ещё интересного было? Ну, с базами данных работал, понятное дело. Вот такой такого такого плана. До докер, вот это всё знаю. А всякие там, ну, а с базами данных всякими ластиками там, скавкой я работал'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=04:52 text='Ну много на самом деле тут не нужно. Тут скорее просто типа понимание, что это, не знаю, когда её лучше использовать. То есть брокер сообщения.'
+  question_topic: ML
+
+--- CHAPTER `00:04:29` — Стек: Docker, Kafka, базы данных ---
+window: 00:04:29 .. 00:05:15
+recognition_status: single (1 items)
+
+ITEM #3
+  interviewer_question: time=05:13 text='А так чисто в теории, если нужно будет что-то потом написать на го, насколько ты готов был бы его поизучать?'
+  candidate_answer: time=05:21 text='Ну, типа, сейчас, сейчас я сейчас я не напишу, но на го в принципе нормальная тема писать. Его вообще сейчас у меня даже многие друзья его начали изучать. Потому что, ну, просто типа бэкэнд на нём писать удобнее, как они говорят. Ну, го нормальная тема.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=05:34 text='Ну не я, я просто, в принципе, у нас как бы ещё достаточно мало таких задач, где бы он мог понадобиться скорее, там в поиске он нужен и так далее, но если они будут просто ээ как бы скорее всего это будет именно на го, ничем на другом, потому что в компании просто остальные уже пишут. Ну, короче, если что-то нагруженное, то переходт на го.'
+  question_topic: ML
+
+--- CHAPTER `00:05:15` — Готов ли писать на Go? (частый прод-вопрос) ---
+window: 00:05:15 .. 00:06:06
+recognition_status: single (1 items)
+
+ITEM #4
+  interviewer_question: time=05:56 text="О'кей. А можешь тогда рассказать, а вот про infence ML моделек? Это что-то какие-то большие модельки запускали или там условно, не знаю, Кадст или трансформеров?"
+  candidate_answer: time=06:11 text='Ну, можно сказать, это тоже была ML-модель, которая вот с AP просто, ну, короче, там на фаast написана обёртка и она отдаёт просто какие-то ответы. Я я не знаю, потом её использовали в каких-то высонагруженных системах или нет. Вот. То есть, ну, что я делал, я её просто выкатывал в докер, вот, и потом в наш аналог кубера. вот таким образом.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+--- CHAPTER `00:06:06` — FastAPI-обёртка для ML-модели ---
+window: 00:06:06 .. 00:06:41
+recognition_status: single (1 items)
+
+ITEM #5
+  interviewer_question: time=06:31 text='И там просто получается ресташка была, то есть не закидывают там бач запросов, она отдаёт. Ээ внутри она не, ну, то есть она как-то внутри там балансирует нагрузку или или она просто закинули, то даёт,'
+  candidate_answer: time=06:46 text='ну, она сама не балансирует. Сама по себе. Вот. Там уже, я думаю, они они они как-то, ну, несколько инстансов подняли просто.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+--- CHAPTER `00:06:41` — Балансировка, инстансы и нагрузка ---
+window: 00:06:41 .. 00:06:56
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+--- CHAPTER `00:07:44` — Как мониторят модели в Яндексе ---
+window: 00:07:44 .. 00:08:07
+recognition_status: single (1 items)
+
+ITEM #6
+  interviewer_question: time=07:44 text='Ну, понятно. А по поводу, не знаю, там вот потом мониторинга этой модельки можешь, ну или в Яндекс погоде можешь чуть подробнее рассказать, насколько глубоко ты в эти темы погружался. Э в виду про поддержание сервиса, то есть'
+  candidate_answer: time=08:06 text='Ну, если если модельки наши пишут какие-то логи, то это, наверное, будет кликхаус. А тогда просто будут типа записываться разные типа, не знаю, высокочастотные какие-то штуки. Вот. Ну и потом оттуда уже можно будет делать какую-то аналитику. И иногда, если сейчас, подожди, если я не ошибаюсь, да, иногда некоторые прямо напрямую пишут. У нас ещё есть вторая база данных. Я и ябду, но она немного для другого. То есть она типа такая медленная.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=08:43 text='Я понял. Ну у нас вот пока что из того, что делали в основном, это что-то типа писать в индекс ластика, который потом в Кибани будет показывать, ну какую-то аналитику и перегружать из ластика. Но здесь иногда проблема возникает с тем, насколько оно, ээ, ну, там что-нибудь в кривое маппинге и так далее.'
+  question_topic: ML
+
+--- CHAPTER `00:09:10` — Продовые проблемы логирования ---
+window: 00:09:10 .. 00:09:55
+recognition_status: single (1 items)
+
+ITEM #8
+  interviewer_question: time=09:46 text='Да, я как раз-таки про это и спрашиваю. То есть насколько что вы ещё делаете для того, чтобы отслеживать ээ состояние сервисов? Какие вот, не знаю, мониторинги ты добавляешь?'
+  candidate_answer: time=10:00 text='У нас есть такая штука, как дежурство. То есть там на у нас есть, ну, вот можно, скажем, такая типа, где вся статистика выводится, там серэмка. И, допустим, мы сидим просто по очереди и смотрим там всё ли с с моделью нормально. Ну я я понял, я только с логами встречался.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=10:36 text='Угу, я понял.'
+  question_topic: ML
+
+--- CHAPTER `00:09:55` — Реальный мониторинг и дежурства ---
+window: 00:09:55 .. 00:11:34
+recognition_status: single (1 items)
+
+ITEM #9
+  interviewer_question: time=10:38 text='Ну а что ещё можно сделать?'
+  candidate_answer: time=10:41 text='Ну вот, в принципе, и в мэле, что обычно используют.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=10:45 text='Вот, собственно, это мы сейчас как раз начинаем просто поднимать сервисы, потому что у нас пока что есть достаточно, ну, м простые мониторинги. Мы хотим добавить сюда си, ну, то есть хотим добавить что-то вроде профилирования сервиса в время его работы, смотреть там на каких участках, на сколько время тратится э при реальной нагрузке от пользователей. Ну, там про часть вещей, не знаю, про L мониторинг, дрифданных, допустим, вроде как есть удобная штука типа эвиденты, где всё из коробки. Часть вещей мы там сами будем добавлять, ээ, ну, там, не знаю, какое-нибудтическое моделирование, в котором смотреть, насколько у нас отзывы от пользователей со временем меняются, я именно статистикой распределения по тематикам и так далее.'
+  question_topic: ML
+
+--- CHAPTER `00:14:16` — Задача 1: произведение массива без деления (классика Big Tech) ---
+window: 00:14:16 .. 00:16:33
+recognition_status: single (1 items)
+
+ITEM #10
+  interviewer_question: time=14:17 text='нам дал очень сильный массив. Вот ответ нужно вернуть такой листре, где каждый элемент листа ит является произведением всех элементов этого листа нам, кроме и так, ну, короче, я могу пока чуть понятнее переформулировать. У нас есть лист, подаётся на вход. Тебе нужно вернуть такой, где на, э, каждой позиции произведение всех элементов, кроме его самого. Угу. Но при этом нельзя пользоваться операцией деления, короче.'
+  candidate_answer: time=21:23 text='Да, если мы идём, допустим, и записываем в каждый элемент произведения всех предыдущих, вот, то нам то нам остаётся потом ещё раз пройти. А, всё, я понял. Да, реально с другой стороны просто и тоже записать произведение всех предыдущих каждый, ну, типа, и потом перемножить.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=21:53 text='Да, звучит звучит разумно. Можно, наверное, реализовать.'
+  question_topic: Python
+
+--- CHAPTER `00:28:28` — Задача 2: восстановить массив по парам соседей ---
+window: 00:28:28 .. 00:41:08
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+--- CHAPTER `00:59:27` — Задача 3: наибольшая возрастающая подпоследовательность ---
+window: 00:59:27 .. 01:00:08
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+SAVE JSON: вставьте ответ в конец файла /Users/mm/projects/ds-final-project/splitter_output/real-interviews/novoselov/data-scientist-senior-samokat-ml-novoselov-2026-02-25/data-scientist-senior-samokat-ml-novoselov-2026-02-25.v1.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

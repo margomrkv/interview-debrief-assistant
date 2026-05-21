@@ -1,0 +1,2824 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 1,
+  "basename": "data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10",
+  "transcript_folder": "transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/",
+  "source_id": "data_engineer_middle_tinkoff_dwh_connect_dataengineers_pro_2024_04_10",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 20:45:06 +0200",
+  "updated_at": "2026-05-20 20:54:36 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10//timecodes.txt",
+        "ru",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 20:45:06 +0200"
+    },
+    {
+      "id": 2,
+      "name": "qa_extraction",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md#LLM_INPUT_STEP_2"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json"
+      ],
+      "status": "completed",
+      "duration_sec": 120.0,
+      "notes": null,
+      "finished_at": "2026-05-20 20:53:15 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 20:54:36 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10//video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 0.0,
+      "notes": null,
+      "finished_at": "2026-05-20 20:54:36 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v1
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/`
+- **Source ID:** `data_engineer_middle_tinkoff_dwh_connect_dataengineers_pro_2024_04_10`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 20:45:06 +0200
+- **Last updated:** 2026-05-20 20:54:36 +0200
+
+Фильтр в IDE: `*data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10//timecodes.txt`<br>`ru`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md` | — | completed |
+| 2 | qa_extraction | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md#LLM_INPUT_STEP_2` | `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json` | 120.0s | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.xlsx` | 1.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10//video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.validation-report.md` | 0.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+11) **Interview language (hard):** read `INTERVIEW_LANGUAGE` in the user message (`ru` or `en`).
+    - `ru` — all `text` fields (`interviewer_question`, `candidate_answer`, `interviewer_feedback`, `reference_answer`) MUST be verbatim Russian from PRIMARY_TRANSCRIPT. Never translate to English. Validation report for this run is Russian.
+    - `en` — all `text` fields MUST be verbatim English from PRIMARY_TRANSCRIPT. Never translate to Russian. Validation report for this run is English.
+    - Enum fields (`question_type`, `question_topic`, `interview_stage`) stay English per schema; only spoken-text fields follow interview language.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: data_engineer_middle_tinkoff_dwh_connect_dataengineers_pro_2024_04_10
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/
+INTERVIEW_LANGUAGE: ru
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:51] Всем здравствуйте А кому-то добрый вечер
+[00:00:54] кому-то ещё Добрый день а мы начинаем
+[00:00:56] наше сегодняшнее мероприятие а Для
+[00:00:58] начала я представлюсь меня зовут Анна
+[00:01:00] Мавлютова Я работаю теньков в частности
+[00:01:03] в дата платформе и Иначе если проще в
+[00:01:07] двхм направления распределённого
+[00:01:09] управления данными и вместе с этим я
+[00:01:12] отвечаю за коммьюнити за профессию Дато
+[00:01:15] инженеров которые входят системные
+[00:01:17] аналитики А
+[00:01:26] двхм мы все сегодня здесь а почему вы
+[00:01:30] нас смотрите а теньков проводит а серию
+[00:01:33] онлайн мероприятий теньков ДХ Connect а
+[00:01:36] которая состоит из трёх частей а все
+[00:01:39] части направлены на то чтобы вы больше
+[00:01:40] узнали о системном анализе и разработке
+[00:01:43] ет в двох теньков а больше узнали о
+[00:01:47] найме а также получили уникальную
+[00:01:48] возможность а попасть к нам в команду на
+[00:01:52] прошлой неделе мы провели первую часть А
+[00:01:55] у нас был митап А где мы рассказали А
+[00:01:59] как смогли побольше об анализе ВД ВХ А
+[00:02:04] запись уже доступна на сайте и на нашем
+[00:02:07] YouTube канале и теньков А вы можете
+[00:02:11] заходить и его смотреть надеюсь вам эта
+[00:02:13] информация будет очень полезна Сегодня
+[00:02:16] мы проведём техническое интервью на
+[00:02:18] вакансию системного аналитика двхм
+[00:02:20] покажем как проходит теньков технические
+[00:02:23] собеседование и на следующей неделе
+[00:02:26] совсем уже скоро 2021 апреля будет кенд
+[00:02:30] ое за выходные можно будет пройти все
+[00:02:33] технические интервью и уже в понедельник
+[00:02:35] получить офер и выйти к нам в команду
+[00:02:38] все мероприятия проходят онлайн активно
+[00:02:41] участвуйте всем всегда рады А давайте
+[00:02:45] теперь перейдём к тому для чего мы
+[00:02:47] сегодня все здесь собрались мы проведём
+[00:02:50] открытое интервью в прямом эфире рядом
+[00:02:53] со мной Мой коллега Анатолий
+[00:02:55] краев он является мм тимлидом команды д
+[00:03:00] ВХ и именно он сегодня будет вести
+[00:03:03] интервью Толя может быть расскажешь как
+[00:03:07] сейчас ты проводишь
+[00:03:09] собеседование Расскажи нам как они
+[00:03:10] обычно проходят насколько это
+[00:03:13] интересно Да конечно Всем привет
+[00:03:16] собственно Меня зовут Анатолий я тимлид
+[00:03:18] команды ДХ как уже было сказано ранее
+[00:03:21] собеседование провожу с разной
+[00:03:24] периодичностью Но в среднем Это примерно
+[00:03:26] онд раза в
+[00:03:28] неделю ходит Это уже на протяжении
+[00:03:31] многих лет собственно Сегодня у нас
+[00:03:33] будет техническое интервью на котором
+[00:03:35] более подробно разберём какие-то кейсы А
+[00:03:38] собственно с настоящим человеком с
+[00:03:40] кандидатом разберём их э пройдёмся по
+[00:03:42] всем заданиям и дадим обратную связь то
+[00:03:44] есть более подробно всё это будет в
+[00:03:46] дальнейшем следите внимательно Я думаю
+[00:03:48] если какие-то у вас вопросы будут
+[00:03:50] обязательно их задавайте к нам в чат Я
+[00:03:51] думаю мы в конце сможем ответить на них
+[00:03:54] Да спасибо А И теперь давайте немного
+[00:03:57] расскажу о нашем кандидате а стать
+[00:04:00] героем сегодняшней встречи мог абсолютно
+[00:04:03] любой желающий отвечающий требованиям
+[00:04:05] система на аналитика
+[00:04:07] двхм нужно было Заполнить форму на нашем
+[00:04:10] лендинге теньков ДХ Connect наши
+[00:04:13] рекрутеры ОТС матри все заявки которые к
+[00:04:15] нам поступали связывались с
+[00:04:17] потенциальными кандидатами А всё
+[00:04:20] Собственно как в реальной жизни А
+[00:04:22] собственно потенциальный кандидат А был
+[00:04:25] найден и Совсем скоро он к нам
+[00:04:26] подключится нашего кандидата зовут
+[00:04:28] Александр
+[00:04:30] сразу хочу отметить что успешное
+[00:04:33] прохождение этого интервью не
+[00:04:34] предполагает получение
+[00:04:36] оффера но это очень реально при участии
+[00:04:39] в кенд оффере который будет 2021 апреля
+[00:04:42] и также хочу отметить что мы подбирали
+[00:04:45] задачи очень похожими на то что мы даём
+[00:04:48] нашим реальным кандидатам а но в
+[00:04:51] реальной жизни вы их не встретите так
+[00:04:52] что можете не заучивать наизусть но
+[00:04:55] любая тренировка всегда будет вам плюсом
+[00:04:58] предлагаю начинать
+[00:05:00] подключайте пожалуйста алесандра нашего
+[00:05:02] кандидата и я передаю слово моему
+[00:05:04] коллеге
+[00:05:08] Толя Александр Надеюсь Меня хорошо
+[00:05:12] слышно Давайте немножечко проверим что
+[00:05:14] есть конект Отлично всё Да отлично
+[00:05:16] слышно Привет Отлично связь есть
+[00:05:19] собственно тогда предлагаю немножечко
+[00:05:21] расскажу вводную у нас будет такой
+[00:05:23] техническое интервью приблизительно
+[00:05:25] около часа Может чуть больше чуть меньше
+[00:05:27] пори как оно пот будет у нас из
+[00:05:30] нескольких этапов начнём с такой
+[00:05:32] классической разминки с SQL задачек
+[00:05:35] парочку дальше немножечко поговорим про
+[00:05:37] хранилище вопросы позадаём пообсуждали
+[00:05:41] на сбор требований то есть в таком Вот
+[00:05:44] диалоге я думаю в принципе будем идти и
+[00:05:48] наверное не сильно далеко откладывая Я
+[00:05:50] предлагаю потихонечку к этому
+[00:05:53] приступать Собственно как я уже сказал
+[00:05:58] по есть
+[00:06:00] замечательно смотри тогда Александр в
+[00:06:03] принципе сейчас у тебя должно появиться
+[00:06:05] на экране первое задание Если не
+[00:06:07] ошибаюсь она есть правильно
+[00:06:10] проверим отлично
+[00:06:12] есть значит на вход у нас даны некоторые
+[00:06:16] таблички можно подробнее их поиз учать и
+[00:06:19] предположим что вот у нас был какой-то
+[00:06:21] продукт запущен продукт X как было тут
+[00:06:23] указано в кон Идо
+[00:06:28] пос
+[00:06:30] на покупку товаров после того как Был
+[00:06:33] куплен товар X собственно внизу Это тоже
+[00:06:35] указано сейчас можно поиз учать
+[00:06:38] собственно какие у нас есть таблички и в
+[00:06:41] принципе постепенно приступать надо
+[00:06:42] написать естественно Запрос который
+[00:06:43] выведет правильный корректный
+[00:06:46] результат может какие-то вопросы
+[00:06:50] есть Я думаю будем по ходу сейчас
+[00:06:52] смотреть разбираться какие-то вопросы
+[00:06:54] буду задавать в процессе Отлично Да мне
+[00:06:56] кажется это классный формат
+[00:07:00] Да окей погнали У нас есть таблица
+[00:07:06] пользователе заказы и продукты я ещ раз
+[00:07:09] зада для проговори чтобы было проще и
+[00:07:13] понятнее необходимо сравнить по каждому
+[00:07:15] города проживание клиентов средний
+[00:07:17] размер
+[00:07:18] заказа до покупки товара и посли клиенты
+[00:07:22] имя клиента Город
+[00:07:25] [музыка]
+[00:07:28] проживания
+[00:07:31] Заза дата заказа Сумма заказа
+[00:07:36] Окей ну я думаю что мы можем начать
+[00:07:38] наверное с простого Мы можем взять
+[00:07:43] таблицу
+[00:07:48] заказов здесь пока поставим звёздочку
+[00:07:51] [музыка]
+[00:07:54] наверное и выберем заказы после
+[00:07:58] марта
+[00:08:02] [музыка]
+[00:08:03] ордер ДТ у нас
+[00:08:06] будет больше либо
+[00:08:10] равно Ну конструкции будем использовать
+[00:08:13] какие-то условные А toate
+[00:08:17] и но пе ноль
+[00:08:23] треть Ну пусть будет 2024
+[00:08:28] а
+[00:08:33] мы выбрали все
+[00:08:34] [музыка]
+[00:08:38] заказы до покупки или
+[00:08:40] после отлично
+[00:08:44] и это будет у нас
+[00:08:49] допустим первое да первые заказы
+[00:08:54] до нам ещ надо
+[00:08:57] после к заказа
+[00:09:02] можем добавить
+[00:09:05] пользователей и
+[00:09:16] города использу простые
+[00:09:21] асы
+[00:09:28] и а пусть будет пи а используем с
+[00:09:42] [музыка]
+[00:09:49] коннектив о C
+[00:09:56] ID тоже самое сделаем с продуктами
+[00:10:01] здесь мы используем
+[00:10:04] [музыка]
+[00:10:10] наверно
+[00:10:13] рано ID у нас в заказах
+[00:10:20] Да нет здесь у нас будет
+[00:10:24] ор пока
+[00:10:28] о
+[00:10:31] равно
+[00:10:36] Оги так отлично мы взяли
+[00:10:39] заказы после марта и нам их нужно
+[00:10:44] [музыка]
+[00:10:47] группировать по
+[00:10:49] городу сначала Нам нужен средний чек да
+[00:10:52] получается мы это
+[00:10:58] Грум
+[00:11:00] [музыка]
+[00:11:04] и мы из этого логично что
+[00:11:07] получим средний чек по каждому
+[00:11:12] клиенту нам нужно
+[00:11:18] наверное ка ID
+[00:11:23] и у нас будет так C ID мы используем
+[00:11:28] по
+[00:11:30] ID и здесь у
+[00:11:33] нас цены продукта у нас
+[00:11:36] нет А цена У нас есть у нас есть
+[00:11:41] цена и название А количество у нас нет
+[00:11:45] продуктов правильно То есть у нас
+[00:11:46] единственном числе количество нет Да оно
+[00:11:48] нам тут
+[00:11:50] избыточно
+[00:11:52] угу Тогда мы будем
+[00:11:58] использовать
+[00:12:05] о город это у
+[00:12:09] нас будет
+[00:12:14] Да
+[00:12:17] И Прай и мы наверное грум вот так вот
+[00:12:21] это
+[00:12:24] всё прино имы
+[00:12:28] полум
+[00:12:29] здесь будет наверно у нас сумма
+[00:12:39] Да сумма
+[00:12:41] и это будет у нас Сумма по каждому
+[00:12:44] клиенту о нам ещё
+[00:12:46] нужно заказ наверное
+[00:12:51] да средний размер заказа нас больше
+[00:12:54] интересует именно по большей
+[00:12:57] части то есть потому что на надо найти
+[00:13:00] средний размер именно в разрезе по
+[00:13:03] городу проживания Поэтому нам наверное
+[00:13:05] даже касто немножечко лишний
+[00:13:10] будет так А мы предполагаем
+[00:13:13] что в одном чеке у нас одна покупка
+[00:13:15] правильно Да предполагаем что ну ордер
+[00:13:19] там это один заказ какой-то конкретный с
+[00:13:22] одной покупкой
+[00:13:24] Да ну тогда мы можем сделать вот так вот
+[00:13:28] просто по локейшен и мы получаем
+[00:13:31] а средний чек заказа после введение
+[00:13:37] промо товара X и Наверное мы здесь тогда
+[00:13:40] сделаем
+[00:13:42] Аа цше простую
+[00:13:46] м м и сделаем ещё
+[00:13:51] вторую такую же м только для
+[00:13:58] аа
+[00:14:00] для даты меньше
+[00:14:04] равно и в
+[00:14:07] конце сделаем Select From
+[00:14:18] T12
+[00:14:20] он
+[00:14:23] Т1 Location
+[00:14:26] Т2
+[00:14:28] Location
+[00:14:30] и здесь у нас
+[00:14:38] будет как бы нам это обозвать А пусть
+[00:14:42] будет какой-нибудь
+[00:14:48] условный
+[00:14:58] и2
+[00:15:01] о
+[00:15:06] Location Ну я бы на самом деле из опыта
+[00:15:09] накинул бы на всякий случай Е2 если вт1
+[00:15:13] какие-то будут пропуски Да если у нас
+[00:15:15] что-то не
+[00:15:18] заж для наглядности
+[00:15:20] наверное Ну что-то вот такое
+[00:15:24] примерном отлично У нас есть какой-то
+[00:15:26] набросок Я предлагаю тогда давай от
+[00:15:28] этого отталкиваться будет немножечко
+[00:15:29] пообсуждали а в целом мы действительно
+[00:15:32] посчитали среднюю цену товара по кей то
+[00:15:35] есть по городу У нас есть до и после но
+[00:15:39] в качестве даты ты взял конкретно 1
+[00:15:42] марта то есть у нас всё-таки по задачу
+[00:15:45] по задаче надо именно посмотреть до того
+[00:15:47] как был впервые куплен товар X вот
+[00:15:51] собственно кажется что здесь надо
+[00:15:52] немножечко доработать и нам вот эту дату
+[00:15:55] она мы как бы её ещё не знаем И она
+[00:15:57] может быть у всех разная вот кажется в
+[00:15:59] этом в эту сторону немножечко
+[00:16:01] посмотрим Угу меня просто смутило что он
+[00:16:04] был запущен в марте я так предполагаю до
+[00:16:06] марта его не было ну мы можем тогда
+[00:16:08] сделать проще Это я немного пояснение
+[00:16:10] дам да товар был запущен в марте но мы
+[00:16:12] дату конкретно точно не знаем И поэтому
+[00:16:14] вот нам её надо как-то постараться найти
+[00:16:17] каким-то образом
+[00:16:21] гу Угу
+[00:16:24] угу Тогда нам нужно просто исключить
+[00:16:29] [музыка]
+[00:16:33] нам нужно найти
+[00:16:36] дату запуска товара X мы его получается
+[00:16:39] эту дату не знаем нам нужно её как-то
+[00:16:40] вычислить правильно Да мы будем считать
+[00:16:42] что товар и запустился в марте Ну то
+[00:16:45] есть он в целом был запущен
+[00:16:47] но у разных людей могли быть покупки у
+[00:16:50] товара X в разное время так как нас
+[00:16:52] интересует в разрезе именно города Мы
+[00:16:55] хотим посмотреть именно до того как
+[00:16:57] впервые был товар условно говоря в этом
+[00:17:00] районе регионе Location можно так
+[00:17:02] сказать до и после средняя как средняя
+[00:17:06] цена изменилась то есть Может быть
+[00:17:07] например он наоборот положительно влияет
+[00:17:09] или наоборот негативно И следовательно
+[00:17:11] прям точно сказать что это 1 марта мы не
+[00:17:13] можем и вот хочется как-то попробовать
+[00:17:15] эту дату
+[00:17:17] найти угу Тогда нам нужно
+[00:17:22] вычислить тут получается сложнее тогда
+[00:17:24] нам надо поискать для каждого
+[00:17:25] пользователя правильно найти дату первой
+[00:17:28] покупки товара X на самом деле
+[00:17:30] пользователь опять-таки это будет
+[00:17:32] немножечко излишнее мы всё-таки говорим
+[00:17:34] срезе города поэтому пользователь нас э
+[00:17:36] ну в данном срезе не интересует Мы
+[00:17:39] изучаем срез в рамках города Location
+[00:17:42] поэтому
+[00:17:43] пользователи в рамках среза пользователя
+[00:17:45] это кажется тоже избыточно будет можно
+[00:17:47] как-то чуть-чуть попроще сделать
+[00:17:50] А ну мы можем тогда накинуть наверное
+[00:17:53] простой
+[00:17:54] фильтр
+[00:17:55] по
+[00:17:57] м
+[00:18:01] Ну мы можем вычислить в шке отдельно
+[00:18:04] дату первой покупки по каждому
+[00:18:08] городу
+[00:18:10] инить её и чтобы у нас все покупки были
+[00:18:13] позже звучит как план Да звучит в
+[00:18:16] принципе как план который может
+[00:18:19] подойти да Окей тогда у нас
+[00:18:22] [музыка]
+[00:18:27] будет
+[00:18:35] из
+[00:18:38] звез
+[00:18:40] Так нам нужны тогда ор орр
+[00:18:44] [музыка]
+[00:18:45] и и
+[00:18:55] прок
+[00:18:57] он
+[00:19:00] [музыка]
+[00:19:15] Так мы таблицу
+[00:19:18] зали нам нужно найти первую покупку
+[00:19:21] здесь у нас
+[00:19:27] будет у нас будет товар X
+[00:19:30] [музыка]
+[00:19:32] Да product
+[00:19:37] ID product ID равно Ну мы так его
+[00:19:41] обозначим X да
+[00:19:45] А и тогда мы пампампампам
+[00:19:54] здесь Нам
+[00:19:56] нужен город
+[00:20:01] город город
+[00:20:02] город город У нас есть только У
+[00:20:05] пользователя тогда нам нужно ещё и задни
+[00:20:08] сюда
+[00:20:10] логично пользователей тогда мы сделаем
+[00:20:13] вот так
+[00:20:15] [музыка]
+[00:20:18] проще мы
+[00:20:23] выберем здесь Location
+[00:20:27] соответственно и минимальную дату
+[00:20:32] а орр
+[00:20:38] ДТ и всё это группи Ром
+[00:20:42] по
+[00:20:44] кейну и здесь у нас получается
+[00:20:47] минимальная дата заказа
+[00:20:51] по по продукту X соответственно в
+[00:20:56] дальнейшей жки мы тогда добавим эту
+[00:20:59] табличку
+[00:21:04] А
+[00:21:05] и пампампампам пам так минимальная
+[00:21:15] дата Угу угу Так а как мы это сделаем мы
+[00:21:19] при джоне к
+[00:21:21] таблице а пользователей
+[00:21:27] соответственно
+[00:21:34] таблицу по локации таблицу родания у нас
+[00:21:37] будет дата
+[00:21:39] А сейчас сразу
+[00:21:45] сделаем by
+[00:21:53] о
+[00:21:57] рано
+[00:21:59] Location получается
+[00:22:03] А так и здесь мы пропишет условие
+[00:22:09] [музыка]
+[00:22:12] что
+[00:22:15] Order орр DT у нас будет
+[00:22:21] больше
+[00:22:23] а больше либо
+[00:22:27] равно
+[00:22:30] а Order DT одт пусть
+[00:22:34] будет ор DT больше либо равно
+[00:22:38] одт Да и здесь мы во второй табличке
+[00:22:42] сделаем такую же историю это нам не
+[00:22:44] нужно
+[00:22:46] а Join
+[00:22:50] и здесь мы только сделаем не больше либо
+[00:22:54] равно А меньше чтобы даты эти не
+[00:22:57] попадали
+[00:22:59] Так ну вроде звучит
+[00:23:01] как да Похоже что приходим к верному
+[00:23:03] решению единственно Давай немножечко
+[00:23:05] чуть-чуть
+[00:23:06] подправить
+[00:23:09] вт1 кажется у на Д зачесалось случай
+[00:23:12] ненько наверно Давай мы немножечко
+[00:23:15] второй первый закай Нет есть чуть-чуть
+[00:23:18] пониже над груба есть ещё один кажется
+[00:23:21] он тут немножечко
+[00:23:25] [музыка]
+[00:23:27] лишний
+[00:23:30] Давай тоже такое минорное стоит
+[00:23:32] поправить что продукт ID нам X скорее
+[00:23:35] неизвестен но мы точно знаем что у
+[00:23:38] продук нужного нам продукта есть поле
+[00:23:41] прок name по которому собственно можно
+[00:23:46] определить что это продукт X то есть
+[00:23:47] поэтому давай мы немножечко поправим не
+[00:23:49] ID возьмём а прок Вот потому что нам
+[00:23:53] невен вот Ну пусть будет называться
+[00:23:56] например да Вполне
+[00:23:59] и в самом конце собственно у настльно
+[00:24:00] вот
+[00:24:01] есть два раза выводим сравниваем одно и
+[00:24:05] другое То есть у нас есть сравнение но я
+[00:24:06] думаю может стоит тут разные варианты
+[00:24:09] есть но один из вариантов наверно писать
+[00:24:11] У нас получается
+[00:24:13] не может не подойти например в случаях
+[00:24:15] если там как ты говорил одной локации
+[00:24:17] нету Ты вывел две Но если у тебя просто
+[00:24:21] тогда
+[00:24:23] сравнить 100% уре что все такой товар
+[00:24:27] имеется
+[00:24:29] ВС сработает Но для простоты можем
+[00:24:30] написать in в целом тут разные вариации
+[00:24:33] есть в зависимости от того какой будет
+[00:24:34] контекст мы можем счи Я бы наверно
+[00:24:35] использовал какой-нибудь ф потому
+[00:24:39] что не попадает то есть р нам подходит
+[00:24:42] если мы уверены что всегда будет условие
+[00:24:44] выполняться либо можно писать Full и
+[00:24:46] тогда как бы естественно если вдруг
+[00:24:48] что-то где-то с одной стороны потеряется
+[00:24:49] мы как бы сможем тогда проанализировать
+[00:24:51] и посмотреть собственно тогда я
+[00:24:53] предлагаю на первой задач на этом У нас
+[00:24:55] закончить и у нас будет ещё одна задачка
+[00:24:58] отлично немножечко в другом формате и с
+[00:25:01] более коротким условием собственно
+[00:25:03] должен был поменяться экран Я так
+[00:25:05] понимаю всё есть отлично Да собственно
+[00:25:09] тут у нас всего одна табличка имеется
+[00:25:11] предположим какие-то у нас запросы к
+[00:25:13] базе данных и тут Всё достаточно Просто
+[00:25:16] с одной стороны кажется может быть
+[00:25:17] окажется посложнее необходимо сравнить
+[00:25:20] длительность каждого запроса с
+[00:25:21] максимальной длительностью запросов
+[00:25:22] этого пользователя сегодня вот
+[00:25:25] собственно Давай в этом ключе попробуем
+[00:25:28] смотреть что можно тут
+[00:25:30] придумать Да без
+[00:25:33] проблем
+[00:25:34] [музыка]
+[00:25:37] максимальный Я так понимаю у нас таблица
+[00:25:40] за один день правильно на самом деле там
+[00:25:43] может быть много
+[00:25:44] дней То есть у нас просто какие-то
+[00:25:47] запуски запросов к базе данных может
+[00:25:49] быть это день сегодняшний вчерашний И
+[00:25:52] вообще много
+[00:25:57] разных
+[00:25:59] Да давай начнём с простого а
+[00:26:03] выберем за сегодня а
+[00:26:08] From
+[00:26:10] [музыка]
+[00:26:14] requests toate а
+[00:26:18] а
+[00:26:22] м
+[00:26:26] Аста request
+[00:26:35] ста мы это
+[00:26:41] обозначим условно говоря чтобы
+[00:26:43] преобразовать это в круглую дату без из
+[00:26:47] таста
+[00:26:50] равно Ну условно такая конструкция в
+[00:26:53] разных
+[00:26:54] диалектах принципе
+[00:26:57] подходит можно любом диалекте писать
+[00:26:59] приблизительно всё плюс-минус понятно
+[00:27:01] будет Ну я сделаю такую ночку из всего
+[00:27:04] чтом Так мы выбрали сегодня нам нужно
+[00:27:09] найти максимально длинный
+[00:27:15] запрос здесь мы
+[00:27:21] сделаем нам надо найти не максимально
+[00:27:23] длинный запрос нам скорее надо сравнить
+[00:27:25] вот каждый Запрос который был в этот
+[00:27:27] день сравнить с максимальной
+[00:27:28] длительностью за этот день у каждого
+[00:27:31] пользователя чуть да да ну для начала
+[00:27:34] чтобы было что сравнивать У нас
+[00:27:37] есть время запроса и нам надо
+[00:27:41] найти максимальный запрос начнём
+[00:27:44] наверное с простого с времени запроса А
+[00:27:48] здесь мы
+[00:27:49] возьмём
+[00:27:52] КСТ
+[00:27:55] ID
+[00:27:57] возьмём
+[00:27:59] US на всякий
+[00:28:01] случай и
+[00:28:04] [музыка]
+[00:28:14] возьмём и из Наверное мы даже сразу
+[00:28:18] сделаем вот так и из одного вычтем
+[00:28:20] другого
+[00:28:21] другое и у нас получается базовая
+[00:28:24] таблица Балан где у нас
+[00:28:27] есть
+[00:28:28] ID пользователь и время
+[00:28:31] запроса наверное
+[00:28:39] обернёшься ней
+[00:28:43] работать м
+[00:28:46] теперь возьмём вторую создадим
+[00:28:52] А здесь мы
+[00:28:57] возьмём
+[00:28:59] минимальное время нам нужно Здесь мы
+[00:29:02] наверное это всём чтобы было проще
+[00:29:08] работать
+[00:29:10] плохой пусть
+[00:29:15] будет здесь мы возьмём
+[00:29:18] [музыка]
+[00:29:27] минимально
+[00:29:30] [музыка]
+[00:29:38] Ну и
+[00:29:44] ор не помню может быть со скобочка я тут
+[00:29:47] что-то
+[00:29:48] пропустил может быть Вот так да давай
+[00:29:51] сразу
+[00:29:54] нем это вть Коре функция Да чуть-чуть
+[00:29:58] скобочек не хватает
+[00:30:00] Да я у меня просто автокомплит поэтому я
+[00:30:04] скобки эти не учу так
+[00:30:08] О'кей мы выбрали минимальное м время у
+[00:30:14] нас есть а и пусть будет
+[00:30:19] м Здесь у нас usame а и минимально А и
+[00:30:25] здесь мы
+[00:30:26] будет
+[00:30:28] пусть будет называться и дальше нам
+[00:30:31] нужна в
+[00:30:33] принципе у нас есть время у нас есть
+[00:30:36] максимальное Только время да нам нужно
+[00:30:39] Да Нам нужно
+[00:30:41] максимально я что-то тут решил по
+[00:30:44] минимальному Да это быстро исправляется
+[00:30:47] ничего
+[00:30:48] страшного Да теперь мы
+[00:30:52] возьмём Время и С джом Это
+[00:30:56] с
+[00:30:59] максимальным временем
+[00:31:05] [музыка]
+[00:31:10] Да ма
+[00:31:20] он
+[00:31:23] [музыка]
+[00:31:26] ма
+[00:31:30] а ну пусть
+[00:31:32] будет у нас все request ID
+[00:31:43] а
+[00:31:49] usame и я думаю добьём это наверное
+[00:31:56] Т1 и
+[00:31:59] и и и нам
+[00:32:10] нужно
+[00:32:12] ма
+[00:32:16] а здесь мы наверное
+[00:32:20] MX
+[00:32:26] сделаем и у нас будет
+[00:32:29] сравнение Я думаю
+[00:32:33] что по-хорошему
+[00:32:35] бы я бы наверное для визуализации ещё
+[00:32:37] какой-нибудь кейс добавил чтобы если
+[00:32:39] больше то там плюсик еше минуси са деле
+[00:32:43] да на самом деле пока что Это наверно
+[00:32:45] нам в этом необходимости нет смотри мы
+[00:32:47] тут посмотрели оконную функцию Давай
+[00:32:49] немножечко чуть-чуть шажок назад сделаем
+[00:32:52] Partition by тоже должн обернуться в
+[00:32:54] скобки Ну так просто немножечко поправим
+[00:32:56] чтобы было корректно то есть после
+[00:32:57] скобка начинается и потом она в конце
+[00:33:00] заканчивается Вот это скорее такие
+[00:33:02] минорные
+[00:33:03] правки Да вот посмотрели оконные функции
+[00:33:06] но немножечко тут у нас получается
+[00:33:08] диссонанс некоторый потому что
+[00:33:10] действительно мы пошли логически взяли в
+[00:33:12] начале в первой те мы берём только
+[00:33:15] запросы за день тут в принципе всё
+[00:33:17] хорошо и потом ищем максимальную
+[00:33:18] тельность через окон Да это в принципе
+[00:33:21] тоже один из вариантов но у нас
+[00:33:23] получается Дело в том что в последнем
+[00:33:25] запросе у тебя будет зано что ты же берш
+[00:33:28] оконную функцию и US Там просто у тебя и
+[00:33:32] оконная функция по длительности и у тебя
+[00:33:35] таких запросов так как здесь нет никакой
+[00:33:37] группировки Ну если там у скажем так у
+[00:33:41] юзера было 10 запросов за день будет 10
+[00:33:43] записи у тебя во второй те То есть тут
+[00:33:45] Остаётся вариант либо писать агрегацию и
+[00:33:48] ли шку использовать
+[00:33:50] подруго Дада у нас
+[00:33:53] будет тогда наверно проще
+[00:33:56] сделать груба по юзернейм и здесь мы
+[00:34:02] сделаем наверное просто вот
+[00:34:06] так Да действительно если мы именно
+[00:34:08] сделаем группировку то у нас Останется
+[00:34:10] только одна единственная запись в конце
+[00:34:11] мы можем на неё жони и уже получить
+[00:34:14] нужный нам результат А давай теперь
+[00:34:16] немножечко
+[00:34:18] попробуем шагнуть в сторону посчитать
+[00:34:20] именно действительно через законную
+[00:34:22] функцию вот ты как раз написал Вот это
+[00:34:25] duration и вот можно через законную
+[00:34:28] функцию попробовать это можно вот этот
+[00:34:29] код скопировать или даже преобразовать в
+[00:34:31] принципе вот мы сейчас уже написали одно
+[00:34:33] из решений есть но попробовать через за
+[00:34:34] конку как-то
+[00:34:37] решить Да наверное
+[00:34:40] [музыка]
+[00:34:44] можно да наверное можно было даже короче
+[00:34:47] решить А мне сейчас прям даже решение
+[00:34:50] пришло это
+[00:34:51] а
+[00:34:53] и здесь мы сделаем наверное вот так
+[00:34:59] и здесь
+[00:35:01] сделаем Просто вот
+[00:35:04] так
+[00:35:07] угу в принципе на самом деле Ну если мы
+[00:35:12] понятно там у нас два Селект получается
+[00:35:14] но мы говорим про то что вот мы
+[00:35:15] последний получается блок заменили на
+[00:35:17] usame оставили duration где вот эта
+[00:35:20] Разница есть и написали оконную функцию
+[00:35:21] И на самом деле это ну здесь будет Вот
+[00:35:25] ну просто из реста и в мы просто добавим
+[00:35:28] здесь вот так вот Ну в целом в один
+[00:35:31] запрос как бы она решается Да ну Да
+[00:35:34] можно И
+[00:35:35] вот да только тогда вот в таком кейсе
+[00:35:38] вот если мы именно вот вот так вот пишем
+[00:35:40] это тоже да один из вариантов что можно
+[00:35:41] вообще одним запросом сделать немножечко
+[00:35:43] не хватает нам тогда Partition by
+[00:35:46] добавить группировку по дню потому что А
+[00:35:50] хотя на самом деле
+[00:35:52] всё да да я имею в виду Да по условиям
+[00:35:55] на самом деле там просто есть тоже
+[00:35:56] другой вариант можно без условия условия
+[00:35:58] перенести в именно в оконную функцию Да
+[00:36:00] тут я немножко сам не досмотрел Но
+[00:36:01] ничего страшного собственно вот у нас
+[00:36:03] есть даже два варианта то есть мы решили
+[00:36:04] изначально такой более классический
+[00:36:06] просто пошли без законных функций второй
+[00:36:08] через законные функции он покороче и
+[00:36:09] кажется такой более красиво выглядит
+[00:36:11] более оптимальный Ну в плане написание
+[00:36:13] кода и может быть даже более читабельный
+[00:36:15] Ну не знаю возможно грубая будет быстрее
+[00:36:18] в зависимости от объёма Ну мы уже тут не
+[00:36:20] говорим про наверное техническую
+[00:36:21] спецификацию как будет быстрее на самом
+[00:36:23] деле разные диалекты работают по-разному
+[00:36:26] то есть оптимизатор может по-разному
+[00:36:28] воспринимать запросы но в целом два
+[00:36:29] варианта разобрали собственно есть такой
+[00:36:32] опыт немножечко хотелось давай про
+[00:36:34] оконные функции Немного поговорим
+[00:36:36] сталкиваешься ли ты с такими функциями
+[00:36:37] как например Row Number rank и Dan rank
+[00:36:42] Ну то есть наверняка это использовать
+[00:36:44] вот регулярно использовал Да ну наверное
+[00:36:46] мы не будем писать синтаксис потому что
+[00:36:47] уже вот у нас уже есть пример синтаксиса
+[00:36:49] на Max R Number там в принципе плюс
+[00:36:51] минус тоже наверное всем Всё понятно но
+[00:36:53] давай немножечко спросим А какая разница
+[00:36:55] между вот этими функциями Row Number
+[00:36:57] rank и
+[00:36:59] есть какие-то как они отличатся Помнишь
+[00:37:01] ли Number просто нумеруется все строки
+[00:37:04] по порядку
+[00:37:06] а
+[00:37:07] а ран И данран вот я их всё время путаю
+[00:37:13] одна выставляет
+[00:37:15] э делает рейтинг в рамках партиции А и
+[00:37:21] делает это по порядку вторая
+[00:37:26] при если у нас два значения одинаковых
+[00:37:29] она их посчитает за одно место то есть
+[00:37:32] условно говоря у нас может быть два
+[00:37:34] максимальных значения тогда они будут
+[00:37:37] оба по-моему первыми и следующая у нас
+[00:37:40] там третья строка пойдёт уже там второй
+[00:37:42] позиции у нас не будет будет сразу
+[00:37:44] третья Ну да в принципе всё верно R
+[00:37:47] Number это просто нумерация по порядку
+[00:37:49] ранг - это именно когда идут одинаковые
+[00:37:52] позиции могут быть с пропуском Ден - это
+[00:37:55] без пропуска то есть Может быть один 2 2
+[00:37:58] потом 4 а в другом случае это будет 1 2
+[00:38:00] 2 потом 3 ну к примеру Ну как ри говорю
+[00:38:03] там на самом деле не 1 2 2 Ну собственно
+[00:38:05] думаю все поняли что могут быть пробелы
+[00:38:08] собственно есть ли у тебя какие-то может
+[00:38:09] быть идеи или Стасы где это может
+[00:38:11] понадобиться Где какая функция может
+[00:38:12] примени Ну может например R Number
+[00:38:14] где-то использова где-то наоборот
+[00:38:15] хотелось ран использовать пото что R
+[00:38:16] Number не
+[00:38:18] подходил Ну или может какие-то кейсы
+[00:38:21] которые
+[00:38:26] появиться по ранку ранку честно говоря
+[00:38:29] не вспомню где-то применял но какие это
+[00:38:31] были кейсы сейчас наверное не вспомню
+[00:38:33] помру Ну зачастую
+[00:38:36] это поиск каких-то максимальных значений
+[00:38:39] в рамках партиции когда их нужно
+[00:38:42] посчитать и да зачастую это проще
+[00:38:46] сделать на самом
+[00:38:50] де либо были было Надо когда там с
+[00:38:53] первым вторым значением нужно одно от
+[00:38:56] второго отнимать там через чаще даже не
+[00:38:59] Number там какие-то Лады уже
+[00:39:00] используются Вот но да вот в таких
+[00:39:03] ситуациях зачастую применяется на самом
+[00:39:05] деле наверное чаще мы встречаем в
+[00:39:06] повседневной ситуации R Number и обычно
+[00:39:09] берётся первое значение какое-то или
+[00:39:10] последнее достаточно удобно просто ну и
+[00:39:12] на самом деле можно перевернуть и
+[00:39:14] последни может стать первым То есть в
+[00:39:16] принципе ничего страшного в этом нет ну
+[00:39:17] то есть можно так и так
+[00:39:19] использовать скорее всего встречается
+[00:39:21] реже Да действительно но ситуаци бывают
+[00:39:23] разе простоте зна Фуна ци они могут
+[00:39:28] по-разному пригодиться на самом деле Вот
+[00:39:30] поэтому я тогда предлагаю мы немножечко
+[00:39:33] такой переключился здесь у нас никакого
+[00:39:34] задания не будет Мы немножечко в целом
+[00:39:36] поговорим о хранилище данных и наверное
+[00:39:39] пойдём в таком ключе что давай
+[00:39:41] представим что мы хотим построить
+[00:39:43] какое-то mvp хранилище данных mvp - это
+[00:39:45] то есть какое-то начальное начальная
+[00:39:48] архитектура то есть только что-то
+[00:39:49] Тестируем буквально только разворачиваем
+[00:39:51] ничего у нас ещё толком нет и мы хотим с
+[00:39:54] чего-то начать собственно вот мы
+[00:39:55] начинаем строить хранилище данных
+[00:39:58] как тебе кажется С чего стоит начать что
+[00:40:00] может потребоваться в принципе на твой
+[00:40:02] взгляд просто такой открытый
+[00:40:06] вопрос я бы начинал Наверное если мы в
+[00:40:10] какой-то наверно систем дизайн
+[00:40:13] погружаемся Я бы отталкиваться что у нас
+[00:40:16] за
+[00:40:17] источники Как мы можем данные туда
+[00:40:22] передавать для каких целей мы будем
+[00:40:24] использовать
+[00:40:26] хранилище То есть это какие-то име
+[00:40:29] расчёты это витрины данных это
+[00:40:32] ежедневные
+[00:40:34] какие-то отчётность для выгрузки в
+[00:40:36] сторонние
+[00:40:37] [музыка]
+[00:40:40] системы Наверное я бы от этого То есть
+[00:40:43] это основные
+[00:40:44] моменты сколько будет пользователей у
+[00:40:47] нас ну наверное начинал бы я наверное с
+[00:40:51] источников грузим мы
+[00:40:54] это регулярно рассудке Либо мы делаем
+[00:41:00] какую-то репликацию может быть
+[00:41:03] да И какая отчётность то есть с какой
+[00:41:06] задержкой это всё нужно Да отлично это
+[00:41:09] может быть Вполне себе такой неплохой
+[00:41:10] Старт То есть определить что нам может
+[00:41:12] потребоваться ещё Возможно мы узнаем
+[00:41:14] какой у нас будет использоваться стек То
+[00:41:16] есть просто так дополнительно дополню То
+[00:41:17] есть у нас разные СУБД могут
+[00:41:19] использоваться Ну и в принципе да что
+[00:41:21] нужно Когда нужно С какой периодичностью
+[00:41:23] Да в принципе с этого можно начать Давай
+[00:41:26] немножечко Наверное я бы наверное сделал
+[00:41:29] отход СУБД я бы наверное выбирал уже
+[00:41:31] исходя из того что для каких целей мы
+[00:41:34] будем использовать То есть это может
+[00:41:35] быть что-то грессо вое но если мы
+[00:41:38] допустим льём какие-нибудь там Клик
+[00:41:41] стримы да Или транзакции то может быть
+[00:41:44] проще было бы сразу с какого клика
+[00:41:46] начинать Да всё верно Ну то есть я имею
+[00:41:48] в виду что всё равно это такие
+[00:41:49] подготовительные действия что перед тем
+[00:41:51] как мы уже начнём что-то собирать и
+[00:41:52] какие-то данные скажем так предоставлять
+[00:41:54] для аналитики ну эти вопросы будем
+[00:41:56] прорабатывать Да т это такой открытый
+[00:41:58] вопрос можно по-разному все начинают с
+[00:41:59] разного но в целом это такой вопрос в
+[00:42:01] принципе посмотреть какие могут быть
+[00:42:04] идеи и давай ещё тогда пройдём в таком
+[00:42:06] ключе что в хранилище данных как правило
+[00:42:09] в большом хранилище естественно очень
+[00:42:11] много витрин данных то есть есть там для
+[00:42:14] одной аналитики для другой с разной
+[00:42:16] требовательностью Возможно даже с разной
+[00:42:18] частотой обновления данных и Давай
+[00:42:20] немножко поговорим Какие могут быть слои
+[00:42:23] данных в хранилище то есть на твой
+[00:42:25] взгляд что может
+[00:42:33] если мы берм стандартно то наверное у
+[00:42:36] нас идт первичный слой наверно
+[00:42:41] безусловно какая-то рота в зависимости
+[00:42:44] от того какой у нас
+[00:42:47] источник это может быть
+[00:42:50] [музыка]
+[00:42:56] как
+[00:42:59] Да какое-то озеро то там могут лежать
+[00:43:02] жены Там могут
+[00:43:04] лежать
+[00:43:06] цсш Там могут
+[00:43:08] лежать паркеты ещё что-нибудь
+[00:43:11] дальше у нас идёт первичная обработка
+[00:43:14] когда мы всё это приводим в таблице
+[00:43:19] парсим первичный слой уже каких-то
+[00:43:22] чистых данных дальше мы всё
+[00:43:26] это
+[00:43:28] нормализуя в какой-то детальный слой и
+[00:43:31] последний у нас наверное слой
+[00:43:34] витри Ну то есть если агрегировать можно
+[00:43:37] сказать что это какие-то сырые данные то
+[00:43:39] есть слой операционный по-разному можно
+[00:43:41] назвать слой сырых данных потом
+[00:43:43] детальные данные собственно Да как ты
+[00:43:45] сказал и резюмируем уже какие-то
+[00:43:46] презентационный слой презентационные
+[00:43:49] данные для
+[00:43:52] аналитики Я бы сза
+[00:43:56] что могут быть разными слоями потому что
+[00:44:00] в оперативном слое зачастую мы лазим
+[00:44:02] когда мы хотим какую-то оперативную
+[00:44:04] отчётность это идут допустим у нас
+[00:44:06] какие-то
+[00:44:07] реплики тот же Oracle где мы Gold
+[00:44:12] репли там всё хорошо красиво но если мы
+[00:44:15] берём то там могут лежать
+[00:44:18] неструктурированные данные и мы их
+[00:44:21] оперативно использовать не можем Ну
+[00:44:23] только для какого-то знаю там для для
+[00:44:26] обучения но это нужно там Прямо быстро
+[00:44:28] срочно сейчас на самом деле хорошее
+[00:44:30] дополнение Действительно это правда
+[00:44:32] можно назвать слой рых данных
+[00:44:34] операционные слой это могут быть разные
+[00:44:36] но на самом деле Тут ещё вопрос
+[00:44:37] контекста каждые Ну команды могут
+[00:44:40] интерпретировать по-разному но замечание
+[00:44:41] действительно хорошее вот и я тут хотел
+[00:44:44] ещё уточнить предположим если аналитику
+[00:44:46] требуются какие-то денормализация
+[00:44:57] нормализованные данные зависит от
+[00:45:02] ситуации это может быть
+[00:45:07] как скорее всего это слой витрин будет
+[00:45:11] когда мы собираем
+[00:45:13] данные но в некоторых ситуациях я
+[00:45:16] допускаю что это может быть в
+[00:45:18] оперативном слое да на самом деле такое
+[00:45:21] тоже
+[00:45:22] возможно давай
+[00:45:25] топким обсуждали по хранилище и
+[00:45:28] собственно представим Я так понимаю
+[00:45:30] экранчик поменялся вот тогда дам такую
+[00:45:33] годную что у нас представим что мы хотим
+[00:45:35] сделать какое-то mvp хранилище
+[00:45:37] только-только начинаем описывать и ты
+[00:45:39] тут выступаешь в роли такого архитектора
+[00:45:41] системного аналитика и тебе нужно
+[00:45:42] описать модель хранения данных для сети
+[00:45:45] автосалонов вот собственно Ну понятно
+[00:45:48] Это хранилище потом будут использовать
+[00:45:51] аналитики в каких-то целях Но это такое
+[00:45:53] стартовое мы не будем углубляться в
+[00:45:54] детали и Понятно Мы описываем не прям
+[00:45:56] глубокое детальное хранилище Мы скорее
+[00:45:58] тут про вот такую вот модель собственно
+[00:46:01] вот как бы ты это делал примеру
+[00:46:02] собственно указан можно написать просто
+[00:46:04] название таблицы потом через дефис
+[00:46:06] написать атрибуты можно в каком-то
+[00:46:08] другом формате Как тебе будет удобно тут
+[00:46:09] на самом деле никаких ограничений нет
+[00:46:11] можно писать на английском на русском
+[00:46:13] транслитом как
+[00:46:15] удобно
+[00:46:17] гу
+[00:46:19] а сразу задам вопрос Мы автосалон именно
+[00:46:23] как принимаем как какое-то место где
+[00:46:26] продают Маши правильно Да предположим
+[00:46:28] что это сеть автосалонов то есть там
+[00:46:30] предположим как-то Она там называется
+[00:46:32] автосалоны X и их там может быть
+[00:46:34] несколько оди 2Т то есть ну как бы
+[00:46:36] разные салоны Угу Ну первую таблицу Я бы
+[00:46:41] сделал это были бы
+[00:46:45] наверное именно таблица салонов
+[00:46:48] [музыка]
+[00:46:50] Да там были бы наверно
+[00:46:53] атрибуты Ну естественно какой-нибудь
+[00:46:55] берём
+[00:47:00] адрес наверное какой-нибудь будет ней
+[00:47:02] для этого
+[00:47:04] салона в зависимости от того как он
+[00:47:08] [музыка]
+[00:47:13] называется
+[00:47:15] ID S пусть будет Да у нас
+[00:47:19] А что ещё наверное дата
+[00:47:25] открытия время
+[00:47:33] [музыка]
+[00:47:36] работы Ну пусть
+[00:47:40] будет
+[00:47:42] ID директора
+[00:47:48] актор ID то есть кто руководит салоном в
+[00:47:52] данный момент также Наверное нам нужна
+[00:47:55] вторая таблица это сотрудники
+[00:47:58] [музыка]
+[00:48:01] э
+[00:48:03] а ну здесь Наверное стандартное то есть
+[00:48:08] fio ну не будем разбивать там на три
+[00:48:10] поля Да я думаю примерно понимаем что
+[00:48:13] имеется в виду
+[00:48:15] АО дата
+[00:48:22] рождения Что ещё нам может быть
+[00:48:25] должность
+[00:48:28] дата
+[00:48:30] вступления в
+[00:48:36] должность
+[00:48:38] безусловно
+[00:48:41] ID пусть
+[00:48:46] будет какой-нибудь
+[00:48:55] яю
+[00:48:57] что Бао А и ну безусловно В каком салоне
+[00:49:01] работает
+[00:49:04] ids
+[00:49:06] S
+[00:49:08] ID салона
+[00:49:12] а ID салона То есть к кому он прикреплён
+[00:49:17] если это будет какой-нибудь там не знаю
+[00:49:19] отдельный БК офис но у нас будет
+[00:49:20] наверное отдельный ш для какого-нибудь
+[00:49:25] офиса дальше Ну безусловно это будут
+[00:49:30] э
+[00:49:34] автомобили это будет какой-нибудь не
+[00:49:38] знаю там Car ID
+[00:49:41] Аа под Car ID Я наверное
+[00:49:45] предполагаю М что это будет не ID
+[00:49:50] конкретное машины а это
+[00:49:53] наверное
+[00:49:55] м
+[00:49:58] совокупность комплектации да то есть это
+[00:50:01] некая некая абстрактная машина то есть у
+[00:50:03] нас их может быть в наличии несколько
+[00:50:06] а также сразу наверное количество в
+[00:50:11] наличии А год
+[00:50:15] выпуска что-нибудь там
+[00:50:18] комплектация
+[00:50:21] а флаг наличия
+[00:50:25] брони
+[00:50:29] что ещё у нас может быть цвет наверное
+[00:50:33] было бы здорово знать
+[00:50:35] А Ну базово пусть будет так дальше будет
+[00:50:40] у нас таблица
+[00:50:43] продаж здесь будет
+[00:50:47] ID
+[00:50:52] продажи
+[00:50:54] ID carid
+[00:50:59] кто
+[00:51:02] продал и я бы наверное здесь
+[00:51:08] добавил какую-нибудь
+[00:51:10] как и в автомобилях какой-то
+[00:51:15] комментарий так и здесь я бы добавил
+[00:51:18] комментарий и
+[00:51:21] наверное что-нибудь ещ как информация
+[00:51:25] скидке
+[00:51:27] в дальнейшем это безусловно
+[00:51:32] поможет Ну было бы неплохо наверное В
+[00:51:35] каком салоне продали
+[00:51:40] ID здесь кстати тоже
+[00:51:45] наверное
+[00:51:51] [музыка]
+[00:51:55] как у нас может
+[00:51:58] быть наверно как и
+[00:52:01] знал допустимо и место хранения Да как
+[00:52:07] салон хранения салон
+[00:52:12] местонахождения либо наверное там будет
+[00:52:15] какой-нибудь флаг что на
+[00:52:18] складе А давай в эту вот сторону
+[00:52:20] немножечко уточню Вот
+[00:52:23] ты говори может быть изн нахождение Угу
+[00:52:27] а то есть можеш чуть-чуть можешь под
+[00:52:29] раскрыть что под этим подразумевается То
+[00:52:31] есть у тебя автомобиль же ты говоришь
+[00:52:32] это некоторая комплектация то есть Я как
+[00:52:34] понимаю у тебя там может быть несколько
+[00:52:35] автомобилей одинаковых и я так понимаю
+[00:52:37] ты у тебя подраз ты подразумеваешь что в
+[00:52:39] автомобилях это будет один идентификатор
+[00:52:42] А вот но предположим мы действительно
+[00:52:44] хотели бы немножечко про местонахождение
+[00:52:47] даже не то чтобы местонахождение сколько
+[00:52:49] у нас их в наличии есть как-то
+[00:52:50] посмотреть может быть есть Вот как это
+[00:52:53] можно в хранилище вложить я тут решил
+[00:52:55] просто сразу походу раз ты в эту сторону
+[00:52:57] немножко подвигался раскрыть немножечко
+[00:53:00] да Тогда наверное я тоже немножко
+[00:53:02] переобуть тут ка ID Пусть это будет у
+[00:53:05] нас уникальный идентификатор каждого
+[00:53:07] автомобиля и мы тогда
+[00:53:09] сделаем какой-нибудь мол ID это ID
+[00:53:14] модели которая у нас
+[00:53:19] хранится И сколько у нас будет их в
+[00:53:22] наличии да Угу угу и здесь наверное
+[00:53:28] здесь я на самом деле задумаюсь как
+[00:53:30] сделать лучше сделать два поле то есть
+[00:53:33] первое поле это салон и наверное пусть
+[00:53:37] будет
+[00:53:43] просто
+[00:53:46] ID местонахождения Да
+[00:53:50] нахождение
+[00:53:52] автомобиля в случае если это
+[00:53:55] салон салон то
+[00:53:58] М это будет А ids у нас просто
+[00:54:03] А если склад
+[00:54:05] [музыка]
+[00:54:07] то
+[00:54:09] а то там какой-нибудь у нас будет ID там
+[00:54:13] четыре девятки ка что не так чтобы можно
+[00:54:16] было понимать Ну и там таблица в таблице
+[00:54:20] салонов там это будет не знаю у нас
+[00:54:23] будет отдельно как склад у Угу
+[00:54:28] хорошо Давай может быть у тебя есть
+[00:54:31] базово я бы вот от этого это базова
+[00:54:34] наверное оттолкнулся бы от этого да да
+[00:54:36] Угу смотри Да в целом мы описали
+[00:54:38] какие-то основные базовые сущности на
+[00:54:40] которых уже что-то можно посчитать
+[00:54:41] посмотреть какую-то аналитику проводить
+[00:54:44] на всякий случай ещё раз уточню
+[00:54:45] правильно местонахождение автомобиля это
+[00:54:47] будет у нас ids то есть ссылка на салон
+[00:54:50] то есть в целом это какой-то
+[00:54:51] идентификатор 999 это мы у нас тоже
+[00:54:54] будет такой идентификатор в салонах но
+[00:54:55] мы будем его использовать как склад
+[00:54:57] правильно я понял идею как Ну что-нибудь
+[00:54:59] да вот условно такое да Угу хорошо Да в
+[00:55:02] принципе такой вариант тоже возможен
+[00:55:04] учитывая что мы как бы делаем такой mvp
+[00:55:06] начально на начальной стадии возможно
+[00:55:08] какие-то такие хитрые способы Почему бы
+[00:55:11] и нет собственно может быть давай вот
+[00:55:13] ещё ретроспективно глянем посмотрим У
+[00:55:15] нас есть четыре сущности это сотрудники
+[00:55:16] автомобили таблиц продаж салонов
+[00:55:19] возможно может быть что-то ещё на твой
+[00:55:21] взгляд Ну это просто так посмотреть ты
+[00:55:23] бы хотел добавить так уже взгляд
+[00:55:26] какую-нибудь сущность может быть
+[00:55:30] а Наверное для дальнейшей какой-то
+[00:55:33] реферальной программы Я бы ещё добавил
+[00:55:35] таблицу клиентов безусловно
+[00:55:40] а она
+[00:55:43] примерно будет такая же как и
+[00:55:46] сотрудников только здесь будет Каме
+[00:55:51] ID ID дата
+[00:55:55] рождения
+[00:55:57] не будет дата
+[00:56:01] покупки
+[00:56:06] покупки ID салона
+[00:56:12] покупки ну наверное всякой шелухой
+[00:56:15] оборачивать вроде там даты последнего
+[00:56:17] Контакта обзвона и так далее я это но
+[00:56:21] предполагается что наверно для
+[00:56:22] маркетинга это тоже
+[00:56:25] помня могут появляться какие-то новые
+[00:56:27] фичи дополнительные атрибуты новые
+[00:56:30] витрины Понятно Мы тут говорим про
+[00:56:31] какой-то Старт на котором уже можно
+[00:56:33] будет что-то посчитать полезное сделать
+[00:56:34] найти какие-то инсайды и что-то такое
+[00:56:37] собственно А есть дополнительный вопрос
+[00:56:39] давай немножечко чуть-чуть углубился в
+[00:56:41] принципе вот у нас есть салоны
+[00:56:42] сотрудники автомобили таблиц продаж и
+[00:56:44] клиенты всё плюс-минус понятно но хотел
+[00:56:46] бы немножечко поподробнее поговорить про
+[00:56:48] таблицу продаж предположим если у нас
+[00:56:51] придёт какой-то клиент и захочет купить
+[00:56:53] два автомобиля Вот хотелось бы понять
+[00:56:55] как они лягут в твою модель в данном
+[00:56:58] случае интересен интересна таблица
+[00:57:00] продаж что там является ключом и как это
+[00:57:02] будет выглядеть в таблице
+[00:57:08] продаж Ну то есть скажем так за один чек
+[00:57:11] будет сразу же два Толе куплено
+[00:57:15] Угу я наверное немножко подушную может
+[00:57:18] ли это быть за один чек два
+[00:57:20] автомобиля предполагаю что в реальной
+[00:57:23] жизни нет но для абстрактной ситуации
+[00:57:25] предположим что пусть
+[00:57:28] будет тогда у нас
+[00:57:30] [музыка]
+[00:57:32] будет две записи
+[00:57:35] с одним ID продажи То есть это будет с
+[00:57:40] одним
+[00:57:42] и с двумя разными
+[00:57:47] carid то есть одна
+[00:57:51] будет будет на од
+[00:57:55] сум по хорошему Если бы я делал Я бы
+[00:57:57] наверное это разбивал на две разные
+[00:57:59] а если делать Это в одну
+[00:58:04] Ну можно делать
+[00:58:08] наверное
+[00:58:09] дополнительно
+[00:58:12] а дополнительно к ней ещё то есть
+[00:58:14] какой-нибудь
+[00:58:16] делать условно
+[00:58:20] говоря типа схемы снежинки какой-нибудь
+[00:58:23] Да дробить либо таблиц продаж либо
+[00:58:27] делать в ширину добавлять несколько
+[00:58:29] полей под
+[00:58:31] продажи но теоретически клиент может не
+[00:58:35] знаю прийти и купить каких-нибудь
+[00:58:39] дополнительных там не знаю вонючек для
+[00:58:41] автомобиля 20 штук все разные и у нас
+[00:58:44] это будет одна продажа и столько полей
+[00:58:47] Мы наверно не
+[00:58:50] напас
+[00:58:52] мым
+[00:58:55] с
+[00:58:57] сть базовая у нас будет таблица продаж и
+[00:59:01] мы сделаем от не
+[00:59:05] ответвление
+[00:59:07] список товаров в этом чеке условно
+[00:59:10] говоря что-то такое Ну в целом Я понял
+[00:59:12] На самом деле тут такой уточняющий
+[00:59:14] вопрос что таблица продаж подразумевает
+[00:59:15] что у нас условно чек это будет каждая
+[00:59:19] позиция То есть у тебя на
+[00:59:21] кажд если куплено былова автомобиля или
+[00:59:23] может быть какие-то дополнительные опции
+[00:59:25] это будет отдельно каждая запись указана
+[00:59:28] Ну в принципе Вот это да я хотел
+[00:59:29] уточнить Давай тогда посмотрим а
+[00:59:32] предположим у нас такой кейс есть
+[00:59:33] аналитик хочет посчитать уже какие-то
+[00:59:35] метрики и собственно какие метрики тебе
+[00:59:38] кажется на старте ему могут понадобиться
+[00:59:40] Ну то есть что бы он хотел посчитать на
+[00:59:42] старте
+[00:59:43] базово
+[00:59:46] М что у нас есть на складе А сколько
+[00:59:51] автомобилей
+[00:59:52] А мы можем сразу посмотреть что у нас на
+[00:59:55] складе состоялось
+[00:59:58] у нас по-моему
+[01:00:00] автомобили
+[01:00:03] я количество в наличии год выпуска Ну
+[01:00:06] наверное здесь требуется дата прибытия
+[01:00:09] на
+[01:00:10] склад прибытия на
+[01:00:13] склад чтобы смотреть там автомобили
+[01:00:17] которые у нас уже на складе находятся
+[01:00:19] давно и которые возможно было бы здорово
+[01:00:22] по
+[01:00:24] скидке
+[01:00:27] посмотреть сотрудников посмотреть кто
+[01:00:30] сколько
+[01:00:31] продаёт мы можем сделать в разрезе
+[01:00:34] салонов Какие салоны более успешные
+[01:00:36] Какие менее успешные мы можем сделать
+[01:00:38] разрез в рамках автомобиля какие
+[01:00:41] автомобили лучше продаются какие
+[01:00:45] хуже сам де Давай буде чек опять-таки Да
+[01:00:48] средний чек на самом деле Давай пря
+[01:00:50] далеко углубляться не будем Я немножечко
+[01:00:52] раз Обрати внимание Мы же таблиц
+[01:00:55] автомоби поправили изначально мы
+[01:00:57] подразумевали что это будет модель
+[01:00:58] поэтому мы сделали Car ID и модель ID Но
+[01:01:00] количество в наличии у нас осталось
+[01:01:02] кажется это как будто излишнее поле То
+[01:01:04] есть у тебя же каждый автомобиль теперь
+[01:01:06] стал иметь уникальный идентификатор
+[01:01:08] количество наличии кажется немножечко
+[01:01:10] тут нам не нужно и тогда добавлю просто
+[01:01:13] дополнительно что раз у нас есть модул
+[01:01:15] ID мы тут просто не описали но давай не
+[01:01:17] будем на этом останавливаться что
+[01:01:18] подразумевается таблице наверное моделей
+[01:01:20] в котором будет какие-то ещ свои
+[01:01:22] атрибуты Да ну это так как мы прям
+[01:01:24] скажем так на вроде выносили правки
+[01:01:27] Поэтому думаю мы просто не будем на этом
+[01:01:29] сильно заострять внимание давай тогда
+[01:01:31] посмотрим вот у нас в принципе все эти
+[01:01:33] витрины имеются и предположим аналитик
+[01:01:35] хочет посчитать выручку по автосалону Ну
+[01:01:38] предположим даже по всем автосалонам
+[01:01:39] просто посчитать выручку сколько сеть
+[01:01:41] салонов зарабатывает Ну это скажем так
+[01:01:43] Такая базовая основная Метрика на старте
+[01:01:45] А как это можно сделать на основе вот
+[01:01:48] тех данных которые вот у нас предположим
+[01:01:50] сейчас имеются что вот стоит сделать
+[01:01:52] аналитику и достаточно ли ему тут
+[01:01:54] данных
+[01:01:57] [музыка]
+[01:02:01] наверное нет наверное
+[01:02:04] нет безусловно мы здесь
+[01:02:06] пропустили
+[01:02:09] с не знаю как это сумма чека Да
+[01:02:14] Или можно просто
+[01:02:16] назвать сумма продажи сумма можно
+[01:02:18] назвать Я думаю мы будем понимать О чём
+[01:02:20] идёт
+[01:02:21] речь
+[01:02:24] Да это важное упущение я бы
+[01:02:28] сказал сумма продаж У нас
+[01:02:30] [музыка]
+[01:02:33] есть по
+[01:02:39] салону салон у нас в принципе тоже есть
+[01:02:42] да мы можем прям из одной таблицы продаж
+[01:02:44] всё это посчитать да на самом деле
+[01:02:47] Действительно это возможно я Почему
+[01:02:49] задал такой вопро кипо пройтись по помм
+[01:02:53] основы
+[01:02:54] трика что что-то могло интересное быть
+[01:02:57] упущено потому что на самом деле выручка
+[01:02:59] - это наверное такой то с чего любой
+[01:03:01] аналитик который хочет что-то посчитать
+[01:03:04] наверное бы начал потому что это кажется
+[01:03:05] самое интересное может быть по крайней
+[01:03:07] мере на старте давай ещё тогда
+[01:03:10] немножечко посмотрим в сторону того что
+[01:03:14] опять-таки кейс аналитик хочет сделать
+[01:03:16] дополнительный заказ автомобилей то есть
+[01:03:18] заказать ещё на склад и вот надо понять
+[01:03:20] сколько автомобилей можно ещё дозаказать
+[01:03:23] опять-таки тоже такой вопрос достаточно
+[01:03:25] ли данных недостаточно то можно уже не
+[01:03:26] корректировать можно что-то словами
+[01:03:28] объяснить как ему действовать или чтобы
+[01:03:29] мы
+[01:03:34] добавили наверное да это необходимо
+[01:03:37] дополнительно добавить в таблице
+[01:03:42] салонов Наверное я бы добавил
+[01:03:45] [музыка]
+[01:03:48] здесь некий дополнительный
+[01:03:51] момент как вместимость автомобилей Да
+[01:03:54] это будет
+[01:03:58] количество мест
+[01:04:01] хранения То есть это автомобили которые
+[01:04:04] стоят в зале да возможно где-то
+[01:04:06] дополнительно есть
+[01:04:10] ещё какое-то количество
+[01:04:13] мест по салону и
+[01:04:18] по по таблице салонов У нас есть некая
+[01:04:21] просто абстрактная цифра скоко у на мест
+[01:04:24] хранения связав таблиц автомобилей э и
+[01:04:28] местонахождения мы можем понять сколько
+[01:04:30] у нас в каждом салоне
+[01:04:32] э и сколько есть всего мест и сколько
+[01:04:35] сейчас автомобилей стоит
+[01:04:36] Аа если мы говорили что там а склад мы
+[01:04:41] Ну условно мы можем его как четыре
+[01:04:43] девятки Я бы наверное его добавил как
+[01:04:45] отдельный салон Да просто
+[01:04:48] с какими-то отдельными
+[01:04:53] аэ характеристиками наверное
+[01:04:56] и я думаю что у склада было бы такое же
+[01:04:59] количество место хранения по которому мы
+[01:05:01] могли бы посмотреть сколько автомобилей
+[01:05:03] сейчас находится на складе и сколько мы
+[01:05:06] ещ можем заказать посмотреть салоны
+[01:05:08] посмотреть склад и так далее сделать
+[01:05:10] какой-то вывод Ну сверху Я бы навесил
+[01:05:13] динамику продаж и посмотрел что с учётом
+[01:05:16] того что это придёт через месяц сколько
+[01:05:18] у нас будет свободных
+[01:05:24] мест сделали какой-то склад добавили
+[01:05:27] данные сейчас можно посчитать Но наверно
+[01:05:29] в перспективе опять-таки когда к нам
+[01:05:30] будут приходить новые требования
+[01:05:31] аналитики будут считать какие-то новые
+[01:05:33] фичи будем расширять эту модель улучшать
+[01:05:36] и собственно какие-то новые штуки
+[01:05:38] придумывать классные на самом деле я
+[01:05:41] думаю что мы постепенно можем подходить
+[01:05:42] к концу это наш был последний такой
+[01:05:44] тест-кейс в котором мы разобрали по
+[01:05:46] модели поэтому я думаю мы можем дать
+[01:05:50] краткую обратную связь по данному
+[01:05:53] собственно собеседованию Давай тогда
+[01:05:55] нено пере чтобы нас не отвлекало так
+[01:05:57] если можно я только тоб немного рву в
+[01:06:00] процессе собеседования наши слушатели
+[01:06:02] очень интересовались какой Александра
+[01:06:04] бэкграунд А если это не секрет думаю
+[01:06:08] всем будет интересно ты расскажешь
+[01:06:10] сколько примерно лет ты работаешь в ДХ В
+[01:06:12] какой
+[01:06:13] позиции собственно с чем ты сталкивался
+[01:06:19] в аналитике Я наверно начал работать уже
+[01:06:23] чуть больше 10 лет конкретно ввх работаю
+[01:06:26] чуть больше 2
+[01:06:27] лет был на
+[01:06:33] позициях не знаю когда приходил только в
+[01:06:36] ДХ меня не оценивали где-то через
+[01:06:38] месяцев се или был аудит меня оценивали
+[01:06:41] там на сеньор позицию в какой-то момент
+[01:06:44] был руководителем направления ДХ в одной
+[01:06:48] из
+[01:06:49] компаний Здорово
+[01:06:54] разб
+[01:06:56] Давай дам обратную связь да Давай
+[01:06:59] перейдём тогда наверно к обратной связи
+[01:07:00] спасибо что с нами поделился зрители
+[01:07:02] очень интересуются Я думаю на самом деле
+[01:07:04] было очень занимательно и интересно мне
+[01:07:06] было в любом случае очень классно с
+[01:07:07] тобой пообщаться Давай тогда немножечко
+[01:07:09] пройдёмся ретроспективно что у нас
+[01:07:11] хорошо пошло что можно на чем можно
+[01:07:13] посмотреть собственно начали мы задачи
+[01:07:15] такие были
+[01:07:16] разминочные в целом были какие-то
+[01:07:18] минорные правки Но это на самом деле
+[01:07:20] некритично Понятно код не копируем
+[01:07:23] естественно если бы мы писали код вживую
+[01:07:25] какие-то штуки мы бы смогли бы отловить
+[01:07:28] то есть тут с моей стороны кажется
+[01:07:30] действительно постепенно развиваем мысль
+[01:07:32] с чего-то начинаем делаем у нас
+[01:07:33] появляется какой-то скелет и от него уже
+[01:07:35] отталкиваю и
+[01:07:37] дорабатываем поэтому мне кажется у нас
+[01:07:39] пошёл неплохо то есть мы в принципе
+[01:07:41] хорошо прошлись по задачам вторую задачу
+[01:07:43] Мы решили даже собственно двумя
+[01:07:44] вариантами какой-то классический
+[01:07:45] посмотрели что у нас есть по оконным
+[01:07:47] функциям Поэтому в целом Да тоже пришли
+[01:07:49] хорошему решению и в итоге по этим
+[01:07:52] Задачка быстренько пробежались Даше
+[01:07:54] поговорили немножечко про теорию тут как
+[01:07:56] раз наверное ребята и захотели узнать
+[01:07:58] какой бэкграунд потому что на самом деле
+[01:07:59] довольно хорошо мы с тобой поговорили
+[01:08:01] вообще как можно построить хранилище С
+[01:08:03] чего стоит начинать ты подметил классные
+[01:08:05] штуки заметил про операционный слой слой
+[01:08:08] СК данных они могут быть по-разному то
+[01:08:09] есть это действительно всё важно И вот
+[01:08:11] люди с опытом это как раз таки могут
+[01:08:13] замечать и знать потому что это всё с
+[01:08:14] опытом наращивается этой компетенции и
+[01:08:17] потом естественно может использоваться
+[01:08:19] поэтому тут тоже У нас блок прошёл
+[01:08:21] достаточно хорошо было очень интересно
+[01:08:23] это обсудить и потом давай последнему
+[01:08:26] блоку собственно Всё у нас шло тут тоже
+[01:08:29] неплохо начали какие-то базовые сущности
+[01:08:31] мы описали дополнительно их дополняли
+[01:08:35] собственно на самом деле ты описал всё
+[01:08:37] всё основное базовое уже было на старте
+[01:08:39] и достаточно много атрибутов это
+[01:08:41] действительно хорошо пото что мы
+[01:08:43] действительно на старте можем не знать
+[01:08:44] что может потребоваться но если у нас
+[01:08:45] есть возможность что-то добавить можно
+[01:08:47] добавить мало ли вдруг Потом оно стрель
+[01:08:50] поэтому всё было описано и в рамках
+[01:08:52] диалога мы уже с тобой дополнительно
+[01:08:54] какие-то атрибуты добавили которые могут
+[01:08:56] быть Важны и тоже помочь аналитикам и
+[01:08:59] ещё до описали какие-то кейсы и
+[01:09:01] разобрали как ещё можно потом улучшать
+[01:09:03] эту модель То есть если как бы
+[01:09:04] резюмировать всё на самом деле шло
+[01:09:06] действительно хорошо мы двигались с
+[01:09:07] тобой в правильном направлении очень
+[01:09:09] классно Я хочу подметить что ты классно
+[01:09:13] всё Рассказывал Рассказывал свои мысли
+[01:09:14] это на самом деле очень круто помогает
+[01:09:16] Ну понятно все люди проводят на самом
+[01:09:18] деле собеседование по-разному то есть
+[01:09:20] кто-то хочет наверное может быть иногда
+[01:09:21] взять какую-то паузу подумать ты всё в
+[01:09:23] целом говорил что у тебя происходит как
+[01:09:25] развивал свою мысль это наверное тебе
+[01:09:27] тоже помогало И на самом деле тоже хочу
+[01:09:29] поделиться со своей стороны что это
+[01:09:30] очень сильно помогает ребятам которые
+[01:09:33] тебя собеседуем они лучше понимают ход
+[01:09:34] твоих мыслей Даже если ты вдруг куда-то
+[01:09:36] в другую сторону заворачивается всё
+[01:09:38] равно понятно почему так произошло и
+[01:09:39] тебя иногда можно вернуть в русло или в
+[01:09:41] принципе это хорошо показывает как у
+[01:09:43] тебя идёт ход мыслей Вот то есть Поэтому
+[01:09:46] если вкратце говорить мне кажется было
+[01:09:48] это очень интересно Возможно у тебя со
+[01:09:49] своей стороны есть Что добавить то есть
+[01:09:51] можешь чем-то тоже
+[01:09:54] поделиться нет было всё отлично задачки
+[01:09:57] интересные было очень приятно интересно
+[01:10:00] и
+[01:10:01] занимательно тогда я наверно хочу тебе
+[01:10:04] сказать огромное спасибо нам было
+[01:10:05] действительно очень классно пообщаться
+[01:10:07] Спасибо что с нами поделился Я думаю Все
+[01:10:08] зрители тоже остались в восторге тем
+[01:10:10] более спрашивали про твой бэкграунд
+[01:10:12] поэтому я думаю мы тогда с тобой будем
+[01:10:14] прощаться и дальше обсудим какие-то
+[01:10:15] кейсы которые у нас бывают на
+[01:10:17] собеседовании Спасибо тебе большое да
+[01:10:20] ещё раз тебе большое спасибо ты
+[01:10:22] действительно герой отдельно Огромное
+[01:10:25] спасибо за твою смелость это совсем не
+[01:10:28] просто Надеюсь тебе этот опыт в будущем
+[01:10:31] пригодится И может быть когда-нибудь мы
+[01:10:33] ещё с тобой пересечёмся
+[01:10:35] Спасибо тебе обязательно очень верю
+[01:10:38] Спасибо большое Рад был познакомиться
+[01:10:40] пообщаться
+[01:10:41] а на этом мы Прощаемся с Александром и
+[01:10:46] мы с Толей немного обсудим про то какие
+[01:10:49] у нас есть в целом секции на реальном
+[01:10:52] собеседовании так этом было много
+[01:10:54] вопросов и постараемся немного разобрать
+[01:10:56] А какие ошибки допускают Ида кандидаты А
+[01:11:01] что они делают хорошо А если начать с
+[01:11:04] основного А как правило любым кандидатом
+[01:11:07] всегда назначается три секции А сейчас
+[01:11:10] идёт речь о технических секциях а первая
+[01:11:13] секция идёт про написание кода SQL и
+[01:11:17] программирования вторая секция про
+[01:11:19] теоретическую часть устройства д ВХ и
+[01:11:22] третья секция про системный анализ
+[01:11:24] больше про проектирование моделе и сбор
+[01:11:27] бизнес
+[01:11:27] требований сначала Давайте пойдём по
+[01:11:30] первой секции что же это
+[01:11:32] такое основная часть секции занимает
+[01:11:34] написание кода задачек на SQ Это
+[01:11:38] основная часть времени данного
+[01:11:40] собеседования и совсем небольшое время
+[01:11:43] мы отводим решению одной простой задачки
+[01:11:46] на питоне на самый простой
+[01:11:49] алгоритм начинаем как правило мы с задач
+[01:11:53] средней сложности совсем Изи уровня для
+[01:11:56] дна мы стараемся пропускать так как
+[01:11:59] правило мы ищем опытных специалистов
+[01:12:02] начиная от midle уровня и по мере та
+[01:12:05] кандидат решает мы их усложняем либо
+[01:12:08] сохраняем уровень чтобы и кандидату
+[01:12:10] интервю было в принципе комфортно и
+[01:12:12] кандидат мог себя с наиболее лучшей
+[01:12:14] стороны показать
+[01:12:16] а толь Давай нач Наверно с тебя чтоб ты
+[01:12:19] мог подчеркнуть нано хорошее или плохое
+[01:12:22] при решении данных задач в ЧМ как
+[01:12:24] правило кандидаты хорошо себя показывают
+[01:12:27] что мы стараемся всегда отмечать
+[01:12:29] замечать И в чём есть ошибки на самом
+[01:12:33] деле да давайте дополню тут что первая
+[01:12:36] часть у нас идёт по SQL и
+[01:12:38] программированию там скорее больше про
+[01:12:39] алгоритмы программирования у нас
+[01:12:41] идёт очень классно как я уже
+[01:12:43] подсвечивать сейчас на техническом
+[01:12:45] интервью классно когда кандидат
+[01:12:48] собственно хорошо раскрывает свою мысль
+[01:12:49] потому что SQL мы как бы можно было
+[01:12:52] заметить мы не
+[01:12:53] компилирует быть какие-то токсические
+[01:12:55] ошибки или какие-то логические когда
+[01:12:57] что-то случайно ушло не в ту сторону
+[01:12:59] Поэтому в целом ничего страшного нет
+[01:13:02] Если Ну как бы можно уйти в другую
+[01:13:04] сторону но потом вернуться в русло
+[01:13:06] поэтому очень хорошо Если вы объясняете
+[01:13:09] что у вас происходит при том потом когда
+[01:13:10] вы написали уже итоговый код Вы тоже ещё
+[01:13:12] раз можете себя проверить и мы
+[01:13:13] естественно можем Вам что-то подчеркнуть
+[01:13:15] дополнительное рассказать ошибки бывают
+[01:13:18] на самом деле разного характера как я
+[01:13:20] уже сказал синтаксический нас скорее
+[01:13:21] всего не особо не интересует потому что
+[01:13:22] понятно и диалекты бывают разные кто-то
+[01:13:24] пишет по-своему кто-то пишет в одном
+[01:13:25] ключе в другом ничего страшного тут не
+[01:13:27] бывает тут скорее главное наверное прям
+[01:13:30] сильно стараться в сторону не уходить
+[01:13:33] иногда дать себе паузу посмотреть и
+[01:13:35] вернуться к корректно решению Вот то
+[01:13:37] есть как бы я наверное так подчеркнул
+[01:13:39] что эта секция такая она больше прям
+[01:13:41] Техническая потому что SQL - это именно
+[01:13:43] просто про написание как бы у нас кода
+[01:13:45] тут главное такой некоторый опыт и
+[01:13:48] просто Спокойствие и написание если что
+[01:13:50] обязательно собесе с вами ещ обсудит
+[01:13:53] какие-то вопросы дополнительные задаст
+[01:13:55] направит вас в правильное русло Может у
+[01:13:56] тебя ещё есть что-то добавить Да Большое
+[01:13:58] спасибо давай добавлю А наверное одни из
+[01:14:02] самых важных критериев А когда кандидат
+[01:14:04] не молчит если он допустим не уверен
+[01:14:07] сомневается в том Правильно ли Он решает
+[01:14:09] А обязательно всегда спрашивайте и
+[01:14:12] уточняйте условия видите поле а кажется
+[01:14:15] подозрительным вы вроде бы поняли но
+[01:14:18] может быть что-то не так Лучше спросите
+[01:14:20] лучше всегда Спросите вам а проводящий
+[01:14:23] собеседование интервью обязательно
+[01:14:25] ответит и вы наиболее вероятно правильно
+[01:14:27] решите задачку не стоит думать что если
+[01:14:30] задаёте вопросы то вы себя как-то с
+[01:14:32] плохой стороны показываете Нет это Наро
+[01:14:34] хорошая сторона потому что вы
+[01:14:36] заинтересованы в правильном решении
+[01:14:38] собственно также и на работе думаю вы
+[01:14:41] согласитесь лучше сделать с первого раза
+[01:14:43] правильно но перед этим задать вопросы
+[01:14:45] чем ошибиться многократно а отдельно
+[01:14:48] хочется отметить про знание оконных
+[01:14:50] функций А тут К сожалению часто приходит
+[01:14:54] кандидат которые на работе видимо не
+[01:14:57] сталкивались с законными функциями там
+[01:14:59] возможно в их задачах действительно они
+[01:15:01] не
+[01:15:02] применимы но мы очень ценим этот навык
+[01:15:05] потому что у нас в большинстве запросов
+[01:15:07] эти алгоритмы большие и сложные и
+[01:15:09] оконные функции правда пригождается А то
+[01:15:13] есть понятно что их огромное
+[01:15:14] разнообразие но какой-то там минимальный
+[01:15:17] топ пять самых популярных хорошо знать а
+[01:15:21] и наверное то что мы ещё не обсудили по
+[01:15:24] этому блоку
+[01:15:26] некоторые задачи бывает можно решить
+[01:15:29] несколькими способами в принципе в конце
+[01:15:30] второй задачи Толи с Александра даже это
+[01:15:34] обсуждали тут в целом иногда стоит себя
+[01:15:37] хорошо
+[01:15:46] пошторг да же к этому блоку Давайте
+[01:15:49] сразу отвечу на один из вопросов который
+[01:15:51] также был в чате коллеги интересовались
+[01:15:53] про питон который мы не показывали здесь
+[01:15:56] на собеседовании А тут ещё раз повторюсь
+[01:15:59] что это самая простая Задачка на простой
+[01:16:02] алгоритм чисто базовые знания А если вы
+[01:16:05] можете решить простой алгоритм то
+[01:16:06] Разумеется при необходимости вы в
+[01:16:09] будущем на работе сможете а написать
+[01:16:12] более сложную версию используя
+[01:16:14] параллельно тот же Google посмотрев там
+[01:16:16] более сложные конструкции а задач Pon
+[01:16:20] пригождается наверное да не каждому Дато
+[01:16:23] инженеру но Мы очень много вкладываем в
+[01:16:27] автоматизацию наших процессов в принципе
+[01:16:29] движемся вперёд у нас постоянно
+[01:16:31] добавляются новые инструменты и его как
+[01:16:34] бы в любой день всегда есть куда
+[01:16:36] применить
+[01:16:38] а на самом деле я бы немножечко в этой
+[01:16:40] части бы хотел добавить что вы не
+[01:16:43] пугайтесь последней части в которой мы
+[01:16:44] говорим про питон что там будет питон на
+[01:16:46] самом деле во-первых вы можете написать
+[01:16:47] на любом другом языке потому что здесь
+[01:16:49] скорее вопрос именно про алгоритм и как
+[01:16:52] бы знаний там действительно достаточно
+[01:16:54] будет базовых поэто поэтому не стоит
+[01:16:55] бояться этой части вот просто хотел вам
+[01:16:57] объяснить что это именно про алгоритмы
+[01:17:00] незнания языка не переживайте Да А
+[01:17:04] теперь Давай перейдём к нашей второй
+[01:17:06] части а вторая часть она является
+[01:17:09] теоретической А если официальная секция
+[01:17:13] называется проектирование и построение
+[01:17:15] етл А здесь не надо бояться слова
+[01:17:19] построение потому что речь не про то как
+[01:17:21] вы руками построите Дак а про то что вы
+[01:17:23] знаете общие подходы как это происходит
+[01:17:26] а данная секция целиком теоретическая То
+[01:17:30] есть вы всё отведённое время общаетесь с
+[01:17:33] интервьюера по разным областям А и
+[01:17:35] пробегает то как вы понимаете
+[01:17:38] определённые части толь что ты можешь
+[01:17:41] подсветить по этой секции Ну на самом
+[01:17:43] деле тут я тоже дам какие-то такие
+[01:17:45] базовые советы супер подробно наверное
+[01:17:47] углубляться не будем мы какие-то вопросы
+[01:17:49] затрагивали сегодня на техническом
+[01:17:50] собеседовании то есть какие-то там слои
+[01:17:52] данных моделирования и тому подобное то
+[01:17:54] есть в этой секции в принципе подобные
+[01:17:56] вопросы будут возникать будут вопросы
+[01:17:57] вообще в целом Что из себя представляет
+[01:17:59] itl как он в принципе строится Какие
+[01:18:02] способы там бывают то есть именно про
+[01:18:04] моделирование про etl И тут я могу
+[01:18:07] просто посоветовать опять-таки снова не
+[01:18:09] переживайте там будут базовые вопросы
+[01:18:11] опять-таки интервьюер Естественно он
+[01:18:12] скорее ваш друг он всегда хочет вам
+[01:18:14] помочь с вами дополнительно пообщаться
+[01:18:16] дополнительные вопросы какие-то
+[01:18:17] позадавать чтобы вам в первую очередь
+[01:18:19] было комфортнее отвечать на них раскрыть
+[01:18:22] свою мысль и в данной секции наверное
+[01:18:24] просто стоит почитать какую-то теорию
+[01:18:26] базовую которая вам может освежить
+[01:18:27] память потому что в работе могут Э не
+[01:18:30] всегда вы используете Все инструменты
+[01:18:32] всё что вам нужно А Вы прям в работе
+[01:18:35] всегда и каждодневно используете поэтому
+[01:18:37] что-то может под забыться и вот для этой
+[01:18:38] секции Было бы неплохо найти
+[01:18:40] какую-нибудь статейку что-то почитать
+[01:18:41] или какие-то материалы которые вам
+[01:18:43] просто помогут освежить э скажем так в
+[01:18:46] памяти всё что это когда-то вы учили или
+[01:18:49] может быть когда-то давно просто
+[01:18:50] использовали и в принципе прийти уже со
+[01:18:52] свежей головой на данную секцию и
+[01:18:54] наверное проблем она для вас никаких не
+[01:18:56] составит Да и наверное добавлю такой
+[01:18:58] последний кейс А в некоторых компаниях
+[01:19:01] любят изобретать какие-то свои названия
+[01:19:03] процессов иногда приходят кандидаты
+[01:19:05] которые А им задаёшь вопрос и они знают
+[01:19:09] на него ответ они с этим работают каждый
+[01:19:10] день но они привыкли его называть
+[01:19:13] каким-то особым термином в связи с чем а
+[01:19:16] могут попасть немного неудобную ситуацию
+[01:19:19] А собственно поэтому Да повторю слова
+[01:19:22] Толи что наверное к собеседования а как
+[01:19:25] минимум теоретическим точно стоит
+[01:19:27] немного подготовиться освежить знания а
+[01:19:30] почитать как это называется скажем так
+[01:19:33] на просторах интернета в общепринятых
+[01:19:35] практиках чтобы Вы точно друг друга
+[01:19:37] поняли и могли показать все знания С
+[01:19:40] любой стороны а и Давай перейдём к
+[01:19:44] нашему третьему блоку А третья наша
+[01:19:46] секция называется секция анализа и
+[01:19:49] моделирования
+[01:19:51] а она буквально так и называется одна
+[01:19:54] часть моделирования Вы видели на примере
+[01:19:56] задач с Александром как он строил модель
+[01:19:58] по автосалону А и вторая часть анализ -
+[01:20:02] это сбор бизнес требований здесь она
+[01:20:04] была такая более сокращённая а но
+[01:20:07] суммарно в этом и есть диалог с
+[01:20:10] интервьюеров или в реальной жизни
+[01:20:12] заказчиком А пообщаться с ним выяснить
+[01:20:15] Что именно он имеет в виду и попробовать
+[01:20:18] это перенести на код чтобы получить
+[01:20:20] результирующую витрину Толя да давайте
+[01:20:23] немножечко переходи слово дополним что
+[01:20:26] собственно это на самом деле секция
+[01:20:27] наверное наиболее такая оживлённая и
+[01:20:29] интересная может показаться Ну понятно
+[01:20:31] кто-то больше любит именно писать код и
+[01:20:33] в какую-то теорию углубляться Но в
+[01:20:34] данной секции у нас вопросы открытые По
+[01:20:37] большей части можно сказать там нет
+[01:20:38] правильного ответа Это вопрос уже скорее
+[01:20:40] на общение с
+[01:20:42] [музыка]
+[01:20:53] интервьюеров понадобится при системном
+[01:20:56] анализе и мы задаём какие-то открытые
+[01:20:58] вопросы собственно правильно вот говорю
+[01:21:00] один из примеров Это был мы описываем
+[01:21:01] модель и уже в рамках неё потом пытаемся
+[01:21:03] общаемся разбираемся что у нас может
+[01:21:05] быть крутого интересного любопытного или
+[01:21:07] в какой-то другой в другом формате Мы
+[01:21:09] уже выступаем в роли заказчика и вы
+[01:21:10] задаёте вопросы на самом деле это как
+[01:21:12] раз-таки дам такой совет в этой секции
+[01:21:14] точно не стесняйтесь задавать вопросы
+[01:21:16] как я уже сказал Эта секция с открытыми
+[01:21:18] вопросами что-то можно всегда уточнить
+[01:21:20] это системный анализ и системный анализ
+[01:21:23] подразумевает что это очень кла
+[01:21:25] чтото новое потому что работаем часто в
+[01:21:28] рамках неопределенности и не можем знать
+[01:21:30] всех процессов как они устроены продукты
+[01:21:32] и тому подобное и собственно вот в этой
+[01:21:34] секции Мы хотим Понять насколько вам это
+[01:21:36] близко как оно вам откликается какие у
+[01:21:38] вас идеи могут быть поэтому тут не
+[01:21:40] стесняйтесь прям да на самом деле по
+[01:21:43] этому блоку Мне кажется Толи от и до на
+[01:21:45] всё ответил даже добавить нечего а
+[01:21:47] давайте теперь пере неболь наше
+[01:21:53] пось
+[01:21:55] звучали в треде но мы на них не ответили
+[01:21:59] письменно был вопрос про
+[01:22:01] последовательность секции здесь мы
+[01:22:03] кажется ответим чуть дополню с чем был
+[01:22:06] связан вопрос ребята уточнили что мы
+[01:22:08] начали сразу так сходу с технического
+[01:22:11] запроса на SQL но не пообщались сначала
+[01:22:16] не сделали такую водную с чем там
+[01:22:18] Александр раньше сталкивался какой у
+[01:22:20] него опыт
+[01:22:22] здесь во-первых стоит понимать что у нас
+[01:22:26] была сейчас такая более Лайт версия
+[01:22:29] собеседования То есть она в сокращённом
+[01:22:30] формате а на деле же каждый раздел
+[01:22:34] каждую секцию проводят разные люди а
+[01:22:37] предварительно Прежде чем начать секции
+[01:22:39] вы общаетесь с рекрутером который А с
+[01:22:42] вами разбирает Какой у вас опыт всё это
+[01:22:45] записывает передаёт нашим коллегам а
+[01:22:49] секции проводят технические специалисты
+[01:22:51] в каждом направлении то есть там анализ
+[01:22:55] у вас проводят как правило системное
+[01:22:56] аналитики по построению туристическая
+[01:22:59] часть скорее Ребята кто больше
+[01:23:02] сталкивается с построением еля Ну и
+[01:23:05] собственно те люди Кто чаще всего и
+[01:23:08] больше пишет На текущий момент запросы и
+[01:23:12] активно набита рука их видеть сквозь и
+[01:23:16] поперёк вдоль И поперёк на самом деле
+[01:23:19] Извини я тут перебью добавлю что
+[01:23:21] действительно у нас три секции проводят
+[01:23:23] их могут проводить разные люди то есть
+[01:23:25] системный анализ это к системным
+[01:23:26] аналитикам это
+[01:23:28] могут проводить ребята которые ближе к
+[01:23:30] разработке а SQL могут проводить вообще
+[01:23:32] ребята которые даже на самом
+[01:23:35] деле
+[01:23:37] действительно связаны например с B
+[01:23:39] аналитикой то есть напрямую не связаны с
+[01:23:41] системным анализом и разработкой потому
+[01:23:43] что это техническая часть вот поэтому
+[01:23:45] тут на самом деле ребята разные и они
+[01:23:48] просто подстраиваются под вас и тоже
+[01:23:50] стараются вам как-то помочь поэтому
+[01:23:52] сейчас мы пытались уместить в условно в
+[01:23:54] час времени в час полтора времени чтобы
+[01:23:57] не затягивать собственно этот эфир все
+[01:23:59] три вот эти секции как-то вкратце вам
+[01:24:01] показать естественно на полной скажем
+[01:24:04] так версии собеседования всё будет более
+[01:24:06] обширно
+[01:24:08] рассказано Да спасибо А следующий был
+[01:24:12] вопрос много ребят интересовались На
+[01:24:15] какой уровень мы собеседуем Александра
+[01:24:18] Мидл Синь куда относятся задачи А здесь
+[01:24:22] ответ Куда более чем вы ожидали
+[01:24:25] А на любой уровень мы кандидатов
+[01:24:29] начинаем собеседовать одинаково в рамках
+[01:24:31] каждой секции мы начинаем Стартуем С
+[01:24:36] простых задач и постепенно их усложняем
+[01:24:38] а за каждую секцию на выходе мы
+[01:24:41] оцениваем можно сказать уровень как
+[01:24:43] кандидат сдал то есть нельзя секцию
+[01:24:46] завалить она в любом случае сдана просто
+[01:24:48] на разный уровень и дальше по
+[01:24:50] результатам собственно всех секций мы
+[01:24:52] уже определяем Какой у вас итоговый
+[01:24:54] уровень А как вы себя показали Кай у вас
+[01:24:58] опыт
+[01:25:00] А дальше был вопрос Наверное я могу Толи
+[01:25:04] задать
+[01:25:05] а ребята интересовались когда видели
+[01:25:07] задачи первая была больше продуктового
+[01:25:10] формата вторая задача больше
+[01:25:12] технического если что это про задачи SQL
+[01:25:15] А ребята интересовались Это всё-таки
+[01:25:17] задача на продуктового аналитика или
+[01:25:19] системного аналитика да давайте
+[01:25:22] немножечко дам контекст собственно у нас
+[01:25:25] три этапа собеседования на самом деле
+[01:25:27] понятно что теньков компания крупная у
+[01:25:30] нас собеседования могут проходить
+[01:25:31] абсолютно разные позиции в том числе на
+[01:25:33] каких-то дата аналитиков би аналитиков
+[01:25:35] как я затрагивал и секци она во многом
+[01:25:38] похожа Ну понятно что SQL - это в
+[01:25:41] принципе такой язык который диалекты у
+[01:25:43] него разные но он на самом деле во
+[01:25:44] многом тоже везде похож и собеседование
+[01:25:46] наверное во многом везде Похоже это
+[01:25:48] какие-то разные типовые задачи типовые
+[01:25:50] задачи это не подразумевает что задача
+[01:25:52] конкретно будет нацелена какой-то
+[01:25:54] продукт или какого-то технического плана
+[01:25:56] наверное там а люди больше интересуются
+[01:25:58] что вторая была именно про запросы
+[01:25:59] первая была больше связана с продуктом
+[01:26:02] Но на самом деле это просто какие-то
+[01:26:03] различные кейсы и уже в рамках вашего
+[01:26:06] собеседования которые вы будете
+[01:26:07] проходить на One day offer или в
+[01:26:09] какое-то другое время например к нам А
+[01:26:11] на самом деле задачи могут быть
+[01:26:12] абсолютно разного плана они не подвязали
+[01:26:13] к какой-то конкретной специфике тут
+[01:26:15] скорее именно на вашу смекалку какой
+[01:26:18] способ вы найдёте как всё посчитать а
+[01:26:20] всё остальное - это лишь просто контекст
+[01:26:21] они могут быть абсолютно вперемешку
+[01:26:23] разного формата
+[01:26:25] Да всё верно Так и у нас осталось ещё
+[01:26:27] два небольших вопроса
+[01:26:29] А в трейде был озвучен такой вопрос что
+[01:26:32] А если я ничего не знаю про машины как
+[01:26:35] мне спроектировать модель данных по
+[01:26:37] автосалону А здесь ответ достаточно
+[01:26:41] простой А как правило Когда вы выбираете
+[01:26:45] работу Либо вы оказались уже в одной
+[01:26:46] компании и на примере теньков компания
+[01:26:49] огромная и у нас очень много продуктов а
+[01:26:54] не всегда там вы ища работу в принципе
+[01:26:58] выбираете На каком направлении работать
+[01:27:00] выйдя на то или иное место Вы на месте
+[01:27:03] начинаете ориентироваться и сильнее
+[01:27:05] погружаться в область как правило на
+[01:27:07] собеседовании даются более общие темы
+[01:27:10] которые близки к
+[01:27:11] жизни не надо их
+[01:27:14] бояться Скорее надо расслабиться сесть
+[01:27:18] задуматься там А если бы я был в жизни
+[01:27:20] решил бы купить машину куда бы я пошл
+[01:27:24] она там оказалась А если я сделал
+[01:27:26] покупку оплатил эту машину когда она
+[01:27:28] приедет как я её получу и вот из таких
+[01:27:31] вопросов как правило большинство тем
+[01:27:34] можно легко закрыть то есть здесь
+[01:27:36] главное не зажима и стараться быть
+[01:27:39] открытым к новому на самом деле я бы тут
+[01:27:42] немножечко хотел дополнить Собственно
+[01:27:44] как мы описывали что вот эта секция
+[01:27:46] которая связана с системным анализом она
+[01:27:48] подразумевает открытый вопрос с открытым
+[01:27:50] ответом то есть Поэтому понятно что к
+[01:27:52] вам может скажем так на кейсе попасться
+[01:27:55] область которую вы не знаете скорее
+[01:27:57] всего так оно и будет потому что если бы
+[01:27:59] мы давали какие-то области которая прям
+[01:28:01] 100% релевантно к вашему опыту Это было
+[01:28:03] бы не совсем даже показательно я думаю
+[01:28:04] вы сами это прекрасно понимаете поэтому
+[01:28:06] тут такой кейс который вам должен быть
+[01:28:08] скорее будет понятен в жизни То есть
+[01:28:10] например с машинами действительно вы
+[01:28:12] может как-то и не связаны То есть у вас
+[01:28:13] нет автомобиля но вы примерно всё равно
+[01:28:15] понимаете что из себя там представляет
+[01:28:17] автомобиль и автосалон скорее всего В
+[01:28:19] общих чертах У вас есть какое-то
+[01:28:20] представление но также какой-то наверное
+[01:28:21] такой общий совет что вы можете например
+[01:28:24] экстраполировать данную область на
+[01:28:26] какую-то другую которая близкая к вам То
+[01:28:27] есть например с машинами вы может быть
+[01:28:29] не связаны но связано с какой-то другой
+[01:28:31] областью там например не знаю с
+[01:28:33] фитнес-клуба Ну например вы просто
+[01:28:35] понимаете как работают фитнес-клубы Вы
+[01:28:36] можете понимать что фитнес-клубы Ну вот
+[01:28:38] что-то общее можете поза как
+[01:28:41] бы взять на пере переложить На вот эту
+[01:28:44] модель автосалонов и тоже как-то
+[01:28:45] использовать что-то просто переназвать и
+[01:28:47] у вас уже что-то будет какой-то опыт и
+[01:28:50] второе что я хотел сказать что надо
+[01:28:51] понимать что системные аналитики часто
+[01:28:52] сталкиваются как раз-таки
+[01:28:54] с неопределённость собственно о чём я
+[01:28:55] говорил и в рамках этой неопределённости
+[01:28:58] нужно какое-то базовое умение как
+[01:29:00] ориентироваться и тут скорее мы как раз
+[01:29:02] хотим понять как вы можете
+[01:29:03] сориентироваться если вам напрямую эта
+[01:29:04] область не знакома но как вы будете
+[01:29:06] действовать собственно системной
+[01:29:08] аналитики Вот это для них это ценный
+[01:29:10] опыт и вот в данном ключе Мы это можем
+[01:29:11] посмотреть Поэтому в любом случае не
+[01:29:13] бойтесь как я уже сказал вопросы там
+[01:29:14] можно задавать интервьюер вам
+[01:29:15] обязательно
+[01:29:17] поможет Так а давай у нас был такой
+[01:29:20] вопрос А что важнее SQL или
+[01:29:23] проектирование
+[01:29:24] Ну на самом деле я бы тут ответил что
+[01:29:27] важно всё чем больше вы знаете тем лучше
+[01:29:29] на самом деле потому что мы все
+[01:29:31] продолжаем развиваться узнавать какие-то
+[01:29:32] новые области Вы можете Супер классно
+[01:29:34] знать Но если вы совсем ничего не знаете
+[01:29:36] про проектирование если мы говорим про
+[01:29:37] какой-то гипотетический кейс это тоже на
+[01:29:39] самом деле Ну может как-то отразиться на
+[01:29:42] вашей работе это не говорит что это прям
+[01:29:43] совсем плохо но зависит от того какие
+[01:29:45] кейсы вы решаете то есть в каких-то
+[01:29:46] кейсах возможно вам потребуется больше
+[01:29:48] знания SQL в каких-то кейсах вам может
+[01:29:49] потребоваться больше знаний системного
+[01:29:51] анализа Но в любом случае желательно
+[01:29:54] знать то и то на каком-то хорошем уровне
+[01:29:56] Ну и опять-таки надо понимать что опыт
+[01:29:58] приобретается со временем То есть вы
+[01:30:00] можете на старте входить с каким-то
+[01:30:01] одним уровнем Эля и системного анализа
+[01:30:03] естественно в рамках работы Вы круто
+[01:30:05] активно прокачивается и поднимаете свои
+[01:30:07] навыки поэтому ну лично для меня
+[01:30:09] достаточно сложно сказать что из этого
+[01:30:11] важно на самом деле пригодится И тот и
+[01:30:13] другой навык он просто может
+[01:30:14] чередоваться в какой-то разной степени
+[01:30:16] Но если вы классно прокачивай Я думаю
+[01:30:19] для вас это вообще никакой проблемы не
+[01:30:21] будет в рамках
+[01:30:22] работы да спасибо а и я Коротко наверное
+[01:30:27] озвучу на часто задаваемый вопрос в
+[01:30:29] трейде ребята спрашивали А дата инженер
+[01:30:33] системный аналитик ДХ Чем же они
+[01:30:35] отличаются а потому что на разных
+[01:30:38] ссылках можно было видеть немного разные
+[01:30:40] а целиком у нас в
+[01:30:44] двхм выполняют задачи по а анализу и
+[01:30:49] построению тель процессов а именно на
+[01:30:52] инструментах ДХ они все называются Дато
+[01:30:55] инженерами Но в данной профессии есть
+[01:30:58] несколько профилей их три есть профиль
+[01:31:01] системного аналитика д ВХ тот основную
+[01:31:04] часть времени занимается больше именно
+[01:31:06] анализом и он в этом в принципе сильно
+[01:31:09] прочен И вот здесь как раз включается
+[01:31:11] например в действие а наиболее глубокие
+[01:31:15] и практичные знания проектирования А
+[01:31:18] есть разработчики etl которые больше про
+[01:31:21] а саму разработку про
+[01:31:24] Погружение в ель процессы те Ребята кто
+[01:31:28] хорошо знает
+[01:31:30] архитектуру и может написать более
+[01:31:33] сложную версию кода и есть ребята
+[01:31:36] которые иначе называются а там системный
+[01:31:40] аналитик плюс разработчик или бизнес
+[01:31:43] дата инженер это люди которые совмещают
+[01:31:46] и анализ и разработку что-то среднее те
+[01:31:49] люди которые могут в одно лицо наиболее
+[01:31:53] быстро
+[01:31:54] закрыть любую задачу на имеющих
+[01:31:57] инструментах а Надеюсь мы столи ответили
+[01:32:01] на все ваши интересующие вопросы и вам
+[01:32:03] стало в разы понятнее
+[01:32:06] А собственно после этого Давайте
+[01:32:08] переходить к нашей заключительной части
+[01:32:11] А если вы изначально отказались от
+[01:32:14] участия в нашем викен оффере Но
+[01:32:16] посмотрев наш сегодняшний Мета поняли
+[01:32:18] что всё-таки Хотите попробовать свои
+[01:32:20] силы и работать у нас а вы всё ещё
+[01:32:22] можете откликнуться повторно через
+[01:32:25] лендинг теньков ДХ Connect мероприятия
+[01:32:28] либо же написать нашему рекрутеру с
+[01:32:30] которым вы ранее общались а Спасибо что
+[01:32:34] вы сегодня были с нами 20-21 апреля
+[01:32:37] пройдёт Кен офер все кто будет принимать
+[01:32:40] участие вам огромной удачи А будем рады
+[01:32:44] видеть всех в нашей команде И ещё
+[01:32:46] интересная информация для Вас А сейчас
+[01:32:49] вы видите на экранах QR код а переходите
+[01:32:52] чтобы знать всё про ги
+[01:32:55] куб
+[01:33:22] и
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v1 only.
+Write JSON only to: splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+======================================================================
+LOCALE (mandatory — JSON + validation report)
+======================================================================
+INTERVIEW_LANGUAGE: ru (обязательно для этого прогона)
+- Все поля text в JSON — дословные фрагменты из PRIMARY_TRANSCRIPT на русском. Без перевода на английский.
+- Запрещены пересказы («кандидат рассказал о…», «The candidate…»).
+- Метки question_type / question_topic / interview_stage — enum на английском (схема), тексты Q&A — только русский ASR.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json \
+    --video transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10//video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json --out splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.qa-split.json \
+    --video transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10//video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: transcripts/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/video.md
+
+--- CHAPTER `00:05:08` — Техническое интервью DWH Connect ---
+window: 00:05:08 .. конец
+recognition_status: multiple (32 items)
+
+ITEM #1
+  interviewer_question: time=00:05:12 text='слышно Давайте немножечко проверим что есть конект Отлично всё Да отлично слышно Привет Отлично связь есть'
+  candidate_answer: time=00:05:14 text='есть конект Отлично всё Да отлично слышно Привет Отлично связь есть'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Communication
+
+ITEM #2
+  interviewer_question: time=00:05:19 text='собственно тогда предлагаю немножечко расскажу вводную у нас будет такой техническое интервью приблизительно около часа Может чуть больше чуть меньше пори как оно пот будет у нас из нескольких этапов начнём с такой классической разминки с SQL задачек парочку дальше немножечко поговорим про хранилище вопросы позадаём пообсуждали на сбор требований то есть в таком Вот диалоге я думаю в принципе будем идти и наверное не сильно далеко откладывая Я предлагаю потихонечку к этому приступать Собственно как я уже сказал'
+  candidate_answer: time=00:05:27 text='пори как оно пот будет у нас из нескольких этапов начнём с такой классической разминки с SQL задачек парочку дальше немножечко поговорим про хранилище вопросы позадаём пообсуждали на сбор требований то есть в таком Вот диалоге я думаю в принципе будем идти и наверное не сильно далеко откладывая Я предлагаю потихонечку к этому приступать Собственно как я уже сказал по есть замечательно смотри тогда Александр в'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Communication
+
+ITEM #3
+  interviewer_question: time=00:06:03 text='принципе сейчас у тебя должно появиться на экране первое задание Если не ошибаюсь она есть правильно проверим отлично есть значит на вход у нас даны некоторые таблички можно подробнее их поиз учать и предположим что вот у нас был какой-то продукт запущен продукт X как было тут указано в кон Идо пос на покупку товаров после того как Был куплен товар X собственно внизу Это тоже указано сейчас можно поиз учать собственно какие у нас есть таблички и в принципе постепенно приступать надо написать естественно Запрос который выведет правильный корректный результат может какие-то вопросы есть Я думаю будем по ходу сейчас смотреть разбираться какие-то вопросы буду задавать в процессе Отлично Да мне'
+  candidate_answer: time=00:06:52 text='смотреть разбираться какие-то вопросы буду задавать в процессе Отлично Да мне кажется это классный формат Да окей погнали У нас есть таблица пользователе заказы и продукты я ещ раз зада для проговори чтобы было проще и понятнее необходимо сравнить по каждому города проживание клиентов средний размер заказа до покупки товара и посли клиенты имя клиента Город [музыка] проживания Заза дата заказа Сумма заказа Окей ну я думаю что мы можем начать наверное с простого Мы можем взять таблицу заказов здесь пока поставим звёздочку [музыка] наверное и выберем заказы после марта [музыка] ордер ДТ у нас будет больше либо равно Ну конструкции будем использовать какие-то условные А toate и но пе ноль треть Ну пусть будет 2024 а мы выбрали все [музыка] заказы до покупки или после отлично и это будет у нас допустим первое да первые заказы до нам ещ надо после к заказа можем добавить пользователей и города использу простые асы и а пусть будет пи а используем с [музыка] коннектив о C ID тоже самое сделаем с продуктами здесь мы используем [музыка] наверно рано ID у нас в заказах Да нет здесь у нас будет ор пока о равно Оги так отлично мы взяли заказы после марта и нам их нужно [музыка] группировать по городу сначала Нам нужен средний чек да получается мы это Грум [музыка] и мы из этого логично что получим средний чек по каждому клиенту нам нужно наверное ка ID и у нас будет так C ID мы используем по ID и здесь у нас цены продукта у нас нет А цена У нас есть у нас есть цена и название А количество у нас нет продуктов правильно То есть у нас'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #4
+  interviewer_question: time=00:11:46 text='единственном числе количество нет Да оно нам тут избыточно угу Тогда мы будем'
+  candidate_answer: time=00:11:48 text='нам тут избыточно угу Тогда мы будем'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:11:52 text='угу Тогда мы будем'
+  question_topic: SQL
+
+ITEM #5
+  interviewer_question: time=00:13:10 text='будет так А мы предполагаем что в одном чеке у нас одна покупка правильно Да предполагаем что ну ордер там это один заказ какой-то конкретный с одной покупкой'
+  candidate_answer: time=00:13:15 text='правильно Да предполагаем что ну ордер там это один заказ какой-то конкретный с одной покупкой Да ну тогда мы можем сделать вот так вот'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #6
+  interviewer_question: time=00:15:26 text='набросок Я предлагаю тогда давай от этого отталкиваться будет немножечко пообсуждали а в целом мы действительно посчитали среднюю цену товара по кей то есть по городу У нас есть до и после но в качестве даты ты взял конкретно 1 марта то есть у нас всё-таки по задачу по задаче надо именно посмотреть до того как был впервые куплен товар X вот собственно кажется что здесь надо немножечко доработать и нам вот эту дату она мы как бы её ещё не знаем И она может быть у всех разная вот кажется в этом в эту сторону немножечко посмотрим Угу меня просто смутило что он был запущен в марте я так предполагаю до марта его не было ну мы можем тогда сделать проще Это я немного пояснение дам да товар был запущен в марте но мы дату конкретно точно не знаем И поэтому вот нам её надо как-то постараться найти каким-то образом'
+  candidate_answer: time=00:16:01 text='посмотрим Угу меня просто смутило что он был запущен в марте я так предполагаю до марта его не было ну мы можем тогда сделать проще Это я немного пояснение дам да товар был запущен в марте но мы дату конкретно точно не знаем И поэтому вот нам её надо как-то постараться найти каким-то образом гу Угу'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #7
+  interviewer_question: time=00:16:21 text='гу Угу угу Тогда нам нужно просто исключить [музыка] нам нужно найти дату запуска товара X мы его получается эту дату не знаем нам нужно её как-то вычислить правильно Да мы будем считать что товар и запустился в марте Ну то есть он в целом был запущен но у разных людей могли быть покупки у товара X в разное время так как нас интересует в разрезе именно города Мы хотим посмотреть именно до того как впервые был товар условно говоря в этом районе регионе Location можно так сказать до и после средняя как средняя цена изменилась то есть Может быть например он наоборот положительно влияет или наоборот негативно И следовательно прям точно сказать что это 1 марта мы не можем и вот хочется как-то попробовать эту дату найти угу Тогда нам нужно вычислить тут получается сложнее тогда нам надо поискать для каждого пользователя правильно найти дату первой покупки товара X на самом деле пользователь опять-таки это будет немножечко излишнее мы всё-таки говорим срезе города поэтому пользователь нас э ну в данном срезе не интересует Мы изучаем срез в рамках города Location поэтому пользователи в рамках среза пользователя это кажется тоже избыточно будет можно как-то чуть-чуть попроще сделать'
+  candidate_answer: time=00:16:24 text='угу Тогда нам нужно просто исключить [музыка] нам нужно найти дату запуска товара X мы его получается эту дату не знаем нам нужно её как-то вычислить правильно Да мы будем считать что товар и запустился в марте Ну то есть он в целом был запущен но у разных людей могли быть покупки у товара X в разное время так как нас интересует в разрезе именно города Мы хотим посмотреть именно до того как впервые был товар условно говоря в этом районе регионе Location можно так сказать до и после средняя как средняя цена изменилась то есть Может быть например он наоборот положительно влияет или наоборот негативно И следовательно прям точно сказать что это 1 марта мы не можем и вот хочется как-то попробовать эту дату найти угу Тогда нам нужно вычислить тут получается сложнее тогда нам надо поискать для каждого пользователя правильно найти дату первой покупки товара X на самом деле пользователь опять-таки это будет немножечко излишнее мы всё-таки говорим срезе города поэтому пользователь нас э ну в данном срезе не интересует Мы изучаем срез в рамках города Location поэтому пользователи в рамках среза пользователя это кажется тоже избыточно будет можно как-то чуть-чуть попроще сделать А ну мы можем тогда накинуть наверное простой фильтр по м Ну мы можем вычислить в шке отдельно дату первой покупки по каждому городу инить её и чтобы у нас все покупки были позже звучит как план Да звучит в принципе как план который может подойти да Окей тогда у нас'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #8
+  interviewer_question: time=00:18:10 text='инить её и чтобы у нас все покупки были позже звучит как план Да звучит в принципе как план который может подойти да Окей тогда у нас'
+  candidate_answer: time=00:18:16 text='принципе как план который может подойти да Окей тогда у нас [музыка]'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #9
+  interviewer_question: time=00:23:03 text='решению единственно Давай немножечко чуть-чуть подправить вт1 кажется у на Д зачесалось случай ненько наверно Давай мы немножечко второй первый закай Нет есть чуть-чуть пониже над груба есть ещё один кажется он тут немножечко [музыка] лишний Давай тоже такое минорное стоит поправить что продукт ID нам X скорее неизвестен но мы точно знаем что у продук нужного нам продукта есть поле прок name по которому собственно можно определить что это продукт X то есть поэтому давай мы немножечко поправим не'
+  candidate_answer: time=00:23:56 text='например да Вполне'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #10
+  interviewer_question: time=00:23:59 text='и в самом конце собственно у настльно вот есть два раза выводим сравниваем одно и другое То есть у нас есть сравнение но я думаю может стоит тут разные варианты есть но один из вариантов наверно писать У нас получается не может не подойти например в случаях если там как ты говорил одной локации нету Ты вывел две Но если у тебя просто тогда сравнить 100% уре что все такой товар имеется ВС сработает Но для простоты можем написать in в целом тут разные вариации есть в зависимости от того какой будет контекст мы можем счи Я бы наверно использовал какой-нибудь ф потому что не попадает то есть р нам подходит если мы уверены что всегда будет условие выполняться либо можно писать Full и тогда как бы естественно если вдруг что-то где-то с одной стороны потеряется мы как бы сможем тогда проанализировать и посмотреть собственно тогда я предлагаю на первой задач на этом У нас'
+  candidate_answer: time=00:24:35 text='использовал какой-нибудь ф потому что не попадает то есть р нам подходит если мы уверены что всегда будет условие выполняться либо можно писать Full и тогда как бы естественно если вдруг что-то где-то с одной стороны потеряется мы как бы сможем тогда проанализировать и посмотреть собственно тогда я'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:24:39 text='что не попадает то есть р нам подходит если мы уверены что всегда будет условие выполняться либо можно писать Full и тогда как бы естественно если вдруг что-то где-то с одной стороны потеряется мы как бы сможем тогда проанализировать и посмотреть собственно тогда я'
+  question_topic: SQL
+
+ITEM #11
+  interviewer_question: time=00:24:55 text='закончить и у нас будет ещё одна задачка отлично немножечко в другом формате и с более коротким условием собственно должен был поменяться экран Я так понимаю всё есть отлично Да собственно тут у нас всего одна табличка имеется предположим какие-то у нас запросы к базе данных и тут Всё достаточно Просто с одной стороны кажется может быть окажется посложнее необходимо сравнить длительность каждого запроса с максимальной длительностью запросов этого пользователя сегодня вот собственно Давай в этом ключе попробуем'
+  candidate_answer: time=00:25:30 text='придумать Да без проблем [музыка] максимальный Я так понимаю у нас таблица'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #12
+  interviewer_question: time=00:25:40 text='за один день правильно на самом деле там может быть много дней То есть у нас просто какие-то запуски запросов к базе данных может быть это день сегодняшний вчерашний И вообще много разных'
+  candidate_answer: time=00:25:59 text='Да давай начнём с простого а выберем за сегодня а From [музыка] requests toate а а м Аста request ста мы это обозначим условно говоря чтобы преобразовать это в круглую дату без из таста равно Ну условно такая конструкция в разных диалектах принципе подходит можно любом диалекте писать приблизительно всё плюс-минус понятно будет Ну я сделаю такую ночку из всего чтом Так мы выбрали сегодня нам нужно'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #13
+  interviewer_question: time=00:27:21 text='сделаем нам надо найти не максимально длинный запрос нам скорее надо сравнить вот каждый Запрос который был в этот день сравнить с максимальной длительностью за этот день у каждого пользователя чуть да да ну для начала чтобы было что сравнивать У нас'
+  candidate_answer: time=00:27:34 text='чтобы было что сравнивать У нас есть время запроса и нам надо найти максимальный запрос начнём наверное с простого с времени запроса А здесь мы возьмём КСТ ID возьмём US на всякий случай и [музыка] возьмём и из Наверное мы даже сразу сделаем вот так и из одного вычтем другого другое и у нас получается базовая таблица Балан где у нас есть ID пользователь и время запроса наверное обернёшься ней работать м теперь возьмём вторую создадим А здесь мы возьмём минимальное время нам нужно Здесь мы наверное это всём чтобы было проще работать плохой пусть будет здесь мы возьмём [музыка] минимально [музыка] Ну и'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #14
+  interviewer_question: time=00:29:44 text='ор не помню может быть со скобочка я тут что-то пропустил может быть Вот так да давай сразу нем это вть Коре функция Да чуть-чуть скобочек не хватает'
+  candidate_answer: time=00:29:51 text="сразу нем это вть Коре функция Да чуть-чуть скобочек не хватает Да я у меня просто автокомплит поэтому я скобки эти не учу так О'кей мы выбрали минимальное м время у"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #15
+  interviewer_question: time=00:32:45 text='нам в этом необходимости нет смотри мы тут посмотрели оконную функцию Давай немножечко чуть-чуть шажок назад сделаем Partition by тоже должн обернуться в скобки Ну так просто немножечко поправим чтобы было корректно то есть после скобка начинается и потом она в конце заканчивается Вот это скорее такие минорные'
+  candidate_answer: time=00:32:56 text='чтобы было корректно то есть после скобка начинается и потом она в конце заканчивается Вот это скорее такие минорные правки Да вот посмотрели оконные функции но немножечко тут у нас получается диссонанс некоторый потому что действительно мы пошли логически взяли в начале в первой те мы берём только запросы за день тут в принципе всё хорошо и потом ищем максимальную тельность через окон Да это в принципе тоже один из вариантов но у нас получается Дело в том что в последнем запросе у тебя будет зано что ты же берш оконную функцию и US Там просто у тебя и оконная функция по длительности и у тебя таких запросов так как здесь нет никакой группировки Ну если там у скажем так у юзера было 10 запросов за день будет 10 записи у тебя во второй те То есть тут Остаётся вариант либо писать агрегацию и ли шку использовать подруго Дада у нас будет тогда наверно проще сделать груба по юзернейм и здесь мы сделаем наверное просто вот так Да действительно если мы именно сделаем группировку то у нас Останется только одна единственная запись в конце мы можем на неё жони и уже получить'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #16
+  interviewer_question: time=00:34:16 text='немножечко попробуем шагнуть в сторону посчитать именно действительно через законную функцию вот ты как раз написал Вот это duration и вот можно через законную функцию попробовать это можно вот этот код скопировать или даже преобразовать в принципе вот мы сейчас уже написали одно из решений есть но попробовать через за конку как-то'
+  candidate_answer: time=00:34:37 text='решить Да наверное [музыка] можно да наверное можно было даже короче решить А мне сейчас прям даже решение пришло это а и здесь мы сделаем наверное вот так и здесь сделаем Просто вот так угу в принципе на самом деле Ну если мы понятно там у нас два Селект получается но мы говорим про то что вот мы последний получается блок заменили на usame оставили duration где вот эта Разница есть и написали оконную функцию И на самом деле это ну здесь будет Вот ну просто из реста и в мы просто добавим здесь вот так вот Ну в целом в один запрос как бы она решается Да ну Да можно И вот да только тогда вот в таком кейсе вот если мы именно вот вот так вот пишем это тоже да один из вариантов что можно вообще одним запросом сделать немножечко не хватает нам тогда Partition by добавить группировку по дню потому что А хотя на самом деле всё да да я имею в виду Да по условиям на самом деле там просто есть тоже другой вариант можно без условия условия перенести в именно в оконную функцию Да тут я немножко сам не досмотрел Но ничего страшного собственно вот у нас есть даже два варианта то есть мы решили изначально такой более классический просто пошли без законных функций второй через законные функции он покороче и кажется такой более красиво выглядит более оптимальный Ну в плане написание кода и может быть даже более читабельный Ну не знаю возможно грубая будет быстрее в зависимости от объёма Ну мы уже тут не говорим про наверное техническую спецификацию как будет быстрее на самом деле разные диалекты работают по-разному то есть оптимизатор может по-разному воспринимать запросы но в целом два варианта разобрали собственно есть такой'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #17
+  interviewer_question: time=00:36:36 text='сталкиваешься ли ты с такими функциями как например Row Number rank и Dan rank Ну то есть наверняка это использовать'
+  candidate_answer: time=00:36:44 text='вот регулярно использовал Да ну наверное мы не будем писать синтаксис потому что уже вот у нас уже есть пример синтаксиса на Max R Number там в принципе плюс минус тоже наверное всем Всё понятно но'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: SQL
+
+ITEM #18
+  interviewer_question: time=00:36:53 text='давай немножечко спросим А какая разница между вот этими функциями Row Number rank и есть какие-то как они отличатся Помнишь'
+  candidate_answer: time=00:37:01 text='ли Number просто нумеруется все строки по порядку а а ран И данран вот я их всё время путаю одна выставляет э делает рейтинг в рамках партиции А и делает это по порядку вторая при если у нас два значения одинаковых она их посчитает за одно место то есть условно говоря у нас может быть два максимальных значения тогда они будут оба по-моему первыми и следующая у нас там третья строка пойдёт уже там второй позиции у нас не будет будет сразу'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:37:44 text='третья Ну да в принципе всё верно R Number это просто нумерация по порядку ранг - это именно когда идут одинаковые позиции могут быть с пропуском Ден - это без пропуска то есть Может быть один 2 2 потом 4 а в другом случае это будет 1 2 2 потом 3 ну к примеру Ну как ри говорю там на самом деле не 1 2 2 Ну собственно думаю все поняли что могут быть пробелы'
+  question_topic: SQL
+
+ITEM #19
+  interviewer_question: time=00:38:08 text='собственно есть ли у тебя какие-то может быть идеи или Стасы где это может понадобиться Где какая функция может примени Ну может например R Number где-то использова где-то наоборот хотелось ран использовать пото что R Number не подходил Ну или может какие-то кейсы которые'
+  candidate_answer: time=00:38:26 text='появиться по ранку ранку честно говоря не вспомню где-то применял но какие это были кейсы сейчас наверное не вспомню помру Ну зачастую это поиск каких-то максимальных значений в рамках партиции когда их нужно посчитать и да зачастую это проще сделать на самом де либо были было Надо когда там с первым вторым значением нужно одно от второго отнимать там через чаще даже не Number там какие-то Лады уже используются Вот но да вот в таких ситуациях зачастую применяется на самом деле наверное чаще мы встречаем в повседневной ситуации R Number и обычно берётся первое значение какое-то или последнее достаточно удобно просто ну и на самом деле можно перевернуть и последни может стать первым То есть в принципе ничего страшного в этом нет ну то есть можно так и так использовать скорее всего встречается реже Да действительно но ситуаци бывают разе простоте зна Фуна ци они могут по-разному пригодиться на самом деле Вот'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:39:05 text='деле наверное чаще мы встречаем в повседневной ситуации R Number и обычно берётся первое значение какое-то или последнее достаточно удобно просто ну и на самом деле можно перевернуть и последни может стать первым То есть в принципе ничего страшного в этом нет ну то есть можно так и так использовать скорее всего встречается реже Да действительно но ситуаци бывают разе простоте зна Фуна ци они могут по-разному пригодиться на самом деле Вот'
+  question_topic: SQL
+
+ITEM #20
+  interviewer_question: time=00:39:41 text='представим что мы хотим построить какое-то mvp хранилище данных mvp - это то есть какое-то начальное начальная архитектура то есть только что-то Тестируем буквально только разворачиваем ничего у нас ещё толком нет и мы хотим с чего-то начать собственно вот мы начинаем строить хранилище данных как тебе кажется С чего стоит начать что может потребоваться в принципе на твой взгляд просто такой открытый'
+  candidate_answer: time=00:40:06 text='вопрос я бы начинал Наверное если мы в какой-то наверно систем дизайн погружаемся Я бы отталкиваться что у нас за источники Как мы можем данные туда передавать для каких целей мы будем использовать хранилище То есть это какие-то име расчёты это витрины данных это ежедневные какие-то отчётность для выгрузки в сторонние [музыка] системы Наверное я бы от этого То есть это основные моменты сколько будет пользователей у нас ну наверное начинал бы я наверное с источников грузим мы это регулярно рассудке Либо мы делаем какую-то репликацию может быть да И какая отчётность то есть с какой задержкой это всё нужно Да отлично это может быть Вполне себе такой неплохой Старт То есть определить что нам может потребоваться ещё Возможно мы узнаем какой у нас будет использоваться стек То есть просто так дополнительно дополню То есть у нас разные СУБД могут использоваться Ну и в принципе да что нужно Когда нужно С какой периодичностью Да в принципе с этого можно начать Давай'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Data Modeling
+
+ITEM #21
+  interviewer_question: time=00:42:20 text='немножко поговорим Какие могут быть слои данных в хранилище то есть на твой взгляд что может'
+  candidate_answer: time=00:42:33 text='если мы берм стандартно то наверное у нас идт первичный слой наверно безусловно какая-то рота в зависимости от того какой у нас источник это может быть [музыка] как Да какое-то озеро то там могут лежать жены Там могут лежать цсш Там могут лежать паркеты ещё что-нибудь дальше у нас идёт первичная обработка когда мы всё это приводим в таблице парсим первичный слой уже каких-то чистых данных дальше мы всё это нормализуя в какой-то детальный слой и последний у нас наверное слой витри Ну то есть если агрегировать можно сказать что это какие-то сырые данные то есть слой операционный по-разному можно назвать слой сырых данных потом детальные данные собственно Да как ты сказал и резюмируем уже какие-то презентационный слой презентационные данные для'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:43:45 text='сказал и резюмируем уже какие-то презентационный слой презентационные данные для аналитики Я бы сза что могут быть разными слоями потому что в оперативном слое зачастую мы лазим когда мы хотим какую-то оперативную отчётность это идут допустим у нас какие-то реплики тот же Oracle где мы Gold репли там всё хорошо красиво но если мы берём то там могут лежать неструктурированные данные и мы их оперативно использовать не можем Ну только для какого-то знаю там для для обучения но это нужно там Прямо быстро срочно сейчас на самом деле хорошее дополнение Действительно это правда можно назвать слой рых данных операционные слой это могут быть разные но на самом деле Тут ещё вопрос контекста каждые Ну команды могут интерпретировать по-разному но замечание'
+  question_topic: Data Modeling
+
+ITEM #22
+  interviewer_question: time=00:44:44 text='ещё уточнить предположим если аналитику требуются какие-то денормализация нормализованные данные зависит от'
+  candidate_answer: time=00:45:02 text='ситуации это может быть как скорее всего это слой витрин будет когда мы собираем данные но в некоторых ситуациях я допускаю что это может быть в оперативном слое да на самом деле такое тоже возможно давай топким обсуждали по хранилище и'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Data Modeling
+
+ITEM #23
+  interviewer_question: time=00:45:33 text='годную что у нас представим что мы хотим сделать какое-то mvp хранилище только-только начинаем описывать и ты тут выступаешь в роли такого архитектора системного аналитика и тебе нужно описать модель хранения данных для сети автосалонов вот собственно Ну понятно Это хранилище потом будут использовать аналитики в каких-то целях Но это такое стартовое мы не будем углубляться в детали и Понятно Мы описываем не прям глубокое детальное хранилище Мы скорее тут про вот такую вот модель собственно вот как бы ты это делал примеру собственно указан можно написать просто название таблицы потом через дефис написать атрибуты можно в каком-то другом формате Как тебе будет удобно тут на самом деле никаких ограничений нет можно писать на английском на русском транслитом как'
+  candidate_answer: time=00:46:17 text='гу а сразу задам вопрос Мы автосалон именно как принимаем как какое-то место где продают Маши правильно Да предположим что это сеть автосалонов то есть там предположим как-то Она там называется автосалоны X и их там может быть несколько оди 2Т то есть ну как бы разные салоны Угу Ну первую таблицу Я бы сделал это были бы наверное именно таблица салонов [музыка] Да там были бы наверно атрибуты Ну естественно какой-нибудь берём адрес наверное какой-нибудь будет ней для этого салона в зависимости от того как он [музыка] называется ID S пусть будет Да у нас А что ещё наверное дата открытия время [музыка] работы Ну пусть будет ID директора актор ID то есть кто руководит салоном в данный момент также Наверное нам нужна вторая таблица это сотрудники [музыка] э а ну здесь Наверное стандартное то есть fio ну не будем разбивать там на три поля Да я думаю примерно понимаем что имеется в виду АО дата рождения Что ещё нам может быть должность дата вступления в должность безусловно ID пусть будет какой-нибудь яю что Бао А и ну безусловно В каком салоне работает ids S ID салона а ID салона То есть к кому он прикреплён если это будет какой-нибудь там не знаю отдельный БК офис но у нас будет наверное отдельный ш для какого-нибудь офиса дальше Ну безусловно это будут э автомобили это будет какой-нибудь не знаю там Car ID Аа под Car ID Я наверное предполагаю М что это будет не ID конкретное машины а это наверное м совокупность комплектации да то есть это некая некая абстрактная машина то есть у нас их может быть в наличии несколько а также сразу наверное количество в наличии А год выпуска что-нибудь там комплектация а флаг наличия брони что ещё у нас может быть цвет наверное было бы здорово знать А Ну базово пусть будет так дальше будет у нас таблица продаж здесь будет ID продажи ID carid кто продал и я бы наверное здесь добавил какую-нибудь как и в автомобилях какой-то комментарий так и здесь я бы добавил комментарий и наверное что-нибудь ещ как информация скидке в дальнейшем это безусловно поможет Ну было бы неплохо наверное В каком салоне продали ID здесь кстати тоже наверное [музыка] как у нас может быть наверно как и знал допустимо и место хранения Да как салон хранения салон'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:46:26 text='продают Маши правильно Да предположим что это сеть автосалонов то есть там предположим как-то Она там называется автосалоны X и их там может быть несколько оди 2Т то есть ну как бы разные салоны Угу Ну первую таблицу Я бы'
+  question_topic: Data Modeling
+
+ITEM #24
+  interviewer_question: time=00:52:18 text='складе А давай в эту вот сторону немножечко уточню Вот ты говори может быть изн нахождение Угу а то есть можеш чуть-чуть можешь под раскрыть что под этим подразумевается То есть у тебя автомобиль же ты говоришь это некоторая комплектация то есть Я как понимаю у тебя там может быть несколько автомобилей одинаковых и я так понимаю ты у тебя подраз ты подразумеваешь что в автомобилях это будет один идентификатор А вот но предположим мы действительно хотели бы немножечко про местонахождение даже не то чтобы местонахождение сколько у нас их в наличии есть как-то посмотреть может быть есть Вот как это можно в хранилище вложить я тут решил просто сразу походу раз ты в эту сторону немножко подвигался раскрыть немножечко'
+  candidate_answer: time=00:53:00 text='да Тогда наверное я тоже немножко переобуть тут ка ID Пусть это будет у нас уникальный идентификатор каждого автомобиля и мы тогда сделаем какой-нибудь мол ID это ID модели которая у нас хранится И сколько у нас будет их в наличии да Угу угу и здесь наверное здесь я на самом деле задумаюсь как сделать лучше сделать два поле то есть первое поле это салон и наверное пусть будет просто ID местонахождения Да нахождение автомобиля в случае если это салон салон то М это будет А ids у нас просто А если склад [музыка] то а то там какой-нибудь у нас будет ID там четыре девятки ка что не так чтобы можно было понимать Ну и там таблица в таблице салонов там это будет не знаю у нас будет отдельно как склад у Угу'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Data Modeling
+
+ITEM #25
+  interviewer_question: time=00:54:28 text='хорошо Давай может быть у тебя есть базово я бы вот от этого это базова наверное оттолкнулся бы от этого да да Угу смотри Да в целом мы описали какие-то основные базовые сущности на которых уже что-то можно посчитать посмотреть какую-то аналитику проводить на всякий случай ещё раз уточню правильно местонахождение автомобиля это будет у нас ids то есть ссылка на салон то есть в целом это какой-то идентификатор 999 это мы у нас тоже будет такой идентификатор в салонах но мы будем его использовать как склад правильно я понял идею как Ну что-нибудь да вот условно такое да Угу хорошо Да в принципе такой вариант тоже возможен учитывая что мы как бы делаем такой mvp начально на начальной стадии возможно какие-то такие хитрые способы Почему бы и нет собственно может быть давай вот ещё ретроспективно глянем посмотрим У нас есть четыре сущности это сотрудники автомобили таблиц продаж салонов возможно может быть что-то ещё на твой взгляд Ну это просто так посмотреть ты бы хотел добавить так уже взгляд какую-нибудь сущность может быть'
+  candidate_answer: time=00:55:30 text='а Наверное для дальнейшей какой-то реферальной программы Я бы ещё добавил таблицу клиентов безусловно а она примерно будет такая же как и сотрудников только здесь будет Каме ID ID дата рождения не будет дата покупки покупки ID салона покупки ну наверное всякой шелухой оборачивать вроде там даты последнего Контакта обзвона и так далее я это но предполагается что наверно для маркетинга это тоже помня могут появляться какие-то новые фичи дополнительные атрибуты новые витрины Понятно Мы тут говорим про какой-то Старт на котором уже можно будет что-то посчитать полезное сделать найти какие-то инсайды и что-то такое'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Data Modeling
+
+ITEM #26
+  interviewer_question: time=00:56:39 text='давай немножечко чуть-чуть углубился в принципе вот у нас есть салоны сотрудники автомобили таблиц продаж и клиенты всё плюс-минус понятно но хотел бы немножечко поподробнее поговорить про таблицу продаж предположим если у нас придёт какой-то клиент и захочет купить два автомобиля Вот хотелось бы понять как они лягут в твою модель в данном случае интересен интересна таблица продаж что там является ключом и как это будет выглядеть в таблице'
+  candidate_answer: time=00:57:08 text='продаж Ну то есть скажем так за один чек будет сразу же два Толе куплено Угу я наверное немножко подушную может ли это быть за один чек два автомобиля предполагаю что в реальной жизни нет но для абстрактной ситуации предположим что пусть будет тогда у нас [музыка] будет две записи с одним ID продажи То есть это будет с одним и с двумя разными carid то есть одна будет будет на од сум по хорошему Если бы я делал Я бы наверное это разбивал на две разные а если делать Это в одну Ну можно делать наверное дополнительно а дополнительно к ней ещё то есть какой-нибудь делать условно говоря типа схемы снежинки какой-нибудь Да дробить либо таблиц продаж либо делать в ширину добавлять несколько полей под продажи но теоретически клиент может не знаю прийти и купить каких-нибудь дополнительных там не знаю вонючек для автомобиля 20 штук все разные и у нас это будет одна продажа и столько полей Мы наверно не напас мым с сть базовая у нас будет таблица продаж и мы сделаем от не ответвление список товаров в этом чеке условно говоря что-то такое Ну в целом Я понял На самом деле тут такой уточняющий вопрос что таблица продаж подразумевает что у нас условно чек это будет каждая позиция То есть у тебя на кажд если куплено былова автомобиля или может быть какие-то дополнительные опции это будет отдельно каждая запись указана'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Data Modeling
+
+ITEM #27
+  interviewer_question: time=00:59:32 text='предположим у нас такой кейс есть аналитик хочет посчитать уже какие-то метрики и собственно какие метрики тебе кажется на старте ему могут понадобиться Ну то есть что бы он хотел посчитать на старте'
+  candidate_answer: time=00:59:43 text='базово М что у нас есть на складе А сколько автомобилей А мы можем сразу посмотреть что у нас на складе состоялось у нас по-моему автомобили я количество в наличии год выпуска Ну наверное здесь требуется дата прибытия на склад прибытия на склад чтобы смотреть там автомобили которые у нас уже на складе находятся давно и которые возможно было бы здорово по скидке посмотреть сотрудников посмотреть кто сколько продаёт мы можем сделать в разрезе салонов Какие салоны более успешные Какие менее успешные мы можем сделать разрез в рамках автомобиля какие автомобили лучше продаются какие хуже сам де Давай буде чек опять-таки Да'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+ITEM #28
+  interviewer_question: time=01:01:33 text='витрины имеются и предположим аналитик хочет посчитать выручку по автосалону Ну предположим даже по всем автосалонам просто посчитать выручку сколько сеть салонов зарабатывает Ну это скажем так Такая базовая основная Метрика на старте А как это можно сделать на основе вот тех данных которые вот у нас предположим сейчас имеются что вот стоит сделать аналитику и достаточно ли ему тут данных'
+  candidate_answer: time=01:01:57 text='[музыка] наверное нет наверное нет безусловно мы здесь пропустили с не знаю как это сумма чека Да Или можно просто назвать сумма продажи сумма можно назвать Я думаю мы будем понимать О чём идёт речь Да это важное упущение я бы сказал сумма продаж У нас [музыка] есть по салону салон у нас в принципе тоже есть да мы можем прям из одной таблицы продаж всё это посчитать да на самом деле'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:02:47 text='Действительно это возможно я Почему задал такой вопро кипо пройтись по помм основы трика что что-то могло интересное быть упущено потому что на самом деле выручка - это наверное такой то с чего любой аналитик который хочет что-то посчитать наверное бы начал потому что это кажется самое интересное может быть по крайней'
+  question_topic: Product Metrics
+
+ITEM #29
+  interviewer_question: time=01:03:10 text='немножечко посмотрим в сторону того что опять-таки кейс аналитик хочет сделать дополнительный заказ автомобилей то есть заказать ещё на склад и вот надо понять сколько автомобилей можно ещё дозаказать опять-таки тоже такой вопрос достаточно ли данных недостаточно то можно уже не корректировать можно что-то словами объяснить как ему действовать или чтобы'
+  candidate_answer: time=01:03:29 text='мы добавили наверное да это необходимо дополнительно добавить в таблице салонов Наверное я бы добавил [музыка] здесь некий дополнительный момент как вместимость автомобилей Да это будет количество мест хранения То есть это автомобили которые стоят в зале да возможно где-то дополнительно есть ещё какое-то количество мест по салону и по по таблице салонов У нас есть некая просто абстрактная цифра скоко у на мест хранения связав таблиц автомобилей э и местонахождения мы можем понять сколько у нас в каждом салоне э и сколько есть всего мест и сколько сейчас автомобилей стоит Аа если мы говорили что там а склад мы Ну условно мы можем его как четыре девятки Я бы наверное его добавил как отдельный салон Да просто с какими-то отдельными аэ характеристиками наверное и я думаю что у склада было бы такое же количество место хранения по которому мы могли бы посмотреть сколько автомобилей сейчас находится на складе и сколько мы ещ можем заказать посмотреть салоны посмотреть склад и так далее сделать какой-то вывод Ну сверху Я бы навесил динамику продаж и посмотрел что с учётом того что это придёт через месяц сколько у нас будет свободных'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Prioritization
+
+ITEM #30
+  interviewer_question: time=01:06:08 text='всем будет интересно ты расскажешь сколько примерно лет ты работаешь в ДХ В какой позиции собственно с чем ты сталкивался'
+  candidate_answer: time=01:06:19 text='в аналитике Я наверно начал работать уже чуть больше 10 лет конкретно ввх работаю чуть больше 2 лет был на позициях не знаю когда приходил только в ДХ меня не оценивали где-то через месяцев се или был аудит меня оценивали там на сеньор позицию в какой-то момент был руководителем направления ДХ в одной из компаний Здорово'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Communication
+
+ITEM #31
+  interviewer_question: time=01:06:56 text='Давай дам обратную связь да Давай перейдём тогда наверно к обратной связи спасибо что с нами поделился зрители очень интересуются Я думаю на самом деле было очень занимательно и интересно мне было в любом случае очень классно с тобой пообщаться Давай тогда немножечко пройдёмся ретроспективно что у нас хорошо пошло что можно на чем можно'
+  candidate_answer: time=None text=None
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Communication
+
+ITEM #32
+  interviewer_question: time=01:09:49 text='своей стороны есть Что добавить то есть можешь чем-то тоже'
+  candidate_answer: time=01:09:54 text='поделиться нет было всё отлично задачки интересные было очень приятно интересно и'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Communication
+
+SAVE JSON: вставьте ответ в конец файла splitter_output/mock-interviews/dataengineers-pro/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10/data-engineer-middle-tinkoff-dwh-connect-dataengineers-pro-2024-04-10.v1.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

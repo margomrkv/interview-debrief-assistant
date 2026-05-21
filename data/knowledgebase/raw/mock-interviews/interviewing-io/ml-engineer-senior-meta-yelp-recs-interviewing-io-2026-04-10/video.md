@@ -11,14 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/xvmSiU8sGxA/maxresdefault.jpg"
 ---
 
 ## Chapters
-- [00:00] Introduction and interview context
 - [04:54] Problem clarification and business metrics
-- [10:25] End-to-end system flow design
-- [16:28] Data modeling and feature engineering
-- [25:13] Training pipeline and model architecture
 - [42:19] Self-evaluation and feedback
-- [44:22] Staff-level solution walkthrough
-- [52:54] Interview strategy and next steps
+
 
 ## Description
 

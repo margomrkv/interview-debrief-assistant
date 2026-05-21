@@ -1,0 +1,132 @@
+{
+  "source_id": "data_scientist_senior_dropbox_interview_query_2021_07_28",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "okay so let's say that dropbox wants to change the logic of the trash folder from never permanently deleting anything in the trash to automatically deleting items after 30 days how would you look into the data and validate if this was a good idea or not",
+        "time": "00:08"
+      },
+      "candidate_answer": {
+        "text": "okay so we want to take a look at the logic of the trash folder so currently we are never deleting items in the trash folder but we are exploring whether we want to implement a new feature that would automatically delete items in the trash after 30 days is that correct okay let me take a moment to think about what structure i want to use to approach this problem the approach that i want to take is first thinking about why we might want to implement this new feature and kind of tying it back to the larger strategy and mission of the company thinking about our users and what their pain points are and then establishing a hypothesis and some metrics that i would want to dive deeper into to validate or invalidate that hypothesis okay so you know thinking back to the broader dropbox mission you know we are aiming to be the one place our users use to keep their life organized and keep work moving and so you know with all of the files that users are uploading and editing in dropbox um there's bound to be a lot of files that get moved to the trash as well um and so i think that um you know as our platform scales and grows this is bound to be a bigger problem especially if we're never deleting anything um and just i think this kind of string could potentially have performance um implementations and kind of hinder our effect to kind of provide a very speedy and quick uh experience for our customers so i would want to um so i'm going to take a moment now to kind of think about our users and their pain points around this problem and so when i think about our users and their behavior and dropbox i wanted to kind of think about why do users move things to the trash folder and so um i think that there are kind of a few different reasons why a user might move something into the trash folder so one it might be um they have uploaded a new version of something and so they might move the old version of that document into the trash um the second one is they might have uploaded a duplicate of something and so um instead of keeping both things and taking up extra space in their dropbox account they'll move the duplicate into the trash and then the third reason that i can think of is users you know with the current behavior of never deleting anything in the trash some users might kind of use that trash folder as an archive because they know that you know other items that they don't necessarily need on a day-to-day basis will not go away and stay in that folder and so um i would kind of think that most people are moving files to trash that they don't need anymore so that's kind of my hypothesis and so i'm going to take a moment now and kind of think about some metrics and that i would want to take a look at to validate whether or not that is true so i do have a clarifying question for you um so just to understand this a little better do items in a user's trash folder account against their storage limits for their dropbox account okay got it sounds good and are able are users able to only so users are only able to see the items in their trash can and the only action they would take on it is to restore it if they wanted to kind of open that file back backup is that correct got it sounds good thank you um so some things that i would want to take a look at in answering the question you know are in answering my hypothesis you know are users moving files to trash that they don't actually need anymore um so i would want to take a look at how often do users actually go into their trash folder um if we find that users are going in there pretty often then i might make the case that they're they might be using it more as an archive rather than you know a trash can where they just throw something and kind of forget about it um i would also want to take a look at kind of along those lines how often are items in the trash can uh kind of uh i think the only action we said you can take on it is restoring it so how often are items in the trash restored and then i would also uh so kind of along kind of explaining that one a little further um you know if they are things such as you know different versions or duplicates where users don't really need those items anymore because they either have another copy of it or they have the most recent copy of it then i would expect that users aren't really restoring items from the trashcan very frequently um and then i would also want to take a look at just kind of some general things you know the average amount of items that users have in their trash and kind of taking a look at on average how much file space are these things taking up i think that knowing that the trash doesn't count against their storage limits it could be very possible that users are using it more as an archive so i'd be interested in seeing you know just the sheer amount of things in there um and so those are some of the items that i would want to take a look at in order to kind of proceed in understanding whether or not users are moving items to the trash that they don't actually need anymore",
+        "time": "00:24"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yep okay sounds good okay sounds good um yeah so i would say that it doesn't count against their storage limit right because it's in the trash right okay yeah readily access it unless they then um let's say they uh they like repurpose it back into their regular uh storage yes okay",
+        "time": "00:44"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "gotcha okay so um let's present a second scenario right and let's just say that uh we've analyzed the first part and we see that um you know a lot of the usage is coming from users that are basically using it as an archive so now um what do we proceed with and basically like what does that tell us about uh this feature change that we're about to make",
+        "time": "07:25"
+      },
+      "candidate_answer": {
+        "text": "got it okay let me take a moment to think about the scenario so there are a few additional data points that i would want to explore so um kind of going back to a few things that i touched upon before but now knowing that most users are saying using it as an archive i would want to take a look at you know what percentage of users this is um and i would also reiterate wanting to know you know how many items do these users keep in their trash folder and just the total file size of these items in their trash folder um it sounds like these users are using the trash folder in a different way than um is most commonly understood as um um so you know like they're using it more as an archive and kind of like a cold storage kind of thing instead of an actual trash can um and so i would say that this is an interesting scenario and would be interesting for our team to actually explore whether we would want to support this use case and actually build a new folder and functionality around this kind of archive use case and so i think if we were to proceed with that um you know based on the data we have about you know how many items people are storing and the file size of their trash folder or you know their archive folder we should definitely place some sort of storage limits for an archive folder and so this would kind of increase by increment depending on the dropbox plan that you're on so for the free tier you know we could give them a you know maybe a couple gigabytes of free archive space and then as you know the premium tiers um they'll get a little more space as well and so i think that i would if i wanted if we were to proceed with this new feature i would want to make sure that we do have something in place so like perhaps this new kind of archive cold storage folder for these users um just so they're not kind of left uh you know with their files just kind of completely gone um i do think that just based on industry kind of standard functionality for trash feature i think it does make sense for us to either um automatically delete after you know a certain amount of period and provide this kind of alternative archive folder for them to archive their items or start counting the storage and the trash against their storage limits since they are kind of using it more as storage rather than a trash functionality",
+        "time": "08:03"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "gotcha okay so given all those proposals um can you maybe go back to one of them uh and kind of like talk about what uh kind of data points would influence either way decision like so for the first one it's like um let's say it was like how many users are you know using the trash folder uh right like what percentage are actually restoring something from the trash folder right yeah so let's say we dive into that data and we get anything from you know something something low or something super high like what does that tell us about uh what we should be doing next like what data points there that we get back uh would influence our next decision almost and so like you know if it's something like you know ten percent of all users are doing it like what does that mean like does that mean that's really high or does that mean that it's like",
+        "time": "11:21"
+      },
+      "candidate_answer": {
+        "text": "okay got it okay let me take a moment to think about this so just to give me a reference point um can you give me a number that i can use as the uh number of uh the number of gigabytes that a free user gets in their free plan let's say they get like 20 gigabytes okay 20 gigabytes got it thank you and so when we're thinking about these users that use um the trash folder as their archive how much gigabytes our storage are we seeing them store in their trash uh i'd love for you to just like make an assumption here and then okay say what you think the plan should be given that number okay sounds good so i would say that based on so if i were thinking about a user that has let's just use the free case just as a reference point um so you know if i get 20 gigabytes of free data and i'm using the trash folder as an archive um oh so i also am kind of thinking about it in the free sense as well just because i think that our users in the free tier are more constrained by storage limits so they i'm assuming that you know they might be the ones that are more likely to kind of use the trash folder in this kind of creative way whereas our kind of more premium tiers have a significantly a lot more data so they might not need to use it in this way and so if i think about our free tier users who get 20 gigabytes of space free space in dropbox i would say that you know they may be roughly storing i don't know maybe anywhere from five to ten gigabytes of additional storage space in their kind of archive trash folder okay um and if we think about the amount of users that dropbox has today so there are 600 million registered users and i think that you know going back to something you know something that you said earlier i think that you know even if we use a reference number of say 10 so you know even if 10 of people um are using it in this way and each of them are you know say storing you know an additional 10 gigabytes of data in their trash um you know 60 million users times like 10 gigabytes each is a ton a ton of extra data that we're kind of storing in the trash for free for these people and so i think that would be kind of a cause for concern um and so i think that it would i think i would want to kind of either start counting um i guess possibly either start counting this trash as store so you know maybe say the first x gigabytes of stuff in the trash is kind of a freebie and then the rest kind of counts towards your storage limit um or you know we can kind of go back to our original feature proposal which is kind of deleting the trash automatically i think that um in the end it seems that these users that are using the trash in this kind of archival way it seems like they do have a need for more storage space so i think kind of implementing these sorts of measures could potentially help push them into a kind of higher uh paid tier as well to kind of more accurately reflect their data storage needs",
+        "time": "12:20"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "20 gigabytes okay 20 gigabytes got it thank you",
+        "time": "12:39"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "so how would you know if they'd be willing to upgrade i guess if yeah this future change yeah",
+        "time": "16:28"
+      },
+      "candidate_answer": {
+        "text": "that's a great question um i guess some things that i would want to take a look at and kind of explore is where are the kind of gaps in our current pricing plans um perhaps you know users our free tier users are using it in this way because the next tier up so like the first the lowest paid tier we have might still be too high and are these kind of use in between users are more price sensitive than the options that we're giving them and so we could potentially explore launching a new kind of lower tiered paid premium kind of plan that has you know maybe instead of one terabyte of data it's something like more in between like maybe they just need 50 gigabytes or something slightly more than the free plan um so i would kind of want to take a look at the kind of cumulative storage space that these users are using so counting their actual storage and their trash storage as part of that um and kind of taking a look at okay on average the total of you know what they're storing in their actual folders and their trash is it way less than um you know our first paid tier and so maybe there's something kind of in between that we can kind of want to kind of compromise and kind of push these users into a paid tier",
+        "time": "16:38"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay cool gotcha um so i'm going to stop the interview right there we have okay 10 minutes left for feedback and kind of review",
+        "time": "18:20"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "how do you think you did on the question and like what do you think about the question itself",
+        "time": "18:35"
+      },
+      "candidate_answer": {
+        "text": "yeah um i think that's a really interesting question that was actually a good one um that you came up with on the spot um i think yeah i mean i guess i kind of uh struggled with it a little bit because it's it wasn't it didn't really fall into the kind of traditional buckets of okay like this is i guess it wasn't immediately clear to me in the beginning like what the kind of business objective is except for like possibly saving us kind of storage space and cost associated with uh kind of storing these things for free so it's kind of hard to kind of fit it into the bucket of you know is this supposed to be supposed to be generating growth or engagement or revenue or something um so that was kind of like difficult for me to start with yeah um and then i guess for me as well i had trouble kind of making assumptions on like oh like what is a reasonable amount of space for users to be putting in the trash if they're using it for our archiving purposes and how much is like too much um so yeah i kind of like struggled a little bit on that",
+        "time": "18:41"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yeah so this question has a little bit of like a case question feel more um specific to maybe uh like consulting base generally pretty broad right but it's still yeah and so i would say starting from the good i liked your initial hypothesis right so first off stating the mission and then saying what basically why are we doing this right so specifically performance implications right um i'd like to if you died a little bit more on that and so i would say that another one is a big one is monetary savings like that's the biggest one that i can see is that yeah they're not storing their items anymore we're probably saving a ton of money on storage space however actually estimating how much money that is yeah and then the third one i think is like kind of around organization right so like um if we have a trash folder like it should be for trash right and so yeah um it's almost kind of like changing like the way that the product feels almost instead of using it as an archive and so it's like yeah obviously like i think one of these things that is intuitive from this question is that like maybe we're basically trying to find out like how many what is the change of making like this folder from like an archive feature actually a trash feature right yeah um that's kind of like the basis of like the actual question i think and so the next part when you said why this idea like why do users move things to the trash folder that's great that's a good news i think understanding why the original product would actually be used or why this feature changes brought up is good and that's something that we kind of got to unto with the hypothesis like you know using the threshold as an archive and so saying that is really important because then we don't know um what kind of data we want to dive into if we don't do that and so uploaded a new version of something uploading duplicate using as a trash folder and my last reason that i thought of was that users don't want to pay to upgrade right and so yeah you know obviously we got to it later it's like if you have 20 gigabytes and you're at 19 and you have a new file that you want to put in obviously you'll move a ton of files out into the trash if you want to hit that ceiling and so ultimately um i think in the data dive i think um you went pretty high level starting out which is good but going deeper into a couple of good hypotheses is a better way to start so like picking three good hypotheses and then diving into them a little bit is better than um shooting like a few more ideas and then just kind of not bring them up as much right so one example of this is um i think a couple data points that come off the top of my head are like so how much money would we save right so cost of the storage of the items right now in the trash past 30 days um that should be pretty easy to compute and so if we just know how much money that is then we know the revenue that affects right yeah and then the second one is how much money would we lose from users that actually enjoy this feature right yeah what percentage of users recover an item after 30 days what percentage of users recover an item at all from the trash on just knowing that number amount right and then if we were to dive into that further right we'd be like okay so let's say that only one percent of users recover an item from the trash um and even like one percent of those users recover an item after 30 days right so then if that number is super low we can measure that cost of how many of those are paying users versus how much we'd save from eliminating that feature and then just kind of make an estimate on like which one would make more money over the long term right and i think that's kind of like the trade-off scenario that we have to add in because all these are feature changes like specifically added like a ton of trade-offs and then the last thing i think is important is like how many users would upgrade to a new tier given they use the trash as a secondary storage method yeah change that then how many people would actually then um want an archive and so i i did think a couple of the ideas that you touched on are actually pretty interesting right like what if we just created a new archive feat like feature itself right the issue is that um when we want to keep it within the scope of this um conversation yeah yeah be bringing up new product ideas because then we have those up with data too yeah i think like yeah specifically within these analytics questions it's important to like focus on the question at hand and use it or just like your hypoth your hypothesis within this specific um you know frame of the question yeah",
+        "time": "20:11"
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "manager_round"
+    },
+    {
+      "interviewer_question": {
+        "text": "uh any last thoughts um",
+        "time": "27:22"
+      },
+      "candidate_answer": {
+        "text": "so i kind of feel like we are supposed to arrive at a definitive yes or no at the end of this type of question but i guess i'm curious so should i be kind of asking for them to make up numbers for me along the way so that i can reach a kind of yes or no decision um like when i was asking like oh what percent of users are using it as an archive or like on average you know how much storage space are people taking up in their trash um should i be like asking them to make up numbers for me or like what how do you approach that um",
+        "time": "27:27"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "i think you should not ask and you should just i mean you can act you asking that question is good because it shows that you're that's like that's something that you would dive into but yeah yeah assume that because if they give you a number it's almost like a second test because uh if you just answered your own question then you could you know dive into analysis of why that is because of your own answer right but if they ask they like you propose this to them right then they're forced to give you a answer that you might not be prepared for right i think that's the only thing is that like there is no definitive yes or no with anyone that's for sure um okay because there is no like they're not going to give you the data for it right yeah does it make sense they're just kind of like proposing like random feature changes and just trying to like understand your thought process i think so yeah got it and then so i guess going back to like one of the questions you asked me in our thing um so you're kind of you kind of gave that example of like 10 of users and i kind of just stuck with that and i was like okay 10 of 600 million registered users that's 60 million and then i made the assumption of you know 10 gigabytes in the trash and 60 million times 10 gigabytes is a ton but yeah i mean i guess what is what is the correct way to answer your question where you're like oh like how do you determine whether it's too many people uh kind of using the trash folder in this way yeah yeah so i i would say that trade-off is against the cost of storage plus oh then the question is like okay so how do we know if people would upgrade if we did this feature change well that then requires like maybe we should test it like maybe we could run an a b test which is totally doable for dropbox actually um maybe not because it's like such a big feature change and so then it's like how do we analyze this without uh a b testing then it's just like looking at the usage data right yeah understanding and estimating the cost of uh what would happen if we shut this off like how many what percentage of users would instantly be like i'm canceling dropbox now because i use this feature all the time right yeah obviously if they use this ninety percent of the time then they're going to cancel now but like then there's a problem but don't use it all the time they use it like fifty percent of the time yeah and you can then assume like they'll cancel fifty percent of the time right so it's like it's extrapolating like data from stuff that we can't we can't test it and um that's just kind of like the analysis that we have to run um okay sounds good all right sounds good thanks for doing this with me",
+        "time": "28:14"
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "manager_round"
+    }
+  ]
+}

@@ -15,7 +15,6 @@ thumbnail_url: "https://i.ytimg.com/vi/eDhnr4aGROU/maxresdefault.jpg"
 - [01:55] Measure engagement on Portal
 - [10:55] Prioritize metrics
 - [18:19] AB testing on the 'Call Suggestion' feature
-- [29:40] Solution + Feedback
 
 ## Description
 

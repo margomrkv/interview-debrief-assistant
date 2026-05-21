@@ -30,6 +30,10 @@ REPO_ROOT = SKILL_DIR.parents[2]
 sys.path.insert(0, str(SKILL_DIR))
 
 from artifact_paths import next_version, paths_for_run  # noqa: E402
+from interview_locale import (  # noqa: E402
+    detect_interview_language,
+    step2_locale_rules,
+)
 
 SKILL_SH = ".claude/skills/splitter"
 
@@ -187,6 +191,11 @@ def main() -> None:
         print("ERROR: need timecodes.txt or transcript.txt in folder", file=sys.stderr)
         sys.exit(1)
 
+    interview_lang = detect_interview_language(
+        transcript_text,
+        folder / "video.md" if has_video_md else None,
+    )
+
     sidecars: list[tuple[str, str]] = []
     if has_video_md:
         fp = folder / "feedback.md"
@@ -214,6 +223,7 @@ def main() -> None:
         f"SOURCE_ID: {source_id}",
         f"SPLITTER_MODE: {mode}",
         f"INTERVIEW_FOLDER: {args.folder}",
+        f"INTERVIEW_LANGUAGE: {interview_lang}",
         f"PRIMARY_TRANSCRIPT ({transcript_label}):",
         transcript_text.strip(),
     ]
@@ -267,6 +277,11 @@ def main() -> None:
         "- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.",
         "",
     ]
+    user_blocks.append("=" * 70)
+    user_blocks.append("LOCALE (mandatory — JSON + validation report)")
+    user_blocks.append("=" * 70)
+    user_blocks.extend(step2_locale_rules(interview_lang))
+    user_blocks.append("")
 
     py_post = "scripts/splitter_post.sh"
     py = f"python3 {SKILL_SH}/step3-excel/splitter_json_to_excel.py"
@@ -339,6 +354,7 @@ def main() -> None:
         splitter_mode=mode,
         inputs={
             "transcript": transcript_input,
+            "interview_language": interview_lang,
             "system_prompt": str(sys_prompt_rel),
             "schema": str(schema_path.relative_to(REPO_ROOT) if schema_path.is_relative_to(REPO_ROOT) else schema_path),
         },
@@ -367,6 +383,7 @@ def main() -> None:
     print(f"Mode:          {mode}  (auto: video.md={'yes' if has_video_md else 'no'})")
     print(f"Source ID:     {source_id}")
     print(f"Version:       v{version}")
+    print(f"Language:      {interview_lang} (JSON text + validation report locale)")
     print()
     print(f"Skill (orchestration): {SKILL_SH}/SKILL.md")
     print("Per-run artifacts live under splitter_output/ (see splitter_output/README.md).")

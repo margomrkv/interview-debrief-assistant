@@ -1,0 +1,195 @@
+{
+  "source_id": "data_scientist_senior_uber_ride_requests_interview_query_2020_07_23",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "i believe uh and so jamai i'd love to just first kind of like get a sense of your background um and tell the audience kind of how you uh got into data science and kind of like why you were interested in it",
+        "time": "00:39"
+      },
+      "candidate_answer": {
+        "text": "cool oh yeah thanks jay thanks for having me um i kind of stumbled on your interview query on when i was studying for my interviews at microsoft so it was it's come full circle uh so it's great to like you know look back and say oh wow like i've learned a lot enough to be here uh so thanks thanks for having me um my background i i did my undergrad at u of t in university of toronto for those who are not familiar with it in business administration i like had kind of data on my mind um never left me i i was always like curious about it how it worked where it could be used and how we could make better decisions with it um which led me like a down a very like winding path i would say uh first into like brand management then product management and product marketing and then finally kind of landed up at queen's university at the smith school of business and the ai program where i've been like trying to take all the things that i've learned about data about i.t about systems about marketing and business and like put them all together to make intelligent systems uh because that was like the opportunity that i saw and i and i was hoping to land a ai or ml based uh product management role which ended up happening so really happy about like the outcome there uh overall like just really excited about what this field has to offer i think we've barely like begun to tap into what's possible um and as as important as the technical skills are i've learned that there's a a lot of business context that data scientists need to think about and many times that uh a model just is is just the is just scratching the surface the real solution is often like how does it solve a problem for the end users um so that's kind of like where i want to keep growing and take my skills",
+        "time": "00:53"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Adaptability",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "uh and so uh segwaying into this actual uh mock interview so today i'd love to talk about a problem that is asked at uber and so it's modeling based and so the question at hand is uh you're tasked with building a model to predict if the driver on uber will accept a ride request or not and so how would you go about building this model and what kind of features would you use what model would you select and so on",
+        "time": "03:10"
+      },
+      "candidate_answer": {
+        "text": "cool so uber wants just to clarify the question so uber wants to know uh whether a person will accept a ride or not and we want to build a model to predict that i'm gonna do something that i like doing during interviews because i think it's like a neat trick yes uh so let me just start sharing my ipad screen i find that this is like a virtual whiteboard in covet times and i would normally have in a real interview okay so we're looking at um we're looking specifically",
+        "time": "03:43"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yes cool okay uh just give me two minutes",
+        "time": "03:54"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "at the driver angle not at the right or angle right",
+        "time": "04:22"
+      },
+      "candidate_answer": {
+        "text": "yep and so uh if you imagine how uber works uh we have you know the drivers uh and the writers and the writers make uh requests to get rides and then i guess uber sends out um general requests to each driver uh within a certain area or radius to see if they'd expect it was so the driver gets a request",
+        "time": "04:25"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "and do you know like what the driver is shown or an uber driver is shown about a writer and the kind of information that they give they're given to make that split second decision uh",
+        "time": "04:48"
+      },
+      "candidate_answer": {
+        "text": "let's say that as the company um this is a feature that you can customize right and so we can show a lot more information or we can show almost no information i think depending upon also there is like a monetary like this is how much it might uh you'll get from it um and i think that is uh something that they also use to incentivize writers to drivers to accept the request from them okay interesting so the way that i'm kind of like thinking through this is that there's like three buckets uh of of information that's shown to a driver about a writer okay one is like there's a lot of info the second one is there's some info and the third is lots of info yep okay so the reason that i'm kind of doing this to maybe i don't know what the circle is but anyway i will ignore it um so what i'm trying to do here is uh i'm trying to just get an understanding of the uber business and the kind of the user experience that a driver has with a rider um so i'm asking these kind of questions to determine whether because i'm kind of thinking through this as the driver has to make a split-second decision especially when they're like taking when they're either completing an existing trip or they're on a trip and about to end that's kind of like the two points um so maybe if i like model this out a little bit more the driver essentially has either they choose to new so i'm going to say like driver new trip trip so they either decide at the end of their current ride current ride or um middle of their existing one or like late in the game okay so given that i think what's what's usually as i'm kind of like brainstorming um if they're shown the distance so that that would actually be the first one to like to say okay well distance to next rider then of course if you show that and if it's small then they're likely to accept so that would be one of the features that i would kind of start thinking about as i'm starting this modeling exercise so uh before i mean i know what we're trying to do is get into the model but the first step that i'm trying to follow understand is the user journey the second one that i want to do is actually the exploratory data analysis piece to actually understand the relationships between data points that uber may have uh today about their driver or their rider and what the relationships between those features are so distance and then there's also so there's actually two kind of distance data points we have distance to next rider from the driver's current position and then you would have distance uh let's say trip trip distance that's kind of like the two main areas that i'm thinking yeah because i think the multi-sided marketplace brings up something that i didn't think about yet which was this idea of and i don't know if uber does this today but picking up uber eats orders on the way if they're taking a driver or they're just ending a trip maybe",
+        "time": "05:01"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yeah so i think that's uh kind of a great way to frame it because there are um kind of like uh trip characteristics right and these are the distance trip distance and then um there can be other things uh such as uh the general um i think we mentioned this before like the price that you get from the trip um you know like how long this trip might take i guess that's a function of the distance and then just kind of like uh what time you know you're taking this trip right now uh you know if it's 12 a.m versus um you know like i don't know 3 p.m or something at rush hour uh and so these are all kind of like uh characteristics of this one entity and then there's also i think this you know multi-sided marketplace we have like the driver side and then also um potentially you know the user information that you uh put at the top as well right right [Music]",
+        "time": "08:48"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "yeah that is true we could probably scope that down to just the uber driver marketplace okay",
+        "time": "10:13"
+      },
+      "candidate_answer": {
+        "text": "so no no cool so the two main buckets i think that you've highlighted which are really which we just kind of like briefly discussed are so if i kind of like think about characteristics from high level umbrella and then break that down into okay so there's kind of trip there's ryder there's oh yeah of course there's driver as well so the driver itself themself or him him or herself will have their own kind of propensity to accept rides or not accept rides based on certain time of day or number of rides that they've kind of they've done in their shift maybe or even like how much money they've made um throughout the entire week or whatever time span we choose to look at so if they if this driver is coming off like an eight hour shift they're not going to do another ride yeah so there's trip rider driver and oh of course how could we forget traffic traffic so traffic is a i feel like it that's how most decisions will be made in large cities it's like is it like 5 pm so if it's 5 pm it's like i'm not doing any that's it for me and especially like traffic would um i think traffic is kind of related but not directly i think there's like some indirect relationship between traffic and special events um this is of course like pre-covet times mm-hmm uh and special events so i'm thinking surge pricing during let's say like your favorite basketball game or hockey game or even like whatever sporting event or whatever event it could be anything yep um so traffic is likely to spike up but at the same time surge is gonna go up so people are so even if there's a special event like you know that's ending at 5 p.m even though there's a lot of traffic people might be on the road because there's a bunch of people that are requesting rides um the other thing yep characteristics of like a trip potentially like uh i guess the trip that you take the traffic would almost be like factored into it kind of special events as well um so either maybe not at this kind of dimensional analogy but like in general i think at some point they could all roll up under um uh kind of like a trip uh in a sense and because uh yeah i think the writer has its own information the driver has its own kind of information about themselves they have ratings writers have ratings and then a trip could then just have like a pension potentially its own rating too right from like one to ten of how like great this trip is versus like how horrible this trip might actually be yeah i think that's actually a good point i'm gonna put it down but it's something that i'd like to visit later on because if we start thinking about quality of trip then that itself is honestly a model to predict to like regress it or classify a trip um based on like certain factors we would actually need to do a deeper deeper dive into that yeah okay but another big thing is actually like and this is something that i don't think many people would think about but it's a vehicle condition so or actually not even vehicle condition i'm going to say vehicle itself and and i'll like kind of explain a little bit more so one of the use cases that i'm thinking about is i'm i'm kind of out like you know pre-covered uh i've had a decent day at work i have a couple like i have some energy left over and i want to pick up a few riders but likely what's going to happen is um i'm gonna do this like closer to 10 no sorry either closer to like 10 when people decide to head out and i'll pick them up to drop them off the club or whatever they're going or wherever whatever venue that they want to attend and then most likely i'm going to be out on the road either around midnight or 1am again but i can only but the number of riders or a number of rides is actually linked to the type of car that i have um so i couldn't really pick up you know a party if i if i only have a car or if i only have cooper i could only pick up two or three people but if the car that i have is in the garage or like my van my extra van is in the garage then i can't use that that's number one number two is i'm unlikely to if i have a second car i'm unlikely to actually use the van um during regular drop-offs when it's like one driver two driver interaction two rider interactions um i'm likely to use my regular car for that kind of so what i'm saying is that the vehicle type in the vehicle condition would affect the driver's ability to accept certain trips",
+        "time": "10:23"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "gotcha okay yeah may actually may i'm not deterministic everything is probabilistic at this point um i think that's a good like starting point what do you think is there any other characteristic that you would want um good i think these entities are uh kind of like good features i think we have like the main ones uh in the center uh with the trip rider driver and then we have these uh kind of special conditions that matter a lot towards the actual degree of the model those are good because they're pointed out cool",
+        "time": "15:36"
+      },
+      "candidate_answer": {
+        "text": "so once i get an understanding of these things and and of course i can like spend ages going into each of these characteristics um the there's like in within vehicle there's some items that i would think about like vehicle type number of passengers if you can can hold the last time it was it was repaired maybe um the vehicle's overall condition itself meaning yeah i don't know if uber does this right now but i don't know if it usually has drivers at the point of signing up i think i remember when i was a driver at one point that they asked me what is how old is your vehicle and when has it last been serviced so uh picking picking up or asking uh drivers to give more updates on a vehicle's condition may be beneficial to predict the outcome for something like this um around trip i would look at there's like this again this giant umbrella of quality of trip but within that there's items like time of day uh trip distance the the potential revenue that the driver can afford to earn from this trip oh uh keep kidding this doesn't this doesn't happen normally but um i keep yeah so you have a lot of different items about a trip then you have writers so uh from the writer angle the first one is where is that writer located um number two is what is the writer's rating number three is uh how many how many riders is it because it's not just one request and as we've talked about the vehicle type will affect whether that uber driver is able to pick up that that passenger or not yep um then the other like on the rider side i would again look at time time of day and also like neighborhood so many times i think rider drivers may be hesitant to pick up certain writers based on where they are and it's unconscious i don't think it's like sometimes it is conscious but i'm going to chalk it up to unconscious bias where you know if there's like a sketchy neighborhood or if if it's like deep into entertainment district at two two or three in the morning that rider is likely to be you know out of it or might cause unneeded distress to the driver so they may like sway away from that yep on the driver's side the the most obvious is like how often does this driver actually accept writer requests okay very very simply uh the second one would be what is the driver's rating um because and and also is there a link between rider quality and driver quality um and i'd be kind of curious to see if uber's already kind of figured something out there where they suggest certain high quality riders just to specific high quality drivers and whether that rating itself has a factor in who's recommended to the driver because that may actually they that may have a very uh highly correlated effect on the driver being saying yes or saying no because of like kind of the previous like mental history that they've built with uber or the relationship that they have yeah uh traffic so time of day again so time of day kind of comes in to both the trip and the traffic aspect that we just talked about that's why we have the line um the other thing is uh sometimes uh and i'm gonna be kind of curious to see what this looks like but right now i think uber connects to google maps api to to actually select the route yeah but traffic patterns are usually best when they're crowdsourced like from waste so i'd be curious to see if there was if there was an uptick on the driver's ability or drivers like propensity to pick to accept rides in high traffic times if we switch to ways that'd be like a fun experiment to kind of understand but i know it's away from the central problem the other thing that i would want to look at is traffic based on a rider pickup and drop-off locations some sometimes i mean traffic is is random so it's not gonna it's random but it's also sort of predictable you're not going to take large streets during rush hour you could take side streets and still get to the place that you want to get to if there's a side route access or side route path um so that would be again like is there an alternate route based on the driver's location the rider's location and the rider's drop-off point gotcha yes during a traffic time that may that may actually and if we show that to the driver when they're picking whether to accept a writer or not then it may influence the decision to say yes or no so just that's a that's an angle uh special events uh of course this is like uh very it would be it could be very categorical like special event special one one two three four and then there could be kind of uh attributes associated with each of those categories and i'm guessing we can bring a lot of those attributes into this model that we want to build or into the initial sample data set that we want to create okay does that all make sense any questions i know i said a lot of different things about these characteristics piece i think that makes sense um",
+        "time": "16:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "um good i think these entities are uh kind of like good features i think we have like the main ones uh in the center uh with the trip rider driver and then we have these uh kind of special conditions that matter a lot towards the actual degree of the model those are good because they're pointed out cool",
+        "time": "15:51"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "i think one problem that we might have to think about is let's say that we have general like missing data for some of these aspects right let's say new writers you know new drivers we don't have any information on right so is there any way that we can correct for that given that it's probably like you know a big aspect of our model is just the historical acceptance rate from drivers in the past or uh kind of like data on the writer itself",
+        "time": "22:01"
+      },
+      "candidate_answer": {
+        "text": "yeah yeah so so essentially what you're saying is how do we deal with null values right yeah yeah okay so yeah there's a couple of ways i mean the i'm guessing we've done like uber has probably done some form of like clustering or unsupervised learning on this data set so they might have a like a intuition about what a driver's profile looks like based on like age or the information that they provide during sign up yeah um we could probably pull like the median or the mean from those profiles and populate them into these null values at the beginning just to get like a feel and these would of course come from the actual clusters that that have already been built and i'm assuming this if we don't have that and that assumption is not valid then i think um probably giving them as i said like a mean value not from a cluster but from the from the given like column or feature would be good enough but you would you would need to know that that's those like new sets of users would be part of another cohort and that we could potentially if we don't have data from before we could start doing a much more closer detailed cohort analysis on this new group of drivers um that you know may have joined uh like even now so you could take a look at a cohort of pre-covet drivers and you could take a look at post-cover drivers or intra-covet drivers and intracovered drivers are more are much more likely to behave very differently than any of the pre-coveted drivers were most more likely they're they're gonna take special events this is great because this links back to my earlier point special events like a pandemic directly affect have a direct effect on whether a driver is gonna accept a rider because if the desert has a writer worn a mask in the past is the writer wearing a mask now um what is their safety rating like have they kind of abided by some of the principles or the guidelines that the government has set up things of that nature and i don't know if uber is collecting data on that now but this exercise would probably start that questioning if it hasn't already gotcha cool",
+        "time": "22:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "no i think that's a great point i think on that note as well i think for many drivers um thinking about their like acquisition uh two like uber is also kind of important because a lot of the times i know in the past they've done incentive programs based on how many drives that they do or rides that they do and i think like on that point that kind of uh may help with like the cold start problem as well in terms of being able to give them extra data on uh this you know driver has to do five rides by the end of today and so maybe more incentivized to uh finish the ride at that point",
+        "time": "24:54"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "um yeah and so for the next part so we have all these features we have this data um well how do we start building the model uh what kind of like process goes in terms of like the model selection uh portion of this uh and then how do we then evaluate our model",
+        "time": "25:38"
+      },
+      "candidate_answer": {
+        "text": "yeah sure uh i mean the way that the question is worded uh it's it's quite obviously like a classification problem where you want to say good drive like yeah accept uh the the question would be accept or not accept yeah so then you could put people into one of those two buckets um but of course the more nuanced version would be like a more multi-class model multi-class system where you have like very likely to accept to not at all likely to accept and you have like a spectrum of classes in the middle uh i i wouldn't i would stay away from regressive or regression because i wonder what the score or the y value would be uh you have essentially a lot of features but i mean you could pull out a probability of accepting from a logistic regression um based on like the class that they select so like we can we can set an arbitrary threshold as well and that the classes would actually kind of determine that where let's say 70 the obvious number is 50 but likely it's gonna be like let's say if they're above 70 probable then they're likely to accept a ride and if they're less than 70 well they're not going to and then you could break it up but i think a logistic regression would be honestly the best first start um we're not as i'm guessing the model's performance matters more in this scenario than the feature understanding and here's why the logistic regression would kind of kill those two birds with one stone you would you would do the exploratory data analysis first then you would throw the sample data set in and into a religious progression tune it but then you could always look back and see what features drove their probably draw probability of accepting or not accepting the most so that would that would give you a like a direct understanding of your data but then an indirect understanding by digging back into the model's results so log would be the first and then i would start playing around with once i have like a i'm guessing this initial data set is going to have like 50 to 70 features uh we want to trim that down as fast as possible because it's going to take too long otherwise uh and likely there's going to be data leakage and high core high like colliding not collinearity but like highly correlated features yeah so once we get that down uh another like cool model to check out would be uh decision trees because decision trees kind of open up this other like broad swath of of models uh and ensemble methods that we could kind of try out like xgboost uh adaboost um even like random forest as well but of course those then when you start going to those like on less explainable things it becomes harder uh to know which features are kind of uh contributing to the score so that's where i would start on the roadmap wise understand the data a little bit more with the model that i'm trying to build build the model tune it and then start playing around with ensembles because ensembles is where you can actually really increase the model's ability to classify a driver as negative as as likely to accept or not likely cool one other angle and i think this is",
+        "time": "25:56"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yeah so once we get that down uh",
+        "time": "28:40"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay yeah so let's say um you know the kind of like the feature and how it works is that uh you're driving um and then you get a ride request uh right and then you can't accept it or not accept it right and so many times in that scenario we would have you know people that have accepted it people that have said like no or people that just like it basically just timed out right from inaction essentially and so um we could assume that's no uh potentially you know within their system someone else might have accepted it when they also wanted to accept it right and so um i mean given this kind of like labeled data set uh does that kind of inform more of what kind of model we built or how we might evaluate the",
+        "time": "30:16"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    }
+  ]
+}

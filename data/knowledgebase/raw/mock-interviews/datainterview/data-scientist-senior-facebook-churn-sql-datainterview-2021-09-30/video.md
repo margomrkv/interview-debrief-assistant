@@ -14,8 +14,6 @@ thumbnail_url: "https://i.ytimg.com/vi/4MWOXXLxSb4/maxresdefault.jpg"
 - [00:00] Intro
 - [01:20] How would you measure user churn on Instagram?
 - [08:05] Choose one primary metric
-- [20:40] Product-sense solution
-- [30:39] SQL solution
 
 ## Description
 

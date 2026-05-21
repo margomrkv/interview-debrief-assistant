@@ -31,7 +31,7 @@ When a chapter shows 0 extracted items (recognition_status: not_recognized):
 - Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
 
 Return ONLY valid JSON matching the schema. No markdown fences.
-Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+{{NOTES_LANGUAGE}}
 
 Correction hints (for notes when content_alignment_ok is false):
 - Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.

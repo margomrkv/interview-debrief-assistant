@@ -11,14 +11,8 @@ thumbnail_url: "https://i.ytimg.com/vi/aNNZYTnyK3M/maxresdefault.jpg"
 ---
 
 ## Chapters
-- [00:00:00] <Untitled Chapter 1>
-- [00:10:08] Problem framing and requirement gathering
-- [00:15:30] Tradeoffs between pure experimentation and ML-driven adaptation
 - [00:24:01] API wrapper and routing model breakthrough
-- [00:31:35] Metrics storage strategy for analytics workloads
-- [00:44:06] Persisting user-bucket assignments and branch metadata
-- [00:48:03] Feedback on prioritization and time management
-- [00:53:33] Feedback on explaining the "why" behind clarifying questions
+
 
 ## Description
 

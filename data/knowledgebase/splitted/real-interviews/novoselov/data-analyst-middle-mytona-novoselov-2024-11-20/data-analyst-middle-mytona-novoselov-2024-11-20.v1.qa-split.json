@@ -1,0 +1,153 @@
+{
+  "source_id": "data_analyst_middle_mytona_novoselov_2024_11_20",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "скажи пожалуйста про себя про свою опыт работы и можешь вспомнить были ли у тебя какие-то кейсы когда тебе удалось проявить инициативу в компании а по процессам что-нибудь улучшали ты замечал",
+        "time": "00:35"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Ownership",
+      "interview_stage": "behavioral"
+    },
+    {
+      "interviewer_question": {
+        "text": "А ты вот как сам Работаешь с ДХ напрямую",
+        "time": "00:48"
+      },
+      "candidate_answer": {
+        "text": "Да",
+        "time": "00:50"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Data Modeling",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "можешь ли ещё как-нибудь подсказать Какого типа анализы ты делаешь",
+        "time": "00:54"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Product Metrics",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "знаешь ли ты что такое ошибки первого и второго рода",
+        "time": "00:59"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "ошибкой первого рода в статистике называют ложно положительное заключение то есть ситуацию когда нулевая гипотеза была ложно отвергнута Другими словами это ложная тревога Вот это ложная тревога а ошибкой второго рода называется ложноположительные заключения То есть когда была принята Неверная нулевая гипотеза и другими словами это такой пропуск события если по аналогии смотреть",
+        "time": "01:03"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "В чём отличие одностороннего двухстороннего критерия Что такое тест",
+        "time": "01:25"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "это во-первых конечно же нулевая гипотеза это какая-то альтернативная гипотеза это какая-то функция и распределение этой функции при условии того что нулевая гипотеза верна И также у нас есть какая-то выборка мы применяем нашу функцию то есть нашу статистику да эту функцию называют статистика к нашей выборке и смотрим в какую область распределения попадают наши значения и если эти значения попадают в достаточно маловероятной область то мы отвергаем нулевую гипотезу как маловероятно И если при этом мы смотрим только на левый край распределения или только на правый то такой тест называется односторонним А если мы смотрим на оба края распределения то это двусторонний тест",
+        "time": "01:30"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "как ты будешь быстро доставать игроков из первой таблицы у которых нет идентификатора читера во второй таблице",
+        "time": "03:06"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "для решение этой задачи можно сделать подзапрос ко второй таблице и достать оттуда всех читеров а затем сделать запрос к первой таблице и достать всех юзеров которые не входят в этот список читеров А второй вариант решения - это сделать Left Join первой и второй таблицы и просто обычным селек там достать всех пользователей которые не читеры",
+        "time": "03:16"
+      },
+      "interviewer_feedback": {
+        "text": "вот вопрос Какой из этих вариантов быстрее ответ напишите в комментариях",
+        "time": "03:33"
+      },
+      "question_type": "hard",
+      "question_topic": "SQL",
+      "interview_stage": "technical_coding"
+    },
+    {
+      "interviewer_question": {
+        "text": "нужно выяснить На каком уровне игроки чаще всего конверти в первую покупку",
+        "time": "03:57"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "для её решения нужно сделать две под таблицы Т1 и Т2 кстати такая форма записи Swiss называется cte то есть Common Table Expression таблица Т1 содержит информацию о пройденных уровнях каждым пользователем А вот это вот оконная функция вычисляет время предыдущего события для каждого пользователя а в таблице Т2 Мы выбираем минимальное время каждой покупки для каждого пользователя в таблице purchase А дальше мы просто группируя по User ID и это нам позволяет определить время первой по покупки для каждого пользователя Ну и основной запрос выглядит так что мы просто делаем inner Join по нужным задачи формулам и дальше Просто группируя по уровнем чтобы получить количество",
+        "time": "04:02"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "SQL",
+      "interview_stage": "technical_coding"
+    }
+  ]
+}

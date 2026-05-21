@@ -11,6 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/FpuiovvSPYc/maxresdefault.jpg"
 tags: [data science jay, interview query, data science, data science mock interview, data science interview, machine learning interview, ML engineer, machine learning case study, facebook data scientist, facebook machine learning, facebook machine learning interview, meta machine learning interview, meta interview, ml mock interview, ml system, ml system design interview questions, ml system design interview, machine learning system, machine learning system design]
 ---
 
+## Chapters
+- [00:00] Meta illegal items ML mock interview
+
 ## Description
 
 Get 10% off your next Data Science interview prep: https://www.interviewquery.com/pricing?utm_source=yt_jay&utm_medium=video&utm_campaign=meta_mock_ml_zarrar_2022&utm_content=description

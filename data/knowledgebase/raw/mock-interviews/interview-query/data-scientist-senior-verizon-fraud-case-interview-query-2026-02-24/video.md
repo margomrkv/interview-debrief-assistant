@@ -11,6 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/hIMxZyWw6Ug/maxresdefault.jpg"
 tags: [data science mock interview, fraud detection case, verizon, product analytics, data science interview questions, interview prepration tip, live coding, machine learning interview, case interview, fraud vs product abuse, what is fraud detection, how to prepare for data science interview, critical thinking, behavioural interview questions, ace the data science interview, interview tips, career advice, telecom fraud, is data science hard]
 ---
 
+## Chapters
+- [00:00] Verizon fraud case mock interview
+
 ## Description
 
 What does a real data science case interview actually look like? In this mock interview, Jay Feng (Co-Founder of Interview Query) presents a product analytics scenario: A telecom company launches an unlimited data plan after 8 pm, and certain users suddenly consume 10x more data than average. The challenge? Distinguish between fraud, product abuse, and legitimate high usage, and determine how the findings should shape product and policy decisions.

@@ -9,6 +9,10 @@ language: ru
 thumbnail_url: "https://i.ytimg.com/vi/yGCMuB10MXI/maxresdefault.jpg"
 ---
 
+## Chapters
+- [00:00:51] Вступление эфира
+- [00:05:08] Техническое интервью DWH Connect
+
 ## Description
 
 Мы показали в прямом эфире, как проходят технические секции DWH-команды Тинькофф. 

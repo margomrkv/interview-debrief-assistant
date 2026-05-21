@@ -1,0 +1,279 @@
+{
+  "source_id": "data_scientist_middle_sber_novoselov_2023_07_21",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "теоретический вопрос Мы подбрасываем кубик видим количество очков и либо забираем выигрыш либо подбрасываем второй раз но тогда выигрыш уже зафиксирован предложить стратегию при выпадении какого количества очков первый раз нужно перекидывать кубик",
+        "time": "00:49"
+      },
+      "candidate_answer": {
+        "text": "при выпадении чисел меньше чем 3 мы этот кубик перекидываем нетрудно убедиться что при выпадении чисел больше трех нам этот кубик перекидывать невыгодно потому что вероятность выпадения того что выпадет число больше чем мы получили она будет меньше чем 1 2 наши стратегия заключается в том что мы перекидываем когда получаем 1 2 или 3 и не перекидываем иначе",
+        "time": "01:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "такие формальные вопросы как определение декоратора что такое декоратор Что такое литератор",
+        "time": "01:47"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "декоратор Это обертка от функции итератор это объект питания который может идриваться по какому-то набору чего-либо также очень часто задают вопрос про отличия императора и генератора генератор Это вид итератора особый",
+        "time": "01:54"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Давай начнем с алгоритм классификации знаешь какие использовал",
+        "time": "02:23"
+      },
+      "candidate_answer": {
+        "text": "я начал с кнн потом перешел к регрессии рассказал про деревья бустинг про Случайный лес Ну собственно и дальше уже были нейронки",
+        "time": "02:31"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "чем градиенты бустинг ну в чем главное отличие градиентов случайного леса",
+        "time": "02:44"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "наверное самый распространенный вопрос так что если вы не знаете на него ответ советую изучить обязательно",
+        "time": "02:51"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "такая ситуация что ты строишь какую-то модель бинарную классификации и у тебя очень много признаков 20 твоя стратегия что будешь с этим делать",
+        "time": "02:57"
+      },
+      "candidate_answer": {
+        "text": "На мой взгляд здесь есть два способа это понижение размерности либо отбор признаков",
+        "time": "03:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "борьба с переобучением",
+        "time": "03:34"
+      },
+      "candidate_answer": {
+        "text": "на самом деле я не знаю что можно ответить этот вопрос кроме как регуляризация например не Ром какой пао также считается методом борьбы с переобучением я назвал единый L2 обычно этого хватает",
+        "time": "03:36"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "первая задача",
+        "time": "04:05"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "эту задачу я решил достаточно быстро принципе ничего сложного нет я думаю Любой человек справится",
+        "time": "04:12"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "вторая задача",
+        "time": "04:25"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "на самом деле это не было весело вы видите на экране Я пытался решить В принципе как она решается идейно я понял но алгоритм написать не успел",
+        "time": "04:22"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "человек который работал с табличками Скажи какой твой любимый инструмент в принципе работы с ним",
+        "time": "04:38"
+      },
+      "candidate_answer": {
+        "text": "пандас",
+        "time": "04:44"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Окей пандус аспарк кого Спарк Да знаю на самом деле я не знаю Спарк потому что никогда не работал с большими данными но отрицательно отвечает на этот вопрос нельзя К сожалению потому что это считается стандартным инструментом которые должны знать все",
+        "time": "04:46"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "предположим что мы хотим построить законодательную систему У нас есть цена канал продажи вот допустим мы хотим прогнозировать топ-20 айтомов которые человек просмотрит купит завтра с каких бы без лайков ты бы начал решать задачу",
+        "time": "05:16"
+      },
+      "candidate_answer": {
+        "text": "самый простой без лайн который здесь можно придумать это рекомендовать самые популярные товары именно это он хотел от меня услышать",
+        "time": "05:43"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "Скажи можешь вывести для каждого юзера его Последние пять артиклов",
+        "time": "06:26"
+      },
+      "candidate_answer": {
+        "text": "я написал это но сделал это с циклом и способ сделать без цикла В общем Еще немного повозился",
+        "time": "06:29"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "как ты оценивал рекомендательную систему мы считаем что вот у нас есть один день на котором мы хотим замерять качество Вот мы спрогнозировали там 20 айтомов",
+        "time": "06:42"
+      },
+      "candidate_answer": {
+        "text": "систем можно выделить на две группы это онлайновые и оффлайновые онлайновые это те которые мы замеряем в процессе работы модели оффлайновый топ который мы оцениваем качество работы нашей модели и отбираем какая модель Здесь идет речь именно про оффлайновые из всех метрик для рекомендательных систем Я знаю только в России То есть просто точность предсказания",
+        "time": "07:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А можешь конвертить все это в спорт матрицу обучить TF и D",
+        "time": "07:25"
+      },
+      "candidate_answer": {
+        "text": "дальше у меня попросили сконвертировать данный матрицу и посчитать тех идея но я уже прилично устал и поэтому просто отказался я не хочу",
+        "time": "07:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    }
+  ]
+}

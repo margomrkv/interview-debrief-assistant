@@ -18,6 +18,10 @@ Critical constraints:
    - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
 9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
 10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+11) **Interview language (hard):** read `INTERVIEW_LANGUAGE` in the user message (`ru` or `en`).
+    - `ru` — all `text` fields (`interviewer_question`, `candidate_answer`, `interviewer_feedback`, `reference_answer`) MUST be verbatim Russian from PRIMARY_TRANSCRIPT. Never translate to English. Validation report for this run is Russian.
+    - `en` — all `text` fields MUST be verbatim English from PRIMARY_TRANSCRIPT. Never translate to Russian. Validation report for this run is English.
+    - Enum fields (`question_type`, `question_topic`, `interview_stage`) stay English per schema; only spoken-text fields follow interview language.
 
 § Verbatim Q&A contract (single rule for question + answer)
 - One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).

@@ -1,0 +1,132 @@
+{
+  "source_id": "data_scientist_senior_facebook_churn_sql_datainterview_2021_09_30",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "all right so how would you measure user turn on instagram",
+        "time": "01:18"
+      },
+      "candidate_answer": {
+        "text": "um okay let's see so um i think first thing is a couple of cliff questions i want to clarify before we move forward um so user churn so user return usually um just means that it's the way i think about it is inactive users so do you want me to kind of define more concrete time frame for that inactivity on my own and then the type of actions that they take so i would actually honestly prefer yeah of course and then um so instagram it's pretty broad um you know there are even multiple offerings within instagram for example you have the regular post you have stories you have um explore page and then now you have a shopping tab is there any subsection within instagram that you want me to focus on general user okay yeah yeah um okay so and is there can i know who um like who the stakeholder is uh are interested in this uh knowing this measurement okay so in this case i think even before we um like uh define a very quantitative and measurable metric on this i'll kind of back up a little bit and then think about instagram as a platform so you know it's primarily a photo sharing app but it has evolved into i think a lot more than just photo sharing and generally a very useful way for people to connect with each other and then it's also um i think it's unique in a way that the user demographic is quite different from facebook um as a whole and yeah so it's a pretty important business to instagram um so in terms of if executives want to know user trend i think they primarily want to know i would say i would guess there are two ways you can think about it right um so maybe there is just a decrease in the number of active users and then we can define the whether how we define active later but then there's also i also want to think about kind of engagement drop so maybe the users are kind of just checking a lot less frequently so um they don't necessarily turn all the way like they're not deleting their account for example but then maybe their time now are getting pulled to other uh competitors so like you mentioned like snapchat um tick tock that sort of thing so i would also almost in a way to kind of think about that as a user trend in a way if the engagement time is degrees a lot so i would say right now um let me try to kind of type out some notes so one is totally users and then two is then dramatic drop in so which of these do you think do you want me to focus on more i think those are very important and they kind of answer different questions for um so yeah so let's let's now talk about more details on how to define it so totally active users i would think about this i would want to define some kind of time frame for someone to be classified as inactive okay so you can think about it as well there are many ways right so i can think about how many times they log in say if they don't log in in a sunday period we can consider a return or we could also consider that maybe you want an even more fine grain level where they kind of log in but then they're not i guess it just relates to the second point more so they log in but they're not doing any engagement and by engagement i mean they're not liking any posts they're not viewing any stories they're not posting they're not commenting they're not direct messaging any users so let's see for the first case i can i think the way i'll define it would be say within a seven day period say um lot number of users who have not logged in now some day period um and then so that's a total number of um of user turn um in that seven-day period um and then for engagement i would say also within some day period for user engagement i would say for example i guess for this one i would define a rate so total number of unique user and then which number of so this is kind of how i would uh imagine engagement so within a seven day period so what is the number average number of engagement actions so engagement actions here i'm defining as liking commenting posting or viewing stories or or making stories or making direct messages so any kind of action other than just log in onto the platform take it during the seven days and then divide by the total number in the user so that will kind of give you average rate and you can watch how that rate changed",
+        "time": "01:23"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "um perhaps just think about the initial kind of approach and then maybe kind of work your way around this instead of okay you know telling you this is what you should be looking at first uh you know what let's just say general users yeah so i would say maybe like executives people who are on the higher up on the instagram chain okay when you think about this for a second first of all you have to have a way to measure that before you can prioritize in the second one right",
+        "time": "01:49"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "all right so i have a couple follow-up questions starting with the sure so why seven days",
+        "time": "07:29"
+      },
+      "candidate_answer": {
+        "text": "so um yeah the seventh day for me is to kind of deal with things that are for example day of the week effect so for example i would imagine that maybe people would check um instagram less on tuesday than say on friday saturday on like for example on the weekend so i think kind of give you that seven day period smooth out some of this pure uh period periodic nature of uh instagram engagement",
+        "time": "07:34"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay got it um and i noticed that you know you've essentially kind of subdivided a turn to in terms of two different buckets right",
+        "time": "08:01"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "but if you had to basically just pick one as your definition for churn which one you actually pick",
+        "time": "08:24"
+      },
+      "candidate_answer": {
+        "text": "yeah especially for uh the business holder so you know in the beginning i asked who like the executives are the ones that are interested in this right and i think they this is much more important than drawing a drop in user engagement so the reason being that for example how instagram as a platform makes money is through advertising right so you need the users to actually be using the platform instead of you know kind of just briefly logging in and then be on the platform then they're not going to see ads as often for example right and they're not using the if they're not engaging with the app long term um they're they probably aren't it's probably an indicator that they're not having a good time so they're not having a good user experience with the application um so this i think serves as a very very important kind of um indicator so you can kind of watch out for uh things that may go wrong before they kind of catastrophically go wrong so to me like totally active users if they're not even logging in that's true it's very hard to pull the users back right instead of uh versus user who are right now they're on the platform by just not using your platform as much then maybe uh if we um kind of monitor this metric then we can inform the business holders that okay we're seeing this drop in user engagement then they can kind of devise new um strategies to pull it back so i think the second one is a lot more important in terms of defining user trend",
+        "time": "08:30"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay got it",
+        "time": "09:57"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "and um one last question which is um sign in so would you consider sign in as like a engagement define it as engagement",
+        "time": "09:59"
+      },
+      "candidate_answer": {
+        "text": "i think i would think about it as to me i wouldn't consider that as an engagement uh just because you know sign in there's no there's no measurement uh for example how much time they spent on the the platform right so all the other engagement although it's not direct measurement of how much time they spent on the platform it's still an indirect measurement for the time and then also you know people usually so for example if you have the instagram app on your phone you don't usually people don't like log out and then log back in right so i think that having that login is not it's not a very useful indicator to me",
+        "time": "10:12"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay that makes sense all right um so i'm now going to set you up and ask a question if you just give me a second okay",
+        "time": "10:50"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay so suppose that um you the definition of turn here is basically if they haven't displayed any active behavior and that is reading comment like impose the past seven days okay okay now how many users have turned as of today use a table below to address this question and i'm going to paste the table give me a second all right so here's a table as you can see you have a time stamp user id and activity in this usage table now use this table here to basically address this question which is finding out how many users are um have churned",
+        "time": "11:09"
+      },
+      "candidate_answer": {
+        "text": "okay let's see so we're reporting just the number of users trained and not in terms of dividing by the total number of users let me see okay so activity comment right so sign in i'm assuming this one it's yeah interesting how we tie that back into the the product question so i would assume that this is not an engagement activity is that right um so let me kind of outline so i think i would count to get the number user i would do count distinct user id um to get this thing as a number of users and then you also need to apply a filter on the activity uh and then also you need to filter out by timestamp so let's do that um so i'll kind of write it out and then i would explain kind of the way i construct everything at the end um where um i almost did a list comprehension there like we do in python by don't be networked but so i'm gonna do this let's just suppose that um for those you know who are obviously watching this mock interview um it doesn't matter what sql query you're using whether it's postgresql it can be like pseudo sql in a sense and then you only want past seven days so between now actually no um okay so let's see so um let's start off from here so i'm selecting from this table and then i kind of filter out based on activity so now i'm only showing that activity um i don't care about activities that are not real engagement right so for example sign in um and then still this will filter it down to only activities that are actual engagement activities and then they also have the corresponding user id um and then i'm also filtering by based on the time span so i'm doing between now minus six days and then and now um so i'm assuming past seven days well we didn't define if we won today or not but um yeah so this would include today and then past six days so we just sum up to total seven days but if we won like 80 days you can just have one i think there is a bit of a confusion with the question um maybe i might have accidentally said yes to something but yeah i don't know i've made a mistake along the way i might have accidentally said yes to let me recall the fun question uh let me check the logics right here uh let's see if this is right so for example i'm checking if the activity is an engagement activity so i'm using or statements for all this so that means that for any activity that's you know belongs to this list you would um like you get at false so if any of these qualified so yes so i have four active separate activity check so if any of them fall into that activity list like this statement will be completely on so we also need a knot right here okay so i'm doing inverse so essentially yeah this gives you all the this filters all the activities are uh engagement activities and then i filter down by time and then so this will give you kind of a bunch of roles that has different time stamps within the past seven days and then uh different users and then their activities but all the activities will be um engagement activity while non-engagement activity so then i simply count the distinct user id there",
+        "time": "11:50"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yeah that's right so we're not defined yeah it's just simple okay yeah sign it yeah okay yeah you know uh or mike's sql the purpose is just to get the logic of things so um the question is they haven't used how many yeah this is actually the total opposite uh thanks for the qualification but yeah you need to the target focus is to figure out the turn",
+        "time": "11:57"
+      },
+      "question_type": "hard",
+      "question_topic": "SQL",
+      "interview_stage": "technical_coding"
+    },
+    {
+      "interviewer_question": {
+        "text": "do you see any potential flaw with this",
+        "time": "16:50"
+      },
+      "candidate_answer": {
+        "text": "yeah let me see haven't displayed any active behavior past someday the only assumption is that all of the events of across all the users are locked but then whatever a case where user has logged in or done activity prior to those seven period but then no longer their event is being registered in the table see haven't displayed any activity active behavior so i thought um let's see so i thought they have to to for them to qualify as a uh assuring the user they just simply cannot have any of these um active behavior within the fm data is that right um okay oh okay actually you have pre-imposed um within the first within the past seven days and then among users who have essentially signed in um you're looking at users who have not displayed these activities and then you're doing a distinct count on them okay so um let me ask a few clarified questions so if i if i don't do any filtering on the time and then count the all the distinct user id in this table without giving me the total okay um okay so let's see so maybe i'll actually do this um okay it's my division this also because of the time constraint let me think does this work so essentially what i'm now doing is i'm counting the total number of users that we have this is what this inline does and then my attempt is to minus out any users that have any engagement activity in the past seven days so that will give you that that you'll be left with only users who are like essentially turned in the past seven days so yeah that is that is my solution",
+        "time": "16:53"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "then how are you counting those users outside of that seven day window period yeah that is correct um okay but then what your what your query doesn't consider is like um a case where a user prior to those seven days were active and then no longer they're not doing any activity or didn't they didn't sign it at all and your query at the moment doesn't count for those users upset of the population not the entire users will be considered turn the entire user population yes it'll give you about a just you know a minute to minute or two to basically just revise the solution okay got it",
+        "time": "17:23"
+      },
+      "question_type": "hard",
+      "question_topic": "SQL",
+      "interview_stage": "technical_coding"
+    }
+  ]
+}

@@ -1,0 +1,594 @@
+{
+  "source_id": "data_scientist_middle_gosuslugi_novoselov_2023_11_17",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "давай тогда возьмём такой довольно понятный вариант задача классификация Значит у нас есть ассистент есть пользователь пользователь приходит с какой-то целью намерением там Давай называть это интен Том Пусть у тебя есть четыре интен такой постановке задача понятна В общем это задача многокнопочная то это задача классификации Ну и собственно задача построить такой классификатор",
+        "time": "01:29"
+      },
+      "candidate_answer": {
+        "text": "что я предложил сделать Я предложил сделать обработку текста сделать вектора tfidf и логистическую регрессию для случая",
+        "time": "02:03"
+      },
+      "reference_answer": {
+        "text": "многокритериальные метрики что и для обычной бинарной классификации только по-разному ихти уреня если вы не знаете что микро и макро усреднение то очень рекомендую про это прочитать Заодно и много классовую классификацию поймёте",
+        "time": "02:22"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "ты сказал можно взять метрики как для бинарной классификации это какие",
+        "time": "02:35"
+      },
+      "candidate_answer": {
+        "text": "precision recol F1 mera accuracy Ro в целом такого набора обычно всегда хватает",
+        "time": "02:38"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "precision recol а не напомнишь что такое prision А recol чего у нас такое",
+        "time": "02:45"
+      },
+      "candidate_answer": {
+        "text": "короче precision - это доля правильно предсказанных единичен предсказанных едини все едини которые есть в выборке Ну а формулу вы и так знаете т п что-то там типа того",
+        "time": "02:52"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А вот если я хочу одну Фер одну Фер Ну в плане в том то что когда мы считаем прил то мы всегда считаем его для какого-то определённого порога А для того чтобы получить одну цифру для генерали значение по всем порогам мы можем использовать например к или Джини Кому как удобне почему вот",
+        "time": "03:08"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "тут речь идёт о том что F1 мера - это средняя гармоническая престижная рекол но почему мы считаем именно среднее гармоническая А например не средне арифметическая мы делаем Это для того чтобы сделать предсказание нашей модели более пессимистично Например если преси равен нулю А реко равен единице то средне арифметическая покажет 0,5 в принципе это ну типа неплохая Метрика можно сказать а средня гармоническая покажет ноль то есть для случая когда одна из значений стиже реко ра Ну нам нужно чтобы наша Метрика выдавала ноль потому что классификация у которой 1 Rec но и наоборот она не имеет никакого смысла",
+        "time": "03:28"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "смотри а ты там упомянул ACC А какие Вот у неё есть минусы",
+        "time": "04:09"
+      },
+      "candidate_answer": {
+        "text": "а плохо подходит для задач с дисбалансом классов потому что она учитывает каждый класс в равной степени",
+        "time": "04:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Окей А вот если я хочу вс-таки применять то что мне сделать с ней",
+        "time": "04:23"
+      },
+      "candidate_answer": {
+        "text": "а чтобы применить аку при дисбалансе классов зада свой классификации использует улучшенную её версию в слр она называется Balan it acurus и Score",
+        "time": "04:26"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А ещё какие-нибудь бы метрики посмотрел бы",
+        "time": "04:35"
+      },
+      "candidate_answer": {
+        "text": "вот с позиции разработки больше наверное Ну к аук - это и есть Метрика которая используется для разработки показывать её заказчиком не имеет никакого смысла потому что ну во-первых она плохо интерпретируется А во-вторых как бы не особо может колерия метриками которыми мы измеряем качество но роук очень удобен как бы потому что можно получить сразу агрегированного обобщающие сортировочные способности модели",
+        "time": "04:38"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А вот смотри если у меня роук и он показывает линия вот у тебя не выпуклая какая-то А вот вогнутая вот что это за косяк модели обычно так характеризуется",
+        "time": "05:06"
+      },
+      "candidate_answer": {
+        "text": "Это значит что класс 0,1 нужно поменять местами то есть наша модель предсказывает всё наоборот",
+        "time": "05:20"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "TF и TF Какие проблемы на твой взгляд у него есть",
+        "time": "05:31"
+      },
+      "candidate_answer": {
+        "text": "основная проблема этого метода векторизации в том что здесь используется гипотеза мешка слов То есть считается что каждое слово появляется в контексте вне зависимости от остальных слов и каждое слово превращается в отдельную фичу который как бы между собой независимы и мало того что текст теряет большую долю смысла при этом процессе то ещё и векторное пространство становится слишком большим Например если в нашем документе 100.000 слов то работать Сами понимаете с векторами 100.000 не очень приятно",
+        "time": "05:34"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "смотри а доводилось ли те fdf например в прод пихать",
+        "time": "06:01"
+      },
+      "candidate_answer": {
+        "text": "Да и при высоких требованиях к быстродействию модели я не рекомендую использовать стандартную реализацию TF adf в skn потому что она написана не оптимально и работает долго Но если вам не важна супер мега быстрая скорость то на здоровье Используйте Ну и чтобы засунуть это всё в прот нужно написать пой план модели то есть по сути написать какой-то сервачок который принимает запрос и возвращает Результаты работы вашей модели Ну и в конце это всё можно завернуть в какой-нибудь докер",
+        "time": "06:03"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "библиотеки доводилось использовать чтобы завести такой сервачок",
+        "time": "06:28"
+      },
+      "candidate_answer": {
+        "text": "для этого обычно используют библиотеку Фаста или",
+        "time": "06:34"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А вот какое принципиальное различие между Фаста и Флам",
+        "time": "06:37"
+      },
+      "candidate_answer": {
+        "text": "различие в том что Фаста работает асинхронно а флас нет поэтому всегда лучше использовать Фаста если есть такая возможность",
+        "time": "06:39"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "а вот асинхронность что это вот подразумевается Вот какие для неё ке",
+        "time": "06:48"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Да друзья здесь как вы поняли мне начали задавать вопрос про программирование вопросы про синхронное программирование на Собес по дата сансу то есть чтобы стать датасаентистом мне нужно знать всё то же самое что и на питон разработчика только поверх ещё этого куча всякого рра NLP и прочий сложный Херобрина смотрите мои собесы по питону и вы поймёте что там всё гораздо легче",
+        "time": "06:54"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "вот эти веса ты во что-то портишь как это у тебя хранишь",
+        "time": "07:24"
+      },
+      "candidate_answer": {
+        "text": "Обычно я не использовал никакие специальные способы хранения моделей но я точно знаю что есть способы которые позволяют хранить веса моделе более оптимально чем просто сериализация через пикл единственное что я могу здесь сказать это то что если в библиотеке есть специальная функция для сохранения моделе то лучше использовать её",
+        "time": "07:30"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "доводилось ли разворачивать что-нибудь на кубер вообще с ку беро работать",
+        "time": "07:46"
+      },
+      "candidate_answer": {
+        "text": "да Да каждый день с ней работаю",
+        "time": "07:48"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Ну на самом деле не работаю и даже в голову такое не приходило",
+        "time": "07:53"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Давай считать как будто бы что-то мы запустили посмотрели логи опосредовано и поняли что вот нам не хватает семантики и соответственно твой способ не решает эту проблему а твои действия Дальше",
+        "time": "08:33"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "Я бы сразу использовал Берт но начать можно с какого-нибудь допотопной ворту века которым 10 лет уже никто не пользуется В каком-то смысле Он решает эту проблему потому что вектора каждого слова получаются с учётом контекста окружающих его слов",
+        "time": "08:57"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "какой-нибудь Фаст текст тебе знаком",
+        "time": "09:10"
+      },
+      "candidate_answer": {
+        "text": "Да по сути это тоже Word To только там вместо слов используются граммы то есть наборы из нескольких слов вроде точно не помню",
+        "time": "09:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "раз ты упомянул Берт Давай тогда поговорим немножко про трансформ вот а с какими Вот ещё Трансформерами тебе доводилось поработать",
+        "time": "09:20"
+      },
+      "candidate_answer": {
+        "text": "с архитектура жесть Пошли по нейронка Ну что могу сказать просто Отвечая на вопрос я работал только с бертом и с гпт",
+        "time": "09:29"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "какие лосы ты знаешь",
+        "time": "09:41"
+      },
+      "candidate_answer": {
+        "text": "я знаю разные но если он имеет в виду те что используются для классификации в нейронка то это конечно же наша любимая Крос энтропия Ну и также используют иногда логарифм правдоподобия",
+        "time": "09:44"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "в обычных сетках часто там применяется барм вот можешь подсказать Для чего Вот его ис",
+        "time": "09:55"
+      },
+      "candidate_answer": {
+        "text": "по сути это такой же механизм скалирование выборки который применяется и в классическом машинном обучении например при использовании линейной регрессии или логистической регрессии но в нейронка мы превратили этот механизм в целый слой который даже имеет обучающие параметры и назвали это батч нормой он Хорошо подходит для повышени стабильности модели и также даже помогает от переобучения",
+        "time": "09:59"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А вот если взять какие-нибудь конкурентные сети там в основном именно нормализация Почему принципиально ЧМ именно",
+        "time": "10:19"
+      },
+      "candidate_answer": {
+        "text": "по сути Это то же самое что и бач нормализация просто Представьте что мы транспонировать матрицу И теперь мы усреднять не по чам А по самим векторам вот и всё",
+        "time": "10:28"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Какие способы регуляризации сеточек Ты знаешь дропаут э как он работает",
+        "time": "10:38"
+      },
+      "candidate_answer": {
+        "text": "основной способ регуляризации - это конечно же дропаут работает он так что на трейне мы случайно зану некоторые веса с какой-то вероятностью а на тесте мы умножаем эти веса на частоту их зануления на трейне",
+        "time": "10:45"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А почему делается именно так",
+        "time": "10:55"
+      },
+      "candidate_answer": {
+        "text": "я не помню",
+        "time": "10:58"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "смотри а доводилось ли заниматься дистилляцией Трансформеров там ну вообще",
+        "time": "10:59"
+      },
+      "candidate_answer": {
+        "text": "дистилляция - это такой процесс когда мы обучаем более легковес ную модель мимикрировать под более сложную то есть по сути можно настроить градиентный бустинг так чтобы он выдавал ответы похожие на те что выдаёт Берт Ну работать это будет конечно хуже чем Берт",
+        "time": "11:05"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Расскажи Вот про архитектуру энкодера Ну на примере того же Берта вот можешь так вот идейно рассказать",
+        "time": "11:19"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "вот на этой картинке эта архитектура нарисована чтобы понять её вам нужно прочитать статью про Берта а Возможно даже не одну Ключевое здесь это конечно multihead Self Attention про который вы прочитаете в ещё одной статье",
+        "time": "11:32"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "давай концептуально вот что такое ан Вот и чем Какое Ну принципиальное там отличие от Self атен",
+        "time": "11:47"
+      },
+      "candidate_answer": {
+        "text": "Отличие в том что в классическом атене у нас механизм внимания применяется от входа к выходу А в селф атене как бы самого вектора на себя да",
+        "time": "11:52"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Ну я наверное по классике насчёт вот сравнить архитектуры CNN rnn и Трансформеры Как там выбрать в чём у них там преимущество какие недостатки",
+        "time": "12:08"
+      },
+      "candidate_answer": {
+        "text": "свёрточные сети рекуррентные или Трансформеры свёрточные сети не очень хорошо работают в задачах с текстами но очень хорошо Но распараллелить их к сожалению нельзя потому что там каждый блок друг за другом выполняется а Трансформеры и паралле и работают хорошо",
+        "time": "12:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "смотри Вадим значит вот мы запустили какой-то трансформер в прод сделали нагрузочные тестировани поняли что он не проходит нагрузку твои действия в этом случае",
+        "time": "12:38"
+      },
+      "candidate_answer": {
+        "text": "можно применить квантизация чисел весов",
+        "time": "12:48"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    }
+  ]
+}
