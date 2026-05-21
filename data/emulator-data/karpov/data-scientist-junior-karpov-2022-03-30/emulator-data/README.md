@@ -12,7 +12,9 @@ created_date: 2026-05-21
 
 Интервью `data_scientist_junior_karpov_2022_03_30` (Data Scientist, junior,
 karpov.courses, 2022-03-30) — родительская папка этого README. Выбрано как самый
-богатый размеченный набор: 36 hard-вопросов, из них 29 с оценками.
+богатый размеченный набор. Оставлены **только вопросы с сигналом интервьюера**
+(feedback/reference_answer), по которым выставлены оценки: 29 hard-вопросов
+(из 36 в исходнике; 7 без сигнала отброшены).
 
 Источники (не трогаются, только читаются):
 - транскрипт — `../transcript.txt` (вход Splitter, в папке интервью)
@@ -24,9 +26,9 @@ karpov.courses, 2022-03-30) — родительская папка этого R
 |--------------------|----------------|-----------------------------------------------------------------|
 | `../transcript.txt`| вход           | То, что пользователь «загружает» в UI (в папке интервью)        |
 | `qa.json`          | выход Splitter | Список Q&A (вопрос/ответ + метаданные), **без оценок**          |
-| `scores.json`      | выход Scoring  | Три критерия + `aggregate` по каждому Q&A (либо `null`)         |
+| `scores.json`      | выход Scoring  | Три критерия + `aggregate` по каждому Q&A                       |
 
-`qa.json` и `scores.json` связаны общим полем **`id`** (`q01`…`q36`, по порядку
+`qa.json` и `scores.json` связаны общим полем **`id`** (`q01`…`q29`, по порядку
 элементов) — UI сопоставляет оценку с вопросом по `id`.
 
 ### `qa.json`
@@ -40,13 +42,12 @@ karpov.courses, 2022-03-30) — родительская папка этого R
 ```
 { "source_id", "labeling": { … "stats": { "total", "labeled", "unscored" } },
   "items": [ { "id", "reference_score": { "factual_correctness", "focus",
-  "clarity", "aggregate", "signal_source", "rationale" } | null,
-  "unscored_reason"? } ] }
+  "clarity", "aggregate", "signal_source", "rationale" } } ] }
 ```
 
 Три критерия Scoring — `factual_correctness`, `focus`, `clarity` (шкала 1..10,
-калибровка по `grade`). 7 из 36 вопросов без сигнала интервьюера → `reference_score: null`
-и `unscored_reason: "no_interviewer_signal"`; UI показывает «нет оценки».
+калибровка по `grade`). Вопросы без сигнала интервьюера в этот набор не включены,
+поэтому `reference_score` есть у каждого item (`unscored=0`).
 
 ## Чего здесь нет
 
