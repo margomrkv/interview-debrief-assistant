@@ -12,7 +12,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = REPO_ROOT / "data/knowledgebase/train" / "hard_skills.json"
-DEFAULT_OUTPUT = REPO_ROOT / "kb" / "splits.json"
+DEFAULT_OUTPUT = REPO_ROOT / "data/knowledgebase/train" / "splits.json"
 SMOKE_SOURCE_COUNT = 2
 
 
