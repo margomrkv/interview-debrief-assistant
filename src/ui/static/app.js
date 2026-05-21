@@ -18,6 +18,9 @@ const METRICS = [
 
 let stream = null; // current EventSource
 
+// Preferred demo opened by "Use demo"; falls back to the first interview.
+const DEMO_SOURCE_ID = "data_scientist_junior_karpov_2022_03_30";
+
 // --------------------------------------------------------------- views
 function showView(name) {
   $("#view-upload").classList.toggle("active", name === "upload");
@@ -36,7 +39,8 @@ async function useDemo() {
   try {
     const list = await (await fetch("/api/interviews")).json();
     if (Array.isArray(list) && list.length) {
-      run(list[0].source_id);
+      const demo = list.find((iv) => iv.source_id === DEMO_SOURCE_ID) || list[0];
+      run(demo.source_id);
     } else {
       showUploadMsg("Демо-данные не найдены.");
     }
