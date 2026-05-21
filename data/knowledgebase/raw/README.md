@@ -21,7 +21,7 @@ Last updated: 2026-05-19
 | **mock / real** (тип интервью) | `mock-interviews/` vs `real-interviews/` | Постановка vs подлинная запись |
 | **split_and_validate / split_only** | `splitter_mode` в JSON после splitter | Есть `video.md` → validation; нет → только JSON/Excel |
 
-См. также `splitter_output/README.md`.
+См. также `data/knowledgebase/splitted/README.md`.
 
 ## Leaf folder name (hiring)
 

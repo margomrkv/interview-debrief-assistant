@@ -4,11 +4,11 @@ Last updated: 2026-05-20
 
 ## Layout
 
-Same corpus split as `transcripts/`, but **leaf names omit `mock-` / `real-`** (kind is only in the parent folder):
+Same corpus split as `data/knowledgebase/raw/`, but **leaf names omit `mock-` / `real-`** (kind is only in the parent folder):
 
 ```text
-splitter_output/mock-interviews/<publisher>/<basename>/
-splitter_output/real-interviews/<publisher>/<basename>/
+data/knowledgebase/splitted/mock-interviews/<publisher>/<basename>/
+data/knowledgebase/splitted/real-interviews/<publisher>/<basename>/
 ```
 
 ## File naming (canonical) — **4 files per run**
@@ -43,10 +43,6 @@ data-scientist-junior-karpov-2022-03-30.v9.pipeline-log.md
 ### Legacy (удалены при миграции)
 
 `*.pipeline-log.json`, `*.validation-semantic.json`, `*.llm-input.txt`, `*.run.json`, …
-
-```bash
-python3 scripts/migrate_splitter_consolidate_json.py
-```
 
 `source_id` in JSON = leaf folder name with `-` → `_`.
 

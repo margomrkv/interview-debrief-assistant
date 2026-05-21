@@ -51,8 +51,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |                     | `internal-notes/`   | Транскрипты встреч по проекту                                        |
 | Критерии оценки     | `grading/`         | `Project Criteria & Scoring.docx` и смежные документы                |
 | Код                 | — (пока нет)       | В репозитории ещё нет исходников; появятся — разместить здесь        |
-| Данные              | `transcripts/`     | Транскрипты интервью — `mock-interviews/`, `real-interviews/`, `youtube-sessions/`, `own/` |
-| Splitter (Q&A)    | `.claude/skills/splitter/` + **`splitter_output/`** в корне репо | шаги 1–5 + цикл исправления до ✅ в **`splitter/SKILL.md`** (`/splitter` в Cursor и Claude Code); постобработка `scripts/splitter_post.sh`; 4 файла на прогон: **`{basename}.vN.qa-split.json`**, `.xlsx`, `.validation-report.md`, `.pipeline-log.md` (см. `splitter_output/README.md`) |
+| Данные (интервью KB) | `data/knowledgebase/raw/` | Транскрипты — `mock-interviews/`, `real-interviews/`, `youtube-sessions/`; own → `data/candidatecontext/` |
+| Splitter (Q&A)    | `.claude/skills/splitter/` + **`data/knowledgebase/splitted/`** | шаги 1–5 + цикл исправления до ✅ в **`splitter/SKILL.md`** (`/splitter`); `.claude/skills/splitter/step3-excel/splitter_post.sh`; 4 файла на прогон: **`{basename}.vN.qa-split.json`**, `.xlsx`, `.validation-report.md`, `.pipeline-log.md` (см. `data/knowledgebase/splitted/README.md`) |
 
 ### Правила 
 
@@ -68,14 +68,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Встречи (`internal-notes/`): `YYYY-MM-DD-transcript-<participants>-<topic>.{txt|md}`
   - Примеры: `2026-04-06-transcript-margo-anton-project-kickoff.txt`, `2026-04-22-transcript-alex-weekly-meeting-1.md`
-- Mock-интервью: `transcripts/mock-interviews/<publisher>/mock-{role}-{level}-…-{YYYY-MM-DD}/` — см. `transcripts/README.md`
+- Mock-интервью: `data/knowledgebase/raw/mock-interviews/<publisher>/mock-{role}-{level}-…-{YYYY-MM-DD}/` — см. `data/knowledgebase/raw/README.md`
   - Содержимое: `transcript.txt`, `link.txt`, `timecodes.txt`; с YouTube — ещё `video.md` (главы для валидации сплиттера)
-- Реальные (записи каналов): `transcripts/real-interviews/novoselov/real-…` (publisher slug **`novoselov`**, не `vadim`)
-- Лайвы / разборы (не интервью): `transcripts/youtube-sessions/…`
-- Собственные интервью: `transcripts/own/<person>-<company>-YYYYMMDD/`
+- Реальные (записи каналов): `data/knowledgebase/raw/real-interviews/novoselov/real-…` (publisher slug **`novoselov`**, не `vadim`)
+- Лайвы / разборы (не интервью): `data/knowledgebase/raw/youtube-sessions/…`
+- Собственные интервью: `data/candidatecontext/<person>-<company>-YYYYMMDD/`
   - Содержимое: `cv.md`, `transcript.txt`, `feedback.txt`, опционально `vacancy.txt` и файлы отчётов
-- Шаблон новой папки: `transcripts/_template/`
-- Миграция путей: `transcripts/aliases.yaml`
+- Шаблон новой папки: `data/knowledgebase/raw/_template/`
+- Миграция путей: `data/knowledgebase/raw/aliases.yaml`
 
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->

@@ -7,10 +7,10 @@ present in the splitter run context.
 
 Usage:
     python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
-        --splitter splitter_output/.../data-scientist-junior-karpov-2022-03-30.qa-split.vN.json \
-        --video transcripts/.../video.md \
+        --splitter data/knowledgebase/splitted/.../basename.vN.qa-split.json \
+        --video data/knowledgebase/raw/.../video.md \
         [--section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.example.json] \
-        [--out splitter_output/.../....qa-split.validation.vN.md] \
+        [--out data/knowledgebase/splitted/.../basename.vN.validation-report.md] \
         [--prepare-llm]
 
 --section-config (optional) JSON file with keys:
@@ -32,9 +32,10 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
+STEP1_DIR = SKILL_DIR / "step1-prepare"
 
-if str(SKILL_DIR) not in sys.path:
-    sys.path.insert(0, str(SKILL_DIR))
+if str(STEP1_DIR) not in sys.path:
+    sys.path.insert(0, str(STEP1_DIR))
 from interview_locale import (  # noqa: E402
     activate_locale,
     detect_language_for_folder,

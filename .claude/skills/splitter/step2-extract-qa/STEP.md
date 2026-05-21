@@ -4,9 +4,9 @@
 
 **Модель:** `step1-prepare/run_config.json` → `inference.model` (по умолчанию `claude-sonnet-4-6`, temperature 0). Не менять без явного запроса пользователя.
 
-**Вход:** секция `LLM_INPUT_STEP_2` в `splitter_output/.../*.vN.pipeline-log.md` (создаётся шагом 1 для **этой** `vN`).
+**Вход:** секция `LLM_INPUT_STEP_2` в `data/knowledgebase/splitted/.../*.vN.pipeline-log.md` (создаётся шагом 1 для **этой** `vN`).
 
-**Выход:** `splitter_output/.../*.vN.qa-split.json` — **полная перезапись** файла.
+**Выход:** `data/knowledgebase/splitted/.../*.vN.qa-split.json` — **полная перезапись** файла.
 
 ## Запрещено (наследование прошлых прогонов)
 

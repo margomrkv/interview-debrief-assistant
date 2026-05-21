@@ -2,15 +2,15 @@
 """
 splitter_prepare_prompt.py — step 1 (prepare), lives in step1-prepare/
 
-Writes per-run artifacts under `splitter_output/` (mirrors `transcripts/` tree):
-- `splitter_output/<mock|real>-interviews/<publisher>/<basename>/` — basename **without** mock-/real- prefix
+Writes per-run artifacts under `data/knowledgebase/splitted/` (mirrors `data/knowledgebase/raw/` tree):
+- `data/knowledgebase/splitted/<mock|real>-interviews/<publisher>/<basename>/` — basename **without** mock-/real- prefix
 - `.../<basename>.v<N>.pipeline-log.md` — журнал прогона + секция `LLM_INPUT_STEP_2` (system + user + schema)
 
 Режим: video.md в папке интервью → split_and_validate, иначе split_only.
 Транскрипт mock: timecodes.txt предпочтительно, иначе transcript.txt.
 
-Выход JSON/xlsx/validation: same interview folder under `splitter_output/`.
-Имена: `{basename}.v<N>.<artifact>.{ext}` — см. `splitter_output/README.md` и `artifact_paths.py`.
+Выход JSON/xlsx/validation: same interview folder under `data/knowledgebase/splitted/`.
+Имена: `{basename}.v<N>.<artifact>.{ext}` — см. `data/knowledgebase/splitted/README.md` и `artifact_paths.py`.
 Версия `vN`: если `--version` не задан — max среди `{basename}.qa-split.v*.json` в папке + 1 (или 1).
 
 В промпт шага 2 (в pipeline-log) добавляется RUNTIME_HINTS из `run_config.json` (`inference.*`); скрипт API не вызывает.
@@ -27,12 +27,18 @@ from pathlib import Path
 STEP_DIR = Path(__file__).resolve().parent
 SKILL_DIR = STEP_DIR.parent
 REPO_ROOT = SKILL_DIR.parents[2]
-sys.path.insert(0, str(SKILL_DIR))
+sys.path.insert(0, str(STEP_DIR))
 
 from artifact_paths import next_version, paths_for_run  # noqa: E402
 from interview_locale import (  # noqa: E402
     detect_interview_language,
     step2_locale_rules,
+)
+from kb_paths import (  # noqa: E402
+    artifact_basename,
+    canonical_interview_folder_arg,
+    resolve_interview_folder,
+    splitted_dir_for_interview,
 )
 
 SKILL_SH = ".claude/skills/splitter"
@@ -67,38 +73,8 @@ def _resolve_artifact(path_str: str) -> Path:
     return STEP_DIR / p
 
 
-_KIND_PREFIXES = ("mock-", "real-")
-
-
-def _strip_kind_prefix(name: str) -> str:
-    """Remove mock-/real- from leaf names in splitter_output (kind is in parent folder)."""
-    for prefix in _KIND_PREFIXES:
-        if name.startswith(prefix):
-            return name[len(prefix) :]
-    return name
-
-
-def _artifact_basename(folder: Path) -> str:
-    """File/folder basename under splitter_output (no mock-/real- prefix)."""
-    return _strip_kind_prefix(folder.name)
-
-
 def _source_id_from_slug(slug: str) -> str:
     return slug.replace("-", "_")
-
-
-def _output_dir_for_interview(folder: Path) -> Path:
-    transcripts = REPO_ROOT / "transcripts"
-    try:
-        rel = folder.relative_to(transcripts)
-        parts = list(rel.parts)
-        if parts:
-            parts[-1] = _strip_kind_prefix(parts[-1])
-        rel = Path(*parts)
-    except ValueError:
-        kind = "mock-interviews" if folder.name.startswith("mock-") else "real-interviews"
-        rel = Path(kind) / "unknown" / _artifact_basename(folder)
-    return REPO_ROOT / "splitter_output" / rel
 
 
 def main() -> None:
@@ -125,10 +101,12 @@ def main() -> None:
     parser.add_argument("--source-id-suffix", default=None)
     args = parser.parse_args()
 
-    folder = REPO_ROOT / args.folder
-    if not folder.exists():
-        print(f"ERROR: folder not found: {folder}", file=sys.stderr)
+    try:
+        folder = resolve_interview_folder(args.folder)
+    except FileNotFoundError:
+        print(f"ERROR: folder not found: {args.folder}", file=sys.stderr)
         sys.exit(1)
+    folder_arg = canonical_interview_folder_arg(folder)
 
     has_video_md = (folder / "video.md").exists()
     has_timecodes = (folder / "timecodes.txt").exists()
@@ -139,11 +117,11 @@ def main() -> None:
     else:
         mode = SPLIT_AND_VALIDATE if has_video_md else SPLIT_ONLY
 
-    basename = _artifact_basename(folder)
+    basename = artifact_basename(folder)
     source_id = args.source_id or (
         _source_id_from_slug(folder.name) + (args.source_id_suffix or "")
     )
-    output_dir = _output_dir_for_interview(folder)
+    output_dir = splitted_dir_for_interview(folder)
     output_dir.mkdir(parents=True, exist_ok=True)
     version = args.version or next_version(output_dir, basename)
     artifacts = paths_for_run(output_dir, basename, version)
@@ -222,7 +200,7 @@ def main() -> None:
         "=" * 70,
         f"SOURCE_ID: {source_id}",
         f"SPLITTER_MODE: {mode}",
-        f"INTERVIEW_FOLDER: {args.folder}",
+        f"INTERVIEW_FOLDER: {folder_arg}",
         f"INTERVIEW_LANGUAGE: {interview_lang}",
         f"PRIMARY_TRANSCRIPT ({transcript_label}):",
         transcript_text.strip(),
@@ -283,7 +261,7 @@ def main() -> None:
     user_blocks.extend(step2_locale_rules(interview_lang))
     user_blocks.append("")
 
-    py_post = "scripts/splitter_post.sh"
+    py_post = f"{SKILL_SH}/step3-excel/splitter_post.sh"
     py = f"python3 {SKILL_SH}/step3-excel/splitter_json_to_excel.py"
     py_val = f"python3 {SKILL_SH}/step4-validate-chapters/splitter_validate_video.py"
 
@@ -296,7 +274,7 @@ def main() -> None:
         "",
         "Then (preferred — no LLM):",
         f"  {py_post} {out_json.relative_to(REPO_ROOT)} \\",
-        f"    --video {args.folder}/video.md",
+        f"    --video {folder_arg}/video.md",
         "",
         "Or manually:",
         f"  {py} {out_json.relative_to(REPO_ROOT)} --out {out_xlsx.relative_to(REPO_ROOT)}",
@@ -308,7 +286,7 @@ def main() -> None:
             "Validation (video.md offline only — never paste into the model):",
             f"  {py_val} \\",
             f"    --splitter {out_json.relative_to(REPO_ROOT)} \\",
-            f"    --video {args.folder}/video.md \\",
+            f"    --video {folder_arg}/video.md \\",
             f"    --tolerance 120 \\",
             f"    --out {out_validation.relative_to(REPO_ROOT)}",
             "",
@@ -343,13 +321,13 @@ def main() -> None:
     from run_manifest import init_run, record_llm_input, save_run, set_llm_input_section  # noqa: E402
 
     transcript_input = (
-        f"{args.folder}/timecodes.txt" if has_timecodes else f"{args.folder}/transcript.txt"
+        f"{folder_arg}/timecodes.txt" if has_timecodes else f"{folder_arg}/transcript.txt"
     )
     run = init_run(
         output_dir=output_dir,
         basename=basename,
         version=version,
-        transcript_folder=args.folder,
+        transcript_folder=folder_arg,
         source_id=source_id,
         splitter_mode=mode,
         inputs={
@@ -386,7 +364,10 @@ def main() -> None:
     print(f"Language:      {interview_lang} (JSON text + validation report locale)")
     print()
     print(f"Skill (orchestration): {SKILL_SH}/SKILL.md")
-    print("Per-run artifacts live under splitter_output/ (see splitter_output/README.md).")
+    print(
+        "Per-run artifacts live under data/knowledgebase/splitted/ "
+        "(see data/knowledgebase/splitted/README.md)."
+    )
     print(
         f"Step 2 LLM input: {out_pipeline_log_md.relative_to(REPO_ROOT)} "
         "(section LLM_INPUT_STEP_2)"

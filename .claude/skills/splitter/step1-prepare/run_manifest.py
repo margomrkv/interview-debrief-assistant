@@ -9,7 +9,8 @@ from pathlib import Path
 
 from artifact_paths import paths_for_run
 
-SKILL_DIR = Path(__file__).resolve().parent
+STEP1_DIR = Path(__file__).resolve().parent
+SKILL_DIR = STEP1_DIR.parent
 REPO_ROOT = SKILL_DIR.parents[2]
 
 _MANIFEST_RE = re.compile(

@@ -1,7 +1,7 @@
-"""Download YouTube interview transcripts into transcripts/.
+"""Download YouTube interview transcripts into data/knowledgebase/raw/.
 
 Folder layout and leaf naming: see NAMING.md in this directory
-(and transcripts/README.md). Single video: transcripts/<bucket>/<slug>-<YYYY-MM-DD>/.
+(and data/knowledgebase/raw/README.md). Single video: raw/<bucket>/<slug>-<YYYY-MM-DD>/.
 """
 
 from __future__ import annotations
@@ -276,12 +276,12 @@ def parse_args(argv=None):
     p.add_argument(
         "--bucket",
         default="single_videos",
-        help="Path under transcripts/ for single video (default: single_videos = staging)",
+        help="Path under data/knowledgebase/raw/ for single video (default: single_videos = staging)",
     )
     p.add_argument(
         "--playlist-name",
         dest="playlist_name",
-        help="Path under transcripts/ for playlist, e.g. mock-interviews/karpov",
+        help="Path under data/knowledgebase/raw/ for playlist, e.g. mock-interviews/karpov",
     )
     p.add_argument("--lang", default="ru,en",
                    help="Comma-separated language priority (default: ru,en)")
@@ -325,7 +325,9 @@ def main(argv=None) -> int:
             return 1
         feedback_text = build_feedback_text(snippets, meta["chapters"])
         iso_date = _format_iso_date(args.date)
-        folder = repo_root / "transcripts" / args.bucket / f"{args.slug}-{iso_date}"
+        folder = (
+            repo_root / "data" / "knowledgebase" / "raw" / args.bucket / f"{args.slug}-{iso_date}"
+        )
         written = write_folder(folder, meta, snippets, args.overwrite,
                                feedback_text=feedback_text)
         print(f"{'wrote' if written else 'skipped'}: {folder}"
@@ -355,7 +357,7 @@ def main(argv=None) -> int:
         print("error: playlist is empty", file=sys.stderr)
         return 1
 
-    bucket = repo_root / "transcripts" / args.playlist_name
+    bucket = repo_root / "data" / "knowledgebase" / "raw" / args.playlist_name
     bucket.mkdir(parents=True, exist_ok=True)
     (bucket / "link.txt").write_text(args.url.strip() + "\n", encoding="utf-8")
     ok = skipped = failed = 0

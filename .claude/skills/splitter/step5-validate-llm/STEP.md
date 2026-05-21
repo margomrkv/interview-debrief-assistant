@@ -4,7 +4,7 @@
 
 **Модель:** `step1-prepare/run_config.json` → `validation_inference.model` (по умолчанию `claude-sonnet-4-6`, temperature 0).
 
-**Вход:** секция `LLM_INPUT_STEP_5` в `splitter_output/.../*.vN.pipeline-log.md` (создаётся шагом 4 / `splitter_post.sh --prepare-llm`).
+**Вход:** секция `LLM_INPUT_STEP_5` в `data/knowledgebase/splitted/.../*.vN.pipeline-log.md` (создаётся шагом 4 / `splitter_post.sh --prepare-llm`).
 
 **Выход:**
 

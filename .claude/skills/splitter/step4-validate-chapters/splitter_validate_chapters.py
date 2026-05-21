@@ -14,8 +14,9 @@ PROMPT_DIR = SKILL_DIR / "step5-validate-llm"
 
 import sys
 
-if str(SKILL_DIR) not in sys.path:
-    sys.path.insert(0, str(SKILL_DIR))
+STEP1_DIR = SKILL_DIR / "step1-prepare"
+if str(STEP1_DIR) not in sys.path:
+    sys.path.insert(0, str(STEP1_DIR))
 from interview_locale import locale as loc  # noqa: E402
 
 

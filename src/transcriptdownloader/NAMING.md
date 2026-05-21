@@ -2,18 +2,19 @@
 
 Last updated: 2026-05-19
 
-Canonical copy for `transcript_downloader`. Mirror: `transcripts/README.md`.
+Canonical copy for `transcript_downloader`. Mirror: `data/knowledgebase/raw/README.md`.
 
 ## Directory tree
 
 ```text
-transcripts/
+data/knowledgebase/raw/
 ├── mock-interviews/<publisher>/     # staged / educational mocks
 ├── real-interviews/<publisher>/     # real or leaked-style (e.g. novoselov)
 ├── youtube-sessions/<publisher>/    # lives, talks — not a single interview
-├── own/                             # your interviews
 ├── single_videos/                   # staging only (CLI default bucket)
 └── _template/                       # empty template per interview
+
+data/candidatecontext/               # own interviews (CV, feedback) — not under raw/
 ```
 
 **Publisher** = YouTube channel / course brand (`karpov`, `interview-query`, `novoselov`, …).  
@@ -85,12 +86,12 @@ uv run python scripts/transcript_downloader/main.py "<url>" \
 Writes:
 
 ```text
-transcripts/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/
+data/knowledgebase/raw/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/
 ```
 
 - `--slug` = leaf name **without** date (CLI appends `-YYYY-MM-DD`).
 - `--date` = `YYYYMMDD` (from YouTube `upload_date` or user).
-- `--bucket` = path under `transcripts/` (default: `single_videos` = staging).
+- `--bucket` = path under `data/knowledgebase/raw/` (default: `single_videos` = staging).
 
 ### Playlist
 
@@ -99,7 +100,7 @@ uv run python scripts/transcript_downloader/main.py "<playlist-url>" \
   --playlist-name mock-interviews/karpov
 ```
 
-Per video: `transcripts/mock-interviews/karpov/<slugified-title>-YYYY-MM-DD/`.  
+Per video: `data/knowledgebase/raw/mock-interviews/karpov/<slugified-title>-YYYY-MM-DD/`.  
 **Rename** each leaf to the hiring pattern above (CLI auto-slug is YouTube title only).
 
 ## Publisher slugs
@@ -120,6 +121,6 @@ Per video: `transcripts/mock-interviews/karpov/<slugified-title>-YYYY-MM-DD/`.
 1. If bucket was `single_videos`, move folder to `mock-interviews/<publisher>/` or `real-interviews/<publisher>/`.
 2. Rename leaf to match the pattern (playlist downloads almost always need this).
 3. Multi-candidate video: split into separate folders (`-sasha`, `-yegor`, …) — see `scripts/reorganize_transcripts.py`.
-4. Update `transcripts/aliases.yaml` if renaming existing corpus.
+4. Update `data/knowledgebase/raw/aliases.yaml` if renaming existing corpus.
 
-Path history: `transcripts/aliases.yaml`.
+Path history: `data/knowledgebase/raw/aliases.yaml`.

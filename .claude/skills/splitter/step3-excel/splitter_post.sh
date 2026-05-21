@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Post-LLM splitter: JSON → xlsx → validation-report.md; step 5 prompt → pipeline-log.md (LLM via Cursor agent).
-# Updates {basename}.vN.pipeline-log.md for steps 3–4.
+# Post-LLM splitter (steps 3–4): JSON → xlsx → validation-report.md; prepares LLM_INPUT_STEP_5.
+# Updates {basename}.vN.pipeline-log.md via splitter_run_log.py.
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
@@ -32,8 +32,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL="$REPO_ROOT/.claude/skills/splitter"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SKILL="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd "$SKILL/../../.." && pwd)"
 
 if [[ ! -f "$JSON_PATH" ]]; then
   echo "ERROR: JSON not found: $JSON_PATH" >&2
@@ -105,7 +106,7 @@ else
 fi
 
 if [[ -f "$PIPELINE_LOG_MD" ]]; then
-  python3 "$SKILL/scripts/splitter_run_log.py" \
+  python3 "$SKILL/step1-prepare/splitter_run_log.py" \
     --pipeline-log "$PIPELINE_LOG_MD" \
     --step 3 \
     --name "excel" \
@@ -113,7 +114,7 @@ if [[ -f "$PIPELINE_LOG_MD" ]]; then
     --output "$XLSX_PATH" \
     --duration-sec "$EXCEL_SEC"
   if [[ -n "$VIDEO_PATH" ]]; then
-    python3 "$SKILL/scripts/splitter_run_log.py" \
+    python3 "$SKILL/step1-prepare/splitter_run_log.py" \
       --pipeline-log "$PIPELINE_LOG_MD" \
       --step 4 \
       --name "validate_chapters" \
