@@ -21,9 +21,11 @@ Judge two dimensions per chapter:
    - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
    - question_type, question_topic, interview_stage fit the content
    - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - for `technical_coding` / pair programming: flag false if candidate_answer contains interviewer coaching ("ты видишь", "не слушай ты усложняешь", "давай напишем", "проговори", "тебе нужно", "супер напиши") — those belong in interviewer_feedback; candidate_answer = candidate-only spans concatenated
    - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
    - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
    - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - for `technical_coding` / live Colab tasks: flag false if `candidate_answer` is one short line but `reference_answer.time` is many minutes later and the chapter window shows a long pair-programming dialogue — collect candidate-only attempts in `candidate_answer` and interviewer coaching in `interviewer_feedback` (both may be long; do not merge speakers into one field)
    - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
 
 When a chapter shows 0 extracted items (recognition_status: not_recognized):

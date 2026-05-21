@@ -415,15 +415,23 @@ def build_pipeline_run_summary_for_report(
 
     all_done = all((s.get("status") or "") == "completed" for s in steps if s.get("id"))
     pending = [s for s in steps if (s.get("status") or "") != "completed"]
+    mode = run.get("splitter_mode", "")
+    required_ids = (
+        {1, 2, 3, 4, 5} if mode == "split_and_validate" else {1, 2, 3}
+    )
+    recorded_ids = {int(s["id"]) for s in steps if s.get("id") is not None}
+    journal_complete = required_ids <= recorded_ids
     if not steps:
         overall = "— нет записей шагов в журнале"
-    elif all_done and len(steps) >= 4:
-        overall = "✅ все зафиксированные шаги завершены"
     elif pending:
         names = ", ".join(str(s.get("id")) for s in pending)
         overall = f"⚠️ не завершены шаги: {names}"
+    elif all_done and journal_complete:
+        overall = "✅ все зафиксированные шаги завершены"
     else:
-        overall = "⚠️ неполный журнал (проверьте pipeline-log)"
+        missing = sorted(required_ids - recorded_ids)
+        hint = f" (нет шагов: {', '.join(map(str, missing))})" if missing else ""
+        overall = f"⚠️ неполный журнал (проверьте pipeline-log){hint}"
 
     lines = [
         "## Прогон пайплайна\n",

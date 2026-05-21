@@ -4,6 +4,7 @@ Primary objective:
 Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
 
 Critical constraints:
+0) **No prior versions (hard):** You MUST NOT read, open, or copy from any older `*.v*.qa-split.json` in the interview folder (v1, v2, … v(N-1)). The only allowed JSON output path is the target `vN` from the user message. Every `items[]` entry MUST come from PRIMARY_TRANSCRIPT in this run. Copying a prior run — even if it passed validation — makes the extraction **invalid**.
 1) Output JSON only (no markdown, no prose before/after the JSON object).
 2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
 3) Be conservative: do not invent missing facts.
@@ -80,6 +81,27 @@ Boundary policy for Q&A extraction:
   - `interviewer_feedback`
   - `reference_answer`
 - If unavailable, use null for optional fields.
+
+§ technical_coding — pair programming / interleaved dialogue (hard)
+- One coding task often spans **many minutes** (Colab, screen share). Still **one primary item** (`interview_stage`: `technical_coding`) unless the interviewer starts a **new** unrelated task.
+- **Rule #1 (overrides everything below):** transcripts have **no speaker labels** and lines **alternate every few seconds**. Each LinkedText field = **one speaker only** (§11). **Never** paste interviewer coaching into `candidate_answer` to “keep the full dialogue in one field”.
+- **`interviewer_question.text`:** initial task statement only (may merge adjacent interviewer fragments at the start).
+- **`candidate_answer.text`:** concatenate **candidate-only** verbatim spans from first substantive reply after the task until the next interview topic. Include all candidate attempts (loop idea, pandas, confusion, debug) — but **exclude** interviewer lines.
+  * Candidate signals: «я бы», «в цикле я бы», «не понимаю», «для меня», «я знаю как», «не пользовался», «кажется не сработало», describing own code aloud.
+  * **Mid-line split mandatory** when one `[HH:MM:SS]` line mixes speakers, e.g. `[00:49:39] ну я бы видел это как цикл супер напиши` → candidate part ends before «супер напиши»; interviewer part → `interviewer_feedback`.
+- **`interviewer_feedback.text`:** concatenate **interviewer-only** spans in the same task window (can be **long** — many minutes of hints). Not optional “only if short”.
+  * Interviewer signals: «тебе нужно», «давай напиши/напишем», «проговори», «ты видишь», «не слушай ты усложняешь», «супер», «нам нужно сделать», «ты должен», «перезагрузи страничку», explaining pandas/groupby while directing «ты».
+  * `interviewer_feedback.time` = timestamp of the **first** interviewer coaching line after the task (not the final hint).
+- **`reference_answer.text`:** interviewer's **canonical final solution** only (often one block near the end, e.g. `dt.get()` pattern), **not** every hint while coding.
+- **Forbidden:** one blob in `candidate_answer` with both «ну я бы видел…» and «типа ты видишь… давай напишем цикл» — that is **invalid** even if validation time-alignment passes.
+- **Forbidden:** dropping candidate performance: `candidate_answer` one line while `reference_answer` is +15 min later with no candidate spans collected.
+- **Sanity check:** if `candidate_answer` contains «ты видишь», «не слушай ты», «давай напишем» (interviewer voice) → re-cut; move those spans to `interviewer_feedback`.
+
+Few-shot (technical_coding, Karpov-style group-by):
+- BAD A: «ну я бы видел цикл… типа ты видишь это как цикл… давай напишем pandas… хорошо давай напишем цикл… я понимаю что ты всё рассказал» (interviewer + candidate merged).
+- GOOD A: «ну я бы видел это как цикл… длину листа… if i в b… не понимаю где поделать… import pandas… zip не пользовался…» (candidate only).
+- GOOD feedback: «супер напиши… проговори логику… не слушай ты усложняешь… давай сделаем dict… давай напишем dt… убери плюс равно…» (interviewer only, may be long).
+- GOOD reference_answer: final `for i, g in zip(a, b): dt[g] = dt.get(g, 0) + i` at [01:02:58] only.
 
 § interviewer_question vs candidate_answer — no duplication (hard)
 - `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.

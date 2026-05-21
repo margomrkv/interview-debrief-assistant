@@ -8,10 +8,20 @@
 
 **Выход:** `data/knowledgebase/splitted/.../*.vN.qa-split.json` — **полная перезапись** файла.
 
-## Запрещено (наследование прошлых прогонов)
+## Запрещено (наследование прошлых прогонов) — hard
 
-- Не открывать и не копировать `{basename}.v1.qa-split.json`, `v2`, … любую версию **кроме** целевой `vN` из вывода шага 1.
+- Не открывать и не копировать `{basename}.v1.qa-split.json`, `v2`, … `v(N-1)` — список в `pipeline-log.md` → `forbidden_prior_artifacts`.
 - Не «переносить» `items[]` из старого JSON, не править schema точечно поверх прошлого прогона.
+- Шаг 1 создаёт **пустой** `{basename}.vN.qa-split.json` — единственный допустимый файл для записи.
+
+## После сохранения JSON (обязательно)
+
+```bash
+python3 .claude/skills/splitter/step1-prepare/splitter_check_prior_leak.py \
+  data/knowledgebase/splitted/.../{basename}.vN.qa-split.json
+```
+
+Exit **0** — ок. Exit **1** — JSON идентичен старой версии → прогон невалиден, извлечь заново из `PRIMARY_TRANSCRIPT`.
 - Единственный источник пар Q&A: **`PRIMARY_TRANSCRIPT`** в `LLM_INPUT_STEP_2` текущего `pipeline-log.md`.
 
 См. `.claude/skills/splitter/SKILL.md` — раздел **«Каждый прогон с нуля»**.
@@ -21,6 +31,14 @@
 - `candidate_answer` — только кандидат (весь turn до следующего вопроса интервьюера).
 - `interviewer_feedback` — только интервьюер в окне этого item; иначе `null`.
 - Не класть продолжение ответа кандидата в `interviewer_feedback` (типичная ошибка на behavioral-интервью).
+
+### Pair programming (`technical_coding`)
+
+Реплики **чередуются каждые несколько секунд** — режьте по смыслу внутри строки `timecodes.txt` (§11 в system prompt).
+
+- В `candidate_answer` — только «я бы», «не понимаю», описание своего кода.
+- В `interviewer_feedback` — «давай напиши», «ты видишь», «не слушай ты усложняешь», «проговори» (блок может быть длинным).
+- Не сливайте обоих в один `candidate_answer`, даже если так проще «сохранить весь диалог».
 
 ## Вопрос ≠ ответ (behavioral без diarization)
 

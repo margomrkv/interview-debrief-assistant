@@ -130,6 +130,14 @@ def main() -> None:
     out_validation = artifacts["validation_report_md"]
     out_pipeline_log_md = artifacts["pipeline_log_md"]
 
+    from splitter_no_prior_versions import (  # noqa: E402
+        prior_qa_split_paths,
+        write_stub_qa_split,
+    )
+
+    forbidden_prior = prior_qa_split_paths(output_dir, basename, version)
+    write_stub_qa_split(out_json, source_id=source_id, splitter_mode=mode)
+
     sys_prompt_path = _resolve_artifact(
         config.get("system_prompt", "splitter_system_prompt.txt")
     )
@@ -241,11 +249,29 @@ def main() -> None:
         "=" * 70,
         f"Target version for this run: v{version} only.",
         f"Write JSON only to: {out_json.relative_to(REPO_ROOT)}",
+        f"(Step 1 created an empty stub `items: []` at this path — you MUST replace it entirely.)",
         "",
-        "FORBIDDEN on step 2:",
-        "- Read, copy, merge, or patch any prior qa-split JSON in this interview folder",
-        f"  (e.g. {basename}.v1.qa-split.json, v2, ... except the target path above).",
-        "- Reuse items[] or field text from older splitter runs because validation passed before.",
+        "FORBIDDEN on step 2 (hard — run invalid if violated):",
+        "- Open, read, copy, merge, or patch ANY prior qa-split JSON in this interview folder.",
+        "- Use IDE search across `*.v*.qa-split.json` except the target file above.",
+        "- Reuse items[] or field text from older runs because validation passed before.",
+        "",
+    ]
+    if forbidden_prior:
+        user_blocks.append("Forbidden prior artifacts (do NOT read):")
+        for fp in forbidden_prior:
+            try:
+                user_blocks.append(f"  - {fp.relative_to(REPO_ROOT)}")
+            except ValueError:
+                user_blocks.append(f"  - {fp}")
+    else:
+        user_blocks.append("Forbidden prior artifacts: (none — first version)")
+    user_blocks += [
+        "",
+        "After saving JSON, agent MUST run:",
+        f"  python3 {SKILL_SH}/step1-prepare/splitter_check_prior_leak.py "
+        f"{out_json.relative_to(REPO_ROOT)}",
+        "(exit 0 required; exit 1 = identical to an older version — re-extract from transcript)",
         "",
         "REQUIRED on step 2:",
         "- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.",
@@ -318,7 +344,13 @@ def main() -> None:
     ]
     combined_llm_input = "\n".join(bundle_sections)
 
-    from run_manifest import init_run, record_llm_input, save_run, set_llm_input_section  # noqa: E402
+    from run_manifest import (  # noqa: E402
+        _rel,
+        init_run,
+        record_llm_input,
+        save_run,
+        set_llm_input_section,
+    )
 
     transcript_input = (
         f"{folder_arg}/timecodes.txt" if has_timecodes else f"{folder_arg}/transcript.txt"
@@ -350,6 +382,13 @@ def main() -> None:
         name="qa_extraction",
         model=inf.get("model"),
         log_md=out_pipeline_log_md,
+    )
+    run["forbidden_prior_artifacts"] = [
+        _rel(p) for p in forbidden_prior
+    ]
+    run["step2_anti_leak_check"] = (
+        f"python3 {SKILL_SH}/step1-prepare/splitter_check_prior_leak.py "
+        f"{out_json.relative_to(REPO_ROOT)}"
     )
     save_run(run, out_pipeline_log_md)
 

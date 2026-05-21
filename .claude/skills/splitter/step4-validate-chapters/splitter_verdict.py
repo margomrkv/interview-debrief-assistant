@@ -16,6 +16,11 @@ import re
 import sys
 from pathlib import Path
 
+STEP1 = Path(__file__).resolve().parents[1] / "step1-prepare"
+if str(STEP1) not in sys.path:
+    sys.path.insert(0, str(STEP1))
+from splitter_no_prior_versions import check_prior_leak  # noqa: E402
+
 
 _VERDICT_RE = re.compile(
     r"^#{2,3}\s*(?:Вердикт|Verdict):\s*(.+)$",
@@ -53,6 +58,12 @@ def main() -> None:
         action="store_true",
         help="Print count of 'не распознан' markers to stderr",
     )
+    parser.add_argument(
+        "--json",
+        type=Path,
+        metavar="QA_SPLIT_JSON",
+        help="Also run prior-version leak check on this *.vN.qa-split.json (fails even if report is PASSED)",
+    )
     args = parser.parse_args()
     if not args.report.is_file():
         print(f"ERROR: not found: {args.report}", file=sys.stderr)
@@ -70,6 +81,11 @@ def main() -> None:
         print(f"unrecognized_chapters={n}", file=sys.stderr)
 
     code = verdict_exit_code(verdict)
+    if args.json is not None:
+        ok, msg = check_prior_leak(args.json.resolve())
+        if not ok:
+            print(f"PRIOR_VERSION_LEAK: {msg}", file=sys.stderr)
+            sys.exit(1)
     if code != 0 and count_unrecognized(text) > 0 and code == 1:
         pass  # already failure
     sys.exit(code)
