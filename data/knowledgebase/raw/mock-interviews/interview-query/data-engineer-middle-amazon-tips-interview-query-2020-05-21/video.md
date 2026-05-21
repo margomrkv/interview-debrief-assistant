@@ -11,6 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/IO_POFIQvo0/maxresdefault.jpg"
 tags: [Amazon Data Engineer, Amazon data science interview, facebook data science, amazon data, data engineering interview questions, data science tips and tricks, Interview Query, Data science jay, amazon interview, nextdoor data science, data science mock interview, data scientist example interview, data science interviewing, technical interview, data engineer, amazon data engineer interview, data science interview questions, data scientist, data science, data scientist interview]
 ---
 
+## Chapters
+- [00:00] Amazon Data Engineer mock interview
+
 ## Description
 
 Today I interviewed Scott, who works as a machine learning engineer and data engineer at Nextdoor. 

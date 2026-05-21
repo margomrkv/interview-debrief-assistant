@@ -1,0 +1,405 @@
+{
+  "source_id": "data_scientist_middle_novoselov_theory_2023_08_06",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "вот у вас есть такая функция Вот необходимо вычислить ее Градиент",
+        "time": "01:32"
+      },
+      "candidate_answer": {
+        "text": "Это производная многомерном пространстве",
+        "time": "01:53"
+      },
+      "reference_answer": {
+        "text": "единственное правильный ответ что это Вектор из частых производных",
+        "time": "02:03"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "тогда давайте вопрос один б вычислить интеграл то тоже не буду читать не смогу функцию",
+        "time": "02:13"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "конкретно Вот в этой матрице Я вроде помню как считать 3 на 3 если помните то я не помню как она точно считается",
+        "time": "02:25"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Вы бы еще спросили как собственное значение матрицы посчитать собственные значения так понимаю тоже",
+        "time": "02:35"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "у нас есть случайная величина и она Ну давайте определимся Какие Что за значения Что за вероятность есть некая случайная величина Вот она дискретная принимает один из 2 x 3 и так далее",
+        "time": "02:47"
+      },
+      "candidate_answer": {
+        "text": "Что надо сделать надо по 1 умножить на значение P1 А и сложить между собой ты умноженные на значение и ты сложить по всем",
+        "time": "03:30"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "тогда давайте про дисперсию что такое дисперсия случайной величины дискретные тоже вот ожидание разницы квадратный между чем разница между ожиданием и значения",
+        "time": "03:46"
+      },
+      "candidate_answer": {
+        "text": "ковариация не помню корреляция не тоже не помню",
+        "time": "03:59"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "конкретно эти вопросы желательно было бы знать",
+        "time": "04:11"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "условно вероятность может быть определение вероятности при делении",
+        "time": "04:13"
+      },
+      "candidate_answer": {
+        "text": "совместной вероятности делить на вероятность условия Давайте есть событие событие B то есть вероятность пересечения и разделить на вероятности это будет условная вероятность события А при условии",
+        "time": "04:22"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "смотрите у вас есть Вход где написано арифметическое выражение виде допустим строчки или может быть список символов необходимо не вывести позиции соответствующих пар скобок в этом выражении вот считаем что скобки расставлены верно",
+        "time": "05:02"
+      },
+      "candidate_answer": {
+        "text": "Я бы сделал стек и клал бы туда скобку открывающиеся и когда Когда закрывающиеся в скобках я бы как бы добавлял список два индекс который мы положили это который Я закрыла стандартный алгоритм",
+        "time": "05:37"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "вопрос 4Б нужно написать код на пандус там или на SQL который позволит вот такую табличку с двумя полями сгруппировать по пра-один и вывести сумму по праву два",
+        "time": "06:00"
+      },
+      "candidate_answer": {
+        "text": "там табличка называется Т допустим селекторам 1 сумма рам 2 Front грумба и парам-1",
+        "time": "06:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "SQL",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "есть такие две модели так 5 А вопрос Линейная логистической регрессия собственно расскажите пожалуйста Какие задачи мы решаем с помощью этих моделей Вот для чего нужны эти две модели вот как соответственно формулируется модели",
+        "time": "07:05"
+      },
+      "candidate_answer": {
+        "text": "тут я ему рассказал про Дубль В на X равно Y про функцию потерями схем",
+        "time": "07:33"
+      },
+      "reference_answer": {
+        "text": "Y равно w x плюс B плюс и от всего распределен нормально и все эти силы компоненты этого вектора Независимо Если вы так сформулируете модель тогда методом максимального правдоподобие у вас как бы распределен нормально соответственно smot ожидании 0 и дисперсии Сигма квадрат умножить на И где это единичная Матрица",
+        "time": "08:05"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "ладно тогда давайте поговорим про логистическую регрессию что это такое формулируется эта моделька целевая переменная задача решаем",
+        "time": "09:04"
+      },
+      "candidate_answer": {
+        "text": "задача классификации решаем тем же самым способом только Наш ответ приводим еще к вероятности с помощью функции 7 Ну то есть 7 берете от этого линейного преобразования",
+        "time": "09:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "вопрос как влияет номеров данных на качество работы решающего дерева",
+        "time": "09:55"
+      },
+      "candidate_answer": {
+        "text": "по идее Никак не должна влиять",
+        "time": "10:01"
+      },
+      "reference_answer": {
+        "text": "когда вы просто привели данные к другому распределению их порядок не изменился и соответственно она просто подберет себе критерии ваши новые данные",
+        "time": "10:04"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "5C вопрос есть у вас Рандом Forest Вот и увеличение каких параметров может привести к его переобучению",
+        "time": "10:17"
+      },
+      "candidate_answer": {
+        "text": "только Learning Great Зачем они вообще включили Learning Raid этот список чтобы я забыл что его нет решающем дереве",
+        "time": "10:27"
+      },
+      "reference_answer": {
+        "text": "правильный ответ что вообще нет поэтому нет никак не повлияет логично",
+        "time": "10:57"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "У вас есть такая штука Как ошибка модели ошибка модели можно разложить на две составляющие вот как они называют на какую вот эту составляющую мы влияем когда добавляем больше больше деревьев",
+        "time": "11:13"
+      },
+      "candidate_answer": {
+        "text": "смещение разброс Ну да by swarence разброс мы уменьшаем но смещение",
+        "time": "11:21"
+      },
+      "reference_answer": {
+        "text": "просто раз уменьшаете дисперсию как бы у вас когда появляется деревьев Вот вы усредняете их дисперсия среднего до она раз просто меньше",
+        "time": "11:51"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "поговорим Или 1 или 2 регуляризация это такое вообще зачем это нужно делать",
+        "time": "12:08"
+      },
+      "candidate_answer": {
+        "text": "регуляризация используется для отбора признаков",
+        "time": "12:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "5 метров максимального правдоподобие можете суть метода объяснить",
+        "time": "13:20"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "чтобы не затягивать видео я просто покажу Какие вопросы Он задавал",
+        "time": "13:26"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Необходимо ли инициализировать нейронную Сеть случайными",
+        "time": "13:36"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "правильный ответ да необходимо иначе алгоритм не будет обучаться",
+        "time": "13:38"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "главное не забыть что тропа вот мы используем только на трейне на тесте умножаем веса на чистоту с которой мы их зануляли Что такое башню",
+        "time": "13:43"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": "зачем это слой который приводит наши данные к нулевому мод ожиданием единичной дисперсии это очень похоже на то как мы скалируем данные перед тем как запихнуть их логистическую регрессию главное не забыть что в конце там еще есть смещение сдвиг параметр и также обучают",
+        "time": "13:52"
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "последний вопрос по метрике качества Вот 4 А что такое кривая кривая это просто кривая которая строится по определенному правилу",
+        "time": "15:10"
+      },
+      "candidate_answer": {
+        "text": "что есть некая зависимость вот у вас как бы рок кривая строится наград",
+        "time": "15:26"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    }
+  ]
+}

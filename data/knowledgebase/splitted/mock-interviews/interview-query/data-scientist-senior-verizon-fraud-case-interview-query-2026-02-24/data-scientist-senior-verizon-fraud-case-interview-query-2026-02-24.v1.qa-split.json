@@ -1,0 +1,216 @@
+{
+  "source_id": "data_scientist_senior_verizon_fraud_case_interview_query_2026_02_24",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "So, the first question is, let's say that Verizon launches a wireless plan that offers unlimited data after 8:00 p.m. each night, and you notice some customers are suddenly using 10x more data during that window than the average user. How would you distinguish between fraud and product abuse in this scenario? And how might your findings shape future product or policy decisions?",
+        "time": "00:16"
+      },
+      "candidate_answer": {
+        "text": "So just to clarify, we are assuming that this spike is only during like post 8:00 p.m. and during the unlimited window or does it also extend into regular paid hours? Okay. All right. So the first thing I'd say is uh in that case I'd start by clarifying whether the spike represents deliberate manipulation or just users uh maximizing within the plan's rules. Uh then I analyze basically user level patterns like device sharing unusual location changes or VPN uh usage uh to separate basically genuine heavy users from potential frauds. Uh the second basically this is like the aspect that I'll investigate. So fraud for example fraudulent users like fraudinal users then I'd segment accounts by usage intensity and behavior patterns to basically compare them against um like normal baselines that we have seen across uh a historical trend just to basically flag statistically significant outliers for deeper.",
+        "time": "00:39"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Yeah, let's say that this is specifically um happening uh after the 8:00 p.m. window.",
+        "time": "00:51"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "wait, what what are fraudulent users? Can you go back and maybe define that first?",
+        "time": "01:54"
+      },
+      "candidate_answer": {
+        "text": "So the key like the key metrics that I'd use like to understand what are fraud who are fraud like basically fraudsters are those exploiting the plan beyond the intended use like reselling the bandwidth to people like by sharing the internet tethering to like multiple devices or using automation or VPN setups to bypass limits rather than just consuming more data personally. So basically sharing data with multiple users is the biggest signal uh with respect to how fraudsters do use this and how we can see this is I I believe a telecom companies have access to where uh that particular data is being shared to and to what IP address. So if there are multiple IP addresses where that data is being shared to that means that there could be some fraudulent usage over here. What I mean by multiple is much more above than 10. So the account is likely being used to distribute data externally rather than for personal use.",
+        "time": "02:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "Okay. And what's the net consequence of fraudulent usage here? Just so that maybe we have a definition and an understanding of what the business impact uh is and why it even matters.",
+        "time": "03:03"
+      },
+      "candidate_answer": {
+        "text": "Sure. So the net consequence I see over here is the revenue leakage and network strain because since these users consume disproportionate amount of bandwidth without paying more which can degrade the service quality for other users and reduce profitability on that plan as well. So that's I would say that's the primary u business impact that would have like over because within a telecom architecture customer feedback or customer experience really matters as if they I mean on a day-to-day basis as well I would say that if we have a drop in the data data speed or services we usually tend to go to our friends or we tend to ask them that hey how is your internet working and if it happened to be that they're on another network and it's working then there's an incentive for me to move to that network as well given that most of the other characteristics of the plan are same so I'd have to switch networks which directly impacts churn and long-term customer retention",
+        "time": "03:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "I see okay so we know that it's bad because of those reasons right you're saying uh it affects people also in the network right that are not fraudulent right there's also the aspect of um potentially we gave them this 8:00 p.m., you know, 10x plan, right? And they feel like they're being throttled potentially, which means like, you know, the policy doesn't actually work, right? It's like, oh, I was promised, you know, unlimited data, but then it's like being throttled and it's not very good and so, uh, I'm just going to switch to, you know, AT&T instead of Verizon, right? Okay, there's that.",
+        "time": "04:20"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "And then is there also a cost aspect or is that not really an issue you think with Verizon?",
+        "time": "04:54"
+      },
+      "candidate_answer": {
+        "text": "Right. like when I would say that the cost aspect does come into play also because for example if there are too many legitimate fe uh users that feel throttled um by the plan design itself and basically basically making the adjustment by capping extreme outliers. So there's definitely a cost aspect for like two since higher nighttime usage increases uh network load infrastructure costs like bandwidth maintenance and without corresponding revenue growth right so definitely there's a cost uh there's a cost driver here as well uh with respect to the telecom infrastructure like we would have to invest in more uh route not routers but basically networks in order to ensure for example uh maximum minimum connectivity or basically ensuring additional capacity uh to provision that surge.",
+        "time": "05:01"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "Okay, got it. So we understand the net consequences here of actually you know why we want to do this. So, let's dive back into you said that there's a couple different ways that you can investigate, right? You can look at device sharing, you can look at, you know, um traffic signatures, VPN, uh tethering, other things like that. Um what else can we kind of do? And then once you're given all these different usage patterns, what actually like would you do in a certain scenario, right? like how would you actually implement in this case depending on different scenarios",
+        "time": "06:00"
+      },
+      "candidate_answer": {
+        "text": "uh we could also implement I mean we all like I mentioned the earlier aspects but um we could also implement real-time monitoring rules like flagging as soon as there's a traffic spike beyond expected human behavior um repeated device uh authentication failure or adapt the product policies based on whether the dominant pattern is abuse or actual fraud. For example, if we are seeing regular usage of like 30GB okay and the plan right now we we assume that uh the course of in within this course of time we saw that uh it was 20GB usually. So we might we could also further think whether we see like this whether this jump uh within the same window is is a sudden jump or whether it's a deviation that would trigger an alert for review to check if uh it's a legitimate usage or it's potential misuse. So primarily I would say real time monitoring is something that should be given more emphasis because a lot of companies do have access to that. The only problem with that is when it comes to real-time monitoring the cost associated to create a real time platform is much expensive because telecom companies usually get these services from other uh third party providers like one example is Huawei another example is um I think mobile um these are few companies basically that allow you to get realtime insights from your systems because when you upgrade to a better system definitely you'll have the reports being generated on a more regular basis. So again there's a cost associated to it. So the infrastructure tier those providers charge significantly more for continuous data streaming and low latency processing which is why many telecoms still rely on batch analysis instead of full realtime systems let's say.",
+        "time": "06:42"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "But I guess there's still kind of this question of like how are you still distinguishing between like actual fraud and abuse versus just like normal, you know, high usage because, you know, it's 8:00 p.m. now and, you know, I'm an individual user and now I'm like streaming, you know, Netflix, right, at night and uh I get an alert that, you know, I can now stream Netflix uh right um at like, you know, 4K or something like that, right? So you're you have all this data right and you have all these like heruristics that you were mentioning right but how are you actually like determining you know the actual usage here and what's actually abuse and what's not",
+        "time": "08:43"
+      },
+      "candidate_answer": {
+        "text": "right so I would say like per system metrics so so to me like there are certain metrics that we'll have to track that includes for example precision whether the true fraud flags um basically comparing the true fraud flags with the total uh total flagged amounts, the recall rate and the false positive rate as well at the same time. So these these particular metrics would at least help us understand whether like for example false positive rate which basically measures how many legitimate users were incorrectly flagged. So balancing these three helps fine-tune thresholds and improve uh like uh improve the overall model reliability because there's no there's no like we cannot we can never within like within the architecture we are operating in in my opinion uh there's always a tra trade-off between catching more fraud and keeping customer experience smooth. So finding the balance is the key to maintaining both trust and efficiency. So maintaining all these three like these three parameters that I mentioned about system performing metrics such as precision, recall and false positive rate. All",
+        "time": "09:23"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "what goes into those? Right. Cuz I have no idea what how you catch like a false positive or how you even know that it is positive. Right. You've said that there's maybe device sharing and there's VPN use, but like you know normal people use VPNs anyway. So, is this like um someone switching a VPN like multiple times and then you investigate and then you determine it's fraud, let's say. How do you know it's fraud, right? What if it's just a normal user just switching VPNs all the time? Like, do you have a designation for what fraud is in this case?",
+        "time": "10:33"
+      },
+      "candidate_answer": {
+        "text": "Yeah. So I'd say that we only classify it as a fraud if VPN switching coincides with other red flags like simultaneous login from locations like multiple locations because we have a geo flag also that basically identifies from which location this is being accessed or whether data whether the data is being routed to multiple external IPs basically indicating coordinated misuse rather than normal privacy behavior. And coming back to what I mentioned earlier about um so the precision me like what what precision measures is how many of the flagged cases were actually fraud. Recall basically would measure how many total fraud cases we have successfully caught in the in I would say in terms of his historical data and the false positive rate would basically measure how many users were incorrect incorrectly charged. So what manually goes into this is a false positive. We had manually review a flagged account using additional context like billing history, device consistency, prior complaint rec records since VPN use alone isn't enough. So it's a combination of multiple anomal sorry anomalies that um that uh signals real real fraud. So,",
+        "time": "11:08"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "but you're basically building that model off of something, right? Like you can't just just have those heruristics and then call it fraud, right? Someone likely is going in and they probably view the activity history for like a customer over like 15 minutes and they do all this work, right? And they're like, \"All right, this is definitely fraud, right?\" And my internal model is just saying that, right? But additionally, what you're saying is that like all that stuff can't really be done in real time because it's extremely difficult, right? And so, um, just because they use like, you know, an above average amount of gigabytes of data doesn't mean that it's like automatically fraud, right? There has to be like a signal that then kind of has the person go in and do the investigative work, which evidently takes a lot of time,",
+        "time": "12:32"
+      },
+      "candidate_answer": {
+        "text": "It does because that's where the costsensitive approach helps by basically weighing high value fraud more heavily in the model's loss function and then we can afford a few extra false positives on low value like on low value cases while ensuring expensive frauds are definitely caught early. So the goal here is to go go big or go home um idly because if we catch the bigger frauds, we're idly preventing a greater like the bigger loss or the bigger picture instead of catching the um the the lower ones because if it means like basically the extra false positives on low value cases if it means catching the high impact frauds earlier and reducing overall financial loss. So we protect a larger portion of revenue and then we can justify the investigation cost also whereas missing them would have had a dispos disproportionate um financial impact.",
+        "time": "13:27"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "Okay. So let's just talk about the product and policy side now and uh just kind of quickly summarize you know the last bit of the question was you know how would your findings actually shape future product or policy decisions here?",
+        "time": "14:27"
+      },
+      "candidate_answer": {
+        "text": "I just like a moment just to uh bring all the parts together. Yeah. So I think these findings would basically guide policy updates like introducing fair use gaps uh revising plan eligibility like how you whether you're eligible for this unlimited plan for example or adding tiered pricing for heavy users. And on the product side basically they inform clear communication about limits to manage expectations and reduce the churn. So one of the main one of the main things I would say on policy transformation is like how we are looking at this how we looking at a user to be eligible for this particular plan like that really matters and that would ideally be witnessed or basically checked through their historical behavior and for example if it's a new user then this plan should not be in like for a new user this should not exactly be a plan that should be immediately offered and if it is And uh a lot of companies have this uh have this have this model which is known as like a three-month program. For example, Mint Mint has Mint has this program where they have a 3month um discounted uh unlimited data program for the first 3 months. And after the first 3 months they have these catered um like basically what they do is that they check they look at the customer behavior uh whether their usage in these three months was within what tier and based on that they would suggest that tier or they would push that tier to that customer in the most effective way by campaigning it through a little um little lower than the market price or provide additional benefits. It's like maybe five international calls per month ideally just to incentivize the customer to focus on the particular plan that they would like them like or basically a bonus that they would like uh the customer to uh to basically re retain towards while aligning usage with the right plan tier.",
+        "time": "14:44"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Mhm.",
+        "time": "14:43"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "Okay, got it. Um, all right. So, I'm going to give you some feedback on this because I actually think that'd be helpful for the overall like understanding here and for our audiences kind of watching on YouTube. Um, so first off, I want to ask you like what do you think you did well? What do you think you did badly in this interview?",
+        "time": "17:00"
+      },
+      "candidate_answer": {
+        "text": "I'd say that I think I have all the knowledge but I like um a little a little bit of my structuring was um was going off course at times I would say because in the end how you present the solution is what matters more than how I basically but how I I could have been more concise in a few parts and tied my examples back to the main question faster just to be in a short in a shorter note. that makes sense. I mean having a concrete illustrated example would make it easier to anchor my reasoning and basically also show exactly how the decision process works in practice. So like having a flowchart like approach basically the first this is how the business case was defined what would the model score this risk whether if it's low medium or high and based on that the different investigations that would require so definitely a structured approach to it would create a higher business impact and um focus more towards the recommended actions.",
+        "time": "17:18"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Yeah. Yeah. I would say that's um very very uh good analysis there, right? Because I think the one thing that I was pushing you in the very beginning was like defining what the key terms are because that's always kind of the problem with most interviews is that people have different understandings of what the definitions are, right? What does fraud mean, right? in this example, what does uh like product uh high product usage mean for example? And then what's the downsides in both cases, right? Like why are we doing this thing? Like what is the point of actually investigating into this, right? Because if we put our time and energy into investigating something, there's obviously some sort of like, you know, money that we're being paid to look into this, right? and a business case for like why we care about you know implementing something like this right so marketing at the end of the day or the product team right at the end of the day is creating like a unlimited data after 8 p.m. night and at the end of the day it's also about like costs right like we are doing this to acquire new customers likely or to incentivize their existing customers to stay with us with Verizon but at the same time we want to minimize the cost and fraudulent users likely are creating bad experiences as you said really well right for other users on telecom networks right but also um they're probably racking up you know costs of data usage that's not just free right uh and so like really defining that is kind of like the center point to everything. And I think you really need to emphasize that a lot more in the very beginning. And then really coming to like a concrete conclusion as well in terms of a solution is then really the second point that um really needs to be done, right? This means like actually providing examples of like showcasing the differences between fraud and like what regular product I product usage looks like and what normal behavior looks like and then showcasing you know if fraud was XYZ then we do this if fraud is actually uh ABC then we do that right um and so I think one of the tough things here about solo was like you didn't kind of come to like a definitive like this is what we should be doing you know and you know it's obviously hard in an open-ended question, but the easiest way to do that in an open-ended question is to actually have like a 100% like illustrated example that you can essentially explain to the interviewer that then um you know within that example you can easily kind of be like all right and this is like the best solution for right so I think that's the major improvement that kind of needs to be done in terms of a structured perspective um in terms of like really feeling like a takeaway that like you know this is a great solution and you like really understand the material here",
+        "time": "17:48"
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "manager_round"
+    }
+  ]
+}

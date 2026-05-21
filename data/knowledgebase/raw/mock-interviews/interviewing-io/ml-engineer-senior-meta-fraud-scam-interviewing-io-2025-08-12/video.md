@@ -12,13 +12,8 @@ tags: [Machine Learning, Meta Interview, Detect Fraud Interview, ML Interview, M
 ---
 
 ## Chapters
-- [00:00:00] Introduction and candidate background
 - [00:00:30] System design prompt: ML model to detect scam content
-- [00:13:00] Architecture walkthrough and feature engineering
 - [00:36:00] Modeling strategy, focal loss, and label bias
-- [00:48:00] Interviewer feedback and praise
-- [00:51:00] Advice on simplifying, asking questions, and tradeoffs
-- [01:07:00] Meta-specific offer negotiation tips and job market talk
 
 ## Description
 

@@ -1,0 +1,174 @@
+{
+  "source_id": "data_scientist_senior_doordash_commentary_datainterview_2021_02_15",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "um what we're gonna do is we're gonna spend about 30-40 minutes going through some product data science questions um and the first five to ten minutes are going to be focused on statistics questions and then we'll spend the remaining uh 40 30 40 minutes just going through some case study questions covering a b testing analytics does that sound good",
+        "time": "00:37"
+      },
+      "candidate_answer": {
+        "text": "sounds quick okay",
+        "time": "01:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "all right so let's start with the first status questions what does 90 statistical power mean",
+        "time": "02:09"
+      },
+      "candidate_answer": {
+        "text": "um so uh so it's 90 statistical power uh so statistical power is basically uh linked to the type one type of two errors which means uh what is the probability of uh finding a right observation when it uh when it doesn't exist or finding an observation uh or or saying that we found enough uh we did not found an observation when it exists so 90 statistical power means the the probability of uh finding an observation which uh of not finding an observation which exists is 90",
+        "time": "02:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "next question how do you determine the practical significance in a in an experiment",
+        "time": "04:48"
+      },
+      "candidate_answer": {
+        "text": "so when it depends on the type of experiment we run and the kind of metric we are looking at so matrix can be uh like mean um like mean is a metric or a rate can be a vector and metric can also be proportions right so it can be percentage of users that click on a particular link or things like that so in these both of these cases we do some kind of statistical tests like a two sided t test or a test of proportions uh and practical significant and the significance of those is determined by p value uh which in general it's if it's below 0.05 we say it's significant now that is just the statistical part if you wanna uh look at the practical part we would also look have to look at the business metrics for example the kind of lift that we have seen and that will depend on the cost benefit analysis so let's say uh a five percent increase in uh ltv of a consumer on a particular app would be profitable for us and that would be the break-even point and anything above that would be useful whereas anything below that would not be useful so if so if we look at that uh basically what we are seeing what we are saying is even if the results are significant statistically only if they make business sense then it would be practically significant and then there is one more aspect which is movement of multiple metrics so let's say we do an experimentation on one particular metric but and that comes out to be significant but the other metrics move along with it in the experiment uh and that can be like detrimental to our experiment so we will have to use that as well in our uh stating the practical significance of the experiment",
+        "time": "04:53"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Experimentation",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay so how would you handle it's such a case then if one of the metric is practically significant but the other one isn't",
+        "time": "08:16"
+      },
+      "candidate_answer": {
+        "text": "uh there can be a couple of ways to handle it one can be changing the design of experiment so making the experiment uh you know a bit narrowed down in terms of the users that are going into the experiment uh that can make sure that we that we only move one metric and not the other metric uh and then we can also look at correlation or causation of the true matrix so if one metric is correlated to the other or one metric is a result of a causal inference from the other uh we can we would we should assume that the metric would move but if that is not the case then maybe we can you know put some controls uh in place and then run the experiment again to get a better significance",
+        "time": "08:23"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay got it all right i'll ask the next question",
+        "time": "09:11"
+      },
+      "question_type": "hard",
+      "question_topic": "Experimentation",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "now how do you calculate type 1 and type your errors of your statistical tests",
+        "time": "09:16"
+      },
+      "candidate_answer": {
+        "text": "okay so um one and type two errors uh can be calculated by uh use english can calculate it by um i mean by by using like uh you know uh i'm not really sure about this uh so probably",
+        "time": "09:24"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "do you want to start by explaining what type one type of error error rates are sure",
+        "time": "09:54"
+      },
+      "candidate_answer": {
+        "text": "um a time for an error is basically uh nothing but a false positive so uh so it happens when uh the experiment incorrectly rejects the true null hypothesis uh and you know in which actually it should not so then a type one error occurs uh a type two error on the other hand it's a false negative it happens when an experiment does not reject the null hypothesis but it's uh but you know but the result is actually false so it should reject the hypothesis",
+        "time": "10:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay",
+        "time": "10:35"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "got it so in this case um what would be your type 1 error rate",
+        "time": "10:36"
+      },
+      "candidate_answer": {
+        "text": "uh so type 1 error rate uh you know in this case would be uh you know uh so basically let's say we have a null hypothesis uh that you know there is no significant change in the click-through rate uh of two types of users so there will be a type one uh error where you know this hypothesis will be rejected and and we find the results that there is a significant uh difference between the two uh you know the the two sides and one way of controlling that i can think of is using the power so power is nothing but uh statistical power is nothing but beta uh and that's the probability of making like say a type two error so power of of the set of three tests is one minus beta so you know we can adjust for that value",
+        "time": "10:42"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay",
+        "time": "11:42"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "so i'm going to interject there um because i think i want to kind of give you some hint here so let's just suppose that alpha is 0.05 and your beta is uh let's just let's just suppose that your power is um 0.8 then in that case how would you actually calculate your type 1 error type 1 and type tap to error rates",
+        "time": "11:43"
+      },
+      "candidate_answer": {
+        "text": "uh sure uh so the problem so you mentioned b beta is 20 power power is point eight power and your alpha is point zero five okay so if power is point eight it means a power is one minus beta so your beta would be 0.2 so the probability of making a type 2 error would be 0.2 um and alpha you mentioned is 0.05 right so alpha is 0.05 and i think that's the uh probability of committing a type one error so it's like a five percent probability of committing a type one",
+        "time": "12:07"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay okay awesome",
+        "time": "12:44"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "technical_qna"
+    }
+  ]
+}

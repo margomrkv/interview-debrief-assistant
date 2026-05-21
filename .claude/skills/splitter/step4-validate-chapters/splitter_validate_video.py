@@ -33,6 +33,14 @@ from typing import Optional
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
+if str(SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(SKILL_DIR))
+from interview_locale import (  # noqa: E402
+    activate_locale,
+    detect_language_for_folder,
+    locale as loc,
+)
+
 
 # ─── Section → accepted question_topic values ────────────────────────────────
 # Loaded from --section-config at runtime; defaults to empty (topic check skipped).
@@ -98,6 +106,57 @@ EXPLANATION_PREFIXES = (
     "Возможность \u201c",  # "Возможность "завалить"..." — финальная мета-секция, не вопрос
     "Структура собеседования",  # "Структура собеседования" — объяснение формата
     "О структуре собеседования",
+    "Не прощаемся",  # rzv_de финал / обратная связь на Boosty
+    "Формат, бусти",  # rzv_de интро
+    "Про новый формат",  # rzv_de S2 интро
+    "Что нового будет",  # rzv_de S2 интро
+    "Что нужно знать",  # "Что нужно знать для дата аналитика" — мета-секция, не вопрос
+    "ОФФЕР",            # "ОФФЕР ПОД КЛЮЧ" — реклама, не вопрос
+    "Легенда для",      # "Легенда для собеса" — контекст интервью, не вопрос
+    "Это БАЗА",         # "Это БАЗА" — мета-оценка, не вопрос
+    "Accuracy",         # sub-метрика классификации (разбор), не отдельный вопрос
+    "Precision и Recall", # sub-метрика классификации (разбор)
+    "F1 Score",         # sub-метрика классификации (разбор)
+    "ROC-AUC",          # sub-метрика классификации (разбор)
+    "Полезный канал",   # "Полезный канал по мат. статистике" — реклама/анонс
+    "Итог собеседования", # "Итог собеседования" — вывод, не вопрос
+    "Как можно быстрее", # "Как можно быстрее получить оффер" — реклама курса
+    "Так ли хорош",     # "Так ли хорош Data Science?" — мета-комментарий автора, не вопрос
+    "Финал",            # "Финал" — завершение видео, не вопрос
+    "Заключение",       # "Заключение" — outro/ending, не вопрос
+    "UNICODE",          # "UNICODE" — анонс сообщества «UniCode» Новосёлова, не вопрос
+    "ЧЗХ",              # "ЧЗХ???" — мата-комментарий Новосёлова, не вопрос
+    "КОНЕЦ",            # "КОНЕЦ" — завершение видео (верхний регистр)
+    "Задачи на теорвер", # "Задачи на теорвер" — пропущены Новосёловым в записи
+    "Функция Лагранжа", # "Функция Лагранжа" — вопрос показан на экране, не проговорён вслух
+    "Решение ",         # "Решение второй задачи" — разбор решения, не отдельный вопрос
+    "Советы",           # "Советы" — советы зрителям после интервью, не вопрос
+    "Опыт и проекты",   # "Опыт и проекты Димы" — вступительная биография кандидата, пропускается
+    "Шаг ",             # "Шаг 1: Постановка задачи" и т.д. — структурные метки system design, не вопросы
+    "Мои Соц.",         # "Мои Соц. Сети" — реклама соцсетей Новосёлова, не вопрос
+    "Как мы будем",     # "Как мы будем действовать" — переход/продолжение, не отдельный вопрос
+    # ── samokat-ml-2026-02-25 ───────────────────────────────────────────────────
+    "Формат интервью",  # "Формат интервью и как проходит технический этап" — мета-интро
+    "Реальные продовые",  # "Реальные продовые задачи NLP-команды" — контекст, не вопрос
+    "Контент, модерация",  # "Контент, модерация, SEO и генерация" — контекст команды
+    "Главные боли",     # "Главные боли продакшена" — контекст, не вопрос
+    "Кого ищут",        # "Кого ищут в Самокат?" — контекст, не вопрос
+    "Какой у меня",     # "Какой у меня опыт?" — самопрезентация автора, не вопрос
+    "Гайд по трудоустройству",  # реклама курса/гайда, не вопрос
+    "Как получить оффер",  # "Как получить оффер от 200к" — реклама, не вопрос
+    "Как выйти",        # "Как выйти на O(n)" — редакционная подсказка, не вопрос
+    "Правильная идея",  # "Правильная идея через два прохода" — редакционный комментарий
+    "Проверка решения", # "Проверка решения и тесты" — разбор, не отдельный вопрос
+    "Ключевая идея",    # "Ключевая идея через словарь соседей" — редакционный комментарий
+    "Как найти крайние",  # "Как найти крайние элементы" — редакционная подсказка
+    "Понимание задачи как", # "Понимание задачи как графа" — редакционный комментарий
+    "Финальная логика", # "Финальная логика обхода" — редакционный комментарий
+    "Почему O(",        # "Почему O(n log n) — это уровень сильного кандидата" — комментарий
+    "Логи, ClickHouse,",  # "Логи, ClickHouse, Elastic — как устроена аналитика" — описание стека Станислава, не вопрос к кандидату
+    "ML-мониторинг:",   # "ML-мониторинг: drift, Evidently, распределения" — монолог Станислава о планах, не вопрос к кандидату
+    "Технические шоколадки",  # rzv_de — обсуждение без отдельного Q&A у маркера
+    "Вступление эфира",  # dataengineers-pro / Tinkoff Connect
+    "Вопросы интервьюеру",  # финальный блок вопросов кандидата, не Q&A у маркера
     # ── Russian: case/scenario setup (not a question itself) ───────────────────
     "Кейс ",      # "Кейс про соцсети" etc.
     "Кейс:",
@@ -109,6 +168,25 @@ EXPLANATION_PREFIXES = (
     # ── English: stream/interview framing ─────────────────────────────────────
     "Intro",
     "Introduction",
+    "<Untitled",  # YouTube placeholder chapter titles
+    "Product-sense solution",  # DataInterview debrief segment, not a new question
+    "SQL solution",
+    "Solution + Feedback",
+    "Assessment",  # post-interview assessment / debrief
+    "Explanation",  # Jay Feng / IQ debrief segments
+    "Interview Feedback",
+    "Jeff's Explanation",
+    "Clarifying Questions",
+    "Ved whiteboarding",
+    "Interviewer feedback",
+    "Advice on",
+    "Interview strategy",
+    "Final takeaways",
+    "Did they pass",
+    "Staff-level solution",
+    "Meta-specific offer",
+    "Why this would not pass",
+    "What the candidate did well",
     "Break",          # "Break Before the Second Candidate"
     "Summary",        # "Summary" / "Summary and feedback"
     "Wrap",           # "Wrap-up"
@@ -723,50 +801,49 @@ def build_report(
     excel_path = splitter_path.with_suffix(".xlsx")
     topic_map = section_topic_map or {}
 
-    lines.append("# Отчёт валидации сплиттера\n")
+    lines.append(loc.t("report_title") + "\n")
+    lines.append("")
+    lines.append(loc.t("interview_language_line", lang=loc.lang) + "\n")
     lines.append("")
     if pipeline_run_summary_lines:
         lines.extend(pipeline_run_summary_lines)
-    lines.append("### Артефакты этого прогона\n")
-    lines.append(f"- **Разбивка Q&A (JSON):** `{splitter_path}`")
+    lines.append(loc.t("artifacts_heading") + "\n")
+    lines.append(loc.t("artifact_json", path=splitter_path))
     if excel_path.exists():
-        lines.append(f"- **Разбивка Q&A (Excel):** `{excel_path}`")
-    lines.append(
-        f"- **Эталон для проверки:** `{video_path}` — описание YouTube с тайм-кодами "
-        "и рубриками; сплиттер при извлечении Q&A этот файл **не видел**"
-    )
-    lines.append(
-        f"- **Порог расхождения тайм-кодов:** ±{tolerance_sec} с — максимальная разница "
-        "между тайм-кодом вопроса на YouTube и временем `interviewer_question.time` в JSON, "
-        "при которой пара Q&A всё ещё считается относящейся к этой главе"
-    )
+        lines.append(loc.t("artifact_xlsx", path=excel_path))
+    lines.append(loc.t("artifact_video", path=video_path))
+    lines.append(loc.t("tolerance_line", tol=tolerance_sec))
     lines.append("")
 
     # Verdict
     if window_not_rec > 0:
         if coverage_pct >= 70 and topic_pct >= 70:
-            verdict = (
-                f"⚠️ ЧАСТИЧНО — {window_not_rec} "
-                f"{'глава' if window_not_rec == 1 else 'глав'} без Q&A у маркера"
+            word = (
+                loc.t("chapter_word_1")
+                if window_not_rec == 1
+                else loc.t("chapter_word_n")
+            )
+            verdict = loc.t(
+                "verdict_partial_chapters", n=window_not_rec, word=word
             )
         else:
-            verdict = "❌ НЕ ПРОЙДЕНО"
+            verdict = loc.t("verdict_fail")
     elif coverage_pct >= 90 and topic_pct >= 90 and json_contract_ok:
-        verdict = "✅ ПРОЙДЕНО"
+        verdict = loc.t("verdict_pass")
     elif coverage_pct >= 70 and topic_pct >= 70 and json_contract_ok:
-        verdict = "⚠️ ЧАСТИЧНО"
+        verdict = loc.t("verdict_partial")
     else:
-        verdict = "❌ НЕ ПРОЙДЕНО"
+        verdict = loc.t("verdict_fail")
 
     topic_consistency_value = (
         f"{topic_ok_count}/{len(topic_checks)} ({topic_pct:.0f}%)"
-        if topic_checks else "Н/Д"
+        if topic_checks else ("N/A" if loc.lang == "en" else "Н/Д")
     )
     json_status = "✅" if json_contract_ok else "❌"
     json_result = (
-        f"{items_count or 0} items, JSON Schema OK"
+        loc.t("items_count", n=items_count or 0) + ", " + loc.t("json_schema_ok")
         if json_contract_ok
-        else "ошибки структуры / схемы"
+        else loc.t("json_schema_fail")
     )
     yt_status = (
         "✅"
@@ -780,7 +857,7 @@ def build_report(
         else f"Coverage {coverage_pct:.0f}% ({matched}/{window_total}), Topic consistency Н/Д"
     )
     llm_status = "⏳"
-    llm_result = "шаг 5 не выполнен"
+    llm_result = loc.t("llm_step_pending")
     if llm_verdicts:
         n = len(llm_verdicts)
         both = sum(
@@ -789,13 +866,21 @@ def build_report(
         )
         if both == n:
             llm_status = "✅"
-            llm_result = f"все {n} глав без замечаний"
+            llm_result = loc.t("llm_all_ok", n=n)
         elif both >= n * 0.7:
             llm_status = "⚠️"
-            llm_result = f"{both}/{n} глав без замечаний"
+            llm_result = (
+                f"{both}/{n} chapters OK"
+                if loc.lang == "en"
+                else f"{both}/{n} глав без замечаний"
+            )
         else:
             llm_status = "❌"
-            llm_result = f"{both}/{n} глав ок"
+            llm_result = (
+                f"{both}/{n} chapters OK"
+                if loc.lang == "en"
+                else f"{both}/{n} глав ок"
+            )
 
     from splitter_validate_chapters import build_unified_pipeline_checks_table
 
@@ -819,7 +904,7 @@ def build_report(
         lines.append("")
 
     lines.append("---\n")
-    lines.append("## Проверка 2. Сверка с тайм-кодами YouTube (шаг 4)\n")
+    lines.append(loc.t("check2_title") + "\n")
     lines.append("")
 
     from splitter_validate_chapters import build_check2_glossary
@@ -912,6 +997,7 @@ def main():
 
     splitter_path = Path(args.splitter)
     video_path = Path(args.video)
+    activate_locale(detect_language_for_folder(video_path.parent))
 
     if not splitter_path.exists():
         print(f"ERROR: splitter file not found: {splitter_path}", file=sys.stderr)

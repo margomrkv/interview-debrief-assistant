@@ -1,0 +1,3654 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 2,
+  "basename": "product-analyst-middle-avito-avito-2024-04-04",
+  "transcript_folder": "transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04",
+  "source_id": "product_analyst_middle_avito_avito_2024_04_04",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 19:50:46 +0200",
+  "updated_at": "2026-05-20 20:03:23 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/timecodes.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 19:50:46 +0200"
+    },
+    {
+      "id": 2,
+      "name": "qa_extraction",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md#LLM_INPUT_STEP_2"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json"
+      ],
+      "status": "completed",
+      "duration_sec": 300.0,
+      "notes": null,
+      "finished_at": "2026-05-20 19:54:17 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 20:03:23 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 20:03:23 +0200"
+    },
+    {
+      "id": 5,
+      "name": "semantic_validation",
+      "llm": true,
+      "model": "claude-sonnet-4-6",
+      "inputs": [
+        "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md#LLM_INPUT_STEP_5"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 90.0,
+      "notes": null,
+      "finished_at": "2026-05-20 19:54:17 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v2
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04`
+- **Source ID:** `product_analyst_middle_avito_avito_2024_04_04`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 19:50:46 +0200
+- **Last updated:** 2026-05-20 20:03:23 +0200
+
+Фильтр в IDE: `*product-analyst-middle-avito-avito-2024-04-04.v2*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/timecodes.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md` | — | completed |
+| 2 | qa_extraction | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md#LLM_INPUT_STEP_2` | `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json` | 300.0s | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.xlsx` | 1.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md` | 1.0s | completed |
+| 5 | semantic_validation | yes | claude-sonnet-4-6 | `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md#LLM_INPUT_STEP_5` | `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md` | 90.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: product_analyst_middle_avito_avito_2024_04_04
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:00] [музыка]
+[00:00:28] E
+[00:00:52] [музыка]
+[00:00:58] новости
+[00:01:01] [музыка]
+[00:01:20] [музыка]
+[00:01:28] K
+[00:01:31] [музыка]
+[00:01:56] [музыка]
+[00:01:58] spe
+[00:02:00] [музыка]
+[00:02:11] [музыка]
+[00:02:18] [музыка]
+[00:02:28] P
+[00:02:30] [музыка]
+[00:02:58] E
+[00:03:00] [музыка]
+[00:03:16] [музыка]
+[00:03:28] no
+[00:03:30] [музыка]
+[00:03:58] присоединился к нашему интервю на
+[00:04:00] позицию продуктового аналитика Меня
+[00:04:02] зовут Дмитрий Сергеев я руковожу
+[00:04:04] аналитикой кластера логистики в Авито и
+[00:04:07] сегодня буду немного модерировать нашу
+[00:04:09] встречу и быть в ней ведущим давайте для
+[00:04:12] начала проверим всё ли в порядке с
+[00:04:14] технической точки зрения если вы меня
+[00:04:15] хорошо видите и слышите Напишите
+[00:04:18] пожалуйста в чат на
+[00:04:24] ютубере времени и тем как я вижу это
+[00:04:27] есть небольшая задержка поэтому могу
+[00:04:28] отвечать на ва вопросы не сразу э
+[00:04:31] поэтому пишите мы всё равно всё это
+[00:04:33] увидим А мы очень надеемся что вы
+[00:04:35] найдёте для себя что-то интересное и
+[00:04:37] ответите на свои вопросы Ведь мы сегодня
+[00:04:39] хотим вот показать действительно
+[00:04:40] реальный кейс как у нас происходит
+[00:04:42] собеседование на позицию продуктового
+[00:04:44] аналитика уровня Мидл и выше А Вы
+[00:04:46] посмотрите на то какие вопросы Мы задаём
+[00:04:49] но наверное самое интересное что будет
+[00:04:50] здесь это после окончания интервью у нас
+[00:04:53] будет как бы процесс обратной связи и по
+[00:04:56] тому как вообще собеседование
+[00:04:58] происходила Мне кажется что это наверное
+[00:04:59] самая интересная и вкусная часть
+[00:05:01] сегодняшнего нашего мероприятия и
+[00:05:03] немножко технических аспектов прежде чем
+[00:05:05] мы перейдём к интервью а оно будет
+[00:05:08] длиться примерно 1:120 интервьюер будет
+[00:05:11] задавать вопросы кандидату но если что
+[00:05:13] вы тоже можете участвовать в этом
+[00:05:14] интерактив и отвечать на них в чате на
+[00:05:17] ютубере бя это видеть не будут но зато
+[00:05:19] все мы сможем проком и видеть какие
+[00:05:21] ответы даёт наш коммьюнити тех кто к нам
+[00:05:23] сегодня присоединился и если останется
+[00:05:25] время по окончанию нашей встречи мы
+[00:05:27] выберем три вопроса и на них ответим в
+[00:05:29] рамках как раз-таки нашего собеседования
+[00:05:32] и также я попрошу вас оценить наше
+[00:05:34] открытое интервью в конце будет ссылка
+[00:05:36] на общую форму обратной связи поэтому
+[00:05:39] оставляйте её нам это будет очень
+[00:05:41] полезно ну и сейчас я бы хотел
+[00:05:43] представить как раз моих коллег Кто
+[00:05:44] сегодня будет проводить участвовать в
+[00:05:46] собеседовании это будут Егор Беседин Это
+[00:05:51] руководитель продуктовой аналитики
+[00:05:52] монетизации рекламы в Авито Егор провёл
+[00:05:55] Мне кажется уже сотни собеседований
+[00:05:57] аналитиков разного уровня И вообще Егор
+[00:06:00] человек который в нашей компании
+[00:06:01] отвечает и курирует процесс э найма
+[00:06:04] аналитиков для всего Авита улучшая
+[00:06:06] процессы и в общем Егор наш апологет в
+[00:06:09] этого стрима А да это Егор Егор Да
+[00:06:12] привет отвечать на его вопросы сегодня
+[00:06:15] будет Вова камчаткин это продуктовый
+[00:06:17] аналитик в компании идра ранее Вова был
+[00:06:20] руководителем аналитиков компании Ozone
+[00:06:23] и нтех И вообще Вова сам тоже когда-то
+[00:06:26] проводил открытое интервью а также ведёт
+[00:06:28] свой Telegram канал прор обу аналитиков
+[00:06:30] данных вот ребят
+[00:06:33] Привет всем привет Да думаю что на этом
+[00:06:36] Моя роль в самом начале закончено я
+[00:06:38] передаю микрофон вам увидимся в конце
+[00:06:41] интервью как раз поработаем с вопросами
+[00:06:43] которые Надеюсь нам Ребята оставят в
+[00:06:45] комментариях на
+[00:06:47] тубе Спасибо Дим Ну что ва давай
+[00:06:52] начнём Сегодня у нас будет такое МОК
+[00:06:55] интервью оно очень близкое к тому что мы
+[00:06:57] проводим в реальной жизни сно поправкой
+[00:07:00] Что обычно у нас разделено всё на две
+[00:07:03] части на на два процесса на две встречи
+[00:07:06] А сегодня Мы совместим всё в одной и
+[00:07:10] попробуем немножечко больше показать
+[00:07:12] контента для наших зрителей А по плану
+[00:07:15] интервью значит сначала прошу тебя
+[00:07:17] представиться рассказать про себя про
+[00:07:19] свой путь далее поговорим про твой опыт
+[00:07:22] Потом решим небольшую задачку и самая
+[00:07:25] основная часть мы разберём продуктовый
+[00:07:27] кейс О'кей да Давай погнали отлично
+[00:07:31] погнали тогда Пожалуйста расскажи
+[00:07:32] немножко про себя про свой путь в
+[00:07:35] аналитике Да спасибо большое Егор
+[00:07:39] Спасибо Диме за представление Да сейчас
+[00:07:42] я в такой нестандартной форме покажу
+[00:07:46] презентацию о себе Вот и расскажу про
+[00:07:50] свой опыт про то чем занимался какими
+[00:07:53] навыками владею В общем всё это мы
+[00:07:55] увидим в моей презентации
+[00:07:58] вот должно быть видно мою презентацию
+[00:08:01] если что пишите в чате если не будет
+[00:08:03] видно вот э значит мой карьерный путь
+[00:08:06] как я вообще докатился до такой жизни
+[00:08:08] продуктовым аналитиком а тоже офтоп всё
+[00:08:12] это я расскажу очень коротко без
+[00:08:15] каких-либо деталей вот можно будет
+[00:08:18] задавать вопросы значит
+[00:08:21] э Образование у меня МФТИ закончил Я
+[00:08:25] бакалавриат и магистратуру МФТИ А
+[00:08:28] бакалавриат у меня такая техни
+[00:08:29] база физико-математическая магистратура
+[00:08:32] у меня больше уже
+[00:08:35] бизнесов то есть близко к продуктовому
+[00:08:38] менеджменту продуктовой аналитике также
+[00:08:40] в МФТИ я работал концептуальным
+[00:08:43] аналитиком что-то близко к работе с
+[00:08:46] базами данных после этого перешёл в
+[00:08:49] прокт
+[00:08:50] менеджмент где-то полгода работал
+[00:08:53] продукт менеджером младшим вот после
+[00:08:56] этого перешёл в руководителя
+[00:08:58] бизнес-аналитики в подчинени у меня было
+[00:09:01] аналитиков вот
+[00:09:03] вте далее мой путь перел в продуктовую
+[00:09:08] аналитику в
+[00:09:11] азоне этот же путь я продолжил
+[00:09:14] в продуктовым аналитиком в течение оного
+[00:09:17] года и вот сейчас я нахожусь На позиции
+[00:09:20] продуктового аналитика в ин драйве вот
+[00:09:23] уже больше года
+[00:09:25] изучаем более различны
+[00:09:30] вот очень интересный такой опыт Ну и
+[00:09:33] помимо своей рабочей деятельности Также
+[00:09:36] занимаюсь просветительской деятельностью
+[00:09:38] это веду Telegram канал по продуктовой
+[00:09:40] аналитике выступаю на
+[00:09:43] метапан аналитиков и даже продуктов Вот
+[00:09:47] и преподаю продуктовую
+[00:09:49] аналитику Угу Да а сразу Да оговоримся
+[00:09:55] Егор Если тебе удобно можешь наверное
+[00:09:57] сразу после того как я заканчиваю
+[00:09:59] рассказывать слайд задавать вопросы не
+[00:10:02] класс Да отлично давай давай тог
+[00:10:04] поступим пока Вопросов нет всё предельно
+[00:10:06] понятно супер А ну дальше это
+[00:10:10] такой более базовый общий слайд то есть
+[00:10:16] Базис продуктового аналитика как я его
+[00:10:18] вижу Ну и как В целом за мою карьеру это
+[00:10:20] SQL н статистика средства визуализации и
+[00:10:23] продуктовое такое понимание то есть
+[00:10:25] продуктовые кейсы Вот это всё то о чём а
+[00:10:30] должен вдеть продуктовый
+[00:10:32] аналитик Ну и уже конкретно про мой стек
+[00:10:35] технологий а слева это Хард скилы справа
+[00:10:38] - это софт скилы вот тоже тут коротко
+[00:10:42] пройдусь а ну SQL у меня был опыт с Клик
+[00:10:45] хаусом Веркой mysql pog и py Ну
+[00:10:51] естественно работал с оконными функциями
+[00:10:53] вот далее Pon - это тоже стандартный
+[00:10:57] такой набор пан па в принципе тут всё
+[00:11:00] перечислено вот
+[00:11:02] Аа ну и а тесты статистика а плюс
+[00:11:06] визуализация в супер сайте в табло это
+[00:11:09] тоже то с чем я работал Ну ещё тоже
+[00:11:11] интересные такие навыки которые я сюда
+[00:11:13] добавил это презентация результатов и
+[00:11:15] интерес к Великому тоже Ну интерес к
+[00:11:17] Великому Я здесь подразумеваю там
+[00:11:19] критическое мышление и вот какие-то
+[00:11:22] такие вопросы а почему а зачем вот
+[00:11:25] а и переходим к софт скилам
+[00:11:30] это ответственность и
+[00:11:34] самостоятельность После перехода там на
+[00:11:36] уровень мил и выше
+[00:11:39] естественно такое такие навыки
+[00:11:43] должны преобладать у аналитика вот
+[00:11:47] выстраивание процессов работы команды
+[00:11:49] это там планирование команды обучение -
+[00:11:51] это всё мой опыт менеджер Вот про
+[00:11:55] активный подход к аналитике
+[00:11:56] коммуникабельность и вот про управлени
+[00:11:59] командой Я тоже поговорил Это как в
+[00:12:02] рабочее время так и в нерабочее время
+[00:12:04] Угу Да здорово А в принципе в моём плане
+[00:12:08] тоже было поговорить про рде Давай Здесь
+[00:12:10] пару уточнений сделаю Расскажи
+[00:12:12] пожалуйста с точки зрения SQL
+[00:12:13] приходилось ли тебе оптимизировать
+[00:12:15] запросы А вообще в целом ли были такие
+[00:12:18] был Был ли такой у тебя была ли такая
+[00:12:20] потребность Если да то что делал Сорри
+[00:12:25] что-то у меня зву звук прервался Да а
+[00:12:28] прямой эфир понятно
+[00:12:30] сейчас слышно да да слышно вот я одно
+[00:12:32] слово не услышал была ли у тебя в твоей
+[00:12:35] практике потребность необходимость
+[00:12:37] оптимизировать запросы а оптимизировать
+[00:12:40] запросы да да была особенно в ин драйве
+[00:12:45] на последнем моём месте работы
+[00:12:48] когда 47
+[00:12:51] стран очень много если по всем странам
+[00:12:54] собирать вот
+[00:12:57] ИТ ня опыт Мы кстати уже Ну не прямо
+[00:13:02] активно но начали взаимодействовать с
+[00:13:03] искусственным интеллектом чтобы он тоже
+[00:13:06] нам какие-то подсказки давал
+[00:13:08] а Бота к ску прикрутили вот ну и плюс до
+[00:13:14] этого тоже сам самостоятельно
+[00:13:16] оптимизацией запросов занимался Угу А
+[00:13:20] что какие применял методы Ну для
+[00:13:22] запросов Если какие короче чем чем
+[00:13:25] пользовался Какими методами Угу
+[00:13:29] а ну в основном это
+[00:13:33] были
+[00:13:35] различные Ну либо я
+[00:13:46] преобразовывать В общем несколько сетей
+[00:13:48] запрос
+[00:13:50] таблиц таблиц Ага дадада
+[00:13:54] а плюс ну самое базовое - это просто
+[00:13:57] фильтрацию добавлять а дополнительную
+[00:14:00] чтобы не не выгружать всё что не нужно
+[00:14:03] вот а потом Ну если мне нужно
+[00:14:08] подсчитать Ну какие-то агрегации сделать
+[00:14:11] то это я не там в два этапа сразу же в
+[00:14:15] самом запросе это делал Угу Да понятно А
+[00:14:20] план запроса смотрел Ну использовал
+[00:14:22] вообще этот инструмент м план
+[00:14:28] запроса но Джов например
+[00:14:30] шесть
+[00:14:44] джоновна сделать А и кстати тоже
+[00:14:47] небольшой втоп я сам даже
+[00:14:50] проводил такое тестирование gpt 3,5 и
+[00:14:53] чет версии четвёртая версия лучше
+[00:14:57] справляется с
+[00:15:01] круто окей да спасибо спасибо что
+[00:15:04] поделился и про pyon Скажи пожалуйста ну
+[00:15:08] просто пример задач которые решал с
+[00:15:10] помощью инструмента то назвал библиотеки
+[00:15:12] котом пользовался а какой клас задач в
+[00:15:15] принципе или какие классы
+[00:15:18] задач Ну наверное больше всего сейчас у
+[00:15:21] меня это
+[00:15:22] Ате Вот то есть выгрузка
+[00:15:25] данных и дачне даже в самом Google колам
+[00:15:30] я сейчас пользуюсь активно Вот то есть
+[00:15:32] там же SQL написал и дальше
+[00:15:36] преобразование Ну обработка данных и
+[00:15:39] стат значимость Ну статистические
+[00:15:41] какие-то методы применения в самом
+[00:15:44] питоне угу вот а это наверное
+[00:15:49] самая большая часть времени чем я
+[00:15:53] занимаюсь Ну также ещё
+[00:15:57] м а ну
+[00:15:59] Может быть сюда ещё можно отдельно
+[00:16:00] выделить визуализацию То есть когда там
+[00:16:04] исследования связанные с
+[00:16:08] проблемами Ну проблемами в Метрика в
+[00:16:11] графиках то есть какие-то падения
+[00:16:13] какие-то наоборот Ну да резкие падения
+[00:16:17] чаще всего Ну бывает ещё и рост чтобы
+[00:16:19] тоже поис следовать посмотреть с чем это
+[00:16:22] мо може быть связано Покрути гипотеза
+[00:16:25] это тоже и с помощью визуализации с
+[00:16:27] помощью питона а угу С делаю Вот
+[00:16:32] м ну вот Наверное это вот самое основное
+[00:16:37] Ага понятно Да а визуализация получается
+[00:16:40] чаще в питоне чем в какой-то би системе
+[00:16:42] то есть где это более привычный
+[00:16:44] инструмент А в последнее время да то
+[00:16:47] есть у нас есть отдельные Bi инженеры То
+[00:16:50] есть я там могу очень базовую ну быстро
+[00:16:53] так сказать на коленке визуализацию
+[00:16:56] делать табло и дальше уже м Я инженер он
+[00:17:00] Угу закручивает до такого О'кей Да понял
+[00:17:04] и последний вопрос наверное про эту
+[00:17:05] часть А с точки зрения машина обучения
+[00:17:08] есть ли у тебя опыт практика или может
+[00:17:10] быть теория делали
+[00:17:12] что-то нет машина Ну машинно мучение У
+[00:17:16] меня есть только базовые какие-то
+[00:17:18] теоретические знания с универа вот на
+[00:17:22] практике Я особо не пользуюсь вот
+[00:17:26] Единственное ну одна из одна задач у
+[00:17:28] меня бы не совсем машина обучения но
+[00:17:30] какой-то такой анализ что
+[00:17:34] ли лексический анализ Ну текстов текстов
+[00:17:38] которые у нас в
+[00:17:41] переписках вот в моём
+[00:17:44] продукте Ну как бы не прямо какое-то
+[00:17:47] машинное обучение окей да хорошо Да я
+[00:17:52] понял По sks Здесь всё опреде Понятно В
+[00:17:55] общем Спасибо что
+[00:17:57] поделился давай двигаться дальше тогда
+[00:18:00] Угу спасибо за
+[00:18:02] вопросы так Ну тут у меня уже идёт Да
+[00:18:05] блог с какими-то моими кейсами с
+[00:18:09] результатами точнее даже А во время
+[00:18:12] предыдущих работ и на текущем месте
+[00:18:14] работы вот здесь просто наверно коротко
+[00:18:16] скажу как я обычно рассказываю Вот и
+[00:18:20] дальше наверное можем уже твоим вопросом
+[00:18:22] по этой части перейти То есть я
+[00:18:25] придерживаюсь следующей структуры что у
+[00:18:26] меня есть результат Ну вот берём намер
+[00:18:29] слева а by clients вот есть результаты и
+[00:18:32] дальше Вот четыре блока четыре пункта -
+[00:18:34] это сама ситуация то есть погрузиться
+[00:18:37] немного в контекст чтобы ну ты как
+[00:18:41] менеджер тоже
+[00:18:43] понимал вот дальше это сама задача что
+[00:18:47] из себя представляла В каком виде там
+[00:18:49] она ко мне пришла Вот что делал и ну
+[00:18:53] результат уже да как таковой он тут
+[00:18:57] присутствует вот
+[00:18:59] Так у меня расписаны как раз все мои
+[00:19:03] кейсы в таком ключе Ну естественно в
+[00:19:06] самом
+[00:19:07] результате важно метри результат делать
+[00:19:11] Вот чтобы
+[00:19:14] понимать к чему какому результату мы
+[00:19:17] пришли
+[00:19:18] вот да у меня тут расписано
+[00:19:21] [музыка]
+[00:19:27] ри а давай тогда и про как раз поговорим
+[00:19:31] про какие-нибудь
+[00:19:33] а-а результаты которые в общем-то
+[00:19:35] достигал бизнес Э благодаря твоей работы
+[00:19:39] можешь ли поделиться каким-то кейсом
+[00:19:40] может быть из тех что есть на слайде или
+[00:19:42] ка более свежий на драйва Если тебе это
+[00:19:45] а лиже и легче В общем Да расскажи
+[00:19:48] пожалуйста а какой-нибудь какую-нибудь
+[00:19:51] аналитическую задачу которую ты решал и
+[00:19:53] результаты е значимо повлияли на а
+[00:19:55] ключевые метрики команды бизнеса в общем
+[00:19:58] Угу
+[00:19:59] Да окей Давай наверное из свежего чтобы
+[00:20:01] у меня как можно больше контекста было
+[00:20:03] вот в голове значит в н драйве продукт
+[00:20:08] Ну вот ситуацию буду описывать продукт
+[00:20:11] essenger То есть это ну возьмём
+[00:20:14] переписки между водителем и пассажиром
+[00:20:17] То есть это условно такое такси вот н и
+[00:20:22] у нас есть во время поездки переписки в
+[00:20:24] чате Вот это мой
+[00:20:27] продукт
+[00:20:29] что мы хотим нашим продуктам улучшать
+[00:20:32] это как раз таки чтобы наши основные
+[00:20:35] бизнесов не нашего продукта метрики
+[00:20:38] связанные
+[00:20:39] с выполненными поездками или наоборот
+[00:20:43] отменённые улучшали Ну там в деньгах и
+[00:20:47] прочих таких Метрика вот у нас как раз
+[00:20:51] была
+[00:20:51] гипотеза основанная на том что ну начну
+[00:20:55] наверно чуть с этого что у нас были
+[00:20:57] проблемы
+[00:20:59] проблемы связанные
+[00:21:01] с Так сейчас я чуть задумался стоит мне
+[00:21:04] такое такие подробности рассказывать или
+[00:21:07] нет
+[00:21:09] Наверное чтобы Да ничего неть лишнего
+[00:21:12] Давай наверное просто да какие-то
+[00:21:13] проблемы без конкретики вот мы как раз
+[00:21:17] таки на основе данного исследования этих
+[00:21:19] проблем взяли гипотезу гипотеза связано
+[00:21:22] с тем что мы добавим в чат возможность
+[00:21:26] отправки медиафайлов
+[00:21:28] в первую очередь вот тем самым мы полем
+[00:21:33] эти проблемы которые влияют на отмены Ну
+[00:21:36] или на выполненные поездки Вот и вот
+[00:21:40] такая Да ситуация задача была поставлена
+[00:21:42] следующим образом что есть гипотеза
+[00:21:46] Давайте подумаем А как её проверить вот
+[00:21:50] там не знаю стандартный атест или ещё
+[00:21:52] какие-то другие способы не тестировани
+[00:21:55] если этото сложно или не нужно тут
+[00:21:58] делать вот Ну мы пошли АТЕМ тут в
+[00:22:01] принципе не было
+[00:22:03] какого-то сложного случая
+[00:22:07] вот тут наверно тоже сейчас в детали не
+[00:22:10] буду сильно углубляться В общем я
+[00:22:12] дизайном
+[00:22:14] Ате занимался плюс по итогу подготовил
+[00:22:17] там естественно расчёты Сколько времени
+[00:22:20] нужно проводить этот тест на какой
+[00:22:22] аудиторию Ну вот такие бае вот прол
+[00:22:27] получил результат
+[00:22:29] Ну и в результате тоже пон не буду
+[00:22:32] говорить конкретные фры относительно
+[00:22:34] могу сказать что 30
+[00:22:37] 40% это тоже в зависимости от
+[00:22:40] страны мы эксперимент проводили
+[00:22:44] мы
+[00:22:46] получается уменьшили количество
+[00:22:50] отмен это прям такой суу эфе для
+[00:22:56] быт тоже ста страны потому что в
+[00:23:00] каких-то странах там либо вообще не было
+[00:23:02] эффекта либо он маленький был вот
+[00:23:05] наверно тоже в детали не буду тебя
+[00:23:06] погружать
+[00:23:07] игу вот какие-то такие штуки
+[00:23:12] сделали получили результат Вот наверное
+[00:23:17] тут А скажи пожалуйста вот ты говоришь
+[00:23:20] есть гипотеза Да и ты уже придумал
+[00:23:22] проверять а сама гипотеза она появись из
+[00:23:25] твоего или она откуда Из мене пришла Так
+[00:23:28] ну этот resch был от C Ну от других
+[00:23:32] команд назовём так вот то есть у нас по
+[00:23:36] сути такой продукт который не напрямую
+[00:23:39] на поездки влияет потому что не во всех
+[00:23:42] случаях происходят переписки Но вот мы
+[00:23:45] видим проблемы от других
+[00:23:47] команд которые непосредственно влияют на
+[00:23:50] вот этот Фло поездки вот мы от них
+[00:23:54] получили до
+[00:23:56] уточнили чтобы нам тоже понимать
+[00:23:59] СФ
+[00:24:01] гите вот Окей О да Понятно
+[00:24:05] спасибо хорошо да можем двигаться дальше
+[00:24:09] как по моим вопросам или у тебя есть ещ
+[00:24:12] часть которую ты хочешь расказать в
+[00:24:14] своём с презентации Ну наверно тоже
+[00:24:17] коротко скажу как бы я ещё если бы это
+[00:24:20] не мог интервью а чуть побольше
+[00:24:23] потра времени
+[00:24:27] я
+[00:24:29] результатов дизайна эксперимента вот
+[00:24:32] какого-то своего кейса Возможно даже про
+[00:24:34] который я сейчас рассказал вот чтобы
+[00:24:36] тоже было представление не только на
+[00:24:38] словах но и как именно у меня выглядит
+[00:24:41] результат Вот это так для для наших
+[00:24:45] слушателей больше рекомендация вот Ну и
+[00:24:49] дальше у меня Да просто вот слайд уже
+[00:24:52] окоча СМИ
+[00:24:57] контактами Спасибо Да ну твои контакты Я
+[00:25:00] знаю мы же
+[00:25:01] готовились вот здорово спасибо большое
+[00:25:04] что рассказал на самом деле
+[00:25:05] действительно редко встречаются
+[00:25:07] кандидаты которые прям структурно
+[00:25:09] подходят к описанию своего опыта
+[00:25:11] настолько что даже года презентацию про
+[00:25:14] то как ты решал бы кейс мы обязательно
+[00:25:16] поговорим в целом дальше в рамках нашего
+[00:25:19] интервью поэтому этого ещё коснётся и
+[00:25:21] тоже тех тем которые ты там понимал в
+[00:25:23] том числе про дите и так далее это будет
+[00:25:25] ть дальше Давай ещё немножко поговорим
+[00:25:28] про
+[00:25:28] твой опыт какие-то вопросы по задаю
+[00:25:31] которые меня интересуют а Раскажи
+[00:25:33] пожалуйста наверное в целом нам
+[00:25:34] презентация сейчас уже больше не нужна
+[00:25:36] будет Поэтому в принципе мо уже
+[00:25:38] разговаривать скорее про вещи
+[00:25:41] которые не на экране будут А скажи
+[00:25:45] пожалуйста в целом Вот если сейчас твой
+[00:25:47] твой ну твою работу представить то как
+[00:25:51] обычно к тебе попадает задачу а в
+[00:25:54] общем-то откуда они берутся у тебя и как
+[00:25:56] подают к тебе угу
+[00:25:58] Да окей вопрос плюс-минус понял Наверное
+[00:26:02] в процентах 70 случаев именно в моём в
+[00:26:07] моём контексте что ли работы это наши
+[00:26:09] задачи уже из какого-то блога
+[00:26:12] планирования Вот то есть мы там ну
+[00:26:16] сейчас тоже наверное в это углубляться
+[00:26:17] не буду То есть у нас есть клок мым
+[00:26:20] задачи и вот дальше уже на моей стороне
+[00:26:23] но бывают случаи там в 20-3
+[00:26:27] случаев
+[00:26:28] Да я ну исходя из своих рчв точнее
+[00:26:33] результатов каких-то не знаю а тестов
+[00:26:35] или
+[00:26:36] речей каких-то наших падений метрик
+[00:26:39] обнаруживаю что у нас могут быть связаны
+[00:26:42] не знаю с какими-то техническими
+[00:26:43] проблемами ещё что-то
+[00:26:45] А ну нет технически это не то это не
+[00:26:48] генерирует мне дополнительную задачу
+[00:26:50] чаще всего вот там скорее я вижу что
+[00:26:55] есть какой-то эффект но какие-то детали
+[00:26:58] изначально мы не планировали но я вижу
+[00:27:01] что можно покопать и предлагаю со своей
+[00:27:04] стороны Вот как я говорил про
+[00:27:07] проактивность покопать чучуть глубже
+[00:27:10] потратить чуть больше времени Вот потому
+[00:27:13] что эффект интересный может быть
+[00:27:15] какая-то другая
+[00:27:16] сегментация нам может показать Ну не
+[00:27:20] знаю инсайты Угу угу окей да спасибо
+[00:27:25] спасибо что поделился а сжи пожалуйста
+[00:27:27] вот прок Э ты говоришь что там 2/3 задач
+[00:27:31] появляются из твоего бэклога а
+[00:27:33] формулируется формируется он кем то есть
+[00:27:35] это что-то уже изначально давно было и
+[00:27:37] вы разгребает его или вы Пополняется его
+[00:27:39] пополняет его продуктами аналитиками то
+[00:27:41] есть вообще как как он как он какой
+[00:27:44] жизне он живёт э клока ну базово он от
+[00:27:47] продукта идёт Угу То есть он как
+[00:27:50] раз-таки к планированию Да всё это
+[00:27:52] собирает но в этом планировании также
+[00:27:56] участвуем Discovery команда
+[00:27:59] я вот ну совместно с продуктом Ну ещё
+[00:28:02] кстати технический менеджер тоже техлит
+[00:28:05] включается Вот и мы уже и со своей
+[00:28:08] стороны тоже можем какие-то свои идеи
+[00:28:11] мысли вот я не знаю с предыдущих ресей
+[00:28:15] набрасывать Вот Ну а я со своей стороны
+[00:28:17] там когда мы обсуждаем идеи Стараюсь
+[00:28:20] больше как-то
+[00:28:22] аналитически ну то есть какие-то данные
+[00:28:25] сюда подкидывать чтобы мы не просто там
+[00:28:29] потому что нам так кажется у конкурентов
+[00:28:30] так есть вот но ещё и наш
+[00:28:36] бизнесом наших пользователей окей да
+[00:28:40] Понятно спасибо А вот как раз про
+[00:28:41] планирование начали говорить Расскажи
+[00:28:43] пожалуйста в целом как устро
+[00:28:45] планирование какой горизонт
+[00:28:47] планирования у тебя у команды какой как
+[00:28:50] раз ты какую роль ты играешь ВМ
+[00:28:56] планировани У нас есть
+[00:28:59] в
+[00:29:00] декабре такое годовое планирование но
+[00:29:03] оно более общее что ли то есть там нас
+[00:29:07] особо не привлекают Ну мы просто вот
+[00:29:09] какой-то кло можем набрасывать Но больш
+[00:29:15] больший вклад что ли Как Discovery
+[00:29:17] команда
+[00:29:18] мы вносим Во время квартального
+[00:29:22] планирования месяца
+[00:29:24] планируем за за недели щего
+[00:29:29] предыдущего на следующий Вот то есть у
+[00:29:32] нас планирование первое ТО Да
+[00:29:35] квартальное где мы активно участвуем Ну
+[00:29:38] и второе - это как мы участвуем я в
+[00:29:41] принципе до этого наверное рассказал Угу
+[00:29:44] именно моё участие Угу Угу Да понятно в
+[00:29:48] квартальном планировани получается Ты
+[00:29:50] приносишь какие-то задачи аналитики про
+[00:29:53] то чтобы в этом квартале хотелось бы
+[00:29:54] такое порешать или скорее ты говоришь
+[00:29:57] задачу говоришь Я знаю как её порешать
+[00:30:00] мы будем делать её так или там у неё
+[00:30:02] потенциал такой то есть вот Какая здесь
+[00:30:04] у тебя роль в планировании квартальном
+[00:30:06] Угу Ну вот я ещё Кстати забыл наверное
+[00:30:09] сказать что по сути два блока что ли
+[00:30:12] задач можно выделить у меня это такие
+[00:30:15] Discovery research назовём это новые не
+[00:30:18] знаю
+[00:30:19] фичи проблем и вот какая-то операционка
+[00:30:22] связаная с аналитикой с данными с тем
+[00:30:25] как мы это собираем обрабатываем потом
+[00:30:28] тало Вот то есть я и там и там ста
+[00:30:32] участвовать и вот какие-то вещи из
+[00:30:34] операционки тоже со своей стороны уже не
+[00:30:37] знаю более детально с ответом на вопрос
+[00:30:40] Зачем А почему это нам нужно Вот это да
+[00:30:44] операционка И вот какие-то
+[00:30:47] р там со своей
+[00:30:50] стороны Ну я вот стараюсь если у нас
+[00:30:53] есть гипотеза Ну или фича не
+[00:30:56] знають в этом
+[00:30:59] квартале задаю вопрос всегда А почему мы
+[00:31:01] решили что это поможет а какие проблемы
+[00:31:04] это решает
+[00:31:05] А ну в общем Откуда это появилось что мы
+[00:31:10] поможем как мы поможем пользователям
+[00:31:12] нашим вот ну и есть ли какие-то данные
+[00:31:16] То есть просто на словах сказать что там
+[00:31:19] решим вот такую-то проблему
+[00:31:22] вот в разных
+[00:31:24] случаях данные тоже могут
+[00:31:26] быть Да и получается что вот э эти
+[00:31:29] задачи ты как раз в квартальном
+[00:31:31] планировани приносишь да Или это в
+[00:31:32] операционки ты как бы там условно каждый
+[00:31:35] спринт можешь придумать что-то принести
+[00:31:36] и сделать То есть
+[00:31:39] м ну операционка - это с моей стороны Да
+[00:31:42] А мы на квартал планируем если ресерч то
+[00:31:47] тут Наверное чаще всего это да мы вот
+[00:31:49] планируем на квартал но если я во время
+[00:31:51] не знаю подведение результатов об
+[00:31:54] обнаружил какие-то не знаю разные
+[00:31:56] инсайты о которых мы Ну просто думали не
+[00:32:00] видели то тоже можно чуть в другую
+[00:32:03] сторону
+[00:32:04] погрузиться А ну это наверное тоже если
+[00:32:08] в процентном соотношении там не знаю 80
+[00:32:10] на 20 где-то вот прямо льно новая задача
+[00:32:14] может появиться О'кей понятно да спасибо
+[00:32:17] А скажи пожалуйста у тебя один
+[00:32:19] продакт-менеджер или какая-то команда
+[00:32:21] заказчиков то есть с кем ты
+[00:32:22] взаимодействует
+[00:32:24] Так ну вот ээ за полтора года по сути
+[00:32:30] сейчас последние полгода один вот а е у
+[00:32:35] меня был опыт взаимодействия с четырьмя
+[00:32:39] командами
+[00:32:41] какое-то Да я как раз хотел что перебил
+[00:32:45] Мне кажется ровно это мне интересно было
+[00:32:47] узнать как ты собственно разрулил всех
+[00:32:49] этих заказчиков как ты понимал ч задачи
+[00:32:52] взять кому отказать или не ю или бы брал
+[00:32:55] все
+[00:32:56] задачи здесь Да здесь мне очень сильно
+[00:33:00] помогает мой менеджерский опыт в
+[00:33:01] предыдущих компаниях
+[00:33:04] вот зоне нте там вот не знаю ли с
+[00:33:08] первого дня что ли взаимодействие была
+[00:33:11] куча заказчиков и нужно было да
+[00:33:13] научиться говорить нет Ладно сейчас
+[00:33:16] Лирику
+[00:33:17] уберём как я
+[00:33:21] разруливает
+[00:33:27] забираю там Почему эта задача важна что
+[00:33:32] это даст бизнесу Угу а какие-то внешние
+[00:33:35] дедлайны То есть это не просто не знаю
+[00:33:37] Мне нужно через неделю А может быть это
+[00:33:40] связано там со встречей с топ
+[00:33:41] менеджментом там ещё связано то есть вот
+[00:33:45] какие-то такие внешние дедлайны которые
+[00:33:46] тоже влияют угу вот а это Ключевое
+[00:33:51] М
+[00:33:56] сейчас ну дальше Да мне нужно от
+[00:33:59] приоритизировать со своей стороны там
+[00:34:03] накинуть приоритеты исходя там из и
+[00:34:06] времени выполнения
+[00:34:08] задач тоже прикинуть пример там не знаю
+[00:34:11] условный
+[00:34:12] гант вот как как это всё ну и
+[00:34:17] периодически тоже бывает что нужно до
+[00:34:19] уточнять что-то Чтобы понимать больше
+[00:34:22] контекста и оценить вот Ну наверно тоже
+[00:34:25] в Дета могу приме Я в целом Я в целом
+[00:34:29] понял про Ну некоторую такую скоринг
+[00:34:31] задач и там по их важности ценности там
+[00:34:34] срочности и так далее анально решение
+[00:34:36] принимаешь сам условно что взять А что
+[00:34:39] не взять или это как-то дальше
+[00:34:41] возвращаешь заказчикам говоришь
+[00:34:43] Ребят вы вы не важны там сейчас условно
+[00:34:46] Да ваша задача там стоит меньше чем
+[00:34:48] задача ваших коллег Да конечно скрипя не
+[00:34:54] знаю на
+[00:34:56] серд со скрипом сердце приходится
+[00:34:59] отказывать но все все люди понимающие
+[00:35:03] Вот и когда я просто объясняю не просто
+[00:35:06] говорю что нет мы не берём задачу всё
+[00:35:08] Угу они просто уходят А я естественно
+[00:35:11] прихожу с каким-то доводами Почему я не
+[00:35:14] могу есть другие задачи и Ну да есть
+[00:35:17] другие задачи Угу Вот они более ценные
+[00:35:20] важные Вот
+[00:35:23] и если как бы заказчик О'кей он понимает
+[00:35:27] Угу мои доводы то тут точка Если не окей
+[00:35:31] то нужно идти уже чуть выше
+[00:35:34] там чаще всего это руководители как раз
+[00:35:37] эти заказчиков менеджеров в моём
+[00:35:40] последнем случае вот у
+[00:35:43] них которым я уже обсуждаю вот полу
+[00:35:48] задач Как ты считаешь и
+[00:35:51] почему Понятно
+[00:35:53] СБО скажи
+[00:35:56] поста тогда такой
+[00:35:59] вот небольшой дида сделаем в сторону
+[00:36:01] твоих задач и попрошу тебя рассказать
+[00:36:03] примеры какие-то задач которые ты решал
+[00:36:05] не нужно рассказывать как ты решал
+[00:36:07] скорее просто описать В чём была суть
+[00:36:09] Вот мо можеш сказать про сдачу с
+[00:36:11] наибольшей степени неопределённости в
+[00:36:13] изначальной формулировке да Ну понятно
+[00:36:15] что не в том что она просто мутная
+[00:36:17] какая-то Да може Может конечно и мутная
+[00:36:18] Ну в общем это нормальная задача Да но
+[00:36:20] вот Нана была какой-то мутной и дальше
+[00:36:21] ты Подошёл к к её решению как-то может
+[00:36:24] декомпозировать
+[00:36:27] нечто встроенное и с чем имеет смысл
+[00:36:30] работать
+[00:36:31] мм
+[00:36:35] сейчас б сложно так сразу вспомнить
+[00:36:38] во-первых потому что за последние
+[00:36:40] полгода у нас так выстроил всё процесс
+[00:36:43] заказчиком с менеджером что если мне
+[00:36:45] что-то непонятно при постановке я сразу
+[00:36:48] Уточняю и кажется как будто бы и не было
+[00:36:50] проблем вот а наверное когда я работал с
+[00:36:54] несколькими заказчиками
+[00:36:56] а
+[00:36:58] Ну вот мне чаще всего что не нравится в
+[00:37:00] постановке задачи это когда приходят
+[00:37:02] говорят я не знаю либо у нас упала
+[00:37:05] Метрика сходи Там Посмотри что что
+[00:37:08] случилось
+[00:37:09] А ну хотя это Это наверное щк а а вот
+[00:37:13] типа просто вот у меня идея идея фикс ти
+[00:37:16] Я хочу вот это раскатить вот хочу это
+[00:37:20] сделать Я не знаю в какие-то сроки
+[00:37:22] ближайшие то есть никакой конкретики нет
+[00:37:25] ответов на вопрос а почему а зачем
+[00:37:29] то есть нужно кучу всего до
+[00:37:33] уточнять просто пришёл типа вот ча Вот
+[00:37:36] такая у меня идея Аче Откуда она
+[00:37:39] появилась ничего нет вот много времени
+[00:37:42] может занимать уточнение эти
+[00:37:46] деталей сложно буде те привести пример
+[00:37:48] какой-нибудь вот такой задачи
+[00:37:54] Ну
+[00:37:56] сделал
+[00:38:00] сечас Наверное
+[00:38:02] это блин я вот ещё
+[00:38:05] боюсь бы я с
+[00:38:09] ко
+[00:38:11] Давай может быть в обх чертах то есть в
+[00:38:14] целом Наверное знаеш мне интересно вот
+[00:38:16] условно какого уровня была эта идея Да и
+[00:38:19] как эта идея превратилась в набор
+[00:38:26] каких компози друе
+[00:38:29] Угу Ну давай наверное да прямо общими
+[00:38:32] словами что ли буду говорить что вот
+[00:38:36] а ко мне пришли типа с такой-то Точнее к
+[00:38:39] нему даже то есть Это не его задача а к
+[00:38:41] нему пришли с такой-то идеей вот
+[00:38:44] а я хочу там Запустить
+[00:38:46] атест вот чтобы ну вот проверить эту
+[00:38:51] идею Угу М наверное как-то так В общих
+[00:38:54] чертах Ну и дальше мне
+[00:38:58] нужно
+[00:38:59] понять ну вот наверное как я до этого
+[00:39:01] говорил так и буду говорить
+[00:39:04] что почему это важно бизнесу Для чего
+[00:39:08] вот Ну откуда вообще эта идея возникла
+[00:39:13] вот потом Какие данные подтверждающие
+[00:39:16] эту идею есть
+[00:39:19] вот
+[00:39:21] дальше что
+[00:39:26] важно не обязательно уточнять у продукта
+[00:39:29] Но если он настаивает то тоже можно
+[00:39:31] уточнить А почему
+[00:39:37] именно Ну какие сроки тоже важно
+[00:39:41] понимать особенно когда несколько
+[00:39:44] заказчиков и ты если не возьмёшь от него
+[00:39:46] сроки а он за день до встречи скажет
+[00:39:48] тебе у меня тут
+[00:39:51] горит тебе ни ему не будет
+[00:39:56] хорошо
+[00:39:59] наверное по данным Откуда мне брать
+[00:40:02] данные вот это вот всё м а Ну кстати
+[00:40:06] тоже Периодически я Уточняю но чаще
+[00:40:09] всего это не у продукта нужно узнавать а
+[00:40:12] либо самому копаться у данных там
+[00:40:14] документацию Угу Ну это тоже такой
+[00:40:18] опциональный вопрос Если будет
+[00:40:21] ответ А ну и в каком виде результат
+[00:40:26] случая Ну в случае об наверное всё
+[00:40:31] понятно Ну наверное тоже
+[00:40:33] такой вопрос в зависимости от контекста
+[00:40:36] могу тоже задать чтобы понимали с
+[00:40:41] менеджером Да спасибо да предлагаю
+[00:40:43] двигаться дальше в целом здесь
+[00:40:46] понятно Ну в общем давай здесь к этому
+[00:40:49] вернёмся Потом в конце Протек разбора Я
+[00:40:51] как раз расскажу примерно что я хотел
+[00:40:54] услышать пока в целом понятно да
+[00:40:58] Здесь тоже Ясно И давай про сдач
+[00:41:01] последний вопрос спрошу
+[00:41:02] в другой бы плоскости да то Вспомни
+[00:41:05] пожалуйста пример задачи Ну или хотя бы
+[00:41:08] там В общих чертах Да чтобы ничего
+[00:41:10] лишнего не
+[00:41:12] сказать про в которой тебе приходилось
+[00:41:15] применять какие-то сложные аналитические
+[00:41:17] подходы Возможно да Или какую-то сложную
+[00:41:19] математику применять в общем или
+[00:41:20] какая-то Техническая технологическая
+[00:41:22] сложность
+[00:41:23] была что можеш припомнить
+[00:41:31] у наверное вот что последнее мне в
+[00:41:34] голову придёт
+[00:41:37] это множественный
+[00:41:41] атест связанный с переписками наверно
+[00:41:44] сейчас тоже Если конкретно
+[00:41:47] говорить то есть там было несколько
+[00:41:49] групп в об
+[00:41:52] тесте и плюс в дополнение к этому
+[00:41:58] Ну мне нужно было сами переписки точнее
+[00:42:01] я сам захотел какие-то инсайты из
+[00:42:04] переписк из результата как раз на цифрах
+[00:42:07] понять Как это там коррелирует как это
+[00:42:09] связано с тем О чём вообще
+[00:42:12] пишут в этом
+[00:42:15] атест и можно какие-то как раз сегменты
+[00:42:18] пользователей можно было бы оттуда
+[00:42:20] вытащить Вот то есть тут два момента
+[00:42:23] типа множествен атест и
+[00:42:29] этот А
+[00:42:31] ну анализ переписки да Угу угу ну анализ
+[00:42:36] текста получается да Ну да да Угу Ага
+[00:42:39] спасибо да а с точки зрения множества
+[00:42:42] гипотез в
+[00:42:43] целом как как решал то
+[00:42:47] есть что здесь тебе помогло или что
+[00:42:49] здесь тебе наоборот мешало Да делать
+[00:42:52] классическое
+[00:42:53] А короче в чём была сложность как
+[00:42:56] определял
+[00:43:00] Угу Ну наверное есть общая сложность в
+[00:43:05] целом там не знаю когда у нас куча
+[00:43:07] рынков
+[00:43:10] выбор сегментов то есть не всегда
+[00:43:13] понимаешь В какой именно стране Какая
+[00:43:15] именно проблема вот
+[00:43:18] а то есть да нужно от этого тоже
+[00:43:21] отталкиваться потом когда Ты запускаешь
+[00:43:23] эксперимент там я не знаю на страны или
+[00:43:26] на города
+[00:43:27] то
+[00:43:28] есть не не тривиальная задача Ну потом
+[00:43:32] подводить
+[00:43:35] результаты
+[00:43:36] и и что ещё
+[00:43:41] сейчас с точки зрения может быть
+[00:43:43] математики
+[00:43:45] статистике
+[00:43:48] м ну в
+[00:43:50] принципе как у нас было какие результаты
+[00:43:54] точнее были типа применяя там поправку
+[00:43:58] феро Ну то есть поправку на
+[00:43:59] множественное тестирование там тоже Ну
+[00:44:05] то есть у тебя могут быть отличия от
+[00:44:07] контрольной группы но среди тестовых
+[00:44:11] групп может и не быть отличия Поэтому
+[00:44:13] нужно
+[00:44:16] перезапускать эксперимент То есть если
+[00:44:19] там больше двух-трёх
+[00:44:20] групп
+[00:44:25] вот наверно вот
+[00:44:27] Ключевое
+[00:44:29] было окей да
+[00:44:31] спасибо Хорошо
+[00:44:33] Да принципе по опыту мои вопросы
+[00:44:36] закончились Давай тогда двигаться
+[00:44:38] дальше сейчас решим задачку Вот и потом
+[00:44:42] перейдём к кейс мы неко из тайминга
+[00:44:44] выбились но мне кажется мы Хорошо
+[00:44:45] пообщались про опыт и какие-то части
+[00:44:47] вопросов которые рели кес Я тоже для
+[00:44:52] себя ВМ воз подо рука может быть в уме
+[00:44:58] решаешь В общем Задачка такая она
+[00:45:01] понятна значит в терминах там школьных
+[00:45:04] задача или там Универс задачек и с теми
+[00:45:06] же самими объектами Значит у тебя есть
+[00:45:08] Представь что у тебя есть игральный
+[00:45:10] кубик
+[00:45:11] шестигранник на гранях которого числа от
+[00:45:13] одного до шести а тебе предлагается игра
+[00:45:17] ты бросаешь кубик и можешь забрать себе
+[00:45:20] там ту сумму денег долларов сколько
+[00:45:24] выпало на этом кубике выпало три
+[00:45:26] забираешь все 3 доллара выпало п
+[00:45:27] забираешь се 5 долларов есть опция ты
+[00:45:31] можешь либо после первого броска забрать
+[00:45:33] себе все деньги которые Ну выпали на
+[00:45:35] грани кубика либо перебросить его и
+[00:45:38] тогда забрать себе то что выпадет второй
+[00:45:41] раз на кубике уже без возможности
+[00:45:44] перебрасывать Понятно условие
+[00:45:47] Понятно условия
+[00:45:50] игры так плюс-минус понятно можно вот
+[00:45:53] последние два нано чтобы я
+[00:45:55] записал есть игральный кубик ты его
+[00:45:58] бросаешь и либо забираешь себе столько
+[00:46:01] денег сколько выпало на грани кубика
+[00:46:03] либо ты говоришь я отказываюсь от этого
+[00:46:06] результата перебрасывает его заново и
+[00:46:09] забираешь столько сколько выпадет второй
+[00:46:10] раз то есть у тебя есть по сути опция
+[00:46:12] либо забрать сразу либо перебросить бы
+[00:46:15] больше никаких решений у тебя нет внутри
+[00:46:17] игры А собственно Вопрос такой какая
+[00:46:21] будет оптимальная стратегия в такой игре
+[00:46:24] Ну и там и Какой ожидаемый выигрыш а
+[00:46:27] это стате будет
+[00:46:30] Угу
+[00:46:32] О'кей
+[00:46:34] так
+[00:46:39] хорошо Так ну давай наверное просто
+[00:46:42] начну рассуждать вместе с тобой
+[00:46:45] у Да рассуждал я тебе буду Ну в общем
+[00:46:48] Здесь тоже тебе помогать и ес что
+[00:46:51] пользуйся мной как уточкой в которой
+[00:46:52] можно говорить
+[00:46:55] угу так хорошо
+[00:46:58] э так нам нужно как раз-таки ну чтобы
+[00:47:01] выбрать этот оптимальную стратегию нам
+[00:47:04] нужно посчитать по сути там не знаю мат
+[00:47:07] ожидание или ожидаемого как раз-таки
+[00:47:10] ожидаемый выигрыш а от кубика Вот у него
+[00:47:14] значит шесть граней от одного до шести
+[00:47:18] О'кей Угу И тогда м ну Да Начнём Давай
+[00:47:24] наверное с мато ожидания
+[00:47:30] вот так Ну Март ожидание
+[00:47:34] выигрыша Так у нас два броска получается
+[00:47:37] первое мы кидаем и там какое-то число и
+[00:47:40] дальше нам нужно как раз таки сделать
+[00:47:42] выбор либо мы
+[00:47:44] перебрасывали мы оставляем как раз-таки
+[00:47:46] первый бросок а просто нужно ожидания
+[00:47:50] брос посчитать если будет меньше этого
+[00:47:53] ожидания
+[00:47:54] то перебросить у то А если будет больше
+[00:48:01] либо равно то я думаю можно не
+[00:48:03] перебрасывать вот
+[00:48:06] а ожидание броска это по
+[00:48:11] сути
+[00:48:12] Средняя арифметическая так средне
+[00:48:16] арифметическая Да всех исходов то
+[00:48:21] есть от одного до
+[00:48:24] ше нужно посчитать
+[00:48:27] сумму и поделить на А ну на на
+[00:48:33] количество гране по сути да у
+[00:48:36] а то есть у
+[00:48:41] нас это
+[00:48:44] получается сем
+[00:48:47] а сем
+[00:48:49] пополам Ну
+[00:48:52] точнее
+[00:48:54] 30 сейчас 42 а
+[00:48:58] наше а нет стоп стоп стоп сейчас Угу Уже
+[00:49:05] обычную математику начинаю тупить
+[00:49:07] А короче ва всё в
+[00:49:10] порядке Да зачем-то так 7 на 2 ну ну
+[00:49:15] просто да 7 на 3 / на
+[00:49:19] 6 36 мы
+[00:49:22] сокращаем Ну да 7/2 как я и сказал Угу
+[00:49:27] Вот то есть
+[00:49:28] три
+[00:49:30] да то есть тут будет Да у нас как бы
+[00:49:32] кубик с натуральными числами поэтому тут
+[00:49:35] однозначно будет либо больше либо меньше
+[00:49:39] Ага как так получается что на кубики там
+[00:49:43] числа натуральные адание 3 с
+[00:49:50] по Ну у
+[00:49:55] нас
+[00:50:02] у нас получается просто вот
+[00:50:14] а ну средне арифметическая в данном
+[00:50:21] случае
+[00:50:25] м
+[00:50:32] Мне кажется
+[00:50:41] что ну у нас просто вот получается от
+[00:50:45] одного до
+[00:50:46] шести значения
+[00:50:48] [музыка]
+[00:50:50] и как раз-таки
+[00:50:54] А ну блин Просто у нас же не чётное
+[00:50:59] количество значений и тут как раз-таки
+[00:51:04] [музыка]
+[00:51:05] это и
+[00:51:07] даёт не натуральное число Угу Ну на
+[00:51:11] самом деле да то есть если бы у тебя
+[00:51:13] было просто на Коби на гранях все
+[00:51:15] единицы у тебя нание была
+[00:51:17] единица не в этом самом деле проблема
+[00:51:21] Просто ты жение некоторая
+[00:51:24] величина Ты будеш много много много раз
+[00:51:26] бросать кубик то у тебя в среднем там 3
+[00:51:29] с по Да и выйдет Если ты будешь в эту
+[00:51:31] игру играть то есть не обязано не
+[00:51:34] обязано это значение быть чему-то
+[00:51:36] равному на нях сори этот вопрос был
+[00:51:40] такой см как Буто пытался вытянуть а на
+[00:51:43] самом
+[00:51:44] деле не пытался всё правильно говорил Да
+[00:51:47] действительно значит Итак ты говоришь
+[00:51:49] стратегия
+[00:51:50] такая мы кидаем кубик
+[00:51:53] если выпадает больше чем Это ожидание то
+[00:51:56] забираем да Если меньше чем Это ожидание
+[00:51:59] то перебрасывая Окей Хорошо давай сейчас
+[00:52:04] не будем дочитывать прям Ну вот число
+[00:52:07] просто как бы ты
+[00:52:09] посчитал на пальцах ожидаем прибыль от
+[00:52:12] от общей стратегии Вот и просто расскажи
+[00:52:15] как как бы посчитал и мы потом двинемся
+[00:52:17] дальше Угу
+[00:52:21] а так ну по сути
+[00:52:24] нужно вычислить того что при первом
+[00:52:27] броске выпадет Как раз-таки
+[00:52:31] число Ну меньше
+[00:52:34] данного вот
+[00:52:39] и ну и
+[00:52:42] данные данная вероятность А ну данную
+[00:52:45] вероятность нужно умножить на на мат
+[00:52:50] ожидания Вот как раз таки да которую я
+[00:52:52] сейчас
+[00:52:55] посчитал вот это а ну тут две
+[00:52:59] вероятности вероятность того что у нас
+[00:53:01] выпадает меньше мато ожидания умноженная
+[00:53:04] на мат
+[00:53:06] ожидания второго броска
+[00:53:10] и единица минус вероятность как раз-таки
+[00:53:13] выпадания
+[00:53:17] А ну да единиц минус вероятность
+[00:53:20] выпадания
+[00:53:21] [музыка]
+[00:53:22] меньшего этого броска умноженная на мат
+[00:53:25] ожидания
+[00:53:29] условной вероятности что у нас так как
+[00:53:31] мы уже второй рассматриваем что у нас
+[00:53:34] первый бросок оказался
+[00:53:36] больше при этом условии у
+[00:53:40] нас Мы считаем как раз таки вероятность
+[00:53:43] первого броска Ну то есть тут через А и
+[00:53:46] Б Чтобы проще было
+[00:53:48] воспринимать будет вероятность при
+[00:53:51] условии
+[00:53:55] РОНО как раз таки выпадения при первом
+[00:53:57] броске больше мат ожидания и вероятность
+[00:54:00] А -
+[00:54:01] это таки Ну первый бросок
+[00:54:07] Угу А вот
+[00:54:10] получается Если у тебя в первом раке
+[00:54:14] выпало получается 4п или шесть да то что
+[00:54:17] у тебя больше больше
+[00:54:20] чем то
+[00:54:24] получается Здесь Какой у тебя будет
+[00:54:27] компонент в общей стратегии слага
+[00:54:33] множителя у нас выпадает
+[00:54:37] выпадает больше
+[00:54:41] то А ну у нас-то только вот как раз
+[00:54:44] второй
+[00:54:45] а второе слагаемое остаётся при как раз
+[00:54:50] таки выпадении
+[00:54:52] первого Ну да броске у тебя же у тебя же
+[00:54:56] Типа если ты выпадает 4 56 Ты же не
+[00:54:58] перебрасывает забираешь всё у тебя
+[00:55:00] второго слагаемого нет а Фу блин
+[00:55:03] что да да да у меня же стратегия такая
+[00:55:06] что я выкидываю и у меня как раз при
+[00:55:08] выпадении больше мне второй бросок не
+[00:55:11] нужен Угу окей Да ладно Хорошо давай
+[00:55:15] здесь не будем виснуть на этой задаче В
+[00:55:18] общем Ну ровно так да то есть ты
+[00:55:21] считаешь стратегию считаешь на ожидание
+[00:55:22] там того что у тебя
+[00:55:25] выпадет 4
+[00:55:27] 56 есть
+[00:55:29] вероятно исходы простоты вероятность
+[00:55:31] одних
+[00:55:34] исходов
+[00:55:36] этих выпадение этих значений и там есть
+[00:55:39] другая вероятность сходов и
+[00:55:41] сое что получится
+[00:55:44] Ой хорошо давай тогда к следующему блоку
+[00:55:47] перейм собственно основная часть
+[00:55:55] да мой любимый продуктовый кейс который
+[00:55:57] я никогда не знаю я обычно обще
+[00:55:59] собеседованиях предлагаю кандидатам
+[00:56:01] придумать его вместе поэтому тоже
+[00:56:03] предложу тебе придумывать сегодня вме
+[00:56:06] погонять
+[00:56:08] вот для начала предложу тебе выбрать
+[00:56:10] какой-нибудь
+[00:56:11] продукт которым ты регулярно пользуешься
+[00:56:14] Ну желательно чтобы я его тоже знал
+[00:56:18] Вот и на его примере попробуем
+[00:56:20] что-нибудь
+[00:56:25] подумывать из того чем Я активно
+[00:56:27] пользуюсь И плюс ещ и связано отчасти с
+[00:56:32] моим продуктом текущей компании это вот
+[00:56:36] мессенджеров Telegram вот мы часто тоже
+[00:56:39] к нему Обращаемся
+[00:56:41] и его
+[00:56:43] рассмотреть Давай супер здорово у тебя
+[00:56:46] будет здесь небольшая Фора работал с
+[00:56:49] мессенджерами поэтому наверняка чего-то
+[00:56:52] много знаешь вот я меми не работал но
+[00:56:56] отлично классный продукт Я только на
+[00:56:58] днях купил себе подписку Премиум в
+[00:57:01] телеграме вот осваиваю может быть что-то
+[00:57:04] нас здесь идут а приведёт к тому чтобы
+[00:57:07] мы это тоже Разбираем хорошо а можешь
+[00:57:11] пожалуйста а придумать рассказать может
+[00:57:14] быть какие-то Ну не знаю улучшения для
+[00:57:16] тебя как для пользователя которых тебе
+[00:57:17] не хватает Или наоборот там условно
+[00:57:19] какие-то проблемы с которыми ты
+[00:57:21] сталкиваешься при пользовании продуктом
+[00:57:23] где ты Ну понимаешь что кон типа вот Мне
+[00:57:27] прям здесь плохо Ну ладно может быть не
+[00:57:30] плохо
+[00:57:32] но что-то барит у тебя при
+[00:57:35] использовании Так блин Хороший вопрос
+[00:57:39] потому что мы типа наоборот
+[00:57:41] ориентируемся на Ну не только на
+[00:57:43] Telegram Вот потому что - это именно вот
+[00:57:46] коммуникация там я не знаю в
+[00:57:47] повседневной жизни в более общих что ли
+[00:57:50] точнее в разных кейсах вот не как у нас
+[00:57:55] но
+[00:57:56] Так что что ж мне такого не хватает а
+[00:58:01] может
+[00:58:02] быть взять из каких-то других продуктов
+[00:58:08] э не знаю пусть будет я вот
+[00:58:11] кстати не помню не встречался а не
+[00:58:14] встречался короче переводчик например Да
+[00:58:17] например я переписываюсь там с разными
+[00:58:19] людьми на разном языке на на разных
+[00:58:21] языках не
+[00:58:23] только вот и там я не знаю Мне нужен
+[00:58:26] Ну с английским ещё более-менее вот
+[00:58:28] какие-то другие например языки то есть
+[00:58:30] взял перевод включил Я единственное знаю
+[00:58:34] что по-моему в каналах или в чатах при
+[00:58:38] каналах я могу по-моему в каналах типа
+[00:58:41] нажать на кнопочку
+[00:58:44] translate английский точно есть возможно
+[00:58:46] други тоже есть но типа в обычных
+[00:58:49] по-моему переписках я например в личке с
+[00:58:51] кем-то перепис такого вроде нет Угу И
+[00:58:54] было бы как раз-таки удобно
+[00:58:57] Я не знаю какой-нибудь продвинутый уже
+[00:59:00] переводчик Google dipel что-нибудь
+[00:59:04] такое вот наверно мне сейчас в голову
+[00:59:08] пришло А давай смотри Давай представим
+[00:59:11] себе что ты аналитик по ту сторону
+[00:59:15] экрана да Сидишь значит где-то в офисе
+[00:59:18] телеграма и получаешь такой фидбек Ну не
+[00:59:21] знаю из сторов ли друзей что блин Ребят
+[00:59:24] я
+[00:59:25] вот пользуюсь вашим продуктом У меня
+[00:59:27] много контактов разных иностранных и э
+[00:59:30] Мне не все языки Я знаю вот а
+[00:59:32] Переводчика в личке У меня
+[00:59:34] нет как как как так можно типа вы такие
+[00:59:37] большие продвинутые Да и в каналах Тем
+[00:59:38] более у вас это есть а в личка нет вот а
+[00:59:42] как бы ты да представим себе что это
+[00:59:44] такое некоторый сигнал который ты
+[00:59:45] получил Ну вот он типа какое-то частное
+[00:59:48] мнение а как бы ты сформулировал э ну
+[00:59:53] такую продуктовую гипотезу о проблеме
+[00:59:56] осно
+[01:00:00] сигнала проблеме В первую очередь я
+[01:00:03] начну
+[01:00:05] с бизнес потребностей которые дальше
+[01:00:10] перетекают в
+[01:00:13] метрики то есть бизнес
+[01:00:16] потребность переводчика точнее может
+[01:00:18] быть даже и в Да контек с
+[01:00:24] КАТО м ну в общем Telegram как
+[01:00:28] мессенджер да А какие у него ключевые
+[01:00:31] там не знаю метрики А это а
+[01:00:35] вовлечённость э ну точнее какие-нибудь
+[01:00:39] retention
+[01:00:41] Аа пользователей
+[01:00:44] м количество чатов Ну наверное
+[01:00:47] количество чатов не то есть не первая Ну
+[01:00:52] вот retention точно потом ещё сам даже
+[01:00:55] Telegram пишет
+[01:00:57] про
+[01:00:58] Мау свои то есть это уже такая Метрика
+[01:01:04] роста вот Ну кстати да тут можно
+[01:01:07] подумать и в контексте новых
+[01:01:09] пользователей то есть увеличение Мау И
+[01:01:12] за счёт новых по И за счёт улучшения
+[01:01:18] продукта для стареньких
+[01:01:20] пользователей так наверное в каком-то
+[01:01:24] таком Ключе
+[01:01:26] и вот сам переводчик Он На что влияет он
+[01:01:29] влияет
+[01:01:31] на то можешь ли ты переписываться с
+[01:01:35] пользователями то
+[01:01:36] есть Насколько быстро ты можешь его
+[01:01:41] понимать наверно тоже сейчас просто
+[01:01:44] рассуждение без переводчика как обычно
+[01:01:48] мы берём текст идм в
+[01:01:51] переводчик перевели там поняли что он
+[01:01:54] сказал короче затрагивает время такое не
+[01:01:58] то что я по-русски
+[01:02:00] общаюсь не на русском отвечаешь то есть
+[01:02:03] тут точно на время мы можем влиять вот
+[01:02:07] на
+[01:02:09] время время ответа Я думаю такую метрику
+[01:02:13] тоже можно
+[01:02:14] замерять Вот то
+[01:02:17] есть если я долго буду пользоваться
+[01:02:21] продуктом то
+[01:02:22] есть какая-то лояльность моя будет
+[01:02:24] падать Угу какие-то лишние усилия лишние
+[01:02:28] клики это всё всё равно влияет Вот
+[01:02:33] м ну наверное Ключевое всё-таки начать с
+[01:02:37] там доли пользователей вообще на кого мы
+[01:02:39] это
+[01:02:45] повлияют такой research а исходя из
+[01:02:50] проблем teg смотри а ты сейчас пошёл уже
+[01:02:53] в такую историю мы к ней придём сейчас
+[01:02:55] ну условно валидацию того что проблему
+[01:02:56] вообще стоит решать Дава всё-таки ээ шаг
+[01:03:00] назад сделаем и саму проблему
+[01:03:01] сформулируем то есть проблема В чём
+[01:03:05] заключается проблема
+[01:03:11] заключается Я вот не знаю можно ли её
+[01:03:13] сейчас сформулировать что это
+[01:03:17] непонимание пользователей значне
+[01:03:21] непонимание переписок
+[01:03:23] пользователей на разных языках
+[01:03:26] а то
+[01:03:32] есть ну да Давай наверное не будем
+[01:03:35] как-то усложнять а просто
+[01:03:38] вот я как
+[01:03:42] пользователь
+[01:03:43] хочу коммуницировать с другим
+[01:03:46] пользователем в данном случае получается
+[01:03:47] на другом языке Угу не переходя в
+[01:03:50] какие-то другие не знаю сторонние
+[01:03:53] продукты сторонние
+[01:03:54] какие-то
+[01:03:56] Ну так продукты Угу как можно быстрее
+[01:03:59] это всё сделать вот то есть моя проблема
+[01:04:05] в этом что вот есть единый продукт Я
+[01:04:07] хочу им пользоваться Угу угу да спасибо
+[01:04:12] А давай мот добавим ещё что Ну вот
+[01:04:15] условно ты со стороны пользователя это
+[01:04:17] рассказал что понятна проблематика Да
+[01:04:19] Поль хочет коммуницировать на другом
+[01:04:21] языке чтобы коммуникация была быстрее А
+[01:04:24] что это для Гра значит как для площадки
+[01:04:27] для
+[01:04:31] ме
+[01:04:33] дадада для телеграма Это означает
+[01:04:37] что на тот сегмент пользователе который
+[01:04:41] общается на разных языках скорее всего у
+[01:04:45] телеграма есть
+[01:04:47] локали пользователей Ну в чате
+[01:04:51] переписке или вообще сам текст они могут
+[01:04:54] быстро понять
+[01:04:57] Вот и вот вот на эту долю пользователь
+[01:05:01] пусть будет там не знаю
+[01:05:02] 10% точнее Тут даже не пользователи а
+[01:05:05] конкретные чаты нужно брать Да потому
+[01:05:09] что пользователь Вот то есть надо
+[01:05:11] посчитать долю
+[01:05:12] пользователей
+[01:05:15] и на эту долю пользователей мы
+[01:05:18] повлияет что мы
+[01:05:22] улучшим
+[01:05:24] это
+[01:05:27] кажется Ключевое как раз таки это
+[01:05:29] вовлечённость
+[01:05:31] и
+[01:05:32] точн
+[01:05:36] и Мау
+[01:05:38] пользователей Угу то есть я могу
+[01:05:41] оказаться в такой среде где разные люди
+[01:05:45] переписываются на другом языке и это на
+[01:05:48] меня будет влиять выберу я
+[01:05:51] Telegram Кстати если есть конкуренты с
+[01:05:54] этой Фой то я а могу перейти туда
+[01:05:58] Угу Если нет то я скорее всего как-то
+[01:06:01] буду решать эту проблему Ну либо если ты
+[01:06:04] привязан наверное к площадке очень
+[01:06:06] сильно Будешь терпеть Да да да я буду
+[01:06:09] просто вот кликать дополнительно
+[01:06:11] переходить о'кей О'кей хорошо а О'кей
+[01:06:15] давай тогда собственно и подумаем
+[01:06:17] насколько В общем стоит такую проблему
+[01:06:19] решать если бы онас появилось в блоге
+[01:06:20] как ну некоторая гипотеза ты уже начал
+[01:06:22] про это говорить я тебя остановил Давай
+[01:06:24] здесь как раз это и обсудим
+[01:06:27] Угу А
+[01:06:32] так давай обсуждать как решать эту
+[01:06:35] проблему Окей Ну первое Я бы всё-таки да
+[01:06:38] начал с какой давай как решать а Стоит
+[01:06:43] ли решать
+[01:06:44] вообще
+[01:06:46] а а ну Стоит ли решать Да ну это по сути
+[01:06:49] да
+[01:06:50] валидация того что есть сейчас
+[01:06:54] а
+[01:06:57] то есть мы сформулировали проблемы
+[01:06:59] сформулировали метрики на которые мы
+[01:07:01] можем повлиять и вот надо подумать какая
+[01:07:07] какая доля
+[01:07:09] а доля чатов получается с этим может
+[01:07:13] столкнуться вот
+[01:07:16] а
+[01:07:24] вот потом доля чатов
+[01:07:30] и ну надо сформулировать уже конкретну
+[01:07:34] гипотезу То есть если мы добавляем вот
+[01:07:37] этот вот
+[01:07:39] переводчик то это
+[01:07:42] влияет
+[01:07:44] на Тен
+[01:07:47] пользователей
+[01:07:50] Вот то есть это мы убираем как ки проб
+[01:07:56] связа с разными языками в
+[01:08:01] чатах причём мы можем ещё привлекать Ну
+[01:08:05] точнее не только Рен старых
+[01:08:07] пользователей но ещё и могут к нам
+[01:08:10] приходить новые пользователи то есть тех
+[01:08:14] кому эта
+[01:08:15] фича даёт доб ценность в отличие от
+[01:08:23] [музыка]
+[01:08:24] конкурентов так можно
+[01:08:27] сформулировать Да ага Вот смотри то
+[01:08:30] сформулировал решение а всё-таки решение
+[01:08:32] - это же решение проблемы Вот мы говорим
+[01:08:34] о то что изначально Проблема была и мы
+[01:08:36] хотели проваливать даже предложил
+[01:08:38] посмотреть на долю чатов которые
+[01:08:40] сталкиваются с такой проблемой Ну
+[01:08:41] наверное чтобы оценить масштаб условно
+[01:08:43] да да проблемы а вот а как бы ты как
+[01:08:47] аналитик вообще эту долю чатов считал
+[01:08:49] этоже Не тривиальная Задачка на самом
+[01:08:52] деле если у тебя фичи нет Э ещё не
+[01:08:56] внедрена понятно что ты не можешь просто
+[01:08:58] тех кто воспользовался переводом А тебе
+[01:08:59] нужно как-то их в общем-то вычленить из
+[01:09:02] общего потока чатов таких ребят Угу Да
+[01:09:07] Да хороший вопрос как считать долю чатов
+[01:09:11] у а так ну тут отталкиваться будем в
+[01:09:15] первую очередь от того что у нас есть
+[01:09:16] Какие данные я положил Что у нас либо
+[01:09:20] могут быть локали пользователей Ну
+[01:09:24] точнее даже Угу которое заходит Вот а
+[01:09:28] либо же Мы даже можем
+[01:09:30] переводить сам текст и понимать На каком
+[01:09:32] он языке угу вот
+[01:09:37] а
+[01:09:39] а исходя из этой информации по чатам У
+[01:09:44] нас есть
+[01:09:47] Значит
+[01:09:49] [музыка]
+[01:09:50] м уникальное количество чатов
+[01:09:54] а в день и в месяц
+[01:09:59] у
+[01:10:06] вот а ну и причём ещё нужно уточнить Что
+[01:10:09] такое Чат Да что может быть у нас в базе
+[01:10:13] данных
+[01:10:14] будет чат возникать вообще любой любая
+[01:10:19] Ну например у телеграма Когда новый
+[01:10:21] пользователь приходит и он меня в
+[01:10:24] контактах мне что-то присылает говорит
+[01:10:26] что вот такой-то пользователь Это я бы
+[01:10:29] не считал за чатом Угу должно быть хотя
+[01:10:32] бы одно сообщение
+[01:10:35] окей да то есть это назовём не знаю
+[01:10:39] активным чатом то
+[01:10:41] есть есть одно сообщение Вот
+[01:10:48] А да мы берём значит Ну давай берём
+[01:10:52] наверное месяц вот а
+[01:10:56] берём Ну вот так посчитаем за
+[01:10:59] месяц какое количество чатов было с
+[01:11:02] переводчиком о не с переводчиком
+[01:11:04] Переводчик У нас нет
+[01:11:06] с разными локали или разными языками Вот
+[01:11:09] и за тот же
+[01:11:11] месяц посчитаем как раз
+[01:11:15] количество уникальных чатов активных
+[01:11:19] чатов то есть не не пустых
+[01:11:21] Угу
+[01:11:24] Окей
+[01:11:25] В итоге Ты смотришь долю чатов у двух
+[01:11:30] людей из разных локали относительно
+[01:11:33] всей всех всех чатов Да между
+[01:11:38] людьми Ну то есть да мы берём сущность
+[01:11:41] чат не пользователь
+[01:11:44] у вот чат с не
+[01:11:48] пустым хотя бы одним
+[01:11:50] сообщением это будет оценка такая снизу
+[01:11:53] или
+[01:11:54] сверху
+[01:11:57] проблематики это у нас будет оценка
+[01:12:00] сверху да сверху То есть у нас
+[01:12:06] типа ну переводчик Да переводчик влияет
+[01:12:09] только на те чаты где разные языки Угу
+[01:12:12] но не факт что в каждом таком чате у нас
+[01:12:16] прямо какие-то
+[01:12:17] проблемы может такое произойти что я
+[01:12:21] говорю и на русском и на английском ещё
+[01:12:23] можно на каком языке
+[01:12:26] мне у меня локаль там не знаю на русском
+[01:12:28] стоит мне Человек написал на английском
+[01:12:30] я ему могу ответить на английском То
+[01:12:32] есть мне не нужен переводчик тут всё всё
+[01:12:34] нормально хотя у меня например
+[01:12:36] устройство может быть на русском или
+[01:12:39] на
+[01:12:42] вот Ну да согласен Ну наверно можно
+[01:12:45] подумать ещё Как придумать оценку
+[01:12:48] снизу я бы наверное что-нибудь не знаю
+[01:12:51] решение Я бы смотрел наверно
+[01:12:54] на те чаты у пользователей которые
+[01:12:56] отличаются по языку от основной массы
+[01:12:59] чатов и в общем пытался починить такие
+[01:13:02] такие истории если я совсем
+[01:13:03] переписываюсь на русском а с тобой на
+[01:13:04] английском то я бы подумал что наш с
+[01:13:06] тобой чат он какой-то вот подходящий под
+[01:13:08] наш критерий
+[01:13:11] проблемы да да то есть не только локаль
+[01:13:14] Ну вот да Круто иметь как можно больше
+[01:13:17] данных о пользователе типа локаль
+[01:13:19] устройство вообще сами переписки На
+[01:13:22] каком языке Угу Ну да Да если Ну
+[01:13:26] наверняка переписки конечно закрытые а
+[01:13:28] возможно метаданные типа в виде языка
+[01:13:30] дадада дадада Наверняка есть О'кей ладно
+[01:13:34] Давай двигаться дальше здесь примерно
+[01:13:35] понятно как бы мы то есть что бы мы
+[01:13:37] сделали мы бы оценили долю таких чатов
+[01:13:39] попытались Понять насколько она большая
+[01:13:41] Ну типа условно потенциал этим измерить
+[01:13:44] А хорошо давай подумаем Ну вот вот есть
+[01:13:47] проблема отлично Ты даже уже назвал я
+[01:13:49] хотел спросить какое будет решение ты
+[01:13:51] говоришь решение добавить переводчик Тем
+[01:13:53] более что он есть в
+[01:13:56] Наско ты говоришь что он есть в каналах
+[01:13:58] Я кстати говоря не встречался но Давай
+[01:14:00] считать что он там существует не я вот
+[01:14:04] встретился когда ко мне подписчики на
+[01:14:06] английском языке нуч англоговорящие
+[01:14:09] начали подключаться я подумал а как они
+[01:14:12] будут русский текст читать такой смотрю
+[01:14:14] а тут оказывается можно кнопочкой просто
+[01:14:16] взять перевести
+[01:14:19] кайф может быть кстати фича
+[01:14:22] платных версий грама ну Вот это вопрос
+[01:14:25] хороший потому что у меня подписка давно
+[01:14:27] да Угу Возможно это платная Ну что будем
+[01:14:32] как-то гипотезу корректировать там на
+[01:14:34] монетизацию А ну да да я уже это просто
+[01:14:39] не можем можем делать може можем не
+[01:14:42] делать Мы же с тобой сейчас его
+[01:14:43] придумываем этот кейс поэто а так я не
+[01:14:47] знаю правда как там работает ЕС там это
+[01:14:49] опция только флад отписки или нет здесь
+[01:14:50] мы можем с тобой договориться о чём-то Я
+[01:14:52] считаю что это
+[01:14:54] правда
+[01:14:55] м так ну
+[01:14:58] давай ну то есть у нас скорее всего если
+[01:15:00] этой фичи нет а собственная
+[01:15:04] собственная реализация Она обычно
+[01:15:06] дорогая и не быстрая то есть пишний
+[01:15:08] вариант обычно там с партнёрство
+[01:15:11] Илим просто быстро делают вот поэтому
+[01:15:15] тут Наверное нужно бы заключить там
+[01:15:17] какой-нибудь
+[01:15:19] партнёрку интеграцию с каким-нибудь
+[01:15:21] Google переводчиком или плем который я
+[01:15:23] до этого говорил Угу
+[01:15:26] но естественно у них ну у нас будут
+[01:15:29] косты на это то есть будем на это
+[01:15:31] тратить деньги 100% и тут нужно
+[01:15:37] аккуратно тестировать То есть например в
+[01:15:41] нашем случае ВН драйве у нас типа 47
+[01:15:44] странны в со се странах сразу
+[01:15:48] запускать точно не нужно вот то есть
+[01:15:52] нужно какую-то определённую выборку и
+[01:15:54] причём
+[01:15:55] исходя из проблематики То есть если мы
+[01:15:58] понимаем что Ну например в какой-то
+[01:16:01] стране юго-восточной Азии там много
+[01:16:04] туристов и если это туристы то это не
+[01:16:07] местный Ну на местном языке они не
+[01:16:10] говорят вот там больше будет доля вот
+[01:16:13] этих чатов Угу
+[01:16:15] Не ну на разных языках
+[01:16:19] вот ограничить если в общем говорить
+[01:16:22] ограничить
+[01:16:23] аудиторию
+[01:16:26] блин прошу прощения Да конечно
+[01:16:33] Конечно
+[01:16:37] вот если нужно время
+[01:16:45] давай всё вроде что-то
+[01:16:48] прошло ограни аудиторию шный вариант
+[01:16:52] чтобы проверить гипотезу будет даже с
+[01:16:56] кастами Вот
+[01:16:58] [музыка]
+[01:16:59] м ну естественно продумать реализацию
+[01:17:03] там интерфейса как это будет работать
+[01:17:05] как именно будет переводиться текст вот
+[01:17:11] а да если реализацию говорить
+[01:17:16] то Ну сбор само тестирование и сбор
+[01:17:19] обратной
+[01:17:21] связи как можно
+[01:17:23] больше в разных форматах можно
+[01:17:26] рассмотреть Туда туда и Ну то есть на
+[01:17:28] самом деле мы же с тобой аналитики не
+[01:17:29] разработчики то есть нам вот все эти
+[01:17:31] истории с Ну там ну Дада мы можем сюда
+[01:17:34] как бы делегировать это там продукту и
+[01:17:37] бизнесу запрещать партнёрки и всё прочее
+[01:17:39] это не сфера наших компетенций А вот ну
+[01:17:42] давай предположим вот решение оно
+[01:17:44] какое-то да вот допустим
+[01:17:46] это я предлагаю знаешь как договориться
+[01:17:48] Давай предположим что в телеграме эта
+[01:17:50] фича уже существует и она существует
+[01:17:52] только в каналах и Угу рение которое мы
+[01:17:56] будем тестировать мы эту же фичу кам Ну
+[01:17:59] типа расширим на чаты
+[01:18:03] приватные между людьми персональные
+[01:18:07] просто чтобы упростить сейчас скоп этого
+[01:18:09] решения
+[01:18:11] Вот это решение которое мы придумали
+[01:18:13] Давай обсудим как раз как мы это решение
+[01:18:15] проверяли вообще насколько оно хорошее
+[01:18:19] нехорошее да
+[01:18:22] О вот нужно 100% начинать с метрик по
+[01:18:27] которому как раз замерять успех неуспех
+[01:18:31] данной фичи Вот это я бы предложил как
+[01:18:36] раз то что я говорил это влияние на
+[01:18:38] вовлечённость а что воно Ну да да давай
+[01:18:42] давай я раскрою Да это например ну
+[01:18:46] точнее время проведённое в приложении
+[01:18:49] Ага количество отправленных сообщений
+[01:18:53] Ага
+[01:18:57] вот разные метрики То есть ты говоришь
+[01:19:00] вовлечённость это типа набор метрик это
+[01:19:01] вот время приложений и набор количество
+[01:19:04] отправленных сообщений
+[01:19:07] правильно Да но тут конечно нужно
+[01:19:10] ключевую одну метрику
+[01:19:19] выбрать Что именно Мы хотим
+[01:19:23] сделать
+[01:19:27] м ну в гипотезе мы сформулировали либо
+[01:19:30] мы на старых пользователей а влияем то
+[01:19:35] есть улучшаем
+[01:19:36] их им жизнь так сказать вот Либо мы
+[01:19:39] привлекаем ещё новых пользователей угу
+[01:19:42] вот
+[01:19:45] а тут наверное
+[01:19:53] наверное так взять количество
+[01:19:55] отправленных сообщений одним
+[01:19:58] пользователем То есть если мне удобнее
+[01:20:01] взаимодействовать
+[01:20:03] [музыка]
+[01:20:08] м мне добавляют ту фичу то я и чаще
+[01:20:14] буду
+[01:20:18] переписываться наверное да наверное
+[01:20:20] можно взять количество отправленных
+[01:20:23] сообщений
+[01:20:25] Метрика
+[01:20:26] Да сори это будет Ключевая Метрика или
+[01:20:29] это просто одна из метрик которую ты
+[01:20:30] будешь мерить тесте Ну или как ты не в
+[01:20:33] тест ещё
+[01:20:37] оценивать так
+[01:20:41] либо Ну окей давай давай Наверное
+[01:20:45] это ключевую и дополнительно ещё
+[01:20:50] будут так время проведённое кстати время
+[01:20:53] проведённое в приложении
+[01:20:56] если нам приходится выходить и
+[01:20:59] использовать переводчик то это будет
+[01:21:03] времени
+[01:21:04] Угу А если мы активно переписываемся то
+[01:21:07] тоже больше
+[01:21:10] времени Слушай ну хорошо смотри давай
+[01:21:12] подумаем условно какую проблему решает
+[01:21:14] вот на уровне прямо конкретного чата
+[01:21:17] наличие Переводчика что что он меняет
+[01:21:20] как он меняет
+[01:21:23] опыт
+[01:21:28] но он меняет опыт следующим образом
+[01:21:33] что Ну тут тут два варианта насколько
+[01:21:37] пользователь не знаю готов переходить в
+[01:21:40] переводчики и дальше возвращаться
+[01:21:43] обратно в
+[01:21:47] приложение То есть если он это делает
+[01:21:51] то
+[01:21:53] тог
+[01:21:55] оно не меняется но Меняется время как
+[01:21:58] раз таки на перевод Угу то есть оно
+[01:22:02] будет
+[01:22:03] сокращаться то есть буде сокращаться на
+[01:22:05] самом деле получается скорость итерации
+[01:22:06] одной может быть не всего чата не всего
+[01:22:10] диалога вот я до этого говорил да Вот
+[01:22:14] хорошо что ты подметил что это по сути
+[01:22:16] да типа среднее время между сообщениями
+[01:22:20] что ли а е ещё нужно конечно количество
+[01:22:24] БН символ что ли сюда добавить сейчас
+[01:22:26] надо
+[01:22:27] подумать Стоит ли сюда добавлять Ну
+[01:22:30] ладно да среднее время между сообщениями
+[01:22:33] [музыка]
+[01:22:34] Точно
+[01:22:37] Вот причём только вот нужно брать только
+[01:22:40] те чаты где у нас там разные локали
+[01:22:44] разные языки у и ещё ты тоже
+[01:22:48] правильно подметил что не только лока но
+[01:22:52] и вот языки других
+[01:22:55] чатов это ВС использовать
+[01:23:02] тоже можно как
+[01:23:05] раз-то метрику удовлетворённости
+[01:23:08] пользователей какие-то опросы среди
+[01:23:13] пользователей
+[01:23:14] вот ну обычно когда
+[01:23:18] ям работа других
+[01:23:23] коман может сильно не влиять Угу Вот Ну
+[01:23:29] а а вдруг мы повлияло тельную или
+[01:23:33] наоборот даже в негативную если мы в
+[01:23:35] негативную то это мы можем
+[01:23:38] увидеть Окей что-нибудь ещё какие-нибудь
+[01:23:41] метрики будем смотреть или достаточно м
+[01:23:44] ну вообще Нужно ещё
+[01:23:46] понять вот у нас есть доля разных языков
+[01:23:50] чатов с разными языками А как вообще
+[01:23:52] пользуются переводчик может вообще люди
+[01:23:55] не пользуются или они не понимают как им
+[01:23:57] пользоваться То есть я бы ещ взял не
+[01:24:00] знаю либо количество переводов
+[01:24:02] в конкретных чатах которые я до этого
+[01:24:05] говорил либо частота
+[01:24:08] использования переводчика То есть как
+[01:24:10] часто
+[01:24:11] пользователи прибегают к
+[01:24:15] переводчику
+[01:24:18] вот
+[01:24:23] УВМ не произнесли но если мы говорим про
+[01:24:25] тестирование какое-то а тестирование то
+[01:24:27] это метрики как будто бы которые в а не
+[01:24:30] меряются потому что
+[01:24:32] тебя просто некоторое знание которое мы
+[01:24:37] получим о'кей О'кей хорошо
+[01:24:40] А давай тогда ну в а же идём Да я
+[01:24:45] просто забегаю вперёд тестировать будем
+[01:24:48] втст или по-другому
+[01:24:51] как-то Да я ну
+[01:24:54] если по по подсчётам а а э по подсчётам
+[01:25:00] по каким-то я не знаю ограничениям
+[01:25:02] техническим М что ещё может быть Ну по
+[01:25:05] чётам Я имею в виду что длительность
+[01:25:07] эксперимента для нашей выборки а Нас
+[01:25:11] устраивает плюс каких-то технических
+[01:25:14] ограничений нет то есть то как мы хотим
+[01:25:17] проверять это реализация будет
+[01:25:20] м а какие ещё ограничения могут быть
+[01:25:25] В общем если нет ограничений то да то
+[01:25:29] тут
+[01:25:30] зати а есть ограничение Как думаешь Вот
+[01:25:34] сейчас Да сейчас я накидывают сетевой
+[01:25:37] эффект может быть не может быть типа
+[01:25:39] Нужно ли его
+[01:25:49] учитывать
+[01:25:53] кажется
+[01:25:54] то есть мы берём э фиксируем по
+[01:26:04] пользователям
+[01:26:06] Ага То есть мы одним пользователем даём
+[01:26:10] а переводы другим нет Угу М О одни
+[01:26:16] пользователи взаимодействуют свечой у
+[01:26:19] них всё отлично а другой не может быть
+[01:26:23] так
+[01:26:25] кажется тогда
+[01:26:28] они по-разному будут по-разному могут
+[01:26:32] влиять на чаты То есть если мы берём
+[01:26:34] сущности чатов то ти чате у нас один с
+[01:26:38] перевозчиком другой
+[01:26:40] без у нас как раз
+[01:26:42] таки там время проведённое в приложение
+[01:26:47] точнее количество отправленных сообщений
+[01:26:49] тоже
+[01:26:51] может
+[01:26:53] сократиться
+[01:26:54] точнее Почему сократится Просто оно
+[01:26:57] может быть
+[01:26:58] разное если у нас в чате типа разные
+[01:27:03] пользователи если мы будем
+[01:27:13] [музыка]
+[01:27:23] сптоваров
+[01:27:27] тоже
+[01:27:28] интересно кажется не не не
+[01:27:30] [музыка]
+[01:27:35] сильно То есть я взаимодействую с Чой
+[01:27:38] потом у меня отбирают
+[01:27:41] ня по-старому
+[01:27:44] Потом тоже какое-то странное поведение
+[01:27:50] будет
+[01:27:53] Хм
+[01:27:55] Ну наверное
+[01:27:58] наверное можно можно что ли Так тоже
+[01:28:02] попробовать
+[01:28:03] протестировать А как в итоге э с каки Ну
+[01:28:07] склит какой у нас будет по чатам или по
+[01:28:09] юзера или по
+[01:28:09] [музыка]
+[01:28:14] кому
+[01:28:22] х так
+[01:28:27] по
+[01:28:39] чатам как будто бы и там и
+[01:28:41] там
+[01:28:43] будет может быть типа разный
+[01:28:47] опыт свечой без
+[01:28:51] свечи А ну слушай сейчас по юзера у
+[01:28:55] одних и тех же юзеров есть
+[01:28:58] фича
+[01:29:01] Они взаимодей то есть у нас разные
+[01:29:04] группы ещё будут в чате оба с Чой в чате
+[01:29:08] один с
+[01:29:10] фий в чате Нет
+[01:29:19] фичи в принципе наверно можно такой
+[01:29:23] вариант
+[01:29:31] смотреть Да у нас тем самым будут такие
+[01:29:34] три
+[01:29:38] группы то есть в итоге ты предлагаешь
+[01:29:41] чаты бить Ну то
+[01:29:43] есть или или юзеров
+[01:29:46] так не юзеров
+[01:29:51] Окей окей на самом деле мне кажется там
+[01:29:56] могут быть приколы с сетевыми
+[01:29:58] эффектами когда у тебя Ну
+[01:30:03] настроя Например у тебя есть фича У меня
+[01:30:07] нет фичи А мы общаемся с Димой который
+[01:30:09] сейчас за кадром и получается
+[01:30:13] что у Димы например будет разный опыт и
+[01:30:17] разный там и время время рациями с тобой
+[01:30:22] и со мной Просто что есть у меня а у
+[01:30:24] тебя нет как будто сетевой эффект
+[01:30:26] всё-таки
+[01:30:31] есть А если у нас будет по чатам Ну
+[01:30:35] тогда
+[01:30:36] получается по чатам у меня есть другой
+[01:30:39] контрпример Почему не стоит по ним
+[01:30:41] делать Смотри по чатам что будет у тебя
+[01:30:45] Метрика которую ты меряешь там Ключевая
+[01:30:48] количество правильных сообщений Но там
+[01:30:49] есть куча метрик которые ты хочешь е
+[01:30:50] знать ти время
+[01:30:52] приложении три по чатам ние по чатам
+[01:30:55] тебе Э метрику не даст
+[01:30:57] померить в целом давай смотри вот мне
+[01:30:59] кажется мы с выбрали реально сложные
+[01:31:02] продукты сложный кейс в этом смысле и
+[01:31:03] там могут быть какие-то сетевые эффекты
+[01:31:06] и наверно такой разговор там гораздо там
+[01:31:10] сложнее и глубже и я думаю что нам туда
+[01:31:12] сейчас не стоит идти Давай просто
+[01:31:14] попробуем сделать такое предположение
+[01:31:16] что пусть сетевых эффектов не будет нуй
+[01:31:20] так будет что ча буде меть Э мы будем
+[01:31:24] мерить э понимая что и зная что их не
+[01:31:27] существует Ну вот типа наше такое
+[01:31:29] ограничение меры Давай просто вот
+[01:31:31] пройдём по стандартному
+[01:31:33] флоус проце дизайним его обсудим как это
+[01:31:36] делается что там ещё будем с ним делать
+[01:31:38] как будем его не знаю а-а проверять В
+[01:31:42] общем по по по классике пройдёмся короче
+[01:31:45] без вот этого углубления в сложной
+[01:31:48] материи
+[01:31:50] Угу Да о'кей О'кей хорошо То есть ты уже
+[01:31:55] назвал давай что ещё будем делать е
+[01:31:57] стоит задача Провести такой атест Угу Ну
+[01:32:00] короче набросать дизайн эксперимента да
+[01:32:04] Ну да Угу О'кей Ну по сути да с чего я
+[01:32:09] всегда начинаю в дизайне эксперимента
+[01:32:11] это какая-то бизнес проблема Почему это
+[01:32:13] важно Вот мы это проговорили
+[01:32:16] зафиксировали Наверное я сейчас
+[01:32:19] повторяться не буду просто пройду по
+[01:32:21] шагам вот второе - это сформулировать
+[01:32:24] саму гипотезу То есть если мы что-то
+[01:32:27] добавляем то на что это влияет Ну скорее
+[01:32:30] даже в первую очередь на какую метрику
+[01:32:32] Вот и почему мы так считаем то есть на
+[01:32:36] на основе чего вот
+[01:32:39] А
+[01:32:40] формулируем эту гипотезу вот
+[01:32:46] Дальше Ну дальше сами метрики тоже как
+[01:32:50] мы с тобой проговорили фиксируем
+[01:32:54] ключевую целевую метрику вот какую
+[01:32:57] именно гипотезу она проверяет Ну это
+[01:33:01] такая таблица У меня обычно типа Метрика
+[01:33:04] гипотеза
+[01:33:05] И как мы будем Какой критерий применять
+[01:33:09] для данной метрики вот статистический
+[01:33:14] дальше оформление нуч оформление
+[01:33:17] описание аудитории вот Какая именно
+[01:33:21] аудитория там не знаю страна город
+[01:33:24] платформа может быть Ну разные
+[01:33:25] сегментации могут быть Вот если это
+[01:33:28] приложение то там Android iOS и так
+[01:33:30] далее вот могут быть ещё разные типы
+[01:33:33] пользователей в общем да вот вот это
+[01:33:35] тоже зависит уже от контекста Угу а
+[01:33:40] дальше
+[01:33:42] а а ну как мы будем бить То есть если
+[01:33:47] это атест как мы бьём 50 на 50 или же
+[01:33:52] там не знаю сейчас не
+[01:33:55] хотим пусть будет зажигать много денег
+[01:33:57] на тест и там не знаю 80 на 20 будем
+[01:34:01] делать А это тоже нужно будет
+[01:34:03] зафиксировать Угу А чего зависит размер
+[01:34:07] выборки который мы пускаем в тест Кроме
+[01:34:09] того что кроме наших
+[01:34:11] бизнесом что это будет дорого или дёшево
+[01:34:14] на что это ещё влияет Угу Ну это будет
+[01:34:18] влиять
+[01:34:20] на время проведения эксперимента Угу Вот
+[01:34:23] и э ну
+[01:34:26] э МД ещё тоже нужно посчитать то есть
+[01:34:29] минимальный детектива эффект угу который
+[01:34:33] мы либо мы фиксируем какое время хотим
+[01:34:35] Вот Угу наоборот мы от времени смотрим
+[01:34:39] какой у нас будет mde Угу Вот
+[01:34:43] а
+[01:34:45] а пу-пу ну наверное вот Ключевое в а
+[01:34:51] тесте - это вот эти пункты которы я
+[01:34:55] фиксирую
+[01:34:57] обычно в дизайне
+[01:35:00] точнее смотри Давай ещё раз
+[01:35:03] вот всё ли здесь учтено вот ты назвал
+[01:35:07] размер
+[01:35:09] группы метрику собственно её
+[01:35:12] да получается длительность
+[01:35:16] теста критери ког про критери что ты
+[01:35:19] имеешь в
+[01:35:22] виду
+[01:35:24] критерий кото мы
+[01:35:26] будем для конкретной
+[01:35:30] метрики обычно
+[01:35:32] чем Кай используешь Ну как
+[01:35:35] правило Ну чаще всего
+[01:35:52] это
+[01:35:58] Окей если говорить про там тоже самое те
+[01:36:01] наме
+[01:36:02] Да в дизайне
+[01:36:05] теста значимости вот нужно его
+[01:36:09] фиксировать А
+[01:36:13] блин это у
+[01:36:22] меня оши первого
+[01:36:25] рода и мощность
+[01:36:31] тоже зафиксировать Ну да
+[01:36:35] этому Ой хорошо зафиксировали все
+[01:36:39] параметры определили их
+[01:36:41] посчитали запустили
+[01:36:44] теч
+[01:36:46] так
+[01:36:52] запу то есть дизайн Окей есть Ну вот
+[01:36:56] кстати наверное тут тоже от контекста в
+[01:36:59] компании что ли
+[01:37:01] зависит Ну хотя я думаю я всегда это
+[01:37:04] делаю то
+[01:37:05] есть перед запуском на живых
+[01:37:08] пользователей Это я сейчас также также
+[01:37:11] подключаюсь и при тестировании самой
+[01:37:15] фичи как она работает и на тестовой
+[01:37:18] среде и на проде
+[01:37:19] на команду Вот потому что если всё
+[01:37:25] работает не так как мы ожидаем то как бы
+[01:37:27] вообще атест ушёл в небытие То есть он
+[01:37:32] не
+[01:37:34] получил значит запустили запустили уже
+[01:37:37] на ну после проверки запустили на
+[01:37:40] реальных пользователях Ну тут тоже
+[01:37:44] иногда стараемся сами проверить Угу Как
+[01:37:48] всё отрабатывает в Ну там версия
+[01:37:52] приложения может обновиться и
+[01:37:54] вдруг что-то не так
+[01:37:59] работает так так так
+[01:38:03] так Ну наверное про то что мы типа в
+[01:38:06] платформе всё всё настраиваем это и так
+[01:38:10] Ну допустим да допустим что это у нас
+[01:38:13] уже реализовано на самом деле Ну я
+[01:38:15] просто уточнил может быть есть
+[01:38:17] дополнительно каких вещей Я в целом
+[01:38:19] услышал все основные этап подготовки Да
+[01:38:22] дизайн определил чек сделал в общем
+[01:38:25] убедился что всё
+[01:38:26] но бьётся и события
+[01:38:30] льются
+[01:38:34] запускаем Поехали Да давай предложим что
+[01:38:37] сегодня запустили его
+[01:38:40] значит вечером и соответственно ожидаем
+[01:38:43] что через там 3 недели там по дизайну у
+[01:38:45] нас дол мы э 3 недели что делать
+[01:38:50] будем так да после запуска
+[01:38:55] после запуска
+[01:38:57] я ну обычно там не знаю в первую неделю
+[01:39:01] могу настроить мониторинг по Метрика Угу
+[01:39:05] Вот что каких-то резких может дропов не
+[01:39:11] прошло чтобы это за детектировать
+[01:39:15] вот
+[01:39:17] естественно Ну в динамике смотрим
+[01:39:21] и пока оно не
+[01:39:25] канец Ну короче не выйдет на какой-то
+[01:39:27] уровень будет Вот так вот естественно не
+[01:39:31] каком подглядывания Ну не нужно
+[01:39:35] подглядывать и таким заниматься
+[01:39:50] вот ну и у нас может знаю так оказаться
+[01:39:54] что
+[01:39:57] эксперимент Может завершиться раньше
+[01:40:01] срока если уже
+[01:40:06] значимость выров и у нас уже значимые
+[01:40:11] результаты
+[01:40:13] есть Ну короче эффект Точнее не
+[01:40:22] эффек блин по-русски
+[01:40:25] забыл
+[01:40:30] дадада ке
+[01:40:33] телеграма Да объём выборки он раньше
+[01:40:40] наших Вот может и уже можно да завершать
+[01:40:47] Угу Ну вот Наверное это
+[01:40:50] да До завершения до подведения
+[01:40:55] угуй этап дальше этап идёт подведение
+[01:41:00] результатов Вот давай здесь про оделение
+[01:41:02] рето поговорим такой у меня вопрос
+[01:41:05] условно там понятно что там могут быть
+[01:41:07] раз разных исходов много Давай
+[01:41:09] предположим что у нас вот при окончании
+[01:41:11] теста мы его корректно провели у нас всё
+[01:41:13] Ну правильно поставлены а на выходе мы
+[01:41:16] видим
+[01:41:17] метрики серые Ну на
+[01:41:21] сленги Ну да да
+[01:41:25] значи какой сделаем это Вывод что что
+[01:41:29] принес
+[01:41:30] бизнесу Ну на самом деле Первое что я на
+[01:41:35] серых Метрика делаю Это во-первых можно
+[01:41:38] разные сегменты
+[01:41:39] ещё смотреть Потому что не факт что ну
+[01:41:44] мы изначально думали что повлияли на
+[01:41:46] этот сегмент
+[01:41:52] аже каким-то признакам они объединяются
+[01:41:55] Угу Вот И там могут быть уже там
+[01:41:58] побольше
+[01:42:00] отличия не как в дизайне Мы считали А
+[01:42:03] побольше mde и точнее сам эффект
+[01:42:06] вот мы увидим 100 значимые результат Угу
+[01:42:10] Вот то есть не нужно сразу выбрасывать
+[01:42:13] так сказать Ну или говорить что никакого
+[01:42:16] эффекта нет Вот это первый момент второй
+[01:42:21] момент с
+[01:42:23] с серыми прокраса Ну
+[01:42:28] то
+[01:42:30] посчитать какой эффект минимальный на
+[01:42:33] тех результатах на тех
+[01:42:36] данных Что у нас по итогу получились
+[01:42:38] потому что не факт что при дизайне тоже
+[01:42:41] самое тот же объём
+[01:42:45] выборки и посмотреть какой эффект вообще
+[01:42:49] мы могли закро и почему Ну понятно
+[01:42:52] почему мы его
+[01:42:54] Да вот ну и бывают на самом деле фичи
+[01:42:58] когда это не знаю целевая Метрика не
+[01:43:03] прокрасить Но другие дополнительные
+[01:43:05] метрики могли проситься и мы Ну хотели и
+[01:43:09] на них тоже повлиять они например
+[01:43:12] зелёные Ну положительно
+[01:43:15] прокрасить
+[01:43:18] Угу окей
+[01:43:21] да согласен вцелом
+[01:43:24] э всё что ты сказал валидно а вот ну ты
+[01:43:29] сказал что вот допустим у нас этот
+[01:43:31] эффект который мы могли затка на
+[01:43:32] фактической выборке он оказался больше
+[01:43:34] чем ожидали Да и соответственно Ну у нас
+[01:43:36] условно изменение получается лежит
+[01:43:38] где-то внутри этого эффекта Ну то есть
+[01:43:40] мы его просто не пировали пото что
+[01:43:42] дисперсия А ты знаком с какими-нибудь
+[01:43:44] методами снижения дисперсии типа Что
+[01:43:46] можно поделать чтобы ну дада да Можно
+[01:43:50] либо
+[01:43:52] а
+[01:43:54] использовать либо по стратификацию
+[01:43:57] использовать либо просто ну самый
+[01:44:00] стандартный это
+[01:44:03] выбросы тоже
+[01:44:08] убрать Ну да да вот такие методы
+[01:44:14] тоже сегментирование
+[01:44:17] какое-то произ то можно
+[01:44:22] идис
+[01:44:23] уменьшить и посмотреть ели значимое
+[01:44:26] различие Угу Да ну приэтом какой-нибудь
+[01:44:29] Т можно делать Прямо постфактум на самом
+[01:44:31] деле Ну потому что ты А ну есть ещё
+[01:44:36] стратификация если правильно называю Ну
+[01:44:39] когда мы на этапе как раз таки запуска
+[01:44:44] сплитом
+[01:44:46] Дима не включился Дима включил камеру у
+[01:44:48] нас с тобой в эфире потому что Дима
+[01:44:50] знает что это обычно завершающие вопрос
+[01:44:54] в наших интервью когда мы разговариваем
+[01:44:56] проте протесты на самом деле
+[01:44:59] Действительно это
+[01:45:00] так моя часть подошла к концу наш тобой
+[01:45:05] интервью закончилось поэтому теперь
+[01:45:08] можно перейти к выдохнуть расслабиться
+[01:45:11] сделать поток воды или чая Вот и
+[01:45:14] обсудить как оно прошло Да Ребята
+[01:45:17] во-первых давайте скажем что Вова короче
+[01:45:21] герой потому одно дело когда тебя
+[01:45:24] собеседуем два человека другое дело
+[01:45:25] когда на это смотрят Мне кажется в Пике
+[01:45:27] достигало было более 200 человек поэтому
+[01:45:30] быть перед такой аудиторией в режиме
+[01:45:32] онлайн это нужно иметь огромный запас
+[01:45:35] смелости поэтому тебе в общем посылаем
+[01:45:37] огромный огромный Респект в общем я
+[01:45:39] думаю что это Да теперь можно выдохнуть
+[01:45:41] Егор но думаю что сейчас как раз-таки
+[01:45:43] твоя часть чтобы ты прошёлся и рассказал
+[01:45:46] Ну то есть я могу немножко дать канвы
+[01:45:49] для обсуждения как раз-таки ребята
+[01:45:51] задавали ээ эти вопросы в чате один из
+[01:45:54] них я думаю что даст отправную точку Да
+[01:45:56] это с того момента когда вы вместе с
+[01:45:59] Лово решали задачку про кубик или вообще
+[01:46:02] был общий комментарий складывается
+[01:46:04] впечатление что Егор задаёт вопрос
+[01:46:06] говорит Ага интересно да но со стороны
+[01:46:08] кажется что ему это не особо-то
+[01:46:09] интересно и немного не ясна линия этих
+[01:46:12] вопросов что он этим хочет выяснить и
+[01:46:14] мне кажется здесь основной вопрос Егор к
+[01:46:16] тебе А зачем же ты все эти вопросы
+[01:46:18] вообще во задавал если с чего-то хочется
+[01:46:21] стартовать то как раз вот когда вы
+[01:46:24] разбирали задачку про кубик в самом Да
+[01:46:26] начале этого Наверно после опыта до
+[01:46:28] разбора кейса был такой вопрос а вот в
+[01:46:30] полях вообще помогают эти задачки или
+[01:46:32] нет Зачем мы вообще такие вопросы задаём
+[01:46:36] круто Мне тебя побеседовать Зачем ты
+[01:46:38] вообще это делал ю что будет интересно
+[01:46:42] послушать как раз таки твою обратную
+[01:46:43] связь Да здорово Да давай так с этого
+[01:46:47] нанм нетча нам действительно я
+[01:46:49] присоединюсь к словам мы Спасибо тебе
+[01:46:51] большое правда круто Я безумно
+[01:46:54] благодарен тебе что ты присоединился и
+[01:46:57] нужно обладать Ну большой смелостью и в
+[01:47:00] общем не буду в эфире говорить чем ещё
+[01:47:03] большим чтобы согласиться правда классно
+[01:47:06] Спасибо было здорово
+[01:47:07] а скажу теперь про в общем-то отправную
+[01:47:11] точку вернёмся к ней да что это было что
+[01:47:14] я спрашивал и почему вообще это звучало
+[01:47:16] наверное зрители могли заметить я
+[01:47:19] постоянно там обращался к экрану я делал
+[01:47:21] заметки то есть Ну в целом
+[01:47:23] так устроен проследования что у нас есть
+[01:47:26] в которой есть определённые Локи по
+[01:47:28] которым я делаю заметки вопросы которые
+[01:47:31] я спрашиваю они
+[01:47:34] прямо отражают проявление компетенции
+[01:47:37] которые мы внутри Авита ждём от
+[01:47:39] аналитиков У нас есть Матрица
+[01:47:40] компетенций она публичная её можно
+[01:47:43] найти Да Егор если что у нас даже её
+[01:47:46] наши редакторы трансляции прислали
+[01:47:48] ссылочку на как ки с нашими
+[01:47:50] компетенциями которые у на есть вот
+[01:47:53] собственно вопросы про опыт они были как
+[01:47:55] раз для того чтобы раскрыть ту или иную
+[01:47:58] составляющую Да наше компетенцию дальше
+[01:48:00] поговорим поговорим про них
+[01:48:02] а Задачка про кубик по сути Обычно она у
+[01:48:06] нас живёт отдельно То есть у нас есть
+[01:48:08] отдельная маленькое интервью перед
+[01:48:10] основным интервью где мы собственно вот
+[01:48:12] занимаемся тем что решаем пару таких
+[01:48:14] задачек на логику там да Или на какую-то
+[01:48:17] математику задача простая понять что
+[01:48:20] существу Ну в общем есть понимание у
+[01:48:22] кандидата о математическом аппарате что
+[01:48:24] есть представление о том что такое
+[01:48:26] матожидания да о том как его посчитать и
+[01:48:28] в целом Ну что мы делаем продукте или в
+[01:48:31] бизнесе обычно мы Ну не знаю часто
+[01:48:34] бывает так что мы оптимизируем какие-то
+[01:48:36] метрики и например Зарабатываем деньги и
+[01:48:38] чтобы запустить какой-то продукт мы
+[01:48:40] считаем ожидаемую прибыль которую в
+[01:48:42] общем-то продукт нам принесёт это набор
+[01:48:44] некоторых там конверсий вероятностей и
+[01:48:47] прочего и в бизнес это прикладывается
+[01:48:49] следующим образом а на модель задачи мы
+[01:48:52] просто понимаем что кандидаты владеют
+[01:48:55] этим аппаратом вот поэтому конечно же мы
+[01:48:58] Кубики не бросаем хотя у нашего
+[01:49:00] директора есть Ну не знаю наверное сотня
+[01:49:02] кубиков он иногда их раздаёт нам ходит
+[01:49:04] по офису и даёт нам кубики эти Потому
+[01:49:06] что потому что это весело вот но в жизни
+[01:49:10] мы решаем задачи скорее близки к тому
+[01:49:12] что мы делали в третьей части нашего
+[01:49:14] собеседования и уже решали какие-то
+[01:49:16] продуктовые кейсы рассматривали гипотезы
+[01:49:19] Вот И там тоже в общем-то это такой
+[01:49:24] цельный кусок Ну как бы то что мы
+[01:49:26] разобрались сегодня с Вовой там за минут
+[01:49:28] 40 да по сути Ну в продукте мо може
+[01:49:30] разбираться там полгода да то есть Ну
+[01:49:32] понятно что с разными сложности продукта
+[01:49:34] бывают по-разному гипоте бывают короткие
+[01:49:36] и быстрые и тестировать мо можем тоже
+[01:49:37] Медленно или а или быстро но тем не
+[01:49:40] менее это вот такой цикл жизни какой-то
+[01:49:42] там гипотезы фичи которую В общем
+[01:49:45] команда поддерживает развивает там и
+[01:49:48] модифицирует вот поэтому мы прошли здесь
+[01:49:51] по основным этапам
+[01:49:53] по основному циклу жизни гипотезы и
+[01:49:57] участию аналитика в этом цикле жизни и
+[01:49:59] основные вопрос как раз все затронули
+[01:50:02] конечно много где можно было углубиться
+[01:50:21] поразговаривать покрыть поэтому
+[01:50:24] задержались но можно говорить е ещё
+[01:50:27] дольше опять же расскажу что обычно у
+[01:50:30] нас Если разговор складывается очень
+[01:50:34] такой продуктивный много разных гипотез
+[01:50:36] там тестов ещ и так далее много разных
+[01:50:39] компетенций
+[01:50:41] проявлено то у нас бывает ещё
+[01:50:43] дополнительная секции когда мы говорим
+[01:50:44] там ну условно такое собеседование на
+[01:50:47] сеньора где мы говорим уже про более
+[01:50:50] абстрактные сложные сущности то есть вот
+[01:50:53] если мы говорим про какую-то практику
+[01:50:54] что делает аналитик там каждый день а
+[01:50:57] есть ещё там секция отдельная когда мы
+[01:50:59] говорим там условно про опыт про
+[01:51:01] решённые задачи э из Ну короче какие-то
+[01:51:05] сложные вызовы про которые в общем стоит
+[01:51:07] отдельно по углубляться и скажу что мы
+[01:51:09] здесь пытались ну я здесь некоторые вещи
+[01:51:12] углублялся как раз такие вещи щупал для
+[01:51:14] того чтобы условно в интервью э понять
+[01:51:18] условно А дальше кандидат вести э на
+[01:51:21] такую сексю дополнительную или там
+[01:51:23] говорит что окей здесь достаточно там
+[01:51:26] понятно что что
+[01:51:28] здесь решение можно принять уже здесь
+[01:51:30] Сейчас или можно
+[01:51:33] ещё пообщаться Да и там предложить может
+[01:51:36] быть какие-то более сложные задачи и
+[01:51:39] какие-то вызовы которые в общем не для
+[01:51:42] всех
+[01:51:44] Вот примерно такой у меня был
+[01:51:47] расска это
+[01:51:51] про Почему ты задавал те или иные
+[01:51:53] вопросы Ну то есть давай я так
+[01:51:55] финализировать
+[01:51:59] и со размери относительно матрицы
+[01:52:02] компетенции которую мы прислали если
+[01:52:04] кому-то интересно с ней можно
+[01:52:05] ознакомиться второй блок - Это был такой
+[01:52:07] про технические задачки когда мы
+[01:52:09] пытаемся посмотреть что человек
+[01:52:11] действительно Придя не не запутается
+[01:52:13] между УМО ожиданиями персон силя
+[01:52:15] медианами и различными распределения и
+[01:52:17] третий блок - это было решение именно
+[01:52:18] продуктового кейса это та наверное
+[01:52:20] стандартная работа аналитика которая у
+[01:52:22] нас и совершает как раз таки большинство
+[01:52:25] людей которые занимаются аналитикой Вот
+[01:52:27] теперь я думаю да с этим наверно блоком
+[01:52:30] мы здесь всё давай наверно перейдём к
+[01:52:32] какому-то фид во по ито собеседования
+[01:52:35] Давай Да давай я попробую пока
+[01:52:37] порады по каким-то Ну составным частям
+[01:52:40] Да а потом какую-то интегральную
+[01:52:42] тоже тоже вынести первая часть у нас
+[01:52:45] была как раз про опыт и во я собственно
+[01:52:48] задал вопросы и пытался тебя где-то в
+[01:52:50] общем разложить Да по матрице
+[01:52:53] компетенции Да проявление того что ты
+[01:52:56] делаешь в своём опыте по нашей матрице
+[01:52:58] которая там которую мы считаем для себя
+[01:52:59] некоторым ориентиром А меня интересовали
+[01:53:01] компетенции поиск задач решение задач э
+[01:53:05] Хард скилы твои Меня интересовало
+[01:53:08] влияние на бизнес который ты можешь
+[01:53:09] оказывать не интересовал как ты Ну там
+[01:53:11] условно планируешь проявляешь ожидания а
+[01:53:13] что могу сказать А вот как раз мы здесь
+[01:53:16] тоже много разговаривали и много из
+[01:53:18] компетенций которые ты проявлял Они как
+[01:53:21] раз отсылают Ну меня как соседу к тому
+[01:53:24] что нужно тебя повести дальше в
+[01:53:25] следующую секцию и там с тобой
+[01:53:26] пообщаться более глубоко потому что там
+[01:53:27] есть потенциал к тому
+[01:53:30] [музыка]
+[01:53:31] чтобы с тобой общаться
+[01:53:34] там на более скиловые на более родовые
+[01:53:37] задачи А если говорить про подач Мне
+[01:53:40] понравилось про то что у тебя есть в
+[01:53:43] общем удач Ты рассказывал про то
+[01:53:46] как сам участвуешь наполнение кло
+[01:53:49] рассказывал про то
+[01:53:50] как сам реша зада ходиш какие-то новые
+[01:53:53] инсайты Да их проверяешь и в общем мы
+[01:53:54] это ценим мы считаем что аналитики
+[01:53:56] должны уметь искать задачи Ну опять же
+[01:53:59] начина от какого-то грейда и чем в
+[01:54:02] общем-то взрослее старше сло аналитик
+[01:54:04] тем более сложных и больше и более
+[01:54:07] сложных задач же находить приносить вот
+[01:54:11] это ты рассказал проявил это у тебя было
+[01:54:15] про ожидани планирование Здесь тоже
+[01:54:17] рассказал про то
+[01:54:19] что ва есть планирование есть кварта там
+[01:54:23] есть более итерационная и в готовом ЕС
+[01:54:26] ты не участвуешь то в квартальном ты
+[01:54:28] рассказал что было участие да что ты
+[01:54:31] тоже приносишь
+[01:54:32] задачи и при этом когда мы говорим про
+[01:54:35] разных заказчиков ты рассказал про то
+[01:54:36] как работаешь с набором разных
+[01:54:40] заказчиков если он не один вот это тоже
+[01:54:42] важно что у тебя есть некоторая система
+[01:54:44] ты в принципе понимаешь задачи скори
+[01:54:46] приш не решения
+[01:54:50] ите и при этом если
+[01:54:53] что-то идёт не так заказчики недовольны
+[01:54:56] понимаешь что там ты не силен Да и
+[01:54:57] можешь скалирование
+[01:55:06] [музыка]
+[01:55:10] соответствием там разных рядов да то И
+[01:55:12] то и другое Я бы там отправлял это в
+[01:55:13] midle п и дополнительно до проверку да
+[01:55:15] то есть что там есть ещё более более
+[01:55:18] глубокого и детального на уровне сине
+[01:55:21] правление на бизнес
+[01:55:22] ты рассказал как проверял гипотезу Да и
+[01:55:26] она значит помогла вырастить некоторую
+[01:55:30] метрику отмен там на точне Уменьши
+[01:55:32] метрику отмен на 30 40% Вот и в этом
+[01:55:36] смысле с точки зрения То
+[01:55:38] есть мне этого было достаточно Да чтобы
+[01:55:42] оценить тебя например как как мил
+[01:55:46] аналитика по тому что рассказал почему
+[01:55:49] Например Ну и даже может быть доверить
+[01:55:51] ещё потому что я здесь не закапывал но
+[01:55:54] чего мне в этом кейсе например не
+[01:55:55] хватило да того что ты здесь это неплохо
+[01:55:59] это это О'кей Это хорошо Просто если бы
+[01:56:02] мы с тобой разговаривали там дальше Да
+[01:56:04] там на сеньор най секции я бы закапывал
+[01:56:06] и уже узнавал у тебя А какие именно ты
+[01:56:09] сам принёс гипотезы которые там
+[01:56:10] сгенерировать дополнительное влияние на
+[01:56:12] метрики здесь ты скорее рассказывал что
+[01:56:15] была некоторая гипотеза продук он мне
+[01:56:16] принёс попросил тебя проверить и ты смог
+[01:56:18] это сделать вот провёл атест корректно
+[01:56:21] зазай корректно всё почитал и
+[01:56:23] соответственно а показал что
+[01:56:25] здесь в общем гипотеза сработала Да
+[01:56:29] наверное тут такой комментарий что у нас
+[01:56:30] вот Чем дальше й аналитика находится тем
+[01:56:34] мы ожидаем перехода из реактивного
+[01:56:36] уровня на получение задач как раз-таки к
+[01:56:38] про активному То есть у тебя Чем более
+[01:56:40] какой типа мы считаем что Team Lead -
+[01:56:42] Это должен быть как раз-таки уже человек
+[01:56:44] который генерирует задачи в том числе он
+[01:56:46] является таким продуктовым партнёром
+[01:56:48] своего продукта и не то что он как
+[01:56:50] интерфейс для доступа к данных
+[01:56:52] действительно человек который
+[01:56:53] заинтересован с тем чтобы продукт
+[01:56:54] двигался вперёд вот и Ну естественно что
+[01:56:56] поиск задач здесь находится на одном из
+[01:56:58] первых мест да Да всё так Ну и наверное
+[01:57:01] здесь важно подчеркнуть что целью этой
+[01:57:03] секции не является определить там грейд
+[01:57:06] от Джуна до синьора цель задача этой
+[01:57:10] секции сказать условно перед нами
+[01:57:12] сейчас аналитик jor аналитик кто-то выше
+[01:57:16] и мы не знаем совершенно Кто и нужно
+[01:57:18] отдельно проверить его ну или хар да то
+[01:57:20] есть тот человек кото нам не подходит и
+[01:57:22] в этом смысле то есть мы всегда Ну в
+[01:57:24] общем здесь поэтому не закапываем что мы
+[01:57:26] говорим О'кей понятно здесь можно
+[01:57:28] выкопать Значит есть есть повод
+[01:57:29] поговорить дальше
+[01:57:31] А дальше следующая компетенция а она
+[01:57:34] такая у нас она сложно сочинённая она
+[01:57:37] про называется решение задач то есть
+[01:57:39] насколько сложная задача аналитик решает
+[01:57:42] и о там мы для себя выделяем несколько
+[01:57:45] её условных основных частей там
+[01:57:47] открытость масштаб и сложность Вот я как
+[01:57:49] раз спрашивал про открытость и сложность
+[01:57:50] Да расскажи про каку непонятную мутную
+[01:57:53] формулировку И как ты с ней работал вот
+[01:57:56] и про какие-то сложные а сложные задачи
+[01:58:00] и
+[01:58:02] здесь мне
+[01:58:04] скорее ну то есть задача которую ты
+[01:58:06] рассказал она была такая пришёл продук
+[01:58:09] говорит хочу атест Ну типа не знаю как
+[01:58:12] Придумай Как как его провести Вот мы для
+[01:58:14] себя это формулируем как ну О'кей Значит
+[01:58:17] нужно сделать что-то непонятно как
+[01:58:18] аналитик сам это делает мы это для себя
+[01:58:22] скорее оцениваем Как такую задачу midle
+[01:58:25] level по открытости
+[01:58:27] И если бы ты показывал рассказывал
+[01:58:30] какую-то задачу когда к тебе пришли
+[01:58:32] Сказали бы Слушай нам нужно вырастить
+[01:58:34] такую-то метрику то есть какое-то бизнес
+[01:58:37] Ожидание и ты сказал О'кей Я подумаю там
+[01:58:39] посер найду точки роста принесу расскажу
+[01:58:41] сделаю вот такая задача была бы заходом
+[01:58:44] туда
+[01:58:46] в серную часть но с точки зрения там
+[01:58:51] ожидания
+[01:58:52] отдачи idle уровня вообще типа супер А
+[01:58:56] если говорить про сложность Ты
+[01:58:58] рассказывал про Множественные атест с
+[01:59:01] анализом переписки переписок ну здесь У
+[01:59:04] меня наверно там не очень
+[01:59:07] получилось понять там насколько это
+[01:59:09] сложная задача опять же повод просто
+[01:59:10] поговорить дальше то есть это точно
+[01:59:12] нормальная сложность там и про всё что
+[01:59:14] мы с тобой говорили там везде есть
+[01:59:16] сложность midle здесь сходу я не смог
+[01:59:19] определить е сложно сир опять же это
+[01:59:21] повод там
+[01:59:23] С секции было бы для нас если бы мы с
+[01:59:25] тобой шли по обычному Фло вот то что
+[01:59:28] рассказал Вполне себе классные примеры В
+[01:59:31] общем задач и для этой секции точно было
+[01:59:33] бы и точно для секции достаточно пода
+[01:59:37] подан ты рассказал про SQL много разных
+[01:59:41] баз попробовал много с чем Много с чем
+[01:59:44] работал О конки Писал опять же про
+[01:59:47] оптимизацию скорее те помогает И почему
+[01:59:50] спрашиваю у нас ча
+[01:59:53] мы думаем над оптимизацией потому что
+[01:59:56] код пишет витрин данных пишут сами
+[01:59:59] аналитики и важно чтобы в хранилище это
+[02:00:02] всё работало огромное количество данных
+[02:00:05] успело считаться за сутки
+[02:00:07] некие билды не падали В общем не тянули
+[02:00:10] за собой остальные витрины подцепочки и
+[02:00:13] так далее поэтому важно
+[02:00:15] чтобы в общем оптимизация
+[02:00:19] кода была в общем-то
+[02:00:22] инструментом
+[02:00:23] аналитика не является каким-то блогером
+[02:00:25] если там не работал ну в общем
+[02:00:28] Кто много кто из пришедших ребят с этим
+[02:00:31] не работал но классно если у тебя уже
+[02:00:33] есть опыт Да ты условно там смотришь
+[02:00:35] план запроса понимаешь что к чему пожни
+[02:00:37] если там ещ каки хинты знаешь вообще
+[02:00:39] замечательно да ребята Егор в чате
+[02:00:41] писали что ожидали здесь услышать что
+[02:00:43] посмотришь Вот как это как как такой
+[02:00:46] Триггер что человек действительно
+[02:00:47] заглядывает в план запроса и понимает
+[02:00:49] где ему что нужно поделать да ровно это
+[02:00:52] при этом э Даже у нас ну у нас нет
+[02:00:55] секции Лайф кодинга мы понимаем что это
+[02:00:56] инструмент инструментам можно обучиться
+[02:00:58] поэтому здесь Мы скорее для себя просто
+[02:01:00] чекаем на входе некоторый уровень от
+[02:01:02] которого Стартуем Да может тут Егор
+[02:01:04] ненадолго остановиться потому что там
+[02:01:06] как раз-таки наши редакторы спрашивали А
+[02:01:08] если хотите техническую часть ставьте
+[02:01:10] плюс и очень много людей поставили плюс
+[02:01:12] как будто бы у нас после этого есть ещё
+[02:01:14] какая-то дополнительная Техническая
+[02:01:16] часть Ну в общем я думаю ты здесь можешь
+[02:01:18] рассказать как раз-таки ты упомянул что
+[02:01:19] у нас нет Лайф кодинга в котором мы это
+[02:01:21] проверяем можешь про это поподробнее
+[02:01:23] чуть как раз-таки тут пока мы на этом
+[02:01:25] моменте да да Супер Ну в общем-то так и
+[02:01:28] есть мы э не Лайф кодим потому что Ну
+[02:01:31] опять же это инструмент нам важно как
+[02:01:34] люди мыслят Да вот мы сегодня слово
+[02:01:36] ровно это обсуждали Как как он мыслит
+[02:01:38] как он проверяет гипотезы как он думает
+[02:01:41] как он Почитал бы метрику В общем всё
+[02:01:44] это мы то есть как этим овладеть с точки
+[02:01:47] зрения как это заходить Ну это навык он
+[02:01:49] формируется его можно в принципе там ну
+[02:01:52] за ю тилки наверно можно освоить том
+[02:01:55] уровне на котором нужно есть в этом
+[02:01:57] смысле
+[02:01:59] это с одной стороны важно чтобы человек
+[02:02:03] ну там Пытался это делать
+[02:02:05] изучал Ил с другой стороны Ну некритично
+[02:02:09] если он там не
+[02:02:10] смотрел Не знаю с этими онми В общем не
+[02:02:13] понимает что делать и куда их крутить
+[02:02:15] просто
+[02:02:20] мыста тоже самое с питоном Да Во
+[02:02:23] рассказал Какие задачи Решал Я понимаю
+[02:02:25] что то есть он рассказывает об этом Ну
+[02:02:28] это понятный класс задач он рассказывает
+[02:02:29] что он с ними делал Я понимаю что у него
+[02:02:31] Опыт есть мне не нужно здесь прям
+[02:02:34] какие-то там смотреть алгоритмы и так
+[02:02:36] далее чтобы в общем как-то фильтровать
+[02:02:38] это не фильтрующий фактор какой-то да то
+[02:02:40] есть это Окей если во рассказывает о том
+[02:02:43] что он с ним работал мне Достаточно того
+[02:02:45] чтобы того что Он рассказал вот опять же
+[02:02:48] почему сси про это тоже не является
+[02:02:51] ожиданием
+[02:02:52] от всех аналитиков
+[02:02:54] хотим сес у на есть стратегия аналитики
+[02:02:58] говорим том что в целом Мы хотим чтобы
+[02:03:00] аналитики умели делать решения и чтобы
+[02:03:04] это в общем как-то продвигать в массы Мы
+[02:03:08] решили что мы какого-то времени будем
+[02:03:11] ожидать того что аналитики уровня сине
+[02:03:14] выше приме Рени СХ
+[02:03:20] зада а и это в общем-то такой для нас э
+[02:03:25] ну хороший хороший маркер Это хорошо
+[02:03:28] стимулирует ребят в общем этот порог
+[02:03:29] входа Да как-то преодолевать что О'кей
+[02:03:31] раз тут Меня ждут то я попробую
+[02:03:33] что-нибудь поделать А в общем это
+[02:03:35] внутренняя наша такая штука и на входе
+[02:03:37] Мы тоже проверяем но опять же да да нет
+[02:03:40] нет фва сказал о том что а занимался Ну
+[02:03:43] в общем-то в теории проходил э что-то а
+[02:03:46] начинал делать там для анализа текста
+[02:03:48] Вот но боевых задач не решал тоже вполне
+[02:03:50] себе понятная штука и если бы мы там
+[02:03:52] разговаривали дальше на
+[02:03:54] предмет сеньор роли то скорее всего это
+[02:03:57] просто было бы каким-то одним одним из
+[02:04:00] пунктов в плане развития В общем и
+[02:04:03] двигались бы дальше Вот но ес если бы
+[02:04:05] было было бы здорово Да мы там
+[02:04:06] пообщались про это если нет тоже окей Не
+[02:04:08] блокирующая какая-то штука вот Итого по
+[02:04:11] опыту то есть да Если так суммировать то
+[02:04:13] я бы сказал что я бы оценивал опыт в
+[02:04:17] midle п То есть это точно есть повод
+[02:04:20] пообщаться дальше и поля
+[02:04:22] есть для этой секции достаточно было по
+[02:04:25] прохождению этой секции
+[02:04:28] налити что сказал было достаточно значит
+[02:04:32] про
+[02:04:33] задачку Ну поскольку Да у нас она такая
+[02:04:36] здесь
+[02:04:37] [музыка]
+[02:04:39] решалась конеч Да где-то я там
+[02:04:42] останавливал предлагал начитать и так
+[02:04:44] далее Я видел в общем-то правильно
+[02:04:47] стратегию понимат что тание о оно жит
+[02:04:50] немножко за
+[02:04:52] исто про натуральные числа
+[02:04:55] ищем почему оно на
+[02:04:58] Получилось Да здесь в общем
+[02:05:03] Понятно понятна
+[02:05:05] история дальше там по самому решению вот
+[02:05:08] когда уже считали стратегию там пошл уже
+[02:05:11] куда-то дальше в услов вероятности в
+[02:05:13] целом если были с тобой
+[02:05:20] на скорее из-за того что не было времени
+[02:05:23] аэ Ну там как-то Мы из тайминга
+[02:05:26] выбивались Я просил тебя там быстро
+[02:05:29] сказать в общем словами и не дочитывать
+[02:05:32] поэтому тут Э что могу сказать
+[02:05:36] А В целом а начало было бодрое в в конце
+[02:05:41] немножечко там ты немножко замина Ося но
+[02:05:44] опять же если бы это был была отдельная
+[02:05:46] секция мы просто бы с тобой наводящие
+[02:05:48] вопросами обсудили бы ты показал что Ну
+[02:05:50] я уверен что там всё ты
+[02:05:52] знаешь понимаешь как решать и довели бы
+[02:05:55] до конца здесь никаких проблем не было
+[02:05:57] поэтому да Ир Знаешь наверное такой один
+[02:05:59] комментарии добавлю что когда у нас есть
+[02:06:00] вот этот этап тех скоринга когда мы он
+[02:06:03] именно заточен на то что мы решаем
+[02:06:05] задачи как раз-таки для того чтобы мы не
+[02:06:07] допускали ошибку второго рода Да когда
+[02:06:10] там кандидат не справился только с одной
+[02:06:11] задачей Мы специально для этого даём пул
+[02:06:13] задачи потому что одна задача может быть
+[02:06:15] действительно идёт как-то чуть сложнее
+[02:06:17] но чтобы была ещё возможность порешать
+[02:06:19] другие и уже по скоу решения всех трёх
+[02:06:22] мы делаем какую-то оценку вообще там
+[02:06:24] дальнейшего продвижения по найму вот да
+[02:06:27] всё так я бы сказал что у нас есть ну по
+[02:06:29] сути там такой пул тем Да условно там
+[02:06:31] какая-то Логика есть базовая есть
+[02:06:33] немножко Терра есть немножечко
+[02:06:35] статистики вот ну в общем какая-то
+[02:06:38] математика Ну комбинаторика можно
+[02:06:41] сказать что там она где-то внутри лежит
+[02:06:44] в общем очень очень тоже лайтовая в этом
+[02:06:47] смысле это это пода Да мы как-то в общем
+[02:06:50] их даём разные и смотрим действительно
+[02:06:52] Да прам на опять же интегральную
+[02:06:57] такую общем интегральные результат
+[02:07:00] прохождения всей
+[02:07:01] секции Вот и наверное самая самая такая
+[02:07:07] интересная часть это про продуктовый
+[02:07:09] кейс и про то в общем как мы его
+[02:07:12] решали Ну во-первых да продукт телеграма
+[02:07:16] Я думаю что это сложный кейс в том
+[02:07:19] смысле что всякие разные вые эффекты всё
+[02:07:22] такое там действительно этого может быть
+[02:07:24] куча поэтому здесь иногда может быть мы
+[02:07:28] где-то Ну в общем
+[02:07:32] могли залипать на каких-то вещах
+[02:07:34] собственно я сам тоже сидел думал там
+[02:07:36] есть ли они или нету их вот поэтому кей
+[02:07:38] сложно Правда продукт сложный вот Ну тем
+[02:07:41] интереснее его обсуждать собственно А
+[02:07:44] что хорошо Да что в целом ты там
+[02:07:46] генерирует какие-то гипотезы о проблемах
+[02:07:49] Да и какие-то сигналы которые там в
+[02:07:51] общем ты можешь взять продукт сказать
+[02:07:52] что мне в нём чего-то там не хватает Это
+[02:07:54] здорово То есть это Это замечательно ты
+[02:07:57] можешь сформулировать из этого гипотезу
+[02:07:59] собственно А чего когда ты сформулировал
+[02:08:02] гипотезу ты так знаешь сформулировал
+[02:08:03] очень академично по как я как
+[02:08:06] пользователь хочу коммуницировать на
+[02:08:07] другом языке Ну в общем как там в
+[02:08:09] продакт менеджменте у нас там принято А
+[02:08:12] это здорово Это хорошо чего здесь
+[02:08:14] чуть-чуть не хватило да я те навёл что
+[02:08:17] сказал для пользователя для компании
+[02:08:20] сразу не сказал да потом уже Да обсудили
+[02:08:22] что чтобы что эта
+[02:08:25] проблема Почему она важна для бизнеса Да
+[02:08:28] ты говоришь а окей там там же Тен ма
+[02:08:30] есть ещё метрики компании которые в
+[02:08:32] общем нужно уть
+[02:08:34] вот значит что мы здесь ещё с тобой
+[02:08:38] пообсуждали
+[02:08:39] а про валидацию гипотезы опять же здесь
+[02:08:45] мы гипотеза о проблеме давай не так
+[02:08:50] значит что понравилось ты сразу сказал
+[02:08:53] О'кей давай подумаем какие вообще есть
+[02:08:55] метрики что в общем На что влияют какие
+[02:08:58] метрики есть у телеграма начал разгонять
+[02:09:01] в общем-то про что вообще телекран как
+[02:09:03] бизнес А набросал какой-то кличе метрик
+[02:09:05] это здорово то есть ну в общем
+[02:09:06] показывается что ты смотришь шире чем
+[02:09:09] какая-то конкретная проблема вот это
+[02:09:11] было замечательно
+[02:09:13] А когда лидировали гипотезу Да ты
+[02:09:17] предложил некоторую оценку Ну такую
+[02:09:19] оценку сверху в общем-то
+[02:09:22] в целом в целом
+[02:09:24] Окей я наверное Ну вот да возможно я бы
+[02:09:29] здесь если у нас было чуть больше
+[02:09:30] времени попросил бы тебя может быть
+[02:09:32] какую-то там более вот это
+[02:09:35] вот детально посчитать какую-нибудь
+[02:09:37] метрику но в целом то что ты сделал
+[02:09:40] какую-то оценку оценку сверху Вполне
+[02:09:41] себе нормально оценку снизу там вместе с
+[02:09:43] тобой придумали
+[02:09:45] Вот про решение проблемы Ну гипоте
+[02:09:48] решени в принципе жеже там безносова
+[02:09:52] рассуждать типа А давай там с кем-нибудь
+[02:09:53] за партнёре вся Давай давай там гла
+[02:09:56] возьмём переводчик и так далее вот в
+[02:09:57] целом это ну как бы здорово Прекрасно не
+[02:10:00] то что я там проверяю Да и не то что в
+[02:10:02] принципе оцениваю Поэтому в этом смысле
+[02:10:04] я попросил тебя как раз к Ну как бы эту
+[02:10:08] часть оставить давай Ну в общем-то
+[02:10:11] обсудить ту часть которая про конкретную
+[02:10:13] проверку решения А что мы здесь с тобой
+[02:10:16] обсуждали А
+[02:10:20] значит
+[02:10:21] что мы с то обсуждали
+[02:10:24] собственно опять же мы с тобой
+[02:10:26] договорились что мы будем некоторый
+[02:10:29] Переводчик это не гипотеза решении Да и
+[02:10:34] дальше мы обсуждали на что она будет
+[02:10:36] вять некоторые
+[02:10:37] метрики дадали с тобой
+[02:10:42] проводить что мне здесь есть
+[02:10:50] сказать
+[02:10:51] обычно мы это не Копаем обыч кейсы
+[02:10:54] как-то заходят в эту историю эффектами
+[02:10:57] здесь общем было же не знаю Егор Мне
+[02:10:59] кажется что у нас тоже всегда Часто мы
+[02:11:02] мы обычно любим обсуждать кейсы Авита
+[02:11:03] потому что мы вже Да всё-таки работаем и
+[02:11:06] так как у нас на одном и на другом конце
+[02:11:09] находятся частные пользователи это у
+[02:11:10] тебя всё равно так или иначе сетевые
+[02:11:12] эффекты появляются поэтому обсудить их
+[02:11:14] всегда очень интересно я бы сказал что
+[02:11:16] их на секции Сень замечательно этой
+[02:11:20] секци кото для ми сидит илип в общем
+[02:11:24] можно в общем обсудить что они
+[02:11:25] существуют вообще какие-то проблематику
+[02:11:27] вокруг них но не копать дальше здесь
+[02:11:29] классно что в принципе о них подумал да
+[02:11:31] то
+[02:11:32] есть изначально Обозначил что они
+[02:11:34] существуют Это здорово с точки зрения
+[02:11:37] того что стоило рать этот кейс СМИ
+[02:11:39] эффектами точно нет не стоило Поэтому
+[02:11:41] собственно мы его сократили до какого-то
+[02:11:43] В общем условности в которой их не
+[02:11:46] существует система которую ложил она
+[02:11:50] влом для Но что назвал какое-то количест
+[02:11:54] Трик выбрал какую-то ключевую чего здесь
+[02:11:56] мне не хватило приме того что Ключевая
+[02:11:59] Метрика Ты назвал количество правильных
+[02:12:02] сообщений она не связывается с той
+[02:12:04] проблемой кото изначально обозначал То
+[02:12:05] есть она не про Ма не
+[02:12:08] про то есть ты этот вопрос Если имел в
+[02:12:11] голове то по кране мере его не озвучил
+[02:12:13] когда мы говорили о
+[02:12:15] проблематике про польва она в том-то
+[02:12:17] выражается для бизнеса сбой ма может не
+[02:12:21] расти или падать и вот условно когда ты
+[02:12:24] говоришь что проверяешь какое-то решение
+[02:12:26] то проверяешь его на какой-то локальной
+[02:12:28] метрике и наверно локально это и добро а
+[02:12:31] вот в типа глобально получается этого
+[02:12:35] перехода не было опять же это ну окей
+[02:12:40] при этом Ну вот это то тоде бы Обозначил
+[02:12:43] точку роста Да когда возл бы
+[02:12:46] фидбек про опять же про метрики Ты
+[02:12:50] назвал дополнительны разные но все они
+[02:12:52] скорее были про типа что может там
+[02:12:55] улучшиться Ну или как-то измениться Вот
+[02:12:57] наверное не хватило ещё какого-то
+[02:12:59] рассуждение про Контр метрики Что может
+[02:13:01] пойти не так вот оно могло пойти
+[02:13:03] где-нибудь Там внутри дополнительных
+[02:13:05] метрик но опять же там Мы
+[02:13:08] здесь уже шли ускоряясь Поэтому я здесь
+[02:13:13] особо не акцентировал на этом но вот на
+[02:13:15] будущее или там для наших зрителей тоже
+[02:13:18] наверное тоже важная штука что когда мы
+[02:13:20] делаем продуктовые изменения гипотез
+[02:13:22] проверяем нам важно не только в общем
+[02:13:24] наши изменения чтобы то как мы мыслили
+[02:13:27] случилось А ещё чтобы Всё вокруг не
+[02:13:29] разрушилось
+[02:13:31] вот если говорить дальше про дизайн бте
+[02:13:35] ну здесь видно что у тебя опыт есть то
+[02:13:38] есть ты здесь в этом смысле там не тушу
+[02:13:40] ешь понимаешь там взаимосвязь между
+[02:13:43] собой длительности теста размера выборки
+[02:13:46] и так далее да забыл сначала
+[02:13:49] про значимости Аль Ну в общем да
+[02:13:52] Понятно Я бы честно говоря При таком
+[02:13:55] волнении я бы вообще забыл половину
+[02:13:56] всего что я знаю
+[02:13:59] поэтому тоже обсудили что Альфа Альфа
+[02:14:02] важен Да и чем меньше Альфа тем В общем
+[02:14:06] более уверен быть тем наверно на будет
+[02:14:08] больше размер выборок или длительность
+[02:14:11] теста также поговорили с тобой
+[02:14:14] про критерии которые в общем которые ты
+[02:14:17] знаешь примешь Я честно говоря практике
+[02:14:20] обычно
+[02:14:21] както баз тест работает Мне кажется в
+[02:14:24] целом такая прони мольная штука
+[02:14:27] вот ещ вот квадрат Честно говоря да даже
+[02:14:32] особо не помню когда применялся в
+[02:14:34] практике опять же было больше времени
+[02:14:37] обсудили где как меняешь но в целом Это
+[02:14:39] не то что какой-то мину Просто прикольно
+[02:14:42] от Кстати как раз таки наши зрители в
+[02:14:45] комментариях Давайте поговорим критерии
+[02:14:48] применимости различных у на в общем
+[02:14:51] оценок которые здесь можно делать да то
+[02:14:53] есть это прям такой волнующий видимо
+[02:14:55] момент который всегда люди думают что Да
+[02:14:57] вот очень важно знать гдети тест
+[02:14:59] применять где хи квадрат и так далее да
+[02:15:02] да иногда ещё мы когда у нас там есть в
+[02:15:05] общем какой В общем время и ну в
+[02:15:08] общем-то
+[02:15:09] разговор заходит иногда мы разгоняем про
+[02:15:12] там теста и матни типа И что как Они
+[02:15:14] между собой либо и можно ли одно
+[02:15:16] заменить другим или применимость и так
+[02:15:18] далее Вот но в целом здесь понятно что у
+[02:15:21] Вовы большой опыт он этими тестами В
+[02:15:24] общем пользовался владеет и ну для меня
+[02:15:26] опять же цель этой секции не узнать
+[02:15:29] полностью право вообще всё А скорее
+[02:15:31] сравнять некоторый профиль Да и сказать
+[02:15:34] гова как аналитик соответствует вот тому
+[02:15:36] что мы ждём от аналитика или нет Я здесь
+[02:15:37] в общем эту часть для себя закрываю То
+[02:15:39] есть мне мне здесь достаточно информации
+[02:15:41] А прикольно что поговорили такое знаешь
+[02:15:44] усложнение да Опять же там забег вперёд
+[02:15:47] про какие-то методы сокращения дисперсии
+[02:15:49] В общем про всякие кюд там фильтрации
+[02:15:51] выбрав сертификации и так далее вот тоже
+[02:15:53] э видно что Во опять же там не уточнял я
+[02:15:57] пользовался или в практике или э знать в
+[02:15:59] теории но Замечательно Что в общем это
+[02:16:01] задание есть и в случае чего можно
+[02:16:02] просто пойти и сделать это вот мы у себя
+[02:16:05] тоже часто там что-то такое
+[02:16:07] подкручивать
+[02:16:08] а вот про проблемы подглядывания тоже э
+[02:16:12] глубоко там Не обсуждали но то есть я
+[02:16:14] понимаю что Вова знает Эти термины
+[02:16:15] значит он знает эту проблематику В общем
+[02:16:18] он а рассказал Там про э Я сначала
+[02:16:21] напрягся по поводу ране принятия решения
+[02:16:24] там когда P стабилизируется вот сказал
+[02:16:26] что всё sle S Значит у нас набирается
+[02:16:28] все дела Вот я в этом момент успокоился
+[02:16:32] тоже но иногда тоже разговариваем про то
+[02:16:34] что в общем А что там А как подглядывать
+[02:16:36] можно ли их вообще выглядывать это такой
+[02:16:39] заход там на чёрную магию Про
+[02:16:41] какое-нибудь множественно проверку
+[02:16:43] гипотез Но раньше про это говорил про
+[02:16:44] всякие поправки понро поэтому у меня
+[02:16:46] тоже есть понимание что это
+[02:16:48] использовалось и в общем-то применялось
+[02:16:50] поэтому
+[02:16:51] здесь у меня цельная катинка хорошая вот
+[02:16:56] и в конце проговорили с тобой про такой
+[02:17:00] серый тест про то что с ним делать Да и
+[02:17:02] тоже В общем есть понимание что ты
+[02:17:03] знаешь что делать и там углубиться
+[02:17:05] посмотреть куда-то там поглубже по
+[02:17:07] сегментам протри посмотреть тоже видно
+[02:17:09] что Практика какая-то была ищем в этой
+[02:17:13] части тоже знаешь что с этим делать Вот
+[02:17:17] Итого если
+[02:17:19] говорить У меня супер хорошее
+[02:17:21] впечатление Я понимаю что ты много этого
+[02:17:23] делал хорошо разбираешься понимаешь что
+[02:17:26] и как вот если говорить
+[02:17:28] про ту часть которая про работу с гими и
+[02:17:32] с
+[02:17:32] метриками возможно сказал пару моментов
+[02:17:35] Да не хватило привязок с глобальными
+[02:17:39] метриками
+[02:17:41] вот ну и да и
+[02:17:43] наверное
+[02:17:46] наверное
+[02:17:49] СП
+[02:17:52] какой следствие того что мы в эфире да
+[02:17:54] под запись и так далее Ты когда
+[02:17:56] рассказывал ещё там вй части про опыт
+[02:17:58] часто рассказывал В общем про какие-то
+[02:18:00] кейсы общ не всегда конкретно понятно по
+[02:18:04] понятным причинам вот поэтому не всегда
+[02:18:06] может быть я опять же чувствовал право
+[02:18:08] там ковырять и в общем какие-то примеры
+[02:18:11] приводить Но вообще всегда классно когда
+[02:18:13] кандидат приводит примеры конкретные
+[02:18:14] типа какую задачу там решил Как как
+[02:18:16] сделал Ну там в рамках Да условно
+[02:18:19] вопроса Вот это позволяет просто более в
+[02:18:22] общем объёмно раскрыть раскрыть себя вот
+[02:18:26] поэтому если говорить про общий вердикт
+[02:18:29] да то я бы здесь вставил оценку на midle
+[02:18:34] п то есть по нашим ожиданиям То есть я
+[02:18:35] бы позвал просто на следующую секцию и
+[02:18:37] более глубоко пообщался бы про Ну
+[02:18:41] там скажем повышенные ожидание которые у
+[02:18:43] нас есть от синер аналитиков Да и
+[02:18:45] покрывал бы их а всё что мы проверяем
+[02:18:49] ищем ждм
+[02:18:53] сде это кра то есть общем стандартный
+[02:18:55] джентльменский набор у Вовы в арсенале
+[02:18:58] есть да и проверка его уже наличие
+[02:19:00] пенных ножиков и всех остальных вещей мы
+[02:19:03] это уже сделали бы на следующем этапе
+[02:19:05] наших собеседований ровно так то что во
+[02:19:07] рисовал на втором слайде сво презентации
+[02:19:09] Он это рассказал подтвердил деле Понятно
+[02:19:19] круто Мы немножко выбились за тайминги
+[02:19:22] все которые у нас были Мне кажется что
+[02:19:24] нам уже Да я не знаю Вов у тебя здесь
+[02:19:26] есть может какие-нибудь вопросы в
+[02:19:28] обратку Егору задать буквально наверное
+[02:19:30] пару потому что хотелось бы уже немножко
+[02:19:32] близиться к концу дадада из-за тайминга
+[02:19:35] Наверное я развёрнутый фидбек вопрос
+[02:19:39] вообще сейчас бы не задавал единственное
+[02:19:42] сказал бы Большое спасибо за вот такой
+[02:19:44] фидбек В конце собеседования Вот потому
+[02:19:48] что очень часто я и сам с таким
+[02:19:51] сталкиваюсь и от ребят тоже слышу что ну
+[02:19:56] ты проходишь ссе тратишь своё время а к
+[02:19:58] тебе вообще ни с каким фидбека не
+[02:20:00] возвращаются вот а И вообще ты не
+[02:20:03] понимаешь Вот ты решаешь задачки кейсы и
+[02:20:05] прочее а иногда менеджеры сидят и ну как
+[02:20:09] бы вообще ничего тебе не говорят что это
+[02:20:13] И кто это ну типа ю туда ты думал не
+[02:20:16] туда вот поэтому коротко Огромное
+[02:20:19] спасибо за фидбек вот э всем бы так А
+[02:20:24] вопросы Наверное я сейчас тоже не буду
+[02:20:26] задавать вот а в целом мне всё понятно
+[02:20:29] Ну и как обычно у нас происходит в конце
+[02:20:32] собеседований наши чары свяжутся с вами
+[02:20:34] в ближайшее время Правильно Да Да шучу
+[02:20:36] на самом деле нет оф мы здесь не будем
+[02:20:38] заниматься кросс Да я думаю Егор Мы на
+[02:20:41] этом наверное всё близи се к завершению
+[02:20:44] самый главная просьба будет к тем кто
+[02:20:46] сегодня нас смотрел сейчас там наши
+[02:20:48] редакторы скинули в комментарии на
+[02:20:51] блок оценки сегодняшнего нашего
+[02:20:52] мероприятия как я понимаю сегодня много
+[02:20:54] кстати было зрителей из тех кто к нам
+[02:20:56] придёт в субботу на кенд офер поэтому им
+[02:20:58] было вдвойне интересно посмотреть что
+[02:21:00] вообще их ожидает поэтому мне кажется у
+[02:21:02] нас тут вот мероприятия в тайминг
+[02:21:04] совпали очень круто вот оставляйте
+[02:21:06] пожалуйста вашу обратную связь чего
+[02:21:08] хватило чего не хватило я думаю
+[02:21:10] когда-нибудь там был запрос уже и на
+[02:21:12] собеседовании ввх разработчиков -
+[02:21:14] инженеров В общем всех всем интересно
+[02:21:16] всегда посмотреть как это происходит Вот
+[02:21:19] поэтому я думаю что сегодня такой наш
+[02:21:21] первый опыт в этом с точки зрения
+[02:21:22] аналитики Мне кажется что очень удался
+[02:21:26] Вот круто Спасибо большое Вова Спасибо
+[02:21:28] тебе большое это было очень здорово я
+[02:21:30] очень благода да Вова Просто огонь
+[02:21:33] сейчас наверное вот так спасибо вам да
+[02:21:37] да ребята тогда на этом мы заканчиваем
+[02:21:39] нашу трансляцию всем хорошего вечера
+[02:21:42] пока-пока
+[02:21:44] Всем
+[02:21:48] пока пу
+[02:21:54] [музыка]
+[02:22:06] [музыка]
+[02:22:16] [музыка]
+[02:22:19] K
+[02:22:24] N
+
+FEEDBACK_MD:
+---
+section: "Фидбек Вове по собеседованию по матрице компетенций аналитиков Авито"
+start: "01:52:34"
+end: "02:22:25"
+start_seconds: 6754
+end_seconds: 8545
+---
+
+Давай Да давай я попробую пока порады по каким-то Ну составным частям Да а потом какую-то интегральную тоже тоже вынести первая часть у нас была как раз про опыт и во я собственно задал вопросы и пытался тебя где-то в общем разложить Да по матрице компетенции Да проявление того что ты делаешь в своём опыте по нашей матрице которая там которую мы считаем для себя некоторым ориентиром А меня интересовали компетенции поиск задач решение задач э Хард скилы твои Меня интересовало влияние на бизнес который ты можешь оказывать не интересовал как ты Ну там условно планируешь проявляешь ожидания а что могу сказать А вот как раз мы здесь тоже много разговаривали и много из компетенций которые ты проявлял Они как раз отсылают Ну меня как соседу к тому что нужно тебя повести дальше в следующую секцию и там с тобой пообщаться более глубоко потому что там есть потенциал к тому [музыка] чтобы с тобой общаться там на более скиловые на более родовые задачи А если говорить про подач Мне понравилось про то что у тебя есть в общем удач Ты рассказывал про то как сам участвуешь наполнение кло рассказывал про то как сам реша зада ходиш какие-то новые инсайты Да их проверяешь и в общем мы это ценим мы считаем что аналитики должны уметь искать задачи Ну опять же начина от какого-то грейда и чем в общем-то взрослее старше сло аналитик тем более сложных и больше и более сложных задач же находить приносить вот это ты рассказал проявил это у тебя было про ожидани планирование Здесь тоже рассказал про то что ва есть планирование есть кварта там есть более итерационная и в готовом ЕС ты не участвуешь то в квартальном ты рассказал что было участие да что ты тоже приносишь задачи и при этом когда мы говорим про разных заказчиков ты рассказал про то как работаешь с набором разных заказчиков если он не один вот это тоже важно что у тебя есть некоторая система ты в принципе понимаешь задачи скори приш не решения ите и при этом если что-то идёт не так заказчики недовольны понимаешь что там ты не силен Да и можешь скалирование [музыка] соответствием там разных рядов да то И то и другое Я бы там отправлял это в midle п и дополнительно до проверку да то есть что там есть ещё более более глубокого и детального на уровне сине правление на бизнес ты рассказал как проверял гипотезу Да и она значит помогла вырастить некоторую метрику отмен там на точне Уменьши метрику отмен на 30 40% Вот и в этом смысле с точки зрения То есть мне этого было достаточно Да чтобы оценить тебя например как как мил аналитика по тому что рассказал почему Например Ну и даже может быть доверить ещё потому что я здесь не закапывал но чего мне в этом кейсе например не хватило да того что ты здесь это неплохо это это О'кей Это хорошо Просто если бы мы с тобой разговаривали там дальше Да там на сеньор най секции я бы закапывал и уже узнавал у тебя А какие именно ты сам принёс гипотезы которые там сгенерировать дополнительное влияние на метрики здесь ты скорее рассказывал что была некоторая гипотеза продук он мне принёс попросил тебя проверить и ты смог это сделать вот провёл атест корректно зазай корректно всё почитал и соответственно а показал что здесь в общем гипотеза сработала Да наверное тут такой комментарий что у нас вот Чем дальше й аналитика находится тем мы ожидаем перехода из реактивного уровня на получение задач как раз-таки к про активному То есть у тебя Чем более какой типа мы считаем что Team Lead - Это должен быть как раз-таки уже человек который генерирует задачи в том числе он является таким продуктовым партнёром своего продукта и не то что он как интерфейс для доступа к данных действительно человек который заинтересован с тем чтобы продукт двигался вперёд вот и Ну естественно что поиск задач здесь находится на одном из первых мест да Да всё так Ну и наверное здесь важно подчеркнуть что целью этой секции не является определить там грейд от Джуна до синьора цель задача этой секции сказать условно перед нами сейчас аналитик jor аналитик кто-то выше и мы не знаем совершенно Кто и нужно отдельно проверить его ну или хар да то есть тот человек кото нам не подходит и в этом смысле то есть мы всегда Ну в общем здесь поэтому не закапываем что мы говорим О'кей понятно здесь можно выкопать Значит есть есть повод поговорить дальше А дальше следующая компетенция а она такая у нас она сложно сочинённая она про называется решение задач то есть насколько сложная задача аналитик решает и о там мы для себя выделяем несколько её условных основных частей там открытость масштаб и сложность Вот я как раз спрашивал про открытость и сложность Да расскажи про каку непонятную мутную формулировку И как ты с ней работал вот и про какие-то сложные а сложные задачи и здесь мне скорее ну то есть задача которую ты рассказал она была такая пришёл продук говорит хочу атест Ну типа не знаю как Придумай Как как его провести Вот мы для себя это формулируем как ну О'кей Значит нужно сделать что-то непонятно как аналитик сам это делает мы это для себя скорее оцениваем Как такую задачу midle level по открытости И если бы ты показывал рассказывал какую-то задачу когда к тебе пришли Сказали бы Слушай нам нужно вырастить такую-то метрику то есть какое-то бизнес Ожидание и ты сказал О'кей Я подумаю там посер найду точки роста принесу расскажу сделаю вот такая задача была бы заходом туда в серную часть но с точки зрения там ожидания отдачи idle уровня вообще типа супер А если говорить про сложность Ты рассказывал про Множественные атест с анализом переписки переписок ну здесь У меня наверно там не очень получилось понять там насколько это сложная задача опять же повод просто поговорить дальше то есть это точно нормальная сложность там и про всё что мы с тобой говорили там везде есть сложность midle здесь сходу я не смог определить е сложно сир опять же это повод там С секции было бы для нас если бы мы с тобой шли по обычному Фло вот то что рассказал Вполне себе классные примеры В общем задач и для этой секции точно было бы и точно для секции достаточно пода подан ты рассказал про SQL много разных баз попробовал много с чем Много с чем работал О конки Писал опять же про оптимизацию скорее те помогает И почему спрашиваю у нас ча мы думаем над оптимизацией потому что код пишет витрин данных пишут сами аналитики и важно чтобы в хранилище это всё работало огромное количество данных успело считаться за сутки некие билды не падали В общем не тянули за собой остальные витрины подцепочки и так далее поэтому важно чтобы в общем оптимизация кода была в общем-то инструментом аналитика не является каким-то блогером если там не работал ну в общем Кто много кто из пришедших ребят с этим не работал но классно если у тебя уже есть опыт Да ты условно там смотришь план запроса понимаешь что к чему пожни если там ещ каки хинты знаешь вообще замечательно да ребята Егор в чате писали что ожидали здесь услышать что посмотришь Вот как это как как такой Триггер что человек действительно заглядывает в план запроса и понимает где ему что нужно поделать да ровно это при этом э Даже у нас ну у нас нет секции Лайф кодинга мы понимаем что это инструмент инструментам можно обучиться поэтому здесь Мы скорее для себя просто чекаем на входе некоторый уровень от которого Стартуем Да может тут Егор ненадолго остановиться потому что там как раз-таки наши редакторы спрашивали А если хотите техническую часть ставьте плюс и очень много людей поставили плюс как будто бы у нас после этого есть ещё какая-то дополнительная Техническая часть Ну в общем я думаю ты здесь можешь рассказать как раз-таки ты упомянул что у нас нет Лайф кодинга в котором мы это проверяем можешь про это поподробнее чуть как раз-таки тут пока мы на этом моменте да да Супер Ну в общем-то так и есть мы э не Лайф кодим потому что Ну опять же это инструмент нам важно как люди мыслят Да вот мы сегодня слово ровно это обсуждали Как как он мыслит как он проверяет гипотезы как он думает как он Почитал бы метрику В общем всё это мы то есть как этим овладеть с точки зрения как это заходить Ну это навык он формируется его можно в принципе там ну за ю тилки наверно можно освоить том уровне на котором нужно есть в этом смысле это с одной стороны важно чтобы человек ну там Пытался это делать изучал Ил с другой стороны Ну некритично если он там не смотрел Не знаю с этими онми В общем не понимает что делать и куда их крутить просто мыста тоже самое с питоном Да Во рассказал Какие задачи Решал Я понимаю что то есть он рассказывает об этом Ну это понятный класс задач он рассказывает что он с ними делал Я понимаю что у него Опыт есть мне не нужно здесь прям какие-то там смотреть алгоритмы и так далее чтобы в общем как-то фильтровать это не фильтрующий фактор какой-то да то есть это Окей если во рассказывает о том что он с ним работал мне Достаточно того чтобы того что Он рассказал вот опять же почему сси про это тоже не является ожиданием от всех аналитиков хотим сес у на есть стратегия аналитики говорим том что в целом Мы хотим чтобы аналитики умели делать решения и чтобы это в общем как-то продвигать в массы Мы решили что мы какого-то времени будем ожидать того что аналитики уровня сине выше приме Рени СХ зада а и это в общем-то такой для нас э ну хороший хороший маркер Это хорошо стимулирует ребят в общем этот порог входа Да как-то преодолевать что О'кей раз тут Меня ждут то я попробую что-нибудь поделать А в общем это внутренняя наша такая штука и на входе Мы тоже проверяем но опять же да да нет нет фва сказал о том что а занимался Ну в общем-то в теории проходил э что-то а начинал делать там для анализа текста Вот но боевых задач не решал тоже вполне себе понятная штука и если бы мы там разговаривали дальше на предмет сеньор роли то скорее всего это просто было бы каким-то одним одним из пунктов в плане развития В общем и двигались бы дальше Вот но ес если бы было было бы здорово Да мы там пообщались про это если нет тоже окей Не блокирующая какая-то штука вот Итого по опыту то есть да Если так суммировать то я бы сказал что я бы оценивал опыт в midle п То есть это точно есть повод пообщаться дальше и поля есть для этой секции достаточно было по прохождению этой секции налити что сказал было достаточно значит про задачку Ну поскольку Да у нас она такая здесь [музыка] решалась конеч Да где-то я там останавливал предлагал начитать и так далее Я видел в общем-то правильно стратегию понимат что тание о оно жит немножко за исто про натуральные числа ищем почему оно на Получилось Да здесь в общем Понятно понятна история дальше там по самому решению вот когда уже считали стратегию там пошл уже куда-то дальше в услов вероятности в целом если были с тобой на скорее из-за того что не было времени аэ Ну там как-то Мы из тайминга выбивались Я просил тебя там быстро сказать в общем словами и не дочитывать поэтому тут Э что могу сказать А В целом а начало было бодрое в в конце немножечко там ты немножко замина Ося но опять же если бы это был была отдельная секция мы просто бы с тобой наводящие вопросами обсудили бы ты показал что Ну я уверен что там всё ты знаешь понимаешь как решать и довели бы до конца здесь никаких проблем не было поэтому да Ир Знаешь наверное такой один комментарии добавлю что когда у нас есть вот этот этап тех скоринга когда мы он именно заточен на то что мы решаем задачи как раз-таки для того чтобы мы не допускали ошибку второго рода Да когда там кандидат не справился только с одной задачей Мы специально для этого даём пул задачи потому что одна задача может быть действительно идёт как-то чуть сложнее но чтобы была ещё возможность порешать другие и уже по скоу решения всех трёх мы делаем какую-то оценку вообще там дальнейшего продвижения по найму вот да всё так я бы сказал что у нас есть ну по сути там такой пул тем Да условно там какая-то Логика есть базовая есть немножко Терра есть немножечко статистики вот ну в общем какая-то математика Ну комбинаторика можно сказать что там она где-то внутри лежит в общем очень очень тоже лайтовая в этом смысле это это пода Да мы как-то в общем их даём разные и смотрим действительно Да прам на опять же интегральную такую общем интегральные результат прохождения всей секции Вот и наверное самая самая такая интересная часть это про продуктовый кейс и про то в общем как мы его решали Ну во-первых да продукт телеграма Я думаю что это сложный кейс в том смысле что всякие разные вые эффекты всё такое там действительно этого может быть куча поэтому здесь иногда может быть мы где-то Ну в общем могли залипать на каких-то вещах собственно я сам тоже сидел думал там есть ли они или нету их вот поэтому кей сложно Правда продукт сложный вот Ну тем интереснее его обсуждать собственно А что хорошо Да что в целом ты там генерирует какие-то гипотезы о проблемах Да и какие-то сигналы которые там в общем ты можешь взять продукт сказать что мне в нём чего-то там не хватает Это здорово То есть это Это замечательно ты можешь сформулировать из этого гипотезу собственно А чего когда ты сформулировал гипотезу ты так знаешь сформулировал очень академично по как я как пользователь хочу коммуницировать на другом языке Ну в общем как там в продакт менеджменте у нас там принято А это здорово Это хорошо чего здесь чуть-чуть не хватило да я те навёл что сказал для пользователя для компании сразу не сказал да потом уже Да обсудили что чтобы что эта проблема Почему она важна для бизнеса Да ты говоришь а окей там там же Тен ма есть ещё метрики компании которые в общем нужно уть вот значит что мы здесь ещё с тобой пообсуждали а про валидацию гипотезы опять же здесь мы гипотеза о проблеме давай не так значит что понравилось ты сразу сказал О'кей давай подумаем какие вообще есть метрики что в общем На что влияют какие метрики есть у телеграма начал разгонять в общем-то про что вообще телекран как бизнес А набросал какой-то кличе метрик это здорово то есть ну в общем показывается что ты смотришь шире чем какая-то конкретная проблема вот это было замечательно А когда лидировали гипотезу Да ты предложил некоторую оценку Ну такую оценку сверху в общем-то в целом в целом Окей я наверное Ну вот да возможно я бы здесь если у нас было чуть больше времени попросил бы тебя может быть какую-то там более вот это вот детально посчитать какую-нибудь метрику но в целом то что ты сделал какую-то оценку оценку сверху Вполне себе нормально оценку снизу там вместе с тобой придумали Вот про решение проблемы Ну гипоте решени в принципе жеже там безносова рассуждать типа А давай там с кем-нибудь за партнёре вся Давай давай там гла возьмём переводчик и так далее вот в целом это ну как бы здорово Прекрасно не то что я там проверяю Да и не то что в принципе оцениваю Поэтому в этом смысле я попросил тебя как раз к Ну как бы эту часть оставить давай Ну в общем-то обсудить ту часть которая про конкретную проверку решения А что мы здесь с тобой обсуждали А значит что мы с то обсуждали собственно опять же мы с тобой договорились что мы будем некоторый Переводчик это не гипотеза решении Да и дальше мы обсуждали на что она будет вять некоторые метрики дадали с тобой проводить что мне здесь есть сказать обычно мы это не Копаем обыч кейсы как-то заходят в эту историю эффектами здесь общем было же не знаю Егор Мне кажется что у нас тоже всегда Часто мы мы обычно любим обсуждать кейсы Авита потому что мы вже Да всё-таки работаем и так как у нас на одном и на другом конце находятся частные пользователи это у тебя всё равно так или иначе сетевые эффекты появляются поэтому обсудить их всегда очень интересно я бы сказал что их на секции Сень замечательно этой секци кото для ми сидит илип в общем можно в общем обсудить что они существуют вообще какие-то проблематику вокруг них но не копать дальше здесь классно что в принципе о них подумал да то есть изначально Обозначил что они существуют Это здорово с точки зрения того что стоило рать этот кейс СМИ эффектами точно нет не стоило Поэтому собственно мы его сократили до какого-то В общем условности в которой их не существует система которую ложил она влом для Но что назвал какое-то количест Трик выбрал какую-то ключевую чего здесь мне не хватило приме того что Ключевая Метрика Ты назвал количество правильных сообщений она не связывается с той проблемой кото изначально обозначал То есть она не про Ма не про то есть ты этот вопрос Если имел в голове то по кране мере его не озвучил когда мы говорили о проблематике про польва она в том-то выражается для бизнеса сбой ма может не расти или падать и вот условно когда ты говоришь что проверяешь какое-то решение то проверяешь его на какой-то локальной метрике и наверно локально это и добро а вот в типа глобально получается этого перехода не было опять же это ну окей при этом Ну вот это то тоде бы Обозначил точку роста Да когда возл бы фидбек про опять же про метрики Ты назвал дополнительны разные но все они скорее были про типа что может там улучшиться Ну или как-то измениться Вот наверное не хватило ещё какого-то рассуждение про Контр метрики Что может пойти не так вот оно могло пойти где-нибудь Там внутри дополнительных метрик но опять же там Мы здесь уже шли ускоряясь Поэтому я здесь особо не акцентировал на этом но вот на будущее или там для наших зрителей тоже наверное тоже важная штука что когда мы делаем продуктовые изменения гипотез проверяем нам важно не только в общем наши изменения чтобы то как мы мыслили случилось А ещё чтобы Всё вокруг не разрушилось вот если говорить дальше про дизайн бте ну здесь видно что у тебя опыт есть то есть ты здесь в этом смысле там не тушу ешь понимаешь там взаимосвязь между собой длительности теста размера выборки и так далее да забыл сначала про значимости Аль Ну в общем да Понятно Я бы честно говоря При таком волнении я бы вообще забыл половину всего что я знаю поэтому тоже обсудили что Альфа Альфа важен Да и чем меньше Альфа тем В общем более уверен быть тем наверно на будет больше размер выборок или длительность теста также поговорили с тобой про критерии которые в общем которые ты знаешь примешь Я честно говоря практике обычно както баз тест работает Мне кажется в целом такая прони мольная штука вот ещ вот квадрат Честно говоря да даже особо не помню когда применялся в практике опять же было больше времени обсудили где как меняешь но в целом Это не то что какой-то мину Просто прикольно от Кстати как раз таки наши зрители в комментариях Давайте поговорим критерии применимости различных у на в общем оценок которые здесь можно делать да то есть это прям такой волнующий видимо момент который всегда люди думают что Да вот очень важно знать гдети тест применять где хи квадрат и так далее да да иногда ещё мы когда у нас там есть в общем какой В общем время и ну в общем-то разговор заходит иногда мы разгоняем про там теста и матни типа И что как Они между собой либо и можно ли одно заменить другим или применимость и так далее Вот но в целом здесь понятно что у Вовы большой опыт он этими тестами В общем пользовался владеет и ну для меня опять же цель этой секции не узнать полностью право вообще всё А скорее сравнять некоторый профиль Да и сказать гова как аналитик соответствует вот тому что мы ждём от аналитика или нет Я здесь в общем эту часть для себя закрываю То есть мне мне здесь достаточно информации А прикольно что поговорили такое знаешь усложнение да Опять же там забег вперёд про какие-то методы сокращения дисперсии В общем про всякие кюд там фильтрации выбрав сертификации и так далее вот тоже э видно что Во опять же там не уточнял я пользовался или в практике или э знать в теории но Замечательно Что в общем это задание есть и в случае чего можно просто пойти и сделать это вот мы у себя тоже часто там что-то такое подкручивать а вот про проблемы подглядывания тоже э глубоко там Не обсуждали но то есть я понимаю что Вова знает Эти термины значит он знает эту проблематику В общем он а рассказал Там про э Я сначала напрягся по поводу ране принятия решения там когда P стабилизируется вот сказал что всё sle S Значит у нас набирается все дела Вот я в этом момент успокоился тоже но иногда тоже разговариваем про то что в общем А что там А как подглядывать можно ли их вообще выглядывать это такой заход там на чёрную магию Про какое-нибудь множественно проверку гипотез Но раньше про это говорил про всякие поправки понро поэтому у меня тоже есть понимание что это использовалось и в общем-то применялось поэтому здесь у меня цельная катинка хорошая вот и в конце проговорили с тобой про такой серый тест про то что с ним делать Да и тоже В общем есть понимание что ты знаешь что делать и там углубиться посмотреть куда-то там поглубже по сегментам протри посмотреть тоже видно что Практика какая-то была ищем в этой части тоже знаешь что с этим делать Вот Итого если говорить У меня супер хорошее впечатление Я понимаю что ты много этого делал хорошо разбираешься понимаешь что и как вот если говорить про ту часть которая про работу с гими и с метриками возможно сказал пару моментов Да не хватило привязок с глобальными метриками вот ну и да и наверное наверное СП какой следствие того что мы в эфире да под запись и так далее Ты когда рассказывал ещё там вй части про опыт часто рассказывал В общем про какие-то кейсы общ не всегда конкретно понятно по понятным причинам вот поэтому не всегда может быть я опять же чувствовал право там ковырять и в общем какие-то примеры приводить Но вообще всегда классно когда кандидат приводит примеры конкретные типа какую задачу там решил Как как сделал Ну там в рамках Да условно вопроса Вот это позволяет просто более в общем объёмно раскрыть раскрыть себя вот поэтому если говорить про общий вердикт да то я бы здесь вставил оценку на midle п то есть по нашим ожиданиям То есть я бы позвал просто на следующую секцию и более глубоко пообщался бы про Ну там скажем повышенные ожидание которые у нас есть от синер аналитиков Да и покрывал бы их а всё что мы проверяем ищем ждм сде это кра то есть общем стандартный джентльменский набор у Вовы в арсенале есть да и проверка его уже наличие пенных ножиков и всех остальных вещей мы это уже сделали бы на следующем этапе наших собеседований ровно так то что во рисовал на втором слайде сво презентации Он это рассказал подтвердил деле Понятно круто Мы немножко выбились за тайминги все которые у нас были Мне кажется что нам уже Да я не знаю Вов у тебя здесь есть может какие-нибудь вопросы в обратку Егору задать буквально наверное пару потому что хотелось бы уже немножко близиться к концу дадада из-за тайминга Наверное я развёрнутый фидбек вопрос вообще сейчас бы не задавал единственное сказал бы Большое спасибо за вот такой фидбек В конце собеседования Вот потому что очень часто я и сам с таким сталкиваюсь и от ребят тоже слышу что ну ты проходишь ссе тратишь своё время а к тебе вообще ни с каким фидбека не возвращаются вот а И вообще ты не понимаешь Вот ты решаешь задачки кейсы и прочее а иногда менеджеры сидят и ну как бы вообще ничего тебе не говорят что это И кто это ну типа ю туда ты думал не туда вот поэтому коротко Огромное спасибо за фидбек вот э всем бы так А вопросы Наверное я сейчас тоже не буду задавать вот а в целом мне всё понятно Ну и как обычно у нас происходит в конце собеседований наши чары свяжутся с вами в ближайшее время Правильно Да Да шучу на самом деле нет оф мы здесь не будем заниматься кросс Да я думаю Егор Мы на этом наверное всё близи се к завершению самый главная просьба будет к тем кто сегодня нас смотрел сейчас там наши редакторы скинули в комментарии на блок оценки сегодняшнего нашего мероприятия как я понимаю сегодня много кстати было зрителей из тех кто к нам придёт в субботу на кенд офер поэтому им было вдвойне интересно посмотреть что вообще их ожидает поэтому мне кажется у нас тут вот мероприятия в тайминг совпали очень круто вот оставляйте пожалуйста вашу обратную связь чего хватило чего не хватило я думаю когда-нибудь там был запрос уже и на собеседовании ввх разработчиков - инженеров В общем всех всем интересно всегда посмотреть как это происходит Вот поэтому я думаю что сегодня такой наш первый опыт в этом с точки зрения аналитики Мне кажется что очень удался Вот круто Спасибо большое Вова Спасибо тебе большое это было очень здорово я очень благода да Вова Просто огонь сейчас наверное вот так спасибо вам да да ребята тогда на этом мы заканчиваем нашу трансляцию всем хорошего вечера пока-пока Всем пока пу [музыка] [музыка] [музыка] K N
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v2 only.
+Write JSON only to: splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. product-analyst-middle-avito-avito-2024-04-04.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json \
+    --video transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json --out splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.qa-split.json \
+    --video transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: Russian. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: /Users/mm/projects/ds-final-project/transcripts/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/video.md
+
+--- CHAPTER `00:07:34` — Рассказ Вовы про свой опыт ---
+window: 00:07:34 .. 00:12:06
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+--- CHAPTER `00:12:06` — Уточняющие вопросы Егора про SQL- запросы ---
+window: 00:12:06 .. 00:15:05
+recognition_status: multiple (2 items)
+
+ITEM #2
+  interviewer_question: time=00:12:12 text='пожалуйста с точки зрения SQL приходилось ли тебе оптимизировать запросы А вообще в целом ли были такие был Был ли такой у тебя была ли такая потребность Если да то что делал Сорри что-то у меня зву звук прервался Да а прямой эфир понятно сейчас слышно да да слышно вот я одно слово не услышал была ли у тебя в твоей практике потребность необходимость оптимизировать запросы а оптимизировать'
+  candidate_answer: time=00:12:40 text='запросы да да была особенно в ин драйве на последнем моём месте работы когда 47 стран очень много если по всем странам собирать вот ИТ ня опыт Мы кстати уже Ну не прямо активно но начали взаимодействовать с искусственным интеллектом чтобы он тоже нам какие-то подсказки давал а Бота к ску прикрутили вот ну и плюс до этого тоже сам самостоятельно оптимизацией запросов занимался Угу А что какие применял методы Ну для запросов Если какие короче чем чем пользовался Какими методами Угу а ну в основном это были различные Ну либо я преобразовывать В общем несколько сетей запрос таблиц таблиц Ага дадада а плюс ну самое базовое - это просто фильтрацию добавлять а дополнительную чтобы не не выгружать всё что не нужно вот а потом Ну если мне нужно подсчитать Ну какие-то агрегации сделать то это я не там в два этапа сразу же в самом запросе это делал Угу Да понятно А'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:14:20 text='А план запроса смотрел? Использовал этот инструмент?'
+  question_topic: SQL
+
+ITEM #3
+  interviewer_question: time=00:14:20 text='план запроса смотрел Ну использовал вообще этот инструмент м план'
+  candidate_answer: time=00:14:28 text='запроса но Джов например шесть джоновна сделать А и кстати тоже небольшой втоп я сам даже проводил такое тестирование gpt 3,5 и чет версии четвёртая версия лучше справляется с круто окей да спасибо спасибо что'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:15:04 text='поделился и про pyon Скажи пожалуйста ну'
+  question_topic: SQL
+
+--- CHAPTER `00:15:05` — Вопросы про Python ---
+window: 00:15:05 .. 00:17:07
+recognition_status: single (1 items)
+
+ITEM #4
+  interviewer_question: time=00:15:08 text='просто пример задач которые решал с помощью инструмента то назвал библиотеки котом пользовался а какой клас задач в принципе или какие классы'
+  candidate_answer: time=00:15:18 text="задач Ну наверное больше всего сейчас у меня это Ате Вот то есть выгрузка данных и дачне даже в самом Google колам я сейчас пользуюсь активно Вот то есть там же SQL написал и дальше преобразование Ну обработка данных и стат значимость Ну статистические какие-то методы применения в самом питоне угу вот а это наверное самая большая часть времени чем я занимаюсь Ну также ещё м а ну Может быть сюда ещё можно отдельно выделить визуализацию То есть когда там исследования связанные с проблемами Ну проблемами в Метрика в графиках то есть какие-то падения какие-то наоборот Ну да резкие падения чаще всего Ну бывает ещё и рост чтобы тоже поис следовать посмотреть с чем это мо може быть связано Покрути гипотеза это тоже и с помощью визуализации с помощью питона а угу С делаю Вот м ну вот Наверное это вот самое основное Ага понятно Да а визуализация получается чаще в питоне чем в какой-то би системе то есть где это более привычный инструмент А в последнее время да то есть у нас есть отдельные Bi инженеры То есть я там могу очень базовую ну быстро так сказать на коленке визуализацию делать табло и дальше уже м Я инженер он Угу закручивает до такого О'кей Да понял и последний вопрос наверное про эту часть А с точки зрения машина обучения"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Python
+
+--- CHAPTER `00:17:07` — Вопросы про ML ---
+window: 00:17:07 .. 00:18:05
+recognition_status: single (1 items)
+
+ITEM #5
+  interviewer_question: time=00:17:08 text='есть ли у тебя опыт практика или может быть теория делали'
+  candidate_answer: time=00:17:12 text='что-то нет машина Ну машинно мучение У меня есть только базовые какие-то теоретические знания с универа вот на практике Я особо не пользуюсь вот Единственное ну одна из одна задач у меня бы не совсем машина обучения но какой-то такой анализ что ли лексический анализ Ну текстов текстов которые у нас в переписках вот в моём продукте Ну как бы не прямо какое-то машинное обучение окей да хорошо Да я понял По sks Здесь всё опреде Понятно В общем Спасибо что'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:17:57 text='поделился давай двигаться дальше тогда Угу спасибо за вопросы так Ну тут у меня уже идёт Да блог с какими-то моими кейсами с результатами точнее даже А во время предыдущих работ и на текущем месте работы вот здесь просто наверно коротко скажу как я обычно рассказываю Вот и дальше наверное можем уже твоим вопросом по этой части перейти То есть я придерживаюсь следующей структуры что у меня есть результат Ну вот берём намер слева а by clients вот есть результаты и дальше Вот четыре блока четыре пункта - это сама ситуация то есть погрузиться немного в контекст чтобы ну ты как менеджер тоже понимал вот дальше это сама задача что из себя представляла В каком виде там она ко мне пришла Вот что делал и ну результат уже да как таковой он тут присутствует вот Так у меня расписаны как раз все мои кейсы в таком ключе Ну естественно в самом результате важно метри результат делать Вот чтобы понимать к чему какому результату мы пришли вот да у меня тут расписано [музыка]'
+  question_topic: ML
+
+--- CHAPTER `00:18:05` — Рассказ Вовы про рабочие кейсы ---
+window: 00:18:05 .. 00:25:28
+recognition_status: single (1 items)
+
+ITEM #6
+  interviewer_question: time=00:19:27 text='ри а давай тогда и про как раз поговорим про какие-нибудь а-а результаты которые в общем-то достигал бизнес Э благодаря твоей работы можешь ли поделиться каким-то кейсом может быть из тех что есть на слайде или ка более свежий на драйва Если тебе это а лиже и легче В общем Да расскажи пожалуйста а какой-нибудь какую-нибудь аналитическую задачу которую ты решал и результаты е значимо повлияли на а ключевые метрики команды бизнеса в общем Угу Да окей Давай наверное из свежего чтобы'
+  candidate_answer: time=00:20:01 text='у меня как можно больше контекста было вот в голове значит в н драйве продукт Ну вот ситуацию буду описывать продукт essenger То есть это ну возьмём переписки между водителем и пассажиром То есть это условно такое такси вот н и у нас есть во время поездки переписки в чате Вот это мой продукт что мы хотим нашим продуктам улучшать это как раз таки чтобы наши основные бизнесов не нашего продукта метрики связанные с выполненными поездками или наоборот отменённые улучшали Ну там в деньгах и прочих таких Метрика вот у нас как раз была гипотеза основанная на том что ну начну наверно чуть с этого что у нас были проблемы проблемы связанные с Так сейчас я чуть задумался стоит мне такое такие подробности рассказывать или нет Наверное чтобы Да ничего неть лишнего Давай наверное просто да какие-то проблемы без конкретики вот мы как раз таки на основе данного исследования этих проблем взяли гипотезу гипотеза связано с тем что мы добавим в чат возможность отправки медиафайлов в первую очередь вот тем самым мы полем эти проблемы которые влияют на отмены Ну или на выполненные поездки Вот и вот такая Да ситуация задача была поставлена следующим образом что есть гипотеза Давайте подумаем А как её проверить вот там не знаю стандартный атест или ещё какие-то другие способы не тестировани если этото сложно или не нужно тут делать вот Ну мы пошли АТЕМ тут в принципе не было какого-то сложного случая вот тут наверно тоже сейчас в детали не буду сильно углубляться В общем я дизайном Ате занимался плюс по итогу подготовил там естественно расчёты Сколько времени нужно проводить этот тест на какой аудиторию Ну вот такие бае вот прол получил результат Ну и в результате тоже пон не буду говорить конкретные фры относительно могу сказать что 30 40% это тоже в зависимости от страны мы эксперимент проводили мы получается уменьшили количество отмен это прям такой суу эфе для быт тоже ста страны потому что в каких-то странах там либо вообще не было эффекта либо он маленький был вот наверно тоже в детали не буду тебя погружать игу вот какие-то такие штуки сделали получили результат Вот наверное тут А скажи пожалуйста вот ты говоришь есть гипотеза Да и ты уже придумал проверять а сама гипотеза она появись из твоего или она откуда Из мене пришла Так ну этот resch был от C Ну от других команд назовём так вот то есть у нас по сути такой продукт который не напрямую на поездки влияет потому что не во всех случаях происходят переписки Но вот мы видим проблемы от других команд которые непосредственно влияют на вот этот Фло поездки вот мы от них получили до уточнили чтобы нам тоже понимать СФ гите вот Окей О да Понятно спасибо хорошо да можем двигаться дальше как по моим вопросам или у тебя есть ещ часть которую ты хочешь расказать в своём с презентации Ну наверно тоже коротко скажу как бы я ещё если бы это не мог интервью а чуть побольше потра времени я результатов дизайна эксперимента вот какого-то своего кейса Возможно даже про который я сейчас рассказал вот чтобы тоже было представление не только на словах но и как именно у меня выглядит результат Вот это так для для наших слушателей больше рекомендация вот Ну и дальше у меня Да просто вот слайд уже окоча СМИ контактами Спасибо Да ну твои контакты Я знаю мы же готовились вот здорово спасибо большое что рассказал на самом деле действительно редко встречаются кандидаты которые прям структурно подходят к описанию своего опыта настолько что даже года презентацию про то как ты решал бы кейс мы обязательно поговорим в целом дальше в рамках нашего интервью поэтому этого ещё коснётся и тоже тех тем которые ты там понимал в том числе про дите и так далее это будет ть дальше Давай ещё немножко поговорим'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+--- CHAPTER `00:25:28` — Вопросы Егора про опыт ---
+window: 00:25:28 .. 00:26:00
+recognition_status: single (1 items)
+
+ITEM #7
+  interviewer_question: time=00:25:28 text='про твой опыт какие-то вопросы по задаю которые меня интересуют а Раскажи пожалуйста наверное в целом нам презентация сейчас уже больше не нужна будет Поэтому в принципе мо уже разговаривать скорее про вещи которые не на экране будут А скажи пожалуйста в целом Вот если сейчас твой твой ну твою работу представить то как обычно к тебе попадает задачу а в общем-то откуда они берутся у тебя и как подают к тебе угу'
+  candidate_answer: time=00:25:58 text='Да окей вопрос плюс-минус понял Наверное в процентах 70 случаев именно в моём в моём контексте что ли работы это наши задачи уже из какого-то блога планирования Вот то есть мы там ну сейчас тоже наверное в это углубляться не буду То есть у нас есть клок мым задачи и вот дальше уже на моей стороне но бывают случаи там в 20-3 случаев Да я ну исходя из своих рчв точнее результатов каких-то не знаю а тестов или речей каких-то наших падений метрик обнаруживаю что у нас могут быть связаны не знаю с какими-то техническими проблемами ещё что-то А ну нет технически это не то это не генерирует мне дополнительную задачу чаще всего вот там скорее я вижу что есть какой-то эффект но какие-то детали изначально мы не планировали но я вижу что можно покопать и предлагаю со своей стороны Вот как я говорил про проактивность покопать чучуть глубже потратить чуть больше времени Вот потому что эффект интересный может быть какая-то другая сегментация нам может показать Ну не знаю инсайты Угу угу окей да спасибо спасибо что поделился а сжи пожалуйста'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:27:27 text='Окей, спасибо. Скажи про бэклог — 2/3 задач оттуда, кем формируется?'
+  question_topic: Prioritization
+
+--- CHAPTER `00:26:00` — Как формируются задачи ---
+window: 00:26:00 .. 00:28:40
+recognition_status: single (1 items)
+
+ITEM #8
+  interviewer_question: time=00:26:02 text='в процентах 70 случаев именно в моём в моём контексте что ли работы это наши задачи уже из какого-то блога планирования Вот то есть мы там ну сейчас тоже наверное в это углубляться не буду То есть у нас есть клок мым задачи и вот дальше уже на моей стороне но бывают случаи там в 20-3 случаев Да я ну исходя из своих рчв точнее результатов каких-то не знаю а тестов или речей каких-то наших падений метрик обнаруживаю что у нас могут быть связаны не знаю с какими-то техническими проблемами ещё что-то А ну нет технически это не то это не генерирует мне дополнительную задачу чаще всего вот там скорее я вижу что есть какой-то эффект но какие-то детали изначально мы не планировали но я вижу что можно покопать и предлагаю со своей стороны Вот как я говорил про проактивность покопать чучуть глубже потратить чуть больше времени Вот потому что эффект интересный может быть какая-то другая сегментация нам может показать Ну не знаю инсайты Угу угу окей да спасибо спасибо что поделился а сжи пожалуйста вот прок Э ты говоришь что там 2/3 задач появляются из твоего бэклога а формулируется формируется он кем то есть это что-то уже изначально давно было и вы разгребает его или вы Пополняется его пополняет его продуктами аналитиками то есть вообще как как он как он какой жизне он живёт э клока ну базово он от'
+  candidate_answer: time=00:27:47 text='продукта идёт Угу То есть он как раз-таки к планированию Да всё это собирает но в этом планировании также участвуем Discovery команда я вот ну совместно с продуктом Ну ещё кстати технический менеджер тоже техлит включается Вот и мы уже и со своей стороны тоже можем какие-то свои идеи мысли вот я не знаю с предыдущих ресей набрасывать Вот Ну а я со своей стороны там когда мы обсуждаем идеи Стараюсь больше как-то аналитически ну то есть какие-то данные сюда подкидывать чтобы мы не просто там потому что нам так кажется у конкурентов так есть вот но ещё и наш бизнесом наших пользователей окей да'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Prioritization
+
+--- CHAPTER `00:28:40` — Как происходит планирование ---
+window: 00:28:40 .. 00:32:00
+recognition_status: single (1 items)
+
+ITEM #9
+  interviewer_question: time=00:28:40 text='Понятно спасибо А вот как раз про планирование начали говорить Расскажи пожалуйста в целом как устро планирование какой горизонт планирования у тебя у команды какой как раз ты какую роль ты играешь ВМ планировани У нас есть в'
+  candidate_answer: time=00:29:00 text="декабре такое годовое планирование но оно более общее что ли то есть там нас особо не привлекают Ну мы просто вот какой-то кло можем набрасывать Но больш больший вклад что ли Как Discovery команда мы вносим Во время квартального планирования месяца планируем за за недели щего предыдущего на следующий Вот то есть у нас планирование первое ТО Да квартальное где мы активно участвуем Ну и второе - это как мы участвуем я в принципе до этого наверное рассказал Угу именно моё участие Угу Угу Да понятно в квартальном планировани получается Ты приносишь какие-то задачи аналитики про то чтобы в этом квартале хотелось бы такое порешать или скорее ты говоришь задачу говоришь Я знаю как её порешать мы будем делать её так или там у неё потенциал такой то есть вот Какая здесь у тебя роль в планировании квартальном Угу Ну вот я ещё Кстати забыл наверное сказать что по сути два блока что ли задач можно выделить у меня это такие Discovery research назовём это новые не знаю фичи проблем и вот какая-то операционка связаная с аналитикой с данными с тем как мы это собираем обрабатываем потом тало Вот то есть я и там и там ста участвовать и вот какие-то вещи из операционки тоже со своей стороны уже не знаю более детально с ответом на вопрос Зачем А почему это нам нужно Вот это да операционка И вот какие-то р там со своей стороны Ну я вот стараюсь если у нас есть гипотеза Ну или фича не знають в этом квартале задаю вопрос всегда А почему мы решили что это поможет а какие проблемы это решает А ну в общем Откуда это появилось что мы поможем как мы поможем пользователям нашим вот ну и есть ли какие-то данные То есть просто на словах сказать что там решим вот такую-то проблему вот в разных случаях данные тоже могут быть Да и получается что вот э эти задачи ты как раз в квартальном планировани приносишь да Или это в операционки ты как бы там условно каждый спринт можешь придумать что-то принести и сделать То есть м ну операционка - это с моей стороны Да А мы на квартал планируем если ресерч то тут Наверное чаще всего это да мы вот планируем на квартал но если я во время не знаю подведение результатов об обнаружил какие-то не знаю разные инсайты о которых мы Ну просто думали не видели то тоже можно чуть в другую сторону погрузиться А ну это наверное тоже если в процентном соотношении там не знаю 80 на 20 где-то вот прямо льно новая задача может появиться О'кей понятно да спасибо"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Prioritization
+
+--- CHAPTER `00:32:00` — Взаимодействие с коллегами и приоритизация задач ---
+window: 00:32:00 .. 00:34:45
+recognition_status: multiple (2 items)
+
+ITEM #10
+  interviewer_question: time=00:32:17 text='А скажи пожалуйста у тебя один продакт-менеджер или какая-то команда заказчиков то есть с кем ты взаимодействует Так ну вот ээ за полтора года по сути сейчас последние полгода один вот а е у меня был опыт взаимодействия с четырьмя командами какое-то Да я как раз хотел что перебил Мне кажется ровно это мне интересно было узнать как ты собственно разрулил всех этих заказчиков как ты понимал ч задачи взять кому отказать или не ю или бы брал все'
+  candidate_answer: time=00:32:56 text='задачи здесь Да здесь мне очень сильно помогает мой менеджерский опыт в предыдущих компаниях вот зоне нте там вот не знаю ли с первого дня что ли взаимодействие была куча заказчиков и нужно было да научиться говорить нет Ладно сейчас Лирику уберём как я разруливает забираю там Почему эта задача важна что это даст бизнесу Угу а какие-то внешние дедлайны То есть это не просто не знаю Мне нужно через неделю А может быть это связано там со встречей с топ менеджментом там ещё связано то есть вот какие-то такие внешние дедлайны которые тоже влияют угу вот а это Ключевое М сейчас ну дальше Да мне нужно от приоритизировать со своей стороны там накинуть приоритеты исходя там из и времени выполнения задач тоже прикинуть пример там не знаю условный гант вот как как это всё ну и периодически тоже бывает что нужно до уточнять что-то Чтобы понимать больше контекста и оценить вот Ну наверно тоже в Дета могу приме Я в целом Я в целом понял про Ну некоторую такую скоринг задач и там по их важности ценности там'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Stakeholder Management
+
+ITEM #11
+  interviewer_question: time=00:34:29 text='Я в целом Я в целом понял про Ну некоторую такую скоринг задач и там по их важности ценности там срочности и так далее анально решение принимаешь сам условно что взять А что не взять или это как-то дальше возвращаешь заказчикам говоришь Ребят вы вы не важны там сейчас условно Да ваша задача там стоит меньше чем задача ваших коллег Да конечно скрипя не'
+  candidate_answer: time=00:34:54 text="знаю на серд со скрипом сердце приходится отказывать но все все люди понимающие Вот и когда я просто объясняю не просто говорю что нет мы не берём задачу всё Угу они просто уходят А я естественно прихожу с каким-то доводами Почему я не могу есть другие задачи и Ну да есть другие задачи Угу Вот они более ценные важные Вот и если как бы заказчик О'кей он понимает Угу мои доводы то тут точка Если не окей"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:35:31 text='то нужно идти уже чуть выше там чаще всего это руководители как раз эти заказчиков менеджеров в моём последнем случае вот у них которым я уже обсуждаю вот полу задач Как ты считаешь и почему Понятно'
+  question_topic: Prioritization
+
+--- CHAPTER `00:34:45` — Принятие решений ---
+window: 00:34:45 .. 00:36:03
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+--- CHAPTER `00:36:03` — Пример задачи с неопределенностью ---
+window: 00:36:03 .. 00:41:12
+recognition_status: single (1 items)
+
+ITEM #12
+  interviewer_question: time=00:36:03 text='примеры какие-то задач которые ты решал не нужно рассказывать как ты решал скорее просто описать В чём была суть Вот мо можеш сказать про сдачу с наибольшей степени неопределённости в изначальной формулировке да Ну понятно что не в том что она просто мутная какая-то Да може Может конечно и мутная Ну в общем это нормальная задача Да но'
+  candidate_answer: time=00:36:20 text='вот Нана была какой-то мутной и дальше ты Подошёл к к её решению как-то может декомпозировать нечто встроенное и с чем имеет смысл работать мм сейчас б сложно так сразу вспомнить во-первых потому что за последние полгода у нас так выстроил всё процесс заказчиком с менеджером что если мне что-то непонятно при постановке я сразу Уточняю и кажется как будто бы и не было проблем вот а наверное когда я работал с несколькими заказчиками а Ну вот мне чаще всего что не нравится в постановке задачи это когда приходят говорят я не знаю либо у нас упала Метрика сходи Там Посмотри что что случилось А ну хотя это Это наверное щк а а вот типа просто вот у меня идея идея фикс ти Я хочу вот это раскатить вот хочу это сделать Я не знаю в какие-то сроки ближайшие то есть никакой конкретики нет ответов на вопрос а почему а зачем то есть нужно кучу всего до уточнять просто пришёл типа вот ча Вот такая у меня идея Аче Откуда она появилась ничего нет вот много времени может занимать уточнение эти деталей сложно буде те привести пример какой-нибудь вот такой задачи Ну сделал сечас Наверное это блин я вот ещё боюсь бы я с ко Давай может быть в обх чертах то есть в целом Наверное знаеш мне интересно вот условно какого уровня была эта идея Да и как эта идея превратилась в набор каких компози друе Угу Ну давай наверное да прямо общими словами что ли буду говорить что вот а ко мне пришли типа с такой-то Точнее к нему даже то есть Это не его задача а к нему пришли с такой-то идеей вот а я хочу там Запустить атест вот чтобы ну вот проверить эту идею Угу М наверное как-то так В общих чертах Ну и дальше мне нужно понять ну вот наверное как я до этого говорил так и буду говорить что почему это важно бизнесу Для чего вот Ну откуда вообще эта идея возникла вот потом Какие данные подтверждающие эту идею есть вот дальше что важно не обязательно уточнять у продукта Но если он настаивает то тоже можно уточнить А почему именно Ну какие сроки тоже важно понимать особенно когда несколько заказчиков и ты если не возьмёшь от него сроки а он за день до встречи скажет тебе у меня тут горит тебе ни ему не будет хорошо наверное по данным Откуда мне брать данные вот это вот всё м а Ну кстати тоже Периодически я Уточняю но чаще всего это не у продукта нужно узнавать а либо самому копаться у данных там документацию Угу Ну это тоже такой опциональный вопрос Если будет ответ А ну и в каком виде результат случая Ну в случае об наверное всё понятно Ну наверное тоже такой вопрос в зависимости от контекста могу тоже задать чтобы понимали с менеджером Да спасибо да предлагаю двигаться дальше в целом здесь понятно Ну в общем давай здесь к этому вернёмся Потом в конце Протек разбора Я как раз расскажу примерно что я хотел услышать пока в целом понятно да Здесь тоже Ясно И давай про сдач последний вопрос спрошу в другой бы плоскости да то Вспомни пожалуйста пример задачи Ну или хотя бы там В общих чертах Да чтобы ничего лишнего не'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Experimentation
+
+--- CHAPTER `00:41:12` — Пример задачи со сложными аналитическими подходами ---
+window: 00:41:12 .. 00:44:54
+recognition_status: single (1 items)
+
+ITEM #13
+  interviewer_question: time=00:41:12 text='сказать про в которой тебе приходилось применять какие-то сложные аналитические подходы Возможно да Или какую-то сложную математику применять в общем или какая-то Техническая технологическая сложность была что можеш припомнить'
+  candidate_answer: time=00:41:31 text='у наверное вот что последнее мне в голову придёт это множественный атест связанный с переписками наверно сейчас тоже Если конкретно говорить то есть там было несколько групп в об тесте и плюс в дополнение к этому Ну мне нужно было сами переписки точнее я сам захотел какие-то инсайты из переписк из результата как раз на цифрах понять Как это там коррелирует как это связано с тем О чём вообще пишут в этом атест и можно какие-то как раз сегменты пользователей можно было бы оттуда вытащить Вот то есть тут два момента типа множествен атест и этот А ну анализ переписки да Угу угу ну анализ текста получается да Ну да да Угу Ага спасибо да а с точки зрения множества гипотез в целом как как решал то есть что здесь тебе помогло или что здесь тебе наоборот мешало Да делать классическое А короче в чём была сложность как определял Угу Ну наверное есть общая сложность в целом там не знаю когда у нас куча рынков выбор сегментов то есть не всегда понимаешь В какой именно стране Какая именно проблема вот а то есть да нужно от этого тоже отталкиваться потом когда Ты запускаешь эксперимент там я не знаю на страны или на города то есть не не тривиальная задача Ну потом подводить результаты и и что ещё сейчас с точки зрения может быть математики статистике м ну в принципе как у нас было какие результаты точнее были типа применяя там поправку феро Ну то есть поправку на множественное тестирование там тоже Ну то есть у тебя могут быть отличия от контрольной группы но среди тестовых групп может и не быть отличия Поэтому нужно перезапускать эксперимент То есть если там больше двух-трёх групп вот наверно вот Ключевое было окей да спасибо Хорошо Да принципе по опыту мои вопросы закончились Давай тогда двигаться дальше сейчас решим задачку Вот и потом перейдём к кейс мы неко из тайминга выбились но мне кажется мы Хорошо пообщались про опыт и какие-то части вопросов которые рели кес Я тоже для себя ВМ воз подо рука может быть в уме'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Statistics
+
+--- CHAPTER `00:44:54` — Техническая задача про кубик ---
+window: 00:44:54 .. 00:55:50
+recognition_status: single (1 items)
+
+ITEM #14
+  interviewer_question: time=00:44:58 text="решаешь В общем Задачка такая она понятна значит в терминах там школьных задача или там Универс задачек и с теми же самими объектами Значит у тебя есть Представь что у тебя есть игральный кубик шестигранник на гранях которого числа от одного до шести а тебе предлагается игра ты бросаешь кубик и можешь забрать себе там ту сумму денег долларов сколько выпало на этом кубике выпало три забираешь все 3 доллара выпало п забираешь се 5 долларов есть опция ты можешь либо после первого броска забрать себе все деньги которые Ну выпали на грани кубика либо перебросить его и тогда забрать себе то что выпадет второй раз на кубике уже без возможности перебрасывать Понятно условие Понятно условия игры так плюс-минус понятно можно вот последние два нано чтобы я записал есть игральный кубик ты его бросаешь и либо забираешь себе столько денег сколько выпало на грани кубика либо ты говоришь я отказываюсь от этого результата перебрасывает его заново и забираешь столько сколько выпадет второй раз то есть у тебя есть по сути опция либо забрать сразу либо перебросить бы больше никаких решений у тебя нет внутри игры А собственно Вопрос такой какая будет оптимальная стратегия в такой игре Ну и там и Какой ожидаемый выигрыш а это стате будет Угу О'кей так"
+  candidate_answer: time=00:46:39 text="хорошо Так ну давай наверное просто начну рассуждать вместе с тобой у Да рассуждал я тебе буду Ну в общем Здесь тоже тебе помогать и ес что пользуйся мной как уточкой в которой можно говорить угу так хорошо э так нам нужно как раз-таки ну чтобы выбрать этот оптимальную стратегию нам нужно посчитать по сути там не знаю мат ожидание или ожидаемого как раз-таки ожидаемый выигрыш а от кубика Вот у него значит шесть граней от одного до шести О'кей Угу И тогда м ну Да Начнём Давай наверное с мато ожидания вот так Ну Март ожидание выигрыша Так у нас два броска получается первое мы кидаем и там какое-то число и дальше нам нужно как раз таки сделать выбор либо мы перебрасывали мы оставляем как раз-таки первый бросок а просто нужно ожидания брос посчитать если будет меньше этого ожидания то перебросить у то А если будет больше либо равно то я думаю можно не перебрасывать вот а ожидание броска это по сути Средняя арифметическая так средне арифметическая Да всех исходов то есть от одного до ше нужно посчитать сумму и поделить на А ну на на количество гране по сути да у а то есть у нас это получается сем а сем пополам Ну точнее 30 сейчас 42 а наше а нет стоп стоп стоп сейчас Угу Уже обычную математику начинаю тупить А короче ва всё в порядке Да зачем-то так 7 на 2 ну ну просто да 7 на 3 / на 6 36 мы сокращаем Ну да 7/2 как я и сказал Угу Вот то есть три да то есть тут будет Да у нас как бы кубик с натуральными числами поэтому тут однозначно будет либо больше либо меньше Ага как так получается что на кубики там числа натуральные адание 3 с по Ну у нас у нас получается просто вот а ну средне арифметическая в данном случае м Мне кажется что ну у нас просто вот получается от одного до шести значения [музыка] и как раз-таки А ну блин Просто у нас же не чётное количество значений и тут как раз-таки [музыка] это и даёт не натуральное число Угу Ну на самом деле да то есть если бы у тебя было просто на Коби на гранях все единицы у тебя нание была единица не в этом самом деле проблема Просто ты жение некоторая величина Ты будеш много много много раз бросать кубик то у тебя в среднем там 3 с по Да и выйдет Если ты будешь в эту игру играть то есть не обязано не обязано это значение быть чему-то равному на нях сори этот вопрос был такой см как Буто пытался вытянуть а на самом деле не пытался всё правильно говорил Да действительно значит Итак ты говоришь стратегия такая мы кидаем кубик если выпадает больше чем Это ожидание то забираем да Если меньше чем Это ожидание то перебрасывая Окей Хорошо давай сейчас не будем дочитывать прям Ну вот число просто как бы ты посчитал на пальцах ожидаем прибыль от от общей стратегии Вот и просто расскажи как как бы посчитал и мы потом двинемся дальше Угу а так ну по сути нужно вычислить того что при первом броске выпадет Как раз-таки число Ну меньше данного вот и ну и данные данная вероятность А ну данную вероятность нужно умножить на на мат ожидания Вот как раз таки да которую я сейчас посчитал вот это а ну тут две вероятности вероятность того что у нас выпадает меньше мато ожидания умноженная на мат ожидания второго броска и единица минус вероятность как раз-таки выпадания А ну да единиц минус вероятность выпадания [музыка] меньшего этого броска умноженная на мат ожидания условной вероятности что у нас так как мы уже второй рассматриваем что у нас первый бросок оказался больше при этом условии у нас Мы считаем как раз таки вероятность первого броска Ну то есть тут через А и Б Чтобы проще было воспринимать будет вероятность при условии РОНО как раз таки выпадения при первом броске больше мат ожидания и вероятность А - это таки Ну первый бросок Угу А вот получается Если у тебя в первом раке выпало получается 4п или шесть да то что у тебя больше больше чем то получается Здесь Какой у тебя будет компонент в общей стратегии слага множителя у нас выпадает выпадает больше то А ну у нас-то только вот как раз второй а второе слагаемое остаётся при как раз таки выпадении первого Ну да броске у тебя же у тебя же Типа если ты выпадает 4 56 Ты же не перебрасывает забираешь всё у тебя второго слагаемого нет а Фу блин что да да да у меня же стратегия такая что я выкидываю и у меня как раз при выпадении больше мне второй бросок не нужен Угу окей Да ладно Хорошо давай"
+  reference_answer: time=00:51:47 text='действительно значит Итак ты говоришь стратегия такая мы кидаем кубик если выпадает больше чем Это ожидание то забираем да Если меньше чем Это ожидание то перебрасывая Окей Хорошо давай сейчас не будем дочитывать прям Ну вот число просто как бы ты посчитал на пальцах ожидаем прибыль от от общей стратегии Вот и просто расскажи как как бы посчитал и мы потом двинемся дальше Угу а так ну по сути нужно вычислить того что при первом броске выпадет Как раз-таки число Ну меньше данного вот и ну и данные данная вероятность А ну данную вероятность нужно умножить на на мат ожидания Вот как раз таки да которую я сейчас посчитал вот это а ну тут две вероятности вероятность того что у нас выпадает меньше мато ожидания умноженная на мат ожидания второго броска и единица минус вероятность как раз-таки выпадания А ну да единиц минус вероятность выпадания [музыка] меньшего этого броска умноженная на мат ожидания условной вероятности что у нас так как мы уже второй рассматриваем что у нас первый бросок оказался больше при этом условии у нас Мы считаем как раз таки вероятность первого броска Ну то есть тут через А и Б Чтобы проще было воспринимать будет вероятность при условии РОНО как раз таки выпадения при первом броске больше мат ожидания и вероятность А - это таки Ну первый бросок Угу А вот получается Если у тебя в первом раке выпало получается 4п или шесть да то что у тебя больше больше чем то получается Здесь Какой у тебя будет компонент в общей стратегии слага множителя у нас выпадает выпадает больше то А ну у нас-то только вот как раз второй а второе слагаемое остаётся при как раз таки выпадении первого Ну да броске у тебя же у тебя же Типа если ты выпадает 4 56 Ты же не перебрасывает забираешь всё у тебя второго слагаемого нет а Фу блин что да да да у меня же стратегия такая что я выкидываю и у меня как раз при выпадении больше мне второй бросок не нужен Угу окей Да ладно Хорошо давай'
+  interviewer_feedback: time=00:55:15 text='здесь не будем виснуть на этой задаче В общем Ну ровно так да то есть ты считаешь стратегию считаешь на ожидание там того что у тебя выпадет 4 56 есть вероятно исходы простоты вероятность одних исходов этих выпадение этих значений и там есть другая вероятность сходов и сое что получится Ой хорошо давай тогда к следующему блоку перейм собственно основная часть да мой любимый продуктовый кейс который я никогда не знаю я обычно обще собеседованиях предлагаю кандидатам придумать его вместе поэтому тоже предложу тебе придумывать сегодня вме погонять вот для начала предложу тебе выбрать какой-нибудь продукт которым ты регулярно пользуешься Ну желательно чтобы я его тоже знал Вот и на его примере попробуем что-нибудь подумывать из того чем Я активно пользуюсь И плюс ещ и связано отчасти с моим продуктом текущей компании это вот мессенджеров Telegram вот мы часто тоже к нему Обращаемся и его рассмотреть Давай супер здорово у тебя будет здесь небольшая Фора работал с мессенджерами поэтому наверняка чего-то много знаешь вот я меми не работал но отлично классный продукт Я только на днях купил себе подписку Премиум в телеграме вот осваиваю может быть что-то нас здесь идут а приведёт к тому чтобы мы это тоже Разбираем хорошо а можешь'
+  question_topic: Statistics
+
+--- CHAPTER `00:55:50` — Продуктовый кейс на примере Telegram ---
+window: 00:55:50 .. 01:44:05
+recognition_status: multiple (3 items)
+
+ITEM #15
+  interviewer_question: time=00:57:11 text='пожалуйста а придумать рассказать может быть какие-то Ну не знаю улучшения для тебя как для пользователя которых тебе не хватает Или наоборот там условно какие-то проблемы с которыми ты сталкиваешься при пользовании продуктом где ты Ну понимаешь что кон типа вот Мне прям здесь плохо Ну ладно может быть не плохо но что-то барит у тебя при использовании Так блин Хороший вопрос потому что мы типа наоборот ориентируемся на Ну не только на Telegram Вот потому что - это именно вот коммуникация там я не знаю в повседневной жизни в более общих что ли точнее в разных кейсах вот не как у нас но Так что что ж мне такого не хватает а может быть взять из каких-то других продуктов э не знаю пусть будет я вот кстати не помню не встречался а не'
+  candidate_answer: time=00:58:14 text='встречался короче переводчик например Да например я переписываюсь там с разными людьми на разном языке на на разных языках не только вот и там я не знаю Мне нужен Ну с английским ещё более-менее вот какие-то другие например языки то есть взял перевод включил Я единственное знаю что по-моему в каналах или в чатах при каналах я могу по-моему в каналах типа нажать на кнопочку translate английский точно есть возможно други тоже есть но типа в обычных по-моему переписках я например в личке с кем-то перепис такого вроде нет Угу И было бы как раз-таки удобно Я не знаю какой-нибудь продвинутый уже переводчик Google dipel что-нибудь такое вот наверно мне сейчас в голову пришло А давай смотри Давай представим'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:59:11 text='Давай представим, что ты аналитик по ту сторону экрана.'
+  question_topic: Product Metrics
+
+ITEM #16
+  interviewer_question: time=00:59:11 text='себе что ты аналитик по ту сторону экрана да Сидишь значит где-то в офисе телеграма и получаешь такой фидбек Ну не знаю из сторов ли друзей что блин Ребят я вот пользуюсь вашим продуктом У меня много контактов разных иностранных и э Мне не все языки Я знаю вот а Переводчика в личке У меня нет как как как так можно типа вы такие большие продвинутые Да и в каналах Тем более у вас это есть а в личка нет вот а как бы ты да представим себе что это такое некоторый сигнал который ты получил Ну вот он типа какое-то частное мнение а как бы ты сформулировал э ну такую продуктовую гипотезу о проблеме осно'
+  candidate_answer: time=01:00:00 text='сигнала проблеме В первую очередь я начну с бизнес потребностей которые дальше перетекают в метрики то есть бизнес потребность переводчика точнее может быть даже и в Да контек с КАТО м ну в общем Telegram как мессенджер да А какие у него ключевые там не знаю метрики А это а вовлечённость э ну точнее какие-нибудь retention Аа пользователей м количество чатов Ну наверное количество чатов не то есть не первая Ну вот retention точно потом ещё сам даже Telegram пишет про Мау свои то есть это уже такая Метрика роста вот Ну кстати да тут можно подумать и в контексте новых пользователей то есть увеличение Мау И за счёт новых по И за счёт улучшения продукта для стареньких пользователей так наверное в каком-то таком Ключе и вот сам переводчик Он На что влияет он влияет на то можешь ли ты переписываться с пользователями то есть Насколько быстро ты можешь его понимать наверно тоже сейчас просто рассуждение без переводчика как обычно мы берём текст идм в переводчик перевели там поняли что он сказал короче затрагивает время такое не то что я по-русски общаюсь не на русском отвечаешь то есть тут точно на время мы можем влиять вот на время время ответа Я думаю такую метрику тоже можно замерять Вот то есть если я долго буду пользоваться продуктом то есть какая-то лояльность моя будет падать Угу какие-то лишние усилия лишние клики это всё всё равно влияет Вот м ну наверное Ключевое всё-таки начать с там доли пользователей вообще на кого мы это повлияют такой research а исходя из проблем teg смотри а ты сейчас пошёл уже в такую историю мы к ней придём сейчас ну условно валидацию того что проблему вообще стоит решать Дава всё-таки ээ шаг'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:03:00 text="назад сделаем и саму проблему сформулируем то есть проблема В чём заключается проблема заключается Я вот не знаю можно ли её сейчас сформулировать что это непонимание пользователей значне непонимание переписок пользователей на разных языках а то есть ну да Давай наверное не будем как-то усложнять а просто вот я как пользователь хочу коммуницировать с другим пользователем в данном случае получается на другом языке Угу не переходя в какие-то другие не знаю сторонние продукты сторонние какие-то Ну так продукты Угу как можно быстрее это всё сделать вот то есть моя проблема в этом что вот есть единый продукт Я хочу им пользоваться Угу угу да спасибо А давай мот добавим ещё что Ну вот условно ты со стороны пользователя это рассказал что понятна проблематика Да Поль хочет коммуницировать на другом языке чтобы коммуникация была быстрее А что это для Гра значит как для площадки для ме дадада для телеграма Это означает что на тот сегмент пользователе который общается на разных языках скорее всего у телеграма есть локали пользователей Ну в чате переписке или вообще сам текст они могут быстро понять Вот и вот вот на эту долю пользователь пусть будет там не знаю 10% точнее Тут даже не пользователи а конкретные чаты нужно брать Да потому что пользователь Вот то есть надо посчитать долю пользователей и на эту долю пользователей мы повлияет что мы улучшим это кажется Ключевое как раз таки это вовлечённость и точн и Мау пользователей Угу то есть я могу оказаться в такой среде где разные люди переписываются на другом языке и это на меня будет влиять выберу я Telegram Кстати если есть конкуренты с этой Фой то я а могу перейти туда Угу Если нет то я скорее всего как-то буду решать эту проблему Ну либо если ты привязан наверное к площадке очень сильно Будешь терпеть Да да да я буду просто вот кликать дополнительно переходить о'кей О'кей хорошо а О'кей давай тогда собственно и подумаем насколько В общем стоит такую проблему решать если бы онас появилось в блоге как ну некоторая гипотеза ты уже начал про это говорить я тебя остановил Давай здесь как раз это и обсудим Угу А так давай обсуждать как решать эту проблему Окей Ну первое Я бы всё-таки да начал с какой давай как решать а Стоит ли решать вообще а а ну Стоит ли решать Да ну это по сути да валидация того что есть сейчас а то есть мы сформулировали проблемы сформулировали метрики на которые мы можем повлиять и вот надо подумать какая какая доля а доля чатов получается с этим может столкнуться вот а вот потом доля чатов и ну надо сформулировать уже конкретну гипотезу То есть если мы добавляем вот этот вот переводчик то это влияет на Тен пользователей Вот то есть это мы убираем как ки проб связа с разными языками в чатах причём мы можем ещё привлекать Ну точнее не только Рен старых пользователей но ещё и могут к нам приходить новые пользователи то есть тех кому эта фича даёт доб ценность в отличие от [музыка] конкурентов так можно сформулировать Да ага Вот смотри то сформулировал решение а всё-таки решение - это же решение проблемы Вот мы говорим о то что изначально Проблема была и мы хотели проваливать даже предложил посмотреть на долю чатов которые сталкиваются с такой проблемой Ну наверное чтобы оценить масштаб условно да да проблемы а вот а как бы ты как аналитик вообще эту долю чатов считал этоже Не тривиальная Задачка на самом деле если у тебя фичи нет Э ещё не внедрена понятно что ты не можешь просто тех кто воспользовался переводом А тебе нужно как-то их в общем-то вычленить из общего потока чатов таких ребят Угу Да Да хороший вопрос как считать долю чатов у а так ну тут отталкиваться будем в первую очередь от того что у нас есть Какие данные я положил Что у нас либо могут быть локали пользователей Ну точнее даже Угу которое заходит Вот а либо же Мы даже можем переводить сам текст и понимать На каком он языке угу вот а а исходя из этой информации по чатам У нас есть Значит [музыка] м уникальное количество чатов а в день и в месяц у вот а ну и причём ещё нужно уточнить Что такое Чат Да что может быть у нас в базе данных будет чат возникать вообще любой любая Ну например у телеграма Когда новый пользователь приходит и он меня в контактах мне что-то присылает говорит что вот такой-то пользователь Это я бы не считал за чатом Угу должно быть хотя бы одно сообщение окей да то есть это назовём не знаю активным чатом то есть есть одно сообщение Вот А да мы берём значит Ну давай берём наверное месяц вот а берём Ну вот так посчитаем за месяц какое количество чатов было с переводчиком о не с переводчиком Переводчик У нас нет с разными локали или разными языками Вот и за тот же месяц посчитаем как раз количество уникальных чатов активных чатов то есть не не пустых Угу Окей В итоге Ты смотришь долю чатов у двух людей из разных локали относительно всей всех всех чатов Да между людьми Ну то есть да мы берём сущность чат не пользователь у вот чат с не пустым хотя бы одним сообщением это будет оценка такая снизу или сверху проблематики это у нас будет оценка сверху да сверху То есть у нас типа ну переводчик Да переводчик влияет только на те чаты где разные языки Угу но не факт что в каждом таком чате у нас прямо какие-то проблемы может такое произойти что я говорю и на русском и на английском ещё можно на каком языке мне у меня локаль там не знаю на русском стоит мне Человек написал на английском я ему могу ответить на английском То есть мне не нужен переводчик тут всё всё нормально хотя у меня например устройство может быть на русском или на вот Ну да согласен Ну наверно можно подумать ещё Как придумать оценку снизу я бы наверное что-нибудь не знаю решение Я бы смотрел наверно на те чаты у пользователей которые отличаются по языку от основной массы чатов и в общем пытался починить такие такие истории если я совсем переписываюсь на русском а с тобой на английском то я бы подумал что наш с тобой чат он какой-то вот подходящий под наш критерий проблемы да да то есть не только локаль Ну вот да Круто иметь как можно больше данных о пользователе типа локаль устройство вообще сами переписки На каком языке Угу Ну да Да если Ну наверняка переписки конечно закрытые а возможно метаданные типа в виде языка дадада дадада Наверняка есть О'кей ладно Давай двигаться дальше здесь примерно понятно как бы мы то есть что бы мы сделали мы бы оценили долю таких чатов попытались Понять насколько она большая Ну типа условно потенциал этим измерить А хорошо давай подумаем Ну вот вот есть проблема отлично Ты даже уже назвал я хотел спросить какое будет решение ты говоришь решение добавить переводчик Тем более что он есть в Наско ты говоришь что он есть в каналах Я кстати говоря не встречался но Давай считать что он там существует не я вот встретился когда ко мне подписчики на английском языке нуч англоговорящие начали подключаться я подумал а как они будут русский текст читать такой смотрю а тут оказывается можно кнопочкой просто взять перевести кайф может быть кстати фича платных версий грама ну Вот это вопрос хороший потому что у меня подписка давно да Угу Возможно это платная Ну что будем как-то гипотезу корректировать там на монетизацию А ну да да я уже это просто не можем можем делать може можем не делать Мы же с тобой сейчас его придумываем этот кейс поэто а так я не знаю правда как там работает ЕС там это опция только флад отписки или нет здесь мы можем с тобой договориться о чём-то Я считаю что это правда м так ну давай ну то есть у нас скорее всего если этой фичи нет а собственная собственная реализация Она обычно дорогая и не быстрая то есть пишний вариант обычно там с партнёрство Илим просто быстро делают вот поэтому тут Наверное нужно бы заключить там какой-нибудь партнёрку интеграцию с каким-нибудь Google переводчиком или плем который я до этого говорил Угу но естественно у них ну у нас будут косты на это то есть будем на это тратить деньги 100% и тут нужно аккуратно тестировать То есть например в нашем случае ВН драйве у нас типа 47 странны в со се странах сразу запускать точно не нужно вот то есть нужно какую-то определённую выборку и причём исходя из проблематики То есть если мы понимаем что Ну например в какой-то стране юго-восточной Азии там много туристов и если это туристы то это не местный Ну на местном языке они не говорят вот там больше будет доля вот этих чатов Угу Не ну на разных языках вот ограничить если в общем говорить ограничить аудиторию блин прошу прощения Да конечно Конечно вот если нужно время давай всё вроде что-то прошло ограни аудиторию шный вариант чтобы проверить гипотезу будет даже с кастами Вот [музыка] м ну естественно продумать реализацию там интерфейса как это будет работать как именно будет переводиться текст вот а да если реализацию говорить то Ну сбор само тестирование и сбор обратной связи как можно больше в разных форматах можно рассмотреть Туда туда и Ну то есть на самом деле мы же с тобой аналитики не разработчики то есть нам вот все эти истории с Ну там ну Дада мы можем сюда как бы делегировать это там продукту и бизнесу запрещать партнёрки и всё прочее это не сфера наших компетенций А вот ну давай предположим вот решение оно какое-то да вот допустим это я предлагаю знаешь как договориться Давай предположим что в телеграме эта фича уже существует и она существует только в каналах и Угу рение которое мы будем тестировать мы эту же фичу кам Ну типа расширим на чаты приватные между людьми персональные просто чтобы упростить сейчас скоп этого решения Вот это решение которое мы придумали Давай обсудим как раз как мы это решение проверяли вообще насколько оно хорошее нехорошее да О вот нужно 100% начинать с метрик по которому как раз замерять успех неуспех данной фичи Вот это я бы предложил как раз то что я говорил это влияние на вовлечённость а что воно Ну да да давай давай я раскрою Да это например ну точнее время проведённое в приложении Ага количество отправленных сообщений Ага вот разные метрики То есть ты говоришь вовлечённость это типа набор метрик это вот время приложений и набор количество отправленных сообщений правильно Да но тут конечно нужно ключевую одну метрику выбрать Что именно Мы хотим сделать м ну в гипотезе мы сформулировали либо мы на старых пользователей а влияем то есть улучшаем их им жизнь так сказать вот Либо мы привлекаем ещё новых пользователей угу вот а тут наверное наверное так взять количество отправленных сообщений одним пользователем То есть если мне удобнее взаимодействовать [музыка] м мне добавляют ту фичу то я и чаще буду переписываться наверное да наверное можно взять количество отправленных сообщений Метрика Да сори это будет Ключевая Метрика или это просто одна из метрик которую ты будешь мерить тесте Ну или как ты не в тест ещё оценивать так либо Ну окей давай давай Наверное это ключевую и дополнительно ещё будут так время проведённое кстати время проведённое в приложении если нам приходится выходить и использовать переводчик то это будет времени Угу А если мы активно переписываемся то тоже больше времени Слушай ну хорошо смотри давай подумаем условно какую проблему решает вот на уровне прямо конкретного чата наличие Переводчика что что он меняет как он меняет опыт но он меняет опыт следующим образом что Ну тут тут два варианта насколько пользователь не знаю готов переходить в переводчики и дальше возвращаться обратно в приложение То есть если он это делает то тог оно не меняется но Меняется время как раз таки на перевод Угу то есть оно будет сокращаться то есть буде сокращаться на самом деле получается скорость итерации одной может быть не всего чата не всего диалога вот я до этого говорил да Вот хорошо что ты подметил что это по сути да типа среднее время между сообщениями что ли а е ещё нужно конечно количество БН символ что ли сюда добавить сейчас надо подумать Стоит ли сюда добавлять Ну ладно да среднее время между сообщениями [музыка] Точно Вот причём только вот нужно брать только те чаты где у нас там разные локали разные языки у и ещё ты тоже правильно подметил что не только лока но и вот языки других чатов это ВС использовать тоже можно как раз-то метрику удовлетворённости пользователей какие-то опросы среди пользователей вот ну обычно когда ям работа других коман может сильно не влиять Угу Вот Ну а а вдруг мы повлияло тельную или наоборот даже в негативную если мы в негативную то это мы можем увидеть Окей что-нибудь ещё какие-нибудь метрики будем смотреть или достаточно м ну вообще Нужно ещё понять вот у нас есть доля разных языков чатов с разными языками А как вообще пользуются переводчик может вообще люди не пользуются или они не понимают как им пользоваться То есть я бы ещ взял не знаю либо количество переводов в конкретных чатах которые я до этого говорил либо частота использования переводчика То есть как часто пользователи прибегают к переводчику вот УВМ не произнесли но если мы говорим про тестирование какое-то а тестирование то это метрики как будто бы которые в а не меряются потому что тебя просто некоторое знание которое мы получим о'кей О'кей хорошо А давай тогда ну в а же идём Да я просто забегаю вперёд тестировать будем втст или по-другому как-то Да я ну если по по подсчётам а а э по подсчётам по каким-то я не знаю ограничениям техническим М что ещё может быть Ну по чётам Я имею в виду что длительность эксперимента для нашей выборки а Нас устраивает плюс каких-то технических ограничений нет то есть то как мы хотим проверять это реализация будет м а какие ещё ограничения могут быть В общем если нет ограничений то да то тут зати а есть ограничение Как думаешь Вот сейчас Да сейчас я накидывают сетевой эффект может быть не может быть типа Нужно ли его учитывать кажется то есть мы берём э фиксируем по пользователям Ага То есть мы одним пользователем даём а переводы другим нет Угу М О одни пользователи взаимодействуют свечой у них всё отлично а другой не может быть так кажется тогда они по-разному будут по-разному могут влиять на чаты То есть если мы берём сущности чатов то ти чате у нас один с перевозчиком другой без у нас как раз таки там время проведённое в приложение точнее количество отправленных сообщений тоже может сократиться точнее Почему сократится Просто оно может быть разное если у нас в чате типа разные пользователи если мы будем [музыка] сптоваров тоже интересно кажется не не не [музыка] сильно То есть я взаимодействую с Чой потом у меня отбирают ня по-старому Потом тоже какое-то странное поведение будет Хм Ну наверное наверное можно можно что ли Так тоже попробовать протестировать А как в итоге э с каки Ну склит какой у нас будет по чатам или по юзера или по [музыка] кому х так по чатам как будто бы и там и там будет может быть типа разный опыт свечой без свечи А ну слушай сейчас по юзера у одних и тех же юзеров есть фича Они взаимодей то есть у нас разные группы ещё будут в чате оба с Чой в чате один с фий в чате Нет фичи в принципе наверно можно такой вариант смотреть Да у нас тем самым будут такие три группы то есть в итоге ты предлагаешь чаты бить Ну то есть или или юзеров так не юзеров Окей окей на самом деле мне кажется там могут быть приколы с сетевыми эффектами когда у тебя Ну настроя Например у тебя есть фича У меня нет фичи А мы общаемся с Димой который сейчас за кадром и получается что у Димы например будет разный опыт и разный там и время время рациями с тобой и со мной Просто что есть у меня а у тебя нет как будто сетевой эффект всё-таки есть А если у нас будет по чатам Ну тогда получается по чатам у меня есть другой контрпример Почему не стоит по ним делать Смотри по чатам что будет у тебя Метрика которую ты меряешь там Ключевая количество правильных сообщений Но там есть куча метрик которые ты хочешь е знать ти время приложении три по чатам ние по чатам тебе Э метрику не даст померить в целом давай смотри вот мне кажется мы с выбрали реально сложные продукты сложный кейс в этом смысле и там могут быть какие-то сетевые эффекты и наверно такой разговор там гораздо там сложнее и глубже и я думаю что нам туда сейчас не стоит идти Давай просто попробуем сделать такое предположение что пусть сетевых эффектов не будет нуй так будет что ча буде меть Э мы будем мерить э понимая что и зная что их не существует Ну вот типа наше такое ограничение меры Давай просто вот пройдём по стандартному флоус проце дизайним его обсудим как это делается что там ещё будем с ним делать как будем его не знаю а-а проверять В общем по по по классике пройдёмся короче без вот этого углубления в сложной материи Угу Да о'кей О'кей хорошо То есть ты уже назвал давай что ещё будем делать е"
+  question_topic: Product Metrics
+
+ITEM #17
+  interviewer_question: time=01:31:57 text="стоит задача Провести такой атест Угу Ну короче набросать дизайн эксперимента да Ну да Угу О'кей Ну по сути да с чего я"
+  candidate_answer: time=01:32:09 text='всегда начинаю в дизайне эксперимента это какая-то бизнес проблема Почему это важно Вот мы это проговорили зафиксировали Наверное я сейчас повторяться не буду просто пройду по шагам вот второе - это сформулировать саму гипотезу То есть если мы что-то добавляем то на что это влияет Ну скорее даже в первую очередь на какую метрику Вот и почему мы так считаем то есть на на основе чего вот А формулируем эту гипотезу вот Дальше Ну дальше сами метрики тоже как мы с тобой проговорили фиксируем ключевую целевую метрику вот какую именно гипотезу она проверяет Ну это такая таблица У меня обычно типа Метрика гипотеза И как мы будем Какой критерий применять для данной метрики вот статистический дальше оформление нуч оформление описание аудитории вот Какая именно аудитория там не знаю страна город платформа может быть Ну разные сегментации могут быть Вот если это приложение то там Android iOS и так далее вот могут быть ещё разные типы пользователей в общем да вот вот это тоже зависит уже от контекста Угу а дальше а а ну как мы будем бить То есть если это атест как мы бьём 50 на 50 или же там не знаю сейчас не хотим пусть будет зажигать много денег на тест и там не знаю 80 на 20 будем делать А это тоже нужно будет зафиксировать Угу А чего зависит размер выборки который мы пускаем в тест Кроме того что кроме наших бизнесом что это будет дорого или дёшево на что это ещё влияет Угу Ну это будет влиять на время проведения эксперимента Угу Вот и э ну э МД ещё тоже нужно посчитать то есть минимальный детектива эффект угу который мы либо мы фиксируем какое время хотим Вот Угу наоборот мы от времени смотрим какой у нас будет mde Угу Вот а а пу-пу ну наверное вот Ключевое в а тесте - это вот эти пункты которы я фиксирую обычно в дизайне точнее смотри Давай ещё раз вот всё ли здесь учтено вот ты назвал размер группы метрику собственно её да получается длительность теста критери ког про критери что ты имеешь в виду критерий кото мы будем для конкретной метрики обычно чем Кай используешь Ну как правило Ну чаще всего это Окей если говорить про там тоже самое те наме Да в дизайне'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:36:05 text="теста значимости вот нужно его фиксировать А блин это у меня оши первого рода и мощность тоже зафиксировать Ну да этому Ой хорошо зафиксировали все параметры определили их посчитали запустили теч так запу то есть дизайн Окей есть Ну вот кстати наверное тут тоже от контекста в компании что ли зависит Ну хотя я думаю я всегда это делаю то есть перед запуском на живых пользователей Это я сейчас также также подключаюсь и при тестировании самой фичи как она работает и на тестовой среде и на проде на команду Вот потому что если всё работает не так как мы ожидаем то как бы вообще атест ушёл в небытие То есть он не получил значит запустили запустили уже на ну после проверки запустили на реальных пользователях Ну тут тоже иногда стараемся сами проверить Угу Как всё отрабатывает в Ну там версия приложения может обновиться и вдруг что-то не так работает так так так так Ну наверное про то что мы типа в платформе всё всё настраиваем это и так Ну допустим да допустим что это у нас уже реализовано на самом деле Ну я просто уточнил может быть есть дополнительно каких вещей Я в целом услышал все основные этап подготовки Да дизайн определил чек сделал в общем убедился что всё но бьётся и события льются запускаем Поехали Да давай предложим что сегодня запустили его значит вечером и соответственно ожидаем что через там 3 недели там по дизайну у нас дол мы э 3 недели что делать будем так да после запуска после запуска я ну обычно там не знаю в первую неделю могу настроить мониторинг по Метрика Угу Вот что каких-то резких может дропов не прошло чтобы это за детектировать вот естественно Ну в динамике смотрим и пока оно не канец Ну короче не выйдет на какой-то уровень будет Вот так вот естественно не каком подглядывания Ну не нужно подглядывать и таким заниматься вот ну и у нас может знаю так оказаться что эксперимент Может завершиться раньше срока если уже значимость выров и у нас уже значимые результаты есть Ну короче эффект Точнее не эффек блин по-русски забыл дадада ке телеграма Да объём выборки он раньше наших Вот может и уже можно да завершать Угу Ну вот Наверное это да До завершения до подведения угуй этап дальше этап идёт подведение результатов Вот давай здесь про оделение рето поговорим такой у меня вопрос условно там понятно что там могут быть раз разных исходов много Давай предположим что у нас вот при окончании теста мы его корректно провели у нас всё Ну правильно поставлены а на выходе мы видим метрики серые Ну на сленги Ну да да значи какой сделаем это Вывод что что принес бизнесу Ну на самом деле Первое что я на серых Метрика делаю Это во-первых можно разные сегменты ещё смотреть Потому что не факт что ну мы изначально думали что повлияли на этот сегмент аже каким-то признакам они объединяются Угу Вот И там могут быть уже там побольше отличия не как в дизайне Мы считали А побольше mde и точнее сам эффект вот мы увидим 100 значимые результат Угу Вот то есть не нужно сразу выбрасывать так сказать Ну или говорить что никакого эффекта нет Вот это первый момент второй момент с с серыми прокраса Ну то посчитать какой эффект минимальный на тех результатах на тех данных Что у нас по итогу получились потому что не факт что при дизайне тоже самое тот же объём выборки и посмотреть какой эффект вообще мы могли закро и почему Ну понятно почему мы его Да вот ну и бывают на самом деле фичи когда это не знаю целевая Метрика не прокрасить Но другие дополнительные метрики могли проситься и мы Ну хотели и на них тоже повлиять они например зелёные Ну положительно прокрасить Угу окей да согласен вцелом э всё что ты сказал валидно а вот ну ты сказал что вот допустим у нас этот эффект который мы могли затка на фактической выборке он оказался больше чем ожидали Да и соответственно Ну у нас условно изменение получается лежит где-то внутри этого эффекта Ну то есть мы его просто не пировали пото что дисперсия А ты знаком с какими-нибудь методами снижения дисперсии типа Что можно поделать чтобы ну дада да Можно либо а использовать либо по стратификацию использовать либо просто ну самый стандартный это выбросы тоже убрать Ну да да вот такие методы тоже сегментирование какое-то произ то можно идис уменьшить и посмотреть ели значимое различие Угу Да ну приэтом какой-нибудь Т можно делать Прямо постфактум на самом деле Ну потому что ты А ну есть ещё стратификация если правильно называю Ну когда мы на этапе как раз таки запуска сплитом Дима не включился Дима включил камеру у нас с тобой в эфире потому что Дима знает что это обычно завершающие вопрос в наших интервью когда мы разговариваем проте протесты на самом деле Действительно это так моя часть подошла к концу наш тобой интервью закончилось поэтому теперь можно перейти к выдохнуть расслабиться сделать поток воды или чая Вот и обсудить как оно прошло Да Ребята во-первых давайте скажем что Вова короче герой потому одно дело когда тебя собеседуем два человека другое дело когда на это смотрят Мне кажется в Пике достигало было более 200 человек поэтому быть перед такой аудиторией в режиме онлайн это нужно иметь огромный запас смелости поэтому тебе в общем посылаем огромный огромный Респект в общем я думаю что это Да теперь можно выдохнуть Егор но думаю что сейчас как раз-таки твоя часть чтобы ты прошёлся и рассказал Ну то есть я могу немножко дать канвы для обсуждения как раз-таки ребята задавали ээ эти вопросы в чате один из них я думаю что даст отправную точку Да это с того момента когда вы вместе с Лово решали задачку про кубик или вообще был общий комментарий складывается впечатление что Егор задаёт вопрос говорит Ага интересно да но со стороны кажется что ему это не особо-то интересно и немного не ясна линия этих вопросов что он этим хочет выяснить и мне кажется здесь основной вопрос Егор к тебе А зачем же ты все эти вопросы вообще во задавал если с чего-то хочется стартовать то как раз вот когда вы разбирали задачку про кубик в самом Да начале этого Наверно после опыта до разбора кейса был такой вопрос а вот в полях вообще помогают эти задачки или нет Зачем мы вообще такие вопросы задаём круто Мне тебя побеседовать Зачем ты вообще это делал ю что будет интересно послушать как раз таки твою обратную связь Да здорово Да давай так с этого нанм нетча нам действительно я присоединюсь к словам мы Спасибо тебе большое правда круто Я безумно благодарен тебе что ты присоединился и нужно обладать Ну большой смелостью и в общем не буду в эфире говорить чем ещё большим чтобы согласиться правда классно Спасибо было здорово а скажу теперь про в общем-то отправную точку вернёмся к ней да что это было что я спрашивал и почему вообще это звучало наверное зрители могли заметить я постоянно там обращался к экрану я делал заметки то есть Ну в целом так устроен проследования что у нас есть в которой есть определённые Локи по которым я делаю заметки вопросы которые я спрашиваю они прямо отражают проявление компетенции которые мы внутри Авита ждём от аналитиков У нас есть Матрица компетенций она публичная её можно найти Да Егор если что у нас даже её наши редакторы трансляции прислали ссылочку на как ки с нашими компетенциями которые у на есть вот собственно вопросы про опыт они были как раз для того чтобы раскрыть ту или иную составляющую Да наше компетенцию дальше поговорим поговорим про них а Задачка про кубик по сути Обычно она у нас живёт отдельно То есть у нас есть отдельная маленькое интервью перед основным интервью где мы собственно вот занимаемся тем что решаем пару таких задачек на логику там да Или на какую-то математику задача простая понять что существу Ну в общем есть понимание у кандидата о математическом аппарате что есть представление о том что такое матожидания да о том как его посчитать и в целом Ну что мы делаем продукте или в бизнесе обычно мы Ну не знаю часто бывает так что мы оптимизируем какие-то метрики и например Зарабатываем деньги и чтобы запустить какой-то продукт мы считаем ожидаемую прибыль которую в общем-то продукт нам принесёт это набор некоторых там конверсий вероятностей и прочего и в бизнес это прикладывается следующим образом а на модель задачи мы просто понимаем что кандидаты владеют этим аппаратом вот поэтому конечно же мы Кубики не бросаем хотя у нашего директора есть Ну не знаю наверное сотня кубиков он иногда их раздаёт нам ходит по офису и даёт нам кубики эти Потому что потому что это весело вот но в жизни мы решаем задачи скорее близки к тому что мы делали в третьей части нашего собеседования и уже решали какие-то продуктовые кейсы рассматривали гипотезы Вот И там тоже в общем-то это такой цельный кусок Ну как бы то что мы разобрались сегодня с Вовой там за минут 40 да по сути Ну в продукте мо може разбираться там полгода да то есть Ну понятно что с разными сложности продукта бывают по-разному гипоте бывают короткие и быстрые и тестировать мо можем тоже Медленно или а или быстро но тем не менее это вот такой цикл жизни какой-то там гипотезы фичи которую В общем команда поддерживает развивает там и модифицирует вот поэтому мы прошли здесь по основным этапам по основному циклу жизни гипотезы и участию аналитика в этом цикле жизни и основные вопрос как раз все затронули конечно много где можно было углубиться поразговаривать покрыть поэтому задержались но можно говорить е ещё дольше опять же расскажу что обычно у нас Если разговор складывается очень такой продуктивный много разных гипотез там тестов ещ и так далее много разных компетенций проявлено то у нас бывает ещё дополнительная секции когда мы говорим там ну условно такое собеседование на сеньора где мы говорим уже про более абстрактные сложные сущности то есть вот если мы говорим про какую-то практику что делает аналитик там каждый день а есть ещё там секция отдельная когда мы говорим там условно про опыт про решённые задачи э из Ну короче какие-то сложные вызовы про которые в общем стоит отдельно по углубляться и скажу что мы здесь пытались ну я здесь некоторые вещи углублялся как раз такие вещи щупал для того чтобы условно в интервью э понять условно А дальше кандидат вести э на такую сексю дополнительную или там говорит что окей здесь достаточно там понятно что что здесь решение можно принять уже здесь Сейчас или можно ещё пообщаться Да и там предложить может быть какие-то более сложные задачи и какие-то вызовы которые в общем не для всех Вот примерно такой у меня был расска это про Почему ты задавал те или иные вопросы Ну то есть давай я так финализировать и со размери относительно матрицы компетенции которую мы прислали если кому-то интересно с ней можно ознакомиться второй блок - Это был такой про технические задачки когда мы пытаемся посмотреть что человек действительно Придя не не запутается между УМО ожиданиями персон силя медианами и различными распределения и третий блок - это было решение именно продуктового кейса это та наверное стандартная работа аналитика которая у нас и совершает как раз таки большинство людей которые занимаются аналитикой Вот теперь я думаю да с этим наверно блоком мы здесь всё давай наверно перейдём к какому-то фид во по ито собеседования Давай Да давай я попробую пока порады по каким-то Ну составным частям Да а потом какую-то интегральную тоже тоже вынести первая часть у нас была как раз про опыт и во я собственно задал вопросы и пытался тебя где-то в общем разложить Да по матрице компетенции Да проявление того что ты делаешь в своём опыте по нашей матрице которая там которую мы считаем для себя некоторым ориентиром А меня интересовали компетенции поиск задач решение задач э Хард скилы твои Меня интересовало влияние на бизнес который ты можешь оказывать не интересовал как ты Ну там условно планируешь проявляешь ожидания а что могу сказать А вот как раз мы здесь тоже много разговаривали и много из компетенций которые ты проявлял Они как раз отсылают Ну меня как соседу к тому что нужно тебя повести дальше в следующую секцию и там с тобой пообщаться более глубоко потому что там есть потенциал к тому [музыка] чтобы с тобой общаться там на более скиловые на более родовые задачи А если говорить про подач Мне понравилось про то что у тебя есть в общем удач Ты рассказывал про то как сам участвуешь наполнение кло рассказывал про то как сам реша зада ходиш какие-то новые инсайты Да их проверяешь и в общем мы это ценим мы считаем что аналитики должны уметь искать задачи Ну опять же начина от какого-то грейда и чем в общем-то взрослее старше сло аналитик тем более сложных и больше и более сложных задач же находить приносить вот это ты рассказал проявил это у тебя было про ожидани планирование Здесь тоже рассказал про то что ва есть планирование есть кварта там есть более итерационная и в готовом ЕС ты не участвуешь то в квартальном ты рассказал что было участие да что ты тоже приносишь задачи и при этом когда мы говорим про разных заказчиков ты рассказал про то как работаешь с набором разных заказчиков если он не один вот это тоже важно что у тебя есть некоторая система ты в принципе понимаешь задачи скори приш не решения ите и при этом если что-то идёт не так заказчики недовольны понимаешь что там ты не силен Да и можешь скалирование [музыка] соответствием там разных рядов да то И то и другое Я бы там отправлял это в midle п и дополнительно до проверку да то есть что там есть ещё более более глубокого и детального на уровне сине правление на бизнес ты рассказал как проверял гипотезу Да и она значит помогла вырастить некоторую метрику отмен там на точне Уменьши метрику отмен на 30 40% Вот и в этом смысле с точки зрения То есть мне этого было достаточно Да чтобы оценить тебя например как как мил аналитика по тому что рассказал почему Например Ну и даже может быть доверить ещё потому что я здесь не закапывал но чего мне в этом кейсе например не хватило да того что ты здесь это неплохо это это О'кей Это хорошо Просто если бы мы с тобой разговаривали там дальше Да там на сеньор най секции я бы закапывал и уже узнавал у тебя А какие именно ты сам принёс гипотезы которые там сгенерировать дополнительное влияние на метрики здесь ты скорее рассказывал что была некоторая гипотеза продук он мне принёс попросил тебя проверить и ты смог это сделать вот провёл атест корректно зазай корректно всё почитал и соответственно а показал что здесь в общем гипотеза сработала Да наверное тут такой комментарий что у нас вот Чем дальше й аналитика находится тем мы ожидаем перехода из реактивного уровня на получение задач как раз-таки к про активному То есть у тебя Чем более какой типа мы считаем что Team Lead - Это должен быть как раз-таки уже человек который генерирует задачи в том числе он является таким продуктовым партнёром своего продукта и не то что он как интерфейс для доступа к данных действительно человек который заинтересован с тем чтобы продукт двигался вперёд вот и Ну естественно что поиск задач здесь находится на одном из первых мест да Да всё так Ну и наверное здесь важно подчеркнуть что целью этой секции не является определить там грейд от Джуна до синьора цель задача этой секции сказать условно перед нами сейчас аналитик jor аналитик кто-то выше и мы не знаем совершенно Кто и нужно отдельно проверить его ну или хар да то есть тот человек кото нам не подходит и в этом смысле то есть мы всегда Ну в общем здесь поэтому не закапываем что мы говорим О'кей понятно здесь можно выкопать Значит есть есть повод поговорить дальше А дальше следующая компетенция а она такая у нас она сложно сочинённая она про называется решение задач то есть насколько сложная задача аналитик решает и о там мы для себя выделяем несколько её условных основных частей там открытость масштаб и сложность Вот я как раз спрашивал про открытость и сложность Да расскажи про каку непонятную мутную формулировку И как ты с ней работал вот и про какие-то сложные а сложные задачи и здесь мне скорее ну то есть задача которую ты рассказал она была такая пришёл продук говорит хочу атест Ну типа не знаю как Придумай Как как его провести Вот мы для себя это формулируем как ну О'кей Значит нужно сделать что-то непонятно как аналитик сам это делает мы это для себя скорее оцениваем Как такую задачу midle level по открытости И если бы ты показывал рассказывал какую-то задачу когда к тебе пришли Сказали бы Слушай нам нужно вырастить такую-то метрику то есть какое-то бизнес Ожидание и ты сказал О'кей Я подумаю там посер найду точки роста принесу расскажу сделаю вот такая задача была бы заходом туда в серную часть но с точки зрения там ожидания отдачи idle уровня вообще типа супер А если говорить про сложность Ты рассказывал про Множественные атест с анализом переписки переписок ну здесь У меня наверно там не очень получилось понять там насколько это сложная задача опять же повод просто поговорить дальше то есть это точно нормальная сложность там и про всё что мы с тобой говорили там везде есть сложность midle здесь сходу я не смог определить е сложно сир опять же это повод там С секции было бы для нас если бы мы с тобой шли по обычному Фло вот то что рассказал Вполне себе классные примеры В общем задач и для этой секции точно было бы и точно для секции достаточно пода подан ты рассказал про SQL много разных баз попробовал много с чем Много с чем работал О конки Писал опять же про оптимизацию скорее те помогает И почему спрашиваю у нас ча мы думаем над оптимизацией потому что код пишет витрин данных пишут сами аналитики и важно чтобы в хранилище это всё работало огромное количество данных успело считаться за сутки некие билды не падали В общем не тянули за собой остальные витрины подцепочки и так далее поэтому важно чтобы в общем оптимизация кода была в общем-то инструментом аналитика не является каким-то блогером если там не работал ну в общем Кто много кто из пришедших ребят с этим не работал но классно если у тебя уже есть опыт Да ты условно там смотришь план запроса понимаешь что к чему пожни если там ещ каки хинты знаешь вообще замечательно да ребята Егор в чате писали что ожидали здесь услышать что посмотришь Вот как это как как такой Триггер что человек действительно заглядывает в план запроса и понимает где ему что нужно поделать да ровно это при этом э Даже у нас ну у нас нет секции Лайф кодинга мы понимаем что это инструмент инструментам можно обучиться поэтому здесь Мы скорее для себя просто чекаем на входе некоторый уровень от которого Стартуем Да может тут Егор ненадолго остановиться потому что там как раз-таки наши редакторы спрашивали А если хотите техническую часть ставьте плюс и очень много людей поставили плюс как будто бы у нас после этого есть ещё какая-то дополнительная Техническая часть Ну в общем я думаю ты здесь можешь рассказать как раз-таки ты упомянул что у нас нет Лайф кодинга в котором мы это проверяем можешь про это поподробнее чуть как раз-таки тут пока мы на этом моменте да да Супер Ну в общем-то так и есть мы э не Лайф кодим потому что Ну опять же это инструмент нам важно как люди мыслят Да вот мы сегодня слово ровно это обсуждали Как как он мыслит как он проверяет гипотезы как он думает как он Почитал бы метрику В общем всё это мы то есть как этим овладеть с точки зрения как это заходить Ну это навык он формируется его можно в принципе там ну за ю тилки наверно можно освоить том уровне на котором нужно есть в этом смысле это с одной стороны важно чтобы человек ну там Пытался это делать изучал Ил с другой стороны Ну некритично если он там не смотрел Не знаю с этими онми В общем не понимает что делать и куда их крутить просто мыста тоже самое с питоном Да Во рассказал Какие задачи Решал Я понимаю что то есть он рассказывает об этом Ну это понятный класс задач он рассказывает что он с ними делал Я понимаю что у него Опыт есть мне не нужно здесь прям какие-то там смотреть алгоритмы и так далее чтобы в общем как-то фильтровать это не фильтрующий фактор какой-то да то есть это Окей если во рассказывает о том что он с ним работал мне Достаточно того чтобы того что Он рассказал вот опять же почему сси про это тоже не является ожиданием от всех аналитиков хотим сес у на есть стратегия аналитики говорим том что в целом Мы хотим чтобы аналитики умели делать решения и чтобы это в общем как-то продвигать в массы Мы решили что мы какого-то времени будем ожидать того что аналитики уровня сине выше приме Рени СХ зада а и это в общем-то такой для нас э ну хороший хороший маркер Это хорошо стимулирует ребят в общем этот порог входа Да как-то преодолевать что О'кей раз тут Меня ждут то я попробую что-нибудь поделать А в общем это внутренняя наша такая штука и на входе Мы тоже проверяем но опять же да да нет нет фва сказал о том что а занимался Ну в общем-то в теории проходил э что-то а начинал делать там для анализа текста Вот но боевых задач не решал тоже вполне себе понятная штука и если бы мы там разговаривали дальше на предмет сеньор роли то скорее всего это просто было бы каким-то одним одним из пунктов в плане развития В общем и двигались бы дальше Вот но ес если бы было было бы здорово Да мы там пообщались про это если нет тоже окей Не блокирующая какая-то штука вот Итого по опыту то есть да Если так суммировать то я бы сказал что я бы оценивал опыт в midle п То есть это точно есть повод пообщаться дальше и поля есть для этой секции достаточно было по прохождению этой секции налити что сказал было достаточно значит про задачку Ну поскольку Да у нас она такая здесь [музыка] решалась конеч Да где-то я там останавливал предлагал начитать и так далее Я видел в общем-то правильно стратегию понимат что тание о оно жит немножко за исто про натуральные числа ищем почему оно на Получилось Да здесь в общем Понятно понятна история дальше там по самому решению вот когда уже считали стратегию там пошл уже куда-то дальше в услов вероятности в целом если были с тобой на скорее из-за того что не было времени аэ Ну там как-то Мы из тайминга выбивались Я просил тебя там быстро сказать в общем словами и не дочитывать поэтому тут Э что могу сказать А В целом а начало было бодрое в в конце немножечко там ты немножко замина Ося но опять же если бы это был была отдельная секция мы просто бы с тобой наводящие вопросами обсудили бы ты показал что Ну я уверен что там всё ты знаешь понимаешь как решать и довели бы до конца здесь никаких проблем не было поэтому да Ир Знаешь наверное такой один комментарии добавлю что когда у нас есть вот этот этап тех скоринга когда мы он именно заточен на то что мы решаем задачи как раз-таки для того чтобы мы не допускали ошибку второго рода Да когда там кандидат не справился только с одной задачей Мы специально для этого даём пул задачи потому что одна задача может быть действительно идёт как-то чуть сложнее но чтобы была ещё возможность порешать другие и уже по скоу решения всех трёх мы делаем какую-то оценку вообще там дальнейшего продвижения по найму вот да всё так я бы сказал что у нас есть ну по сути там такой пул тем Да условно там какая-то Логика есть базовая есть немножко Терра есть немножечко статистики вот ну в общем какая-то математика Ну комбинаторика можно сказать что там она где-то внутри лежит в общем очень очень тоже лайтовая в этом смысле это это пода Да мы как-то в общем их даём разные и смотрим действительно Да прам на опять же интегральную такую общем интегральные результат прохождения всей секции Вот и наверное самая самая такая интересная часть это про продуктовый кейс и про то в общем как мы его решали Ну во-первых да продукт телеграма Я думаю что это сложный кейс в том смысле что всякие разные вые эффекты всё такое там действительно этого может быть куча поэтому здесь иногда может быть мы где-то Ну в общем могли залипать на каких-то вещах собственно я сам тоже сидел думал там есть ли они или нету их вот поэтому кей сложно Правда продукт сложный вот Ну тем интереснее его обсуждать собственно А что хорошо Да что в целом ты там генерирует какие-то гипотезы о проблемах Да и какие-то сигналы которые там в общем ты можешь взять продукт сказать что мне в нём чего-то там не хватает Это здорово То есть это Это замечательно ты можешь сформулировать из этого гипотезу собственно А чего когда ты сформулировал гипотезу ты так знаешь сформулировал очень академично по как я как пользователь хочу коммуницировать на другом языке Ну в общем как там в продакт менеджменте у нас там принято А это здорово Это хорошо чего здесь чуть-чуть не хватило да я те навёл что сказал для пользователя для компании сразу не сказал да потом уже Да обсудили что чтобы что эта проблема Почему она важна для бизнеса Да ты говоришь а окей там там же Тен ма есть ещё метрики компании которые в общем нужно уть вот значит что мы здесь ещё с тобой пообсуждали а про валидацию гипотезы опять же здесь мы гипотеза о проблеме давай не так значит что понравилось ты сразу сказал О'кей давай подумаем какие вообще есть метрики что в общем На что влияют какие метрики есть у телеграма начал разгонять в общем-то про что вообще телекран как бизнес А набросал какой-то кличе метрик это здорово то есть ну в общем показывается что ты смотришь шире чем какая-то конкретная проблема вот это было замечательно А когда лидировали гипотезу Да ты предложил некоторую оценку Ну такую оценку сверху в общем-то в целом в целом Окей я наверное Ну вот да возможно я бы здесь если у нас было чуть больше времени попросил бы тебя может быть какую-то там более вот это вот детально посчитать какую-нибудь метрику но в целом то что ты сделал какую-то оценку оценку сверху Вполне себе нормально оценку снизу там вместе с тобой придумали Вот про решение проблемы Ну гипоте решени в принципе жеже там безносова рассуждать типа А давай там с кем-нибудь за партнёре вся Давай давай там гла возьмём переводчик и так далее вот в целом это ну как бы здорово Прекрасно не то что я там проверяю Да и не то что в принципе оцениваю Поэтому в этом смысле я попросил тебя как раз к Ну как бы эту часть оставить давай Ну в общем-то обсудить ту часть которая про конкретную проверку решения А что мы здесь с тобой обсуждали А значит что мы с то обсуждали собственно опять же мы с тобой договорились что мы будем некоторый Переводчик это не гипотеза решении Да и дальше мы обсуждали на что она будет вять некоторые метрики дадали с тобой проводить что мне здесь есть сказать обычно мы это не Копаем обыч кейсы как-то заходят в эту историю эффектами здесь общем было же не знаю Егор Мне кажется что у нас тоже всегда Часто мы мы обычно любим обсуждать кейсы Авита потому что мы вже Да всё-таки работаем и так как у нас на одном и на другом конце находятся частные пользователи это у тебя всё равно так или иначе сетевые эффекты появляются поэтому обсудить их всегда очень интересно я бы сказал что их на секции Сень замечательно этой секци кото для ми сидит илип в общем можно в общем обсудить что они существуют вообще какие-то проблематику вокруг них но не копать дальше здесь классно что в принципе о них подумал да то есть изначально Обозначил что они существуют Это здорово с точки зрения того что стоило рать этот кейс СМИ эффектами точно нет не стоило Поэтому собственно мы его сократили до какого-то В общем условности в которой их не существует система которую ложил она влом для Но что назвал какое-то количест Трик выбрал какую-то ключевую чего здесь мне не хватило приме того что Ключевая Метрика Ты назвал количество правильных сообщений она не связывается с той проблемой кото изначально обозначал То есть она не про Ма не про то есть ты этот вопрос Если имел в голове то по кране мере его не озвучил когда мы говорили о проблематике про польва она в том-то выражается для бизнеса сбой ма может не расти или падать и вот условно когда ты говоришь что проверяешь какое-то решение то проверяешь его на какой-то локальной метрике и наверно локально это и добро а вот в типа глобально получается этого перехода не было опять же это ну окей при этом Ну вот это то тоде бы Обозначил точку роста Да когда возл бы фидбек про опять же про метрики Ты назвал дополнительны разные но все они скорее были про типа что может там улучшиться Ну или как-то измениться Вот наверное не хватило ещё какого-то рассуждение про Контр метрики Что может пойти не так вот оно могло пойти где-нибудь Там внутри дополнительных метрик но опять же там Мы здесь уже шли ускоряясь Поэтому я здесь особо не акцентировал на этом но вот на будущее или там для наших зрителей тоже наверное тоже важная штука что когда мы делаем продуктовые изменения гипотез проверяем нам важно не только в общем наши изменения чтобы то как мы мыслили случилось А ещё чтобы Всё вокруг не разрушилось вот если говорить дальше про дизайн бте ну здесь видно что у тебя опыт есть то есть ты здесь в этом смысле там не тушу ешь понимаешь там взаимосвязь между собой длительности теста размера выборки и так далее да забыл сначала про значимости Аль Ну в общем да Понятно Я бы честно говоря При таком волнении я бы вообще забыл половину всего что я знаю поэтому тоже обсудили что Альфа Альфа важен Да и чем меньше Альфа тем В общем более уверен быть тем наверно на будет больше размер выборок или длительность теста также поговорили с тобой про критерии которые в общем которые ты знаешь примешь Я честно говоря практике обычно както баз тест работает Мне кажется в целом такая прони мольная штука вот ещ вот квадрат Честно говоря да даже особо не помню когда применялся в практике опять же было больше времени обсудили где как меняешь но в целом Это не то что какой-то мину Просто прикольно от Кстати как раз таки наши зрители в комментариях Давайте поговорим критерии применимости различных у на в общем оценок которые здесь можно делать да то есть это прям такой волнующий видимо момент который всегда люди думают что Да вот очень важно знать гдети тест применять где хи квадрат и так далее да да иногда ещё мы когда у нас там есть в общем какой В общем время и ну в общем-то разговор заходит иногда мы разгоняем про там теста и матни типа И что как Они между собой либо и можно ли одно заменить другим или применимость и так далее Вот но в целом здесь понятно что у Вовы большой опыт он этими тестами В общем пользовался владеет и ну для меня опять же цель этой секции не узнать полностью право вообще всё А скорее сравнять некоторый профиль Да и сказать гова как аналитик соответствует вот тому что мы ждём от аналитика или нет Я здесь в общем эту часть для себя закрываю То есть мне мне здесь достаточно информации А прикольно что поговорили такое знаешь усложнение да Опять же там забег вперёд про какие-то методы сокращения дисперсии В общем про всякие кюд там фильтрации выбрав сертификации и так далее вот тоже э видно что Во опять же там не уточнял я пользовался или в практике или э знать в теории но Замечательно Что в общем это задание есть и в случае чего можно просто пойти и сделать это вот мы у себя тоже часто там что-то такое подкручивать а вот про проблемы подглядывания тоже э глубоко там Не обсуждали но то есть я понимаю что Вова знает Эти термины значит он знает эту проблематику В общем он а рассказал Там про э Я сначала напрягся по поводу ране принятия решения там когда P стабилизируется вот сказал что всё sle S Значит у нас набирается все дела Вот я в этом момент успокоился тоже но иногда тоже разговариваем про то что в общем А что там А как подглядывать можно ли их вообще выглядывать это такой заход там на чёрную магию Про какое-нибудь множественно проверку гипотез Но раньше про это говорил про всякие поправки понро поэтому у меня тоже есть понимание что это использовалось и в общем-то применялось поэтому здесь у меня цельная катинка хорошая вот и в конце проговорили с тобой про такой серый тест про то что с ним делать Да и тоже В общем есть понимание что ты знаешь что делать и там углубиться посмотреть куда-то там поглубже по сегментам протри посмотреть тоже видно что Практика какая-то была ищем в этой части тоже знаешь что с этим делать Вот Итого если говорить У меня супер хорошее впечатление Я понимаю что ты много этого делал хорошо разбираешься понимаешь что и как вот если говорить про ту часть которая про работу с гими и с метриками возможно сказал пару моментов Да не хватило привязок с глобальными метриками вот ну и да и наверное наверное СП какой следствие того что мы в эфире да под запись и так далее Ты когда рассказывал ещё там вй части про опыт часто рассказывал В общем про какие-то кейсы общ не всегда конкретно понятно по понятным причинам вот поэтому не всегда может быть я опять же чувствовал право там ковырять и в общем какие-то примеры приводить Но вообще всегда классно когда кандидат приводит примеры конкретные типа какую задачу там решил Как как сделал Ну там в рамках Да условно вопроса Вот это позволяет просто более в общем объёмно раскрыть раскрыть себя вот поэтому если говорить про общий вердикт да то я бы здесь вставил оценку на midle п то есть по нашим ожиданиям То есть я бы позвал просто на следующую секцию и более глубоко пообщался бы про Ну там скажем повышенные ожидание которые у нас есть от синер аналитиков Да и покрывал бы их а всё что мы проверяем ищем ждм сде это кра то есть общем стандартный джентльменский набор у Вовы в арсенале есть да и проверка его уже наличие пенных ножиков и всех остальных вещей мы это уже сделали бы на следующем этапе наших собеседований ровно так то что во рисовал на втором слайде сво презентации Он это рассказал подтвердил деле Понятно круто Мы немножко выбились за тайминги все которые у нас были Мне кажется что нам уже Да я не знаю Вов у тебя здесь есть может какие-нибудь вопросы в обратку Егору задать буквально наверное пару потому что хотелось бы уже немножко близиться к концу дадада из-за тайминга Наверное я развёрнутый фидбек вопрос вообще сейчас бы не задавал единственное сказал бы Большое спасибо за вот такой фидбек В конце собеседования Вот потому что очень часто я и сам с таким сталкиваюсь и от ребят тоже слышу что ну ты проходишь ссе тратишь своё время а к тебе вообще ни с каким фидбека не возвращаются вот а И вообще ты не понимаешь Вот ты решаешь задачки кейсы и прочее а иногда менеджеры сидят и ну как бы вообще ничего тебе не говорят что это И кто это ну типа ю туда ты думал не туда вот поэтому коротко Огромное спасибо за фидбек вот э всем бы так А вопросы Наверное я сейчас тоже не буду задавать вот а в целом мне всё понятно Ну и как обычно у нас происходит в конце собеседований наши чары свяжутся с вами в ближайшее время Правильно Да Да шучу на самом деле нет оф мы здесь не будем заниматься кросс Да я думаю Егор Мы на этом наверное всё близи се к завершению самый главная просьба будет к тем кто сегодня нас смотрел сейчас там наши редакторы скинули в комментарии на блок оценки сегодняшнего нашего мероприятия как я понимаю сегодня много кстати было зрителей из тех кто к нам придёт в субботу на кенд офер поэтому им было вдвойне интересно посмотреть что вообще их ожидает поэтому мне кажется у нас тут вот мероприятия в тайминг совпали очень круто вот оставляйте пожалуйста вашу обратную связь чего хватило чего не хватило я думаю когда-нибудь там был запрос уже и на собеседовании ввх разработчиков - инженеров В общем всех всем интересно всегда посмотреть как это происходит Вот поэтому я думаю что сегодня такой наш первый опыт в этом с точки зрения аналитики Мне кажется что очень удался Вот круто Спасибо большое Вова Спасибо тебе большое это было очень здорово я очень благода да Вова Просто огонь сейчас наверное вот так спасибо вам да да ребята тогда на этом мы заканчиваем нашу трансляцию всем хорошего вечера пока-пока Всем пока пу [музыка] [музыка] [музыка] K N"
+  question_topic: Experimentation
+
+SAVE JSON: вставьте ответ в конец файла /Users/mm/projects/ds-final-project/splitter_output/mock-interviews/avito/product-analyst-middle-avito-avito-2024-04-04/product-analyst-middle-avito-avito-2024-04-04.v2.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

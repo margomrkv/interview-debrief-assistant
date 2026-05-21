@@ -1,0 +1,153 @@
+{
+  "source_id": "product_analyst_middle_facebook_fill_rate_interview_query_2020_07_06",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "so to start out i thought we could tackle one of these questions that is pretty popular in terms of ads but first i'd love to just kind of do like a quick summary on your like background like how did you get into data science",
+        "time": "00:25"
+      },
+      "candidate_answer": {
+        "text": "sure um when i went in finance after graduating from college study computer science like a lot of folks here in silicon alley and was working on some level of analysis and construction of some model portfolios that we had and in doing so you know worked with a lot of data like financial data that was coming through um i became responsible for you know kind of reliable delivery of that data as well as kind of building tools to help make the analysis process more efficient so what kind of fell into data like that and when i decided that i didn't want to work in finance anymore and go into more you know consumer tech data was kind of a natural avenue for mediums kind of continue working in so there was this hot term at the time data science it became like that kind of explorer and you know one thing led to another",
+        "time": "00:43"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "nice cool i'm glad that you got into it and i think that there's definitely you know lots of people transitioning from finance over as well i can definitely resonate with that kind of characterization of your background cool",
+        "time": "01:40"
+      },
+      "question_type": "behavioral",
+      "question_topic": "Adaptability",
+      "interview_stage": "fit_hr"
+    },
+    {
+      "interviewer_question": {
+        "text": "so the first question that i have for you today is let's say that you work on the ads team had a social media company let's say facebook right and a definition or term that they have in ads is fill rate and it's defined as the number of overall impressions divided by potential opportunities so let's say that you see that this film rate metric has dipped by 10% what would you investigate first",
+        "time": "02:00"
+      },
+      "candidate_answer": {
+        "text": "i'd want to find out whether that 10% is like relative or you mean like in absolute terms so i guess you know seeing that it's a rate obviously made up of kind of like a numerator and denominator sometimes doesn't tell the full story when you look at it just as a metric by self so the first thing i would do would be to look into like what's going on like what's driving that that that drop in the fill rate so what could be happening is you know the denominator in this case the impression opportunities could be getting a lot bigger which you know my actually signal that a growth in the business so that might be something that that's favorable and simply we just need some time for the numerator to catch up on assuming like you know we're showing ads here so like you advertise yourself to come online yep the other scenario is obviously if the numerator is is the one dropping and we're not seeing any new activity on the denominator then that would be a little bit more of a cause for immediate concern and probably something we want to look into immediately",
+        "time": "02:23"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "let's say that it's relative so if you know fillrate was holding 70 percent yeah steady and then let's say it happened it's been steady for like a week and then it dipped down by 10 percent to like 81 percent okay okay",
+        "time": "02:32"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay so let's say that it was the denominator that actually increased and then let's clarify and say that this was like specifically like a one-time event so it's not like cyclical so it didn't happen it's not like a weekly thing because you know increased usage on the weekend or something like that like a monthly or yearly thing what would you then look at after that",
+        "time": "03:55"
+      },
+      "candidate_answer": {
+        "text": "sorry did you say the new denominator oh yeah the denominator increased yeah and it was a one time thing okay yeah i would you know so in this case since its opportunities what might be happening is there's so so two things right like this is a social network so there are people who are coming onto the network to see these potential ads so it's probably unlikely that behavior changed overnight and like you know people are suddenly like engaging like a llama although who knows maybe with you know coronavirus coming around that did happen overnight yeah but it could also be the case that there's a ton of new user activity and like a bunch of new members be from like a like a big marketing push or something that led to a lot of new user signing up so we have a lot of new sessions where they're seeing a couple of these opportunities so i guess the next place that would check would be what's causing that increase in the opportunity number whether it's like a bunch of new members or a bunch of new sections gosh it and",
+        "time": "04:25"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "so is there any other way that you can divide it out even within like the new users or new sessions to understand where i might be coming from given like in this scenario facebook is like a pretty big business so there's probably like a ton of different ways that people can sign up for a you know a facebook account or potentially be using facebook at the time so how else would i break out the increase in sessions you're saying",
+        "time": "05:33"
+      },
+      "candidate_answer": {
+        "text": "yeah so so let's say let's say we see a lot of new sessions from new members i would obviously look into like like acquisition channels of all these new members and see you know if there's whether one of the theories that i just threw out might be the reason why there are there are new members joining like maybe some i don't know some advertising campaign we're running elsewhere suddenly everyone else stopped bidding on those keywords so now like you know we're just like it getting a lot of new users uh not sure if i'm going down the right track",
+        "time": "06:04"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "let's say like we're focusing in on sessions right so let's say that we know that there's a lot more sessions is there a way that we can verify that the sessions are coming from new users as well compared to just existing users using the platform suddenly",
+        "time": "06:45"
+      },
+      "candidate_answer": {
+        "text": "yeah we would look at you know sessions per user and we would see like and we would compare to the total number of users so like you know sessions could go up but those could come from like a slew of new users or they could be that existing user suddenly are engaging a lot more on that particular date right so i will try to figure out like just take my number of sessions and divide it quickly over my number of distinct users that day and just get a sense of like what that ratio is and i would expect if it were new users that that number would drop right like new years i expect to have less engagement when they first join but and and driven by the figure member base it's increased from engagement in my existing users then i would expect that number to have increased",
+        "time": "07:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay so let's take a step back and say that let's say the denominator actually in that philaret calculation stayed the same is there something else that you could look at then",
+        "time": "07:49"
+      },
+      "candidate_answer": {
+        "text": "yeah that would probably point towards the numerator being the problem in which case this is impressions so it may seem like a more dire problem before suddenly showing a lot fewer impressions there's a you know then it then it becomes a matter of like where we're getting advertisers from like if i would start with like you know an ops team and figure out whether some campaigns just ended and if we don't have direct campaigns we have like you know ad exchanges that were cooked into maybe like something broke like check for code that may have potentially like broken the integration yeah yeah but i mean the first step would be to verify that you know impressions actually did drop and i would find a third party source to try to verify that if possible because it could also mean like you know an engineering bug where our impression tracking just broke for example",
+        "time": "08:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "gotcha yeah let's say that there wasn't a bug anywhere in the code or anything where we double down that and we see that there was no error technically on where else could be then kind of investigate",
+        "time": "08:57"
+      },
+      "candidate_answer": {
+        "text": "like i said goes through the business side of things and just trying to figure out like i am i seeing the same number of advertisers throughout the week as i am today like if i see a massive drop like or if i don't even see a massive drop i see that some advertisers were you know kind of doing pretty constant delivery throughout the week and some just dropped off maybe they reached their goal or they move through their budget so then you know they're not delivering anymore so try to find anything that looks abnormal by looking at kind of like a seven-day trend just to see",
+        "time": "09:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "gotcha okay cool",
+        "time": "09:52"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    }
+  ]
+}

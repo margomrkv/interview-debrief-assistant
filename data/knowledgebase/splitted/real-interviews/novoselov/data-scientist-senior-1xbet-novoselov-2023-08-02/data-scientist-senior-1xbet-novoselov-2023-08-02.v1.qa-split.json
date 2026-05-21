@@ -1,0 +1,300 @@
+{
+  "source_id": "data_scientist_senior_1xbet_novoselov_2023_08_02",
+  "splitter_mode": "split_only",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "расскажите в каких проектах вы участвую ты участвовал Какие задания там были",
+        "time": "03:54"
+      },
+      "candidate_answer": {
+        "text": "единственное мое соприкосновение с чат-ботами было на Моей первой работе где я писал ботов на движке раса это такой фреймвор для написания ботов он сделан настолько просто чтобы разобраться могла даже пару раз я добыча Альберта G5 собственно это и был весь мой опыт но рассказывал я про это конечно так чтобы это звучало очень красиво",
+        "time": "04:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "ML",
+      "interview_stage": "behavioral"
+    },
+    {
+      "interviewer_question": {
+        "text": "свои модели выводили и на каких технологиях Это был докер это микросервис или это был какой-то случай моделей Как это работает кучей модели микросервисы Да да все именно для обучения использовалось что в Облаке где-нибудь обучали там не знаю в амазоне еще там",
+        "time": "04:23"
+      },
+      "candidate_answer": {
+        "text": "говорите что обучали ВВС Я всегда так отвечаю хуй знает что это такое хорошо то есть если что-то вы можете сможете это настроить как бы конечно смогу",
+        "time": "04:45"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "вот это вот задача допустим у нас нет асессоров В принципе мы можем их найти но как бы если у нас есть просто диалоги Как нам их разметить",
+        "time": "04:56"
+      },
+      "candidate_answer": {
+        "text": "смотря для какой задачи конечно задать классификации классификации есть и задача Nerf в принципе наверное больше никаких других и не будет значит вообще если данных нет то размещать можно Только руками например есть удобный инструмент лейбл студию там есть очень удобный UI для разметки и там есть фишка что можно использовать модели для помощи разметчикам это очень ускоряет процесс",
+        "time": "05:06"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А какие-нибудь кластеризации вы работали с текста наиболее часто используемый алгоритм",
+        "time": "05:55"
+      },
+      "candidate_answer": {
+        "text": "это минус случае если известно число кластеров если нам число кластеров неизвестно то использует гибиска",
+        "time": "06:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Какие виды такие зации вы знаете",
+        "time": "06:07"
+      },
+      "candidate_answer": {
+        "text": "самый простой способ токенизации это разбить по словам символом это более современных методов",
+        "time": "06:09"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "вот век и глав вот эти вот victorizer и типа ты знаешь что такое World of wark",
+        "time": "06:41"
+      },
+      "candidate_answer": {
+        "text": "Я знаю что такое глов уже забыл вроде то же самое",
+        "time": "06:46"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "недостаток допустим вот у века какой",
+        "time": "06:50"
+      },
+      "candidate_answer": {
+        "text": "На мой взгляд недостаток в том что у него маленькое окно контекста и сам алгоритм достаточно старый чем он отличается на самом деле хз я ответил что это какая-то более современная нейронка",
+        "time": "06:52"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "основные задачи",
+        "time": "07:19"
+      },
+      "candidate_answer": {
+        "text": "я ответил что это классификация распознавание именованных сущность и генерации",
+        "time": "07:22"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "есть такая Метрика перплексия",
+        "time": "07:28"
+      },
+      "candidate_answer": {
+        "text": "есть еще я не знаю я пользовался уже готовыми инструментами для этого",
+        "time": "07:30"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "сверточные сети какие там параметры",
+        "time": "08:11"
+      },
+      "candidate_answer": {
+        "text": "количество входных и выходных каналов размер еда свертки шаг отступ",
+        "time": "08:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "задачи которые маски какой-то алгоритм обучения когда мы закрашиваем некоторые слова в предложении пытаемся сказать по контексту Что такое",
+        "time": "08:32"
+      },
+      "candidate_answer": {
+        "text": null,
+        "time": null
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "Она выходе как он как может искать следующее слово то есть какие-то методики Трансформеры прошли",
+        "time": "09:00"
+      },
+      "candidate_answer": {
+        "text": "это было те есть Нам нужно выбрать цепочку слов с максимальным правдоподобием Короче просто гриб Search всевозможные",
+        "time": "09:09"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "А как можно уменьшить размер модели",
+        "time": "09:18"
+      },
+      "candidate_answer": {
+        "text": "эти есть техники Я знаю три это дистилляция и кандидат",
+        "time": "09:21"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    },
+    {
+      "interviewer_question": {
+        "text": "какие есть функции потерь Для НЛП для и для задачи классификации",
+        "time": "09:23"
+      },
+      "candidate_answer": {
+        "text": "Разве я что-то кроме красоты Я не знаю",
+        "time": "09:27"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_qna"
+    }
+  ]
+}

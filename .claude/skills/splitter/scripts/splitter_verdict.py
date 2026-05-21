@@ -18,10 +18,13 @@ from pathlib import Path
 
 
 _VERDICT_RE = re.compile(
-    r"^#{2,3}\s*Вердикт:\s*(.+)$",
+    r"^#{2,3}\s*(?:Вердикт|Verdict):\s*(.+)$",
     re.MULTILINE,
 )
-_UNREC_RE = re.compile(r"❌\s*не\s*распознан", re.IGNORECASE)
+_UNREC_RE = re.compile(
+    r"❌\s*(?:не\s*распознан|not\s*recognized)",
+    re.IGNORECASE,
+)
 
 
 def parse_verdict(text: str) -> str | None:
@@ -30,9 +33,10 @@ def parse_verdict(text: str) -> str | None:
 
 
 def verdict_exit_code(verdict: str) -> int:
-    if "ПРОЙДЕНО" in verdict and "✅" in verdict:
+    v = verdict.upper()
+    if "✅" in verdict and ("ПРОЙДЕНО" in verdict or "PASSED" in v):
         return 0
-    if "ЧАСТИЧНО" in verdict or "⚠️" in verdict:
+    if "⚠️" in verdict or "ЧАСТИЧНО" in verdict or "PARTIAL" in v:
         return 2
     return 1
 
@@ -57,7 +61,7 @@ def main() -> None:
     text = args.report.read_text(encoding="utf-8")
     verdict = parse_verdict(text)
     if verdict is None:
-        print("ERROR: no '### Вердикт:' line in report", file=sys.stderr)
+        print("ERROR: no '### Verdict:' / '### Вердикт:' line in report", file=sys.stderr)
         sys.exit(3)
 
     print(verdict)

@@ -1,0 +1,214 @@
+# Splitter validation report
+
+
+**Interview language:** `en` — report and step-5 notes in this language; Q/A JSON text verbatim from transcript.
+
+
+## Прогон пайплайна
+
+- **Версия:** `v1` · **Интервью:** `transcripts/mock-interviews/datainterview/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26/`
+- **Режим:** `split_and_validate` · **source_id:** `data_scientist_senior_meta_call_suggestion_ab_datainterview_2021_11_26`
+- **Старт:** 2026-05-20 21:05:21 +0200 · **Обновлено:** 2026-05-20 21:12:43 +0200
+- **Длительность прогона (стена):** 7 мин 22 с (от старта до последнего обновления журнала)
+- **Сумма длительностей шагов:** 3 мин 1 с (только шаги с записанным `duration_sec`; LLM-шаги 2 и 5 — по журналу агента)
+- **Итог прогона:** ✅ все зафиксированные шаги завершены
+- **Журнал (технические подробности, промпты LLM, входы/выходы):** `splitter_output/mock-interviews/datainterview/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26.v1.pipeline-log.md` — секции «Steps», «Artifacts», «Входы LLM»
+
+| Шаг | Название | LLM | Модель | Длительность | Статус |
+|-----|----------|-----|--------|--------------|--------|
+| 1 | 1. Подготовка | нет | — | — | ✅ |
+| 2 | 2. Извлечение Q&A (LLM) | да | claude-sonnet-4-6 | 3 мин | ✅ |
+| 3 | 3. Excel | нет | — | 1 с | ✅ |
+| 4 | 4. Валидация по главам | нет | — | 0.00 с | ✅ |
+
+### Run artifacts
+
+- **Q&A split (JSON):** `splitter_output/mock-interviews/datainterview/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26.v1.qa-split.json`
+- **Q&A split (Excel):** `splitter_output/mock-interviews/datainterview/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26.v1.qa-split.xlsx`
+- **Validation reference:** `transcripts/mock-interviews/datainterview/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26/video.md` — YouTube chapters and sections; the splitter did **not** see this file during Q&A extraction
+- **Timestamp tolerance:** ±90s — max drift between a YouTube chapter marker and `interviewer_question.time` in JSON while still attributing the Q&A pair to that chapter
+
+## How validation works
+
+### Verdict: ✅ PASSED
+
+Pipeline has **5 steps**. This file covers **checks 1–3** (steps 2, 4, 5). Steps 1 and 3 only prepare data.
+
+
+| Step | Action | Check in file | Criterion | Status | Result | Goal |
+|-----|----------|------------------|----------|--------|-----------|------|
+| **1** | Prepare (`pipeline-log.md`) | — | — | — | — | — |
+| **2** | LLM → JSON | **Check 1** | Valid JSON per `splitter_output_schema.json` | ✅ | 6 items, JSON Schema OK | parse + JSON Schema |
+| **3** | Excel | — | — | — | — | — |
+| **4** | Match `video.md` | **Check 2** | Align YouTube chapter timestamps with Q&A in JSON (no section rubrics in Description) | ✅ | Coverage 100% (3/3), Topic consistency Н/Д | Coverage ≥90%, Topic consistency ≥90% |
+| **5** | LLM (agent) | **Check 3** | Field meaning and timestamps vs chapter title and labels | ✅ | all 3 chapters OK | does not block verdict |
+
+---
+
+## Check 1. JSON structure (step 2 — splitter output)
+
+Deterministic check after Q&A extraction: parse + JSON Schema `splitter_output_schema.json`.
+
+
+- **Файл:** `splitter_output/mock-interviews/datainterview/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26/data-scientist-senior-meta-call-suggestion-ab-datainterview-2021-11-26.v1.qa-split.json`
+- **Схема:** `.claude/skills/splitter/step1-prepare/splitter_output_schema.json`
+- **Парсинг JSON:** ✅ успешно
+- **JSON Schema:** ✅ полностью соответствует схеме
+- **Пар Q&A (`items`):** 6
+- **`source_id`:** `data_scientist_senior_meta_call_suggestion_ab_datainterview_2021_11_26`
+- **`splitter_mode`:** `split_and_validate`
+
+
+---
+
+## Check 2. YouTube chapter alignment (step 4)
+
+
+#### Термины (проверка 2)
+
+- **Маркер** — тайм-код в `video.md` (строка в блоке Chapters): точка на шкале видео.
+
+- **Вопросная глава** — маркер с реальным вопросом интервью; участвует в Coverage.
+
+- **Служебная глава** — вступление, подводка (🔗), разбор задачи, пауза; в Coverage **не входит**, но в сводной таблице ниже указано, **куда ушла** речь в JSON.
+
+
+#### Как считаем (проверка 2)
+
+1. **Сопоставление по времени.** У каждого тайм-кода с вопросом на YouTube ищем пары Q&A в JSON, у которых время вопроса (`interviewer_question.time`) отличается от маркера не больше чем на **90 с** (в обе стороны). Одна пара Q&A относится только к одному ближайшему маркеру.
+
+
+2. **Статус маркера.**
+   - **распознан** — рядом с маркером есть «свои» Q&A;
+   - **рядом** — своих нет, но в пределах порога есть Q&A у соседнего маркера (не считаем пропуском);
+   - **не распознан** — в пределах порога нет ни одной пары (грубая ошибка);
+   - **подводка / пропуск** — служебные главы, в метрики не входят.
+
+
+3. **Coverage** — доля вопросных маркеров со статусом «распознан» или «рядом» (цель в сводке: ≥90%).
+
+
+4. **Topic consistency** — у «своих» Q&A поле `question_topic` входит в список тем для секции интервью из Description `video.md` (цель: ≥90%). Тема в JSON может отличаться от заголовка главы YouTube — это нормально, если вопрос по смыслу из той же секции.
+
+
+_Секции в Description не заданы — согласованность тем не считается._
+
+### All YouTube chapters
+
+Every timestamp from `video.md`: question chapters — status and Q&A; service chapters — where speech landed in JSON. Full texts below per question chapter.
+
+
+| # | YT | Заголовок | Секция | Привязка (4) | Q&A | Темы | Смысл (5) | Куда в JSON |
+|---|-----|-----------|--------|--------------|-----|------|-----------|-------------|
+| — | `00:00` | Intro | — | skip | — | — | ⏳ | — |
+| 1 | `01:55` | Measure engagement on Portal | — | recognized (1 Q&A) | #1 | `Product Metrics` | ⏳ | — |
+| 2 | `10:55` | Prioritize metrics | — | recognized (1 Q&A) | #2 | `Product Metrics` | ⏳ | — |
+| 3 | `18:19` | AB testing on the 'Call Suggestio… | — | recognized (1 Q&A) | #4 | `Experimentation` | ⏳ | — |
+
+### Question chapter details
+
+Full Q&A texts. Service chapters appear only in the table above.
+
+
+### 1. `01:55` — Measure engagement on Portal
+
+- **Проверка главы:** ✅ у маркера 1 Q&A · ⏳ смысл не проверен (шаг 5)
+
+**Q&A at chapter marker** (±tolerance; each item in one chapter only)
+
+| Item | Δt | `question_topic` | Question start |
+|------|-----|------------------|----------------|
+| #1 | -12 с | `Product Metrics` | so i'll go ahead and um ask you the first product sense question which… |
+
+#### Item #1
+
+- **Question** (`01:43`): so i'll go ahead and um ask you the first product sense question which is the following um so so mark hopefully you've done some research uh you know prior to this interview about uh meta's portal device um could you figure out ways to kind of measure engagement on meta's portal
+- **Candidate answer** (`02:05`): sure so um before i jump into the like a brainstorm matrix and like a plan to take all this business question i have a couple of clarifying questions i have um i think first of all is like uh like what what is like business purpose of measuring the engagement of this mata portal device and then like how does that tie to the overall um meta mission or like a business objective gotcha gotcha and just to make sure i understand the product correctly so as far as i know uh like a meta portal is a like a hardware product that enables users to be to do like a a video course with better sound and video qualities and also it has alexa built alexa building which you are able to watch news or schedule remind reminder and also play your music on the portal so yeah on is there any other feature i need to be aware of about this product so then uh like a i think i get in order to make sure the uh engagement on my portal device uh you know i think they are like a i think there are two diff uh two goals first like uh for the user goals um i can type it here how do you measure engagement uh let me let me first like a um uh supervisor why the major engagement is important because at facebook let me insurance to give the power give people the power to build a community and also bring a world cluster so this product can serve as the uh a tool enabling a more user to stay engaged with mata platforms and then so i think like for a years ago you can uh by using the portal or they can like do more um uh do more video clips with their friends or their families which intent which would also increase their can spend on uh on the uh um meta products like what's app and message us and then from business goals i think like a engagement like a um we can see like how our users keep coming back using these products and encourage them to stay engaged on facebook and so i think like uh like a potential impact is like once we increase the user test span on our platforms which will in turn uh increase and gross our revenues um for meta okay cool um then so i think i can i can bring this down some uh my trick around the uh around the meta portal device i think measure the engagement um i think first of all um i think so i just have a wi-fi question so we are just talking about the user who already bought the product devices right so i think now like a uh like a couple dimension uh we can look at first first is the like a uh hyperspace activation activation would you like like a how many people really after they purchase this product how many like a login using this device on the device on total on portal and also like a how many like um like a how many how many people really like a um login i think login is activation and also start uh start like a inter like a using the feature on the device so maybe like a star number of like a video calls and then number of the uh like a uh also uh what else i think um a video calls with on my video we already have number of the video calls um like a what other than video code that like we talked about they can use this portal to like a set up uh their calendar so i also want other like interaction um they can like a like a like a meeting setup meeting setup or like a music play um play some play etc so basically it's like it was there like an interaction which would look like and then next next part here i will look at the like a um retention so um when i say uh when i say retention is about like a uh like a daddy ip user weekly ft user and um and monthly active search so so other than that so but we also need to define what what does the what is active nameless of the users um like i usually uh if we can look at what's the frequency a user do a video call or if if the frequency is about like a two or three times a day maybe we can look at a like a two weeks window to define whether a user is active or not and then also i will look at the ratio like a dau on wau ratio this will be served as like a to measure the techniques and stick techniques on like a how how many users come back to us like after a week or two weeks so that's what i will be looking at and then uh another another dimension i'll also touch on is the revenue because at the end of the day on the the from the user goal we we try to in um uh have more people uh using this product so that they will spend more time on the portal which like is the opportunity for us to display some ads or like embedding some sponsor accountants when like a uh when they interact with the user that will also like from a revenue perspective i will look at like a average like a dollar like a like uh on monitor producer and also gen every dollar as revenue for users and then also like a look at um like a customer like 10 value etc so yeah and yeah uh i think it's just like a three main category i'll be looking at um is there any uh particular bucket you want me to talk more about
+- **Reference answer:** —
+- **Interviewer feedback** (`02:39`): yeah that's a very solid question um so basically um we just want to kind of understand whether you know meta is like a viable business product um you know in terms of like user engagement um are like how active are um you know basically customers of um portal is um and so uh so we want you to kind of come up with you know potential metrics that can help us you know are users um you know are they engaging on this portal device or not i think that pretty much covers the core functionalities on the uh on the product itself ah yeah thank you so then uh like yes status quo um no i think that pretty much covers um uh you know your you touch base on uh pretty good categories of metrics activation retention and revenue
+- **Labels:** `Product Metrics` · type=soft · stage=technical_case
+
+### 2. `10:55` — Prioritize metrics
+
+- **Проверка главы:** ✅ у маркера 1 Q&A · ⏳ смысл не проверен (шаг 5)
+
+**Q&A at chapter marker** (±tolerance; each item in one chapter only)
+
+| Item | Δt | `question_topic` | Question start |
+|------|-----|------------------|----------------|
+| #2 | -29 с | `Product Metrics` | um now can you kind of pick out maybe like three metrics that you thin… |
+
+#### Item #2
+
+- **Question** (`10:26`): um now can you kind of pick out maybe like three metrics that you think would be important so suppose that you need to create some sort of a dashboard for um you know let's just say an executive right um who's part of the device and hardware team right and they're gonna be the ones that are looking at this along with other product managers in that vertical in that horizontal um you know basically the business of the hardware within meta um can you think about what three metrics you would want to display and then rank order those metrics from important
+- **Candidate answer** (`11:00`): gotcha so uh let me let me reframe what i just heard to make sure i understand the question correctly so basically assuming that we are building a negative analytic dashboard like empowering our business holders it can be product manager or executives to measure the effectiveness of this product so on like a uh the question is about like picking three main primary metrics that can like a help them monitoring the metrics over time um so cool um let me take a quick minute to organize my thoughts um yeah i think [Music] so i think the first and then ranking in the importance based on the importance level so i think uh the first um i didn't know what um i think the first primary metry i will look at is the video uh video like a call time in in minutes in hours um per month so because like as you mentioned the audience might be like a leadership or a security so like they will probably care the more about the like a high level overview how much i get total time uh they spend on this product over time and then also to see whether um like they do more uh video calls uh with uh this new launch product uh so like a um and i get this another reason why i picked this machine is this make sure also embodies all all the other like interaction like we talked about like a we do a video course or or like a set up meeting playing lucy so like the more activities they uh took um with this device no more time spent on so it's actually not that a video call time i will be like a little bit um like a time spent on hours and uh sorry type of spam in all around on photos um so yeah and then i think the secondary matrix i will look at would be because like i think one of the core functionality with portal is the video call so i want to like know what's the total number of the video calls per month so total number of video calls per month um i think this will on a day so we uh the reason for that would be uh i i would like to know whether uh uh like a whether um like a with these new products uh users are easier to do a video course or they will um like jump on the video call with their family or friends more frequently so uh and then lastly uh i will pick one from the revenue so um and for the monetization perspective on like a like a revenue per month so uh i think that will be like a um i'm not quite sorry i'm not quite sure about how the ass will embed it on the portal like a fun face from the meta news feed we know like it when you go through the post the no you will you will probably see some like a sponsored ass but i have a portal on like a could you like it give me some uh direction about like a how the from the advertising side how that would be embedding within this product or yeah sure so so leaving a monetization site then i will um like a doula on like retention like a diu and user i think this is like for all the uh meta products uh so we care about like a daily activity so weekly i've used them on the active users so like they're having this um actually like having the active users uh on the dashboard will be give give our audience a better understanding of how how our uh how our products being used by the users and then their active new needs so yeah does that make sense okay
+- **Reference answer:** —
+- **Interviewer feedback** (`15:15`): um yeah so um in this case let's just assume that there's really no like advertisement that are displayed in the portal device itself um so i wouldn't so just kind of going back to original questions which is just focusing on engagement um just leaving that monetization aside can you think about perhaps any other metric that you may want to display in this metric based dashboard yeah that's good
+- **Labels:** `Product Metrics` · type=hard · stage=technical_case
+
+### 3. `18:19` — AB testing on the 'Call Suggestion' feature
+
+- **Проверка главы:** ✅ у маркера 1 Q&A · ⏳ смысл не проверен (шаг 5)
+
+**Q&A at chapter marker** (±tolerance; each item in one chapter only)
+
+| Item | Δt | `question_topic` | Question start |
+|------|-----|------------------|----------------|
+| #4 | -8 с | `Experimentation` | i have a new question problem for you the third question i have is fol… |
+
+#### Item #4
+
+- **Question** (`18:11`): i have a new question problem for you the third question i have is following suppose a new feature is introduced on portal which is called call suggestion this future recommends calls to users how would you design an ap experiment on this feature um suppose a new feature introduced in portal uh which is called code suggestion you just design
+- **Candidate answer** (`18:44`): um so uh so the question is about how do we really um like design the uh experiment i think there are a couple of steps we need to follow when it comes to the experiment um first like they we need to state the uh hypothesis testing uh oh no i think first of all we need to define what was the success matrix like uh what are um like a what are we going to make sure uh okay um when we launch this new feature so i think the step one will be okay what what will be this assessment should look like so matrix and then like a i assume that um with this new features the purpose is to make users more easily to uh start a call start a call and then which will better the number of the calls will be in work will increase accordingly so i will i will pick uh um i will pick up average number of video calls per users as the nature we are going to make sure does that make sense or so average like a number of video have calls on per user and then secondly uh like a uh so like we need to define let's state the hypothesis testing so all i think the number uh here the null hypothesis will be uh the average number of the core per users um between the control and treatment group will be the same and alternative hypothesis will be the um um the average number of the uh average number of cost per user between two groups out on are different and then like we need to follow by uh we need followed by like i define the uh significance level uh statistical power and then the mde to determine how much uh same process uh we need and then um so let me let me put it down like i say the five pounds like a significant level uh power and the mde so alpha alpha like a power and like a md and then and then and then also we also need to determine what's the like a randomization unique so i think this is kind of like a um again or like a uh because like i will assume like in this setting the observation you need is the customer so uh like it's better we can we can perform a randomization at the customer level and then and then like a another uh also we've just talked well um we just focus on the user who own the portal device right otherwise we could we could like measure these features the effectiveness of this feature so i will be like a customer who own like a portable device yeah and then once we have that like a we are able to uh and again estimate the on like a experiment [Music] xp re augmentation [Music] time so um usually like a typical like a experimentation time in every testing on like usually it will last for like one week or two weeks on the reason for that if we if it is a short experimentation then it will probably be problematic given there's a um like a day of the week effect unfortunate for instance like a users tend to do a video call on the weekend or on a weekday so uh like the best practices will be usually um do like at least more than two weeks um so here i will use the two weeks yeah and then after that um how would you design and then after we gathered say two weeks of the data then we are able to uh use the um um uh two symbol t tests to to make sure the uh the leaf between the leaf in the metric uh across control and experiment and the treatment groups are actually achieve statistically uh significance um so that's like and by checking the p value and so um [Music] yeah and yeah and then after say given that the like a p value is less than 0.05 0.05 and like it it will be like a to decide like whether we should launch this new feature or not but like it's not it's not just um feature oh um by the way uh like when we uh something i didn't mention about is that uh we other than just pick one success symmetry it's better we can also have some of like a gar rail mattress which is like a geometry which that which shouldn't be degraded in pursuit of this assessment tree um so uh in here i will use the um the um i think like as revenue or 10 spend um portal as the gabriel so like a like as a career metric but like a um on the last step is to launch the new feature or not on and other than checking the statistical uh significant result from experimentation we also need to involve the business holder to see what's the um like a practical significance look like and also do some uh like a cost and benefit analysis to make sure it's gonna likely take too much resources to launch these new features um so now that would be the next step yeah does that make sense okay
+- **Reference answer:** —
+- **Interviewer feedback** (`20:09`): yeah that's good sounds good um and you so you define some good structure there but um
+- **Labels:** `Experimentation` · type=hard · stage=technical_case
+
+
+## Check 3. Semantic field alignment per chapter (step 5, LLM)
+
+The Cursor agent (same as step 2) reviews **extracted** Q&A: field timestamps vs chapter windows and whether texts match chapter titles and labels (`question_topic`, `question_type`). Does not change the overall verdict.
+
+
+- **Статус:** ✅ все 3 глав без замечаний
+- **Тайм-коды полей:** 3/3 ок · **Смысл/метки:** 3/3 ок
+
+
+## Transcript spans without Q&A in JSON
+
+Intervals in `timecodes.txt` not covered by any item span. Check for a missed question or service speech.
+
+_No large uncovered spans (threshold: ≥25s, ≥4 timecoded lines)._
+
+<!-- SEMANTIC_VALIDATION -->
+
+## Semantic validation (step 5)
+
+Машинный ответ LLM (шаг 5). Валидатор читает этот блок при повторном прогоне.
+
+```json
+{
+  "chapters": [
+    {
+      "chapter_time": "00:01:55",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:10:55",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    },
+    {
+      "chapter_time": "00:18:19",
+      "time_alignment_ok": true,
+      "content_alignment_ok": true,
+      "notes": ""
+    }
+  ]
+}
+```
+
+<!-- /SEMANTIC_VALIDATION -->

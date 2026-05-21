@@ -1,0 +1,2326 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 1,
+  "basename": "ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05",
+  "transcript_folder": "transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05",
+  "source_id": "ml_engineer_senior_meta_instagram_reels_interviewing_io_2025_08_05",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 21:18:06 +0200",
+  "updated_at": "2026-05-20 21:31:20 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/timecodes.txt",
+        "en",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 21:18:06 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 21:31:19 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 1.0,
+      "notes": null,
+      "finished_at": "2026-05-20 21:31:20 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v1
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05`
+- **Source ID:** `ml_engineer_senior_meta_instagram_reels_interviewing_io_2025_08_05`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 21:18:06 +0200
+- **Last updated:** 2026-05-20 21:31:20 +0200
+
+Фильтр в IDE: `*ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/timecodes.txt`<br>`en`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.pipeline-log.md` | — | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.xlsx` | 1.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.validation-report.md` | 1.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+11) **Interview language (hard):** read `INTERVIEW_LANGUAGE` in the user message (`ru` or `en`).
+    - `ru` — all `text` fields (`interviewer_question`, `candidate_answer`, `interviewer_feedback`, `reference_answer`) MUST be verbatim Russian from PRIMARY_TRANSCRIPT. Never translate to English. Validation report for this run is Russian.
+    - `en` — all `text` fields MUST be verbatim English from PRIMARY_TRANSCRIPT. Never translate to Russian. Validation report for this run is English.
+    - Enum fields (`question_type`, `question_topic`, `interview_stage`) stay English per schema; only spoken-text fields follow interview language.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: ml_engineer_senior_meta_instagram_reels_interviewing_io_2025_08_05
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05
+INTERVIEW_LANGUAGE: en
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:03] You mentioned binary classification like
+[00:00:05] 20 minutes in. You should be having that
+[00:00:07] discussion maybe 5 to 10 minutes into
+[00:00:09] the interview.
+[00:00:10] >> Hey everyone, welcome back to another
+[00:00:11] episode of Whiteboard Confidential. I'm
+[00:00:13] Adam from Interviewing I.io and I'm
+[00:00:14] excited to share today's replay with
+[00:00:16] you. In this episode, our candidate was
+[00:00:18] asked by an interviewer from Meadow to
+[00:00:19] design a machine learning recommendation
+[00:00:22] system. This system chooses which
+[00:00:24] Instagram reels to show each user to
+[00:00:26] maximize engagement. This is a great
+[00:00:28] look at what it takes to land an E6 role
+[00:00:30] >> nowadays. That's the E5 bus. What's
+[00:00:33] different for E6, right?
+[00:00:34] >> This interview was for a staff level
+[00:00:36] machine learning role at Meta, which
+[00:00:38] unfortunately this candidate did not
+[00:00:39] pass as they struggled with time
+[00:00:41] management and other key details. Let's
+[00:00:43] get into the interview.
+[00:00:44] >> So, I'll give you a highle problem
+[00:00:46] statement and I want you to drive most
+[00:00:48] of the discussion around the solution,
+[00:00:51] but feel free to ask clarifying
+[00:00:52] questions as required.
+[00:00:54] So the system we'll be designing today
+[00:00:56] is Instagram res. You might have used
+[00:00:59] this product. It's a feed of short
+[00:01:02] videos. So when you enter the app,
+[00:01:04] there's a short video that's playing and
+[00:01:06] then you can swipe up to see the next
+[00:01:09] one and it's like an infinite scroll.
+[00:01:12] >> Mhm.
+[00:01:13] >> Yeah. So over to you.
+[00:01:16] >> Okay, cool. Um so first I think um
+[00:01:24] just so I uh like can frame the
+[00:01:27] discussion a little bit and guide it uh
+[00:01:28] I wanted to uh do a quick outline of the
+[00:01:31] way I want to approach this problem. So
+[00:01:33] first uh yeah I want to uh understand
+[00:01:36] the constraints.
+[00:01:39] Uh so then um I want to see how ML can
+[00:01:45] help
+[00:01:46] um maybe classify the problem.
+[00:01:51] Um then uh talk about data um and
+[00:01:57] feature engineering.
+[00:01:59] Um how we'll train and uh well
+[00:02:04] build a uh train set and uh you know
+[00:02:08] train the model. talk about serving
+[00:02:12] uh the
+[00:02:14] uh you know quality or metrics,
+[00:02:20] how do we know we're performing well? Um
+[00:02:24] and then we can talk about any sort of
+[00:02:26] deep dives. Um
+[00:02:29] so that sound good?
+[00:02:32] Yep. Cool. So um
+[00:02:36] okay so we have this uh design reels
+[00:02:38] thing on uh on Instagram. So let's talk
+[00:02:43] a little bit about the um
+[00:02:46] like the business objective. What are we
+[00:02:48] trying to uh optimize for? Do we want to
+[00:02:50] um like increase the engagement um or or
+[00:02:56] uh maybe the the um show the most uh ads
+[00:03:00] while while doing this? um or uh you
+[00:03:04] know have the most interactions. What
+[00:03:06] what is the uh high level business uh
+[00:03:09] case for this?
+[00:03:12] >> Yeah. So what do you think?
+[00:03:15] >> Uh so we can um optimize for views or or
+[00:03:20] engagement with the platform. Um but
+[00:03:23] there are I guess there are more
+[00:03:25] concerns about long-term health of of an
+[00:03:29] ecosystem like this. So uh we could
+[00:03:32] optimize for um like quality weighed uh
+[00:03:36] views or uh user satisfaction. Um I I
+[00:03:42] mean I I think we should uh maybe try
+[00:03:44] for uh quality weighed uh views or or
+[00:03:48] interactions.
+[00:03:50] >> Um
+[00:03:52] yeah.
+[00:03:53] >> Okay.
+[00:03:54] >> Uh and how how would you define that
+[00:03:57] metric itself?
+[00:03:59] Well, one approach is to say that um
+[00:04:03] uh we can gauge
+[00:04:07] maybe the um quality of a post based on
+[00:04:11] its content. Um some huristics on like
+[00:04:14] duration or the the uh number of say
+[00:04:17] comments on on it. Um or uh yeah maybe
+[00:04:23] the um
+[00:04:28] >> okay uh sure but maybe we take a step
+[00:04:31] back and just uh look at it again from
+[00:04:34] first principles. So like quality weight
+[00:04:37] views is uh
+[00:04:40] one good metric but if you had to choose
+[00:04:42] something simpler like what are you
+[00:04:44] trying to maximize here? Okay. So, uh
+[00:04:47] yeah, if we if we don't want to do uh
+[00:04:49] long-term, maybe we can do that in um
+[00:04:51] sort of refinement. We can just uh uh
+[00:04:53] maximize engagement with the reels. So,
+[00:04:56] uh maybe the the watch time like some
+[00:04:58] sort of normalized watch time or the
+[00:05:00] engagement with the platform
+[00:05:02] >> um through likes and um sort of
+[00:05:05] completed views, something like that.
+[00:05:09] >> Got it. So,
+[00:05:10] >> yeah.
+[00:05:10] >> Yeah, that as a business objective.
+[00:05:13] Yeah.
+[00:05:14] >> Okay.
+[00:05:16] uh maximize engagement uh platform
+[00:05:21] um as
+[00:05:23] uh measured by um maybe actually it's
+[00:05:27] impressions and uh
+[00:05:31] watch time uh I don't know uh or
+[00:05:36] interactions
+[00:05:38] andor interactions. Okay, cool. So um
+[00:05:41] the other thing we should probably talk
+[00:05:43] about is um
+[00:05:46] okay
+[00:05:48] where like what is the scale of the
+[00:05:50] system? So how many uh reels do we get?
+[00:05:53] Uh are there any uh like how many users
+[00:05:56] that kind of thing. So um what would be
+[00:06:00] something that could guide us there
+[00:06:03] in terms of uh the user count say?
+[00:06:07] So yeah, it's uh like a billion daily
+[00:06:10] active users
+[00:06:12] >> and uh daily active users. And what is
+[00:06:16] the creation rate of uh new reels?
+[00:06:20] Like how many new uh reels are we
+[00:06:22] creating?
+[00:06:24] Yeah, we can estimate that I guess but
+[00:06:28] I would
+[00:06:30] >> yeah it would be sort of two orders of
+[00:06:33] magnitude lower than the DAU like you
+[00:06:36] know like 1% of users roughly make a
+[00:06:39] real
+[00:06:41] so that's yeah
+[00:06:43] >> 10 million uh uh sort of new reels uh
+[00:06:47] reels okay cool and then uh what regions
+[00:06:50] are we is there any regional kind of
+[00:06:53] information we we should care about. Um
+[00:06:55] >> it's a global product but obviously the
+[00:06:58] highest uh sort of uh scale is in the US
+[00:07:04] and Europe but there's also
+[00:07:08] significant presence in Latam, Africa,
+[00:07:11] Middle East and Asia.
+[00:07:14] >> Okay. So uh but uh say uh
+[00:07:21] also operating in uh other regions.
+[00:07:26] Okay. Um and
+[00:07:30] I mean obviously we want these uh
+[00:07:34] the hypothesis is that we want to um
+[00:07:40] uh maximize basically show uh users
+[00:07:44] reels in some personalized way. Um what
+[00:07:47] kind of information is available about
+[00:07:49] the users uh or or the reels? Like do we
+[00:07:54] have uh for example do we make users uh
+[00:07:58] uh say what um topics or categories
+[00:08:03] they're interested in? Um do do reels
+[00:08:06] have uh like tags or uh are we kind of
+[00:08:10] learning this in an unsupervised way?
+[00:08:14] I think we don't have a lot of
+[00:08:16] structured information that is input
+[00:08:19] directly by the user.
+[00:08:21] So we can infer all kinds of things but
+[00:08:25] from the user point of view it's very
+[00:08:27] simple in terms of like you're just
+[00:08:29] uploading videos and like you know as a
+[00:08:33] consumer you're just you know coming in
+[00:08:36] and watching the videos.
+[00:08:38] >> Okay. uh on users uh upon creation. Uh
+[00:08:43] okay. And then uh and about the uh the
+[00:08:47] videos um
+[00:08:50] we uh
+[00:08:53] just have uh video content and maybe um
+[00:08:58] uh initially we just have
+[00:09:01] initially just have uh video content. Uh
+[00:09:05] do we allow anything like comments uh or
+[00:09:08] uh
+[00:09:08] >> yes we do
+[00:09:11] allow like likes and comments and maybe
+[00:09:13] even video descriptions.
+[00:09:16] >> Okay, likes, comments.
+[00:09:18] >> Those are free form. So there's not much
+[00:09:21] structured input that the user can put
+[00:09:23] in like we don't ask them to choose a
+[00:09:25] category for example but
+[00:09:27] >> they can they can add free form text.
+[00:09:31] >> Okay. So okay cool. Um I'm uh can I
+[00:09:36] assume that we uh at least have um like
+[00:09:39] location information
+[00:09:41] uh or like our metadata
+[00:09:44] >> um for example there well yeah but like
+[00:09:48] some metadata like uh what other
+[00:09:51] metadata would we actually need? Uh do
+[00:09:54] is there any um interactions between
+[00:09:57] users that we have for example follows
+[00:10:01] or uh anything like that?
+[00:10:04] >> Follows we do support follows.
+[00:10:08] >> Okay.
+[00:10:08] >> Big one follow the author of read.
+[00:10:13] >> Uh
+[00:10:16] how do you spell author? Uh follow
+[00:10:20] author. Uh, okay.
+[00:10:29] I Let's see. Is there anything else
+[00:10:33] um
+[00:10:35] that we should talk about here? I mean,
+[00:10:38] okay, maybe this is uh enough for the uh
+[00:10:42] initial uh problem. Um maybe I'll I'll
+[00:10:45] go back and uh refine this u as we do
+[00:10:48] our initial design. Um I like to think
+[00:10:50] about this in terms of um sort of an
+[00:10:52] iterative approach. Um
+[00:10:56] so
+[00:10:57] we can view this as uh having certain
+[00:11:00] hypotheses uh and then try to choose a
+[00:11:03] um
+[00:11:04] oh actually one thing I should ask is
+[00:11:07] there any system that already exists?
+[00:11:09] Are we are we building on top of an
+[00:11:11] existing system or or data set? Um or
+[00:11:15] are is this the the first kind of MVP?
+[00:11:18] um what what do we have access to like
+[00:11:20] >> we have user data uh so let's say we
+[00:11:23] have a heristic running for ranking and
+[00:11:26] the whole system is running and has lot
+[00:11:29] of users so we have lots of user
+[00:11:32] activity data and now we are
+[00:11:34] transitioning to a ML based system
+[00:11:37] >> I see I see so we have a stick running
+[00:11:39] for um on the platform for ranking
+[00:11:44] um lots of users
+[00:11:48] Um so our goal is to maximize
+[00:11:53] uh
+[00:11:55] or engagement
+[00:11:57] uh on on top of this baseline. Right? So
+[00:12:03] uh the first thing I was going to ask is
+[00:12:05] or uh talk about is um
+[00:12:09] essentially what what do we use as the
+[00:12:11] baseline? But it it sounds like we
+[00:12:12] already have some sort of uh simple
+[00:12:14] heruristic. Um and uh am I assuming that
+[00:12:19] we um well we should maybe talk about
+[00:12:23] the the metrics that we've been using um
+[00:12:26] for this uristic.
+[00:12:29] Um,
+[00:12:33] so so
+[00:12:42] the metrics that we said we were using
+[00:12:44] are um sort of engagement as measured by
+[00:12:48] uh maybe um daily impressions or or
+[00:12:52] daily watch time uh of users maybe by by
+[00:12:56] region or by like stratified by some uh
+[00:12:59] demographic, right?
+[00:13:02] So, uh if we uh gauge model uh uh gau
+[00:13:08] model improvement means that our watch
+[00:13:10] time for for uh like our watch time
+[00:13:15] improves or the number of interactions
+[00:13:17] uh with our our system improves over
+[00:13:19] time. Um maybe is measured by like
+[00:13:21] daily, weekly or um in AB tests
+[00:13:25] something like this. Okay.
+[00:13:28] Um All right. So,
+[00:13:30] >> sorry.
+[00:13:32] >> Makes sense. Makes sense. Yeah.
+[00:13:34] >> Great. Um Okay. So, then let's talk
+[00:13:36] about Okay. So, so this is um fairly
+[00:13:39] clearly um some sort of uh ranking
+[00:13:43] problem where we have um a lot of reels
+[00:13:47] that get created. So like the inputs I
+[00:13:49] guess would be um so you have um an
+[00:13:53] interaction that's like um
+[00:13:56] create real
+[00:13:59] uh
+[00:14:01] and uh we um I don't know
+[00:14:06] well actually
+[00:14:07] uh inputs to the system are like real
+[00:14:10] creation and then like um sort of uh
+[00:14:16] uh we don't do queries but We just do um
+[00:14:20] like
+[00:14:23] uh
+[00:14:25] uh re ask
+[00:14:29] for uh recommendations
+[00:14:32] for the system, right? And the system
+[00:14:35] must uh sort of uh do something with the
+[00:14:38] uh the created real information. And uh
+[00:14:43] the output should be something like um a
+[00:14:47] uh ranked uh list of reals. Um
+[00:14:53] the other interaction we can have is uh
+[00:14:56] in uh maybe the create real or um
+[00:15:04] interact with post right something like
+[00:15:07] this and then uh during serving the um
+[00:15:11] or when working with the system you ask
+[00:15:14] for recommendations and get a a rank
+[00:15:16] list of reels right okay so um we can
+[00:15:20] talk about a little bit about the uh the
+[00:15:24] data that uh we're operating on. So um
+[00:15:29] the hypothesis is that um about like
+[00:15:32] what are what are the entities? So um we
+[00:15:35] have um user metadata
+[00:15:39] um like location is the maybe the
+[00:15:42] primary primary one but maybe alto age
+[00:15:46] um gender things like this
+[00:15:51] features like this we have uh users
+[00:15:54] interaction uh interaction
+[00:15:58] >> uh sorry to interrupt you but before we
+[00:16:00] jump into that maybe we should uh think
+[00:16:03] about what is the output of the model
+[00:16:08] and just the overall structure of the
+[00:16:10] train data like what's the ML objective
+[00:16:13] what's the label
+[00:16:15] what's the training data format
+[00:16:18] >> sure sure u so I was going to do that
+[00:16:20] after the the entities but we can maybe
+[00:16:22] uh switch the order so um okay
+[00:16:27] so if this is a ranking problem which it
+[00:16:30] sounds like it is um we need to process
+[00:16:34] whatever information that we have and
+[00:16:37] output a ranked uh list of reels. So um
+[00:16:42] there are several ways of doing this. Uh
+[00:16:46] like the the classic one is you can for
+[00:16:49] each um
+[00:16:51] uh real uh and uh user pair you can
+[00:16:56] assign a score um for uh relevance um or
+[00:17:01] like the likelihood of seeing a thing,
+[00:17:03] right? Um
+[00:17:06] and
+[00:17:08] essentially you can treat this as a uh
+[00:17:10] like a binary classification problem
+[00:17:12] like given input features and say
+[00:17:14] history and and things like this uh what
+[00:17:16] is the probability that uh the real is
+[00:17:19] relevant and you kind of um then given a
+[00:17:24] large group of reels that you could show
+[00:17:26] that are on your platform uh you can um
+[00:17:30] sort of uh rank them based on the score
+[00:17:32] and show the most relevant things first.
+[00:17:35] So that's one approach. Um another
+[00:17:38] approach uh does that make sense?
+[00:17:42] >> Yeah, that makes sense. Uh I want to
+[00:17:45] understand how you define relevance
+[00:17:47] here.
+[00:17:48] >> Sure. So uh relevance here is uh
+[00:17:54] like if a uh user um say interacts with
+[00:18:00] a post in in one of various ways.
+[00:18:02] there's like um explicit and implicit
+[00:18:04] feedback that we can get. Um for
+[00:18:07] example, if they uh watch the um the
+[00:18:10] real to completion, right? So that like
+[00:18:13] you can you can treat this as um a
+[00:18:15] probability like okay, a post is
+[00:18:18] relevant. The one of the hypotheses is a
+[00:18:21] post is relevant if a user when shown it
+[00:18:23] will uh watch it to completion, right?
+[00:18:26] So or like a large fraction of it. So we
+[00:18:29] could treat this as a classification
+[00:18:31] problem um where uh the person finished
+[00:18:34] watching the reel.
+[00:18:36] So another hypothesis is post is
+[00:18:39] relevant if the user follows uh
+[00:18:43] the the author of it or um you could
+[00:18:47] also treat this as a uh like a
+[00:18:50] regression problem like what fraction of
+[00:18:52] the real um does the the user uh wash um
+[00:18:57] as as a like a normalized time or maybe
+[00:19:00] you can um treat this as a uh uh an
+[00:19:05] ordinal regression problem where like
+[00:19:07] you bin the durations and say you want
+[00:19:10] to watch a large fraction of it. So like
+[00:19:12] the probability that a person watches 5
+[00:19:14] minutes of a real or something or or
+[00:19:16] some relevant time bins. Um the I mean
+[00:19:21] each of these are are are viable. Um is
+[00:19:25] there one that you would like to focus
+[00:19:27] in particular or would you like me to
+[00:19:28] choose one? Because I mean realistically
+[00:19:32] >> Yeah. Um we should choose. Yeah.
+[00:19:34] >> Okay. So um
+[00:19:37] well we can we can focus on a a simple
+[00:19:41] version first. Uh so so in real systems
+[00:19:44] uh I think the trend has been to
+[00:19:47] actually um have multi-term objectives.
+[00:19:51] So uh you actually sort of uh based on a
+[00:19:54] a a user like whatever user information
+[00:19:57] and session information you have plus
+[00:19:59] the the real information that you have.
+[00:20:02] Um you can um
+[00:20:05] uh optimize multiple tasks for
+[00:20:09] predicting for example the the
+[00:20:10] probability of a user um watching to uh
+[00:20:14] the end of a reel or leaving a comment
+[00:20:18] um or um sort of uh sharing or or uh
+[00:20:22] doing a like um and those are kind of
+[00:20:25] trained as multitask terms. Um but if
+[00:20:30] you like we can focus on a single one.
+[00:20:34] Um or wait I guess you'd like me to
+[00:20:37] choose. Um
+[00:20:40] yeah, I think multitask makes sense, but
+[00:20:43] like if you were to prioritize in terms
+[00:20:46] of what SQL do you think would have the
+[00:20:49] highest or what approach do you think
+[00:20:52] would have the highest because okay fine
+[00:20:54] it's multitask but you mentioned like
+[00:20:56] classification and regression
+[00:20:59] separately. So out of all the things
+[00:21:01] that is said
+[00:21:03] if you were to choose like you know of
+[00:21:07] course it can be multitask you can but
+[00:21:09] even in the multitask there would be
+[00:21:11] some task that you would train first.
+[00:21:13] >> Yes.
+[00:21:15] >> Yeah.
+[00:21:16] >> Um
+[00:21:19] well I I think very strong signals um
+[00:21:25] here's the reasoning. So, uh, say that
+[00:21:28] reels are, uh, I don't know, all about
+[00:21:30] the same length, uh, roughly. They're,
+[00:21:32] you know, typically about like at most
+[00:21:34] like maybe a minute. Um, so, um, maybe
+[00:21:38] unlike in things like video, we don't,
+[00:21:40] um, we don't have a huge spread in in
+[00:21:43] real duration. That's an assumption that
+[00:21:44] maybe you can correct, but um, the
+[00:21:48] duration of watch uh, maybe is
+[00:21:51] irrelevant here. We really just want to
+[00:21:53] uh see if a person basically scrolls to
+[00:21:56] the next video, which means it's
+[00:21:58] negative feedback, they don't care about
+[00:21:59] this, or they watch uh to the end. Um so
+[00:22:05] we can treat this as sort of um one
+[00:22:09] term.
+[00:22:11] So uh
+[00:22:14] it's a positive impression if they watch
+[00:22:15] to the end. So that that that was
+[00:22:17] probably the one that I would uh train
+[00:22:19] first. But uh uh maybe and it's probably
+[00:22:22] the simplest to train. Um the sec the
+[00:22:26] second uh term that I would do is is uh
+[00:22:29] probably um sort of likes. It's very
+[00:22:31] strong uh like explicit signal that um a
+[00:22:36] um a user likes a post. So uh but but
+[00:22:39] they tend to be very rare. Um so one is
+[00:22:43] more common and implicit and um probably
+[00:22:46] noisy. Sometimes you just watch reels on
+[00:22:48] accident. Uh the other one is very
+[00:22:50] strong explicit but uh has low density.
+[00:22:53] So I focus on the first one first and
+[00:22:55] then maybe add other features.
+[00:22:57] So if so then uh you know you have a
+[00:23:00] standard um sort of uh classification
+[00:23:02] problem where uh a user either interacts
+[00:23:05] or a user either um watches to the end
+[00:23:08] or um if they scroll past then um they
+[00:23:12] don't. So it's uh yeah and you maybe set
+[00:23:14] some threshold like if they watch like 5
+[00:23:16] seconds you you treat it as a fast
+[00:23:18] scroll um
+[00:23:20] something like this. So okay if you go
+[00:23:23] with that now what's one row in the
+[00:23:25] training data?
+[00:23:28] >> Uh sorry could you say that again?
+[00:23:29] >> What's one row in the training data?
+[00:23:32] >> Oh what's one row of the training data?
+[00:23:34] Sure.
+[00:23:36] Um okay so we need a um
+[00:23:42] uh so we have an ID uh a user ID
+[00:23:47] right? we have um you have their uh I
+[00:23:51] don't know uh some metadata like um age
+[00:23:56] uh gender
+[00:23:58] location
+[00:24:00] um and importantly we should have uh
+[00:24:03] well
+[00:24:06] um
+[00:24:10] well okay it's an important predictive
+[00:24:12] feature for uh their history but uh
+[00:24:15] maybe we can leave that out for now uh
+[00:24:16] and then make further improvements based
+[00:24:18] on on their uh view history. Um
+[00:24:23] so
+[00:24:25] uh the other so do you want me to create
+[00:24:28] okay so this would be I don't know some
+[00:24:30] ID um I don't know there 25 um uh we
+[00:24:34] would one hot
+[00:24:35] >> so there are some user features
+[00:24:38] >> so ID user features what else is there
+[00:24:41] in the train data
+[00:24:42] >> like what's there in one row of the
+[00:24:44] train data
+[00:24:46] >> sure sure so uh I think there are three
+[00:24:47] entities here so there's the user So we
+[00:24:50] have uh we have the the real which um we
+[00:24:56] have the video content,
+[00:24:58] we have a description
+[00:25:01] uh we uh
+[00:25:04] we have an author
+[00:25:06] um and maybe we have some comments uh so
+[00:25:10] I don't know shaded with it something
+[00:25:13] like this and then we also have um user
+[00:25:19] real interactions
+[00:25:21] where um we can have different um
+[00:25:26] maybe actually we we don't we take the
+[00:25:29] this out um we can have like user I user
+[00:25:35] ID um real ID and then we have a type of
+[00:25:39] interaction like um uh watch we have a
+[00:25:44] time stamp
+[00:25:46] um and uh we can have extra fields. We
+[00:25:50] can have other interactions like uh same
+[00:25:53] kind of user id real ID um I know
+[00:25:57] comment
+[00:25:59] and then similarly we can have a like
+[00:26:05] right
+[00:26:06] um
+[00:26:09] cool. So since our first our first task
+[00:26:13] uh so far has been um watch we can
+[00:26:17] actually drop all the other rows and uh
+[00:26:20] you know just um encode information in
+[00:26:22] various ways but in our case a watch is
+[00:26:25] like you know a positive label and a a
+[00:26:28] short watch or a skip is a negative
+[00:26:30] interaction right um so
+[00:26:35] if that's the case we need to uh build
+[00:26:41] um I mean these days you would build
+[00:26:44] features uh based on the on the user
+[00:26:48] and uh also uh you would process the
+[00:26:51] reel in some way and then you'd use the
+[00:26:53] uh watch interaction as your label set.
+[00:26:57] Um would you like me to talk about the
+[00:26:58] feature engineering for for some of how
+[00:27:01] I would encode these features? Yeah,
+[00:27:03] just uh a couple of things before going
+[00:27:06] to feature engineering is like
+[00:27:09] uh so positive samples are where the
+[00:27:12] user has interacted with the reel.
+[00:27:14] >> Mhm.
+[00:27:14] >> Uh in the sense they watched it more
+[00:27:16] than whatever.
+[00:27:18] >> Uh what are the negative samples?
+[00:27:21] >> Uh scrolling to the next one or ending
+[00:27:24] the session.
+[00:27:25] >> So for a user you have the real switch.
+[00:27:27] They have been shown
+[00:27:31] >> the the real switch
+[00:27:32] >> they've been shown right like if I have
+[00:27:36] not seen a real that's not part of that
+[00:27:39] user ID real ID pair is not in the
+[00:27:41] training data
+[00:27:43] >> uh yes that's true
+[00:27:47] >> so you're saying how would I how would I
+[00:27:48] actually um
+[00:27:51] gauge that so I could I could do um
+[00:27:55] Oops do
+[00:27:58] So we can do uh in in the training data
+[00:28:04] we can have um skip
+[00:28:08] >> or or some
+[00:28:09] >> that's fine like what I'm saying is like
+[00:28:11] for a user you first start with all the
+[00:28:13] reels that have an impression
+[00:28:16] >> and then you uh use the ones with where
+[00:28:20] there's a significant watch as positive
+[00:28:21] labels and one where they're skipped as
+[00:28:24] negative labels. Right? That's a correct
+[00:28:26] understanding. All right. And how do you
+[00:28:28] split the train data into train, test,
+[00:28:30] and validation?
+[00:28:34] So, um,
+[00:28:40] okay. So, do um we we have a bunch of
+[00:28:44] these interactions. So, um,
+[00:28:49] right now I have an assumption that, um,
+[00:28:52] there's no learning behavior. Um so
+[00:28:57] uh
+[00:28:59] basically
+[00:29:01] well if that's true then we can um
+[00:29:05] literally do an agnostic uh split. So we
+[00:29:08] we we have some large amount of data. Um
+[00:29:12] we make sure that um we have a a
+[00:29:15] representative sample of our users uh in
+[00:29:18] in the training set based on like um
+[00:29:21] demographics information. So you can
+[00:29:24] maybe do a stratified uh split. And
+[00:29:27] right now I'm not doing anything special
+[00:29:29] with the time stamp. Um in in principle
+[00:29:33] I know that for these kinds of systems
+[00:29:36] um uh
+[00:29:39] you want to make sure that you're not
+[00:29:42] peing at user behavior by having the
+[00:29:45] same user at different times. uh be at
+[00:29:48] um basically the um
+[00:29:52] in the train split and then say a future
+[00:29:54] time in um uh the test split because um
+[00:30:00] uh you uh can then sort of um un unmask
+[00:30:05] or or or get a dependency uh you know
+[00:30:07] more about that user than you would with
+[00:30:09] a random user. So maybe uh set another
+[00:30:12] way I want to stratify by user ID
+[00:30:16] interactions. So I want to build a uh uh
+[00:30:20] uh test train validate split such that
+[00:30:24] um users are uh the same user is only in
+[00:30:28] the um sort of one of the folds. Um
+[00:30:33] that's probably the biggest uh thing
+[00:30:35] that I'm worried about. The other thing
+[00:30:37] is uh st I want to have a nice mix of uh
+[00:30:40] uh the other features so that um for
+[00:30:43] example we we don't only have um uh you
+[00:30:47] know people from the US in the uh train
+[00:30:50] set and then uh people from other
+[00:30:52] regions in the other set. So I would
+[00:30:54] then sort of uh mix those. Does that
+[00:30:57] make sense?
+[00:30:58] >> Makes sense. All right. Let's get into
+[00:30:59] the feature engineering.
+[00:31:01] >> Okay. So in the feature engineering um
+[00:31:04] well
+[00:31:07] a lot of the uh things that we care
+[00:31:10] about are um
+[00:31:14] essentially how do you create useful
+[00:31:15] numeric features uh for uh for the user
+[00:31:18] information
+[00:31:20] and then uh how do you actually encode
+[00:31:22] the video content uh and the description
+[00:31:25] uh
+[00:31:27] in uh yeah for the real information. So
+[00:31:30] for um for the tabular features for the
+[00:31:34] user um initially uh I mean you do the
+[00:31:38] standard thing where is if it's a
+[00:31:41] continuous feature maybe uh actually the
+[00:31:43] the age itself is not particularly
+[00:31:45] important but some u some bin versions
+[00:31:48] of age uh is useful for the uh um gender
+[00:31:54] uh you do some um one hot encoding
+[00:31:57] information for things like um location.
+[00:32:00] Uh I wouldn't um
+[00:32:04] well
+[00:32:06] location you could do a a label
+[00:32:08] encoding, but you probably want to uh
+[00:32:11] have some sort of um also binning like
+[00:32:14] maybe you only care about regions. Um
+[00:32:18] unless you want to show like very
+[00:32:19] specific content. Um for the reels um as
+[00:32:24] a first pass, there are a few things you
+[00:32:26] can do for the video content. Um for
+[00:32:29] example you can do uh a uh a video
+[00:32:32] embedding model um where you just um
+[00:32:36] just directly process the video content.
+[00:32:39] Alternatively you can just ignore the
+[00:32:41] video content itself. Uh you just have
+[00:32:44] um an uh a video ID and then you you try
+[00:32:49] to uh treat this as just uh you learn an
+[00:32:52] embedding for that uh video content um
+[00:32:56] directly.
+[00:32:58] um as a first pass I would probably do
+[00:33:01] that rather than trying to process the
+[00:33:03] video content. Um the downside of that
+[00:33:06] is you have a cold start problem if you
+[00:33:09] don't know anything about the video
+[00:33:11] itself. But since we have uh also
+[00:33:14] description information uh maybe we can
+[00:33:17] infer the content based on the
+[00:33:18] description. Um,
+[00:33:21] right. So maybe as a first pass I would
+[00:33:24] just treat the video content as an ID.
+[00:33:27] Uh, and then the description I would
+[00:33:29] have some uh
+[00:33:31] like text embedding model. Uh, we can
+[00:33:35] start with something as simple as like
+[00:33:36] fast text or uh TF. Um but these days
+[00:33:42] maybe you would just use a u a
+[00:33:44] pre-trained um uh transformer model uh
+[00:33:49] to create an embedding for that. Um you
+[00:33:52] can use something like BERT or or um if
+[00:33:56] you wanted to use a decoder model you
+[00:33:57] can actually pull the embedding.
+[00:34:00] Um right now we're not really um using
+[00:34:04] the uh author feature. Um
+[00:34:10] so
+[00:34:14] I think maybe uh I want to skip using
+[00:34:16] the author feature for now. Um
+[00:34:20] we can actually uh
+[00:34:23] use that for simple uristics to to um uh
+[00:34:27] recommend uh reels to users based on
+[00:34:30] their uh like friendship.
+[00:34:33] Okay.
+[00:34:34] Uh would you like me to talk uh well
+[00:34:38] does does the uh feature engineering
+[00:34:40] make sense or would you like me to
+[00:34:42] expand on something?
+[00:34:45] >> Uh yeah it makes sense. Is there
+[00:34:48] anything you want to add to the feature
+[00:34:50] engineering because you have only like
+[00:34:53] the user profile and real embeddings
+[00:34:57] right if I understand correctly.
+[00:35:00] >> Yeah. So um
+[00:35:03] well for now
+[00:35:06] okay it's a question of whether we want
+[00:35:08] to build a very simple model or uh sort
+[00:35:11] of a more elaborate model. So the the
+[00:35:13] standard way of building recommendation
+[00:35:15] systems based on things like this um or
+[00:35:18] at least a decade ago was um sort of
+[00:35:20] collaborative filtering where uh you
+[00:35:23] would uh use maybe some feature
+[00:35:26] information um and uh some video content
+[00:35:29] or like the real information
+[00:35:32] um and then uh you would just look for
+[00:35:35] impressions that you cared about and
+[00:35:37] then uh based on that you could find
+[00:35:39] similar reels and you wouldn't use the
+[00:35:41] other features.
+[00:35:43] these days and and maybe that's a that's
+[00:35:45] a good approach for an initial system,
+[00:35:48] but these days uh what you would
+[00:35:50] probably do is um you you can use the um
+[00:35:54] sort of a video embedding that you
+[00:35:57] learn.
+[00:35:59] you can uh sort of concatenate the
+[00:36:01] description information uh and then um
+[00:36:06] uh you would learn a similarity
+[00:36:08] embedding between the the user features
+[00:36:10] and and the real features, right? Um
+[00:36:16] then then based on that you can kind of
+[00:36:18] predict uh the the um watch interaction
+[00:36:22] because uh
+[00:36:25] users that interact with reels uh will
+[00:36:28] tend to watch them. Um
+[00:36:32] things like this.
+[00:36:35] Um but generally for uh latency reasons
+[00:36:41] um you would build this as initial um
+[00:36:45] stage system for um candidate
+[00:36:48] generation. So you would um actually
+[00:36:52] pre-train this initial candidate
+[00:36:54] generation system. Uh you would uh
+[00:36:57] potentially generate a large number of
+[00:36:59] reels that you could propose. Um
+[00:37:03] and then you would uh go on to a a
+[00:37:06] ranking or a refinement phase
+[00:37:08] afterwards. Uh where you could in
+[00:37:11] addition to this user information um you
+[00:37:14] uh you also have things like watch
+[00:37:17] history like things that things that
+[00:37:20] they have watched before or recently. So
+[00:37:23] you um you could gauge what their
+[00:37:27] current interest is and and sort of
+[00:37:28] dynamically personalize their uh
+[00:37:31] recommendations. Um
+[00:37:34] uh similarly um if you wanted to you
+[00:37:39] could expand the video content um
+[00:37:42] understanding to beyond the the standard
+[00:37:44] embedding. You could for example sample
+[00:37:47] certain frames and try to understand the
+[00:37:48] content of the video uh in a way that
+[00:37:51] goes beyond the uh just an embedding ID
+[00:37:54] um and then uh build a ranking based on
+[00:37:57] that. Um is that what you had in mind or
+[00:38:00] would you like me to add uh extra
+[00:38:03] things?
+[00:38:04] No, makes sense. Let's get into the next
+[00:38:06] part which is the actual ranking system
+[00:38:09] itself and you've sort of explained it a
+[00:38:11] bit. So candidate selection ranking what
+[00:38:14] model architectures would you choose for
+[00:38:16] each stage?
+[00:38:19] >> Sure. So um
+[00:38:22] I understood the difference in the
+[00:38:24] features.
+[00:38:25] >> Mhm.
+[00:38:25] >> Uh but yeah let's talk about the model
+[00:38:27] architecture.
+[00:38:29] >> Sure. So um
+[00:38:32] the in the in the candidate generation
+[00:38:36] stage generally um well okay
+[00:38:45] well generally these these days you can
+[00:38:48] you can start with a simple model where
+[00:38:50] uh you have um basically the the um
+[00:38:57] some concatenated uh user features,
+[00:39:02] right? You have your uh
+[00:39:05] real features. Um you
+[00:39:10] uh
+[00:39:13] you do uh some um maybe relatively
+[00:39:18] shallow uh neural network for processing
+[00:39:22] uh the the features, right? And then uh
+[00:39:26] you have a um
+[00:39:32] like a similarity embedding where where
+[00:39:36] you treat the um real features either
+[00:39:39] directly as uh the video ID or uh you
+[00:39:43] know you also process them in this kind
+[00:39:45] of um in a separate embedding.
+[00:39:48] um
+[00:39:51] like this
+[00:39:55] and then you uh do a uh product
+[00:39:58] similarity. Um so like e uh real and
+[00:40:03] then e user,
+[00:40:06] right? And then you find similar
+[00:40:07] features like this. That's if you do the
+[00:40:09] the the contrast of learning case,
+[00:40:13] right? So the other one we talked about
+[00:40:15] is uh more for the ranking.
+[00:40:19] So um
+[00:40:22] uh
+[00:40:27] so I guess here uh for the contrast of
+[00:40:31] sorry before I go on to the ranking step
+[00:40:34] the the the candidate generation step
+[00:40:36] generally uh has
+[00:40:39] um okay so you have users and reels that
+[00:40:42] they interact so for each user you have
+[00:40:45] some positive and negative examples for
+[00:40:47] uh the reels that they've interacted
+[00:40:49] as determined by the user reel
+[00:40:50] interactions, right? Um, generally they
+[00:40:53] have uh skipped a lot more um reels than
+[00:40:59] uh they've watched. So you need to
+[00:41:02] balance you need to watch um like the
+[00:41:05] imbalance between um positive and
+[00:41:08] negative interactions and you can do
+[00:41:09] that with um basically negative
+[00:41:12] sampling. you can um reweigh uh the
+[00:41:16] positive and negative examples and then
+[00:41:18] sort of train a model that way um to to
+[00:41:20] train stably. That'll give you the
+[00:41:22] ability to look up relevant reels for a
+[00:41:25] given user based on their features at
+[00:41:27] the initial stage. But you can also use
+[00:41:29] other uh uristics to suggest things like
+[00:41:32] um reels that are popular uh within a
+[00:41:35] certain region or um you know like
+[00:41:38] you're doing an advertisement, you want
+[00:41:40] to uh show certain reels. Okay. So the
+[00:41:44] uh for the for the ranking case, we
+[00:41:47] specifically want to talk about um how
+[00:41:50] likely they are to have a long um watch
+[00:41:53] uh versus a skip, right? So we can watch
+[00:41:56] the uh we can uh do a more advanced um
+[00:42:01] sort of
+[00:42:03] uh user features
+[00:42:06] um
+[00:42:08] where we uh
+[00:42:12] um additionally have like um their
+[00:42:15] history or
+[00:42:17] embeddings of um reels they've watched
+[00:42:22] in the session.
+[00:42:25] something like this.
+[00:42:28] Um
+[00:42:33] and then we have a um
+[00:42:37] uh a real uh like proposed reel.
+[00:42:44] uh unlike the sort of the two tower
+[00:42:46] architecture. Now we would um sort of
+[00:42:50] have some
+[00:42:54] shared uh
+[00:42:56] shared and then or uh you know in the
+[00:42:58] limiting case we could use a very simple
+[00:43:00] model but um you have some set of um
+[00:43:05] features or sorry some some set of um I
+[00:43:08] don't know uh neural network layers that
+[00:43:10] is shared that sort of uh produces these
+[00:43:14] user features and or takes this uh user
+[00:43:16] features
+[00:43:17] uh at the ranking stage and the proposed
+[00:43:20] reel for each element of of of the um
+[00:43:24] list that we want to rank that we got
+[00:43:26] from the candidate stage. And then we um
+[00:43:30] so we had previously talked about uh
+[00:43:32] multitask for now let's let's do a
+[00:43:34] single task. Um we can um for one task
+[00:43:39] uh stop for a single task we can talk
+[00:43:43] about um the um
+[00:43:46] um
+[00:43:48] probability of uh positive uh
+[00:43:51] interaction. So we treat this as a um a
+[00:43:54] classification task,
+[00:43:57] right? Uh and
+[00:44:00] uh we train this as a u binary cross
+[00:44:03] entropy um task.
+[00:44:07] Um
+[00:44:09] when we add additional tasks, we can
+[00:44:12] have an uh sort of a task specific head
+[00:44:15] for like um probability of um like or
+[00:44:20] comment.
+[00:44:24] Um and we we can uh then appropriately
+[00:44:28] weigh the um you know we can have an
+[00:44:31] objective that weighs these tasks and
+[00:44:34] the overall um score of a reel for a
+[00:44:37] given user based on their session uh
+[00:44:39] would be given by some weighed um
+[00:44:42] probability of these interactions.
+[00:44:44] >> All right.
+[00:44:45] >> Cool. I think we're out of time so we
+[00:44:48] can end here.
+[00:44:50] >> Mhm.
+[00:44:50] >> Uh all right cool. Before I share my
+[00:44:53] feedback, I want to understand from you
+[00:44:55] how this interview went. What are the
+[00:44:57] things you did well and what are the
+[00:44:59] areas of improvement?
+[00:45:02] Um,
+[00:45:07] I think maybe I did the initial um um
+[00:45:13] question gathering in a more interactive
+[00:45:15] way than I have before, but uh I think I
+[00:45:18] really struggled with um
+[00:45:22] time management
+[00:45:23] >> and struggling on a particular choice.
+[00:45:27] Um,
+[00:45:29] >> and uh, yeah, I mean, I didn't get
+[00:45:31] through most of the things that I wanted
+[00:45:33] to talk about. I explored a lot of
+[00:45:35] options, but I didn't get down into
+[00:45:36] specifics.
+[00:45:38] Um, I think that's the biggest thing.
+[00:45:41] And I couldn't decide whether to do a
+[00:45:43] um, sort of a short
+[00:45:46] um, like a simple version at the top or
+[00:45:49] just go dive into a more complex uh,
+[00:45:52] like what I would actually probably
+[00:45:54] build in in terms of state-of-the-art.
+[00:45:58] Right. Right. Yeah. I think those are
+[00:46:01] all very good observations.
+[00:46:04] So overall, you know, subjective sense
+[00:46:08] that I get, you know, from having done a
+[00:46:12] lot of these interviews and also working
+[00:46:15] as an ML engineer
+[00:46:17] at a staff level is
+[00:46:20] like you definitely know your stuff,
+[00:46:24] right?
+[00:46:25] >> Mhm. But I think just based on how this
+[00:46:28] interview went, I couldn't recommend a
+[00:46:31] higher for you to be honest, right? Like
+[00:46:34] I didn't get enough signals in this
+[00:46:36] interview
+[00:46:38] for E6
+[00:46:41] and even E5 is honestly borderline,
+[00:46:45] right?
+[00:46:46] >> So there are a couple of reasons for
+[00:46:47] that. The biggest reason I would say is
+[00:46:49] time management and within that the
+[00:46:50] biggest reason is just the amount of
+[00:46:53] time you spend in the beginning. So just
+[00:46:54] to give you a sense, right? We started
+[00:46:57] like maybe 5 minutes into the hour.
+[00:46:59] >> Yeah.
+[00:46:59] >> And so like 20 minutes in, which is like
+[00:47:03] 15 minutes out of the 45 that you get,
+[00:47:07] >> you're still at this point here.
+[00:47:10] >> We're talking and all of these like this
+[00:47:13] highle diagram was not required.
+[00:47:17] for a second I felt like you're going
+[00:47:19] into like the traditional system design
+[00:47:20] and you're talking about entities and
+[00:47:22] all this kind of things right so I would
+[00:47:26] just say and you mentioned binary
+[00:47:28] classification like 20 minutes in
+[00:47:30] roughly
+[00:47:32] >> and even then there was a big discussion
+[00:47:34] on binary versus regression on
+[00:47:37] percentage watched and multitask and
+[00:47:40] okay that was a decent discussion but
+[00:47:44] you know like if you've already
+[00:47:47] like you should be having that
+[00:47:48] discussion maybe 5 to 10 minutes into
+[00:47:50] the interview, right?
+[00:47:53] >> So like I think you just need to go
+[00:47:57] through things a lot faster like just
+[00:47:59] understand the problem really quickly,
+[00:48:01] understand the business objectives
+[00:48:02] really quickly and yeah doesn't have to
+[00:48:06] be super interactive, right? Like you
+[00:48:07] you don't need to ask everything from
+[00:48:09] me. You can just make some assumptions
+[00:48:11] on your own. If you do a wrong
+[00:48:12] assumption, I'll correct you, right?
+[00:48:15] >> Okay.
+[00:48:16] uh and then that whole part like the
+[00:48:18] business objective should be over in
+[00:48:20] less than 5 minutes and ML objective 5
+[00:48:23] minutes. So 10 minutes in you are at the
+[00:48:26] point where you're talking about oh you
+[00:48:28] know I'm going to model this as a binary
+[00:48:30] classification with uh predicting like a
+[00:48:35] significant watch versus no watch right
+[00:48:38] and then use like as a secondary signal
+[00:48:40] in a multitask approach so to get to
+[00:48:43] that point should be like no more than
+[00:48:45] 10 minutes whereas in your actual
+[00:48:48] interview it took you like 30 minutes
+[00:48:49] almost.
+[00:48:50] >> Yeah.
+[00:48:51] >> Right. And then feature engineering was
+[00:48:54] light. We had to rush through all of
+[00:48:55] that. I think your approach overall of
+[00:48:58] like multitask learning and then
+[00:49:01] multi-stage ranking with candidate
+[00:49:03] selection using two tower and a heavy
+[00:49:06] ranker makes sense with learnable
+[00:49:09] embeddings on video ID. Yeah, those are
+[00:49:11] all good ideas and you should um you
+[00:49:15] should mention those. Yeah. One more
+[00:49:17] thing he said like you're confused
+[00:49:19] between the simple versus like
+[00:49:21] state-of-the-art approach. Always go for
+[00:49:23] a state-of-the-art especially nowadays,
+[00:49:25] right? Like don't shy away from the
+[00:49:27] complexity or the depth, right? That's
+[00:49:30] the whole challenge of this interview.
+[00:49:31] So think about this, right? If you're
+[00:49:33] like a S level ML engineer position at
+[00:49:36] Meta is pretty rare.
+[00:49:38] >> Mhm.
+[00:49:39] >> Um
+[00:49:40] but if you look at the actual loop,
+[00:49:42] right, it's like coding interviews.
+[00:49:46] Yeah. those are the same regardless of
+[00:49:49] level.
+[00:49:51] Behavioral is just asking about your
+[00:49:53] past experience, right? So it's the
+[00:49:56] these two system design interviews that
+[00:49:59] actually get you the job as a staff
+[00:50:02] engineer, right? And as a memory
+[00:50:04] engineer also, right? Like how do they
+[00:50:07] judge whether you know your ML stuff and
+[00:50:09] also you know it enough at a staff level
+[00:50:11] is just this interview. It's extremely
+[00:50:14] critical, right? And so it's also very
+[00:50:17] difficult right the problem itself is
+[00:50:19] pretty high level it's pretty tough and
+[00:50:21] in 45 minutes you have to
+[00:50:25] be like you the other guy has to be like
+[00:50:27] sort of impressed that oh you know this
+[00:50:29] is amazing this guy was able to do so
+[00:50:31] many things in just like 45 minutes I
+[00:50:34] see however by that criteria like you're
+[00:50:38] still you know still missing a lot and
+[00:50:43] you know like okay Let's say you did
+[00:50:47] what your original intention was. Let's
+[00:50:50] say you had enough time to complete the
+[00:50:51] desire, right?
+[00:50:52] >> Mhm.
+[00:50:53] >> Even then I would be so like even if you
+[00:50:56] take the time management aspect out of
+[00:50:58] it,
+[00:50:59] >> let's say you did like proper feature
+[00:51:00] engineering, you had more time, you did
+[00:51:02] the multi-stage ranking, learnable
+[00:51:04] emittings, everything like nowadays
+[00:51:06] that's the E5 bar.
+[00:51:09] >> What's different for E6, right? It's
+[00:51:12] like things like the training data,
+[00:51:14] right? Like the time they split. Yes,
+[00:51:18] you did mention that, but you were not,
+[00:51:22] you know, the way you said it didn't
+[00:51:26] give me confidence that you understand
+[00:51:27] what's happening there,
+[00:51:29] right?
+[00:51:30] >> Mhm. So, like you are very vague and
+[00:51:33] sort of not confident about your answer
+[00:51:36] on the timebased split on training data,
+[00:51:39] right? And
+[00:51:41] also like you know there's no
+[00:51:44] exploration there's no freshness right
+[00:51:46] remember the users only seeing the deals
+[00:51:48] that we give to them.
+[00:51:51] >> Uhhuh.
+[00:51:51] >> Right. It's not like a normal feed or
+[00:51:54] YouTube or something where you can
+[00:51:56] search you know their categories and you
+[00:51:59] can browse. A lot of emphasis on browse
+[00:52:01] usually. So you know users can go ahead
+[00:52:04] and explore videos and watch them and
+[00:52:08] then you can get a hold of their
+[00:52:10] preferences. But in this sort of system
+[00:52:14] the user only sees what the system
+[00:52:16] serves. Yeah. Right. So there's a very
+[00:52:22] high possibility of like bias like your
+[00:52:25] training data is the output of the model
+[00:52:28] from a day ago.
+[00:52:29] So you know if a model starts missing
+[00:52:32] something that whole bias can sort of
+[00:52:35] propagate
+[00:52:37] and yeah so like maybe certain topics
+[00:52:40] are under explode right so yeah so I
+[00:52:44] mean these are
+[00:52:47] >> so yeah so what's the bar right like bar
+[00:52:49] is you complete your design which is the
+[00:52:52] reasonable design with like good amount
+[00:52:54] of depth covering all the section that
+[00:52:56] you said so you just got till like this
+[00:52:58] point here.
+[00:52:59] >> Yes,
+[00:53:00] >> you're up trailing. You're like serving
+[00:53:01] quality deep fries, everything in 45
+[00:53:04] minutes. And then you're also able to
+[00:53:05] talk intelligently about some of these
+[00:53:07] considerations like exploration,
+[00:53:11] like splitting training data into
+[00:53:15] trainer test. Uh then like feature
+[00:53:18] drift, right? Like you know how do you
+[00:53:21] actually get the feature values in the
+[00:53:23] training data?
+[00:53:25] Like do you just recomputee them? If you
+[00:53:27] recmp compute them every time then
+[00:53:30] you're also enabling some data leakage
+[00:53:33] right
+[00:53:35] >> because
+[00:53:36] >> okay
+[00:53:37] >> for example you have a user watch
+[00:53:38] history
+[00:53:39] >> now in multiple days of data obviously
+[00:53:42] if you pick a day the feature value at
+[00:53:44] that point should be the watch history
+[00:53:46] till that point
+[00:53:48] right
+[00:53:49] >> yes
+[00:53:50] >> so if you just like have a feature store
+[00:53:52] where you have like latest user watch
+[00:53:55] history and you use that feature
+[00:53:56] everywhere in the training data that
+[00:53:59] won't work right but that's an important
+[00:54:01] detail which gets missed
+[00:54:04] >> I see
+[00:54:05] >> yeah yeah yeah so the the other so I
+[00:54:09] guess um so I I had done one before um
+[00:54:14] and what I was trying to
+[00:54:17] aim for and some of the reason I was uh
+[00:54:20] hesitant about the the the time stamp um
+[00:54:24] was uh I was not sure if I could afford
+[00:54:26] the time to explain in detail, but I
+[00:54:29] mean that that just speaks to more time
+[00:54:31] management problems. Um,
+[00:54:35] but in a previous interview I was told
+[00:54:37] that um
+[00:54:40] one of the marks of an E6 uh engineer
+[00:54:43] may be um uh a bias towards simpler
+[00:54:47] solutions um that uh sort of solve the
+[00:54:52] problem initially. Um, but maybe this is
+[00:54:55] just a difference in in strategy. like
+[00:54:57] you can either be um you know very I
+[00:55:00] guess impressive I I like in particular
+[00:55:03] if you've worked on these systems before
+[00:55:05] you know like the state-of-the-art um or
+[00:55:09] uh yeah I guess yeah I mean that's part
+[00:55:13] of the journeys right so I understand
+[00:55:15] your confusion I also understand the
+[00:55:18] previous feedback and my feedback so let
+[00:55:21] me try to put it a bit in context right
+[00:55:24] so what do you mean by simple Right?
+[00:55:27] Like for example the idea of watch
+[00:55:29] history where you take the embeddings of
+[00:55:32] all the previous videos and add average
+[00:55:35] them or something and that's a watch
+[00:55:36] history. It's simple idea.
+[00:55:38] >> Mhm.
+[00:55:39] >> Isn't it? It's not very complex like to
+[00:55:42] be honest. Right.
+[00:55:43] >> Yeah.
+[00:55:44] >> But it shows a
+[00:55:46] an understanding of the underlying
+[00:55:48] concepts.
+[00:55:49] >> Right. It shows a deep conceptual
+[00:55:51] understanding like otherwise someone who
+[00:55:53] doesn't understand how embeddings work
+[00:55:54] wouldn't wouldn't come up with this
+[00:55:56] idea.
+[00:55:58] >> Mhm.
+[00:55:58] >> Right. So, uh that's the notion of
+[00:56:01] simplicity. Simplicity doesn't mean old
+[00:56:05] or rather no like simplicity just means
+[00:56:08] that you're not over complicating it.
+[00:56:11] For example, like a good example of
+[00:56:13] where you showed simplicity here is kind
+[00:56:17] of your whole approach to the label
+[00:56:19] towards the end, right? Where you were
+[00:56:20] like, you know, like after considering
+[00:56:23] everything, I'm like, you know, I just
+[00:56:25] want to know if they swiped or they
+[00:56:26] watched for a significant time, and
+[00:56:28] that's a binary label. And then I have
+[00:56:30] likes, which is a stronger signal, but
+[00:56:32] that's more sparse. So, I'm combining
+[00:56:34] both of these things, and that solves
+[00:56:35] 90% of the problem. That's the simple
+[00:56:38] approach. Okay. Now MTML approach with
+[00:56:41] learnable parameters of course is way
+[00:56:43] more complex. So but yeah that's where
+[00:56:47] you realize that you know the simple
+[00:56:48] approach gets you most of the way and
+[00:56:51] leads to a productive discussion. Right.
+[00:56:53] But but then don't confuse simplicity
+[00:56:57] with missing important details.
+[00:57:01] >> Mhm.
+[00:57:02] >> Right. So you can choose the level of
+[00:57:05] complexity of the solution that you want
+[00:57:08] but then when you describe a solution
+[00:57:10] you need to know all the details of it
+[00:57:13] right and then the kind of problems that
+[00:57:15] I have described they are more to do
+[00:57:18] with just mo mostly like 90% of machine
+[00:57:21] learning is just data
+[00:57:23] >> how to deal with the data right so like
+[00:57:26] there you might expect like some more
+[00:57:30] higher level conceptual thinking like
+[00:57:32] things on the split and all of those
+[00:57:33] things, right?
+[00:57:35] >> Mhm.
+[00:57:35] >> Uh so what was thing with the time stamp
+[00:57:37] that you were not sure of?
+[00:57:40] Uh because you were like explaining it
+[00:57:42] would take too much time. Is that the
+[00:57:45] >> Yeah. So, I was waffling first um
+[00:57:48] because I I said um initially
+[00:57:53] I I know that the timestamp like feature
+[00:57:56] drift especially if you're releasing
+[00:57:58] multiple models and um there's feedback
+[00:58:01] issues with these systems
+[00:58:04] >> um that this is an important thing to
+[00:58:06] watch out for. In fact, since like
+[00:58:08] whatever 2017, they when they talked
+[00:58:10] about the YouTube algorithm or whatever,
+[00:58:13] uh they mentioned that uh you know,
+[00:58:15] label leakage or whatever leakage due to
+[00:58:17] mismatch timestamps was a big problem
+[00:58:20] that they had to solve. Um but
+[00:58:24] my initial statement I wanted to just
+[00:58:26] stratify based on uh like age, gender,
+[00:58:29] and location. uh because I would expect
+[00:58:32] that um like if you're only good in one
+[00:58:36] region and and and yet you need to sort
+[00:58:38] of deploy everything across multiple
+[00:58:40] regions like regional information is
+[00:58:42] important at the scale. Um
+[00:58:44] >> but the feedback group is also important
+[00:58:47] and see that's the part of the seniority
+[00:58:51] signal right you don't add complexity
+[00:58:54] for complexity sake but you know where
+[00:58:57] it's important to add the complexity
+[00:58:59] right so the reason why feedback loops
+[00:59:01] are so important here is also like the
+[00:59:04] context I gave you this is not YouTube
+[00:59:08] >> right you because YouTube has categories
+[00:59:10] and you know all those kind of things
+[00:59:12] where a lot of surface is and the
+[00:59:14] interface is built in a way where you
+[00:59:16] can go and explore.
+[00:59:17] >> Yes. So you do get enough signal about
+[00:59:20] the user. So you can assume that
+[00:59:22] whatever you uh videos the user has seen
+[00:59:24] is more or less from an unbiased sample.
+[00:59:27] Of course some things are you know
+[00:59:30] amplified more than others and that
+[00:59:32] always happens right but but at least
+[00:59:36] more than reals right real is like
+[00:59:38] literally just see one video and then
+[00:59:40] you swipe. So you have no control more
+[00:59:42] or less over like choosing your own path
+[00:59:45] in terms of what you want to see.
+[00:59:48] >> Right. It's it's a very extreme thing on
+[00:59:51] the other end.
+[00:59:53] >> Yeah.
+[00:59:53] >> So feedback loops become way more
+[00:59:56] important.
+[00:59:58] >> So it's important to solve it.
+[01:00:00] >> Yeah. For sure.
+[01:00:02] >> Okay. I'm actually
+[01:00:04] that that's so drawing this link and
+[01:00:07] recognizing this problem is part of the
+[01:00:09] seniority
+[01:00:11] signal I would say
+[01:00:13] >> I'd say so uh for example at the start
+[01:00:16] um when so I maybe focused on too much
+[01:00:19] detail there talked about too much uh
+[01:00:22] talked about too many options there um I
+[01:00:25] should instead focus on say okay cool we
+[01:00:27] want to um uh maximize engagement
+[01:00:31] um or or like uh impressions of of of
+[01:00:34] reels um or interactions. Okay. And then
+[01:00:38] we talked about a little bit about scale
+[01:00:39] but the point is that this is
+[01:00:40] multi-reional. So maybe we have to build
+[01:00:43] uh a model per region or something. Um
+[01:00:45] but uh the important aspect of the
+[01:00:48] interface is that uh you don't get to um
+[01:00:54] you have intrinsically a lot of feedback
+[01:00:57] uh when you show um only reals and and
+[01:01:00] the only signal you get is whether they
+[01:01:01] watch, like or they scroll past and
+[01:01:04] therefore your model uh sort of in like
+[01:01:06] changes the data that you collect. How
+[01:01:08] do you deal with that? Um okay.
+[01:01:12] >> Yep. Got it. that is a very important
+[01:01:14] consideration in this sort of system. Uh
+[01:01:18] and uh and contrast that with the
+[01:01:23] quality thing that you said like the
+[01:01:25] long-term right.
+[01:01:27] >> Yeah. that that thing I would put in the
+[01:01:30] category of like adding complexity maybe
+[01:01:34] uh in the sense
+[01:01:36] >> yes it's an important consideration of
+[01:01:38] course you know you want to evolve your
+[01:01:40] system one day to reach that
+[01:01:43] >> but it may not be like something that
+[01:01:46] has like a 5 to 10% difference in the
+[01:01:48] accuracy maybe it has like a 1 or 2%
+[01:01:51] difference towards a long end long tin
+[01:01:54] right
+[01:01:55] >> like you have a really good model. Once
+[01:01:59] you have a really good model, these
+[01:02:00] things start to matter
+[01:02:03] >> like the long term and you can talk
+[01:02:04] about such considerations towards the
+[01:02:06] end maybe once you have like a the
+[01:02:09] design working.
+[01:02:11] >> Okay, cool. So, uh in short, just breeze
+[01:02:16] through the the design maybe. Um part of
+[01:02:19] this is I've never seen this real um
+[01:02:22] well design ever. I'm I'm uh relative
+[01:02:25] >> not a easy problem to be honest and I'm
+[01:02:28] not even sure whether meta actually
+[01:02:29] asked this problem in the wild as much
+[01:02:33] they definitely ask uh newsfeed version
+[01:02:36] of this but I know from having worked
+[01:02:38] there like this system was like
+[01:02:41] very different in terms of the design
+[01:02:44] when we actually did it right and I
+[01:02:46] think Zak spoke about it as well like it
+[01:02:48] took them a while they first tried to
+[01:02:50] take their uh new street models and
+[01:02:52] adapt them to fields that didn't work.
+[01:02:55] And the lessons from that that were
+[01:02:57] learned were like all these feedback
+[01:02:59] loops. And the other thing about like
+[01:03:02] friend network based recommendation
+[01:03:04] versus just
+[01:03:06] uh like interest based recommendation,
+[01:03:09] right? So Facebook is all like based on
+[01:03:12] your friends or your network like what
+[01:03:14] did my friend like? I might like the
+[01:03:15] same thing.
+[01:03:17] >> Whereas Google is like yeah I just like
+[01:03:19] X. So show me X out of our universe of
+[01:03:23] all the videos, right?
+[01:03:24] >> Regardless of what my I don't have any
+[01:03:26] notion of trends or anything like that.
+[01:03:29] >> Yeah. Yeah. So I I guess um
+[01:03:32] uh for uh for next time um okay time
+[01:03:36] management and just going through some
+[01:03:37] more of these case studies but um uh
+[01:03:41] don't shy away from complexity uh when
+[01:03:44] it's warranted but try to nail down a um
+[01:03:49] um the nuances of the problem very early
+[01:03:52] and then solve them solve them in a
+[01:03:54] minimal amount um uh in a minimal way.
+[01:03:58] Is there anything I should have uh
+[01:04:00] particularly emphasized in the um the
+[01:04:03] the training data section? You mentioned
+[01:04:05] that are there any other features you
+[01:04:07] would like to use? Um did I capture
+[01:04:10] maturity?
+[01:04:12] >> You had the real ID based learnable
+[01:04:14] embeddings but
+[01:04:16] >> watch history kind of learnable
+[01:04:19] embeddings,
+[01:04:21] right? Like once you have learned
+[01:04:23] embeddings of videos, you can also have
+[01:04:24] learned embeddings of users. Yeah. And
+[01:04:28] you can then have all kinds of cross
+[01:04:30] features like for a user you could have
+[01:04:32] their watch history for a video you
+[01:04:35] could have list of users who like this
+[01:04:38] video kind of similar like
+[01:04:41] >> like embedding that
+[01:04:42] >> correct? Yeah. So like you only had like
+[01:04:46] video ID learned embeddings but if you
+[01:04:48] take that concept of ID based embeddings
+[01:04:50] there's a whole universe of features you
+[01:04:52] can build on that
+[01:04:53] >> for sure
+[01:04:54] >> and and the whole uh category of
+[01:04:57] features that you missed were just
+[01:04:59] simple ratios and counters. So I know
+[01:05:02] you asked early on whether there are
+[01:05:03] hashtags and categories. I said no but
+[01:05:07] even if there no categories you can
+[01:05:08] always assign categories. Either you
+[01:05:11] kind of manually label them or you could
+[01:05:13] even like cluster or something and get
+[01:05:16] like sort of derived categories and then
+[01:05:19] you could have like okay you know in the
+[01:05:20] same category as the real how many
+[01:05:24] watches does does this user have you
+[01:05:27] know like just numbers and what's
+[01:05:31] >> yeah simple numerical features of ratios
+[01:05:34] and counters kind of was missing. So for
+[01:05:38] you what what would be uh more important
+[01:05:41] basically diving into uh more of the
+[01:05:43] feature stuff. Um I'm just trying to get
+[01:05:46] a sense of strategy. So um if I go
+[01:05:50] through the design
+[01:05:52] >> training data is an important signal for
+[01:05:54] leveling and conceptual understanding
+[01:05:58] >> but feature engineering is required for
+[01:06:00] completeness reasons. So if your feature
+[01:06:03] engineering section is too light, you
+[01:06:07] might just get rejected. Whereas if your
+[01:06:09] training data section is too simple
+[01:06:13] in the sense you don't handle the time
+[01:06:15] based split or the feedback loop or
+[01:06:18] don't talk about those considerations
+[01:06:19] then then you might get down
+[01:06:23] >> right but yeah so I would say like a
+[01:06:26] basic level of feature engineering has
+[01:06:27] to be there and I think you're almost
+[01:06:31] there the only glaring miss was on the
+[01:06:34] ratio and counters like this no ratio no
+[01:06:37] counters at on in your design,
+[01:06:40] >> right?
+[01:06:40] >> Yeah.
+[01:06:41] >> Uh so beyond that like once you have the
+[01:06:44] basic level of feature engineering like
+[01:06:46] in the sense you have ticked most of the
+[01:06:49] boxes or themes.
+[01:06:51] >> Mhm.
+[01:06:51] >> Like having like a very
+[01:06:55] uh exhaustive list is not particularly
+[01:06:58] required. It's more about understanding
+[01:07:00] what techniques you're familiar with on
+[01:07:03] pig.
+[01:07:04] >> I see.
+[01:07:06] >> Okay.
+[01:07:06] >> Okay. Um and then yeah, we didn't even
+[01:07:08] get to uh the the serving or uh gauging
+[01:07:11] the quality. Um what is uh I want to I
+[01:07:16] want to avoid um generating basically a
+[01:07:19] system design for serving even though I
+[01:07:21] I I have some familiarity with that. Um
+[01:07:24] are there any um basically leveling uh
+[01:07:28] or or um sort of criteria or for
+[01:07:32] >> I think serving and all is fine. you can
+[01:07:34] just go with like sort of generic
+[01:07:36] answers but typically like what I don't
+[01:07:40] know how to bucketize this as in in
+[01:07:43] terms of serving or evaluation or
+[01:07:45] whatever but more on the practical
+[01:07:47] aspects of okay fine you know like at
+[01:07:50] the end of this you would basically be
+[01:07:52] at a level where you have a model in a
+[01:07:54] load book kind of right
+[01:07:56] >> or somewhere in some interface where you
+[01:07:59] know you have a bunch of data you've
+[01:08:00] trained a model now what
+[01:08:04] what's the step from there to actually
+[01:08:06] have a working system that's running in
+[01:08:07] production and understanding some of
+[01:08:10] those nuances of like when you
+[01:08:11] productionize what happens right so
+[01:08:13] there are some nuances around serving
+[01:08:15] there's some nuances around pre-training
+[01:08:17] and data management feature management
+[01:08:20] like particularly I would focus more on
+[01:08:22] the data related aspects like how do you
+[01:08:25] prevent feature drip between training
+[01:08:27] and inference
+[01:08:28] >> yeah so as an example of this so I I I
+[01:08:31] talked to a friend about this But uh is
+[01:08:33] an example of this that um I guess I'm
+[01:08:36] not sure how to talk about this in the
+[01:08:37] context of the whole uh interview but um
+[01:08:41] very often use different training
+[01:08:42] systems versus serving systems and uh in
+[01:08:46] order to avoid basically changes or
+[01:08:48] mismatches in processing like the data
+[01:08:51] literally the features that you use
+[01:08:52] between training and production um you
+[01:08:55] could actually reuse the same features
+[01:08:58] and and your training data literally
+[01:09:00] comes from a production system and you
+[01:09:04] teach up.
+[01:09:05] >> Yep. That's a that's a good example. So
+[01:09:08] that's one thing that's like a important
+[01:09:10] detail, right? And the other thing is
+[01:09:14] probably like okay, you know what if
+[01:09:16] something goes wrong? What's your
+[01:09:18] process of figuring out what like how do
+[01:09:21] you go from uh you know our watch time
+[01:09:24] has declined to like there's a problem
+[01:09:27] in the model or a bug somewhere, right?
+[01:09:30] what is the process you follow to do
+[01:09:31] that? That's the the tactical aspect.
+[01:09:35] >> Okay. And and what uh what kind of
+[01:09:37] things could we do? Is this like uh
+[01:09:39] basically tracking
+[01:09:41] >> and things like that?
+[01:09:43] >> Sorry, mostly on data drift like you
+[01:09:46] know
+[01:09:47] >> like monitoring features and things like
+[01:09:49] this.
+[01:09:50] >> Yeah. Right.
+[01:09:51] >> And you know
+[01:09:52] >> the the thing that you mentioned is also
+[01:09:54] relevant here a bit
+[01:09:56] >> but there are other things as well like
+[01:10:00] uh you know like user interest changed
+[01:10:02] or some popular features came some
+[01:10:05] popular events came on or something like
+[01:10:07] that like yeah just uh uh like what can
+[01:10:12] go wrong and how do you know how do you
+[01:10:15] get uh to that point where you know what
+[01:10:18] went wrong?
+[01:10:21] like data trail like just looking at
+[01:10:23] distri changes in the feature
+[01:10:24] distribution adding monitoring to the
+[01:10:26] feature value.
+[01:10:28] >> Yeah.
+[01:10:29] >> Um okay cool. Uh yeah so maybe uh the
+[01:10:34] deep dives becomes the uh real world
+[01:10:36] problems uh section where we can talk
+[01:10:38] about kind of how to troubleshoot
+[01:10:40] certain things and um okay
+[01:10:42] >> there are all the practical aspects of
+[01:10:44] like someone has a model in the notebook
+[01:10:46] versus is a production ranking system
+[01:10:50] >> like uh and not going too much into the
+[01:10:53] details of like system design as such
+[01:10:55] like in the sense of like the
+[01:10:58] distributed systems like don't go too
+[01:10:59] much into like serving like all those
+[01:11:01] aspects
+[01:11:02] talk more of a data related and ML
+[01:11:04] related aspects of it
+[01:11:06] >> right like featured dri
+[01:11:10] all it's mostly features right isn't it
+[01:11:12] >> right
+[01:11:14] >> one thing that I'm not sure about in a
+[01:11:16] practical uh settings is um so you you
+[01:11:19] have if you're retraining a model every
+[01:11:22] I don't know every day for example or or
+[01:11:25] every week um uh essentially how you
+[01:11:29] actually roll out this model uh to new
+[01:11:32] users and then uh how do you roll back
+[01:11:34] and detect like do you do AB deploy or
+[01:11:37] like the modeling
+[01:11:40] >> it's a combination of AB testing and
+[01:11:41] monitoring right so
+[01:11:44] >> you obviously AB test before you launch
+[01:11:47] and then you also run back test after
+[01:11:48] you launch because of the feedback loop
+[01:11:51] >> and you have monitoring on all the
+[01:11:53] features and stuff so
+[01:11:56] uh yeah will cover that aspect is there
+[01:12:00] any Uh is it typical to um actually use
+[01:12:05] or back test old models uh or or for
+[01:12:09] example um I don't know just do a random
+[01:12:11] periodically just do uh random uh videos
+[01:12:14] or maybe like popular videos bypass the
+[01:12:17] the ranking um model
+[01:12:20] >> and those are usually used for
+[01:12:22] measurement at meta scale you won't have
+[01:12:24] a proper popularity
+[01:12:28] hold out but you know in lower P systems
+[01:12:31] it's pretty common like the one that I
+[01:12:33] work with we have a popularity
+[01:12:35] uh hold out
+[01:12:38] >> and that's just to benchmark the gains
+[01:12:40] that we're getting for the existence
+[01:12:42] >> okay so so you want some way of like
+[01:12:44] breaking the feedback loop uh or
+[01:12:46] measuring the the effect of the feedback
+[01:12:48] loop based on models by uh sort of
+[01:12:51] bypassing it somehow or doing random
+[01:12:53] ranking or something
+[01:12:55] >> yeah okay it handles the training data
+[01:12:58] itself like there's injecting some
+[01:13:01] amount of random user drill pairs in
+[01:13:03] there just for exploration and then in
+[01:13:06] practical settings you could also
+[01:13:08] combine exploration with exploitation
+[01:13:11] using something like bandits.
+[01:13:14] >> I see. But yeah, those are more advanced
+[01:13:16] techniques. Yeah.
+[01:13:17] >> Well, I think out of time as well so
+[01:13:20] >> yeah. Yeah.
+[01:13:21] >> But uh thanks a lot. Uh um yeah uh you
+[01:13:25] you could uh maybe highlight the most
+[01:13:27] important feedback that I I mean I I
+[01:13:29] don't have very much time to prepare so
+[01:13:30] I'll uh I'll do my best obviously um but
+[01:13:34] um yeah if you could tell me um yeah
+[01:13:37] your some of your feedback that'd be
+[01:13:38] great otherwise uh this is very useful
+[01:13:40] thanks
+[01:13:41] >> best of luck with the interview and have
+[01:13:43] a nice day.
+[01:13:44] >> All right that's all we have for today.
+[01:13:45] Thank you for watching. And if you want
+[01:13:46] to get immediate feedback from the same
+[01:13:48] people who make hiring decisions at
+[01:13:50] companies like Google, Meta, and OpenAI,
+[01:13:52] hit the link in our show notes to book
+[01:13:53] your session now.
+
+FEEDBACK_MD:
+---
+section: "Feedback begins: time management, pacing issues"
+start: "00:46:30"
+end: "00:50:00"
+start_seconds: 2790
+end_seconds: 3000
+---
+
+higher for you to be honest, right? Like I didn't get enough signals in this interview for E6 and even E5 is honestly borderline, right? >> So there are a couple of reasons for that. The biggest reason I would say is time management and within that the biggest reason is just the amount of time you spend in the beginning. So just to give you a sense, right? We started like maybe 5 minutes into the hour. >> Yeah. >> And so like 20 minutes in, which is like 15 minutes out of the 45 that you get, >> you're still at this point here. >> We're talking and all of these like this highle diagram was not required. for a second I felt like you're going into like the traditional system design and you're talking about entities and all this kind of things right so I would just say and you mentioned binary classification like 20 minutes in roughly >> and even then there was a big discussion on binary versus regression on percentage watched and multitask and okay that was a decent discussion but you know like if you've already like you should be having that discussion maybe 5 to 10 minutes into the interview, right? >> So like I think you just need to go through things a lot faster like just understand the problem really quickly, understand the business objectives really quickly and yeah doesn't have to be super interactive, right? Like you you don't need to ask everything from me. You can just make some assumptions on your own. If you do a wrong assumption, I'll correct you, right? >> Okay. uh and then that whole part like the business objective should be over in less than 5 minutes and ML objective 5 minutes. So 10 minutes in you are at the point where you're talking about oh you know I'm going to model this as a binary classification with uh predicting like a significant watch versus no watch right and then use like as a secondary signal in a multitask approach so to get to that point should be like no more than 10 minutes whereas in your actual interview it took you like 30 minutes almost. >> Yeah. >> Right. And then feature engineering was light. We had to rush through all of that. I think your approach overall of like multitask learning and then multi-stage ranking with candidate selection using two tower and a heavy ranker makes sense with learnable embeddings on video ID. Yeah, those are all good ideas and you should um you should mention those. Yeah. One more thing he said like you're confused between the simple versus like state-of-the-art approach. Always go for a state-of-the-art especially nowadays, right? Like don't shy away from the complexity or the depth, right? That's the whole challenge of this interview. So think about this, right? If you're like a S level ML engineer position at Meta is pretty rare. >> Mhm. >> Um but if you look at the actual loop, right, it's like coding interviews. Yeah. those are the same regardless of level. Behavioral is just asking about your past experience, right? So it's the these two system design interviews that actually get you the job as a staff
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v1 only.
+Write JSON only to: splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+======================================================================
+LOCALE (mandatory — JSON + validation report)
+======================================================================
+INTERVIEW_LANGUAGE: en (mandatory for this run)
+- All text fields in JSON must be verbatim contiguous spans from PRIMARY_TRANSCRIPT in English. No Russian translation.
+- Forbidden: summaries («The candidate explained…», «кандидат сказал…»).
+- Labels question_type / question_topic / interview_stage stay English enums (schema); Q/A wording stays English ASR only.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json \
+    --video transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json --out splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.qa-split.json \
+    --video transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: English. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: transcripts/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/video.md
+
+--- CHAPTER `00:00:53` — Problem presented: Instagram Reels recommendation system ---
+window: 00:00:53 .. 00:17:00
+recognition_status: multiple (7 items)
+
+ITEM #2
+  interviewer_question: time=00:03:12 text='Yeah. So what do you think?'
+  candidate_answer: time=00:03:15 text='Uh so we can um optimize for views or or engagement with the platform. Um but there are I guess there are more concerns about long-term health of of an ecosystem like this. So uh we could optimize for um like quality weighed uh views or uh user satisfaction. Um I I mean I I think we should uh maybe try for uh quality weighed uh views or or interactions.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+ITEM #3
+  interviewer_question: time=00:03:54 text='Uh and how how would you define that metric itself?'
+  candidate_answer: time=00:03:59 text='Well, one approach is to say that um uh we can gauge maybe the um quality of a post based on its content. Um some huristics on like duration or the the uh number of say comments on on it. Um or uh yeah maybe the um'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+ITEM #4
+  interviewer_question: time=00:04:28 text='okay uh sure but maybe we take a step back and just uh look at it again from first principles. So like quality weight views is uh one good metric but if you had to choose something simpler like what are you trying to maximize here?'
+  candidate_answer: time=00:04:47 text="yeah, if we if we don't want to do uh long-term, maybe we can do that in um sort of refinement. We can just uh uh maximize engagement with the reels. So, uh maybe the the watch time like some sort of normalized watch time or the engagement with the platform um through likes and um sort of completed views, something like that."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+ITEM #5
+  interviewer_question: time=00:05:09 text='Got it. So, yeah. Yeah, that as a business objective. Yeah.'
+  candidate_answer: time=00:05:16 text="uh maximize engagement uh platform um as uh measured by um maybe actually it's impressions and uh watch time uh I don't know uh or interactions andor interactions. Okay, cool. So um"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:06:07 text="So yeah, it's uh like a billion daily active users it's a global product but obviously the highest uh sort of uh scale is in the US and Europe but there's also significant presence in Latam, Africa, Middle East and Asia."
+  question_topic: Product Metrics
+
+ITEM #6
+  interviewer_question: time=00:06:16 text='And what is the creation rate of uh new reels? Like how many new uh reels are we creating?'
+  candidate_answer: time=00:06:24 text='Yeah, we can estimate that I guess but I would 10 million uh uh sort of new reels uh reels okay cool and then uh what regions'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: Product Metrics
+
+ITEM #7
+  interviewer_question: time=00:11:20 text="we have user data uh so let's say we have a heristic running for ranking and the whole system is running and has lot of users so we have lots of user activity data and now we are transitioning to a ML based system"
+  candidate_answer: time=00:09:31 text="Okay. So okay cool. Um I'm uh can I assume that we uh at least have um like location information uh or like our metadata um for example there well yeah but like some metadata like uh what other metadata would we actually need? Uh do is there any um interactions between users that we have for example follows or uh anything like that? Uh how do you spell author? Uh follow author. Uh, okay. I Let's see. Is there anything else um that we should talk about here? I mean, okay, maybe this is uh enough for the uh initial uh problem. Um maybe I'll I'll go back and uh refine this u as we do our initial design. Um I like to think about this in terms of um sort of an iterative approach. Um so we can view this as uh having certain hypotheses uh and then try to choose a um oh actually one thing I should ask is there any system that already exists? Are we are we building on top of an existing system or or data set? Um or are is this the the first kind of MVP? um what what do we have access to like I see I see so we have a stick running for um on the platform for ranking um lots of users Um so our goal is to maximize uh or engagement uh on on top of this baseline. Right? So uh the first thing I was going to ask is or uh talk about is um essentially what what do we use as the baseline? But it it sounds like we already have some sort of uh simple heruristic. Um and uh am I assuming that we um well we should maybe talk about the the metrics that we've been using um for this uristic. Um, so so the metrics that we said we were using are um sort of engagement as measured by uh maybe um daily impressions or or daily watch time uh of users maybe by by region or by like stratified by some uh demographic, right? So, uh if we uh gauge model uh uh gau model improvement means that our watch time for for uh like our watch time improves or the number of interactions uh with our our system improves over time. Um maybe is measured by like daily, weekly or um in AB tests something like this. Okay."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:08:14 text="I think we don't have a lot of structured information that is input directly by the user. So we can infer all kinds of things but from the user point of view it's very simple in terms of like you're just uploading videos and like you know as a consumer you're just you know coming in and watching the videos. yes we do allow like likes and comments and maybe even video descriptions. Those are free form. So there's not much structured input that the user can put in like we don't ask them to choose a category for example but they can they can add free form text. Follows we do support follows. Big one follow the author of read. Makes sense. Makes sense. Yeah."
+  question_topic: ML
+
+ITEM #8
+  interviewer_question: time=00:15:58 text="uh sorry to interrupt you but before we jump into that maybe we should uh think about what is the output of the model and just the overall structure of the train data like what's the ML objective what's the label what's the training data format"
+  candidate_answer: time=00:16:18 text="sure sure u so I was going to do that after the the entities but we can maybe uh switch the order so um okay so if this is a ranking problem which it sounds like it is um we need to process whatever information that we have and output a ranked uh list of reels. So um there are several ways of doing this. Uh like the the classic one is you can for each um uh real uh and uh user pair you can assign a score um for uh relevance um or like the likelihood of seeing a thing, right? Um and essentially you can treat this as a uh like a binary classification problem like given input features and say history and and things like this uh what is the probability that uh the real is relevant and you kind of um then given a large group of reels that you could show that are on your platform uh you can um sort of uh rank them based on the score and show the most relevant things first. So that's one approach. Um another approach uh does that make sense?"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+--- CHAPTER `00:17:00` — Candidate defines ML framing and objective ---
+window: 00:17:00 .. 00:38:00
+recognition_status: multiple (9 items)
+
+ITEM #9
+  interviewer_question: time=00:17:42 text='Yeah, that makes sense. Uh I want to understand how you define relevance here.'
+  candidate_answer: time=00:17:48 text="Sure. So uh relevance here is uh like if a uh user um say interacts with a post in in one of various ways. there's like um explicit and implicit feedback that we can get. Um for example, if they uh watch the um the real to completion, right? So that like you can you can treat this as um a probability like okay, a post is relevant. The one of the hypotheses is a post is relevant if a user when shown it will uh watch it to completion, right? So or like a large fraction of it. So we could treat this as a classification problem um where uh the person finished watching the reel. So another hypothesis is post is relevant if the user follows uh the the author of it or um you could also treat this as a uh like a regression problem like what fraction of the real um does the the user uh wash um as as a like a normalized time or maybe you can um treat this as a uh uh an ordinal regression problem where like you bin the durations and say you want to watch a large fraction of it. So like the probability that a person watches 5 minutes of a real or something or or some relevant time bins. Um the I mean each of these are are are viable. Um is there one that you would like to focus in particular or would you like me to choose one? Because I mean realistically"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+ITEM #10
+  interviewer_question: time=00:20:40 text="like if you were to prioritize in terms of what SQL do you think would have the highest or what approach do you think would have the highest because okay fine it's multitask but you mentioned like classification and regression separately. So out of all the things that is said if you were to choose like you know of course it can be multitask you can but even in the multitask there would be some task that you would train first."
+  candidate_answer: time=00:21:16 text="Um well I I think very strong signals um here's the reasoning. So, uh, say that reels are, uh, I don't know, all about the same length, uh, roughly. They're, you know, typically about like at most like maybe a minute. Um, so, um, maybe unlike in things like video, we don't, um, we don't have a huge spread in in real duration. That's an assumption that maybe you can correct, but um, the duration of watch uh, maybe is irrelevant here. We really just want to uh see if a person basically scrolls to the next video, which means it's negative feedback, they don't care about this, or they watch uh to the end. Um so we can treat this as sort of um one term. So uh it's a positive impression if they watch to the end. So that that that was probably the one that I would uh train first. But uh uh maybe and it's probably the simplest to train. Um the sec the second uh term that I would do is is uh probably um sort of likes. It's very strong uh like explicit signal that um a um a user likes a post. So uh but but they tend to be very rare. Um so one is more common and implicit and um probably noisy. Sometimes you just watch reels on accident. Uh the other one is very strong explicit but uh has low density. So I focus on the first one first and then maybe add other features."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:21:13 text='Yes. Yeah.'
+  question_topic: ML
+
+ITEM #11
+  interviewer_question: time=00:23:29 text="What's one row in the training data?"
+  candidate_answer: time=00:23:32 text="Oh what's one row of the training data? Sure. Um okay so we need a um uh so we have an ID uh a user ID right? we have um you have their uh I don't know uh some metadata like um age uh gender location um and importantly we should have uh well um well okay it's an important predictive feature for uh their history but uh maybe we can leave that out for now uh and then make further improvements based on on their uh view history. Um so uh the other so do you want me to create okay so this would be I don't know some ID um I don't know there 25 um uh we would one hot"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+ITEM #12
+  interviewer_question: time=00:24:38 text="so ID user features what else is there in the train data like what's there in one row of the train data"
+  candidate_answer: time=00:24:46 text="sure sure so uh I think there are three entities here so there's the user So we have uh we have the the real which um we have the video content, we have a description uh we uh we have an author um and maybe we have some comments uh so I don't know shaded with it something like this and then we also have um user real interactions where um we can have different um maybe actually we we don't we take the this out um we can have like user I user ID um real ID and then we have a type of interaction like um uh watch we have a time stamp um and uh we can have extra fields. We can have other interactions like uh same kind of user id real ID um I know comment and then similarly we can have a like right"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+ITEM #13
+  interviewer_question: time=00:27:03 text='just uh a couple of things before going to feature engineering is like uh so positive samples are where the user has interacted with the reel. Uh what are the negative samples?'
+  candidate_answer: time=00:27:21 text='Uh scrolling to the next one or ending the session.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+ITEM #14
+  interviewer_question: time=00:28:09 text="that's fine like what I'm saying is like for a user you first start with all the reels that have an impression and then you uh use the ones with where there's a significant watch as positive labels and one where they're skipped as negative labels. Right? That's a correct understanding."
+  candidate_answer: time=00:27:47 text="so you're saying how would I how would I actually um gauge that so I could I could do um Oops do So we can do uh in in the training data we can have um skip or or some"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:28:26 text='All right.'
+  question_topic: ML
+
+ITEM #15
+  interviewer_question: time=00:28:28 text='And how do you split the train data into train, test, and validation?'
+  candidate_answer: time=00:28:34 text="So, um, okay. So, do um we we have a bunch of these interactions. So, um, right now I have an assumption that, um, there's no learning behavior. Um so uh basically well if that's true then we can um literally do an agnostic uh split. So we we we have some large amount of data. Um we make sure that um we have a a representative sample of our users uh in in the training set based on like um demographics information. So you can maybe do a stratified uh split. And right now I'm not doing anything special with the time stamp. Um in in principle I know that for these kinds of systems um uh you want to make sure that you're not peing at user behavior by having the same user at different times. uh be at um basically the um in the train split and then say a future time in um uh the test split because um uh you uh can then sort of um un unmask or or or get a dependency uh you know more about that user than you would with a random user. So maybe uh set another way I want to stratify by user ID interactions. So I want to build a uh uh uh test train validate split such that um users are uh the same user is only in the um sort of one of the folds. Um that's probably the biggest uh thing that I'm worried about. The other thing is uh st I want to have a nice mix of uh uh the other features so that um for example we we don't only have um uh you know people from the US in the uh train set and then uh people from other regions in the other set. So I would then sort of uh mix those. Does that make sense?"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:30:58 text="Makes sense. All right. Let's get into the feature engineering."
+  question_topic: ML
+
+ITEM #16
+  interviewer_question: time=00:30:59 text="Let's get into the feature engineering."
+  candidate_answer: time=00:31:01 text="Okay. So in the feature engineering um well a lot of the uh things that we care about are um essentially how do you create useful numeric features uh for uh for the user information and then uh how do you actually encode the video content uh and the description uh in uh yeah for the real information. So for um for the tabular features for the user um initially uh I mean you do the standard thing where is if it's a continuous feature maybe uh actually the the age itself is not particularly important but some u some bin versions of age uh is useful for the uh um gender uh you do some um one hot encoding information for things like um location. Uh I wouldn't um well location you could do a a label encoding, but you probably want to uh have some sort of um also binning like maybe you only care about regions. Um unless you want to show like very specific content. Um for the reels um as a first pass, there are a few things you can do for the video content. Um for example you can do uh a uh a video embedding model um where you just um just directly process the video content. Alternatively you can just ignore the video content itself. Uh you just have um an uh a video ID and then you you try to uh treat this as just uh you learn an embedding for that uh video content um directly. um as a first pass I would probably do that rather than trying to process the video content. Um the downside of that is you have a cold start problem if you don't know anything about the video itself. But since we have uh also description information uh maybe we can infer the content based on the description. Um, right. So maybe as a first pass I would just treat the video content as an ID. Uh, and then the description I would have some uh like text embedding model. Uh, we can start with something as simple as like fast text or uh TF. Um but these days maybe you would just use a u a pre-trained um uh transformer model uh to create an embedding for that. Um you can use something like BERT or or um if you wanted to use a decoder model you can actually pull the embedding. Um right now we're not really um using the uh author feature. Um so I think maybe uh I want to skip using the author feature for now. Um we can actually uh use that for simple uristics to to um uh recommend uh reels to users based on their uh like friendship. Okay. Uh would you like me to talk uh well does does the uh feature engineering make sense or would you like me to expand on something?"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+ITEM #17
+  interviewer_question: time=00:34:45 text='Is there anything you want to add to the feature engineering because you have only like the user profile and real embeddings right if I understand correctly.'
+  candidate_answer: time=00:35:00 text="Yeah. So um well for now okay it's a question of whether we want to build a very simple model or uh sort of a more elaborate model. So the the standard way of building recommendation systems based on things like this um or at least a decade ago was um sort of collaborative filtering where uh you would uh use maybe some feature information um and uh some video content or like the real information um and then uh you would just look for impressions that you cared about and then uh based on that you could find similar reels and you wouldn't use the other features. these days and and maybe that's a that's a good approach for an initial system, but these days uh what you would probably do is um you you can use the um sort of a video embedding that you learn. you can uh sort of concatenate the description information uh and then um uh you would learn a similarity embedding between the the user features and and the real features, right? Um then then based on that you can kind of predict uh the the um watch interaction because uh users that interact with reels uh will tend to watch them. Um things like this. Um but generally for uh latency reasons um you would build this as initial um stage system for um candidate generation. So you would um actually pre-train this initial candidate generation system. Uh you would uh potentially generate a large number of reels that you could propose. Um and then you would uh go on to a a ranking or a refinement phase afterwards. Uh where you could in addition to this user information um you uh you also have things like watch history like things that things that they have watched before or recently. So you um you could gauge what their current interest is and and sort of dynamically personalize their uh recommendations. Um uh similarly um if you wanted to you could expand the video content um understanding to beyond the the standard embedding. You could for example sample certain frames and try to understand the content of the video uh in a way that goes beyond the uh just an embedding ID um and then uh build a ranking based on that. Um is that what you had in mind or would you like me to add uh extra things?"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+--- CHAPTER `00:38:00` — Discussion of candidate generation and ranking model ---
+window: 00:38:00 .. 00:45:00
+recognition_status: multiple (3 items)
+
+ITEM #18
+  interviewer_question: time=00:38:04 text="No, makes sense. Let's get into the next part which is the actual ranking system itself and you've sort of explained it a bit. So candidate selection ranking what model architectures would you choose for each stage?"
+  candidate_answer: time=00:38:19 text="Sure. So um I understood the difference in the features. Mhm. Uh but yeah let's talk about the model architecture. Sure. So um the in the in the candidate generation stage generally um well okay well generally these these days you can you can start with a simple model where uh you have um basically the the um some concatenated uh user features, right? You have your uh real features. Um you uh you do uh some um maybe relatively shallow uh neural network for processing uh the the features, right? And then uh you have a um like a similarity embedding where where you treat the um real features either directly as uh the video ID or uh you know you also process them in this kind of um in a separate embedding. um like this and then you uh do a uh product similarity. Um so like e uh real and then e user, right? And then you find similar features like this. That's if you do the the the contrast of learning case, right? So the other one we talked about is uh more for the ranking. So um uh so I guess here uh for the contrast of sorry before I go on to the ranking step the the the candidate generation step generally uh has um okay so you have users and reels that they interact so for each user you have some positive and negative examples for uh the reels that they've interacted as determined by the user reel interactions, right? Um, generally they have uh skipped a lot more um reels than uh they've watched. So you need to balance you need to watch um like the imbalance between um positive and negative interactions and you can do that with um basically negative sampling. you can um reweigh uh the positive and negative examples and then sort of train a model that way um to to train stably. That'll give you the ability to look up relevant reels for a given user based on their features at the initial stage. But you can also use other uh uristics to suggest things like um reels that are popular uh within a certain region or um you know like you're doing an advertisement, you want to uh show certain reels. Okay. So the uh for the for the ranking case, we specifically want to talk about um how likely they are to have a long um watch uh versus a skip, right? So we can watch the uh we can uh do a more advanced um sort of uh user features um where we uh um additionally have like um their history or embeddings of um reels they've watched in the session. something like this. Um and then we have a um uh a real uh like proposed reel. uh unlike the sort of the two tower architecture. Now we would um sort of have some shared uh shared and then or uh you know in the limiting case we could use a very simple model but um you have some set of um features or sorry some some set of um I don't know uh neural network layers that is shared that sort of uh produces these user features and or takes this uh user features uh at the ranking stage and the proposed reel for each element of of of the um list that we want to rank that we got from the candidate stage. And then we um so we had previously talked about uh multitask for now let's let's do a single task. Um we can um for one task uh stop for a single task we can talk about um the um um probability of uh positive uh interaction. So we treat this as a um a classification task, right? Uh and uh we train this as a u binary cross entropy um task. Um when we add additional tasks, we can have an uh sort of a task specific head for like um probability of um like or comment. Um and we we can uh then appropriately weigh the um you know we can have an objective that weighs these tasks and the overall um score of a reel for a given user based on their session uh would be given by some weighed um probability of these interactions. All right."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:44:44 text='All right.'
+  question_topic: ML
+
+ITEM #19
+  interviewer_question: time=00:44:45 text="Cool. I think we're out of time so we can end here."
+  candidate_answer: time=00:44:50 text='Mhm.'
+  reference_answer: time=None text=None
+  interviewer_feedback: time=None text=None
+  question_topic: ML
+
+ITEM #20
+  interviewer_question: time=00:44:50 text='Before I share my feedback, I want to understand from you how this interview went. What are the things you did well and what are the areas of improvement?'
+  candidate_answer: time=00:45:02 text="Um, I think maybe I did the initial um um question gathering in a more interactive way than I have before, but uh I think I really struggled with um time management and struggling on a particular choice. Um, and uh, yeah, I mean, I didn't get through most of the things that I wanted to talk about. I explored a lot of options, but I didn't get down into specifics. Um, I think that's the biggest thing. And I couldn't decide whether to do a um, sort of a short um, like a simple version at the top or just go dive into a more complex uh, like what I would actually probably build in in terms of state-of-the-art. Right. Right. Yeah. I think those are"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:46:04 text="So overall, you know, subjective sense that I get, you know, from having done a lot of these interviews and also working as an ML engineer at a staff level is like you definitely know your stuff, right? Mhm. But I think just based on how this interview went, I couldn't recommend a higher for you to be honest, right? Like I didn't get enough signals in this interview for E6 and even E5 is honestly borderline, right? So there are a couple of reasons for that. The biggest reason I would say is time management and within that the biggest reason is just the amount of time you spend in the beginning. So just to give you a sense, right? We started like maybe 5 minutes into the hour. Yeah. And so like 20 minutes in, which is like 15 minutes out of the 45 that you get, you're still at this point here. We're talking and all of these like this highle diagram was not required. for a second I felt like you're going into like the traditional system design and you're talking about entities and all this kind of things right so I would just say and you mentioned binary classification like 20 minutes in roughly and even then there was a big discussion on binary versus regression on percentage watched and multitask and okay that was a decent discussion but you know like if you've already like you should be having that discussion maybe 5 to 10 minutes into the interview, right? So like I think you just need to go through things a lot faster like just understand the problem really quickly, understand the business objectives really quickly and yeah doesn't have to be super interactive, right? Like you you don't need to ask everything from me. You can just make some assumptions on your own. If you do a wrong assumption, I'll correct you, right? Okay. uh and then that whole part like the business objective should be over in less than 5 minutes and ML objective 5 minutes. So 10 minutes in you are at the point where you're talking about oh you know I'm going to model this as a binary classification with uh predicting like a significant watch versus no watch right and then use like as a secondary signal in a multitask approach so to get to that point should be like no more than 10 minutes whereas in your actual interview it took you like 30 minutes almost."
+  question_topic: Communication
+
+--- CHAPTER `00:45:00` — Interview ends and candidate self-assessment ---
+window: 00:45:00 .. конец
+recognition_status: not_recognized (0 items)
+
+(no items extracted)
+SAVE JSON: вставьте ответ в конец файла splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05/ml-engineer-senior-meta-instagram-reels-interviewing-io-2025-08-05.v1.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

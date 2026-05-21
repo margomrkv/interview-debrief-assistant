@@ -15,7 +15,6 @@ thumbnail_url: "https://i.ytimg.com/vi/68I67w63IpY/maxresdefault.jpg"
 - [00:55] Variance & Bias Trade-Off
 - [03:47] Boosting vs Bagging
 - [06:33] Seller Fraud Modeling
-- [26:24] Assessment
 
 ## Description
 

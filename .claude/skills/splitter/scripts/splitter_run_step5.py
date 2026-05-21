@@ -30,12 +30,19 @@ from splitter_validate_chapters import (  # noqa: E402
 
 def _load_llm_step5_payload(pipeline_log: Path) -> tuple[str, str]:
     text = pipeline_log.read_text(encoding="utf-8")
-    m = _LLM_SECTION_RE.search(text)
+    m = None
+    for candidate in _LLM_SECTION_RE.finditer(text):
+        if candidate.group("step") == "5":
+            m = candidate
+            break
     if not m:
         raise RuntimeError(
             f"No LLM_INPUT_STEP_5 in {pipeline_log}. Run splitter_post.sh with --video first."
         )
     body = m.group(0)
+    fence = re.search(r"```(?:text)?\s*\n(.*?)```", body, re.DOTALL)
+    if fence:
+        body = fence.group(1)
     sys_m = re.search(
         r"={70}\s*SYSTEM\s*={70}\s*(?P<sys>.*?)(?=\s*={70}\s*OUTPUT SCHEMA)",
         body,

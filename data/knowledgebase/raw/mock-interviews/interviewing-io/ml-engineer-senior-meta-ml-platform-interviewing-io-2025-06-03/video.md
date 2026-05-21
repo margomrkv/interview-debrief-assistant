@@ -12,13 +12,11 @@ tags: [system design interview, system design interview questions, system design
 ---
 
 ## Chapters
-- [00:00:00] Introductions
 - [00:02:43] Question begins
-- [00:17:10] High-level design
 - [00:47:33] Interviewer's questions on weight storage
 - [00:50:57] Interviewer's questions on scalability
 - [00:55:58] How did the candidate feel he did
-- [00:57:45] Interviewer feedback
+
 
 ## Description
 

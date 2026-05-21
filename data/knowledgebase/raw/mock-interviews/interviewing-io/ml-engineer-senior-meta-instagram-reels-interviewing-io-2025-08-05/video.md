@@ -12,15 +12,11 @@ tags: [Machine Learning, ML System Design, Instagram Reel Design]
 ---
 
 ## Chapters
-- [00:00:00] Introduction and interview setup
 - [00:00:53] Problem presented: Instagram Reels recommendation system
 - [00:17:00] Candidate defines ML framing and objective
 - [00:38:00] Discussion of candidate generation and ranking model
 - [00:45:00] Interview ends and candidate self-assessment
-- [00:46:30] Feedback begins: time management, pacing issues
-- [00:50:00] Why this would not pass the E6 bar
-- [00:56:00] What the candidate did well and what was missing
-- [01:03:00] Final takeaways from the interviewer
+
 
 ## Description
 

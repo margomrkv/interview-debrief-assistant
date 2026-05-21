@@ -11,9 +11,6 @@ thumbnail_url: "https://i.ytimg.com/vi/gRkAXRMbbaY/maxresdefault.jpg"
 ---
 
 ## Chapters
-- [00:00:00] <Untitled Chapter 1>
-- [00:00:06] Приветствие
-- [00:00:30] Формат
 - [00:01:10] Про опыт
 - [00:05:31] Про хранилище, слои
 - [00:08:35] Microbatch vs Streaming
@@ -39,7 +36,6 @@ thumbnail_url: "https://i.ytimg.com/vi/gRkAXRMbbaY/maxresdefault.jpg"
 - [00:52:10] Greenplum
 - [00:54:08] Spark оптимизации
 - [00:56:40] Spark физические join'ы
-- [01:00:20] Вопросы интервьюеру по проекту
 
 ## Description
 

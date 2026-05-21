@@ -14,7 +14,6 @@ tags: [data science jay, interview query, data science, data scientist, data sci
 ## Chapters
 - [00:00] Ved's background and introduction
 - [02:20] Interview question
-- [05:10] Ved whiteboarding
 - [15:00] Practical application
 - [25:00] Deployment
 

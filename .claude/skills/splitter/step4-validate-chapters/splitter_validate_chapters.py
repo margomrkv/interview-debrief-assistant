@@ -12,6 +12,12 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 STEP4_DIR = Path(__file__).resolve().parent
 PROMPT_DIR = SKILL_DIR / "step5-validate-llm"
 
+import sys
+
+if str(SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(SKILL_DIR))
+from interview_locale import locale as loc  # noqa: E402
+
 
 @dataclass
 class ChapterBlock:
@@ -648,16 +654,20 @@ def chapter_tolerance_stats(
 
 def _status_label_from_state(state: ChapterCoverageState) -> str:
     if state.status == "lead_in":
-        return "подводка"
+        return "lead-in" if loc.lang == "en" else "подводка"
     if state.status == "skip":
-        return "пропуск"
+        return "skip" if loc.lang == "en" else "пропуск"
     if state.status == "recognized":
         n = len(state.primary_indices)
-        return f"распознан ({n} Q&A)" if n != 1 else "распознан (1 Q&A)"
+        if n == 1:
+            return loc.t("status_recognized_one")
+        return loc.t("status_recognized_many", n=n)
     if state.status == "nearby":
         ref = state.nearby_elsewhere[0]
+        if loc.lang == "en":
+            return f"{loc.t('status_nearby')} ({ref.primary_chapter_label})"
         return f"рядом ({ref.primary_chapter_label})"
-    return "не распознан"
+    return loc.t("status_missing")
 
 
 def _linked_field_md(label: str, field: dict | None) -> str:
@@ -992,10 +1002,8 @@ def build_speaker_mix_warnings(raw_items: list[dict]) -> list[str]:
     if not hits:
         return []
     lines = [
-        "## Проверка границ реплик (эвристика)\n",
-        "Автоматическая проверка ролей (без diarization): дубли Q/A, обрывки вопроса, "
-        "фразы кандидата в поле вопроса, реплики интервьюера внутри ответа. "
-        "Типично на behavioral при нарезке только по `timecodes.txt` / маркерам YouTube.\n",
+        loc.t("speaker_mix_title") + "\n",
+        loc.t("speaker_mix_intro") + "\n",
     ]
     for idx, msg in hits:
         lines.append(f"- **Item #{idx}:** {msg}")
@@ -1108,9 +1116,8 @@ def build_json_contract_section(
     schema_ok = bool(summary.get("schema_validated"))
     schema_missing_pkg = any("jsonschema" in i for i in issues)
     lines = [
-        "## Проверка 1. Структура JSON (шаг 2 — выход сплиттера)\n",
-        "Детерминированная проверка файла после извлечения Q&A: парсинг и JSON Schema "
-        "`splitter_output_schema.json`.\n",
+        loc.t("check1_title") + "\n",
+        loc.t("check1_intro") + "\n",
         "",
         f"- **Файл:** `{splitter_path}`",
     ]
@@ -1198,50 +1205,90 @@ def build_unified_pipeline_checks_table(
     has_video_rubrics: bool,
 ) -> list[str]:
     """Single overview: pipeline steps, criteria, status, result (no duplicate summary blocks)."""
-    c2_criterion = (
-        "Если в `video.md` есть тайм-коды и рубрики секций: "
-        "**Coverage** >90%, **Topic consistency** >90%"
-        if has_video_rubrics
-        else "Сверка тайм-кодов YouTube с Q&A в JSON (рубрики в Description не заданы)"
-    )
-    rows = [
-        ("**1**", "Подготовка (`pipeline-log.md`)", "—", "—", "—", "—", "—"),
-        (
-            "**2**",
-            "LLM → JSON",
-            "**Проверка 1**",
-            "Валидный JSON по `splitter_output_schema.json`",
-            json_status,
-            json_result,
-            "парсинг + JSON Schema",
-        ),
-        ("**3**", "Excel", "—", "—", "—", "—", "—"),
-        (
-            "**4**",
-            "Сверка с `video.md`",
-            "**Проверка 2**",
-            c2_criterion,
-            yt_status,
-            yt_result,
-            yt_goal,
-        ),
-        (
-            "**5**",
-            "LLM (агент)",
-            "**Проверка 3**",
-            "Смысл и тайм-коды полей vs заголовок главы и метки",
-            llm_status,
-            llm_result,
-            "не блокирует вердикт",
-        ),
-    ]
+    if loc.lang == "en":
+        c2_criterion = (
+            "If `video.md` has chapters and section rubrics: "
+            "**Coverage** >90%, **Topic consistency** >90%"
+            if has_video_rubrics
+            else "Align YouTube chapter timestamps with Q&A in JSON (no section rubrics in Description)"
+        )
+        rows = [
+            ("**1**", "Prepare (`pipeline-log.md`)", "—", "—", "—", "—", "—"),
+            (
+                "**2**",
+                "LLM → JSON",
+                "**Check 1**",
+                "Valid JSON per `splitter_output_schema.json`",
+                json_status,
+                json_result,
+                "parse + JSON Schema",
+            ),
+            ("**3**", "Excel", "—", "—", "—", "—", "—"),
+            (
+                "**4**",
+                "Match `video.md`",
+                "**Check 2**",
+                c2_criterion,
+                yt_status,
+                yt_result,
+                yt_goal,
+            ),
+            (
+                "**5**",
+                "LLM (agent)",
+                "**Check 3**",
+                "Field meaning and timestamps vs chapter title and labels",
+                llm_status,
+                llm_result,
+                "does not block verdict",
+            ),
+        ]
+        header = "| Step | Action | Check in file | Criterion | Status | Result | Goal |"
+    else:
+        c2_criterion = (
+            "Если в `video.md` есть тайм-коды и рубрики секций: "
+            "**Coverage** >90%, **Topic consistency** >90%"
+            if has_video_rubrics
+            else "Сверка тайм-кодов YouTube с Q&A в JSON (рубрики в Description не заданы)"
+        )
+        rows = [
+            ("**1**", "Подготовка (`pipeline-log.md`)", "—", "—", "—", "—", "—"),
+            (
+                "**2**",
+                "LLM → JSON",
+                "**Проверка 1**",
+                "Валидный JSON по `splitter_output_schema.json`",
+                json_status,
+                json_result,
+                "парсинг + JSON Schema",
+            ),
+            ("**3**", "Excel", "—", "—", "—", "—", "—"),
+            (
+                "**4**",
+                "Сверка с `video.md`",
+                "**Проверка 2**",
+                c2_criterion,
+                yt_status,
+                yt_result,
+                yt_goal,
+            ),
+            (
+                "**5**",
+                "LLM (агент)",
+                "**Проверка 3**",
+                "Смысл и тайм-коды полей vs заголовок главы и метки",
+                llm_status,
+                llm_result,
+                "не блокирует вердикт",
+            ),
+        ]
+        header = "| Шаг | Действие | Проверка в файле | Критерий | Статус | Результат | Цель |"
     lines = [
-        "## Как устроена проверка\n",
-        f"### Вердикт: {verdict}\n",
-        "Пайплайн — **5 шагов**. В этом файле — **проверки 1–3** (шаги 2, 4, 5). "
-        "Шаги 1 и 3 только готовят данные.\n",
+        loc.t("how_check_title") + "\n",
+        f"{loc.t('verdict_heading')} {verdict}\n",
+        loc.t("pipeline_steps_note") + "\n",
         "",
-        "| Шаг | Действие | Проверка в файле | Критерий | Статус | Результат | Цель |",
+        header,
         "|-----|----------|------------------|----------|--------|-----------|------|",
     ]
     for step, action, check, crit, status, result, goal in rows:
@@ -1271,10 +1318,8 @@ def build_check3_semantic_section(
 ) -> list[str]:
     """Step 5 — semantic LLM validation block inside the report body."""
     lines = [
-        "## Проверка 3. Смысл и тайм-коды полей внутри глав (шаг 5, LLM)\n",
-        "Модель в Cursor (как на шаге 2) проверяет **уже извлечённые** Q&A: "
-        "правдоподобны ли тайм-коды полей в окне главы и совпадают ли тексты с заголовком "
-        "главы и метками (`question_topic`, `question_type`). На общий вердикт не влияет.\n",
+        loc.t("check3_title") + "\n",
+        loc.t("check3_intro") + "\n",
         "",
     ]
     if auto_skipped_reason:
@@ -1479,9 +1524,8 @@ def build_validation_index_table(
 ) -> list[str]:
     """Compact index: one row per YouTube chapter."""
     lines = [
-        "### Все главы YouTube\n",
-        "Каждый тайм-код из `video.md`: вопросные — статус и Q&A; служебные — куда ушли в JSON. "
-        "Развёрнутые тексты — ниже по вопросным главам.\n",
+        loc.t("yt_table_title") + "\n",
+        loc.t("yt_table_intro") + "\n",
         "",
         "| # | YT | Заголовок | Секция | Привязка (4) | Q&A | Темы | Смысл (5) | Куда в JSON |",
         "|---|-----|-----------|--------|--------------|-----|------|-----------|-------------|",
@@ -1500,7 +1544,7 @@ def build_validation_index_table(
         sec = (ch.section or "—").replace("|", "/")
         if len(sec) > 18:
             sec = sec[:15] + "…"
-        indices = st.window_indices or st.primary_indices
+        indices = st.primary_indices
         items_s = ", ".join(f"#{i}" for i in indices) if indices else "—"
         topics: list[str] = []
         for idx in indices:
@@ -1534,29 +1578,6 @@ def build_validation_index_table(
         lines.append(
             f"| {num} | `{ch.time_str}` | {title} | {sec} | {status_short} | "
             f"{items_s} | {topics_s} | {sem} | {note} |"
-        )
-    lines.append("")
-    ordered = sorted(all_chapters, key=lambda c: c.time_sec)
-    lines.append(f"**Все извлечённые items ({len(items)})** — полный список из JSON:\n")
-    lines.append("| Item | Время вопроса | Окно главы YouTube | `question_topic` | Начало вопроса |")
-    lines.append("|------|---------------|--------------------|------------------|----------------|")
-    for it in items:
-        raw = raw_items[it.index - 1]
-        q = raw.get("interviewer_question") or {}
-        t_str = q.get("time") or "—"
-        topic = raw.get("question_topic") or "—"
-        qtxt = (q.get("text") or "").replace("|", "/").replace("\n", " ")
-        preview = (qtxt[:60] + "…") if len(qtxt) > 60 else qtxt or "—"
-        win_ch = chapter_for_item_window(it, ordered)
-        if win_ch:
-            win_title = win_ch.title.replace("|", "/")
-            if len(win_title) > 32:
-                win_title = win_title[:29] + "…"
-            win_cell = f"`{win_ch.time_str}` {win_title}"
-        else:
-            win_cell = "—"
-        lines.append(
-            f"| #{it.index} | `{t_str}` | {win_cell} | `{topic}` | {preview} |"
         )
     lines.append("")
     return lines
@@ -1865,13 +1886,11 @@ def build_transcript_gaps_section(
     gaps: list[dict[str, Any]],
 ) -> list[str]:
     lines = [
-        "## Фрагменты транскрипта без Q&A в JSON\n",
-        "Интервалы `timecodes.txt`, не попавшие в span ни одного item сплиттера "
-        "(от `interviewer_question.time` до конца ответа / reference / feedback / следующего вопроса). "
-        "Проверьте, не пропущен ли вопрос или это служебная речь.\n",
+        loc.t("gaps_title") + "\n",
+        loc.t("gaps_intro") + "\n",
     ]
     if not gaps:
-        lines.append("_Крупных непокрытых фрагментов не найдено (порог: ≥25 с, ≥4 строк с тайм-кодом)._\n")
+        lines.append(loc.t("gaps_none") + "\n")
         return lines
 
     lines.append(f"**Найдено фрагментов:** {len(gaps)}\n")
@@ -1959,11 +1978,11 @@ def _format_item_block(index: int, raw: dict) -> list[str]:
         meta.append(f"stage={raw['interview_stage']}")
     meta_s = " · ".join(meta) if meta else "—"
     lines = [f"#### Item #{index}", ""]
-    lines.append(_field_md("Вопрос", raw.get("interviewer_question")))
-    lines.append(_field_md("Ответ кандидата", raw.get("candidate_answer")))
-    lines.append(_field_md("Reference answer", raw.get("reference_answer")))
-    lines.append(_field_md("Interviewer feedback", raw.get("interviewer_feedback")))
-    lines.append(f"- **Метки:** {meta_s}")
+    lines.append(_field_md(loc.t("field_question"), raw.get("interviewer_question")))
+    lines.append(_field_md(loc.t("field_answer"), raw.get("candidate_answer")))
+    lines.append(_field_md(loc.t("field_reference"), raw.get("reference_answer")))
+    lines.append(_field_md(loc.t("field_feedback"), raw.get("interviewer_feedback")))
+    lines.append(f"- **{loc.t('field_labels')}:** {meta_s}")
     lines.append("")
     return lines
 
@@ -2001,19 +2020,12 @@ def _chapter_integrated_verdict_lines(
         lbl = ref.primary_chapter_label if ref else "сосед"
         s4 = f"⚠️ свои Q&A у маркера нет; рядом item #{ref.item_index if ref else '?'} → {lbl} (шаг 4)"
     elif st.status == "recognized":
-        n_win = len(st.window_indices)
         n_pri = len(st.primary_indices)
-        if n_win == n_pri:
-            s4 = (
-                f"✅ в окне главы {n_win} Q&A"
-                if n_win != 1
-                else "✅ в окне главы 1 Q&A"
-            )
-        else:
-            s4 = (
-                f"✅ в окне главы {n_win} Q&A "
-                f"(у маркера ±tolerance: {n_pri})"
-            )
+        s4 = (
+            f"✅ у маркера {n_pri} Q&A"
+            if n_pri != 1
+            else "✅ у маркера 1 Q&A"
+        )
     else:
         s4 = _status_label_from_state(st)
 
@@ -2160,8 +2172,8 @@ def build_chapter_details_section(
     llm_verdicts = llm_verdicts or {}
     topic_map = section_topic_map or {}
     lines = [
-        "### Детали по вопросным главам\n",
-        "Развёрнутые тексты Q&A. Служебные главы — только в таблице «Все главы YouTube» выше.\n",
+        loc.t("chapter_details_title") + "\n",
+        loc.t("chapter_details_intro") + "\n",
         "",
     ]
     q_num = 0
@@ -2173,7 +2185,7 @@ def build_chapter_details_section(
         if not ch.is_question or is_lead_in_title(ch.title):
             continue
         q_num += 1
-        window_idxs = st.window_indices or st.primary_indices
+        detail_idxs = st.primary_indices
         lines.append(f"### {q_num}. `{ch.time_str}` — {ch.title}\n")
         if ch.section:
             lines.append(f"- **Секция интервью (YouTube):** {ch.section}")
@@ -2188,16 +2200,15 @@ def build_chapter_details_section(
             lines.append("")
             continue
 
-        window_idxs = st.window_indices or st.primary_indices
-        if window_idxs:
+        if detail_idxs:
+            lines.append(loc.t("qa_at_marker") + "\n")
             lines.append(
-                "**Все Q&A в окне главы** (от маркера до следующей главы; без пропусков)\n"
+                f"| {loc.t('table_item')} | Δt | `question_topic` | {loc.t('col_question_start')} |"
             )
-            lines.append("| Item | Δt | `question_topic` | Начало вопроса |")
             lines.append("|------|-----|------------------|----------------|")
             allowed = topic_map.get(ch.section) if ch.section else None
             topic_off_list = False
-            for idx in window_idxs:
+            for idx in detail_idxs:
                 it = items[idx - 1]
                 raw = raw_items[idx - 1]
                 drift = (it.q_time_sec or 0) - ch.time_sec
@@ -2239,7 +2250,7 @@ def build_chapter_details_section(
                 )
             lines.append("")
 
-        for idx in window_idxs:
+        for idx in detail_idxs:
             block = _format_item_block(idx, raw_items[idx - 1])
             warn = _item_boundary_warnings(raw_items[idx - 1])
             if warn:
@@ -2276,6 +2287,9 @@ def build_llm_validation_payload(
 ) -> str:
     """Plain-text payload for LLM step 5."""
     system = (PROMPT_DIR / "validation_llm_system_prompt.txt").read_text(encoding="utf-8")
+    from interview_locale import step5_notes_language_line  # noqa: WPS433
+
+    system = system.replace("{{NOTES_LANGUAGE}}", step5_notes_language_line(loc.lang))
     schema = (PROMPT_DIR / "validation_llm_output_schema.json").read_text(encoding="utf-8")
     parts = [
         "=" * 70,

@@ -12,10 +12,7 @@ tags: [linkedin data science interview, machine learning interview questions, da
 ---
 
 ## Chapters
-- [00:00] <Untitled Chapter 1>
 - [02:00] Newsfeed Ranking Question
-- [03:14] Jeff's Explanation
-- [14:43] Interview Feedback
 
 ## Description
 

@@ -14,7 +14,6 @@ tags: [coding interview, technical interview, programming interview, phone inter
 ## Chapters
 - [00:00:00] <Untitled Chapter 1>
 - [00:02:22] Write a Function To Count the Number of Minimum Characters Needed To Make a String an Anagram of a Palindrome
-- [00:04:39] Strategy
 - [00:07:35] Time Complexity
 - [00:19:22] Optimizations
 - [00:27:21] How Do You Write a Method in Python

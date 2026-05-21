@@ -1,0 +1,426 @@
+{
+  "source_id": "ml_engineer_senior_meta_instagram_reels_interviewing_io_2025_08_05",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "So, I'll give you a highle problem statement and I want you to drive most of the discussion around the solution, but feel free to ask clarifying questions as required. So the system we'll be designing today is Instagram res. You might have used this product. It's a feed of short videos. So when you enter the app, there's a short video that's playing and then you can swipe up to see the next one and it's like an infinite scroll. Yeah. So over to you.",
+        "time": "00:00:44"
+      },
+      "candidate_answer": {
+        "text": "Okay, cool. Um so first I think um just so I uh like can frame the discussion a little bit and guide it uh I wanted to uh do a quick outline of the way I want to approach this problem. So first uh yeah I want to uh understand the constraints. Uh so then um I want to see how ML can help um maybe classify the problem. Um then uh talk about data um and feature engineering. Um how we'll train and uh well build a uh train set and uh you know train the model. talk about serving uh the uh you know quality or metrics, how do we know we're performing well? Um and then we can talk about any sort of deep dives. Um so that sound good?",
+        "time": "00:01:16"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Yep. Cool. So um",
+        "time": "00:02:32"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Yeah. So what do you think?",
+        "time": "00:03:12"
+      },
+      "candidate_answer": {
+        "text": "Uh so we can um optimize for views or or engagement with the platform. Um but there are I guess there are more concerns about long-term health of of an ecosystem like this. So uh we could optimize for um like quality weighed uh views or uh user satisfaction. Um I I mean I I think we should uh maybe try for uh quality weighed uh views or or interactions.",
+        "time": "00:03:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Uh and how how would you define that metric itself?",
+        "time": "00:03:54"
+      },
+      "candidate_answer": {
+        "text": "Well, one approach is to say that um uh we can gauge maybe the um quality of a post based on its content. Um some huristics on like duration or the the uh number of say comments on on it. Um or uh yeah maybe the um",
+        "time": "00:03:59"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay uh sure but maybe we take a step back and just uh look at it again from first principles. So like quality weight views is uh one good metric but if you had to choose something simpler like what are you trying to maximize here?",
+        "time": "00:04:28"
+      },
+      "candidate_answer": {
+        "text": "yeah, if we if we don't want to do uh long-term, maybe we can do that in um sort of refinement. We can just uh uh maximize engagement with the reels. So, uh maybe the the watch time like some sort of normalized watch time or the engagement with the platform um through likes and um sort of completed views, something like that.",
+        "time": "00:04:47"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Got it. So, yeah. Yeah, that as a business objective. Yeah.",
+        "time": "00:05:09"
+      },
+      "candidate_answer": {
+        "text": "uh maximize engagement uh platform um as uh measured by um maybe actually it's impressions and uh watch time uh I don't know uh or interactions andor interactions. Okay, cool. So um",
+        "time": "00:05:16"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "So yeah, it's uh like a billion daily active users it's a global product but obviously the highest uh sort of uh scale is in the US and Europe but there's also significant presence in Latam, Africa, Middle East and Asia.",
+        "time": "00:06:07"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "And what is the creation rate of uh new reels? Like how many new uh reels are we creating?",
+        "time": "00:06:16"
+      },
+      "candidate_answer": {
+        "text": "Yeah, we can estimate that I guess but I would 10 million uh uh sort of new reels uh reels okay cool and then uh what regions",
+        "time": "00:06:24"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "we have user data uh so let's say we have a heristic running for ranking and the whole system is running and has lot of users so we have lots of user activity data and now we are transitioning to a ML based system",
+        "time": "00:11:20"
+      },
+      "candidate_answer": {
+        "text": "Okay. So okay cool. Um I'm uh can I assume that we uh at least have um like location information uh or like our metadata um for example there well yeah but like some metadata like uh what other metadata would we actually need? Uh do is there any um interactions between users that we have for example follows or uh anything like that? Uh how do you spell author? Uh follow author. Uh, okay. I Let's see. Is there anything else um that we should talk about here? I mean, okay, maybe this is uh enough for the uh initial uh problem. Um maybe I'll I'll go back and uh refine this u as we do our initial design. Um I like to think about this in terms of um sort of an iterative approach. Um so we can view this as uh having certain hypotheses uh and then try to choose a um oh actually one thing I should ask is there any system that already exists? Are we are we building on top of an existing system or or data set? Um or are is this the the first kind of MVP? um what what do we have access to like I see I see so we have a stick running for um on the platform for ranking um lots of users Um so our goal is to maximize uh or engagement uh on on top of this baseline. Right? So uh the first thing I was going to ask is or uh talk about is um essentially what what do we use as the baseline? But it it sounds like we already have some sort of uh simple heruristic. Um and uh am I assuming that we um well we should maybe talk about the the metrics that we've been using um for this uristic. Um, so so the metrics that we said we were using are um sort of engagement as measured by uh maybe um daily impressions or or daily watch time uh of users maybe by by region or by like stratified by some uh demographic, right? So, uh if we uh gauge model uh uh gau model improvement means that our watch time for for uh like our watch time improves or the number of interactions uh with our our system improves over time. Um maybe is measured by like daily, weekly or um in AB tests something like this. Okay.",
+        "time": "00:09:31"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "I think we don't have a lot of structured information that is input directly by the user. So we can infer all kinds of things but from the user point of view it's very simple in terms of like you're just uploading videos and like you know as a consumer you're just you know coming in and watching the videos. yes we do allow like likes and comments and maybe even video descriptions. Those are free form. So there's not much structured input that the user can put in like we don't ask them to choose a category for example but they can they can add free form text. Follows we do support follows. Big one follow the author of read. Makes sense. Makes sense. Yeah.",
+        "time": "00:08:14"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "uh sorry to interrupt you but before we jump into that maybe we should uh think about what is the output of the model and just the overall structure of the train data like what's the ML objective what's the label what's the training data format",
+        "time": "00:15:58"
+      },
+      "candidate_answer": {
+        "text": "sure sure u so I was going to do that after the the entities but we can maybe uh switch the order so um okay so if this is a ranking problem which it sounds like it is um we need to process whatever information that we have and output a ranked uh list of reels. So um there are several ways of doing this. Uh like the the classic one is you can for each um uh real uh and uh user pair you can assign a score um for uh relevance um or like the likelihood of seeing a thing, right? Um and essentially you can treat this as a uh like a binary classification problem like given input features and say history and and things like this uh what is the probability that uh the real is relevant and you kind of um then given a large group of reels that you could show that are on your platform uh you can um sort of uh rank them based on the score and show the most relevant things first. So that's one approach. Um another approach uh does that make sense?",
+        "time": "00:16:18"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Yeah, that makes sense. Uh I want to understand how you define relevance here.",
+        "time": "00:17:42"
+      },
+      "candidate_answer": {
+        "text": "Sure. So uh relevance here is uh like if a uh user um say interacts with a post in in one of various ways. there's like um explicit and implicit feedback that we can get. Um for example, if they uh watch the um the real to completion, right? So that like you can you can treat this as um a probability like okay, a post is relevant. The one of the hypotheses is a post is relevant if a user when shown it will uh watch it to completion, right? So or like a large fraction of it. So we could treat this as a classification problem um where uh the person finished watching the reel. So another hypothesis is post is relevant if the user follows uh the the author of it or um you could also treat this as a uh like a regression problem like what fraction of the real um does the the user uh wash um as as a like a normalized time or maybe you can um treat this as a uh uh an ordinal regression problem where like you bin the durations and say you want to watch a large fraction of it. So like the probability that a person watches 5 minutes of a real or something or or some relevant time bins. Um the I mean each of these are are are viable. Um is there one that you would like to focus in particular or would you like me to choose one? Because I mean realistically",
+        "time": "00:17:48"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "like if you were to prioritize in terms of what SQL do you think would have the highest or what approach do you think would have the highest because okay fine it's multitask but you mentioned like classification and regression separately. So out of all the things that is said if you were to choose like you know of course it can be multitask you can but even in the multitask there would be some task that you would train first.",
+        "time": "00:20:40"
+      },
+      "candidate_answer": {
+        "text": "Um well I I think very strong signals um here's the reasoning. So, uh, say that reels are, uh, I don't know, all about the same length, uh, roughly. They're, you know, typically about like at most like maybe a minute. Um, so, um, maybe unlike in things like video, we don't, um, we don't have a huge spread in in real duration. That's an assumption that maybe you can correct, but um, the duration of watch uh, maybe is irrelevant here. We really just want to uh see if a person basically scrolls to the next video, which means it's negative feedback, they don't care about this, or they watch uh to the end. Um so we can treat this as sort of um one term. So uh it's a positive impression if they watch to the end. So that that that was probably the one that I would uh train first. But uh uh maybe and it's probably the simplest to train. Um the sec the second uh term that I would do is is uh probably um sort of likes. It's very strong uh like explicit signal that um a um a user likes a post. So uh but but they tend to be very rare. Um so one is more common and implicit and um probably noisy. Sometimes you just watch reels on accident. Uh the other one is very strong explicit but uh has low density. So I focus on the first one first and then maybe add other features.",
+        "time": "00:21:16"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Yes. Yeah.",
+        "time": "00:21:13"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "What's one row in the training data?",
+        "time": "00:23:29"
+      },
+      "candidate_answer": {
+        "text": "Oh what's one row of the training data? Sure. Um okay so we need a um uh so we have an ID uh a user ID right? we have um you have their uh I don't know uh some metadata like um age uh gender location um and importantly we should have uh well um well okay it's an important predictive feature for uh their history but uh maybe we can leave that out for now uh and then make further improvements based on on their uh view history. Um so uh the other so do you want me to create okay so this would be I don't know some ID um I don't know there 25 um uh we would one hot",
+        "time": "00:23:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "so ID user features what else is there in the train data like what's there in one row of the train data",
+        "time": "00:24:38"
+      },
+      "candidate_answer": {
+        "text": "sure sure so uh I think there are three entities here so there's the user So we have uh we have the the real which um we have the video content, we have a description uh we uh we have an author um and maybe we have some comments uh so I don't know shaded with it something like this and then we also have um user real interactions where um we can have different um maybe actually we we don't we take the this out um we can have like user I user ID um real ID and then we have a type of interaction like um uh watch we have a time stamp um and uh we can have extra fields. We can have other interactions like uh same kind of user id real ID um I know comment and then similarly we can have a like right",
+        "time": "00:24:46"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "just uh a couple of things before going to feature engineering is like uh so positive samples are where the user has interacted with the reel. Uh what are the negative samples?",
+        "time": "00:27:03"
+      },
+      "candidate_answer": {
+        "text": "Uh scrolling to the next one or ending the session.",
+        "time": "00:27:21"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "that's fine like what I'm saying is like for a user you first start with all the reels that have an impression and then you uh use the ones with where there's a significant watch as positive labels and one where they're skipped as negative labels. Right? That's a correct understanding.",
+        "time": "00:28:09"
+      },
+      "candidate_answer": {
+        "text": "so you're saying how would I how would I actually um gauge that so I could I could do um Oops do So we can do uh in in the training data we can have um skip or or some",
+        "time": "00:27:47"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "All right.",
+        "time": "00:28:26"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "And how do you split the train data into train, test, and validation?",
+        "time": "00:28:28"
+      },
+      "candidate_answer": {
+        "text": "So, um, okay. So, do um we we have a bunch of these interactions. So, um, right now I have an assumption that, um, there's no learning behavior. Um so uh basically well if that's true then we can um literally do an agnostic uh split. So we we we have some large amount of data. Um we make sure that um we have a a representative sample of our users uh in in the training set based on like um demographics information. So you can maybe do a stratified uh split. And right now I'm not doing anything special with the time stamp. Um in in principle I know that for these kinds of systems um uh you want to make sure that you're not peing at user behavior by having the same user at different times. uh be at um basically the um in the train split and then say a future time in um uh the test split because um uh you uh can then sort of um un unmask or or or get a dependency uh you know more about that user than you would with a random user. So maybe uh set another way I want to stratify by user ID interactions. So I want to build a uh uh uh test train validate split such that um users are uh the same user is only in the um sort of one of the folds. Um that's probably the biggest uh thing that I'm worried about. The other thing is uh st I want to have a nice mix of uh uh the other features so that um for example we we don't only have um uh you know people from the US in the uh train set and then uh people from other regions in the other set. So I would then sort of uh mix those. Does that make sense?",
+        "time": "00:28:34"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Makes sense. All right. Let's get into the feature engineering.",
+        "time": "00:30:58"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Let's get into the feature engineering.",
+        "time": "00:30:59"
+      },
+      "candidate_answer": {
+        "text": "Okay. So in the feature engineering um well a lot of the uh things that we care about are um essentially how do you create useful numeric features uh for uh for the user information and then uh how do you actually encode the video content uh and the description uh in uh yeah for the real information. So for um for the tabular features for the user um initially uh I mean you do the standard thing where is if it's a continuous feature maybe uh actually the the age itself is not particularly important but some u some bin versions of age uh is useful for the uh um gender uh you do some um one hot encoding information for things like um location. Uh I wouldn't um well location you could do a a label encoding, but you probably want to uh have some sort of um also binning like maybe you only care about regions. Um unless you want to show like very specific content. Um for the reels um as a first pass, there are a few things you can do for the video content. Um for example you can do uh a uh a video embedding model um where you just um just directly process the video content. Alternatively you can just ignore the video content itself. Uh you just have um an uh a video ID and then you you try to uh treat this as just uh you learn an embedding for that uh video content um directly. um as a first pass I would probably do that rather than trying to process the video content. Um the downside of that is you have a cold start problem if you don't know anything about the video itself. But since we have uh also description information uh maybe we can infer the content based on the description. Um, right. So maybe as a first pass I would just treat the video content as an ID. Uh, and then the description I would have some uh like text embedding model. Uh, we can start with something as simple as like fast text or uh TF. Um but these days maybe you would just use a u a pre-trained um uh transformer model uh to create an embedding for that. Um you can use something like BERT or or um if you wanted to use a decoder model you can actually pull the embedding. Um right now we're not really um using the uh author feature. Um so I think maybe uh I want to skip using the author feature for now. Um we can actually uh use that for simple uristics to to um uh recommend uh reels to users based on their uh like friendship. Okay. Uh would you like me to talk uh well does does the uh feature engineering make sense or would you like me to expand on something?",
+        "time": "00:31:01"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Is there anything you want to add to the feature engineering because you have only like the user profile and real embeddings right if I understand correctly.",
+        "time": "00:34:45"
+      },
+      "candidate_answer": {
+        "text": "Yeah. So um well for now okay it's a question of whether we want to build a very simple model or uh sort of a more elaborate model. So the the standard way of building recommendation systems based on things like this um or at least a decade ago was um sort of collaborative filtering where uh you would uh use maybe some feature information um and uh some video content or like the real information um and then uh you would just look for impressions that you cared about and then uh based on that you could find similar reels and you wouldn't use the other features. these days and and maybe that's a that's a good approach for an initial system, but these days uh what you would probably do is um you you can use the um sort of a video embedding that you learn. you can uh sort of concatenate the description information uh and then um uh you would learn a similarity embedding between the the user features and and the real features, right? Um then then based on that you can kind of predict uh the the um watch interaction because uh users that interact with reels uh will tend to watch them. Um things like this. Um but generally for uh latency reasons um you would build this as initial um stage system for um candidate generation. So you would um actually pre-train this initial candidate generation system. Uh you would uh potentially generate a large number of reels that you could propose. Um and then you would uh go on to a a ranking or a refinement phase afterwards. Uh where you could in addition to this user information um you uh you also have things like watch history like things that things that they have watched before or recently. So you um you could gauge what their current interest is and and sort of dynamically personalize their uh recommendations. Um uh similarly um if you wanted to you could expand the video content um understanding to beyond the the standard embedding. You could for example sample certain frames and try to understand the content of the video uh in a way that goes beyond the uh just an embedding ID um and then uh build a ranking based on that. Um is that what you had in mind or would you like me to add uh extra things?",
+        "time": "00:35:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "No, makes sense. Let's get into the next part which is the actual ranking system itself and you've sort of explained it a bit. So candidate selection ranking what model architectures would you choose for each stage?",
+        "time": "00:38:04"
+      },
+      "candidate_answer": {
+        "text": "Sure. So um I understood the difference in the features. Mhm. Uh but yeah let's talk about the model architecture. Sure. So um the in the in the candidate generation stage generally um well okay well generally these these days you can you can start with a simple model where uh you have um basically the the um some concatenated uh user features, right? You have your uh real features. Um you uh you do uh some um maybe relatively shallow uh neural network for processing uh the the features, right? And then uh you have a um like a similarity embedding where where you treat the um real features either directly as uh the video ID or uh you know you also process them in this kind of um in a separate embedding. um like this and then you uh do a uh product similarity. Um so like e uh real and then e user, right? And then you find similar features like this. That's if you do the the the contrast of learning case, right? So the other one we talked about is uh more for the ranking. So um uh so I guess here uh for the contrast of sorry before I go on to the ranking step the the the candidate generation step generally uh has um okay so you have users and reels that they interact so for each user you have some positive and negative examples for uh the reels that they've interacted as determined by the user reel interactions, right? Um, generally they have uh skipped a lot more um reels than uh they've watched. So you need to balance you need to watch um like the imbalance between um positive and negative interactions and you can do that with um basically negative sampling. you can um reweigh uh the positive and negative examples and then sort of train a model that way um to to train stably. That'll give you the ability to look up relevant reels for a given user based on their features at the initial stage. But you can also use other uh uristics to suggest things like um reels that are popular uh within a certain region or um you know like you're doing an advertisement, you want to uh show certain reels. Okay. So the uh for the for the ranking case, we specifically want to talk about um how likely they are to have a long um watch uh versus a skip, right? So we can watch the uh we can uh do a more advanced um sort of uh user features um where we uh um additionally have like um their history or embeddings of um reels they've watched in the session. something like this. Um and then we have a um uh a real uh like proposed reel. uh unlike the sort of the two tower architecture. Now we would um sort of have some shared uh shared and then or uh you know in the limiting case we could use a very simple model but um you have some set of um features or sorry some some set of um I don't know uh neural network layers that is shared that sort of uh produces these user features and or takes this uh user features uh at the ranking stage and the proposed reel for each element of of of the um list that we want to rank that we got from the candidate stage. And then we um so we had previously talked about uh multitask for now let's let's do a single task. Um we can um for one task uh stop for a single task we can talk about um the um um probability of uh positive uh interaction. So we treat this as a um a classification task, right? Uh and uh we train this as a u binary cross entropy um task. Um when we add additional tasks, we can have an uh sort of a task specific head for like um probability of um like or comment. Um and we we can uh then appropriately weigh the um you know we can have an objective that weighs these tasks and the overall um score of a reel for a given user based on their session uh would be given by some weighed um probability of these interactions. All right.",
+        "time": "00:38:19"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "All right.",
+        "time": "00:44:44"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Cool. I think we're out of time so we can end here.",
+        "time": "00:44:45"
+      },
+      "candidate_answer": {
+        "text": "Mhm.",
+        "time": "00:44:50"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Before I share my feedback, I want to understand from you how this interview went. What are the things you did well and what are the areas of improvement?",
+        "time": "00:44:50"
+      },
+      "candidate_answer": {
+        "text": "Um, I think maybe I did the initial um um question gathering in a more interactive way than I have before, but uh I think I really struggled with um time management and struggling on a particular choice. Um, and uh, yeah, I mean, I didn't get through most of the things that I wanted to talk about. I explored a lot of options, but I didn't get down into specifics. Um, I think that's the biggest thing. And I couldn't decide whether to do a um, sort of a short um, like a simple version at the top or just go dive into a more complex uh, like what I would actually probably build in in terms of state-of-the-art. Right. Right. Yeah. I think those are",
+        "time": "00:45:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "So overall, you know, subjective sense that I get, you know, from having done a lot of these interviews and also working as an ML engineer at a staff level is like you definitely know your stuff, right? Mhm. But I think just based on how this interview went, I couldn't recommend a higher for you to be honest, right? Like I didn't get enough signals in this interview for E6 and even E5 is honestly borderline, right? So there are a couple of reasons for that. The biggest reason I would say is time management and within that the biggest reason is just the amount of time you spend in the beginning. So just to give you a sense, right? We started like maybe 5 minutes into the hour. Yeah. And so like 20 minutes in, which is like 15 minutes out of the 45 that you get, you're still at this point here. We're talking and all of these like this highle diagram was not required. for a second I felt like you're going into like the traditional system design and you're talking about entities and all this kind of things right so I would just say and you mentioned binary classification like 20 minutes in roughly and even then there was a big discussion on binary versus regression on percentage watched and multitask and okay that was a decent discussion but you know like if you've already like you should be having that discussion maybe 5 to 10 minutes into the interview, right? So like I think you just need to go through things a lot faster like just understand the problem really quickly, understand the business objectives really quickly and yeah doesn't have to be super interactive, right? Like you you don't need to ask everything from me. You can just make some assumptions on your own. If you do a wrong assumption, I'll correct you, right? Okay. uh and then that whole part like the business objective should be over in less than 5 minutes and ML objective 5 minutes. So 10 minutes in you are at the point where you're talking about oh you know I'm going to model this as a binary classification with uh predicting like a significant watch versus no watch right and then use like as a secondary signal in a multitask approach so to get to that point should be like no more than 10 minutes whereas in your actual interview it took you like 30 minutes almost.",
+        "time": "00:46:04"
+      },
+      "question_type": "behavioral",
+      "question_topic": "Communication",
+      "interview_stage": "behavioral"
+    }
+  ]
+}

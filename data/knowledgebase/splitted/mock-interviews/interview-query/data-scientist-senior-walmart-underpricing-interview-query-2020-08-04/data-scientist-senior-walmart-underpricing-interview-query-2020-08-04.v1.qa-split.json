@@ -1,0 +1,174 @@
+{
+  "source_id": "data_scientist_senior_walmart_underpricing_interview_query_2020_08_04",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "let's say that you're a data scientist working on pricing different products on our e-commerce site right and the online price is dependent on the availability of the product the demand and the logistics cost of providing it to the end consumer right uh so you discover that suddenly the algorithm is vastly underpricing a certain consumer product what are the steps that you take in diagnosing the problem",
+        "time": "00:08"
+      },
+      "candidate_answer": {
+        "text": "so you mentioned that the price of a product is dependent on the availability uh the logistic cost and the demand right so and then you said a particular type of products are getting underpriced by the algorithm now i guess um the first off i'd like to understand um like where are we getting this uh the demand information from like i'm sure the logistic cost is something that the company handles so they're able to keep a track on what it costs to ship and stuff um but how do we get the demand aspect of uh the of a product is it from a competitor's website is a third-party website or is it like for data that we trust really well okay and then you mentioned that the algorithm is under pricing a particular group of products right um do we know um how much like is it are we saying is underpriced because uh what other computers are selling the same product at or is it that uh the the product used to cost x dollars in like five months ago and now it's showing x minus you know some y percentage right like there's a significant drop in uh in the price",
+        "time": "00:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "uh let's say it's from our own internal data it's from the amount of people that have historically bought the product in the past um let's say that we have availability of all the other kinds of data on our website as well like user clicks you know like searches et cetera yeah how does that work yeah it's the latter so let's say that we saw that it's dropped by like 50 percent from like five months ago so from a historical uh trend downwards um",
+        "time": "01:14"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "is there a time aspect to the drop that you noticed like did that when did when did it start was it around new year or was it around like you know um you know just middle of the year or kind of thing",
+        "time": "02:18"
+      },
+      "candidate_answer": {
+        "text": "um yeah i mean the point that the time when it uh when the price dropped could also tell us something about what happened in the macro economic structure during that time right maybe it's a product which was just recently banned uh for some reason or you know had some negative reviews and that's why the demand just fell off right something like that so if we know some information around when the when we started noticing this um that can also kind of hint some aspects here got it so in the past few months we are noticing a particular type of consumer product that's um getting price lower than usual and um we are pretty sure that it's nothing to do with the time of the year um because um because it it i mean the prices were pretty constant uh for the past many years it's just that in the last few months we have seen it interesting drop right now the thing that that contribute towards pricing a product um are definitely going to be around that products used towards uh to the public that consumes it right so um what kind of a product is this is it some food is it consumable is it electronic device or you know some something around that would probably hint at you know change in customer behavior itself um the most obvious reason for some product to you know the price to fall off is like the demand has reduced um but knowing this might uh tell us whether the drop is uh an anomaly or is it um you know or is it expected okay",
+        "time": "02:31"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yeah so i would say that let's say it's not based on time either uh so it's not based off new year's or anything like that that um say that it was uh more of like something that happened within the past uh few months so progress yeah",
+        "time": "03:00"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "gotcha so uh given the fact that let's say that it's um we want to dive into both paths but let's say that um because uh it is like let's say like an electronic uh consumer good right um does that make it more so expected or an anomaly um",
+        "time": "04:25"
+      },
+      "candidate_answer": {
+        "text": "well if it's uh with an electronic device um assuming it's like a phone or something right so typically when a newer phone comes out um the previous version will you know drastically drop off now the price will definitely go down but again we know that it's not been happening for the past many years and i'm sure many uh new versions of the phone have come out right so probably it's not due to new uh due to a better product out there or just a different version out there it's probably to do something with um you know the reviews on that particular product uh maybe someone recently had a really bad experience or you know and had a tie-in with the government agencies and some new law has been implemented which makes the product itself not very appealing to the customer to the end user right um maybe that's what happened and that's why the demand has fell down and that's why the price is low um of course we can also look at with what the demand patterns have been like um if the demand pattern has stayed constant but the price has reduced um then i would assume that it's something to do with uh you know this uh external information of the product which you are not capturing right the algorithm is not looking at the consumer reviews and um what is the end user experience like it's not tracking what laws have been implemented which may make that device obsolete so um if the demand has stayed constant but the price is still lowing still dropping off i would think that is something to do with the external factors uh saying that some new law has implemented got implemented which makes the product itself not viable um other reasons i could think of is um that it i'm assuming that this is a product that is getting sold or advertised on a website right so maybe they changed something in the ui of the website where this product actually does not really show up in the source resource right um maybe they change something maybe they introduce a new feature because of which this product just doesn't get the highlight at all um so that's why that could be a reason for low demand though um i mean if the demand is still high i think people would still be searching for that even though it's not showing up in the results um but yeah an indirect effect of some feature being launched could have an impact on the pricing",
+        "time": "04:47"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay so let's say that we want to uh investigate like and then choose like a few metrics that we could look at that would then determine if uh our hypothesis is true or not right so you said something back there about the um about like it not showing up in you know on search feeds or something like that there any way that we can uh quantify this with some sort of uh metric or some sort of like uh yeah comparison",
+        "time": "07:00"
+      },
+      "candidate_answer": {
+        "text": "yeah um so to capture the demand aspect of that product uh we could um look at how many search results how many user searches in the past five months or whenever it started uh we could see that uh now what is the percentage of this search query showing up right so if if users were searching for like an iphone 11 um five months back um with like you know eighty percent probability is the probability is still the same like you know in the in the later uh in the past few months uh has has there been enough uh demand uh just by the search terms uh if we find that the demand has actually been enough um then we would look at uh the um the results that were shown for every search query uh from the input before this time when the price fell down and after that right so and then we can see that um has has the search algorithm uh actually changed or at least showing a different behavior uh previously when user search for abc you know product our product shows up in like the third in the list and now it's showing maybe like in the ninth or maybe it's not even showing or just like a a percentage of you know how many searches actually uh you know listed this product and how many searches did not list this product um so that could um tell you to you know changes in the uh you know ranking or the the listing the output format basically",
+        "time": "07:37"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "gotcha so we talked about the demand there and then potentially also availability of the product",
+        "time": "09:01"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "um what about let's say that both the availability and the demand are set and then now we want to focus on the logistics cost so where they'll actually be in the like logistics cost that is causing like a weird algorithm decrease",
+        "time": "09:08"
+      },
+      "candidate_answer": {
+        "text": "yeah yeah i mean um so yeah i actually should have thought about the other two features that you mentioned uh earlier which is the availability and the logistics cost um i was assuming things are constant uh in those terms but yeah for sure like if the demand stayed the same and the availability is the same then it's probably uh the logistic costs that have gone up because of which well it could have gone down actually because of which the prices have gone down right so then um that means that the company has you know improved their logistic uh uh you know infrastructure or just made some new partnership by which uh the product is now able to be shipped out as much lower cost than you before so then in that sense um the drop in the price is actually a benefit for the customer right it's not a bad thing it's not an anomaly it just shows that uh whatever the company did to improve their logistics and those are actually now showing at least in this particular product okay so in which situations could we see like the logistics clock costs actually going down um yeah so so i guess um if we have like new distribution centers um or suppose we do a analysis of you know where uh which geographic region are our customers coming from for this particular product right maybe the top three regions uh for where the demand for this particular product is the highest is like on the west coast and um then we look at where did we ship where did we historically used to ship this product from maybe it was getting shipped from somewhere central u.s right and now and then we see that okay actually in the last two months uh there was a new distribution center um out in the west and now that you know reduces the time for the for the delivery of the product to the customer and now that we have it already stocked up in the distribution center in the west um our logistic costs are also lower right so new distribution centers popping up or new uh partnerships with like freight forwarding companies and those could indicate that okay now or that is why logistic costs have gone down",
+        "time": "09:25"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay so i know you mentioned more distribution centers right is that distributing to the website is that from going from the distribution to the consumer or is that going from the manufacturer to the distribution site um",
+        "time": "11:30"
+      },
+      "candidate_answer": {
+        "text": "well the description center that i was mentioning was from the distribution center to the consumer but of course if there are some changes on where we source the product from that also will play a part in logistic cost so acquiring the product um maybe before we used to you know import these products out from a different country which was really far away and um you know and then it had to domestically travel to the customer now maybe we have a better uh a contract with the uh with the company that we source these products from so then that improves our logistic cost it could also be that we just have found a a different supplier who is able to get us um the same product at a lower cost because of their geographical location now so those aspects would also bring down our logistic cost",
+        "time": "11:46"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "gotcha okay cool",
+        "time": "12:38"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "let's say that the price uh we are you know underpricing this product right um and you've done all the analysis what would you come away with uh how would you decide to if you should actually go back and adjust the price manually or keep it as it should be um",
+        "time": "12:40"
+      },
+      "candidate_answer": {
+        "text": "couple of things which come to mind are like you know assuming it's um you know assuming our and the company's end goal is to make sure that the customers the end consumers are happy and not the suppliers then uh as long as we have a consistent demand for the product and we are able to ship it out and you know um and we are able to have a lower cost structure for the end consumer i would not want to change anything on the pricing algorithm i think it's doing a good job because we are not seeing any we're not seeing our customers leave our platform right they still want to purchase the same product from us so we are still gaining profits and um and and you know it's because of logistic costs that have been reduced we are able to offer the product at a lower price so i would not change anything in that aspect now um the cases where i would uh try to manually intervene would be where you know that i'm seeing that the demand has actually gone down and that is why uh you know i'm saying that the logistic costs are have increased but my price of the product has gone down so that shows me that you know there's something uh some fundamental change in the logistics supply chain that we're doing because of which this is happening right the algorithm did not previously um innovate the logistic cost enough maybe it had a very um less weightage at that time and now the logistic costs have increased but the algorithm is not able to you know take that effect into account so i would probably retrain my model saying that you know okay legislative course is pretty important for us and you need and try to put in some more weight into it um so that would be a manual intervention at that point i think um i am not aware of any automatic um automatic like solutions that can you know find an error and then fix it apart from like you know using some kind of a feed forward loop or something in your model of course it depends on what model is but um maybe there is some uh area of improvement to automate that part uh if you use some kind of a feedback loop in your model which takes into account the difference between you know a price one year back in price today or something like that",
+        "time": "13:01"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "all right cool gotcha i think that is good for that question awesome",
+        "time": "15:10"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "now in terms of retrospective what did you think about uh that question",
+        "time": "15:17"
+      },
+      "candidate_answer": {
+        "text": "um i think the discussion went into a lot of um exploring different aspects uh from my side uh saying that you know maybe this is the possible reason maybe that is the reason but i guess we didn't really get into a very concrete solution at the end um like we did we didn't come to an uh we didn't discuss anything about what the actual uh algorithm is like we should maybe if we had started off saying that it's suppose it's a regression algorithm right suppose it's a neural network that's implemented and then we could dig deeper into you know the actual weights or actual layers that are being used and stuff like that but again um we were still discussing of what all possible uh outcomes could be there um so from that point we exported well but i guess in an interview it depends on what the interview wants to hear uh he may give me more information so that i'm going towards a particular outcome",
+        "time": "15:20"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "gotcha yeah that makes sense",
+        "time": "16:04"
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "technical_case"
+    }
+  ]
+}

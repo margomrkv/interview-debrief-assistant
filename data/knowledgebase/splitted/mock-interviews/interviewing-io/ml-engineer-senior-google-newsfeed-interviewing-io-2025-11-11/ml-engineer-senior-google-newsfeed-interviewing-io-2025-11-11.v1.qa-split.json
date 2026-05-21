@@ -1,0 +1,1098 @@
+{
+  "source_id": "ml_engineer_senior_google_newsfeed_interviewing_io_2025_11_11",
+  "splitter_mode": "split_and_validate",
+  "items": [
+    {
+      "interviewer_question": {
+        "text": "let me know if you have or have not seen this question before.",
+        "time": "00:12"
+      },
+      "candidate_answer": {
+        "text": "Sure.",
+        "time": "00:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "So if you're familiar with a newsfeed, it's a social network uh platform feature that enables user engagement by showing friends's recent activities on their timelines. Many social networks, Facebook, Twitter, and LinkedIn personalize their news feeds to maintain user engagement. I want you to design a personalized newsfeed system. All right. Does this make sense?",
+        "time": "00:46"
+      },
+      "candidate_answer": {
+        "text": "Yeah.",
+        "time": "01:10"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "we can deviate a bit if we do or don't need to, but I do want us to start off with a clarifying questions and the uh framing of the machine learning problem. So, business objective, ML objective, and ML category. After that, we'll take a word across multiple different sections. Sound good to you?",
+        "time": "01:16"
+      },
+      "candidate_answer": {
+        "text": "Yeah.",
+        "time": "01:34"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "And I want you to really uh type out your thoughts. Slash uh explain your thought process.",
+        "time": "01:36"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Sure. Um the first thing I want to clarify is that uh you you know question you mentioned only uh show for in recent activity by uh recent how far is that? And uh in the uh in the system with uh uh users original activity I by this activity do you mean posters or uh with only text or videos and uh and anything like that? And I assume that the uh business goal is to increase the user engagement, right? and uh platform time spent. and uh uh uh the about the site of um uh people's uh um reason activity I assume people have less than 1,000 featur uh friends and each friends make one post per day. So the retr result you set about 10,000 let's say the total um the number of uh uh uh items we have in our database for all the users that could be million right? uh let me think about uh uh we are allowed to use uh users uh uh for instance information for our prediction for example that there may be some private uh uh data we cannot use it right. Only only public ones.",
+        "time": "01:49"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Uh that's a really good let's say that we get to set like the gauge of what recency is. So I'm going to take recent activities to be like the uh past month or past seven days. So not not too far. That's a really good question. I'm going to let the post be multimodal. So images, videos and text. Basically, if you need, you can set this stage to extract as much information as you need from the timelines. Yeah. Increase user engagement. Yeah. I mean like if you can use a simple numbers and uh I don't I don't mind. Yes, we can uh can leverage user profile information and user data. yes, only public.",
+        "time": "02:05"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "is there anything else that you want to ask like uh latency uh engagement type or interactions data?",
+        "time": "05:05"
+      },
+      "candidate_answer": {
+        "text": "um yeah I think uh I assume that in your system you have already logged those engagement history uh between uh uh users and those post. So that one we can filter out those one from the his friends right. And about about the and do we have to show it to the uh uh to new stuff to the user on uh uh every time he open the app or we should it's okay to periodically write say one day uh he see uh the same thing. Yeah. Oh okay. So this means that every time uh the user uh open the app we have to retrieve new stuff. in both way we can try to reduce the about the service time uh I we assume that we want the result uh after the user uh user should see the result many seconds uh after he open the app. I think they that close my clarification questions.",
+        "time": "05:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "we uh display data closer to real time requirements. Yeah. or at least draw it in you know uh directly draw it in a very short time. Yep. You got it. That sounds good to me. Mhm. Yep. Let's move on to the next section.",
+        "time": "05:54"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "so the business objective is uh do we have to do the out of scope part?",
+        "time": "07:03"
+      },
+      "candidate_answer": {
+        "text": "I I don't have uh something for this part.",
+        "time": "07:26"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that's fine then. We we can uh we can skip that.",
+        "time": "07:30"
+      },
+      "question_type": "soft",
+      "question_topic": "Communication",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "we do need yeah like what is like the ammo objective and the ammo category that's something that need to be that needs to be answered. Yeah of course yes let's go to that part.",
+        "time": "07:44"
+      },
+      "candidate_answer": {
+        "text": "So the the business objective we had talked about the machine learning objective will be we have to uh find uh from uh friends for recent activity we find the most one that potential uh interested to the user and rank them based on the probability of the they will click it or engage with it. Yeah that's the uh machine objective. This is um um we can you u do it as a um classification problem to predict whether the user will uh uh engage with that activ if we show it to him or we can do it learn it at the um learn to rank problem just to rank which uh from all the list of the activity from his friends which one should be ranked at the top.",
+        "time": "07:52"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Uhhuh. Got it. That makes sense. Okay.",
+        "time": "08:44"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "is learning to rank the only type of ranking to consider? Do you want to think about any other ranking strategies here?",
+        "time": "08:47"
+      },
+      "candidate_answer": {
+        "text": "Um, learning to rank, right? Uh, the first one is if learn to uh is a binary classification predict whether he will engage. learn to rank. That's the two strategy I can for this question.",
+        "time": "08:55"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Yeah. Okay. Uh, that's fine. We can move on to the next sections. So let's move on to uh feature engineering or data engineering.",
+        "time": "09:07"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "let's do first feature engineering part uh first.",
+        "time": "09:39"
+      },
+      "candidate_answer": {
+        "text": "So the task is to predict let's say we take the first uh machine learning category we use a binary classification to predict whether the user will engage with that post if we show it to so for that one we need a features from both side uh and actually three side firstly is uh user information uh uh we we have them um um information about the users uh edge users uh gender users uh uh last time he engaged with the uh this kind of topic the public he like to engaged with. Uh these are we have categoric features nu uh numerical features. Um and we can have embedding of users to um uh so we can calculate between similarity between user and posters. This this embedded should be based on his uh engagement history. The second part will be uh features about items which is uh posted in our uh system. We we have to have uh embedding those uh images the text and those uh topic of those uh post and we can have uh how long has is been made. Uh this is a very important feature and how many engagement uh has been uh has it received among a friend circle uh user friend circle is a uh yes ID and yeah, that okay. Okay. Then the third part should be the uh the interactive features interactive interaction feature between user and uh uh the author of the of a post. We basically we want to um for example what's how frequent uh how many percentage of post user engaged with which means that um among all those post uh uh made by that friend how many of them are retrie were engaged by this user. So that one uh yeah here actually I have a topic uh and uh how close if there's a way we want to also as uh the relation between this and the friend are the classmates Yes.",
+        "time": "09:46"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "yeah so you can like kind of type out your schema and what you're thinking about that would be super helpful. So yeah kind of tell me like what data you want to capture.",
+        "time": "11:27"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "I want to delve into this interactions. So, let's uh get a bit more granular on the interactions. like what type of interactions do you want to focus on and how would you uh kind of weight some over other interactions?",
+        "time": "13:15"
+      },
+      "candidate_answer": {
+        "text": "So uh the I'm looking for is uh whether the user click that uh post he uh reshared he leave comments all these are uh take at the positive uh yeah those are the engagement I'm talking about so I will calculate the um how frequent he get it and the last time he he do this and uh yeah those are the",
+        "time": "13:30"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "how do we uh weight these like do we wait each of these interactions equally? Do we give different uh weightages to them?",
+        "time": "14:28"
+      },
+      "candidate_answer": {
+        "text": "Uh that's actually decided based on our use uh this need requirement. If we want say okay because commands and reshare are very rare in our system. If we want say uh I don't only care about click now yeah we can only uh take a click as as uh as our engagement.",
+        "time": "14:36"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that makes sense.",
+        "time": "14:58"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "can you think of any other uh engagement metrics? So, you have quick reshare comment. Is there anything else you want to try to capture?",
+        "time": "14:59"
+      },
+      "candidate_answer": {
+        "text": "Message is uh also another one. Uh, yeah, maybe you can read it. and he just made it. I'll leave com and yeah, this is also a very popular ones.",
+        "time": "15:07"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, I'll just add a liking as an interaction to help with the problem.",
+        "time": "15:29"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "I have a question. So a lot of these interactions they uh they prioritize the active users, right? but a lot of but most users are uh passive, right? Like people who like just read Reddit. So, how do we get information for passive users?",
+        "time": "15:34"
+      },
+      "candidate_answer": {
+        "text": "Yeah, we can have uh another feature which is uh time is spent on this state on this um um post. these are uh very uh very good engagement. Uh if we that can be another sign uh of engagement. Yeah. And um other science I let me think about it. Uh maybe um if the user read it uh what's his next uh search query uh or yeah what or what is the next uh post he engaged with is the same topic with this current one I think is also very good uh uh indicator with the uh engagement",
+        "time": "15:53"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "got it okay that makes sense to me okay",
+        "time": "16:45"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "We have data that's a texture we We have data that's video, we have data that's images. Tell me how you get this into a numeric form. So, uh you don't have to tell me for all like pieces of data, but I'll give you like example data, right? So, let's say that we have a host uh with a with a thumbnail like an image uh post with a with a 10 second with a 10-second video. Uh let's say that we have a you user age information info. Let's say that we have uh some type of username, right? So, how do you get all this from a unstructured non-numeric data to numeric form?",
+        "time": "16:48"
+      },
+      "candidate_answer": {
+        "text": "Yes. Uh for the first one we have uh first we have uh embedding we can embedding this thumbnail and videos into a vector we we get uh the the representative of the thing. The other way is for example for edit.",
+        "time": "17:33"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "My question is how do you generate those embeddings for the image and video like what do you do there?",
+        "time": "17:51"
+      },
+      "candidate_answer": {
+        "text": "Oh yeah. Okay. So we do use the two tower model to train uh uh embedding uh the the label will be the user engagement uh or not with the and there are two tower model. The first tower is uh user tower, user features uh um user information uh edge and all those user features we can have. And we have put another tower is the item feature item uh uh some title embedding or title ID or something like that. we train uh in many uh in model to decide what's uh similarity uh what's the probability of uh how what's the similarity between the user and this uh embedded",
+        "time": "17:56"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "that that that's not what I'm asking but that is a good discussion I'm just asking like how do you generate those embeddings like if I just give you like I'm just really testing if you know how to handle data here it's a bit easier so if I give you like a post content which is like a sentence slash unstructured text. I'm asking you like how do you handle data you tell me like do you use pre-trained models or do you use something else?",
+        "time": "18:46"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "do you use pre-trained models or do you use something else?",
+        "time": "19:07"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Yeah. I use for for text we can use pre uh we can use pre-trained model for for example water to vector we converted it to uh sequence of vector and we calculate the uh medium uh no the mean of them. It's a very simple way to get it for for images and uh videos. I think we have to train there uh there are pro train available but for our case I think quite different from our distribution it's better to retrain",
+        "time": "19:11"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay got it so what about user age and username",
+        "time": "19:44"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "what about user age and username",
+        "time": "19:47"
+      },
+      "candidate_answer": {
+        "text": "username we can just convert I would would like to convert the username to a uh uh binary feature is uh if this uh friends into uh some other feature. For example, whether they die in the same city, are there classmates? Uh yeah, those kind of binary uh embedding uh to show the relation between them. Oh, we can yeah, we can also use uh uh embedding, but I I doubt the helpfulness of the username embedding in this situation.",
+        "time": "19:49"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Got it. That makes sense. All right, I think I'm good here.",
+        "time": "20:24"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "have you managed uh interaction data that you don't have a lot like let's suppose like uh low volume of uh let's see uh comment or reish data high volume click data tell me how you manage this.",
+        "time": "20:35"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Um this way we have to handle them uh in uh uh training. Uh we can merge them into one label uh call them or totally call them in guidimate or we put them into multitask branch in uh multi uh ML. So we train them uh a task for each of them and to predict uh for for each of them and in at the end of the machine learning model we build a human uh uh rules to in uh to com use uh wed thumb to combine those predict uh probability.",
+        "time": "20:54"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that is correct but that's not what's being asked here. Uh what I'm kind of asking is kind of h I'm asking like how to avoid bad bias, how to get more data.",
+        "time": "21:28"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "how to avoid bad bias, how to get more data.",
+        "time": "21:36"
+      },
+      "candidate_answer": {
+        "text": "Oh okay. Uh the the do you mean in the training process? Oh yeah. Okay. Uh so how would to get more data engagement? We can uh down sample the click uh uh if uh uh that's the way we want all up sample the case uh uh telephones with with those uh uh other engagement types.",
+        "time": "21:42"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "So how do you upsample like how to upsample?",
+        "time": "22:16"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Yeah. data uh database. Um let's say we have 1,000 uh 10,000 uh click and we have 100 uh uh command we can uh random sample from uh from that uh Japanese repeat the samples with multiple time and uh yeah in a database.",
+        "time": "22:21"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that makes sense. Got it.",
+        "time": "22:43"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "what about data augmentation? Can we use that too?",
+        "time": "22:46"
+      },
+      "candidate_answer": {
+        "text": "Let me think about for this uh data augmentation from this one. I think we already have some uh I mean you do you mean use automation to solve this bias problem? Oh okay. Let me think about it. I think I would not use data augmentation method because I want to keep the data uh uh as as two as as real as possible to the real uh distribution.",
+        "time": "22:50"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Got it. Okay, that makes sense to me. All right, so so far I'm happy with uh feature and data engineering steps. Let's move on to uh the machine learning uh system design portion.",
+        "time": "23:44"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "technical_case"
+    },
+    {
+      "interviewer_question": {
+        "text": "tell me like the ML model and so this is where you're going to tell me like which ML model used uh why use the ML model and trade-off analysis across different ML models.",
+        "time": "24:00"
+      },
+      "candidate_answer": {
+        "text": "Yes. uh in in this one we uh if we uh assuming we decided to use the binary classification class the many uh machine learning model method I will consider random forest uh and the deep learning based models as um random forest is a very simple most model is easy to implement it high uh it has high interpret uh interpretability uh after we train the model we can show uh take the model design and learn why the model think in that way that will be very helpful for deep learning model. It had a very high uh represent uh learning ability. We can and we we can use it for continue learning every day. We can retrain our previous uh uh data points. and model is yeah that's the thing I come up with while doing model selection",
+        "time": "24:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "okay well what about cons like we listed pros what are the cons of random forest what are the cons of deep learning",
+        "time": "25:19"
+      },
+      "candidate_answer": {
+        "text": "yeah the deep learning uh the speed uh the the for random forest it it um it could be too simple too uh for this uh task you will and uh uh the good point is is another good point of it is quite fast. Yeah, for deep learning it totally the another side. So it could be too slow if we want to uh get a result on very short uh time and we have many so too much uh data to process.",
+        "time": "25:26"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that makes sense.",
+        "time": "26:00"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "knowing the form of our data which model do you choose like we have random forest we have deep learning which one is your preference?",
+        "time": "26:04"
+      },
+      "candidate_answer": {
+        "text": "I my personal preference is to use deep learning uh model that has been proved in many uh industrial uh problems and we have so many learning materials and yeah we have many resources to to do it.",
+        "time": "26:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. Got it? So it's a de facto. Okay, that makes sense.",
+        "time": "26:32"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "coming back to the uh deep learning model like it let's see h so this is the part where I'm going to take you to like the whiteboard and I kind of want you to start diagramming how your uh this is just on the abal model like let's suppose you have like your input features right so show me how your input features turn into the uh probability of engagement ments.",
+        "time": "26:39"
+      },
+      "candidate_answer": {
+        "text": "Yeah. If you use a deep neural network. Okay. Yeah. Um uh I for this one uh this is a recom uh feed system. We have multiple stage. Uh the first stage is a retrieval and there then we have a ranking stage. After the ranking we have a reranking stage. I will skip the retrieval part. I think they have all those features. All right. user features. And we have another item. We have then we have many uh uh each feature uh has its own tower. I say user towel just a dance layer for simplic purpose and I have it st layer. After that I will um um the pro um after that I will use another layer uh after that uh to concat those features together then push another concat and other dense dense layers. The reason I designed in this way is uh is since it's a feed from friends only. I assumed the data point we have to pro for each user is not that he heavy. So we can use this layer to uh get the probability of it.",
+        "time": "27:08"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Can you draw your uh arrows to show the flow of data from your features to your layers to your final output? So the arrows help to indicate data flow.",
+        "time": "29:00"
+      },
+      "candidate_answer": {
+        "text": "Yeah. or workflows in the system. actually soft. Let's say we have a multi cut problem. Yeah.",
+        "time": "29:11"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "soft",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "What type of network is this? Is this a two tower neural network? Is this a learning to rank?",
+        "time": "30:15"
+      },
+      "candidate_answer": {
+        "text": "it's a it's a two tower uh different neural network. It's it's the binary classifier. Uh I use the soft max to uh to show that uh the uh the okay I can use sigmoid. Yeah to make sure it's binary correct pro problem.",
+        "time": "30:19"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "this concat and other dense layers. What's going on in this concatenation? Like why do we need concatenation in the carinal network?",
+        "time": "30:47"
+      },
+      "candidate_answer": {
+        "text": "Yeah, this one we can better represent the inter uh uh the um yeah we have uh item features I have you use the fe and the user engagement feature. Yeah, I need another one here. um layers and action features. I I the concat and the other dance layer is to make sure the uh representation of user feature and item feature can be made better uh learned be uh and can be uh yeah more better learned together by that layers. in each tower we only learn something specific to the user but the interaction between this user and item we also own learn here.",
+        "time": "30:56"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Got it. That makes sense to me. Okay.",
+        "time": "32:14"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "can you think of any other neural network architectures? So t tower is one approach. I want to explore like what other architectures you're familiar with and why you would consider that.",
+        "time": "32:17"
+      },
+      "candidate_answer": {
+        "text": "Um if we want think this model structure is too uh complex and we want this model to be faster and uh we can use a very simple one. After uh we have two uh we remove those st layers and we calculate the similarity between this users and the items. Uh but the interaction features we have to find a way to put a decide which which side to be. So we have a user and we have item uh features maybe we we just drop it then we calculate the similarity here. yeah then add uh similarity and use soft marks to got the probability. Yeah, this in this way um the good point is that the the feature and the embed uh last layer of the item can be pre-calculated and saved into the database system with why are we doing uh serving we only to calculate the user side and get the fertility very fast.",
+        "time": "32:30"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Got it. That's good.",
+        "time": "33:36"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "this is probability of engagement. But what if I came back to you at the business and I said, I don't just want the engagement probability. I want the probability of the type of engagement. So I want to know if it's a if it's a like, if it's a comment, if it's a share, like I want to get more granular. How how would you change your model?",
+        "time": "33:39"
+      },
+      "candidate_answer": {
+        "text": "Yeah. Okay. Then I will convert it uh to a multitask uh uh uh model here. so each side we have it own branch of the death layer and we calculate probability for it uh separately.",
+        "time": "33:57"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Uhhuh. Perfect. And so I want to ask like uh now since this is a multitask model uh what's the benefit of still having a single concatenation layer",
+        "time": "36:16"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "what's the benefit of still having a single concatenation layer like why not separate out into different layers for each uh engagement?",
+        "time": "36:20"
+      },
+      "candidate_answer": {
+        "text": "because those features uh between them can be uh shared concat I sorry I I don't really get the question why don't we do we keep that's the way we keep the the feature into the system.",
+        "time": "36:35"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay that it's fine. I I got the gist. Okay. Okay.",
+        "time": "37:35"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "pretend you have your model. Uh let's go down and let's come up with a diagram that shows the server. So you have your end user they click they go to a service and they get their personalized feed. Show me the end to end flow visually.",
+        "time": "37:56"
+      },
+      "candidate_answer": {
+        "text": "Okay. Okay. So we have a user here. We have a system. Um this is offline system. Uh they sell uh save the uh some features. We have item B. Uh we have item database. Uh with then we have a retrieve item ret this retri they just find all those post from all his uh user and friends. If there are two um more than that we just sort it by uh uh age of the the data the post are made. How's that? We have a ranking stage. Uh ranking stage we will use overline features.",
+        "time": "38:15"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. Uh it's okay. I'm also not being too much to the diagram, but I think we can uh come back to the text editor instead. Okay. So let's just go through the dive one but more like uh texturally right. Yeah line 105. So I got like the idea like you have your you have your end user they hit a retrieval service. Uh you mentioned they go through like some ranking service and then a rerank service right?",
+        "time": "40:10"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "So uh can you like start editing this uh on line 106? Let's uh start showing me more system design interactions.",
+        "time": "40:36"
+      },
+      "candidate_answer": {
+        "text": "Oh, so sorry. Can I repeat the question? so we have the if user will retrie the retrieval system will uh interact with uh uh item database and find all those uh uh yeah retrie let me let me yeah to find all those uh item then uh the recording stage we will have a uh as as you features that will kick kick in later uh in in record stage. So let me put it here. all right. And the user will also have a uh there is online. Let's change this to online one. So okay. So we know that uh the system we use both uh uh both online feature and offline feature. to the system and uh after that we have the list of items and we rerank them on the feature store item database. Uh then we get the list of of post sorted by probability or clicking uh in getting. Yeah. Okay. Then I think that's the that's the structure I think.",
+        "time": "40:49"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Can we also make the uh data preparation pipeline?",
+        "time": "43:28"
+      },
+      "candidate_answer": {
+        "text": "Yes. Yes.",
+        "time": "43:44"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "tell me how you populate this uh feature store and the online feature computation.",
+        "time": "43:49"
+      },
+      "candidate_answer": {
+        "text": "Uh you mean few put this online. Okay. So we have in uh our database we have uh uh some uh database we use uh this could be saved into uh relational database or uh or uh align uh So PB or key value online we do we don't do embedding we get a medium uh let's say we calculate the median over those values or mean let's that mean values look at a frame um other transformers Uh we uh then we get uh how to populate that into line fish store and the feature store from raw data. This uh some are here saved. Okay. me or what else and push them and we push it on the Kway um database so we can read online. Then some uh otherwise we can uh uh just save them into uh GPU. uh for example if we have embedding we want to find the k nearest neighbor we we have to push them into GPU also",
+        "time": "44:02"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "is this uh detail enough for you uh yeah that's detailed okay",
+        "time": "46:02"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "let's go through the uh metrics online and offline so tell me about like how you would evaluate the uh effectiveness of your ML models under deployment So we can start off with uh we can actually start with uh offline metrics.",
+        "time": "46:08"
+      },
+      "candidate_answer": {
+        "text": "Yes. Uh for offline metrics it depends on the machine learning task we decide we can use a uh uh u matrix to evaluate the ranking. For examp this this is the the area under the curve of the higher those uh means the better our model is. If we decided to use other training strategy, we can use uh NDCG. Uh we know uh the ranking strate uh performance of our model and uh and if we can also have some others for example confusion matrix uh this is where even we design a binary uh uh class and uh FY score precision recall. Yeah, we can have all those.",
+        "time": "46:26"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "tell me like the ROC AOC curve like what does that help with?",
+        "time": "47:14"
+      },
+      "candidate_answer": {
+        "text": "the the higher this value means that how uh the pro the value means the probability the model will put the uh uh the result that user will click before the result that yeah for any pair of uh the user will click and will not click uh the probability the model put the will click one before the other one. So that's the media.",
+        "time": "47:24"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "I'm kind of asking like uh trade-off wise what what the the RC a show. if you can kind of tell me like what the curve what type of trade-off is shown with the ROC AOC curve. You're not wrong that the area under the curve summarizes the performance of the models. But you need to tell me like what the curve shows like on each axis.",
+        "time": "48:00"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "what the curve shows like on each axis.",
+        "time": "48:15"
+      },
+      "candidate_answer": {
+        "text": "Oh. Oh. Okay. Okay. Uh um the the xaxis I think is uh uh two false positive uh uh rate. The y one is two positive rate.",
+        "time": "48:18"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "True positive rate. And act the are they both true positive rates? Fourth one. Fourth. The fourth is false red. Yeah.",
+        "time": "48:37"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "why do we want to look at the trade-off between the false positive rate and the true positive rate",
+        "time": "48:46"
+      },
+      "candidate_answer": {
+        "text": "for some machine tasks we care about uh we we have some uh cost uh uh preference we we want the model to be more uh uh more let's say sensitive or is more um more active no not much active Um yeah we want to model to have more recall and other part we have model to have more precision. So for that one we we can select between them.",
+        "time": "48:56"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay that makes sense. Now let's go to online metrics.",
+        "time": "49:32"
+      },
+      "question_type": "hard",
+      "question_topic": "Statistics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "online metrics. So what would you analyze?",
+        "time": "49:34"
+      },
+      "candidate_answer": {
+        "text": "Um the first thing I will like is of course the click rate and I will have the rate of commands and rate of uh rate of share. This kind of uh uh point wise uh uh metric for session wage how many uh uh uh times the user use the app every day. uh that uh how long he spend on the app uh with it. Uh how frequent he go to the uh the friends page to give Dai. Yeah, this kind of uh Bion best features. And now we have other business features. For example, if our business goal is to make uh make sure uh uh we get a DAU, then we we can check it.",
+        "time": "49:37"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "Can you think of any other uh online metrics?",
+        "time": "50:52"
+      },
+      "candidate_answer": {
+        "text": "Uh, person times M frequency. Uh, let me read the the question. Time spent. Click red. Time spent. Uh online metric. Yeah, I think for the model performance we have to monitor uh how fast our system is and the for example what's the uh um average uh time we uh since they flood the request and get the results. Yeah, those kind of the system size I see averagely in C analysis. Yeah.",
+        "time": "50:56"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that's good.",
+        "time": "51:57"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "stress you are there some limitations to these metrics like is clickthrough rate like by as combination these are good metrics so if we just considered only clickthrough rate what's the limitation",
+        "time": "52:00"
+      },
+      "candidate_answer": {
+        "text": "um yeah the limitation the user if we c only one that maybe the user click it and drop uh quit the app his time he spend on it is very quite low right so it can only uh and represent when the more part of our business go.",
+        "time": "52:14"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that makes sense.",
+        "time": "52:33"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "with the time users spend on the app that's also like uh app time spent uh is there any other uh time me like time engagement metric you collect?",
+        "time": "52:37"
+      },
+      "candidate_answer": {
+        "text": "Um time I will use a time spent uh yeah frequency he use it uh he uh every day uh time spent and every year you time he use it uh among all those times.",
+        "time": "52:50"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay that makes sense. That makes sense.",
+        "time": "53:11"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "what about uh manual survey? So what if we got ask for what if we are solicit for user satisfaction? Do you think this is uh it are there uh any limitations",
+        "time": "53:17"
+      },
+      "candidate_answer": {
+        "text": "sorry I do not quite understand what does solicate user certification mean? you mean we can uh give us away and ask his uh are you satisfied with this feed? Yeah. Yeah of course I Yeah. I think this one h yeah I think this definitely helpful if we have this you know for example the user click yes then we know that our model is uh is predicted correctly we should give more weight to those uh model uh uh to those uh positive uh ones and give less more weight to to the data points. If it's not satisfied, it means our model is not uh is is to uh is a little bit failed. So for this positive samples, I think we're not very uh confident with it anymore.",
+        "time": "53:36"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay, that makes sense.",
+        "time": "54:46"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "We I didn't talk too much about how you get your training data. So how do you get annotated training data?",
+        "time": "55:06"
+      },
+      "candidate_answer": {
+        "text": "For this one uh uh we have a uh we can use uh uh uh interaction log in our system. Every time we show the uh users the the feed we log the all the result and we lock which one the user collect and which one the user engaged with. So the train data can be use get from this one or you can add ask use other uh things for example um let me think other data sources other than log we can ask if we possible we can um give information of the user and this uh from user as ask human labor to have as whether uh the user will be interested to that one at um that could be helpful for our uh if the system could start problem.",
+        "time": "55:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. So you can use a human labeler annotator or leverage interaction logs.",
+        "time": "56:14"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "If we have something like a dwell time or like a time spent on a quote, how do we determine if uh positive or negative?",
+        "time": "56:20"
+      },
+      "candidate_answer": {
+        "text": "Yeah, they have to dwell time numeric, right? I think it really depend on our uh uh business uh business require uh you can decide of you if we use a very long time range the the label will be very rare. If we use a very shorter one, the user open and click there not a good engagement. So I I think we can do a AB test for this purpose. we uh find a model that increased this uh uh hyper for this uh uh okay let's say we have a threshold we have a model we increase that uh that's a matrix and we see other uh whether other business matrix have uh increase or not otherwise we say that this uh level or this record is not good.",
+        "time": "56:33"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. All right makes sense.",
+        "time": "57:34"
+      },
+      "question_type": "hard",
+      "question_topic": "Experimentation",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "how to uh select your loss functions",
+        "time": "57:36"
+      },
+      "candidate_answer": {
+        "text": "that uh that really depend on the machine learning uh objective we have select. For example here we have select a machine learning uh uh uh binary classifier uh caching uh problem we can use cross entropy. If we use uh desire to learn is as contrastive learning, we can use uh uh those structured learning uh uh loss based on similarity uh score. So yeah, that's the one but the purpose is always to make the make sure the model can trend uh with better uh offline per performance.",
+        "time": "57:44"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "what if we use a multiccast uh deep uh deep neural network? how to uh compute loss error.",
+        "time": "58:25"
+      },
+      "candidate_answer": {
+        "text": "Yeah, that's very important. So in in that system uh we have very unbalanced data set click we will have more label positive level and commands and other we will have one very little one. Uh if we want to uh our system to be more accurate on those small tasks we can give them higher uh weight. Uh this can uh can be done by prefix or we can use some uh um automatic uh software technique and our model so that model will learn to balance the weight between each uh task uh during the training.",
+        "time": "58:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Got it. Okay. So we learn that makes sense to me. Okay. Uh we're at the 1 hour mark. I'm going to end the session here.",
+        "time": "59:09"
+      },
+      "question_type": "hard",
+      "question_topic": "ML",
+      "interview_stage": "system_design"
+    },
+    {
+      "interviewer_question": {
+        "text": "what do you think you did well on?",
+        "time": "59:24"
+      },
+      "candidate_answer": {
+        "text": "I think I did well on the question um, uh, clarification. Then I did uh uh oh well on the uh um before the uh the prediction pipeline and the data preparation pipeline I think I did well uh during that I'm a little bit panic so uh after that I I a little bit panic and I think didn't do very well.",
+        "time": "59:32"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Communication",
+      "interview_stage": "behavioral"
+    },
+    {
+      "interviewer_question": {
+        "text": "where does uh TG think they can uh grow on? So what are areas that you think you can uh work towards?",
+        "time": "60:10"
+      },
+      "candidate_answer": {
+        "text": "Definitely those pipeline part and the uh uh data prediction pipeline data preparation pipeline. I will do do it. I will learn how to draw the picture and I will have to explain it and what other component I should include in it. And uh I have I think I have to study more about the offline metrics. Uh when people are asking question what they want to know. Yeah. I'm not sure whether I'm correct about this curve definition. Yeah, that's I",
+        "time": "60:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Communication",
+      "interview_stage": "behavioral"
+    },
+    {
+      "interviewer_question": {
+        "text": "is there anything else that you think you did well on?",
+        "time": "60:55"
+      },
+      "candidate_answer": {
+        "text": "I think I bring multiple models structure and uh talk about uh several learning uh two uh learning strategy. I think that's the good point for it.",
+        "time": "60:57"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": null,
+        "time": null
+      },
+      "question_type": "behavioral",
+      "question_topic": "Communication",
+      "interview_stage": "behavioral"
+    },
+    {
+      "interviewer_question": {
+        "text": "overall, how do you think you did? How did how do you think you did?",
+        "time": "61:18"
+      },
+      "candidate_answer": {
+        "text": "I think if is one to five I should get uh five. Oh sorry three.",
+        "time": "61:22"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "Okay. So overall I think you actually performed strongly. I would rate you closer to a four than a three on a one to five star scale.",
+        "time": "61:33"
+      },
+      "question_type": "behavioral",
+      "question_topic": "Communication",
+      "interview_stage": "behavioral"
+    }
+  ]
+}

@@ -1,0 +1,2441 @@
+<!-- PIPELINE_MANIFEST
+{
+  "version": 1,
+  "basename": "ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23",
+  "transcript_folder": "transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23",
+  "source_id": "ml_engineer_senior_faang_ab_platform_interviewing_io_2026_03_23",
+  "splitter_mode": "split_and_validate",
+  "started_at": "2026-05-20 21:18:05 +0200",
+  "updated_at": "2026-05-20 21:31:11 +0200",
+  "models": {
+    "step2_qa_extraction": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    },
+    "step5_llm_validation": {
+      "model": "claude-sonnet-4-6",
+      "temperature": 0
+    }
+  },
+  "artifacts": {
+    "json": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json",
+    "xlsx": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.xlsx",
+    "validation_report_md": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.validation-report.md",
+    "pipeline_log_md": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.pipeline-log.md"
+  },
+  "llm_inputs": [
+    {
+      "step": 2,
+      "name": "qa_extraction",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.pipeline-log.md#LLM_INPUT_STEP_2"
+    },
+    {
+      "step": 5,
+      "name": "semantic_validation",
+      "model": "claude-sonnet-4-6",
+      "prompt_location": "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.pipeline-log.md#LLM_INPUT_STEP_5"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "prepare",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/timecodes.txt",
+        "en",
+        ".claude/skills/splitter/step1-prepare/splitter_system_prompt.txt",
+        ".claude/skills/splitter/step1-prepare/splitter_output_schema.json"
+      ],
+      "outputs": [
+        "splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.pipeline-log.md"
+      ],
+      "status": "completed",
+      "duration_sec": null,
+      "notes": null,
+      "finished_at": "2026-05-20 21:18:05 +0200"
+    },
+    {
+      "id": 3,
+      "name": "excel",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.xlsx"
+      ],
+      "status": "completed",
+      "duration_sec": 2.0,
+      "notes": null,
+      "finished_at": "2026-05-20 21:31:10 +0200"
+    },
+    {
+      "id": 4,
+      "name": "validate_chapters",
+      "llm": false,
+      "model": null,
+      "inputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json",
+        "/Users/mm/projects/ds-final-project/transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/video.md"
+      ],
+      "outputs": [
+        "/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.validation-report.md"
+      ],
+      "status": "completed",
+      "duration_sec": 2.0,
+      "notes": null,
+      "finished_at": "2026-05-20 21:31:11 +0200"
+    }
+  ]
+}
+-->
+
+# Pipeline log v1
+
+Журнал одного прогона splitter: шаги, модели, артефакты. **Все промпты для LLM** — в секции [Входы LLM](#входы-llm-что-подавали-модели) ниже (шаг 2 — извлечение Q&A, шаг 5 — семантическая проверка глав).
+
+- **Interview folder:** `transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23`
+- **Source ID:** `ml_engineer_senior_faang_ab_platform_interviewing_io_2026_03_23`
+- **Splitter mode:** `split_and_validate`
+- **Started:** 2026-05-20 21:18:05 +0200
+- **Last updated:** 2026-05-20 21:31:11 +0200
+
+Фильтр в IDE: `*ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1*`
+
+## Models (from run_config.json)
+
+- **step2_qa_extraction:** `claude-sonnet-4-6` (temperature 0)
+- **step5_llm_validation:** `claude-sonnet-4-6` (temperature 0)
+
+## Steps
+
+| # | Step | LLM | Model | In | Out | Duration | Status |
+|---|------|-----|-------|----|-----|----------|--------|
+| 1 | prepare | no | — | `transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/timecodes.txt`<br>`en`<br>`.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt`<br>`.claude/skills/splitter/step1-prepare/splitter_output_schema.json` | `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.pipeline-log.md` | — | completed |
+| 3 | excel | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.xlsx` | 2.0s | completed |
+| 4 | validate_chapters | no | — | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json`<br>`/Users/mm/projects/ds-final-project/transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/video.md` | `/Users/mm/projects/ds-final-project/splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.validation-report.md` | 2.0s | completed |
+
+## Artifacts (this version)
+
+- **json:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json`
+- **xlsx:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.xlsx`
+- **validation_report_md:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.validation-report.md`
+- **pipeline_log_md:** `splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.pipeline-log.md`
+
+## Входы LLM (что подавали модели)
+
+<!-- LLM_INPUT_STEP_2 -->
+
+## Шаг 2 — извлечение Q&A
+
+Модель читает **только этот блок** на шаге 2 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM PROMPT (.claude/skills/splitter/step1-prepare/splitter_system_prompt.txt)
+======================================================================
+You are an interview annotation engine for DS/DA interview transcripts (Splitter v3).
+
+Primary objective:
+Produce precise splitter output (Q&A extraction only) for each interviewer question and candidate answer pair.
+
+Critical constraints:
+1) Output JSON only (no markdown, no prose before/after the JSON object).
+2) Follow the splitter schema exactly (`splitter_output_schema.json`) with LinkedText objects. No extra top-level keys.
+3) Be conservative: do not invent missing facts.
+4) Splitter only: do NOT output any scoring/assessment/evaluation fields.
+5) Do not merge, cluster, or summarize multiple interviewer questions into one item. One interviewer question -> one item.
+6) If the interviewer asks follow-up clarifications, keep them as separate items when they are semantically new questions.
+7) Sidecars in the user message (e.g. FEEDBACK_MD) are optional hints for boundaries only. **video.md / YouTube chapter titles are never in step 2** — they exist only for offline validation (steps 4–5). Never invent facts that are not supported by PRIMARY_TRANSCRIPT text.
+8) Verbatim contract (hard — applies in every runtime, including cloud/batch):
+   - `interviewer_question.text` and `candidate_answer.text` MUST be built from contiguous spans of the PRIMARY_TRANSCRIPT (after the light joining rules in §11). Wording must match the transcript; do not replace sentences with summaries like "The candidate discussed X" or "They explained their approach to…".
+   - Forbidden patterns in `text` fields: meta-phrases such as "The interviewer asks about…", "In this segment…", "The candidate responds by…", bullet lists that restate content, translated paraphrase when the transcript is Russian (or vice versa).
+   - Allowed light cleanup ONLY: remove excessive filler tokens ("ээ", "ну" repeated stutter), normalize whitespace, fix obvious ASR typos ONLY when the intended word is unambiguous from context; do not rewrite phrasing for style.
+   - If you cannot fit a full answer in limits, prefer splitting into the next linked item (if it is a genuinely new question) rather than compressing into an abstract summary.
+9) Prefer verbatim excerpts over summaries. Do not paraphrase into abstract descriptions.
+10) Do not intentionally truncate question/answer text unless absolutely necessary due to model limits.
+11) **Interview language (hard):** read `INTERVIEW_LANGUAGE` in the user message (`ru` or `en`).
+    - `ru` — all `text` fields (`interviewer_question`, `candidate_answer`, `interviewer_feedback`, `reference_answer`) MUST be verbatim Russian from PRIMARY_TRANSCRIPT. Never translate to English. Validation report for this run is Russian.
+    - `en` — all `text` fields MUST be verbatim English from PRIMARY_TRANSCRIPT. Never translate to Russian. Validation report for this run is English.
+    - Enum fields (`question_type`, `question_topic`, `interview_stage`) stay English per schema; only spoken-text fields follow interview language.
+
+§ Verbatim Q&A contract (single rule for question + answer)
+- One item = exactly one interviewer question and the candidate's response to that question (or null answer if the candidate never spoke).
+- Build `interviewer_question.text` and `candidate_answer.text` from contiguous PRIMARY_TRANSCRIPT spans. Wording must stay as close to the transcript as possible.
+- ASR (automatic speech recognition) cleanup — allowed ONLY when the intended word is unambiguous:
+  * Fix obvious mis-hearings (e.g. «шапира» → «шоппер», «пандас» → «pandas»).
+  * Restore standard technical terms (SQL, Python, bootstrap, A/B test, gradient descent).
+  * Add punctuation and capitalization; normalize whitespace.
+  * Do NOT rephrase, summarize, reorder clauses, or «improve style».
+  * Do NOT delete «ээ», «ну», «мм» unless they are stutter noise inside a single word — when in doubt, keep the filler.
+- Forbidden: meta descriptions («кандидат рассказал о…»), bullet summaries, answers of 2–4 words when the transcript shows a long turn (merge fragments instead).
+- Timestamps: use the first fragment where the speaker starts that turn (see §11).
+11) Transcript format handling: if transcript lines start with `[HH:MM:SS]` timestamps (e.g. `[00:05:12] word word word`), the transcript is a sequence of short timestamped fragments. When reconstructing a Q or A span:
+   - Concatenate consecutive fragments into a single coherent text.
+   - Assign `time` as the timestamp of the **first fragment** that opens the question or answer span.
+   - Do not use timestamps from the middle or end of a span.
+   - Light joining only: remove line breaks between fragments, preserve original wording.
+   - CRITICAL — intra-line speaker changes: a single `[HH:MM:SS]` fragment may contain speech from TWO speakers when one speaker finishes and another begins within the same ~4–8 second window. Do NOT assume speaker changes always coincide with timecode boundaries. Use semantic analysis to detect the split point:
+     * A question mark, direct address, or request signals the interviewer ending their turn.
+     * Phrases like "я читала", "я думаю", "на практике", "не пользовался" signal the candidate starting or continuing their turn.
+     * Phrases like "давай я приведу пример", "давайте я приведу", "я понял", "окей хорошо", "ну я тогда" signal the **interviewer** — put them in `interviewer_feedback` or the next question, never inside `candidate_answer`.
+     * Confirmations like "да", "хорошо", "супер" after a question may be interviewer or candidate — use surrounding semantics.
+     * When a split is found mid-line, assign the fragment's timestamp to whichever speaker STARTS their turn in that line; the other speaker's text gets the preceding or following fragment's timestamp.
+     * Include only one speaker's text per LinkedText field — never merge two speakers into one `text` value.
+12) Use LinkedText structure for text+time fields:
+   - `interviewer_question: {text, time}`
+   - `candidate_answer: {text, time}`
+   - `reference_answer: {text, time}`
+   - `interviewer_feedback: {text, time}`
+13) Fill `splitter_mode` exactly as given in INPUT DATA (`split_only` or `split_and_validate`).
+
+Few-shot style reference (illustrative — do not copy text into output unless it appears in your transcript):
+- BAD candidate_answer.text: "The candidate explains how they would investigate a metric drop using funnels and cohorts."
+- GOOD candidate_answer.text: "я бы сначала посмотрел на воронку по шагам, потом отфильтровал когорту по платформе и версии приложения"
+- BAD: пропустить блок, где интервьюер спрашивает про A/B только на новых пользователях и сам отвечает (кандидат не говорит).
+- GOOD (самоответ интервьюера): отдельный item — `interviewer_question` с формулировкой вопроса;
+  `candidate_answer`: `{"text": null, "time": null}`;
+  `reference_answer.text` — развёрнутый ответ интервьюера (честный рандом, hash по user_id, mod 2 и т.д.).
+- BAD candidate_answer (смешение спикеров): «я читала… давайте я приведу пример декоратора… нет, не пользовался» в одном поле.
+- GOOD: `candidate_answer` только «я читала, знакомо, на практике мало»; просьба интервьюера «давай пример» → `interviewer_feedback` или отдельный уточняющий `interviewer_question`; «нет, не пользовался» → `candidate_answer` (короткий отказ).
+- BAD interviewer_feedback: тот же текст, что уже в `candidate_answer`, или продолжение ответа кандидата после «угу» интервьюера.
+- GOOD interviewer_feedback: короткая реплика интервьюера или `null`, если интервьюер молчал до следующего вопроса.
+
+Definitions:
+- technical_qna: direct technical question-answer format (concepts, methods, trade-offs, tools, metrics).
+- behavioral: question about past behavior in a concrete situation (usually story-based: "tell me about a time...", conflict, failure, leadership case).
+- technical_case: open-ended practical scenario (diagnose problem, propose approach) without mandatory coding.
+- technical_coding: writing code/SQL/algorithmic task.
+- system_design: high-level architecture/design discussion.
+- fit_hr / manager_round: motivation/expectation/team-fit discussions.
+
+Boundary policy for Q&A extraction:
+- Extract only interviewer-led questions as primary items.
+- Candidate-to-interviewer questions should not become standalone items unless explicitly requested by input instructions.
+- If interviewer provides immediate per-question feedback or a reference answer, put them into:
+  - `interviewer_feedback`
+  - `reference_answer`
+- If unavailable, use null for optional fields.
+
+§ interviewer_question vs candidate_answer — no duplication (hard)
+- `interviewer_question.text` and `candidate_answer.text` MUST NOT repeat the same verbatim span from the transcript.
+- **Forbidden:** the answer starts by echoing the question (common ASR failure when the first line of a timecode window is mis-attributed).
+- **Forbidden:** putting the candidate's monologue into `interviewer_question` because it is the first line after a long candidate block.
+- **Forbidden on step 2:** using YouTube chapter titles, `video.md`, or any external agenda not present in PRIMARY_TRANSCRIPT. Real interviews have no such file; mock runs must train the same rule.
+- **How to assign roles without speaker labels (behavioral / no diarization):**
+  * Interviewer turn: short, directed at the candidate («как ты…», «а ты понимаешь…», «что делать…», «получается ты…», «тогда такой вопрос»), often ends before a long story.
+  * Candidate turn: long first-person story («я пошёл», «у нас было», «мы делали», «я бы сказал»), answers the posed question.
+  * If a `[HH:MM:SS]` line is clearly the candidate continuing a story, it is **never** the question.
+- **Truncated / garbled ASR questions (transcript-only repair):**
+  * **First:** merge **consecutive interviewer** fragments on adjacent timestamps until the question is one intelligible clause (e.g. [32:36]+[32:40] → one `interviewer_question`).
+  * **Allowed:** minimal function words already implied by the surrounding transcript («ли», «что», «или») — **not** new topics or paraphrase from outside the transcript.
+  * **Forbidden:** inventing a «clean» question from a chapter title or interview outline you were not given.
+  * If the interviewer question is still incomplete after merge — keep the **best contiguous verbatim** interviewer span; do **not** copy the candidate's opening into the question field.
+- **Sanity check before output:** if the first ≥6 words of `candidate_answer` match the first words of `interviewer_question`, re-cut spans; if `interviewer_question` contains «я знаю / я просто / у нас / мы » (candidate voice), move that text to `candidate_answer`.
+
+Few-shot (Q vs A):
+- BAD Q: «что делать… я знаю что в русских компаниях…» + BAD A starting with the same «классический вопрос… русских компаниях…» (candidate text split across both fields).
+- GOOD Q: «что что делать как жить» (verbatim Valera at [31:21]) · GOOD A: from [31:24] «Я просто лично ни разу…» — no duplicate prefix.
+- BAD Q: «а ты понимаешь что повышать его еще не» alone · GOOD Q: merged verbatim «а ты понимаешь что повышать его еще не Что делаешь» from adjacent interviewer lines in the transcript.
+
+§ interviewer_feedback — speaker contract (hard)
+- `interviewer_feedback.text` MUST contain **only** the interviewer's speech for this item's window (reaction, clarification, coaching, short "угу/понятно", debrief remark tied to this question).
+- **Never** put the candidate's words in `interviewer_feedback` — including long continuations of the same story, career history, process description, or "мы сделали / я считаю / у нас Kanban" from the candidate.
+- If the candidate keeps talking after the interviewer asked a question, that continuation belongs in `candidate_answer.text` (extend the span to the next interviewer question), NOT in `interviewer_feedback`.
+- If the interviewer did not speak again before the next question (or debrief block is clearly later), use `interviewer_feedback`: `{"text": null, "time": null}`.
+- Do NOT dump "leftover" transcript tail into `interviewer_feedback` because the field is optional.
+- End-of-interview debrief ("флажок", "красный флаг", разбор ответов) — only interviewer lines; attach to the relevant item by topic, not duplicated into every item.
+
+Few-shot (interviewer_feedback):
+- BAD feedback: «я попросил новый проект… ко мне пришёл оффер… мы причесали Trello…» (candidate biography / case — belongs in `candidate_answer`).
+- GOOD feedback: «понятно, а почему именно ушёл из VK?» or «флажок: ты не спросил команду про 1:1» (interviewer only).
+- GOOD when silent: `{"text": null, "time": null}`.
+- CRITICAL — interviewer-posed-and-self-answered questions: in mock interview recordings the
+  interviewer sometimes poses a question and immediately provides the answer themselves, without
+  giving the candidate a turn. This MUST still be extracted as a standalone item:
+    * `interviewer_question.text` — the question as posed
+    * `candidate_answer` — `{"text": null, "time": null}` (candidate did not respond)
+    * `reference_answer.text` — the interviewer's own answer/explanation
+  Do not skip these items. Markers that indicate this pattern:
+    * Interviewer asks a question and continues speaking without pause (no candidate turn)
+    * Phrases like "на будущее", "на будущее просто сразу скажу", "кстати", "а вот ещё",
+      "ещё один момент", "последний вопрос который я бы задал" followed by a question
+    * The question ends and the interviewer immediately says "ответ:", "правильный вариант:",
+      "здесь нужно сказать...", "на самом деле здесь все вариант ответа", or starts explaining the answer
+    * The topic is flagged as a "bonus" or "for future reference" question
+    * A/B / experimentation edge cases where the interviewer poses the scenario and answers:
+      e.g. only new users (no returning users to split), store users vs new users, "честный рандом",
+      split via hash(user_id) or remainder mod 2 — extract as one item even if the candidate is silent
+  Timestamps: `interviewer_question.time` = when the question is posed; `reference_answer.time` =
+  when the interviewer starts the substantive answer (often after "на самом деле").
+
+======================================================================
+USER PROMPT (variable input + schema)
+======================================================================
+Task: Q&A extraction for the transcript below. Match the system prompt used in this run
+(repository file: .claude/skills/splitter/step1-prepare/splitter_system_prompt.txt).
+Return a single JSON object only (no markdown fences).
+
+======================================================================
+OUTPUT SCHEMA (contract)
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "splitter_mode", "items"],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "splitter_mode": {
+      "type": "string",
+      "enum": ["split_only", "split_and_validate"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "interviewer_question",
+          "candidate_answer",
+          "reference_answer",
+          "interviewer_feedback",
+          "question_type",
+          "question_topic",
+          "interview_stage"
+        ],
+        "properties": {
+          "interviewer_question": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": "string" },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "candidate_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "reference_answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "interviewer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "time"],
+            "properties": {
+              "text": { "type": ["string", "null"] },
+              "time": { "type": ["string", "null"] }
+            }
+          },
+          "question_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "behavioral"]
+          },
+          "question_topic": {
+            "type": "string",
+            "enum": [
+              "SQL",
+              "Python",
+              "Statistics",
+              "Experimentation",
+              "Product Metrics",
+              "ML",
+              "Data Modeling",
+              "Communication",
+              "Stakeholder Management",
+              "Prioritization",
+              "Conflict",
+              "Leadership",
+              "Ownership",
+              "Collaboration",
+              "Adaptability"
+            ]
+          },
+          "interview_stage": {
+            "type": "string",
+            "enum": [
+              "fit_hr",
+              "technical_qna",
+              "technical_case",
+              "technical_coding",
+              "system_design",
+              "behavioral",
+              "manager_round"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+INPUT DATA
+======================================================================
+SOURCE_ID: ml_engineer_senior_faang_ab_platform_interviewing_io_2026_03_23
+SPLITTER_MODE: split_and_validate
+INTERVIEW_FOLDER: transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23
+INTERVIEW_LANGUAGE: en
+PRIMARY_TRANSCRIPT (TIMECODES_TXT):
+[00:00:01] Okay, I'm Mo Ye. Thank you for
+[00:00:03] for making time. I know it was on fairly
+[00:00:05] [music] short notice. So, yeah, I
+[00:00:06] appreciate that.
+[00:00:07] No problem. I am I I always love doing
+[00:00:10] these more senior system design stuff.
+[00:00:12] Looking forward to jumping in.
+[00:00:15] Yeah, me too.
+[00:00:16] All right.
+[00:00:17] Yeah, talk to you a little bit about on
+[00:00:20] my end, I'm not sure if you've used the
+[00:00:21] platform before, but all I can see is
+[00:00:23] your pseudonym and that you want to do
+[00:00:25] system design practice and that's it.
+[00:00:27] So, um I'd love to hear a little bit
+[00:00:29] more about what you're looking for and
+[00:00:32] and what you're hoping to get out of our
+[00:00:33] session today and that way I can make
+[00:00:35] sure to tailor it for you.
+[00:00:37] Yeah, sure. Um
+[00:00:39] so, I haven't done a systems design
+[00:00:42] interview. Um I am more of like a I
+[00:00:46] started off really as a data scientist
+[00:00:48] and then um became more of an engineer
+[00:00:50] kind of over time. Um and so, yeah, I'm
+[00:00:54] applying for a lot of like machine
+[00:00:55] learning engineer roles.
+[00:00:57] So, I guess yeah, one thing is like just
+[00:01:01] having my very first experience with
+[00:01:03] systems design interview. I actually
+[00:01:04] have one tomorrow. Um
+[00:01:07] but with one of those big AI companies
+[00:01:09] uh for like a member of the technical
+[00:01:11] staff role.
+[00:01:13] Um and so, I think, you know, in some
+[00:01:16] ways really just going through this
+[00:01:19] process once would be like super
+[00:01:21] helpful. And then getting high-level
+[00:01:23] feedback cuz there may be some like
+[00:01:25] there's probably going to be some broad
+[00:01:26] strokes things that I will need work on.
+[00:01:28] Um I guess you know, it it might be nice
+[00:01:31] to have something that maybe has a
+[00:01:33] machine learning flavor, but I you know,
+[00:01:35] I'm not sure if the interview tomorrow
+[00:01:37] is going to be like a machine learning
+[00:01:38] systems design or more of just like
+[00:01:41] regular software engineering systems
+[00:01:43] design.
+[00:01:44] So,
+[00:01:45] I guess I I actually have another one
+[00:01:47] booked after this which is specific like
+[00:01:49] in 2 hours which is specifically machine
+[00:01:51] learning systems design. So, I don't
+[00:01:52] know, maybe it would be good to get a
+[00:01:53] regular design.
+[00:01:56] Um
+[00:01:57] Thinking out loud. Yeah, you said this
+[00:01:59] is for a technical staff role, is that
+[00:02:01] right? Mhm. What do you know what that
+[00:02:03] means in terms of the leveling? Like is
+[00:02:05] it a staff level role or is it more just
+[00:02:07] like a a senior um
+[00:02:09] like a senior role?
+[00:02:10] >> Yeah, it's
+[00:02:11] not totally clear. I think it could be
+[00:02:13] pretty wide range based on the salary
+[00:02:15] range they gave. It was like like three
+[00:02:17] like all the way from like
+[00:02:19] the ba- the minimum the maximum was like
+[00:02:21] three times the minimum. So, I think
+[00:02:23] it's a really wide range. Okay. Um so,
+[00:02:25] it might include like all the way from
+[00:02:27] non-senior all the way up to staff. Um
+[00:02:31] but I I think probably they're looking
+[00:02:33] at me as a senior or staff. I'm not
+[00:02:36] totally clear, but I think probably at
+[00:02:37] least senior. Okay, cool.
+[00:02:40] Great. Um the reason I ask is I um
+[00:02:44] I usually ask this question of like my
+[00:02:46] more senior and staff um group. So, I'm
+[00:02:49] just going to pretend and try to
+[00:02:50] evaluate you at the staff level and then
+[00:02:53] I can give you a specific feedback
+[00:02:55] towards that and that way we can chat at
+[00:02:57] the end of like where I think you would
+[00:02:59] net out, where you know, where to kind
+[00:03:01] of lean in on different things.
+[00:03:02] Um Sure. And then and then the question
+[00:03:05] that I ask
+[00:03:08] could have an ML component to it. Um so,
+[00:03:11] I think um I'm curious to see where you
+[00:03:13] take it versus where where other
+[00:03:15] engineers take it. So,
+[00:03:16] um Sure.
+[00:03:17] >> that will be that will be great. Um I'll
+[00:03:20] also drop I drop these in the notes at
+[00:03:21] the end, but I'll I'll drop them for you
+[00:03:24] now just to kind of
+[00:03:25] have some context, but
+[00:03:28] um these are just some like general
+[00:03:31] things I've personally found like I
+[00:03:33] found all of this context for myself um
+[00:03:36] going through my last system design
+[00:03:37] interview a few years ago.
+[00:03:39] Um so, I always try these out. This is
+[00:03:40] some helpful things that I personally
+[00:03:42] found while I was in your in your shoes.
+[00:03:45] Okay, great. Do you mind if I like copy
+[00:03:47] and paste this somewhere?
+[00:03:48] >> Yep. Okay. Um I will paste this in your
+[00:03:51] notes, too. So, don't feel like this is
+[00:03:53] the the end all be all. Um I will drop
+[00:03:55] it in for you, too.
+[00:03:56] Okay, awesome. Thank you. Yep.
+[00:03:59] Yeah, I've seen some of these videos, I
+[00:04:01] believe. But I don't think I've seen
+[00:04:02] like Gaurav Sen's video. So, um yeah,
+[00:04:05] that should be really helpful. They're
+[00:04:06] pretty incredible. Um he I found him
+[00:04:09] just kind of searching for some support
+[00:04:11] in terms of um
+[00:04:13] prepping for system design.
+[00:04:14] And the thing I really like about his
+[00:04:16] videos is he has videos that's like,
+[00:04:18] okay, let's go through the problem.
+[00:04:19] Let's design Twitter.
+[00:04:21] And he will talk to you about like how
+[00:04:23] to answer the question strategically.
+[00:04:26] But then also if you get to a point
+[00:04:27] where it's like, okay, do I use a SQL or
+[00:04:29] a no SQL database? He actually will then
+[00:04:31] have these like spin-off videos for
+[00:04:34] those kind of like linchpin decisions.
+[00:04:37] So, I found it really helpful because
+[00:04:39] then I could go watch the other videos
+[00:04:41] and kind of like fill in, okay,
+[00:04:43] how should I have made that decision? Um
+[00:04:46] but I personally found really helpful
+[00:04:47] for myself. Um so, I always share it
+[00:04:49] with people on here.
+[00:04:51] Yeah, that's that sounds great. It's
+[00:04:52] kind of like branching. That sounds a
+[00:04:54] per- good way to study for sure.
+[00:04:56] >> Yes, exactly. Um have you done another
+[00:04:58] interview on this platform before?
+[00:05:01] Um no, I haven't. Okay. So, just kind of
+[00:05:04] give you um kind of high-level
+[00:05:06] we'll have our session today. At the end
+[00:05:09] we fill out feedback for each other. So,
+[00:05:11] this is where I will drop these notes
+[00:05:13] for you. I also personally take
+[00:05:15] time-stamped notes once we start the
+[00:05:17] system design. That way you can kind of
+[00:05:19] track where you're spending too much or
+[00:05:21] too little time as well.
+[00:05:23] And you can actually replay our whole
+[00:05:25] session. You can go back and say, okay,
+[00:05:28] I need to look back at the 19 and see
+[00:05:31] like what kind of feedback was happening
+[00:05:33] at that point. Um so, don't don't feel
+[00:05:36] like stressed to try to take notes when
+[00:05:37] I rapid-fire feedback at the end
+[00:05:40] cuz I try to I try to I try to give you
+[00:05:42] as much as I can in a short period of
+[00:05:44] time. Um so, I just don't want you to
+[00:05:46] feel like you have to write everything
+[00:05:47] down cuz you can go re-listen to it.
+[00:05:49] Okay, that is good to know for sure.
+[00:05:51] >> Yeah.
+[00:05:52] Yeah.
+[00:05:53] Um
+[00:05:55] yeah, and then if you have any other
+[00:05:55] questions, I always unmask at the end.
+[00:05:57] So, you'll get my contact info if that's
+[00:05:59] something you're comfortable with. So,
+[00:06:01] um don't be shy if there's anything I
+[00:06:02] can help with.
+[00:06:04] Okay, that sounds great. Definitely.
+[00:06:06] >> Great. And then how much time do you
+[00:06:08] have for your system design tomorrow?
+[00:06:11] Yeah, it's a good question. So, the
+[00:06:13] person I'm talking to is kind of the
+[00:06:15] head of the group. He was like the
+[00:06:16] person who initially screened me as
+[00:06:18] well. Um Okay. And so, he's pretty
+[00:06:20] senior um and I think
+[00:06:24] uh he may want to ask me some other
+[00:06:26] questions. Like I guess I would just be
+[00:06:28] surprised if it was purely technical
+[00:06:30] which means probably the systems design
+[00:06:33] will be like 45 minutes or even like
+[00:06:36] um if I want to include some time for
+[00:06:38] like deep dive or improvements or stuff,
+[00:06:40] I I might want to shoot for like half an
+[00:06:41] hour to 40 minutes. Okay.
+[00:06:44] Maybe. Yeah.
+[00:06:46] Why don't I give us 35 minutes? I'll set
+[00:06:49] my clock.
+[00:06:49] >> Okay. Um again, I'll take some
+[00:06:52] timestamps for you.
+[00:06:54] I I'd like to kind of like, you know,
+[00:06:56] kind of go with the lower end of your
+[00:06:57] budget that way we're kind of working on
+[00:07:01] your time management skills. And then
+[00:07:03] also if you feel like you needed more
+[00:07:06] like, oh my gosh, I needed 10 more
+[00:07:08] minutes, what would I've done? We can
+[00:07:09] talk about that, too, if you feel
+[00:07:11] prepped handle a short period of time or
+[00:07:13] a longer period.
+[00:07:15] Yeah, okay. Okay, that sounds good.
+[00:07:17] Great.
+[00:07:18] So, I'm going to set this at 45 and then
+[00:07:20] we'll we'll chat through feedback.
+[00:07:22] Um there's a toggle whiteboard button on
+[00:07:25] the bottom here. You can tap that and it
+[00:07:27] will pop us into like kind of like the
+[00:07:28] next collab draw.
+[00:07:30] So, I can see it.
+[00:07:31] >> Okay.
+[00:07:31] Yeah, cool.
+[00:07:32] I've been noticing lately sometimes that
+[00:07:35] um I can tell the person is like typing
+[00:07:37] or drawing or something and it won't
+[00:07:38] show up on my end. So, if so, I'll just
+[00:07:41] interject and let you know and and have
+[00:07:42] you refresh your page, but hopefully we
+[00:07:45] don't have any issues.
+[00:07:46] >> Okay, yeah. Maybe one of these questions
+[00:07:49] could be how to build interviewing.io or
+[00:07:51] something.
+[00:07:52] >> Right. I know.
+[00:07:53] I know.
+[00:07:54] We should uh that that'd be kind of a
+[00:07:56] fun one. Maybe they should hire us for
+[00:07:58] that.
+[00:07:59] Right.
+[00:08:01] Awesome. Okay.
+[00:08:02] >> Yeah, cool.
+[00:08:03] So, um let's jump into it. I am going to
+[00:08:05] purposely pretend like we haven't had
+[00:08:07] this conversation. So, I try to be a
+[00:08:09] little bit more hands-off in these just
+[00:08:11] to to force you to kind of steer a
+[00:08:12] little bit more.
+[00:08:14] Um so,
+[00:08:15] >> [clears throat]
+[00:08:15] >> the floor is yours.
+[00:08:16] Um today I want to design an AB
+[00:08:20] experimentation platform.
+[00:08:24] An AB experimentation platform. Correct.
+[00:08:28] Okay. Um
+[00:08:31] interesting. So,
+[00:08:33] uh we
+[00:08:34] do we have any sort of specific
+[00:08:38] types of applications that we want to be
+[00:08:40] AB testing? Um like is it um yeah,
+[00:08:44] consumer facing or
+[00:08:47] um
+[00:08:48] yeah, just kind of curious to know more
+[00:08:49] about the use case there of like what
+[00:08:52] types of applications we'd want to be AB
+[00:08:54] testing and like how flexible
+[00:08:55] [clears throat] I guess we want it to
+[00:08:57] be. Yeah, good question. So, let me give
+[00:08:59] you a little bit more context on like um
+[00:09:01] maybe like a user experience um example.
+[00:09:04] So,
+[00:09:05] um let's pretend that you're building
+[00:09:07] this platform um internally at Amazon.
+[00:09:10] And this could be used by the website
+[00:09:13] and the front end team to be able to you
+[00:09:16] know, maybe show um
+[00:09:19] you know, a
+[00:09:20] Christmas content
+[00:09:22] um to 50% of users.
+[00:09:25] Um or we could be using it on the back
+[00:09:27] end to, you know, slowly roll out a
+[00:09:30] feature or shadow launch something.
+[00:09:33] Mhm.
+[00:09:35] Okay.
+[00:09:36] Uh
+[00:09:37] roll out a
+[00:09:39] new feature.
+[00:09:41] Okay. Um
+[00:09:42] and so,
+[00:09:44] um
+[00:09:47] Okay, and do we we have a use case for
+[00:09:49] being able to have two different types
+[00:09:51] of um
+[00:09:53] two different types of websites. Maybe
+[00:09:55] there's like different graphics, maybe
+[00:09:57] there's
+[00:09:59] I mean, entirely new
+[00:10:01] um entirely new sort of back-end
+[00:10:03] features. Mhm. Uh
+[00:10:07] Okay, and um we want to be able to
+[00:10:11] Okay, got you. Mhm. And [clears throat]
+[00:10:13] uh obviously we would want to be able to
+[00:10:16] um
+[00:10:17] you know, direct some users
+[00:10:21] to A and you know, others to B.
+[00:10:25] And um this is we want to partition this
+[00:10:28] by the user or do we want to partition
+[00:10:30] it by the like session? Like would the
+[00:10:32] same user, if they came back
+[00:10:35] um let's say at a different time, would
+[00:10:38] they still get option A if they got
+[00:10:40] option A before? Or are we kind of
+[00:10:42] partitioning this on users or sessions?
+[00:10:45] Mhm.
+[00:10:46] Yeah, um that's a great question. Let's
+[00:10:50] Let's try to make this item potent. So
+[00:10:51] we'd we'd want the same user to have the
+[00:10:53] same experience every time they come
+[00:10:55] back.
+[00:10:57] Okay, got you. Got you.
+[00:10:59] Okay, um and then I'm assuming, you
+[00:11:02] know, we will want to be collecting some
+[00:11:05] um important data that would be
+[00:11:08] relevant to the the operation of the
+[00:11:09] business. Um Mhm. Are there kind of how
+[00:11:13] flexible is that? Uh do we have maybe
+[00:11:16] sort of a preset
+[00:11:18] kind of uh w-
+[00:11:21] features that we would want to look at
+[00:11:22] that we offer as a service or or do or
+[00:11:25] do we allow them to maybe be able to
+[00:11:27] define things themselves or is it kind
+[00:11:29] of selecting from a menu of things like,
+[00:11:31] you know, click-through rate and uh
+[00:11:34] amount of time spent on the page or are
+[00:11:36] there any
+[00:11:37] um yeah, are there any parameters around
+[00:11:39] the metrics that we want to collect on
+[00:11:40] these two different options? Mhm. Yeah,
+[00:11:42] that's a good question.
+[00:11:44] Um I'd say we want to um have kind of a
+[00:11:48] set of things. I think the things you
+[00:11:49] listed are kind of the the usual
+[00:11:51] culprits in terms of just like
+[00:11:52] click-through rate, um you know,
+[00:11:54] check-out rate.
+[00:11:56] Um but I would also love to know what
+[00:11:58] you have in mind in terms of like say I
+[00:12:00] have a unique use case, what would your
+[00:12:02] platform be able to support or not or
+[00:12:05] how could it be extended?
+[00:12:08] Okay, um so there's an interesting
+[00:12:11] question.
+[00:12:12] Uh
+[00:12:14] Maybe we can expand on this like uh
+[00:12:16] iterating on it a little bit later, but
+[00:12:17] how would we
+[00:12:19] uh provide custom
+[00:12:22] uh metrics?
+[00:12:24] Yeah. Um
+[00:12:26] Okay, um
+[00:12:28] and let's see. Um
+[00:12:31] So, those are some of the functional
+[00:12:33] requirements that we have here. Uh I'm
+[00:12:36] trying to think of other I mean, should
+[00:12:38] we want a user to be able to
+[00:12:40] uh log in and see the same thing
+[00:12:43] depending on what their user ID is. And
+[00:12:45] then obviously we want these metrics to
+[00:12:47] be
+[00:12:47] uh fed back to the the person hosting
+[00:12:51] the website or who owns the website. Um
+[00:12:54] do we
+[00:12:56] want to go beyond just metrics? Like do
+[00:12:59] we uh is or is it part of a minimum
+[00:13:01] product? Cuz you know, there's kind of
+[00:13:03] AB testing and then there's like some
+[00:13:05] kind of multi-armed bandit thing where
+[00:13:07] it you know, it might actually like
+[00:13:09] adapt to which one is doing better and
+[00:13:11] start and start serving that content
+[00:13:13] more often. Or is this more like purely
+[00:13:16] experimental and analytical uh but not
+[00:13:18] necessarily like
+[00:13:20] adapting and trying to push the more
+[00:13:22] popular one into production like
+[00:13:24] straight away.
+[00:13:25] Yeah, you you picked up on why I said
+[00:13:27] this can be an ML question.
+[00:13:29] Right.
+[00:13:30] Um
+[00:13:31] I would like to offer the functionality
+[00:13:34] for either.
+[00:13:37] You'd have to talk to me about like when
+[00:13:39] we get to that point, talk to me about
+[00:13:41] like you know, where where the decisions
+[00:13:43] might change based on
+[00:13:45] which path.
+[00:13:48] That makes sense.
+[00:13:49] Yeah. Uh yeah, that does make sense.
+[00:13:51] Okay. Just trying to think about um
+[00:13:54] think about that. Yeah, um because
+[00:13:56] and you said uh 50% is like a common
+[00:14:00] percentage. So this isn't um this isn't
+[00:14:02] like a tiny sliver of users for like the
+[00:14:04] experimental thing. It's kind of a fully
+[00:14:06] production
+[00:14:08] fully scaled both options are at full
+[00:14:10] scale basically.
+[00:14:12] Oh, good question.
+[00:14:14] Yeah, so um I would want the ability for
+[00:14:17] say I want to ramp something up, maybe
+[00:14:19] just expose it to 1% first,
+[00:14:22] then be able to increment say, all
+[00:14:23] right, for a week or for a couple days,
+[00:14:25] let's have it at 1%. Maybe I'll pop it
+[00:14:28] up to 20%
+[00:14:29] um after some time.
+[00:14:33] Okay.
+[00:14:35] Scale it up to 50%
+[00:14:39] over time.
+[00:14:40] Okay, um right. And that would obviously
+[00:14:43] dovetail with if if we wanted to
+[00:14:45] automate that using machine learning, um
+[00:14:47] then that would be that would be an
+[00:14:48] interesting goal. Okay.
+[00:14:50] Um and then
+[00:14:53] um in terms of I mean, have I captured
+[00:14:55] like the majority of the functional
+[00:14:57] requirements here, do you think? Um
+[00:15:00] Uh we've got users, you know, users who
+[00:15:02] are going to see either page, we're
+[00:15:04] collecting metrics, we can set the the
+[00:15:06] split. Um
+[00:15:09] I mean, I'm sure there's other more
+[00:15:11] advanced things like, you know, more
+[00:15:13] than two options or something, but I
+[00:15:14] feel like it might be safe to
+[00:15:17] scope it down to just AB testing for now
+[00:15:20] instead of like ABCD.
+[00:15:22] Um
+[00:15:22] Exactly.
+[00:15:24] Yep. Yeah, I think this looks good.
+[00:15:26] Okay.
+[00:15:27] Uh and then in terms of non-functional
+[00:15:30] requirements, um
+[00:15:33] do we have
+[00:15:34] um
+[00:15:35] any
+[00:15:36] I mean, in terms of like the
+[00:15:37] availability,
+[00:15:39] uh
+[00:15:40] you know, what kind of uptime are we
+[00:15:41] expecting here
+[00:15:43] for
+[00:15:44] both of the pages? I guess I mean, I'm
+[00:15:46] assuming that it's similar availability
+[00:15:48] requirements for both branches. Um
+[00:15:51] >> Mhm.
+[00:15:52] Yeah, same.
+[00:15:54] Okay.
+[00:15:55] Okay, so basically all all
+[00:15:57] non-functional requirements are the same
+[00:15:59] for both branches. Mhm.
+[00:16:01] Okay.
+[00:16:02] And then in terms of what they actually
+[00:16:04] are, uh
+[00:16:06] I mean, hm. This is an interesting one
+[00:16:09] because it's supposed to be able to work
+[00:16:10] for kind of any webpage.
+[00:16:13] And I mean, it's
+[00:16:16] um
+[00:16:19] >> [sighs]
+[00:16:20] >> I'm just trying to think of
+[00:16:22] I mean, there's sort of serving two
+[00:16:24] different front ends. Uh
+[00:16:27] And but the front end isn't going to
+[00:16:28] impact too much like the availability.
+[00:16:32] A lot of these non-functional
+[00:16:33] requirements really would depend on the
+[00:16:35] actual back end that that website is
+[00:16:37] using, which we can't really control.
+[00:16:39] Like there's some things that are kind
+[00:16:40] of out of our control here, right? Mhm.
+[00:16:42] Um
+[00:16:44] And so
+[00:16:47] it Yeah, I mean, in terms of
+[00:16:51] how do we define those non-functional
+[00:16:52] requirements? Is it it we basically
+[00:16:55] do we want to define it kind of relative
+[00:16:57] to what
+[00:16:58] the you know, it shouldn't make the up
+[00:17:00] the uptime worse than what the original
+[00:17:02] website was?
+[00:17:04] Um
+[00:17:05] >> Yeah, like it shouldn't degrade the
+[00:17:06] experience at all.
+[00:17:08] Shouldn't degrade the experience. Right.
+[00:17:11] Okay. Yeah. Um
+[00:17:14] Right. And
+[00:17:16] um all right. So in terms of reliability
+[00:17:19] and scalability and all of those things
+[00:17:22] should be not not degraded. Uh
+[00:17:27] Scalability.
+[00:17:29] Um yeah, redundancy.
+[00:17:32] So, um
+[00:17:33] I'm just trying to think
+[00:17:35] um
+[00:17:37] because some of these things are out of
+[00:17:38] our control. Like what
+[00:17:41] database they're using. I you know, I'm
+[00:17:42] thinking, okay, maybe there's a website
+[00:17:44] that has um
+[00:17:48] uh you know, a certain data model, a
+[00:17:50] certain back end and all that stuff. And
+[00:17:52] we're we want to provide a a different
+[00:17:54] website, but we're not planning to
+[00:17:55] provide them with like a whole different
+[00:17:58] back end
+[00:17:59] really. Like we
+[00:18:02] because I mean
+[00:18:04] um
+[00:18:05] I suppose you if you really wanted to
+[00:18:07] create two totally different systems,
+[00:18:09] that could involve having, you know,
+[00:18:10] totally different
+[00:18:12] data model and having to like run a data
+[00:18:15] migration or something like that. Um or
+[00:18:17] doing a lot of changes on the back end.
+[00:18:19] Are we Is it okay if we kind of scope
+[00:18:21] this to
+[00:18:23] basically
+[00:18:24] we're planning on just making that the
+[00:18:27] the basically the API on the back end is
+[00:18:29] the same for both branches, but we're
+[00:18:31] just interacting with it in different
+[00:18:32] ways and displaying it in different
+[00:18:34] ways?
+[00:18:36] Yeah, and that's it's kind of
+[00:18:38] Mhm.
+[00:18:39] Uh my answer to that is yes, but I'm
+[00:18:42] curious, um talk to me about like
+[00:18:45] the user experience here from like a
+[00:18:47] developer perspective. Like talk to me
+[00:18:50] about how you're envisioning developers
+[00:18:52] would use your system.
+[00:18:55] Um yeah, okay. So, um
+[00:19:00] I suppose if we have um I mean, right,
+[00:19:03] there's got to be some kind of
+[00:19:06] uh
+[00:19:07] maybe like an a API wrapper is kind of
+[00:19:10] what I'm thinking. Like you maybe
+[00:19:13] the
+[00:19:14] w- the system already has some kind of
+[00:19:17] an API.
+[00:19:18] Um
+[00:19:20] and maybe we um
+[00:19:23] have some
+[00:19:26] basically the
+[00:19:27] the developer or the ma- engineering
+[00:19:30] manager has some new API version, let's
+[00:19:33] say, or you know, some new uh API calls
+[00:19:37] that they're trying to test out. Um
+[00:19:40] Then
+[00:19:41] essentially we could
+[00:19:43] have a service that sort of
+[00:19:45] routes traffic to the API and kind of
+[00:19:47] wrap wraps around it, but it will will
+[00:19:50] maybe it'll make a decision about which
+[00:19:53] path to take and which which API call to
+[00:19:55] make depending on which branch the user
+[00:19:57] is on.
+[00:19:59] Um but at the end of the day, we're
+[00:20:00] still relying on
+[00:20:02] an a back-end API that the developer has
+[00:20:04] already made. It's basically we're just
+[00:20:06] a wrapper around that API. Mhm. Um does
+[00:20:10] that make sense?
+[00:20:11] Yeah, so the the the
+[00:20:14] the basically the wrapper is like
+[00:20:16] um yeah, the developer would call and
+[00:20:19] say, "Okay, is you know, customer 1 2 3
+[00:20:23] like what treatment are they in for this
+[00:20:26] experiment?" And it would just return
+[00:20:29] whatever that treatment is.
+[00:20:32] Right.
+[00:20:34] Right. Okay. Um
+[00:20:36] and it would return and and basically
+[00:20:40] that would also sort of have a different
+[00:20:43] interface for it. So from that point on
+[00:20:44] if user A
+[00:20:46] uh I don't know, I'm trying to make
+[00:20:47] something concrete like um
+[00:20:52] let's see. Uh
+[00:20:53] maybe there's one version where
+[00:20:56] um
+[00:20:58] I don't know, we want uh
+[00:21:00] when a user
+[00:21:03] um
+[00:21:04] signs in and
+[00:21:06] uh makes a
+[00:21:08] comment that the comment like
+[00:21:11] uh maybe it it shows some new feature
+[00:21:14] here
+[00:21:16] uh that's like
+[00:21:19] I don't know, top top comments or
+[00:21:22] something like that. Uh
+[00:21:25] here.
+[00:21:26] That shows up here.
+[00:21:29] So this is yeah, just some website that
+[00:21:31] has
+[00:21:32] um that has a commenting feature and
+[00:21:34] maybe this one doesn't have it. This
+[00:21:37] doesn't have the top comments feature.
+[00:21:39] Um
+[00:21:39] maybe
+[00:21:41] yeah. And it's and it's possible that
+[00:21:45] um
+[00:21:47] Okay, yeah. So but but that we already
+[00:21:49] have some back-end API that has
+[00:21:51] implemented this top comments like get
+[00:21:54] request. Um so that
+[00:21:57] that exists
+[00:21:58] that the developer has already provided
+[00:22:00] this API for getting the top comments.
+[00:22:03] It's just that we have a wrapper that in
+[00:22:06] one case
+[00:22:07] um the front-end code is calling that
+[00:22:10] API for the top comments and the other
+[00:22:12] one it's not calling that.
+[00:22:15] Um
+[00:22:17] but it's basically the same we can still
+[00:22:19] interact with the same in internal API
+[00:22:22] either way.
+[00:22:23] Right. So So it's not like there's two
+[00:22:26] different instances of the API I guess
+[00:22:28] is what I'm saying. It's just different
+[00:22:30] different ways of calling it. Okay.
+[00:22:32] Okay, so that makes sense. Um
+[00:22:35] and I guess there could be yeah, there
+[00:22:37] could be more complicated ways to do
+[00:22:38] this, but
+[00:22:40] um
+[00:22:41] so
+[00:22:42] I guess
+[00:22:43] what I would want to do is
+[00:22:48] um have some way So I'm going to start
+[00:22:52] trying to draw something here and
+[00:22:54] um
+[00:22:55] I guess let's say this is like
+[00:22:58] the app
+[00:23:00] um
+[00:23:02] user
+[00:23:05] and
+[00:23:07] um
+[00:23:08] you know, normally the way this would be
+[00:23:09] working is they're interacting with an
+[00:23:12] API.
+[00:23:14] Um
+[00:23:18] let's say uh
+[00:23:21] yeah, there's various different
+[00:23:24] uh
+[00:23:26] there's various different functions in
+[00:23:27] here, but let's just scope it down to uh
+[00:23:30] it they
+[00:23:31] there's function one
+[00:23:33] and function two.
+[00:23:35] Uh
+[00:23:36] and this is the thing that
+[00:23:39] um
+[00:23:40] we want to to to we want to call this
+[00:23:42] function one if if the user is in one
+[00:23:44] category and function two if the user is
+[00:23:46] in the other category.
+[00:23:48] Um
+[00:23:49] so I guess
+[00:23:51] Well, how do you know which How do you
+[00:23:52] know which category they're in? You're
+[00:23:54] saying like based on front-end or
+[00:23:55] back-end or treatment?
+[00:23:57] >> Um yeah, so I'm saying based on
+[00:24:00] treatment. So yeah, there's there's this
+[00:24:01] is sort of without our without our
+[00:24:03] application. But like what we want to do
+[00:24:06] is we want to essentially have like a
+[00:24:08] routing
+[00:24:10] or a like a translation layer that um
+[00:24:14] we
+[00:24:15] say that
+[00:24:17] um
+[00:24:19] essentially
+[00:24:22] um
+[00:24:24] we want to have I'm going to make a
+[00:24:25] little bit of extra space here.
+[00:24:28] Okay, so essentially your your platform
+[00:24:30] is going to answer for them
+[00:24:32] if it's function one or function like if
+[00:24:35] you're going to go down which path.
+[00:24:38] That makes sense? Right. Right, exactly.
+[00:24:40] So I mean I would imagine here that the
+[00:24:42] user would have basically, you know, we
+[00:24:45] could uh determine
+[00:24:48] um using some kind of like a hash. I'm
+[00:24:51] thinking like almost in a similar way
+[00:24:52] that you could do like uh
+[00:24:55] hashing for partitioning that that you
+[00:24:57] could basically take some information
+[00:24:59] about the user like their email address
+[00:25:01] or something like that and then
+[00:25:06] it would basically put them into
+[00:25:08] uh
+[00:25:10] bucket user or like yeah, this is a
+[00:25:13] layer that basically just
+[00:25:15] determines what bucket a user is in. Um
+[00:25:18] so maybe I'll just like draw a line
+[00:25:20] here.
+[00:25:21] And this is basically A.
+[00:25:24] Oops.
+[00:25:25] I want a text box here.
+[00:25:28] And this is
+[00:25:33] going to be B down here.
+[00:25:35] Um
+[00:25:36] and so this is going to be based on
+[00:25:38] um
+[00:25:40] yeah, it's going to be randomized so
+[00:25:42] that we work we can split these users up
+[00:25:43] fairly easily.
+[00:25:45] Um
+[00:25:46] and then depending on
+[00:25:49] uh
+[00:25:50] which bucket they're in
+[00:25:53] when they make a certain call
+[00:25:55] from the website well when they render
+[00:25:57] the website, they're they're they're
+[00:25:59] either going to be
+[00:26:02] um
+[00:26:03] calling API function one or API function
+[00:26:05] two. So it it could be kind of like
+[00:26:09] user if you're in option B, then you
+[00:26:12] call
+[00:26:13] um
+[00:26:15] function one. Mhm.
+[00:26:17] And if you're in bucket A, then maybe
+[00:26:20] you call function two.
+[00:26:23] Mhm. Um
+[00:26:26] two. So
+[00:26:28] um
+[00:26:30] and then obviously this gives a response
+[00:26:32] back to the user and will display it. So
+[00:26:33] there's an arrow going going in that
+[00:26:35] direction.
+[00:26:36] Um
+[00:26:37] so I guess what really needs to happen
+[00:26:39] here though is that
+[00:26:42] um
+[00:26:44] I I guess what I meant by a wrapper by
+[00:26:47] having a wrapper is that I mean in
+[00:26:48] general you could have
+[00:26:50] many different sort of
+[00:26:53] features that could be swapped in. It's
+[00:26:55] not just one function where it could be
+[00:26:57] one or the other. It's really like a
+[00:26:58] mapping of
+[00:27:00] you know,
+[00:27:01] uh several different components which
+[00:27:03] depending on which bucket you're in,
+[00:27:04] it's it's going to route you to API call
+[00:27:07] one or API call two.
+[00:27:09] And so I think, you know, it really
+[00:27:11] inside this
+[00:27:13] this uh routing layer here, there should
+[00:27:15] be kind of like a mapping of
+[00:27:18] which functions uh
+[00:27:21] high-level functions map to which actual
+[00:27:23] implementation in the API.
+[00:27:26] Um so like
+[00:27:29] essentially um
+[00:27:31] if it's
+[00:27:32] you know
+[00:27:34] uh
+[00:27:35] comments display or like display
+[00:27:37] comments, let's say uh you know, we this
+[00:27:41] mapping would say in in section A,
+[00:27:44] display comments routes to function two
+[00:27:45] and in section B, display comments wraps
+[00:27:48] maps to function one. And And there
+[00:27:50] could be several functions that have
+[00:27:52] that mapping. Mhm. Here. And so it's
+[00:27:56] basically
+[00:27:57] uh
+[00:27:58] basically a router.
+[00:28:00] Um
+[00:28:02] So
+[00:28:04] yeah, okay. Um
+[00:28:06] and then I think
+[00:28:08] there's a similar I'm kind of focusing
+[00:28:10] on the back-end here, but I think
+[00:28:12] a part that I'm not really mentioning
+[00:28:14] here is that
+[00:28:15] this is also obviously important for
+[00:28:17] just
+[00:28:18] the front-end. There there's going to be
+[00:28:20] a lot of front-end features that we want
+[00:28:21] to
+[00:28:22] um
+[00:28:24] think about as well here. But I I guess
+[00:28:25] I might want to
+[00:28:27] try to run through a complete picture
+[00:28:28] even just with these
+[00:28:30] back-end
+[00:28:31] AB testing like having different
+[00:28:33] implementations of some of the API
+[00:28:35] function calls and cuz what we're still
+[00:28:37] not haven't met all of the functional
+[00:28:39] requirements yet because what we need is
+[00:28:42] to calculate
+[00:28:44] different metrics here.
+[00:28:48] Based on which bucket the user is in. So
+[00:28:52] um
+[00:28:53] I think
+[00:28:54] this is So this is going to interact
+[00:28:57] with
+[00:28:59] uh the API obviously
+[00:29:02] can be tracking various features
+[00:29:05] and I think uh sorry, it can be tracking
+[00:29:07] various metrics and storing them, you
+[00:29:10] know, regardless of what the actual
+[00:29:11] back-end database is for this
+[00:29:14] application which is going to be very
+[00:29:15] application specific. I think we want to
+[00:29:19] be able to
+[00:29:20] uh store these metrics in some kind of
+[00:29:23] database that I would say probably
+[00:29:26] because we want to do a lot of
+[00:29:27] high-level analytics on this, I would
+[00:29:29] recommend using like and it's sort of
+[00:29:32] like OLAP style um
+[00:29:35] interactions
+[00:29:36] as opposed to transactional. I think we
+[00:29:39] probably want a SQL database.
+[00:29:41] Um
+[00:29:43] and I'm sorry that I
+[00:29:46] uh I don't know how to get the database
+[00:29:49] icon here.
+[00:29:51] >> that's okay. I actually don't know how
+[00:29:52] to do it either. Every so often
+[00:29:54] pops in with like this incredible shape
+[00:29:56] and I'm like, "How did you even do
+[00:29:57] that?" Yeah.
+[00:29:59] Well, I'll just make a circle for now so
+[00:30:01] That's great. cylinder or top-down view.
+[00:30:04] Great. Uh so, let's just call this uh
+[00:30:07] you know, a SQL database. It could be
+[00:30:08] like Amazon RDS or something like that.
+[00:30:12] Uh-huh. But, this is
+[00:30:15] uh
+[00:30:17] metrics database.
+[00:30:20] And that's going to be SQL.
+[00:30:23] Um
+[00:30:24] And so, I think in this database
+[00:30:27] what we want to do is uh
+[00:30:31] I mean, I I may want to lay out some of
+[00:30:33] the schema here. So, um the the types of
+[00:30:36] things that we would want to track. So,
+[00:30:37] we discussed having
+[00:30:40] tracking some of these metrics like
+[00:30:43] the
+[00:30:45] click-through rate. Uh I mean, okay. Um
+[00:30:47] let's see.
+[00:30:49] There does I suppose need to be a
+[00:30:52] separate process that's actually sort of
+[00:30:54] listening like watching the user
+[00:30:56] interactions here.
+[00:30:58] Um that's separate. This isn't really
+[00:30:59] triggered by anything in particular
+[00:31:02] like
+[00:31:04] that the user is it it Yeah, this is
+[00:31:07] separate from the API that's watching
+[00:31:08] the user. I think there's kind of like a
+[00:31:12] um
+[00:31:14] some process that's actually generating
+[00:31:15] these metrics in real time and well, it
+[00:31:18] doesn't need to be in real time. I
+[00:31:19] suppose it could also be offline. But, I
+[00:31:21] think there's a separate process that
+[00:31:23] um
+[00:31:25] is
+[00:31:27] sort of listening to
+[00:31:31] the
+[00:31:33] uh well, really like the front end. I
+[00:31:36] think it it's
+[00:31:38] sort of the front end server that and
+[00:31:41] that would be able to understand that
+[00:31:43] would be able to read out how often is
+[00:31:47] the user
+[00:31:49] when they're on a certain page clicking
+[00:31:50] through or
+[00:31:52] uh
+[00:31:52] how long are they staying on the page
+[00:31:54] for example? I don't know if there's um
+[00:31:58] uh a best practice there. But, so I
+[00:32:00] guess what I'm saying is there might
+[00:32:02] there might need to be like a separate
+[00:32:04] microservice that is [clears throat]
+[00:32:07] sort of listening to this. So, um maybe
+[00:32:11] I'll move this down and I'll say
+[00:32:14] that there's a service that's kind of
+[00:32:17] um
+[00:32:19] it's
+[00:32:21] read-only
+[00:32:24] from
+[00:32:25] the the website and the back end that is
+[00:32:28] sort of
+[00:32:29] uh metrics generation.
+[00:32:31] Like
+[00:32:32] >> Yeah, you can assume it's kind of black
+[00:32:33] boxy for us, right? Where it's like
+[00:32:36] there's probably already trackers on the
+[00:32:38] website that are pulling metrics.
+[00:32:41] Right. Right. Okay. So, I don't have
+[00:32:43] >> you just need to store them or specific
+[00:32:44] ones about like
+[00:32:47] what treatment the customer is in as an
+[00:32:49] example.
+[00:32:51] Yeah, that that makes a lot of sense. Um
+[00:32:53] but so yeah, there's some service that's
+[00:32:54] doing that. So, but in terms of um maybe
+[00:32:57] we can get into the nitty-gritty of
+[00:32:59] what's actually going to be stored here.
+[00:33:00] So, we talked about um
+[00:33:03] you know, for each uh
+[00:33:05] so, let's see. Metrics table.
+[00:33:10] Um so,
+[00:33:13] um and I guess I'm going to assume
+[00:33:16] that there's there's probably some
+[00:33:18] process where you're like recording
+[00:33:20] individual clicks and and things like
+[00:33:22] that and then that is getting aggregated
+[00:33:24] and and sent as like aggregate metrics.
+[00:33:27] I'm going to skip over that intermediate
+[00:33:28] step and I'm just going to say
+[00:33:30] we're immediately getting aggregated
+[00:33:32] metrics that are on the level of like we
+[00:33:34] have sort of a user ID.
+[00:33:37] Um we have uh
+[00:33:40] which branch they're in.
+[00:33:44] And then we have
+[00:33:46] um
+[00:33:48] time.
+[00:33:50] I'm going to say it's not timestamp
+[00:33:52] because again, we're not um I don't
+[00:33:54] think this is like an events level
+[00:33:56] table. I think this is already
+[00:33:57] pre-aggregated just to kind of simplify
+[00:34:00] things. So, I'm going to say like time
+[00:34:02] buckets.
+[00:34:03] So, this could be like uh
+[00:34:05] maybe minutes
+[00:34:07] or uh
+[00:34:08] actually no, because
+[00:34:10] um
+[00:34:12] that's probably a little bit overly
+[00:34:15] granular. Um
+[00:34:18] It could be
+[00:34:23] um
+[00:34:24] I guess I'm So, I'm curious. Do we Yeah,
+[00:34:26] this is a question about the functional
+[00:34:28] requirements. Do we care about having
+[00:34:30] these metrics
+[00:34:31] um
+[00:34:33] and tracking them over time or do we
+[00:34:35] want to just let's say say, well, ever
+[00:34:38] since inception of this branch, here's
+[00:34:41] what the user's average um
+[00:34:45] click-through rate has been? Or do we
+[00:34:46] want like a chart that we could actually
+[00:34:49] look at of uh you know, here's their
+[00:34:51] average click-through rate in these time
+[00:34:53] buckets
+[00:34:55] over time like I guess
+[00:34:57] >> Mhm. Um for me, it's probably a little
+[00:34:59] bit more
+[00:35:00] like on or off in terms of like, okay,
+[00:35:02] for a customer who received A,
+[00:35:06] did it improve the click-through rate
+[00:35:08] over Oh, it also depends. Sorry, I'm
+[00:35:11] that was confusing cuz A could be
+[00:35:12] control, right? So, whichever one was
+[00:35:15] your treatment,
+[00:35:17] did it improve X metric over your
+[00:35:19] control?
+[00:35:21] Yeah. Yeah. Okay. That makes sense.
+[00:35:24] >> the since inception things like since
+[00:35:26] customers are trying to get
+[00:35:28] trying to use it.
+[00:35:30] Yep.
+[00:35:31] Yep, that makes sense. Okay, so I think
+[00:35:33] I might not actually even have a time
+[00:35:35] bucket here. I might just go directly to
+[00:35:39] here's sort of
+[00:35:41] um
+[00:35:41] you know, average click-through
+[00:35:45] uh
+[00:35:46] and the you know, time I forget exactly
+[00:35:49] what this one is called. But, like time
+[00:35:51] on site and
+[00:35:55] thinking of some other metrics like, you
+[00:35:58] know, money spent maybe if they're like
+[00:36:01] it maybe there's some kind of
+[00:36:02] integration with the payment processor
+[00:36:05] cuz that would be something we would
+[00:36:06] want to track.
+[00:36:07] Um or you know, various different
+[00:36:10] metrics here.
+[00:36:12] Um And then
+[00:36:15] I think
+[00:36:16] it you mentioned that we want to be able
+[00:36:18] to compare it to the control. So,
+[00:36:21] I would say this metrics table should
+[00:36:24] also
+[00:36:26] include information about this user from
+[00:36:29] before that change was instituted um
+[00:36:32] because we don't want to just compare
+[00:36:33] branch A to branch B.
+[00:36:35] We probably want to be able to compare
+[00:36:37] users on the
+[00:36:39] branch that changed with their own data
+[00:36:42] from before.
+[00:36:43] Um and so, I guess I would say that uh
+[00:36:46] probably this branch ID here
+[00:36:50] should probably
+[00:36:52] everyone should always be assigned a
+[00:36:54] branch ID like even if you're just not
+[00:36:56] even doing an AB test like you can still
+[00:36:59] you're still updating some branch ID in
+[00:37:01] this table which could later be referred
+[00:37:03] to. Um
+[00:37:05] And so, I I think um
+[00:37:09] yeah, that that way you would be able to
+[00:37:10] sort of say
+[00:37:13] the the branch that the user was on
+[00:37:16] before the AB test even started also has
+[00:37:18] a name and we can also look up the
+[00:37:19] aggregate information for that control.
+[00:37:22] Um so, like there's
+[00:37:25] there's always a branch happening.
+[00:37:27] Everyone is always on a branch. Um
+[00:37:32] And so, um
+[00:37:33] okay. So, that just kind of covers how
+[00:37:35] we would compare this to like to the
+[00:37:38] data from before is let's say a branch
+[00:37:40] ID is an always incrementing number. And
+[00:37:43] so, you know, you might be on branch 150
+[00:37:47] not because there's 150 active branches,
+[00:37:49] but just because that includes the full
+[00:37:50] history of your AB testing over time.
+[00:37:53] Um
+[00:37:54] And so, that's just like an incrementing
+[00:37:56] counter. Okay. Um
+[00:37:59] So, we have this metrics database and
+[00:38:02] then
+[00:38:03] I guess what another important thing
+[00:38:05] here is we need like someone to be able
+[00:38:07] to read this information for the the
+[00:38:10] business user the developer to obviously
+[00:38:14] to be able to look at this information.
+[00:38:16] So, then
+[00:38:17] I think what we need is kind of like a
+[00:38:19] business intelligence dashboard
+[00:38:21] type of thing or analytics dashboard,
+[00:38:24] let's call it maybe. Mhm. Um
+[00:38:27] So, like BI
+[00:38:29] dashboard. And this is reading from that
+[00:38:32] SQL database.
+[00:38:34] And um
+[00:38:37] it's tracking things
+[00:38:40] like
+[00:38:42] uh what are the average metrics for
+[00:38:46] one for each branch. Um
+[00:38:49] it could have
+[00:38:50] uh
+[00:38:51] tracking aggregates, but it could also
+[00:38:54] have
+[00:38:55] um
+[00:38:57] statistics.
+[00:38:59] Like it could have some statistical
+[00:39:00] capabilities like, you know, is it
+[00:39:03] actually statistically significant
+[00:39:04] difference? Like there could be some
+[00:39:05] built-in
+[00:39:07] you know, basic modeling functionality
+[00:39:09] there. Um
+[00:39:11] that allows the business user to
+[00:39:14] to say, you know, is the you know, can
+[00:39:16] we actually reject the null hypothesis
+[00:39:19] uh that A that B is better than A with
+[00:39:22] high confidence for example?
+[00:39:23] >> Mhm.
+[00:39:24] Um
+[00:39:25] So, yeah. I think that would that would
+[00:39:27] be sort of
+[00:39:29] uh something that would have to be built
+[00:39:30] by
+[00:39:32] people with statistical expertise. Mhm.
+[00:39:35] Um and probably it would have some
+[00:39:37] visualizations as well.
+[00:39:39] Yep.
+[00:39:40] Um and that would be served to
+[00:39:43] yeah, to a business user. Um,
+[00:39:46] maybe I'll just call this, yeah,
+[00:39:48] business user. Okay. Um,
+[00:39:52] and okay.
+[00:39:55] Biz user.
+[00:39:58] Okay. Um,
+[00:40:00] so
+[00:40:01] let's see. Does that
+[00:40:03] basic setup have I mean, I think there's
+[00:40:06] a lot of missing components here to to
+[00:40:07] cover the the missing components that
+[00:40:09] I'm aware of at least right now.
+[00:40:11] Obviously,
+[00:40:12] um,
+[00:40:13] scaling, um, I think
+[00:40:17] um,
+[00:40:21] I'm I'm thinking about the scaling
+[00:40:22] thing. I You know, there there's
+[00:40:23] probably a lot of scaling that's going
+[00:40:25] to be happening inside the original API
+[00:40:28] of that company. Um, if we're if we are
+[00:40:30] really just a wrapper that's routing
+[00:40:32] requests. Yeah.
+[00:40:34] >> Um, then, you know, depending on how
+[00:40:37] what kind of scale we're talking about
+[00:40:39] here. That's a pretty low That's not a
+[00:40:41] super compute intensive thing, just sort
+[00:40:43] of translating one request to another
+[00:40:45] and passing it along. Um, but I could
+[00:40:47] imagine if it's like a a truly ginormous
+[00:40:50] application that we're wrapping around,
+[00:40:51] that even that routing layer may need to
+[00:40:53] be
+[00:40:54] um, handling scale well and may need
+[00:40:57] like replication. Um, but I I guess for
+[00:41:00] now I'm kind of setting that aside.
+[00:41:02] Uh, I the other big thing is that I'm
+[00:41:04] kind of really simplifying this into
+[00:41:06] like
+[00:41:07] calling different back end functions and
+[00:41:09] I'm not really paying attention too much
+[00:41:11] to the front end, uh, components and
+[00:41:14] um,
+[00:41:15] but
+[00:41:17] um, so maybe I can talk a bit more about
+[00:41:19] that, but in terms of like the overall
+[00:41:20] framework of you have a user, you have
+[00:41:23] some kind of routing thing that wrap
+[00:41:26] that sort of routes you to different um,
+[00:41:29] different Let's call them subsets of the
+[00:41:32] API. So, it's not different API It's not
+[00:41:34] totally different APIs, but kind of
+[00:41:36] different subsets of the API that are
+[00:41:38] available in all in one instance. Um,
+[00:41:41] but then eventually it flows through a
+[00:41:43] SQL database and to a business user's
+[00:41:45] dashboard.
+[00:41:47] Um, and I suppose
+[00:41:51] I'm thinking, well, maybe I'll, uh,
+[00:41:54] just ask that question first. Like, does
+[00:41:56] this overall flow look like it's missing
+[00:41:58] any major components?
+[00:42:01] The only thing I was curious about was
+[00:42:03] in like how you're bucketing your users.
+[00:42:07] Would you be storing anywhere like which
+[00:42:09] user is in which?
+[00:42:13] Uh, yes. That Here we talked about a
+[00:42:15] hashing algorithm, um, but curious like
+[00:42:18] would you have some sort of data store
+[00:42:19] attached to that as well?
+[00:42:22] Yes. Uh, sorry, definitely. So, I think
+[00:42:24] for multiple different things. Um,
+[00:42:27] Uh-huh. so that's a good point. So, and
+[00:42:29] not just the users bucket, but uh, maybe
+[00:42:33] I'll make this a circle.
+[00:42:34] Um, but also some of this information
+[00:42:37] about the mappings because Mhm. that
+[00:42:40] needs to be stored somewhere as well.
+[00:42:42] So, um, I think this
+[00:42:45] this, um, is probably more like a key
+[00:42:48] value store.
+[00:42:49] Um,
+[00:42:50] Mhm. where I mean, we basically just
+[00:42:52] need to store some
+[00:42:55] um,
+[00:42:57] uh, let's see. We need to store
+[00:43:00] uh,
+[00:43:02] value store.
+[00:43:04] Uh,
+[00:43:07] Okay, we need to store which bucket the
+[00:43:09] user is in.
+[00:43:11] Mhm.
+[00:43:12] User
+[00:43:14] bucket.
+[00:43:15] Um,
+[00:43:18] and then
+[00:43:19] um, I think there's also going to have
+[00:43:21] to be
+[00:43:24] sort of a separate uh,
+[00:43:27] a separate bucket that's going to store
+[00:43:30] the mappings for the two different um,
+[00:43:36] for the two different, uh, versions for
+[00:43:39] the two different branches here.
+[00:43:41] Um, so okay. I think
+[00:43:45] for this key value store we're going to
+[00:43:46] have to have like a user ID, um,
+[00:43:51] so uh,
+[00:43:53] user mapping.
+[00:43:56] Uh,
+[00:43:57] store. This is going to be user ID
+[00:44:01] bucket.
+[00:44:03] Uh, or so this Let's call this branch
+[00:44:06] ID.
+[00:44:07] Um,
+[00:44:09] and
+[00:44:11] I mean, that's that's kind of it,
+[00:44:13] actually. I think
+[00:44:15] there's almost like a separate
+[00:44:18] a separate store that is going to be
+[00:44:20] storing more detailed information about
+[00:44:22] the AB test.
+[00:44:24] Mhm.
+[00:44:25] Um,
+[00:44:27] but that could be
+[00:44:30] cuz you don't want to have to store that
+[00:44:32] repeatedly for each user. So, um,
+[00:44:34] Mhm.
+[00:44:36] Let's see. Uh, maybe I'll write another
+[00:44:43] thing here that I'll just say
+[00:44:45] like branch metadata.
+[00:44:48] Mhm. Um, and so
+[00:44:52] we need to this needs to interact like
+[00:44:54] this layer needs to interact with this
+[00:44:57] to sort of determine
+[00:45:00] which functions to call and it also
+[00:45:03] needs to interact with this.
+[00:45:05] Um,
+[00:45:07] to determine which bucket to send the
+[00:45:10] user. And so, when a when a new user
+[00:45:12] comes in, we can calculate the,
+[00:45:15] um, bucket that they're going to be in,
+[00:45:17] store it here for later use. Um,
+[00:45:21] and, uh, I suppose later on we don't
+[00:45:23] need to recalculate that. We can just
+[00:45:25] sort of read through here.
+[00:45:27] Um, and also then we need to,
+[00:45:30] uh,
+[00:45:32] anytime
+[00:45:33] that
+[00:45:35] we want to actually route this request,
+[00:45:36] we need to check on the configuration
+[00:45:38] here. Um,
+[00:45:40] and that branch metadata, it's going to
+[00:45:42] be keyed by the branch ID and then maybe
+[00:45:45] it'll have like a big JSON object that
+[00:45:47] will just tell it, um, which high-level
+[00:45:51] function calls or web or web pages map
+[00:45:54] to which components or which,
+[00:45:57] uh, low-level API calls, uh, in the
+[00:45:59] actual
+[00:46:01] client's API. Um, so just those map
+[00:46:04] mappings basically.
+[00:46:06] For each one of the branches. Um,
+[00:46:10] so yes, there there needs to be a place
+[00:46:12] to store that, definitely. Mhm.
+[00:46:14] Great.
+[00:46:15] I'm going to pause this right here.
+[00:46:16] We're at the 49.
+[00:46:19] Oh, yes.
+[00:46:20] Wow. Okay. So, that really did go
+[00:46:23] quickly. Yeah.
+[00:46:24] Uh-huh. Yeah, it does.
+[00:46:26] Um,
+[00:46:27] how are How are you feeling about it?
+[00:46:29] How do you feel like it went?
+[00:46:31] Um,
+[00:46:34] I think maybe for my first time it's
+[00:46:37] it's okay.
+[00:46:38] Um,
+[00:46:39] you know, I think I got
+[00:46:41] some of the I think I got most of the
+[00:46:43] components for
+[00:46:45] like this very limited version of
+[00:46:48] >> Mhm.
+[00:46:49] uh, of this kind of functionality, but
+[00:46:52] um, I guess I'm a little disappointed I
+[00:46:53] didn't really get into a lot of the
+[00:46:55] details of like how
+[00:46:58] this is different if you're talking
+[00:47:00] about different front end components. I
+[00:47:01] didn't quite get into
+[00:47:03] how this could be optimized,
+[00:47:05] uh, for like using machine learning.
+[00:47:07] Um, so I I would say the time was
+[00:47:10] probably Yeah, that was probably the
+[00:47:12] biggest thing. Um,
+[00:47:13] Mhm.
+[00:47:15] But yeah, how do you think What do you
+[00:47:16] think were the major things
+[00:47:18] Yeah.
+[00:47:18] >> that I I I guess did well or did poorly?
+[00:47:21] Yep. Yeah. Let's um, let's actually
+[00:47:23] start at the top and go through. Um, I'd
+[00:47:26] say like my TLDR is that you spent more
+[00:47:30] time on the things I expected that you
+[00:47:31] would just based on kind of more of your
+[00:47:34] analytics and and ML background.
+[00:47:36] Um, and that's why like I took some
+[00:47:39] notes to help
+[00:47:41] help you try to like maximize
+[00:47:44] leaning into where you'll be able to
+[00:47:48] speak most comfortably,
+[00:47:51] but also not miss big topics. So, um, I
+[00:47:54] think that that's kind of a helpful
+[00:47:55] framing because I think that there were
+[00:47:57] quite a few of like the meatier things
+[00:47:59] that you didn't get to.
+[00:48:01] Um, you started to really get into it
+[00:48:03] more right in like the last four
+[00:48:05] minutes, which is why I didn't stop us.
+[00:48:08] Um, and so
+[00:48:09] um, I think bringing some of those
+[00:48:11] things up earlier is helpful.
+[00:48:13] Okay. So, like the key value store for
+[00:48:15] the users and, um,
+[00:48:18] yeah, what are the other meatier things
+[00:48:20] that I didn't get into? Yeah.
+[00:48:23] It's a little bit more around like
+[00:48:25] where is the extensibility
+[00:48:29] and scaling that I felt like we could
+[00:48:30] have spent a little bit more time on.
+[00:48:33] Um, we also talked about security.
+[00:48:35] Um, now Mhm. those are like security
+[00:48:39] isn't necessarily a part of this
+[00:48:40] question per se, so I think it's more
+[00:48:42] fine to ask the question in the
+[00:48:44] beginning of like can we assume that
+[00:48:46] this is built within the existing
+[00:48:47] ecosystem and handles like
+[00:48:49] authentication?
+[00:48:51] Um, just like check to make sure.
+[00:48:55] Um, but in terms of like extensibility,
+[00:48:58] there's things like scheduling these
+[00:49:00] things to run, um, kind of like the the
+[00:49:03] multiple treatments that you had men-
+[00:49:05] you had mentioned.
+[00:49:07] Um, you know, different different access
+[00:49:10] points for different types of users. So,
+[00:49:12] for example, software engineers might
+[00:49:15] have different set of APIs that they
+[00:49:16] would use versus like product managers
+[00:49:19] in terms of like the creation versus
+[00:49:20] like the updating or viewing, um,
+[00:49:24] the content.
+[00:49:25] Um, and then
+[00:49:27] splitting out your databases when you
+[00:49:29] think about things like read and write
+[00:49:30] heavy.
+[00:49:31] Um, cuz some of these things are read
+[00:49:33] heavy, some of these things are write
+[00:49:34] heavy. We started to get to that right
+[00:49:36] in that last little the bucket, so um, I
+[00:49:38] felt good about you understanding that
+[00:49:40] concept. Um but I was curious if I
+[00:49:43] didn't say anything, would you have
+[00:49:45] brought it up or not?
+[00:49:46] So that's that was kind of
+[00:49:47] >> Yeah, that's that's a good
+[00:49:50] definitely a good point. Um I guess I I
+[00:49:53] maybe need to remember if I have any
+[00:49:55] service here. Um like I need to talk
+[00:49:57] about the the storage for that service.
+[00:50:00] Um cuz I kind of had just like
+[00:50:01] implicitly assumed that there's a key
+[00:50:03] value store here, but I guess anytime I
+[00:50:05] draw a rectangle that's a standalone
+[00:50:08] service, it it's got to have some unless
+[00:50:09] it's an in-memory thing, but obviously
+[00:50:12] this isn't in-memory, so
+[00:50:14] Correct. And that's And that's where
+[00:50:16] it's like you
+[00:50:18] um
+[00:50:20] Most people struggle even to come up
+[00:50:22] with a hashing thing, so you caught you
+[00:50:23] caught that so quickly that I think you
+[00:50:25] were just kind of like, oh, it has
+[00:50:27] everything that I need. Um but it is
+[00:50:30] helpful to kind of talk about
+[00:50:32] you know, that
+[00:50:34] e- even if you're not going into detail
+[00:50:36] hey, here is, you know, I'm going to
+[00:50:37] have to have a database here just to
+[00:50:39] store our treatment information. And you
+[00:50:42] know, if we scale it to a certain point,
+[00:50:43] like we could consider a caching
+[00:50:45] component.
+[00:50:46] Um so those are
+[00:50:49] those are things that like
+[00:50:51] uh based on like what you were talking
+[00:50:53] about, I feel like you knew all those
+[00:50:55] things, you just didn't verbalize it.
+[00:50:57] Yeah, right. I I think quickly mentioned
+[00:51:00] read-through caching, but I didn't say
+[00:51:02] much about it at all. Yeah.
+[00:51:04] So I I right. Okay, thank you. Yeah.
+[00:51:08] Yeah.
+[00:51:09] So in the beginning, you asked really
+[00:51:11] good clarification. I purposely make
+[00:51:13] this super vague when I say the question
+[00:51:15] just to kind of see
+[00:51:16] you know, how you can handle ambiguity.
+[00:51:19] I thought you did a really good job of
+[00:51:20] asking a clarifying question. Um
+[00:51:23] something that can be really helpful
+[00:51:25] though is to frame it around asking for
+[00:51:28] like a user journey or how a user would
+[00:51:31] experience the platform
+[00:51:33] that you can just really then ground the
+[00:51:35] conversation. So um that's kind of how I
+[00:51:37] responded to you um to kind of help you
+[00:51:41] see
+[00:51:42] anchoring on like the customer
+[00:51:43] experience can really help to make sure
+[00:51:45] you're on the same page with your
+[00:51:46] interviewer.
+[00:51:48] Um That makes sense. Okay, user journey.
+[00:51:50] >> like a hint there. Yep. Um
+[00:51:54] uh
+[00:51:55] Great question in terms like
+[00:51:56] partitioning by user session. That's
+[00:51:59] something people usually don't bring up
+[00:52:00] until quite later, so great to see you
+[00:52:02] bring that up right away.
+[00:52:05] Okay.
+[00:52:05] >> One hint One hint that I wrote here was
+[00:52:07] to talk about the why behind your
+[00:52:09] question. You asked me really good
+[00:52:11] questions.
+[00:52:12] But sometimes it can be really helpful
+[00:52:14] to talk about the why. So
+[00:52:16] um yeah, as an example
+[00:52:18] >> I
+[00:52:19] That that user versus session thing has
+[00:52:21] a big why behind it for sure, but I
+[00:52:23] didn't mention that.
+[00:52:24] >> Right. Right. And it's like one of those
+[00:52:26] things that's like I can infer it
+[00:52:29] but you don't want to have an
+[00:52:30] interviewer that that doesn't infer it,
+[00:52:31] right? And so I think it's actually
+[00:52:33] great to be really explicit. And it can
+[00:52:35] be the pros and cons, right? So like
+[00:52:37] say you just have no idea even where to
+[00:52:39] go on something
+[00:52:41] sometimes it's really really effective
+[00:52:43] to talk about what something shouldn't
+[00:52:44] be.
+[00:52:46] Gives your chance Get your brain a
+[00:52:47] chance to catch up. It demonstrates that
+[00:52:50] you have knowledge of, you know, good
+[00:52:52] and poor decisions.
+[00:52:54] Um so if you get caught at all, talk
+[00:52:56] about the why behind your questions, and
+[00:52:58] then also talk about what something
+[00:53:00] shouldn't be. All right. What it would
+[00:53:02] be helpful.
+[00:53:04] >> Helpful hint.
+[00:53:04] >> Okay.
+[00:53:05] That makes sense. Right, I could I could
+[00:53:07] have suggested
+[00:53:08] yeah, made my own opinion about why a
+[00:53:10] session wouldn't make sense because you
+[00:53:12] don't have time to see how the user
+[00:53:13] would actually adapt to the new thing
+[00:53:15] and Correct.
+[00:53:17] Right. Mhm.
+[00:53:18] >> And again, anchoring it on that customer
+[00:53:20] experience again
+[00:53:21] cuz then I think it really anchors you
+[00:53:24] on making sure that you're delivering
+[00:53:25] what they want.
+[00:53:27] Yes. Okay.
+[00:53:29] Which you did you did a little bit in
+[00:53:31] this one when you're explaining cuz you
+[00:53:33] were like, you know, if the user came
+[00:53:34] back, would they want to see the same
+[00:53:36] experience? That's a great example of
+[00:53:38] like how to use the customer within it.
+[00:53:42] Mhm.
+[00:53:43] Yeah, okay.
+[00:53:44] That makes sense. Yep.
+[00:53:46] I also find it really helpful at this
+[00:53:48] point to kind of give a high-level
+[00:53:49] agenda or like a walk-through of how
+[00:53:51] you're going to structure your time.
+[00:53:54] Um this is also a great place to just
+[00:53:56] kind of
+[00:53:57] mention that kind of short list I gave
+[00:53:59] you, which is like okay, this is like a
+[00:54:02] big question. There's a couple of things
+[00:54:05] I want to make sure that we hit on. Um
+[00:54:07] I'm going to walk us through the
+[00:54:08] functional and non-functional
+[00:54:09] requirements. Um you know, some things
+[00:54:12] for us to think about is, you know,
+[00:54:13] things like extensibility,
+[00:54:15] security
+[00:54:16] um um [clears throat] you can kind of
+[00:54:18] list out that list that I gave you.
+[00:54:20] Um and then you could say, I'm I'm going
+[00:54:22] to walk through a couple of these
+[00:54:23] things, we'll jump into drawing. Um but
+[00:54:26] if you have any components you'd like me
+[00:54:28] to spend more time on, um let me know so
+[00:54:30] I can make sure to save time for it.
+[00:54:32] And that's like a helpful way to kind of
+[00:54:35] get your interviewer in the same mindset
+[00:54:38] as you.
+[00:54:39] It also will help you not having to ask
+[00:54:42] the question of
+[00:54:44] did I get everything or
+[00:54:47] am I missing anything? Instead, it's
+[00:54:49] like putting you in the power seat, but
+[00:54:52] also giving me the opportunity to feel
+[00:54:54] like, oh, by the way, I really want to
+[00:54:56] know more about how you're going to
+[00:54:57] bucket users.
+[00:54:59] Um so I think it's a helpful frame of
+[00:55:02] that question you asked.
+[00:55:04] Okay, so right. Instead of asking, did I
+[00:55:07] miss anything, like try to sort of
+[00:55:09] anticipate high-level categories of like
+[00:55:12] what might be missing and write them
+[00:55:13] down. Um
+[00:55:15] and then like right. And then um
+[00:55:18] it's kind of like something that I
+[00:55:19] already mentioned, so it's not like
+[00:55:21] taking me by surprise.
+[00:55:23] Exactly. So like even things like
+[00:55:25] monitoring, we didn't talk about that at
+[00:55:26] all. Super important, right? So you
+[00:55:28] could even just say you know, we might
+[00:55:30] we might not have time, but something I
+[00:55:32] want to make sure to mention is that
+[00:55:33] we'd want to have really good monitoring
+[00:55:34] and alarming in our system um to make
+[00:55:37] sure that everything is working as
+[00:55:38] expected.
+[00:55:40] Yep. Yep. Right.
+[00:55:42] So it's it's nice to mention these
+[00:55:44] things up front
+[00:55:46] because then your interviewer isn't
+[00:55:48] stuck in the mindset of like, ah, is he
+[00:55:50] going to talk about monitoring?
+[00:55:52] And then you don't, but instead if you
+[00:55:54] pre-mentioned it
+[00:55:56] it kind of makes it be like, oh, he just
+[00:55:58] ran out of time.
+[00:55:59] Yeah, okay. So maybe after I talked
+[00:56:02] about functional requirements and like
+[00:56:04] non-functional requirements, go into
+[00:56:07] like maybe I was missing just one more
+[00:56:09] kind of high-level list of just like
+[00:56:12] like high-level components. Yeah,
+[00:56:15] exactly.
+[00:56:16] Okay. And then right.
+[00:56:19] Got you.
+[00:56:20] >> This is also the strategy in terms like,
+[00:56:23] oh shoot, I felt 10 minutes left, what
+[00:56:25] am I going to do with that time?
+[00:56:27] This is the list you can go back to,
+[00:56:29] right? So order these things in your
+[00:56:31] level of comfort.
+[00:56:33] Um because what you don't want to do is
+[00:56:35] open a door for them to be like, I want
+[00:56:37] to talk about security, and you're like,
+[00:56:39] oh shoot. Um so order within kind of
+[00:56:42] your comfort. Um and the great thing
+[00:56:45] about system design is you steer the
+[00:56:47] whole thing, right? Like you are the
+[00:56:48] driver of this, unlike coding.
+[00:56:51] Um so I I always say try to use that to
+[00:56:53] your advantage.
+[00:56:55] Right.
+[00:56:57] Okay, yeah. Focus on um the things that
+[00:56:59] I'm strongest at. Yep, that makes a lot
+[00:57:01] of sense.
+[00:57:02] Yes, exactly.
+[00:57:03] >> Mhm.
+[00:57:04] Exactly. Um
+[00:57:06] So those are just some high-level things
+[00:57:08] that would help you avoid missing
+[00:57:10] something. Um and I think it would it
+[00:57:13] would help give you some more
+[00:57:15] well-rounded like, hey, here's all the
+[00:57:17] things we really want to touch on.
+[00:57:19] In terms of like the things that you did
+[00:57:20] draw, um of course I would have liked to
+[00:57:23] see see you spend a little bit more time
+[00:57:25] maybe explicit on things like, you know,
+[00:57:27] how do you store that experiment
+[00:57:28] information?
+[00:57:30] But the things that you did share, I
+[00:57:31] thought were good, and it didn't
+[00:57:33] surprise me again like
+[00:57:35] um I kind of figured you would take more
+[00:57:37] of the the BI side of things as we um
+[00:57:40] once you got into the
+[00:57:41] >> Um so when you say like, how we would
+[00:57:43] store it, do you mean like
+[00:57:46] the the specific type of SQL database,
+[00:57:48] or do you mean the part that actually
+[00:57:50] aggregates it? Like maybe spending more
+[00:57:52] time on that.
+[00:57:53] >> like this bubble where I was like
+[00:57:56] >> how you would bucket your users, how you
+[00:57:59] would set up your experiments.
+[00:58:01] Um because there's a lot of
+[00:58:02] extensibility points within this, right?
+[00:58:04] Like
+[00:58:05] some people create an experiment table
+[00:58:07] and a user table and have them separate
+[00:58:09] because your experiment table is going
+[00:58:11] to be a lot more
+[00:58:13] read-heavy, whereas your user table is
+[00:58:16] going to be a lot more write-heavy. And
+[00:58:18] so if you have, you know, a thousand
+[00:58:20] experiments running at the same time
+[00:58:23] you could then have optionality to
+[00:58:24] create APIs to do like, you know, some
+[00:58:26] sort of like bulk get treatment calls
+[00:58:29] where it's searching what customers
+[00:58:31] would be in in several different things.
+[00:58:34] Um
+[00:58:36] So kind of
+[00:58:36] splitting out that functionality can
+[00:58:38] help.
+[00:58:39] Um but again, I thought you did a really
+[00:58:41] good job on in terms of this like
+[00:58:43] metrics component, which I I'm not
+[00:58:45] surprised given you're you're probably a
+[00:58:47] little bit more metrics-focused
+[00:58:49] um than a than a pure software engineer.
+[00:58:52] Mhm. That makes sense.
+[00:58:55] Yeah, okay. I will definitely keep that
+[00:58:56] in mind.
+[00:58:57] Yeah, breaking out I guess um
+[00:59:00] yeah, the storage and making sure all
+[00:59:02] the different tables and talking about
+[00:59:04] read reading read-heavy versus
+[00:59:06] write-heavy.
+[00:59:08] Um yeah, okay.
+[00:59:10] Yeah, cuz the read versus write-heavy
+[00:59:11] showed you're thinking about scale.
+[00:59:13] Um and that's that's kind of the root of
+[00:59:15] it, right? Is you just want to make sure
+[00:59:16] that you're you're thinking about where
+[00:59:18] your platform would fall apart or where
+[00:59:20] it'd be easily extensible.
+[00:59:23] Yeah. Yep, absolutely. Mhm.
+[00:59:25] >> [clears throat]
+[00:59:25] >> Yeah.
+[00:59:26] Um do you feel like the feedback I gave
+[00:59:28] you is something you are able to
+[00:59:30] integrate and and feel like you you know
+[00:59:32] how to incorporate it or is that
+[00:59:34] something helpful for us to talk through
+[00:59:35] for a quick
+[00:59:37] Um I I think so. I think I have some
+[00:59:40] idea of how to incorporate it, but I
+[00:59:42] don't know. I guess I mean I have like a
+[00:59:44] couple of concrete things of try to try
+[00:59:48] to you know some some concrete
+[00:59:49] takeaways, but
+[00:59:51] Mhm. Yeah, I mean how to do it in the
+[00:59:53] right amount of time.
+[00:59:55] I mean if you have any other advice on
+[00:59:57] how to
+[00:59:58] how to try to incorporate that stuff
+[01:00:01] and still not run out of time. Like I
+[01:00:03] don't know, was I talking slowly or was
+[01:00:05] I should I maybe practice
+[01:00:08] with
+[01:00:10] just getting faster at actually
+[01:00:11] whiteboarding or
+[01:00:14] Yeah, I guess that.
+[01:00:16] >> You're you're a clear and effective
+[01:00:18] communicator, so
+[01:00:20] usually that's a separate problem.
+[01:00:22] So I mean I was able to follow you. You
+[01:00:25] were talking out loud really well. There
+[01:00:26] was at no point where I was like what
+[01:00:28] the heck is he doing? Um so you're doing
+[01:00:30] a great job on all of those things. I
+[01:00:32] think just doing that kind of high-level
+[01:00:35] here are some key buckets for me to be
+[01:00:37] mindful of
+[01:00:39] would be effective for you to just at
+[01:00:41] least
+[01:00:42] you know kind of knowledge drop a few
+[01:00:44] things and even if you don't get to it
+[01:00:47] at least you've mentioned it briefly.
+[01:00:49] And I think that will just help you in
+[01:00:51] your time management component. Um it'll
+[01:00:53] also give your interviewer some time to
+[01:00:56] be like oh hey, I would really love to
+[01:00:59] talk more about the bucket user
+[01:01:01] component.
+[01:01:02] Um
+[01:01:03] so
+[01:01:05] it's a balance. You don't want to you
+[01:01:06] don't want to give the interviewer too
+[01:01:08] much of like a hey, where would where
+[01:01:11] would you like to go because then again
+[01:01:13] you could you could get caught in an
+[01:01:14] area that you're like I'm
+[01:01:16] this is not where I am the most
+[01:01:18] comfortable. Um so that's kind of where
+[01:01:21] I feel like
+[01:01:22] you know it's kind of setting the stage
+[01:01:24] for like here's my agenda and then
+[01:01:26] moving allows you to control your
+[01:01:28] narrative a lot more.
+[01:01:30] Um and allows you to cover a lot more
+[01:01:33] ground.
+[01:01:34] Maybe if I can summarize one more time
+[01:01:36] like it sounds like first of all I mean
+[01:01:38] as a general heuristic maybe like don't
+[01:01:40] ask the question of like am I done
+[01:01:43] and instead
+[01:01:45] like try to leave myself some like loose
+[01:01:49] ends early on so that if I ever finish a
+[01:01:52] chunk I can sort of I already have like
+[01:01:56] some stuff queued up I can talk about.
+[01:01:58] Um and right. Okay. Mhm.
+[01:02:03] And then maybe like it'll be more like a
+[01:02:05] suggestion. I can be like, "Okay, so
+[01:02:08] that's done. Next I can talk about this,
+[01:02:10] but I just want to give you an
+[01:02:11] opportunity if you want me to talk about
+[01:02:13] something else, but like I'm making a
+[01:02:14] suggestion instead of just what do what
+[01:02:17] do I do? Are are we done?"
+[01:02:19] Yeah, okay. That makes sense.
+[01:02:22] I think you cover way more ground
+[01:02:24] faster. It also just like you just
+[01:02:26] knowledge drop a lot more things faster.
+[01:02:28] It gives you a sense of time management
+[01:02:31] in terms of like what are the things you
+[01:02:33] truly want to hit on. So
+[01:02:35] I think that that would probably help
+[01:02:36] you the most.
+[01:02:38] Okay. Yeah, that sounds great. And
+[01:02:40] and you mentioned that there's like
+[01:02:41] notes on this as well.
+[01:02:43] Yeah, so I took notes with timestamps.
+[01:02:45] Okay.
+[01:02:46] Yeah, so I will I will drop those in our
+[01:02:48] in our notes here at the end. I will
+[01:02:50] also drop those
+[01:02:52] um
+[01:02:53] example problems for you. Um and then
+[01:02:57] I also have just like some really quick
+[01:03:01] like five bullet points of like
+[01:03:03] here are some high-level things to think
+[01:03:04] about from a behavioralist perspective,
+[01:03:07] so I'll drop those in as well.
+[01:03:09] Oh sure. Yeah, that would be super
+[01:03:10] helpful. Mhm. Yeah.
+[01:03:13] Awesome. Well, I hope your session later
+[01:03:15] today goes well too.
+[01:03:17] You know take some take some notes.
+[01:03:20] You know make a little sticky note of
+[01:03:21] like you know here's the big five
+[01:03:23] categories you want to make sure you hit
+[01:03:24] on.
+[01:03:25] Um
+[01:03:27] and see if you can implement some of
+[01:03:28] this and see if that helps you with your
+[01:03:30] time management.
+[01:03:32] Yeah, definitely. I will I will try to
+[01:03:33] do that. I think that's really helpful
+[01:03:34] to have this and then have a follow-up
+[01:03:36] in a little while so I can try to
+[01:03:38] immediately implement some of this
+[01:03:39] stuff. So
+[01:03:40] yeah, thank you.
+[01:03:41] Exactly. Just don't overthink it. I
+[01:03:43] think that's
+[01:03:44] >> Right. That's that's the challenging
+[01:03:46] part here. Um
+[01:03:47] and again I'm I'm I'm interested to see
+[01:03:50] how the ML focused one goes because
+[01:03:53] um
+[01:03:54] I could just tell that's kind of where
+[01:03:55] you're more comfortable. So
+[01:03:57] Yeah.
+[01:03:58] Yeah, definitely is for sure. But I want
+[01:04:00] to be able to do both. So Yeah, exactly.
+[01:04:02] Yeah, this is helpful. Awesome. Well,
+[01:04:05] good luck. Um if you need anything don't
+[01:04:07] be shy.
+[01:04:08] Okay, and I could I could contact you
+[01:04:10] potentially after this if is that right
+[01:04:12] or Yeah, so at the end of your filling
+[01:04:15] Yes, so when you fill out feedback for
+[01:04:16] me there'll be a button that says do you
+[01:04:18] want to unmask? And if we both click it
+[01:04:21] it will send us an automated email so we
+[01:04:23] have each other's contact information.
+[01:04:25] So
+[01:04:26] that's what I do on my end. So it's
+[01:04:28] totally up to you if that's something
+[01:04:29] you're comfortable with.
+[01:04:30] Okay. Yeah, great. I definitely is. So
+[01:04:33] yeah, all right. I appreciate that. You
+[01:04:35] bet. All right, good luck.
+[01:04:38] Okay, thank you.
+[01:04:39] All right, bye. Have a good one. You
+[01:04:41] too.
+[01:04:44] >> [music]
+[01:04:50] [music]
+[01:04:56] [music]
+
+FEEDBACK_MD:
+---
+section: "Feedback on prioritization and time management"
+start: "00:48:03"
+end: "00:53:33"
+start_seconds: 2883
+end_seconds: 3213
+---
+
+more right in like the last four minutes, which is why I didn't stop us. Um, and so um, I think bringing some of those things up earlier is helpful. Okay. So, like the key value store for the users and, um, yeah, what are the other meatier things that I didn't get into? Yeah. It's a little bit more around like where is the extensibility and scaling that I felt like we could have spent a little bit more time on. Um, we also talked about security. Um, now Mhm. those are like security isn't necessarily a part of this question per se, so I think it's more fine to ask the question in the beginning of like can we assume that this is built within the existing ecosystem and handles like authentication? Um, just like check to make sure. Um, but in terms of like extensibility, there's things like scheduling these things to run, um, kind of like the the multiple treatments that you had men- you had mentioned. Um, you know, different different access points for different types of users. So, for example, software engineers might have different set of APIs that they would use versus like product managers in terms of like the creation versus like the updating or viewing, um, the content. Um, and then splitting out your databases when you think about things like read and write heavy. Um, cuz some of these things are read heavy, some of these things are write heavy. We started to get to that right in that last little the bucket, so um, I felt good about you understanding that concept. Um but I was curious if I didn't say anything, would you have brought it up or not? So that's that was kind of >> Yeah, that's that's a good definitely a good point. Um I guess I I maybe need to remember if I have any service here. Um like I need to talk about the the storage for that service. Um cuz I kind of had just like implicitly assumed that there's a key value store here, but I guess anytime I draw a rectangle that's a standalone service, it it's got to have some unless it's an in-memory thing, but obviously this isn't in-memory, so Correct. And that's And that's where it's like you um Most people struggle even to come up with a hashing thing, so you caught you caught that so quickly that I think you were just kind of like, oh, it has everything that I need. Um but it is helpful to kind of talk about you know, that e- even if you're not going into detail hey, here is, you know, I'm going to have to have a database here just to store our treatment information. And you know, if we scale it to a certain point, like we could consider a caching component. Um so those are those are things that like uh based on like what you were talking about, I feel like you knew all those things, you just didn't verbalize it. Yeah, right. I I think quickly mentioned read-through caching, but I didn't say much about it at all. Yeah. So I I right. Okay, thank you. Yeah. Yeah. So in the beginning, you asked really good clarification. I purposely make this super vague when I say the question just to kind of see you know, how you can handle ambiguity. I thought you did a really good job of asking a clarifying question. Um something that can be really helpful though is to frame it around asking for like a user journey or how a user would experience the platform that you can just really then ground the conversation. So um that's kind of how I responded to you um to kind of help you see anchoring on like the customer experience can really help to make sure you're on the same page with your interviewer. Um That makes sense. Okay, user journey. >> like a hint there. Yep. Um uh Great question in terms like partitioning by user session. That's something people usually don't bring up until quite later, so great to see you bring that up right away. Okay. >> One hint One hint that I wrote here was to talk about the why behind your question. You asked me really good questions. But sometimes it can be really helpful to talk about the why. So um yeah, as an example >> I That that user versus session thing has a big why behind it for sure, but I didn't mention that. >> Right. Right. And it's like one of those things that's like I can infer it but you don't want to have an interviewer that that doesn't infer it, right? And so I think it's actually great to be really explicit. And it can be the pros and cons, right? So like say you just have no idea even where to go on something sometimes it's really really effective to talk about what something shouldn't be. Gives your chance Get your brain a chance to catch up. It demonstrates that you have knowledge of, you know, good and poor decisions. Um so if you get caught at all, talk about the why behind your questions, and then also talk about what something shouldn't be. All right. What it would be helpful. >> Helpful hint. >> Okay. That makes sense. Right, I could I could have suggested yeah, made my own opinion about why a session wouldn't make sense because you don't have time to see how the user would actually adapt to the new thing and Correct. Right. Mhm. >> And again, anchoring it on that customer experience again cuz then I think it really anchors you on making sure that you're delivering what they want. Yes. Okay. Which you did you did a little bit in this one when you're explaining cuz you
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required for step 2 (Q&A extraction). splitter_prepare_prompt.py does not call any LLM API.
+Do NOT substitute another model (e.g. GPT) unless the user explicitly overrides.
+Required model: claude-sonnet-4-6
+Suggested temperature: 0
+
+======================================================================
+STEP 2 AGENT RULES (mandatory — Cursor / Claude Code)
+======================================================================
+Target version for this run: v1 only.
+Write JSON only to: splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json
+
+FORBIDDEN on step 2:
+- Read, copy, merge, or patch any prior qa-split JSON in this interview folder
+  (e.g. ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json, v2, ... except the target path above).
+- Reuse items[] or field text from older splitter runs because validation passed before.
+
+REQUIRED on step 2:
+- Extract Q&A solely from PRIMARY_TRANSCRIPT in this LLM_INPUT_STEP_2 block.
+- Do NOT read video.md or YouTube chapter titles (validation-only; absent in real interviews).
+- Full fresh extraction; overwrite the target JSON completely.
+- interviewer_feedback: interviewer speech only; candidate continuation -> candidate_answer or null feedback.
+- Truncated interviewer ASR: merge adjacent interviewer lines in the transcript; do not paraphrase from external outlines.
+
+======================================================================
+LOCALE (mandatory — JSON + validation report)
+======================================================================
+INTERVIEW_LANGUAGE: en (mandatory for this run)
+- All text fields in JSON must be verbatim contiguous spans from PRIMARY_TRANSCRIPT in English. No Russian translation.
+- Forbidden: summaries («The candidate explained…», «кандидат сказал…»).
+- Labels question_type / question_topic / interview_stage stay English enums (schema); Q/A wording stays English ASR only.
+
+
+======================================================================
+OUTPUT PATHS (post-processing)
+======================================================================
+Save JSON to: splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json
+
+Then (preferred — no LLM):
+  scripts/splitter_post.sh splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json \
+    --video transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/video.md
+
+Or manually:
+  python3 .claude/skills/splitter/step3-excel/splitter_json_to_excel.py splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json --out splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.xlsx
+
+Validation (video.md offline only — never paste into the model):
+  python3 .claude/skills/splitter/step4-validate-chapters/splitter_validate_video.py \
+    --splitter splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.qa-split.json \
+    --video transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/video.md \
+    --tolerance 120 \
+    --out splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.validation-report.md
+
+Sections: auto-parsed from `Секция «…»` in video.md Description.
+Optional topic_map override:
+  --section-config .claude/skills/splitter/step4-validate-chapters/section_topic_map.karpov_mock.json
+
+Full procedure: .claude/skills/splitter/SKILL.md
+```
+
+<!-- /LLM_INPUT_STEP_2 -->
+
+<!-- LLM_INPUT_STEP_5 -->
+
+## Шаг 5 — семантическая валидация глав
+
+Модель читает **только этот блок** на шаге 5 (не `video.md`, не другие интервью).
+
+```text
+======================================================================
+SYSTEM
+======================================================================
+You validate splitter Q&A JSON quality for a mock/real interview transcript.
+
+Context:
+- YouTube chapters (video.md) are an external checklist. They are NOT the only way questions appear in the transcript.
+- Follow-up questions inside a section are valid items even if they are far from a chapter marker or sit in a neighboring chapter window.
+- The deterministic validator (step 4) uses strict per-window boundaries. The semantic validator (step 5) uses a 120-second tolerance.
+- Small timestamp drift (even 1–60 seconds) between an item's timestamp and the chapter marker is NORMAL and must NOT trigger false flags. Judge by content match, not by exact boundary crossing.
+
+For each listed chapter you receive:
+- chapter time, title, and time window until the next chapter
+- zero or more extracted items (interviewer_question, candidate_answer, reference_answer, interviewer_feedback, labels)
+
+Judge two dimensions per chapter:
+
+1) time_alignment_ok — true when:
+   - at least one item exists in this chapter's window OR in an adjacent window within 60 seconds of this chapter's marker, covering the chapter's topic
+   - interviewer_question.time is plausible for the chapter topic (no obviously wrong-minute timestamps)
+   - do NOT fail because an item sits in a neighboring window due to small drift, or is a follow-up in the same topic block
+
+2) content_alignment_ok — true when:
+   - the chapter's topic is covered by an item in this window or an adjacent item within 60 seconds (before or after the marker)
+   - question_type, question_topic, interview_stage fit the content
+   - candidate_answer contains only the candidate's speech (flag false if interviewer lines like "давай я приведу пример", "я понял", "окей" are mixed into candidate_answer together with candidate phrases)
+   - interviewer_question is a complete intelligible question (flag false if truncated ASR: ends mid-clause like "...еще не Что", "...должен быть", or duplicates the opening of candidate_answer)
+   - interviewer_question and candidate_answer do NOT share a long verbatim prefix (flag false if the first 6+ words are identical — echo / mis-attributed span)
+   - interviewer_feedback contains only the interviewer's speech (flag false if candidate biography/case continuation appears there: "я пошёл", "у нас Kanban", "мы причесали", "я считаю что лучший код", etc. — that belongs in candidate_answer)
+   - self-answered interviewer turns correctly use candidate_answer.text = null and reference_answer for the explanation
+
+When a chapter shows 0 extracted items (recognition_status: not_recognized):
+- Look at the previous chapter's last item(s). If one has a timestamp within 60 seconds BEFORE this chapter's marker AND its content matches this chapter's title → set BOTH flags true, leave notes as empty string "". This is normal drift within tolerance.
+- Set both flags false ONLY when the topic is genuinely not covered anywhere nearby: truly missed question, or a discussion/explanation segment with no interviewer question.
+
+Return ONLY valid JSON matching the schema. No markdown fences.
+Language for notes: English. Keep notes short and actionable. Leave notes as "" when both flags are true.
+
+Correction hints (for notes when content_alignment_ok is false):
+- Step 2 must use PRIMARY_TRANSCRIPT only; never suggest pasting YouTube chapter titles into interviewer_question.
+- For truncated ASR or Q/A duplicate prefix: suggest merging adjacent interviewer lines in the transcript or re-cutting spans; for real interviews there is no video.md.
+
+======================================================================
+OUTPUT SCHEMA
+======================================================================
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chapter_time",
+          "time_alignment_ok",
+          "content_alignment_ok",
+          "notes"
+        ],
+        "properties": {
+          "chapter_time": {
+            "type": "string",
+            "description": "HH:MM:SS from video.md chapter"
+          },
+          "time_alignment_ok": {
+            "type": "boolean",
+            "description": "true if extracted item times fall within this chapter window and match the chapter topic timing"
+          },
+          "content_alignment_ok": {
+            "type": "boolean",
+            "description": "true if question/answer texts match the YouTube chapter title meaning"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short Russian explanation; empty string if both checks pass"
+          }
+        }
+      }
+    }
+  }
+}
+
+======================================================================
+CHAPTERS TO VALIDATE
+======================================================================
+video.md: transcripts/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/video.md
+
+--- CHAPTER `00:24:01` — API wrapper and routing model breakthrough ---
+window: 00:24:01 .. конец
+recognition_status: multiple (4 items)
+
+ITEM #8
+  interviewer_question: time=00:42:01 text="The only thing I was curious about was in like how you're bucketing your users. Would you be storing anywhere like which user is in which? Uh, yes. That Here we talked about a hashing algorithm, um, but curious like would you have some sort of data store attached to that as well?"
+  candidate_answer: time=00:42:22 text="Yes. Uh, sorry, definitely. So, I think for multiple different things. Um, Uh-huh. so that's a good point. So, and not just the users bucket, but uh, maybe I'll make this a circle. Um, but also some of this information about the mappings because Mhm. that needs to be stored somewhere as well. So, um, I think this this, um, is probably more like a key value store. Um, Mhm. where I mean, we basically just need to store some um, uh, let's see. We need to store uh, value store. Uh, Okay, we need to store which bucket the user is in. Mhm. User bucket. Um, and then um, I think there's also going to have to be sort of a separate uh, a separate bucket that's going to store the mappings for the two different um, for the two different, uh, versions for the two different branches here. Um, so okay. I think for this key value store we're going to have to have like a user ID, um, so uh, user mapping. Uh, store. This is going to be user ID bucket. Uh, or so this Let's call this branch ID. Um, and I mean, that's that's kind of it, actually. I think there's almost like a separate a separate store that is going to be storing more detailed information about the AB test. Mhm. Um, but that could be cuz you don't want to have to store that repeatedly for each user. So, um, Mhm. Let's see. Uh, maybe I'll write another thing here that I'll just say like branch metadata. Mhm. Um, and so we need to this needs to interact like this layer needs to interact with this to sort of determine which functions to call and it also needs to interact with this. Um, to determine which bucket to send the user. And so, when a when a new user comes in, we can calculate the, um, bucket that they're going to be in, store it here for later use. Um, and, uh, I suppose later on we don't need to recalculate that. We can just sort of read through here. Um, and also then we need to, uh, anytime that we want to actually route this request, we need to check on the configuration here. Um, and that branch metadata, it's going to be keyed by the branch ID and then maybe it'll have like a big JSON object that will just tell it, um, which high-level function calls or web or web pages map to which components or which, uh, low-level API calls, uh, in the actual client's API. Um, so just those map mappings basically. For each one of the branches. Um, so yes, there there needs to be a place to store that, definitely. Mhm. Great."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:46:15 text="I'm going to pause this right here. We're at the 49. Oh, yes. Wow. Okay. So, that really did go quickly. Yeah. Uh-huh. Yeah, it does. Um,"
+  question_topic: Experimentation
+
+ITEM #9
+  interviewer_question: time=00:46:27 text='how are How are you feeling about it? How do you feel like it went?'
+  candidate_answer: time=00:46:31 text="Um, I think maybe for my first time it's it's okay. Um, you know, I think I got some of the I think I got most of the components for like this very limited version of Mhm. uh, of this kind of functionality, but um, I guess I'm a little disappointed I didn't really get into a lot of the details of like how this is different if you're talking about different front end components. I didn't quite get into how this could be optimized, uh, for like using machine learning. Um, so I I would say the time was probably Yeah, that was probably the biggest thing. Um, Mhm. But yeah, how do you think What do you think were the major things Yeah. that I I I guess did well or did poorly?"
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:47:21 text="Yep. Yeah. Let's um, let's actually start at the top and go through. Um, I'd say like my TLDR is that you spent more time on the things I expected that you would just based on kind of more of your analytics and and ML background. Um, and that's why like I took some notes to help help you try to like maximize leaning into where you'll be able to speak most comfortably, but also not miss big topics. So, um, I think that that's kind of a helpful framing because I think that there were quite a few of like the meatier things that you didn't get to. Um, you started to really get into it more right in like the last four minutes, which is why I didn't stop us. Um, and so um, I think bringing some of those things up earlier is helpful. Okay. So, like the key value store for the users and, um, yeah, what are the other meatier things that I didn't get into? Yeah. It's a little bit more around like where is the extensibility and scaling that I felt like we could have spent a little bit more time on. Um, we also talked about security. Um, now Mhm. those are like security isn't necessarily a part of this question per se, so I think it's more fine to ask the question in the beginning of like can we assume that this is built within the existing ecosystem and handles like authentication? Um, just like check to make sure. Um, but in terms of like extensibility, there's things like scheduling these things to run, um, kind of like the the multiple treatments that you had men- you had mentioned. Um, you know, different different access points for different types of users. So, for example, software engineers might have different set of APIs that they would use versus like product managers in terms of like the creation versus like the updating or viewing, um, the content. Um, and then splitting out your databases when you think about things like read and write heavy. Um, cuz some of these things are read heavy, some of these things are write heavy. We started to get to that right in that last little the bucket, so um, I felt good about you understanding that"
+  question_topic: Communication
+
+ITEM #10
+  interviewer_question: time=00:49:40 text="but I was curious if I didn't say anything, would you have brought it up or not?"
+  candidate_answer: time=00:49:47 text="Yeah, that's that's a good definitely a good point. Um I guess I I maybe need to remember if I have any service here. Um like I need to talk about the the storage for that service. Um cuz I kind of had just like implicitly assumed that there's a key value store here, but I guess anytime I draw a rectangle that's a standalone service, it it's got to have some unless it's an in-memory thing, but obviously this isn't in-memory, so Correct. And that's And that's where it's like you um Most people struggle even to come up with a hashing thing, so you caught you caught that so quickly that I think you were just kind of like, oh, it has everything that I need. Um but it is helpful to kind of talk about you know, that e- even if you're not going into detail hey, here is, you know, I'm going to have to have a database here just to store our treatment information. And you know, if we scale it to a certain point, like we could consider a caching component. Um so those are those are things that like uh based on like what you were talking about, I feel like you knew all those things, you just didn't verbalize it. Yeah, right. I I think quickly mentioned read-through caching, but I didn't say much about it at all. Yeah. So I I right. Okay, thank you. Yeah. Yeah."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=00:51:09 text="So in the beginning, you asked really good clarification. I purposely make this super vague when I say the question just to kind of see you know, how you can handle ambiguity. I thought you did a really good job of asking a clarifying question. Um something that can be really helpful though is to frame it around asking for like a user journey or how a user would experience the platform that you can just really then ground the conversation. So um that's kind of how I responded to you um to kind of help you see anchoring on like the customer experience can really help to make sure you're on the same page with your interviewer. Um That makes sense. Okay, user journey. like a hint there. Yep. Um uh Great question in terms like partitioning by user session. That's something people usually don't bring up until quite later, so great to see you bring that up right away. Okay. One hint One hint that I wrote here was to talk about the why behind your question. You asked me really good questions. But sometimes it can be really helpful to talk about the why. So um yeah, as an example I That that user versus session thing has a big why behind it for sure, but I didn't mention that. Right. Right. And it's like one of those things that's like I can infer it but you don't want to have an interviewer that that doesn't infer it, right? And so I think it's actually great to be really explicit. And it can be the pros and cons, right? So like say you just have no idea even where to go on something sometimes it's really really effective to talk about what something shouldn't be. Gives your chance Get your brain a chance to catch up. It demonstrates that you have knowledge of, you know, good and poor decisions. Um so if you get caught at all, talk about the why behind your questions, and then also talk about what something shouldn't be. All right. What it would be helpful. Helpful hint. Okay. That makes sense. Right, I could I could have suggested yeah, made my own opinion about why a session wouldn't make sense because you don't have time to see how the user would actually adapt to the new thing and Correct. Right. Mhm. And again, anchoring it on that customer experience again cuz then I think it really anchors you on making sure that you're delivering what they want. Yes. Okay. Which you did you did a little bit in this one when you're explaining cuz you were like, you know, if the user came back, would they want to see the same experience? That's a great example of like how to use the customer within it. Mhm. Yeah, okay. That makes sense. Yep. I also find it really helpful at this point to kind of give a high-level agenda or like a walk-through of how you're going to structure your time. Um this is also a great place to just kind of mention that kind of short list I gave you, which is like okay, this is like a big question. There's a couple of things I want to make sure that we hit on. Um I'm going to walk us through the functional and non-functional requirements. Um you know, some things for us to think about is, you know, things like extensibility, security um um [clears throat] you can kind of list out that list that I gave you. Um and then you could say, I'm I'm going to walk through a couple of these things, we'll jump into drawing. Um but if you have any components you'd like me to spend more time on, um let me know so I can make sure to save time for it. And that's like a helpful way to kind of get your interviewer in the same mindset as you. It also will help you not having to ask the question of did I get everything or am I missing anything? Instead, it's like putting you in the power seat, but also giving me the opportunity to feel like, oh, by the way, I really want to know more about how you're going to bucket users. Um so I think it's a helpful frame of that question you asked. Okay, so right. Instead of asking, did I miss anything, like try to sort of anticipate high-level categories of like what might be missing and write them down. Um and then like right. And then um it's kind of like something that I already mentioned, so it's not like taking me by surprise. Exactly. So like even things like monitoring, we didn't talk about that at all. Super important, right? So you could even just say you know, we might we might not have time, but something I want to make sure to mention is that we'd want to have really good monitoring and alarming in our system um to make sure that everything is working as expected. Yep. Yep. Right. So it's it's nice to mention these things up front because then your interviewer isn't stuck in the mindset of like, ah, is he going to talk about monitoring? And then you don't, but instead if you pre-mentioned it it kind of makes it be like, oh, he just ran out of time. Yeah, okay. So maybe after I talked about functional requirements and like non-functional requirements, go into like maybe I was missing just one more kind of high-level list of just like like high-level components. Yeah, exactly. Okay. And then right. Got you. This is also the strategy in terms like, oh shoot, I felt 10 minutes left, what am I going to do with that time? This is the list you can go back to, right? So order these things in your level of comfort. Um because what you don't want to do is open a door for them to be like, I want to talk about security, and you're like, oh shoot. Um so order within kind of your comfort. Um and the great thing about system design is you steer the whole thing, right? Like you are the driver of this, unlike coding. Um so I I always say try to use that to your advantage. Right. Okay, yeah. Focus on um the things that I'm strongest at. Yep, that makes a lot of sense. Yes, exactly. Mhm. Exactly. Um So those are just some high-level things that would help you avoid missing something. Um and I think it would it would help give you some more well-rounded like, hey, here's all the things we really want to touch on. In terms of like the things that you did draw, um of course I would have liked to see see you spend a little bit more time maybe explicit on things like, you know, how do you store that experiment information? But the things that you did share, I thought were good, and it didn't surprise me again like um I kind of figured you would take more of the the BI side of things as we um once you got into the Um so when you say like, how we would store it, do you mean like the the specific type of SQL database, or do you mean the part that actually aggregates it? Like maybe spending more time on that. like this bubble where I was like how you would bucket your users, how you would set up your experiments. Um because there's a lot of extensibility points within this, right? Like some people create an experiment table and a user table and have them separate because your experiment table is going to be a lot more read-heavy, whereas your user table is going to be a lot more write-heavy. And so if you have, you know, a thousand experiments running at the same time you could then have optionality to create APIs to do like, you know, some sort of like bulk get treatment calls where it's searching what customers would be in in several different things. Um So kind of splitting out that functionality can help. Um but again, I thought you did a really good job on in terms of this like metrics component, which I I'm not surprised given you're you're probably a little bit more metrics-focused um than a than a pure software engineer. Mhm. That makes sense. Yeah, okay. I will definitely keep that in mind. Yeah, breaking out I guess um yeah, the storage and making sure all the different tables and talking about read reading read-heavy versus write-heavy. Um yeah, okay. Yeah, cuz the read versus write-heavy showed you're thinking about scale. Um and that's that's kind of the root of it, right? Is you just want to make sure that you're you're thinking about where your platform would fall apart or where it'd be easily extensible. Yeah. Yep, absolutely. Mhm. Yeah."
+  question_topic: Data Modeling
+
+ITEM #11
+  interviewer_question: time=00:59:26 text='Um do you feel like the feedback I gave you is something you are able to integrate and and feel like you you know how to incorporate it or is that something helpful for us to talk through for a quick'
+  candidate_answer: time=00:59:37 text="Um I I think so. I think I have some idea of how to incorporate it, but I don't know. I guess I mean I have like a couple of concrete things of try to try to you know some some concrete takeaways, but Mhm. Yeah, I mean how to do it in the right amount of time. I mean if you have any other advice on how to how to try to incorporate that stuff and still not run out of time. Like I don't know, was I talking slowly or was I should I maybe practice with just getting faster at actually whiteboarding or Yeah, I guess that."
+  reference_answer: time=None text=None
+  interviewer_feedback: time=01:00:16 text='You\'re you\'re a clear and effective communicator, so usually that\'s a separate problem. So I mean I was able to follow you. You were talking out loud really well. There was at no point where I was like what the heck is he doing? Um so you\'re doing a great job on all of those things. I think just doing that kind of high-level here are some key buckets for me to be mindful of would be effective for you to just at least you know kind of knowledge drop a few things and even if you don\'t get to it at least you\'ve mentioned it briefly. And I think that will just help you in your time management component. Um it\'ll also give your interviewer some time to be like oh hey, I would really love to talk more about the bucket user component. Um so it\'s a balance. You don\'t want to you don\'t want to give the interviewer too much of like a hey, where would where would you like to go because then again you could you could get caught in an area that you\'re like I\'m this is not where I am the most comfortable. Um so that\'s kind of where I feel like you know it\'s kind of setting the stage for like here\'s my agenda and then moving allows you to control your narrative a lot more. Um and allows you to cover a lot more ground. Maybe if I can summarize one more time like it sounds like first of all I mean as a general heuristic maybe like don\'t ask the question of like am I done and instead like try to leave myself some like loose ends early on so that if I ever finish a chunk I can sort of I already have like some stuff queued up I can talk about. Um and right. Okay. Mhm. And then maybe like it\'ll be more like a suggestion. I can be like, "Okay, so that\'s done. Next I can talk about this, but I just want to give you an opportunity if you want me to talk about something else, but like I\'m making a suggestion instead of just what do what do I do? Are are we done?" Yeah, okay. That makes sense. I think you cover way more ground faster. It also just like you just knowledge drop a lot more things faster. It gives you a sense of time management in terms of like what are the things you truly want to hit on. So I think that that would probably help you the most. Okay. Yeah, that sounds great. And and you mentioned that there\'s like notes on this as well. Yeah, so I took notes with timestamps. Okay. Yeah, so I will I will drop those in our in our notes here at the end. I will also drop those um example problems for you. Um and then I also have just like some really quick like five bullet points of like here are some high-level things to think about from a behavioralist perspective, so I\'ll drop those in as well. Oh sure. Yeah, that would be super helpful. Mhm. Yeah. Awesome. Well, I hope your session later today goes well too. You know take some take some notes. You know make a little sticky note of like you know here\'s the big five categories you want to make sure you hit on. Um and see if you can implement some of this and see if that helps you with your time management. Yeah, definitely. I will I will try to do that. I think that\'s really helpful to have this and then have a follow-up in a little while so I can try to immediately implement some of this stuff. So yeah, thank you. Exactly. Just don\'t overthink it. I think that\'s Right. That\'s that\'s the challenging part here. Um and again I\'m I\'m I\'m interested to see how the ML focused one goes because um I could just tell that\'s kind of where you\'re more comfortable. So Yeah. Yeah, definitely is for sure. But I want to be able to do both. So Yeah, exactly. Yeah, this is helpful. Awesome. Well, good luck. Um if you need anything don\'t be shy. Okay, and I could I could contact you potentially after this if is that right or Yeah, so at the end of your filling Yes, so when you fill out feedback for me there\'ll be a button that says do you want to unmask? And if we both click it it will send us an automated email so we have each other\'s contact information. So that\'s what I do on my end. So it\'s totally up to you if that\'s something you\'re comfortable with. Okay. Yeah, great. I definitely is. So yeah, all right. I appreciate that. You bet. All right, good luck. Okay, thank you. All right, bye. Have a good one. You'
+  question_topic: Communication
+
+SAVE JSON: вставьте ответ в конец файла splitter_output/mock-interviews/interviewing-io/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23/ml-engineer-senior-faang-ab-platform-interviewing-io-2026-03-23.v1.validation-report.md в секцию «Semantic validation (step 5)» (между <!-- SEMANTIC_VALIDATION --> и <!-- /SEMANTIC_VALIDATION -->, блок ```json).
+
+======================================================================
+RUNTIME_HINTS (from step1-prepare/run_config.json)
+======================================================================
+Required model for step 5 — do not substitute another model without user approval.
+Required model: claude-sonnet-4-6
+Required temperature: 0
+```
+
+<!-- /LLM_INPUT_STEP_5 -->

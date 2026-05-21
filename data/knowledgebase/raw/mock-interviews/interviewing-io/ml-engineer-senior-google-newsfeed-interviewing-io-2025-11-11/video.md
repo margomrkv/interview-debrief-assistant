@@ -11,6 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/QRis9HgyuR0/maxresdefault.jpg"
 tags: [google ml interview, google machine learning interview, google system design interview, machine learning system design, ml system design interview, personalized recommendation system, recommendation system interview, newsfeed recommendation system, two tower model, deep learning recommendation, mock ml interview, google interview mock, machine learning interview prep, system design for ml, recommendation ranking model, ml interview questions, interviewing.io, ml interview]
 ---
 
+## Chapters
+- [00:00] Google newsfeed ML system design mock interview
+
 ## Description
 
 Can you design a Google-scale recommendation system? Watch this mock ML interview where a candidate builds a personalized newsfeed model and explains every step — from features to serving architecture.

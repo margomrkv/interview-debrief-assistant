@@ -11,6 +11,9 @@ thumbnail_url: "https://i.ytimg.com/vi/LHt0EFIGZNs/maxresdefault.jpg"
 tags: [walmart data science interview, walmart case study, walmart interview, walmart labs interview, machine learning case study, data science case study, data science interview questions, data science jay, data scientist interview questions, machine learning interview questions, business case questions, walmart machine learning interview, walmart labs interview questions, walmart mock interview, data science mock interview, amazon mock interview]
 ---
 
+## Chapters
+- [00:00] Walmart underpricing case mock interview
+
 ## Description
 
 Today I am back with Shashank tackling a Walmart data science and machine learning case study interview question. 
