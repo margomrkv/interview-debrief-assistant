@@ -14,6 +14,7 @@ the frontend is backend-agnostic.
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import os
 import sys
@@ -29,6 +30,16 @@ from src.ui.backend import make_backend  # noqa: E402
 HERE = Path(__file__).resolve().parent
 STATIC = HERE / "static"
 
+
+def _json_default(o):
+    """Serialize Backend domain objects (dataclasses) to dicts at the wire seam.
+
+    str-Enums (Verdict/Aggregate) are already JSON-serializable as their value.
+    """
+    if dataclasses.is_dataclass(o) and not isinstance(o, type):
+        return dataclasses.asdict(o)
+    raise TypeError(f"not JSON-serializable: {type(o).__name__}")
+
 # Per-item delays (seconds) to make the streaming visible in a demo.
 SPLIT_DELAY = 0.18
 SCORE_DELAY = 0.32
@@ -43,7 +54,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---- helpers -----------------------------------------------------------
     def _send_json(self, obj, status=200):
-        body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
+        body = json.dumps(obj, ensure_ascii=False, default=_json_default).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
@@ -58,8 +69,9 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(data)
 
-    def _sse_event(self, event: str, data: dict):
-        chunk = f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+    def _sse_event(self, event: str, data):
+        payload = json.dumps(data, ensure_ascii=False, default=_json_default)
+        chunk = f"event: {event}\ndata: {payload}\n\n"
         self.wfile.write(chunk.encode("utf-8"))
         self.wfile.flush()
 
@@ -135,7 +147,7 @@ class Handler(BaseHTTPRequestHandler):
             for it in items:
                 if delay:
                     time.sleep(SCORE_DELAY)
-                self._sse_event("score_item", backend.score_item(source_id, it["idx"]))
+                self._sse_event("score_item", backend.score_item(source_id, it.idx))
             self._sse_event("stage", {"stage": "scoring", "status": "done"})
 
             # Rollup

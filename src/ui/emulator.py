@@ -20,6 +20,13 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from src.ui.models import (
+    Aggregate,
+    InterviewReport,
+    InterviewSummary,
+    QA,
+    ScoreItem,
+)
 from src.ui.report import rollup_report
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -47,23 +54,27 @@ def _pretty_title(source_id: str) -> str:
 
 @lru_cache(maxsize=1)
 def _catalogue() -> dict[str, dict[str, Any]]:
-    """Discover every ``emulator-data`` folder → one entry per ``source_id``.
+    """Discover every interview folder → one entry per ``source_id``.
 
-    Each entry bundles the interview's transcript path and the two replay files
-    already joined by ``id`` into an ordered list of {qa, score} pairs.
+    An interview folder holds ``qa.json`` (required), ``transcript.txt`` and an
+    optional ``scores.json`` directly (flat layout). Each entry bundles the
+    transcript path and the qa/score items joined by ``id`` into ordered pairs;
+    interviews without ``scores.json`` are catalogued as fully unscored.
     """
     catalogue: dict[str, dict[str, Any]] = {}
     if not EMU_ROOT.exists():
         return catalogue
 
-    for ed in sorted(EMU_ROOT.glob("**/emulator-data")):
-        qa_path, scores_path = ed / "qa.json", ed / "scores.json"
-        if not (qa_path.exists() and scores_path.exists()):
-            continue
+    for qa_path in sorted(EMU_ROOT.glob("**/qa.json")):
+        ed = qa_path.parent
         qa = json.loads(qa_path.read_text(encoding="utf-8"))
-        scores = json.loads(scores_path.read_text(encoding="utf-8"))
+        if not (isinstance(qa, dict) and "items" in qa):
+            continue  # skip non-conforming qa.json (e.g. raw-list WIP formats)
+        scores_path = ed / "scores.json"
+        scores = (json.loads(scores_path.read_text(encoding="utf-8"))
+                  if scores_path.exists() else {})
 
-        source_id = qa.get("source_id") or scores.get("source_id") or ed.parent.name
+        source_id = qa.get("source_id") or scores.get("source_id") or ed.name
         scores_by_id = {s["id"]: s for s in scores.get("items", [])}
 
         pairs: list[dict[str, Any]] = []
@@ -72,7 +83,7 @@ def _catalogue() -> dict[str, dict[str, Any]]:
 
         catalogue[source_id] = {
             "source_id": source_id,
-            "transcript_path": ed.parent / "transcript.txt",
+            "transcript_path": ed / "transcript.txt",
             "labeling": scores.get("labeling"),
             "pairs": pairs,
         }
@@ -86,24 +97,24 @@ def _entry(source_id: str) -> dict[str, Any] | None:
 # --------------------------------------------------------------------------- API
 
 
-def list_interviews() -> list[dict[str, Any]]:
+def list_interviews() -> list[InterviewSummary]:
     """Catalogue of emulated transcripts for the sidebar."""
-    out: list[dict[str, Any]] = []
+    out: list[InterviewSummary] = []
     for sid, entry in _catalogue().items():
         pairs = entry["pairs"]
         scored = sum(1 for p in pairs if p["score"].get("reference_score"))
         grade = next((p["qa"].get("grade") for p in pairs if p["qa"].get("grade")), None)
         topics = sorted({p["qa"].get("question_topic")
                          for p in pairs if p["qa"].get("question_topic")})
-        out.append({
-            "source_id": sid,
-            "title": _pretty_title(sid),
-            "grade": grade,
-            "n_questions": len(pairs),
-            "n_scored": scored,
-            "topics": topics,
-        })
-    out.sort(key=lambda x: (-x["n_scored"], x["source_id"]))
+        out.append(InterviewSummary(
+            source_id=sid,
+            title=_pretty_title(sid),
+            grade=grade,
+            n_questions=len(pairs),
+            n_scored=scored,
+            topics=topics,
+        ))
+    out.sort(key=lambda x: (-x.n_scored, x.source_id))
     return out
 
 
@@ -116,51 +127,52 @@ def transcript_text(source_id: str) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
 
-def split_items(source_id: str) -> list[dict[str, Any]]:
+def split_items(source_id: str) -> list[QA]:
     """Stage 1 output: one Q&A per item, classification but no scores."""
     entry = _entry(source_id)
     if not entry:
         return []
-    out: list[dict[str, Any]] = []
+    out: list[QA] = []
     for idx, pair in enumerate(entry["pairs"]):
         qa = pair["qa"]
-        out.append({
-            "idx": idx,
-            "id": qa.get("id"),
-            "question": _text(qa.get("interviewer_question")),
-            "question_time": _time(qa.get("interviewer_question")),
-            "answer": _text(qa.get("candidate_answer")),
-            "answer_time": _time(qa.get("candidate_answer")),
-            "question_type": qa.get("question_type"),
-            "question_topic": qa.get("question_topic"),
-            "interview_stage": qa.get("interview_stage"),
-        })
+        out.append(QA(
+            idx=idx,
+            id=qa.get("id"),
+            question=_text(qa.get("interviewer_question")),
+            question_time=_time(qa.get("interviewer_question")),
+            answer=_text(qa.get("candidate_answer")),
+            answer_time=_time(qa.get("candidate_answer")),
+            question_type=qa.get("question_type"),
+            question_topic=qa.get("question_topic"),
+            interview_stage=qa.get("interview_stage"),
+        ))
     return out
 
 
-def score_item(source_id: str, idx: int) -> dict[str, Any]:
+def score_item(source_id: str, idx: int) -> ScoreItem:
     """Stage 2 output for one item: the three criteria + rationale, or no-signal."""
     entry = _entry(source_id)
     pairs = entry["pairs"] if entry else []
     if not (0 <= idx < len(pairs)):
-        return {"idx": idx, "scored": False}
+        return ScoreItem(idx=idx, scored=False)
     score = pairs[idx]["score"]
     rs = score.get("reference_score")
     if not rs:
-        return {"idx": idx, "scored": False,
-                "unscored_reason": score.get("unscored_reason")}
-    return {
-        "idx": idx,
-        "scored": True,
-        "factual_correctness": rs.get("factual_correctness"),
-        "focus": rs.get("focus"),
-        "clarity": rs.get("clarity"),
-        "aggregate": rs.get("aggregate"),
-        "rationale": rs.get("rationale"),
-    }
+        return ScoreItem(idx=idx, scored=False,
+                         unscored_reason=score.get("unscored_reason"))
+    agg = rs.get("aggregate")
+    return ScoreItem(
+        idx=idx,
+        scored=True,
+        factual_correctness=rs.get("factual_correctness"),
+        focus=rs.get("focus"),
+        clarity=rs.get("clarity"),
+        aggregate=Aggregate(agg) if agg else None,
+        rationale=rs.get("rationale"),
+    )
 
 
-def report(source_id: str) -> dict[str, Any]:
+def report(source_id: str) -> InterviewReport:
     """Interview-level rollup → AlignmentReport-style verdict (md/spec.md §3.4).
 
     Delegates the verdict math to ``rollup_report`` so the emulator and live
