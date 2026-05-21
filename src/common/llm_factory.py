@@ -41,7 +41,7 @@ def make_lm(
 
 
 #TASK_MODEL_ID = "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
-TASK_MODEL_ID = "openrouter/openai/gpt-5.4-nano"
+TASK_MODEL_ID = "openrouter/google/gemma-4-26b-a4b-it"
 # Default proposer: Haiku 4.5. Picked over Sonnet for ~3-4× lower cost; DSPy
 # community evidence (issue #1596, paper 2406.11695) suggests smaller proposer
 # performs as well or better. Override via prompt_lm(model_id=...) or
