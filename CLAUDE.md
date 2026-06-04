@@ -1,126 +1,40 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Public release of **Post-Interview Debrief Assistant** (Data Sanity final project, Belgrade 2026).
 
-Репозиторий состоит из двух крупных частей: **курс** «Intro to AI Agents» (Data Sanity, Белград, 2026) и **курсовой проект**. Ниже — логическое разделение и маппинг на текущие директории (в будущем возможна перекладка).
+## Entry points for humans
 
-## Курс
+| Audience | Start here |
+|----------|------------|
+| Reviewers | [`docs/PROJECT_OVERVIEW.md`](docs/PROJECT_OVERVIEW.md) → [`COURSE_REVIEW.md`](COURSE_REVIEW.md) → [`review/`](review/) |
+| Developers | [`README.md`](README.md), [`docs/spec/spec.md`](docs/spec/spec.md) |
 
-Делится на теорию, практику, домашки и общее описание.
+## Repository layout
 
-| Логический блок                 | Директория                       | Что внутри                                                  |
-|---------------------------------|----------------------------------|-------------------------------------------------------------|
-| Описание курса                  | `course/syllabus/`               | PDF программы курса (syllabus)                              |
-| Теория                          | `course/lectures/presentations/` | Слайды лекций (`.pdf` / `.pptx`)                            |
-|                                 | `course/lectures/transcripts/`   | Транскрипты аудио лекций (`.txt`)                           |
-| Практика                        | `course/lectures/workshops/`     | Jupyter-ноутбуки воркшопов (`.ipynb`)                       |
-| Домашки                         | `course/assigments/<student>/`   | Сдачи ДЗ по студентам                                       |
-| Конспекты лекций (только Антон) | {VAULT_DIR}/Professional/AI      | Конспекты в рамках лекций (название AI Agents Lecture N.md) |
+| Block | Directory | Contents |
+|-------|-----------|----------|
+| Project report | `docs/PROJECT_OVERVIEW.md` | Defense / checkpoint report |
+| Course review | `COURSE_REVIEW.md`, `review/` | Instructor feedback + rubric `.docx` |
+| Specs | `docs/spec/` | Product and pipeline specs |
+| KB data | `data/knowledgebase/raw/`, `splitted/`, `train/` | Public interview corpus + splitter artifacts |
+| UI demo | `data/emulator-data/` | Precomputed splitter/scoring fixtures (mock interviews only) |
+| Code | `src/`, `tests/`, `.claude/skills/` | Python + agent skills |
+| Training runs | `runs/` | Gitignored per-run artifacts |
 
-### Именование материалов курса
+## Naming (interviews)
 
-Шаблон: `YYYY-MM-DD-{L|W}NN-<topic-slug>.<ext>`
+- Mock KB: `data/knowledgebase/raw/mock-interviews/<publisher>/…` — see `data/knowledgebase/raw/README.md`
+- Real channels: `data/knowledgebase/raw/real-interviews/novoselov/…`
+- **Private** own interviews: `data/candidatecontext/` — **gitignored**, not in public history
 
-- `YYYY-MM-DD` — дата занятия из syllabus.
-- `L` = Lecture, `W` = Workshop.
-- `NN` = номер занятия с ведущим нулём (`01`–`08`).
-- `<topic-slug>` — тема в lowercase kebab-case. Для транскриптов лекций — фиксированный slug `lecture-transcript`.
-- Расширенная версия воркшопа: суффикс `-full` (например, `...-W04-ai-workflows-langgraph-full.ipynb`).
+## Splitter
 
-Календарь занятий (источник: `course/syllabus/syllabus - Data Sanity Intro to AI Agents Belgrade 2026-03-21.pdf`):
+`.claude/skills/splitter/SKILL.md` (`/splitter`) — steps 1–5 + correction loop until `splitter_verdict.py` exit 0.
 
-| #  | Дата       | Тема                                     |
-|----|------------|------------------------------------------|
-| 01 | 2026-03-21 | Introduction to AI & LLM                 |
-| 02 | 2026-03-28 | Prompt Engineering                       |
-| 03 | 2026-04-04 | Retrieval-Augmented Generation (RAG)     |
-| 04 | 2026-04-18 | AI Workflows & Introduction to AI Agents |
-| 05 | 2026-04-25 | AI Agents                                |
-| 06 | 2026-05-09 | Testing and Observability in LLM Systems |
-| 07 | 2026-05-16 | System Design, Production & Deployment   |
-| 08 | 2026-05-23 | Project Presentations & Wrap-up          |
+## Rules
 
-## Проект
+Do not run tests against paid models during development unless necessary.
 
-Делится на описание проекта, критерии оценки, код и данные.
+## Private data (out of scope for this clone)
 
-| Логический блок     | Директория         | Что внутри                                                           |
-|---------------------|--------------------|----------------------------------------------------------------------|
-| Описание проекта    | `md/project.md`    | Постановка задачи (JD + CV + transcript → структурированный отчёт)   |
-|                     | `docs/project-hub.md` | Хаб проекта / общий обзор                                         |
-|                     | `internal-notes/`   | Транскрипты встреч по проекту                                        |
-| Критерии оценки     | `grading/`         | `Project Criteria & Scoring.docx` и смежные документы                |
-| Код                 | — (пока нет)       | В репозитории ещё нет исходников; появятся — разместить здесь        |
-| Данные (интервью KB) | `data/knowledgebase/raw/` | Транскрипты — `mock-interviews/`, `real-interviews/`, `youtube-sessions/`; own → `data/candidatecontext/` |
-| Splitter (Q&A)    | `.claude/skills/splitter/` + **`data/knowledgebase/splitted/`** | шаги 1–5 + цикл исправления до ✅ в **`splitter/SKILL.md`** (`/splitter`); `.claude/skills/splitter/step3-excel/splitter_post.sh`; 4 файла на прогон: **`{basename}.vN.qa-split.json`**, `.xlsx`, `.validation-report.md`, `.pipeline-log.md` (см. `data/knowledgebase/splitted/README.md`) |
-
-### Правила 
-
-Не запускай тесты с реальной платной моделью в процессе разработки без необходимости
-
-
-### Правила 
-
-Не запускай тесты с реальной платной моделью в процессе разработки без необходимости
-
-
-### Именование файлов встреч и интервью
-
-- Встречи (`internal-notes/`): `YYYY-MM-DD-transcript-<participants>-<topic>.{txt|md}`
-  - Примеры: `2026-04-06-transcript-margo-anton-project-kickoff.txt`, `2026-04-22-transcript-alex-weekly-meeting-1.md`
-- Mock-интервью: `data/knowledgebase/raw/mock-interviews/<publisher>/mock-{role}-{level}-…-{YYYY-MM-DD}/` — см. `data/knowledgebase/raw/README.md`
-  - Содержимое: `transcript.txt`, `link.txt`, `timecodes.txt`; с YouTube — ещё `video.md` (главы для валидации сплиттера)
-- Реальные (записи каналов): `data/knowledgebase/raw/real-interviews/novoselov/real-…` (publisher slug **`novoselov`**, не `vadim`)
-- Лайвы / разборы (не интервью): `data/knowledgebase/raw/youtube-sessions/…`
-- Собственные интервью: `data/candidatecontext/<person>-<company>-YYYYMMDD/`
-  - Содержимое: `cv.md`, `transcript.txt`, `feedback.txt`, опционально `vacancy.txt` и файлы отчётов
-- Шаблон новой папки: `data/knowledgebase/raw/_template/`
-- Миграция путей: `data/knowledgebase/raw/aliases.yaml`
-
-
-<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
-## Beads Issue Tracker
-
-This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
-
-### Quick Reference
-
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --claim  # Claim work
-bd close <id>         # Complete work
-```
-
-### Rules
-
-- Use `bd` for ALL task tracking — do NOT use TodoWrite, TaskCreate, or markdown TODO lists
-- Run `bd prime` for detailed command reference and session close protocol
-- Use `bd remember` for persistent knowledge — do NOT use MEMORY.md files
-
-## Session Completion
-
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
-
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd dolt push
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-<!-- END BEADS INTEGRATION -->
+Removed from git history before publication: `data/candidatecontext/`, `internal-notes/`, `course/`, `data/emulator-data/karpov/`, legacy paths `transcripts/anton*`, `marketflow/`, `candidatecontext/`.
