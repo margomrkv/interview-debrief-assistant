@@ -8,22 +8,29 @@ This directory (`ds-final-project-public/`) is a **sanitized mirror** of the pri
 
 - `data/candidatecontext/` — private interview transcripts, CVs, feedback
 - `candidatecontext/`, `marketflow/`, `transcripts/anton*`, `examples/candidatecontext/`
-- `internal-notes/` — internal team / mentor call transcripts
+- `docs/meetings/` — internal team / mentor call transcripts
 - `course/` — lecture slides, workshops, assignments
-- `data/emulator-data/karpov/` — UI demo derived from a private interview
+- `data/emulator-data/anton/` — UI demo derived from a private interview
 
 ## Reorganized for reviewers
 
 | Was | Now |
 |-----|-----|
-| `review/AM_Best_Offer_feedback.md` | [`COURSE_REVIEW.md`](COURSE_REVIEW.md) |
-| `review/Project Criteria & Scoring.docx` | [`review/project-criteria-scoring.docx`](review/project-criteria-scoring.docx) |
-| `review/Post-Interview … en_v1.docx` | [`review/project-report-en_v1.docx`](review/project-report-en_v1.docx) |
+| `course/final_project/AM_Best_Offer_feedback.md` | [`COURSE_REVIEW.md`](COURSE_REVIEW.md) |
+| `course/final_project/Project Criteria & Scoring.docx` | [`review/project-criteria-scoring.docx`](review/project-criteria-scoring.docx) |
+| `course/final_project/Post-Interview … en_v1.docx` | [`review/project-report-en_v1.docx`](review/project-report-en_v1.docx) |
+
+## History rewrite (three passes)
+
+1. **Path purge** — removed sensitive directories from all commits (`git filter-repo --invert-paths`).
+2. **Leftover paths** — `examples/candidatecontext/`, `transcripts/anton-*`.
+3. **String redaction** — replaced path literals in docs/skills across history (e.g. `candidatecontext/anton/` → `[private]/`).
 
 ## Verify locally
 
 ```bash
 git rev-list --all --objects | grep -E 'candidatecontext|transcripts/anton|marketflow|docs/meetings|course/|emulator-data/anton' || echo OK
+git grep -l 'candidatecontext/anton' $(git rev-list --all) || echo OK
 ```
 
 ## Publish to GitHub
