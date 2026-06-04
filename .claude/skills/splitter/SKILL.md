@@ -18,7 +18,7 @@ Last updated: 2026-05-21
 |------------|---------|
 | Вход интервью (`timecodes.txt`, `video.md`, …) | `data/knowledgebase/raw/mock-interviews/…` или `…/real-interviews/…` |
 | Выход splitter (4 файла на `vN`) | `data/knowledgebase/splitted/…` (та же вложенность `mock|real-interviews/<publisher>/<basename>/`) |
-| Собственные интервью (CV, feedback) | `data/candidatecontext/` — **не** через splitter mock/real |
+| Собственные интервью (CV, feedback) | `data/candidatecontext/` — локально, **не** в public repo; **не** через splitter mock/real |
 
 **`FOLDER` для шага 1:** `data/knowledgebase/raw/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30` (пример).
 

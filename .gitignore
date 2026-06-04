@@ -32,6 +32,10 @@ env/
 # Secrets
 .env
 
+# Private candidate interviews (never publish)
+data/candidatecontext/
+candidatecontext/
+
 # Build artifacts
 *.egg-info/
 build/

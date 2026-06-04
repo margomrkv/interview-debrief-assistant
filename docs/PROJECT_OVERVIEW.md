@@ -31,7 +31,7 @@ For **course grading** (“meaningful end-to-end output”), the deliverable is 
 | Evaluator (per Q) | scores on factual / focus / clarity → weak / adequate / strong | Aggregator |
 | **Assess interview** | **`feedback-report.blind.md`** or **`assess-interview.blind.md`** | **Candidate** — summary table, per-question feedback, **HIRE / NO_HIRE**, hire probability |
 
-Example debrief already in repo: `data/knowledgebase/raw/mock-interviews/karpov/data-scientist-junior-karpov-2022-03-30/`.
+Public repo: use the **mock** walkthrough below or the UI emulator demo (`make ui-emulator`). Private candidate debriefs are not shipped in this repository.
 
 ### Alignment with course rubric (Technical Implementation, 20 pts)
 
@@ -168,7 +168,7 @@ We assembled a **knowledge base of 70+ YouTube interview sessions**. Most are **
 
 **What is scored (criteria).** Each answer is judged on **factual correctness**, **focus**, and **clarity** (see [`spec/assessors.md`](spec/assessors.md)); debriefs show **weak / adequate / strong**. This matches the checkpoint plan (three interpretable axes; relative **MAPE** for prompt selection).
 
-**Prediction (what you use).** On a candidate folder, **`feedback-report`** or **`assess-interview`** reads transcript (+ CV/JD), uses structured Q&A (from Splitter or fixture), and writes `feedback-report.blind.md` / `AlignmentReport`-style output. Sample debriefs: `[private]/…`. KB train artifacts wire in as **EvaluatorPrompt** when the trained prompt is plugged into the assess path; training runs and best prompt versions live under `runs/` (not committed).
+**Prediction (what you use).** On a candidate folder, **`feedback-report`** or **`assess-interview`** reads transcript (+ CV/JD), uses structured Q&A (from Splitter or fixture), and writes `feedback-report.blind.md` / `AlignmentReport`-style output. KB train artifacts wire in as **EvaluatorPrompt** when the trained prompt is plugged into the assess path; training runs and best prompt versions live under `runs/` (not committed).
 
 **Status:** Splitter and debrief skills are **done** on real interviews; **KB prompt training** is **in progress** (pipeline and labels exist; final reported test metrics to be frozen for defense).
 
@@ -220,9 +220,9 @@ path to evaluator_prompt.md:
 
 **If this mock were scored for a candidate:** same JSON → Evaluator → `feedback-report.blind.md` (summary table + per-question scores + HIRE/NO_HIRE). We do not treat mock folders as candidate debriefs; the **shape** of the final file is the same as in Candidate Context.
 
-### End-to-end example (real interview — Anton)
+### End-to-end example (candidate context — local only)
 
-**→ Anton — fill before defense:** one **Candidate Context** folder (e.g. Avito system design), list: inputs (`transcript.txt`, `cv.md`, `vacancy.txt`), whether split is `split_only` or re-used JSON, path to **`feedback-report.blind.md`** or `assess-interview.*`, and 2–3 sentences on verdict / p_hire. *Placeholder: `[TBD — Anton: one real E2E walkthrough with paths and screenshot or quote from Summary table]`.*
+Real interview debriefs live in a **private** `data/candidatecontext/` folder (gitignored). The public repo documents the pipeline shape via the mock KB example above and the UI emulator under `data/emulator-data/karpov/`.
 
 ### Logging
 
@@ -277,8 +277,7 @@ pytest tests/
 **Technical**
 
 - [ ] Confirm latest **`evaluator_prompt.md`** is referenced in assess / feedback-report path (or document gap for defense).
-- [ ] Add **one real Candidate Context E2E** (inputs → report path → 2–3 sentences on verdict). Sample folder exists under `[private]/…`.
-- [ ] Optional: attach screenshot or quote from Summary table of `feedback-report.blind.md`.
+- [ ] Course review artifacts: [`COURSE_REVIEW.md`](../COURSE_REVIEW.md), [`review/`](../review/).
 
 **Scope / freeze (agreed with Rita)**
 

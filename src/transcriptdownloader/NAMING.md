@@ -14,7 +14,7 @@ data/knowledgebase/raw/
 ├── single_videos/                   # staging only (CLI default bucket)
 └── _template/                       # empty template per interview
 
-data/candidatecontext/               # own interviews (CV, feedback) — not under raw/
+data/candidatecontext/               # own interviews (CV, feedback) — local only, gitignored in public repo
 ```
 
 **Publisher** = YouTube channel / course brand (`karpov`, `interview-query`, `novoselov`, …).  
