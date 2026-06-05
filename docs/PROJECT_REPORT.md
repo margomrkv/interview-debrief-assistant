@@ -1,4 +1,4 @@
-# Post-Interview Debrief Assistant — project report
+# Interview Debrief Assistant — project report
 
 **Course:** Intro to AI Agents — Data Sanity (Belgrade, 2026)  
 **Team:** AM Best Offer — Anton Voskobovich, Margarita Markova  
@@ -270,14 +270,14 @@ pytest tests/
 
 **Report & repo**
 
-- [ ] Read **[`docs/PROJECT_OVERVIEW.md`](PROJECT_OVERVIEW.md)** (this file) — intended as checkpoint report + presentation backbone.
+- [ ] Read **[`docs/PROJECT_REPORT.md`](PROJECT_REPORT.md)** (this file) — intended as checkpoint report + presentation backbone.
 - [ ] Read **[`README.md`](../README.md)** — entry point and repo map.
 - [ ] Fact-check paths, counts (244 / 169 / 75), and KB train metrics; fill **TBD** blocks above (metrics + real E2E).
 
 **Technical**
 
 - [ ] Confirm latest **`evaluator_prompt.md`** is referenced in assess / feedback-report path (or document gap for defense).
-- [ ] Course review artifacts: [`COURSE_REVIEW.md`](../COURSE_REVIEW.md), [`review/`](../review/).
+- [ ] Review artifacts: [`REVIEW_REPORT.md`](../REVIEW_REPORT.md), [`submission/`](../submission/).
 
 **Scope / freeze (agreed with Rita)**
 

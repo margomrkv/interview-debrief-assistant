@@ -16,9 +16,10 @@ This directory (`ds-final-project-public/`) is a **sanitized mirror** of the pri
 
 | Was | Now |
 |-----|-----|
-| `course/final_project/AM_Best_Offer_feedback.md` | [`COURSE_REVIEW.md`](COURSE_REVIEW.md) |
-| `course/final_project/Project Criteria & Scoring.docx` | [`review/project-criteria-scoring.docx`](review/project-criteria-scoring.docx) |
-| `course/final_project/Post-Interview … en_v1.docx` | [`review/project-report-en_v1.docx`](review/project-report-en_v1.docx) |
+| `course/final_project/AM_Best_Offer_feedback.md` | [`REVIEW_REPORT.md`](REVIEW_REPORT.md) |
+| `docs/PROJECT_OVERVIEW.md` | [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) |
+| `course/final_project/Project Criteria & Scoring.docx` | [`submission/project-criteria-scoring.docx`](submission/project-criteria-scoring.docx) |
+| `course/final_project/Post-Interview … en_v1.docx` | [`submission/project-report-en_v1.docx`](submission/project-report-en_v1.docx) |
 
 ## History rewrite (three passes)
 
