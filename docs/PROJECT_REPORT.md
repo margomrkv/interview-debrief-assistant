@@ -277,7 +277,7 @@ pytest tests/
 **Technical**
 
 - [ ] Confirm latest **`evaluator_prompt.md`** is referenced in assess / feedback-report path (or document gap for defense).
-- [ ] Review artifacts: [`REVIEW_REPORT.md`](../REVIEW_REPORT.md), [`submission/`](../submission/).
+- [ ] Review artifacts: [`review/`](review/).
 
 **Scope / freeze (agreed with Rita)**
 

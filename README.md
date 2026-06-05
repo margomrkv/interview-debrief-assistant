@@ -14,10 +14,9 @@
 |------|------|--------------|
 | **This page** | `README.md` | Entry point: how to run the demo and where everything lives |
 | **Project report** | [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) | Team — product, architecture, evaluation, tests |
-| **Review report** | [`REVIEW_REPORT.md`](REVIEW_REPORT.md) | Instructor — feedback and rubric scores |
-| **Course submission** (`.docx`) | [`submission/`](submission/) | Official rubric + submitted Word report |
+| **Review package** | [`review/`](review/) | Instructor feedback, rubric scores, and course `.docx` hand-ins |
 
-There is only **one** README (this file). The `.docx` files sit in `submission/` because they are course hand-in artifacts, not source code.
+There is only **one** README (this file). Review and submission `.docx` files live under [`review/`](review/).
 
 ## Quick demo (no API keys)
 
@@ -36,8 +35,7 @@ Demo uses English mock interview **Google data wrangling** (Interviewing.io, 202
 
 ```text
 ├── README.md                 ← you are here
-├── REVIEW_REPORT.md          ← instructor review (scores + feedback)
-├── submission/               ← project-criteria-scoring.docx, project-report-en_v1.docx
+├── review/                   ← REVIEW_REPORT.md + course .docx hand-ins
 ├── docs/
 │   ├── PROJECT_REPORT.md     ← team project report (read for technical depth)
 │   ├── spec/

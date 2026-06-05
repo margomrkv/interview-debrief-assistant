@@ -6,7 +6,7 @@ Public release **`interview-debrief-assistant`** — pipeline *Interview Debrief
 
 | Audience | Start here |
 |----------|------------|
-| Reviewers | [`README.md`](README.md) → [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) → [`REVIEW_REPORT.md`](REVIEW_REPORT.md) → [`submission/`](submission/) |
+| Reviewers | [`README.md`](README.md) → [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) → [`review/`](review/) |
 | Developers | [`README.md`](README.md), [`docs/spec/spec.md`](docs/spec/spec.md) |
 
 ## Layout
@@ -14,8 +14,7 @@ Public release **`interview-debrief-assistant`** — pipeline *Interview Debrief
 | Block | Path |
 |-------|------|
 | Team project report | `docs/PROJECT_REPORT.md` |
-| Instructor review report | `REVIEW_REPORT.md` |
-| Course submission `.docx` | `submission/` |
+| Review package (report + `.docx`) | `review/` |
 | KB data | `data/knowledgebase/` |
 | UI demo | `data/emulator-data/` |
 | Code | `src/`, `tests/`, `.claude/skills/` |

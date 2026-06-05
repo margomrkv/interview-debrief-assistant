@@ -3,7 +3,7 @@
 Instructor feedback and rubric scores for the Data Sanity final project (2026).  
 Team on course: **AM Best Offer** (Anton Voskobovich, Margarita Markova).
 
-Related: [`submission/project-criteria-scoring.docx`](submission/project-criteria-scoring.docx) (official rubric), [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) (team technical report).
+Related: [`project-criteria-scoring.docx`](project-criteria-scoring.docx) (official rubric), [`docs/PROJECT_REPORT.md`](../docs/PROJECT_REPORT.md) (team technical report).
 
 ## What worked well
 
