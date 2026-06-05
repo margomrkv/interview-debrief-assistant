@@ -22,6 +22,15 @@ let stream = null; // current EventSource
 const DEMO_SOURCE_ID =
   "data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28";
 
+const INTERVIEW_TITLES = {
+  [DEMO_SOURCE_ID]: "Google Data Wrangling — Interviewing.io (EN demo)",
+};
+
+function interviewTitle(sourceId) {
+  return INTERVIEW_TITLES[sourceId]
+    || sourceId.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 // --------------------------------------------------------------- views
 function showView(name) {
   $("#view-upload").classList.toggle("active", name === "upload");
@@ -76,8 +85,7 @@ function run(sourceId) {
 
   $("#qa").innerHTML = "";
   $("#verdict").hidden = true;
-  $("#run-title").textContent =
-    sourceId.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  $("#run-title").textContent = interviewTitle(sourceId);
 
   const status = $("#status");
   status.hidden = false;

@@ -21,7 +21,7 @@ There is only **one** README (this file). The `.docx` files sit in `submission/`
 
 ```bash
 python3 src/ui/app.py 18000
-# open http://127.0.0.1:18000 → "Use demo"
+# open http://127.0.0.1:18000 → Transcript Lens → "Use demo"
 ```
 
 Alternative if you have [uv](https://docs.astral.sh/uv/): `make ui-emulator`

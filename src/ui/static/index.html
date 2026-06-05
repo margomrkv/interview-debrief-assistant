@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interview Debrief Assistant</title>
+  <title>Transcript Lens</title>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
   <!-- ===== Screen 1 — upload ===== -->
   <section id="view-upload" class="view active">
     <div class="hero">
-      <div class="logo">IA</div>
-      <h1>Interview Debrief Assistant</h1>
+      <div class="logo">TL</div>
+      <h1>Transcript Lens</h1>
       <p class="lead">Upload an interview transcript — the system splits it into
-        Q&amp;A pairs and scores each answer.</p>
+        questions and answers and scores each response.</p>
 
       <label id="drop" class="dropzone">
         <input type="file" id="file" accept=".txt,text/plain" hidden />
@@ -38,7 +38,7 @@
 
     <div class="rwrap">
       <div id="status" class="status" hidden>
-        <span class="dot"></span> Analyzing interview…
+        <span class="dot"></span> Analyzing transcript…
       </div>
 
       <div id="verdict" class="verdict" hidden></div>
