@@ -1,52 +1,57 @@
-# Post-Interview Debrief Assistant
+# Interview Debrief Assistant
 
+**Repository:** [`interview-debrief-assistant`](https://github.com/)  
 **Course:** Data Sanity — Intro to AI Agents (Belgrade, 2026)  
-**Team:** Anton Voskobovich, Margarita Markova · **Mentor:** Alex Svetkin  
-**Repository status:** public release — sanitized history (no private interview data)
+**Team:** Anton Voskobovich, Margarita Markova · **Mentor:** Alex Svetkin
 
-LLM-based workflow: interview transcript → structured Q&A → per-question scores → debrief report.
+AI workflow: interview transcript → structured Q&A → per-question scores → debrief report.
 
-## For reviewers — start here
+## Documents — what to read
 
-1. **[docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)** — project report: product, architecture, evaluation, tests.
-2. **[COURSE_REVIEW.md](COURSE_REVIEW.md)** — instructor feedback and rubric scores.
-3. **[review/](review/)** — scoring rubric (`.docx`) and submitted Word report.
+| What | File | Who wrote it |
+|------|------|--------------|
+| **This page** | `README.md` | Entry point: how to run the demo and where everything lives |
+| **Project report** | [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) | Team — product, architecture, evaluation, tests |
+| **Review report** | [`REVIEW_REPORT.md`](REVIEW_REPORT.md) | Instructor — feedback and rubric scores |
+| **Course submission** (`.docx`) | [`submission/`](submission/) | Official rubric + submitted Word report |
+
+There is only **one** README (this file). The `.docx` files sit in `submission/` because they are course hand-in artifacts, not source code.
 
 ## Quick demo (no API keys)
 
 ```bash
-make ui-emulator
+python3 src/ui/app.py 18000
+# open http://127.0.0.1:18000 → "Use demo"
 ```
 
-Opens the web UI with a **mock interview** demo (`data_scientist_junior_karpov_2022_03_30` from `data/emulator-data/karpov/`).
+Alternative if you have [uv](https://docs.astral.sh/uv/): `make ui-emulator`
+
+Demo uses mock interview `data_scientist_junior_karpov_2022_03_30` from `data/emulator-data/karpov/`.
 
 ## Repository map
 
 ```text
-├── README.md                          ← you are here
-├── COURSE_REVIEW.md                   ← instructor feedback & scores
-├── review/                            ← rubric + submitted report (.docx)
+├── README.md                 ← you are here
+├── REVIEW_REPORT.md          ← instructor review (scores + feedback)
+├── submission/               ← project-criteria-scoring.docx, project-report-en_v1.docx
 ├── docs/
-│   ├── PROJECT_OVERVIEW.md            ← project report (read first)
-│   ├── spec/                          ← product & pipeline specs
-│   └── images/                        ← architecture diagram
+│   ├── PROJECT_REPORT.md     ← team project report (read for technical depth)
+│   ├── spec/
+│   └── images/
 ├── data/
-│   ├── knowledgebase/raw/             ← interview transcripts (mock / real / YouTube)
-│   ├── knowledgebase/splitted/        ← splitter output (*.vN.* per run)
-│   ├── knowledgebase/train/           ← training JSON for evaluator
-│   └── emulator-data/               ← UI demo fixtures (public mock interviews)
-├── .claude/skills/                    ← workflows (splitter, feedback-report, …)
-├── src/                               ← Python: KB train, assessor, UI, downloader
+│   ├── knowledgebase/        ← public interview corpus + splitter artifacts
+│   └── emulator-data/        ← UI demo fixtures
+├── src/                      ← Python: splitter, assessor, UI, KB train
 ├── tests/
-└── runs/                              ← KB training artifacts (gitignored)
+└── runs/                     ← training artifacts (gitignored)
 ```
-
-## Private data (not in this repo)
-
-Personal interview folders (`data/candidatecontext/`), internal meeting notes, and course lecture materials were removed from git history before publication. To run **feedback-report** on your own interview, create a local folder (see `.claude/skills/feedback-report/SKILL.md`) — it is gitignored by default.
 
 ## Tests
 
 ```bash
-pytest tests/
+pytest tests/          # or: make test  (requires uv + dev deps)
 ```
+
+## Private data (not in this repo)
+
+Personal interview folders (`data/candidatecontext/`), internal meeting notes, and course lecture materials were removed from git history before publication.

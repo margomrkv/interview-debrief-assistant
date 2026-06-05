@@ -6,7 +6,7 @@
 #
 # Порт переопределяется: make ui-live PORT=8011
 
-PYTHON ?= uv run python
+PYTHON ?= $(shell command -v uv >/dev/null 2>&1 && echo "uv run python" || echo python3)
 APP    := src/ui/app.py
 
 # Обучение: src/kb/kb.py (build_splits → MIPROv2 train → evaluate).

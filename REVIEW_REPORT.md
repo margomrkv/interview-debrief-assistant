@@ -1,13 +1,15 @@
-# Course review — AM Best Offer (Post-Interview Debrief Assistant)
+# Review report — Interview Debrief Assistant
 
-Instructor feedback and rubric scores for the Data Sanity final project (2026).
-See also [`review/project-criteria-scoring.docx`](review/project-criteria-scoring.docx) for the official criteria document.
+Instructor feedback and rubric scores for the Data Sanity final project (2026).  
+Team on course: **AM Best Offer** (Anton Voskobovich, Margarita Markova).
+
+Related: [`submission/project-criteria-scoring.docx`](submission/project-criteria-scoring.docx) (official rubric), [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) (team technical report).
 
 ## What worked well
 
 - A deliberate two-stage prompt-chaining pipeline (Splitter → Scoring) with an honest write-up of why it's a workflow, not an agent.
 - A genuinely real DSPy / MIPROv2 prompt-optimization training loop on a 169-item human-labeled gold set, with session-level 70/30 train/test split and publisher stratification.
-- An interpretable soft-tolerance evaluation metric with median-predictor baselines and 95% bootstrap confidence intervals — and real, reproducible numbers committed to `docs/PROJECT_OVERVIEW.md` and `examples/trains/`.
+- An interpretable soft-tolerance evaluation metric with median-predictor baselines and 95% bootstrap confidence intervals — and real, reproducible numbers committed to `docs/PROJECT_REPORT.md` and `examples/trains/`.
 - The cleanest module separation in the cohort: `splitter` / `assessor` / `kb` / `ui` / `common` each carry a single responsibility, the LLM client lives behind one factory, and the UI hides the backend behind a `Protocol` so emulator and live share the rollup math.
 - Production-aware details: `extra_body={"reasoning":{"exclude":True}}` for OpenRouter reasoning models, centralized + idempotent logging setup, model choice justified per role.
 - Real streaming UI with SSE, two screens (upload → results), drag-and-drop, "Use demo" alternative, per-question cards with progressive scoring, and a verdict pane.

@@ -1,7 +1,7 @@
 [project]
-name = "am-best-offer"
+name = "interview-debrief-assistant"
 version = "0.1.0"
-description = "Course project: interview transcripts → structured assessment"
+description = "Interview transcript → structured Q&A → per-question scores → debrief report"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "dspy-ai>=2.5",
