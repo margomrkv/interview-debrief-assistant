@@ -1,0 +1,170 @@
+{
+  "source_id": "data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28",
+  "labeling": {
+    "labeled_at": "2026-06-05",
+    "labeler": "build_emulator_fixture.py (demo heuristic)",
+    "scale": "1..10",
+    "policy": "public UI demo only — not Opus/human labels",
+    "stats": {
+      "total": 14,
+      "labeled": 14,
+      "unscored": 0
+    }
+  },
+  "items": [
+    {
+      "id": "q01",
+      "reference_score": {
+        "factual_correctness": 4,
+        "focus": 4,
+        "clarity": 4,
+        "aggregate": "weak",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: short / incomplete answer."
+      }
+    },
+    {
+      "id": "q02",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q03",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: positive interviewer cue (“good start”)."
+      }
+    },
+    {
+      "id": "q04",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q05",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q06",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q07",
+      "reference_score": {
+        "factual_correctness": 7,
+        "focus": 7,
+        "clarity": 6,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: positive interviewer cue (“good point”)."
+      }
+    },
+    {
+      "id": "q08",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q09",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q10",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q11",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q12",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q13",
+      "reference_score": {
+        "factual_correctness": 6,
+        "focus": 6,
+        "clarity": 5,
+        "aggregate": "adequate",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: neutral progression on case discussion."
+      }
+    },
+    {
+      "id": "q14",
+      "reference_score": {
+        "factual_correctness": 8,
+        "focus": 8,
+        "clarity": 8,
+        "aggregate": "strong",
+        "signal_source": "feedback",
+        "rationale": "Demo heuristic: positive interviewer cue (“exactly it”)."
+      }
+    }
+  ]
+}

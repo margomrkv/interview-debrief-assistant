@@ -222,7 +222,7 @@ path to evaluator_prompt.md:
 
 ### End-to-end example (candidate context — local only)
 
-Real interview debriefs live in a **private** `data/candidatecontext/` folder (gitignored). The public repo documents the pipeline shape via the mock KB example above and the UI emulator under `data/emulator-data/karpov/`.
+Real interview debriefs live in a **private** `data/candidatecontext/` folder (gitignored). The public repo documents the pipeline shape via the mock KB example above and the UI emulator under `data/emulator-data/interviewing-io/` (English Interviewing.io demo).
 
 ### Logging
 

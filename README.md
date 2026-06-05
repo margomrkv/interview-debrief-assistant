@@ -26,7 +26,9 @@ python3 src/ui/app.py 18000
 
 Alternative if you have [uv](https://docs.astral.sh/uv/): `make ui-emulator`
 
-Demo uses mock interview `data_scientist_junior_karpov_2022_03_30` from `data/emulator-data/karpov/`.
+Demo uses English mock interview **Google data wrangling** (Interviewing.io, 2020) —
+`data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28` in
+`data/emulator-data/interviewing-io/`. Fixture built via `scripts/build_emulator_fixture.py`.
 
 ## Repository map
 

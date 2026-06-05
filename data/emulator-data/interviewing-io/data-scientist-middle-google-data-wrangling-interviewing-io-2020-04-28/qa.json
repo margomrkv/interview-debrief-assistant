@@ -1,0 +1,327 @@
+{
+  "source_id": "data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28",
+  "items": [
+    {
+      "id": "q01",
+      "interviewer_question": {
+        "text": "basically what what what's happened to set the tone so you've just started to work at a new startup that's called internet baseball database and their customers have started to complain that there's the features aren't very good and that it's the site is really slow so you've been you've been told to come on in and kind of help clean everything up so the idea is that this company gets a regular data feed from from major league baseball that has data that they're going to want to display on their site and you can you read what I'm what I'm typing here is like",
+        "time": "01:28"
+      },
+      "candidate_answer": {
+        "text": "yep I see",
+        "time": "02:22"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "hi yeah okay so basically what they are sending every day is an update of what happened in each of the the baseball games so it's a very simple text file with tabs and it's going to have just column fields and it's going to say we have the date that the game was played the home team CoA team and every column actually is going to be an at-bat so it's going to have the batter and right now we'll just say the results like the the outcome so an example here might be like today's game would be on 26 the home team was giants and new a-team was a's and batter was cocoa Chris and the outcome was that he got a single so the outcomes will be a like s is a single which counts as a hit D is a double which is a hit - a triple its H home run the hit and then there's also uh K is a strikeout it's just not a hit which is no hit and F would be a flyout something like that so there's there's sort of like a little for what happened and what what what the site currently how it works is that you get this text file every day that contains all of these like lines and the owner of the sites is very paranoid so he doesn't want to put it into a database because he thinks the database people are out to get him so he stores it on the file system so he'll have sort of on the file system you'll see data and then he'll put the year and then he'll put the day and then he'll just have the date the data for that that day and and you yeah the other thing is that he he also is very paranoid and doesn't trust file system developer so he invented his own file system that's very inefficient and can only hold a thousand files in every directory so that's why you can't just put the date like this because at some point there'll be too many too many directories or files and into this directory so he has to kind of split it up this way and when someone comes to the site they can right now the only thing they can do is they can look up a certain date and look at all of the information for the games played on that day but he started to get some comments that wouldn't it be nice to look up other things so for example wouldn't it be great if you could just look up a particular player and see some of the stats for that player and it might imagine using this technique of storing the data that's a bit inefficient so your task in that sort of a larger overall task is to come up with a way given these constraints that you know you have to store the day on in sweat files in the file system and no more than a thousand for directory and that kind of thing",
+        "time": "02:27"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q02",
+      "interviewer_question": {
+        "text": "find some way to represent the data that would enable searching for a particular player and getting some statistics basis",
+        "time": "06:47"
+      },
+      "candidate_answer": {
+        "text": "okay um quick question if if you were to UM Arie is like reorganize them as data that's like something like this would with that directory probably have more than it does entries at some point because it would it was because this is all all of baseball for us for the hundred years that they've been playing so that it is there's a future many all right um",
+        "time": "07:01"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "and specifically just to so that's just the overall thing and then the the specific sort of feature that we'd like to do is we'd like to be able to calculate or show on the site their batting average so the batting average is the number of times that they went to bat / or the number of times that they got a hit divided by the total times that they went up to bat is that the only thing we'd like to find about these people for now I mean I I think if you if you can get that that far then I think the other ones would sort of come naturally and this this kind of I think brings out the core of where the challenges are so let's just for for this exercise just explain how you would calculate the the batting average",
+        "time": "07:29"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q03",
+      "interviewer_question": {
+        "text": "let's just for for this exercise just explain how you would calculate the the batting average",
+        "time": "08:11"
+      },
+      "candidate_answer": {
+        "text": "okay um so another question of is something like a file like this that would have each row being a player in his batting average though",
+        "time": "08:27"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "no we have a lot of rows but is there any limitation on that the size of that file um no that's okay that's okay so and I see where you're going with that that that's true that you could just create a single file that has all the batting averages and then if that's all the things that you're looking for then that's pretty good the one thing that I might say about that is that if you were going to create that file it would have one one row for every player right yes so then how how long is it what's how long would it take to look up a player in that addiction the size of the file like where n is the size of the file at a card right right so if we have hundreds of thousands of players and maybe it's not a very efficient file system maybe that's that's also going to be a little bit slow because you gotta stand the entire file and then do a search on it and then spy yeah that's a good that's a good start that's a good that's I mean certainly in in the database world you would just create like a an aggregate table like batting averages or something and then you could just look it up right away but I think for for this exercise",
+        "time": "08:35"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q04",
+      "interviewer_question": {
+        "text": "do you think there's a better way to do it that wouldn't involve having to read in the entire the entire file",
+        "time": "10:06"
+      },
+      "candidate_answer": {
+        "text": "okay um so now my next the next idea it makes sense that's going to be a lot of players um it's kind of looking like our restful api where like each file so there's like you could look through all the players and so this is player / one dot txt which isn't terribly informative and will have like a thousand players per each each of these files um and it's a kind of I use ideally I'd want to say sorted by name then that doesn't work when you're inserting you don't make a mess or so that's not good I mean then you have to change everything potentially um well so so the updates are not necessarily such big problem because so you're getting one of these files every day and so it's possible to just do one big offline update like once a day like that's that's not such a big problem but",
+        "time": "10:17"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "I'm interested in how you are so the idea would be that that you'd have a thousand text files and each text file would have the batting average let's say of the individual file yeah there's a hidden okay",
+        "time": "11:25"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q05",
+      "interviewer_question": {
+        "text": "yeah sorry so each one of those each the players folder is just like a clothes store trying to look up my batting average and then builders we have sub directories like ideally ideally we'd want it all one players folder but you don't become only have a thousand sub files so that's where the one to directly come from so then you get a thousand squared key inside of here is a player name ah is that yeah like something like that",
+        "time": "11:45"
+      },
+      "candidate_answer": {
+        "text": "and then so you get a thousand players in the first director in the thousand players in second directory and then this beat-up bonus comes up by if it was like alpha depth alphabetized or decently I mean I don't know many players there are but a decent way to do it just be a default like 26 um folders where each each one is a letter and so it allows for like expansion if a new player joins the game with like another a there's one like 500 players it's a for the first name or last name depending on how you sort this let's start with a so you can just like insert it into that same folder structure and it won't require like making weight something different",
+        "time": "12:13"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "okay so so instead of fuzzy you've written one and two here so you're saying that you could do a be read okay so then what happens when there's more than a thousand people with the first letter a",
+        "time": "12:57"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q06",
+      "interviewer_question": {
+        "text": "what happens when there's more than a thousand people with the first letter a",
+        "time": "13:06"
+      },
+      "candidate_answer": {
+        "text": "yeah so if that was an issue then you want to have to do something like a one and a two and you're going to search through all these files which is kind of annoying but to find a player with to find the player that you're looking for",
+        "time": "13:09"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "um so so if someone comes in and they're named Anthony you first opened a one wait so oh you do a search through the directory to see in a one to see if the name is there then you do a search the directory a - and see if they're there yeah that's what I was going to Gore okay there's even a little bit faster way to do that search even in this way",
+        "time": "13:31"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q07",
+      "interviewer_question": {
+        "text": "there's even a little bit faster way to do that search even in this way so that's the linear sort of scan because they're even a little bit faster way to do do that one typically when you're saying faster than a linear I'm thinking binary and if it's sorted you can kind of do a binary search wrong so",
+        "time": "13:55"
+      },
+      "candidate_answer": {
+        "text": "I mean yeah yeah you can do that you kind like you can still do a binary search with all the players on a um and you know immediately whether it's in a one but just checking the last value in a one right and then you can just go to a two and find it there so that'd be a faster way to do it but that's not exactly a binary search ah so like if you had like sorry so I I guess I described the binary right yeah like if you had three four five seven yeah it would be like I think if I'm understand with what you described so you would have a you would look at the last letter of the a one and if that was too too small then you would go into a two and look at the last player on a two kind of thing kind of yeah okay so technically a binary search would be going from a1 to a4 and then looking at a four and then that then then you would decide do you want to go back to a three or forward to 85 kind of thing yeah yeah you're right um yeah so I said I would I guess I mean I kind of considered like this the number of aids in this directory would be such as like a very small constant number I mean it's easy enough just check the last value in each one and then if you're trying to make it a faster look up with it I mean even to look up of just 2008 relatively fast but it's red if you wanted to make it faster than that see all those thousand you can do a binary search for a check so the first ejection middle inside for the go up or down okay so yeah I was in the trubiner you could do a true binary by checking a four and going up and down but you probably wouldn't even notice the time you saved right",
+        "time": "14:23"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "no that's a good point good point so if we're we're probably thinking about somewhere on the order of hundreds of thousands of players then once you get down to two these individual ones probably not doesn't make a difference but let's say let's say for argument's sake that you know this guy who wrote his own file system he did it terribly inefficiently and even just looking up what just doing a search over all of the directories like like getting a list of all the directories in a sub directories inside directory is really slow so we wanted to do we wanted to still optimize that so that you are doing as few possible sort of linear scans of the of these directories so yeah it's basically okay to try to say I know this is the name of the directory and give me its content but doing the search through all of them is a bit slow and also you know it does kind of touch the like a lot of different pieces of discs actually you have to say well what's the name of this file its finest and so forth so is there a way me so and basically this is kind of getting at a it's an interesting hybrid because on the one hand the splitting up of it to a B and C is sort of very targeted and going directly to a place that you want to go and then the second half is more like a linear scan kind of thing is there a way to get this so that it is all of the the first one and none of the second one yeah no linear scan",
+        "time": "16:24"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q08",
+      "interviewer_question": {
+        "text": "is there a way to get this so that it is all of the the first one and none of the second one yeah no linear scan um-hmm um so we're definitely going to keep this sorted thing um we'll do you though if we're not trying to do a linear scan right so yeah so it just if you think about it I mean you're you're really on the right path with the the ABC thing so where did you where did you get that and and in general what is that technique sort of called when you when you have some kind of value and you're putting them into buckets according to some kind of attributes that they have so in this you have the players names you have a bunch of different players names and then you're sorting them into the buckets like ABC based on the first letter of their name",
+        "time": "18:10"
+      },
+      "candidate_answer": {
+        "text": "yeah so how is that so can we generalize that a little bit and make it so that it works even like even after you know 26 letters and and and being able to and then you don't have to worry about you know the fact that there's very few players whose names are blitter wide but very many that start with two years oh yeah um I'm not sure what it's called but yeah what we're doing we're taking attributes that we know and kind of filtering on that and putting making those like giving them buckets I mean that's the idea of it giving a bucket um associated issues we looking for a better bucket system",
+        "time": "19:12"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "well I mean so this bucket system is not so bad it's just that it is like it still requires a certain amount like like it requires some sort of post-processing you might say like like it's - it's all the to fine-grained or it doesn't it gets uh part of the way but doesn't take us all of the way no how about this how about we say in the in the spirit of divide and conquer so when you first started you just have the you have this big group of names and they all were were different names and you put them into 26 buckets yeah now let's go into a bucket now you you can sort of think of it as now it's the same problem again you have a bunch of names there's too many of them how do you split them up",
+        "time": "20:08"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q09",
+      "interviewer_question": {
+        "text": "now you you can sort of think of it as now it's the same problem again you have a bunch of names there's too many of them how do you split them up",
+        "time": "21:00"
+      },
+      "candidate_answer": {
+        "text": "hmm by there's too many names like the like the the T for example it has just too many like there's there's more than a thousand players whose first name just the T so now you have a bunch of names they're all sort of relate is a little bit in that they they also put a tee but they there's more than thousand of them so you have to find some way to to find more buckets to put them in yeah so this is a little bit of a shift but now so I was thinking something like team team name ah players player name so that I'm that so narrow down our buckets so you probably wouldn't have at this point player name dot txt you're probably good to go the only thing is the first thing comes about it's like a player teams I don't know where they're going to be but also like think about the UI so in the UI we're just looking up the player name we don't know what team they are necessarily like it like in this in this database I would hope there'd be a function that map's player to team a but if that doesn't exist then yeah you can have you know good you can certainly you could write one but like this like sort of the the the data we're looking at is the one source of data that you have and I mean you could add few files and you can do some stuff like that but there's no sort of magic like external source of data that's going to give you is getting to that I mean you could obviously look it up but yeah it would it would probably be a very expensive operation using that original sort of data format to look up what team a player is on get it so that's other things that I can think of like other attributes on the player I mean it's their batting average that we're looking for um but I a little ambiguous of why that would be a good bidding structure oh I don't I mean it's like there's no board okay that is it",
+        "time": "21:12"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "how would you if this is the only data source that you had how would you have the team now so in all the letter a's so those are players that whose first name starts with a what about the second letter in their name",
+        "time": "22:24"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q10",
+      "interviewer_question": {
+        "text": "what about the second letter in their name",
+        "time": "23:46"
+      },
+      "candidate_answer": {
+        "text": "Oh got it yeah uh yeah that would be a fairly reasonable ways to sort until you had left in 2000 and I mean reasonably so like more than the size of the first two letters or maybe three letters whatever it is yeah um seems to work pretty well um so yeah you know there's two ways to do this right you could do like first letter and then second letter and the third letter are all different directories or you could just do all three letters as one directory um I think it's reasons I mean Hydra haha so benefit you said you want to minimize directory calls right going down directories right yeah I said it seems reasonable to like you know you could look up a player with his name you could find a directory really fast it was just like like that structure ah where there's multiple directors of two or three Leonard names ah uh and I'm not sure which would I mean yeah I'm not here which would be here and then inside of here would be player name that starts with like a MT their names I see okay I mean so the the things that I'm thinking of so with the AMT one of the benefits like you said is that you have fewer fewer hops that you're going down and that you're making calls to the the system but there's one slight disadvantage in that again it's possible because 26 26 letters 26 to the third is greater than a thousand so it's possible that again there's um it there might still be too many and then you know it might be one of those things where you you set something up that works at first and then at some point you know as the number of players grows over time then you hit this weird bug that's kind of somewhat difficult to diagnose and maybe difficult to fix at that point so that's sort of I mean there's definitely trade-offs in that so yeah that's basically the the idea",
+        "time": "23:54"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "so so here's the the next challenge that so let's just say we're going to move forward with this and and now we want to actually go ahead and and compute this and and we'll say for the time being that we're going to do everything is in an offline mode where every day we're going to get this new data file and we're going to recreate this players of directory like you have it here and granted the size of this file is even even all of these put together is probably not that extremely much but let's just say that our data center is extremely resource poor and has low amounts of RAM and in very little disk space and the CPUs are really slow so but we have a ton of them that you know what our fearless CEO did was he got bargain-basement prices on a ton of really crappy computers that are really slow so how can we can you think of a way that you could produce this file or this directory structure in such a way that it could be parallelized across all of these sort of low powered machines and you think after thinking it through that you might even want to change exactly how this is working like how how you want to do it that's go to find",
+        "time": "26:30"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q11",
+      "interviewer_question": {
+        "text": "how can we can you think of a way that you could produce this file or this directory structure in such a way that it could be parallelized across all of these sort of low powered machines and you think after thinking it through that you might even want to change exactly how this is working like how how you want to do it that's go to find and just to just to clarify so when you have ant player name text so this is actually you'll have one file per per person or are you talking about there would still be one file with multiple people in this",
+        "time": "27:47"
+      },
+      "candidate_answer": {
+        "text": "no--nor this is one file per person per person okay yeah yeah so really quickly I'm not completely positive I understood question actually but how do we paralyze the the lookup is that it or is it that how do we paralyze the the batch data processing job that's going to happen every night that will produce this displayers directory",
+        "time": "28:41"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "so the players directory is only valid for that one day yep and then at the end of the day you get a text file then the next one and you need to you need to update it so one there's two ways to do it when you could update you could update in sort of an online fashion where you could go and you could take every row of the of the file and go and update that that the thing or the other way is that you just take the sum total of all of the files and recreate that players directory from scratch okay so let's just assume for right now that we're going to do the latter we do we're going to throw away the players directory the drives or directory and we're going to just given that that first set of data files here and we're going to recreate the players directory for the for the next day okay and we want to try and do this is with a paralyzed",
+        "time": "29:00"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q12",
+      "interviewer_question": {
+        "text": "and we want to try and do this is with a paralyzed okay um this sort of general like I don't know if you're familiar with any of these like Hadoop or MapReduce kinds of things or just if you can think of some generic kind of way of paralyzing this across sort of many many machines yeah either way",
+        "time": "30:03"
+      },
+      "candidate_answer": {
+        "text": "um okay so all right China is thinking in terms of like mapping and reducing um I mean reducing we're going to reduce there like all of the push is the same name and their batting average assuming at least like independent a unique name mapping where we we're mapping the player and whether they hit or didn't hit sorry so batting averages hits versus total hits yeah there are total attempts colep out yeah yep um so if you were mapping all that uh you get the total attempts you could do so you can map this to see so if you're if you're not super familiar with like the Map Reduce kind of methodology you can just sort of explain it in generic terms not necessarily I mean I produce a certainly one one common way to do it and that would be certainly a valid way to do this but just it doesn't have to be limited to that okay okay yeah I'll go a little higher level then um so each computer to each computer I guess we have these data files like this each computer can grab a data file and it's trying to look for like all the instances of a player um hmm because we have atomic side de I guess I mean so yeah the easiest way like a hole if you had an army of computers is each each arm of the computer can like operate on a single day and come up with like a a batting average per individual per that day and then then we need to take that like intermediary and then we need to sum up we need to do that operational combining essentially all the the combining them on their unique name and then I guess averaging their better batting average for each day and then once that operation is done you you recruit a data structure or file system um so yes I'm going to write on your pipeline or something so a computer operates on a single day and it wants to try and compute all the players batting average for that day all let's say like we save that to an intermediate file um and so now we have well now we have a lot of intermediate files that's fun it could be a little bit of a video file um and each one will have so now we need to combine um combined on name how can we do that ah parallelized we can I guess the maybe the best way to do it would be to like save so like once you've calculated about it batting average for that day you go to the place where that guy's is saved on disk and we updated batting average and if he if he doesn't exist we insert it and if he does exist then we update it so updating will be an average of what what currently exists and the current one for the day eh but then we also need to keep track of how many days we like we've updated them because like if he's done 99 days really well that should be weighted heavier ah that makes I don't like that last but yeah so there's so so this is really close this is this is really like a good good progress",
+        "time": "30:27"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "the one question that I have is so like let's say that one guy has a batting average of 0.5 today and he has a batting average of 0.3 yesterday is that necessarily like what's what's his batting average over the course of these two days okay yeah which of those two numbers or is it something else",
+        "time": "35:37"
+      },
+      "question_type": "hard",
+      "question_topic": "Python",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q13",
+      "interviewer_question": {
+        "text": "let's say that one guy has a batting average of 0.5 today and he has a batting average of 0.3 yesterday is that necessarily like what's what's his batting average over the course of these two days okay yeah which of those two numbers or is it something else",
+        "time": "35:39"
+      },
+      "candidate_answer": {
+        "text": "no it's total total hits versus total attempts right um into what we can store instead of a batting average is actually like it's over attempts okay um so it's person like it'll be a mapping of person - it's over attempts and then now I now we could have multiple processes saving and up like saving this if it doesn't exist for a person and then if it does just updating the hits over attempts values and then that this can also after that's been updated can calculate it like a new batting average okay I may which is that value okay that sounds good",
+        "time": "36:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "now so this gets into an interesting question having to do with so so you're sort of incremental e building up these players file as but all in parallel now if we one one thing that's that is not available in this opera in this file system and actually is that true for a lot of file systems is that locking from locking the the shared file system from multiple machines can't be done reliably so it's possible that if you're having multiple machines working at the same time and they're trying to update this file at the same time that the data could get corrupted so can you think of a way that you can build up these intermediate files which is definitely the right right way to go in such a way that they you're not going to have multiple machines trying to read and write from the same file at the same time",
+        "time": "36:45"
+      },
+      "question_type": "hard",
+      "question_topic": "Product Metrics",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    },
+    {
+      "id": "q14",
+      "interviewer_question": {
+        "text": "can you think of a way that you can build up these intermediate files which is definitely the right right way to go in such a way that they you're not going to have multiple machines trying to read and write from the same file at the same time",
+        "time": "37:38"
+      },
+      "candidate_answer": {
+        "text": "yeah so you know back up here I had um it was just a single player named at the HT who so iam is it I guess like uh I gotta necessarily be less than a thousand but like each each file files that I'm updating the single file um there's not a thousand files here and say each to write it like this would re restructure the directory to be unique um which you'd then it would look a little more like a tree so it's like a /n fleshed T that was his name and then his player name player name and then like God the day one essentially each file just saved to this directory structure okay and then but that so you at some point you're going to do a computation and combine them all or you could do that yeah that's great at the end you'll have to combine them all mm yeah that good that they were the locking problem yeah",
+        "time": "38:00"
+      },
+      "reference_answer": {
+        "text": null,
+        "time": null
+      },
+      "interviewer_feedback": {
+        "text": "no that's exactly it that's exactly it and and in fact you've just laid out the map and the reduced steps so this step here where you you create player name underbar state that's the map step and then the reduced step is after all the mapping is done for each one of these directories you read all of them and combine the total hits is the total attempt got it yeah I see that that's it so yeah no I thought that was really good that was that was definitely along the lines of what what I was thinking of for this the only other thing I I'll just point out here this concept of the bucketing and taking like a value and play them two buckets is generally called hashing and the that technique is something that you'll you'll hear a lot of people asking questions about in these kinds of interviews that hashing and hash tables and hash maps and all this kind of thing is something that comes up quite a lot and you were definitely on the right the right track with the ABC thing and and this sort of hierarchical thing is interesting and that's definitely the way that these things tend to go another way that you could do it just sort of to throw it out there is that there's some pretty standard techniques for turning strings like people's names into long series of numbers like it would just take the the name you know Coco Crisp and it would turn it into the number like seven thousand four hundred eighty two or some 64-bit number or some whatever and those are called hash functions and that that's another way that you could do with that actually helps to alleviate this problem of the like many players in the a and the T and not very few players in the Y and the Z so that way kind of evens things out a little bit",
+        "time": "39:11"
+      },
+      "question_type": "hard",
+      "question_topic": "Data Modeling",
+      "interview_stage": "technical_case",
+      "grade": "middle"
+    }
+  ]
+}

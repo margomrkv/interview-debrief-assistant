@@ -12,7 +12,7 @@ from src.ui import emulator, live_backend
 from src.ui.live_backend import LiveBackend
 from src.ui.models import Aggregate, ScoreItem, Verdict
 
-SID = "data_scientist_junior_karpov_2022_03_30"
+SID = "data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28"
 
 
 @pytest.fixture(autouse=True)

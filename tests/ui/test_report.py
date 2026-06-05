@@ -29,7 +29,7 @@ def test_rollup_empty_is_none() -> None:
 
 def test_emulator_report_delegation_regression() -> None:
     """Lock the known fixture's verdict after report() was refactored to delegate."""
-    sid = "data_scientist_junior_karpov_2022_03_30"
+    sid = "data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28"
     r = emulator.report(sid)
     assert r.p_hire == 52
     assert r.verdict == Verdict.HIRE
