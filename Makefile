@@ -1,10 +1,8 @@
-# Makefile — запуск UI (src/ui/app.py). См. docs/spec/ui.md и src/ui/README.md.
+# Makefile — run UI (src/ui/app.py). See docs/spec/ui.md and src/ui/README.md.
 #
-# Бэкенды:
-#   emulator — проигрывает заранее посчитанные данные (data/emulator-data), без LLM
-#   live     — реальный пайплайн: Splitter (1 запрос) + Scoring (N запросов) через LLM
-#
-# Порт переопределяется: make ui-live PORT=8011
+# Backends:
+#   emulator — replay precomputed data/emulator-data (no LLM)
+#   live     — real pipeline: Splitter + per-item Scoring via LLM
 
 PYTHON ?= $(shell command -v uv >/dev/null 2>&1 && echo "uv run python" || echo python3)
 APP    := src/ui/app.py

@@ -19,7 +19,8 @@ const METRICS = [
 let stream = null; // current EventSource
 
 // Preferred demo opened by "Use demo"; falls back to the first interview.
-const DEMO_SOURCE_ID = "data_scientist_junior_karpov_2022_03_30";
+const DEMO_SOURCE_ID =
+  "data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28";
 
 // --------------------------------------------------------------- views
 function showView(name) {
@@ -42,10 +43,10 @@ async function useDemo() {
       const demo = list.find((iv) => iv.source_id === DEMO_SOURCE_ID) || list[0];
       run(demo.source_id);
     } else {
-      showUploadMsg("Демо-данные не найдены.");
+      showUploadMsg("No demo data found.");
     }
   } catch {
-    showUploadMsg("Не удалось загрузить демо.");
+    showUploadMsg("Could not load demo.");
   }
 }
 
@@ -65,7 +66,7 @@ async function onFile(file) {
   if (res.source_id) {
     run(res.source_id);
   } else {
-    showUploadMsg("Не удалось обработать этот файл. Попробуйте «Use demo».");
+    showUploadMsg("Could not match this file. Try “Use demo”.");
   }
 }
 
@@ -135,10 +136,10 @@ function addCard(it) {
       <span class="qnum">${esc(it.id || "Q" + (it.idx + 1))}</span>
       <span class="time pill">${esc(it.question_time || "")}</span>
     </div>
-    <div class="q">${esc(it.question || "(нет текста вопроса)")}</div>
-    <div class="a">${esc(it.answer || "(нет ответа)")}</div>
+    <div class="q">${esc(it.question || "(no question text)")}</div>
+    <div class="a">${esc(it.answer || "(no answer)")}</div>
     <div class="meta">${meta}</div>
-    <div class="pending"><span class="dot"></span> оцениваю…</div>`;
+    <div class="pending"><span class="dot"></span> Scoring…</div>`;
   $("#qa").appendChild(li);
 }
 
@@ -150,7 +151,7 @@ function fillScore(s) {
 
   if (!s.scored) {
     card.appendChild(el("div", "no-signal",
-      "Нет сигнала интервьюера — оценка не выставлена" +
+      "No interviewer signal — not scored" +
       (s.unscored_reason ? ` (${esc(s.unscored_reason)})` : "")));
     return;
   }
@@ -169,7 +170,7 @@ function fillScore(s) {
   const wrap = el("div");
   wrap.innerHTML = `<div class="scores">${boxes}</div>`;
   if (s.aggregate) {
-    wrap.innerHTML += `<div class="agg">Итог: <span class="chip ${esc(s.aggregate)}">${esc(s.aggregate)}</span></div>`;
+    wrap.innerHTML += `<div class="agg">Overall: <span class="chip ${esc(s.aggregate)}">${esc(s.aggregate)}</span></div>`;
   }
   if (s.rationale) {
     wrap.innerHTML += `<div class="rationale">${esc(s.rationale)}</div>`;
@@ -182,7 +183,7 @@ function renderVerdict(r) {
   v.hidden = false;
   if (r.verdict == null) {
     v.className = "verdict";
-    v.innerHTML = `<div class="metric">Недостаточно оценённых ответов для вывода.</div>`;
+    v.innerHTML = `<div class="metric">Not enough scored answers for a verdict.</div>`;
     return;
   }
   v.className = "verdict " + (r.verdict === "HIRE" ? "hire" : "nohire");
@@ -193,7 +194,7 @@ function renderVerdict(r) {
     <div class="metric">p(hire) <b>${r.p_hire ?? "—"}%</b></div>
     <div class="metric">overall <b>${r.overall ?? "—"}/10</b></div>
     ${means}
-    <div class="metric">${r.n_scored}/${r.n_questions} оценено</div>`;
+    <div class="metric">${r.n_scored}/${r.n_questions} scored</div>`;
 }
 
 // --------------------------------------------------------------- wiring

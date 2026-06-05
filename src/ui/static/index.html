@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interview Assessment</title>
+  <title>Interview Debrief Assistant</title>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
@@ -11,18 +11,18 @@
   <section id="view-upload" class="view active">
     <div class="hero">
       <div class="logo">IA</div>
-      <h1>Interview Assessment</h1>
-      <p class="lead">Загрузите транскрипт интервью — система разберёт его на
-        вопросы и ответы и оценит каждый ответ.</p>
+      <h1>Interview Debrief Assistant</h1>
+      <p class="lead">Upload an interview transcript — the system splits it into
+        Q&amp;A pairs and scores each answer.</p>
 
       <label id="drop" class="dropzone">
         <input type="file" id="file" accept=".txt,text/plain" hidden />
         <div class="dz-icon">↥</div>
-        <div class="dz-title">Перетащите <b>.txt</b> сюда или нажмите, чтобы выбрать</div>
-        <div class="dz-sub">Транскрипт интервью в текстовом формате</div>
+        <div class="dz-title">Drop a <b>.txt</b> file here or click to browse</div>
+        <div class="dz-sub">Plain-text interview transcript</div>
       </label>
 
-      <div class="or">или</div>
+      <div class="or">or</div>
       <button id="use-demo" class="btn btn-primary">Use demo</button>
 
       <div id="upload-msg" class="upload-msg" hidden></div>
@@ -32,13 +32,13 @@
   <!-- ===== Screen 2 — results ===== -->
   <section id="view-results" class="view">
     <header class="rbar">
-      <button id="back" class="btn btn-ghost">← Загрузить другой</button>
+      <button id="back" class="btn btn-ghost">← Upload another</button>
       <h1 id="run-title"></h1>
     </header>
 
     <div class="rwrap">
       <div id="status" class="status" hidden>
-        <span class="dot"></span> Анализирую интервью…
+        <span class="dot"></span> Analyzing interview…
       </div>
 
       <div id="verdict" class="verdict" hidden></div>

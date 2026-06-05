@@ -1,52 +1,41 @@
----
-author: claude-code-opus-4-7
-created_date: 2026-05-21
----
+# UI emulator
 
-UI-эмулятор для приложения из [[docs/spec/ui.md]]. Показывает двухэтапный разбор
-интервью (**Splitter → Scoring**) асинхронно, **без вызовов модели** — оба этапа
-*проигрываются* из заранее посчитанных данных.
+Web UI for the two-stage pipeline (**Splitter → Scoring**), streamed asynchronously **without LLM calls** — both stages replay precomputed fixtures from `data/emulator-data/`.
 
-## Запуск
+## Run
 
 ```bash
 python3 src/ui/app.py        # http://127.0.0.1:8000
-python3 src/ui/app.py 8011   # другой порт
+python3 src/ui/app.py 18000  # custom port
 ```
 
-Только stdlib, без установки зависимостей. Аутентификации нет (личный доступ).
+Stdlib only — no extra install for emulator mode. No authentication (local demo).
 
-## Как устроено
+## Layout
 
-```
+```text
 src/ui/
-├── app.py        # stdlib HTTP-сервер + SSE-стрим двух этапов
-├── emulator.py   # слой данных: дискавери emulator-data, джойн qa↔scores по id
-└── static/       # одностраничный фронтенд (index.html, app.js, styles.css)
+├── app.py        # stdlib HTTP server + SSE stream
+├── emulator.py   # loads emulator-data, joins qa ↔ scores by id
+└── static/       # single-page frontend (index.html, app.js, styles.css)
 ```
 
-Источник данных — папки `emulator-data/` под `data/emulator-data/**/`. Каждая =
-одно загружаемое интервью (ключ `source_id`):
-- `../transcript.txt` — вход Splitter (то, что «загружает» пользователь);
-- `qa.json` — выход Splitter (Q&A + метаданные, без оценок);
-- `scores.json` — выход Scoring (`factual_correctness` / `focus` / `clarity` +
-  `aggregate`); связан с `qa.json` по полю `id`.
+Each folder under `data/emulator-data/**/` is one interview (`source_id`):
 
-Чтобы добавить интервью в эмулятор — положите рядом с его `transcript.txt` папку
-`emulator-data/` с `qa.json` и `scores.json`; сервер подхватит её при перезапуске.
+- `transcript.txt` — Splitter input (what the user “uploads”);
+- `qa.json` — Splitter output (Q&A metadata, no scores);
+- `scores.json` — Scoring output (`factual_correctness` / `focus` / `clarity` + rollup).
 
-## Поток (SSE `/api/stream`)
+To add an interview, place `qa.json` and `scores.json` next to its `transcript.txt`; restart the server.
 
-`stage(running)` → `split_item` ×N → `stage(done)` → `stage(running)` →
-`score_item` ×N → `stage(done)` → `report` → `done`. Карточки Q&A появляются на
-первом этапе, оценки доезжают на втором, в конце — вердикт HIRE/NO_HIRE + p(hire),
-свёрнутый из per-item оценок (AlignmentReport, md/spec.md §3.4).
+## Default demo
 
-## Эндпоинты
+`data_scientist_middle_google_data_wrangling_interviewing_io_2020_04_28` — English
+Interviewing.io case interview (filesystem + hashing + MapReduce). Rebuild fixture:
 
-| Метод | Путь                          | Назначение                                  |
-|-------|-------------------------------|---------------------------------------------|
-| GET   | `/api/interviews`             | Каталог интервью для сайдбара               |
-| GET   | `/api/transcript?source_id=…` | Текст транскрипта                           |
-| GET   | `/api/stream?source_id=…`     | SSE-стрим Splitter→Scoring→report           |
-| POST  | `/api/match` `{text}`         | Сопоставить загруженный .txt с `source_id`  |
+```bash
+python3 scripts/build_emulator_fixture.py \
+  --split data/knowledgebase/splitted/mock-interviews/interviewing-io/data-scientist-middle-google-data-wrangling-interviewing-io-2020-04-28/data-scientist-middle-google-data-wrangling-interviewing-io-2020-04-28.v1.qa-split.json \
+  --raw-dir data/knowledgebase/raw/mock-interviews/interviewing-io/data-scientist-middle-google-data-wrangling-interviewing-io-2020-04-28 \
+  --out-dir data/emulator-data/interviewing-io/data-scientist-middle-google-data-wrangling-interviewing-io-2020-04-28
+```
