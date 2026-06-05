@@ -1,10 +1,12 @@
 # Interview Debrief Assistant
 
-**Repository:** [`interview-debrief-assistant`](https://github.com/)  
+**Repository:** [`margomrkv/interview-debrief-assistant`](https://github.com/margomrkv/interview-debrief-assistant)  
+**Demo UI:** **Transcript Lens** (TL) — `src/ui/`  
 **Course:** Data Sanity — Intro to AI Agents (Belgrade, 2026)  
 **Team:** Anton Voskobovich, Margarita Markova · **Mentor:** Alex Svetkin
 
-AI workflow: interview transcript → structured Q&A → per-question scores → debrief report.
+*Interview Debrief Assistant* is the full pipeline (transcript → Q&A → scores → debrief report).  
+*Transcript Lens* is the browser demo that replays that pipeline without API keys.
 
 ## Documents — what to read
 

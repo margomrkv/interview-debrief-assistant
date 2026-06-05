@@ -13,7 +13,7 @@ Last updated: 2026-05-21
 
 ## Introduction
 
-**Product.** Post-Interview Debrief Assistant is an **AI workflow** that helps a candidate review a finished job interview. It takes a job interview transcript (and optionally a CV and job description), runs a fixed pipeline, and returns a **debrief report**: per-question scores and comments plus an overall hire recommendation.
+**Product.** **Interview Debrief Assistant** is an **AI workflow** that helps a candidate review a finished job interview. The public **demo UI** is branded **Transcript Lens** (`src/ui/`). It takes a job interview transcript (and optionally a CV and job description), runs a fixed pipeline, and returns a **debrief report**: per-question scores and comments plus an overall hire recommendation.
 
 **Who it is for.** Candidates who already have a recording or transcript and want a structured post-mortem before the next interview round — especially in **data science, analytics, and related technical roles**. It is not a mock-interview simulator or a recruiter tool; you supply your own materials.
 

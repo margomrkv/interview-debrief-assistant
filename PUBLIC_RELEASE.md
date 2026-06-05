@@ -1,6 +1,7 @@
 # Public release notes
 
-**Last updated:** 2026-06-04
+**Last updated:** 2026-06-04  
+**Remote:** [`margomrkv/interview-debrief-assistant`](https://github.com/margomrkv/interview-debrief-assistant) (private; flip to public after team review)
 
 This directory (`ds-final-project-public/`) is a **sanitized mirror** of the private course repo. The original repo at `../ds-final-project/` is unchanged.
 
@@ -36,11 +37,26 @@ git grep -l 'candidatecontext/anton' $(git rev-list --all) || echo OK
 
 ## Publish to GitHub
 
+Repository created as **private** first; make public only after Anton / team sign-off.
+
 ```bash
 cd /Users/mm/projects/ds-final-project-public
-git remote add origin git@github.com:<org>/<new-public-repo>.git
-git push -u origin --all
-git push origin --tags   # if any
+git remote add origin https://github.com/margomrkv/interview-debrief-assistant.git
+# or: git@github.com:margomrkv/interview-debrief-assistant.git
+
+git checkout master && git merge ui2
+git push -u origin master
+git push origin ui2          # optional: keep feature branch on remote
+git push origin --tags       # if any
 ```
 
-Use a **new** empty public repository; do not force-push over the private `am-best-offer` remote without team agreement.
+Clone for reviewers:
+
+```bash
+git clone https://github.com/margomrkv/interview-debrief-assistant.git
+cd interview-debrief-assistant
+python3 src/ui/app.py 18000   # http://127.0.0.1:18000 → Transcript Lens → Use demo
+pytest tests/
+```
+
+Do **not** force-push over the private course repo (`am-best-offer`) without team agreement.

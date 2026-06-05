@@ -1,6 +1,6 @@
-# UI emulator
+# Transcript Lens — UI emulator
 
-Web UI for the two-stage pipeline (**Splitter → Scoring**), streamed asynchronously **without LLM calls** — both stages replay precomputed fixtures from `data/emulator-data/`.
+**Transcript Lens** is the demo front-end for **Interview Debrief Assistant** (`interview-debrief-assistant`). It runs the two-stage pipeline (**Splitter → Scoring**) asynchronously **without LLM calls** — both stages replay precomputed fixtures from `data/emulator-data/`.
 
 ## Run
 
