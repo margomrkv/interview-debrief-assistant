@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Public release of **Interview Debrief Assistant** (`interview-debrief-assistant`).
+Public release **`interview-debrief-assistant`** — pipeline *Interview Debrief Assistant*; demo UI *Transcript Lens*.
 
 ## Entry points
 
